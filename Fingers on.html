@@ -18,7 +18,30 @@
   <link href="css/modern-business.css" rel="stylesheet">
   
   .icon{
-  float:right;
+  position: relative;
+  left: 30px;
+  }
+  
+  .Cbutton {
+  background-color:#278FFF;
+  border: 2px solid #FFFFFF;
+  color:#FFFFFF;
+  padding: 15px 32px;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 60%;
+  transform: translate(-50%, -50%);
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  transition-duration: 0.4s;
+  border-radius: 8px;
+}
+  
+  .Cbutton:hover {
+    background-color:#4169E1;
+    border: 2px solid #278FFF;
   }
 
 </head>
@@ -161,7 +184,18 @@
   </div>
   </div>
   <!-- /.container -->
-  
+  <hr>
+  <div class="row mb-4">
+      <div class="col-md-8">
+        <h4>Feedback</h4>
+        <p>If you believe that we have missed certain details out of the game or that you may have something to add, please feel free to contact us</p>
+      </div>
+    <div class="col-md-4">
+        <a href="contact.html">
+          <button class="Cbutton" style="background-color=#278FFF">Submit a Game</button>
+            </a>
+      </div>
+  </div>
   <!-- Footer -->
   <footer class="py-5 bg-dark">
     <div class="container">
