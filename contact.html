@@ -109,20 +109,20 @@
       <div class="col-lg-8 mb-4">
         <h3>Send us a Message</h3>
         
-        <form action="https://getsimpleform.com/messages?form_api_token=4ab835908e96b39fb1e0d9aac52a4c35" method="post">
+        <form action="https://getsimpleform.com/messages?form_api_token=4ab835908e96b39fb1e0d9aac52a4c35" method="post" name="sentMessage" id="contactForm" novalidate>
           
           <!-- the redirect_to is optional, the form will redirect to the referrer on submission -->
-          <input type='hidden' name='redirect_to' value='<https://beergogglegames.ga/contact>' />
+          <input type='hidden' name='redirect_to' value='https://beergogglegames.ga/contact' />
           
           <!-- all your input fields here.... -->
           <label>Name:</label>
-          <input type="text" class="form-control" id="name" required data-validation-required-message="Please enter your name.">
+          <input type="text" class="form-control" id="name" type='text' name='Name' required data-validation-required-message="Please enter your name.">
           <br>
           <label>Email Address:</label>
           <input type="email" class="form-control" id="email" type='text' name='Email' required data-validation-required-message="Please enter your email address.">
           <br>
           <label>Subject:</label>
-          <input type="email" class="form-control" id="subject" type='text' name='Subject' required data-validation-required-message="Please enter a subject.">
+          <input type="text" class="form-control" id="subject" type='text' name='Subject' required data-validation-required-message="Please enter a subject.">
           <br>
           <label>Message:</label>
           <textarea rows="10" cols="100" class="form-control" id="message" type='text' name='Message' required data-validation-required-message="Please enter your message" maxlength="999" style="resize:none"></textarea>
