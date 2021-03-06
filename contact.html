@@ -112,19 +112,22 @@
         <form action="https://getsimpleform.com/messages?form_api_token=4ab835908e96b39fb1e0d9aac52a4c35" method="post">
           
           <!-- the redirect_to is optional, the form will redirect to the referrer on submission -->
-          <input type='hidden' name='redirect_to' value='<https://beergogglegames.ga/>' />
+          <!--<input type='hidden' name='redirect_to' value='<https://beergogglegames.ga/>' />-->
           
           <!-- all your input fields here.... -->
           <label>Full Name:</label>
           <input type='text' class="form-control" name='Name:' />
+          <br>
           <label>Email Address:</label>
           <input type='text' class="form-control" name='Email' />
+          <br>
           <label>Message:</label>
           <input class="form-control" type='text' name='Message'/>
           <br>
           <button type="submit" class="btn btn-primary" id="sendMessageButton">Send Message</button>
         </form>
-        
+        <br>
+        <br>
         <form name="sentMessage" id="contactForm" novalidate>
           <div class="control-group form-group">
             <div class="controls">
