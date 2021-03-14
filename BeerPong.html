@@ -22,29 +22,27 @@
   <link href="css/modern-business.css" rel="stylesheet">
   
   <script>
-  function myFunction() {
+    function Copy() {
+      var inputc = document.body.appendChild(document.createElement("input"));
+      inputc.value = window.location.href;
+      inputc.focus();
+      inputc.select();
+      document.execCommand('copy');
+      inputc.parentNode.removeChild(inputc);
+      alert("Link Copied");
+    }
+  </script>
   
-  type="text";
-  var copyText = document.getElementById("URL");
-  copyText.select();
-  copyText.setSelectionRange(0, 99999)
-  document.execCommand("copy");
-  alert("Link Copied");
-}
-</script>
   <script>
-function Copy() {
-  var inputc = document.body.appendChild(document.createElement("input"));
-  inputc.value = window.location.href;
-  inputc.focus();
-  inputc.select();
-  document.execCommand('copy');
-  inputc.parentNode.removeChild(inputc);
-  alert("Link Copied");
-}
-</script>
+    function returnURL() {
+      var inputc = document.body.appendChild(document.createElement("input"));
+      inputc.value = window.location.href;
+      return inputc.value;
+    }
+  </script>
   
   <style>
+    
   .icon{
   position: absolute;
   right: 2%;
@@ -282,11 +280,11 @@ function Copy() {
 <!-- /.social media links -->
 <div class="col-md-12" style="text-align:center">
   <h4 style="color:#278FFF">Share Page<i class="fa fa-share-alt"></i></h1>
-  <a href="#" class="fa fa-facebook"></a>
+  <a href=returnURL() class="fa fa-facebook"></a>
   <a href="#" class="fa fa-instagram"></a>
   <a href="#" class="fa fa-twitter"></a>
   <a href="#" class="fa fa-pinterest"></a>
-  <a href="#" class="fa fa-snapchat-ghost"></a>
+  <a href="" class="fa fa-snapchat-ghost"></a>
   <button onclick="Copy()" class="fbutton fa fa-link" style="border:none;"></button>
 </div>
 
