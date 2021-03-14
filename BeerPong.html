@@ -32,6 +32,16 @@
   alert("Link Copied");
 }
 </script>
+  <script>
+function Copy() {
+  var Url = document.getElementById("url");
+  Url.innerHTML = window.location.href;
+  console.log(Url.innerHTML)
+  Url.select();
+  document.execCommand("copy");
+  alert("Copied the text: " + Url.value);
+}
+</script>
   
   <style>
   .icon{
@@ -279,19 +289,6 @@
   <button onclick="Copy()" class="fbutton fa fa-link"></button>
 </div>
 
-<input type="text" value="Hello World" id="myInput">
-<button onclick="myFunctionn()">Copy text</button>
-
-<script>
-function Copy() {
-  var Url = document.getElementById("url");
-  Url.innerHTML = window.location.href;
-  console.log(Url.innerHTML)
-  Url.select();
-  document.execCommand("copy");
-  alert("Copied the text: " + Url.value);
-}
-</script>
 <!-- /.row -->
 <hr>
   <div class="row mb-4">
