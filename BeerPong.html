@@ -24,7 +24,7 @@
   <script>
   function myFunction() {
   type="text";
-  var copyText = "beergogglegames";
+  var copyText = document.getElementById("beergogglegames");//window.location.href
   copyText.select();
   copyText.setSelectionRange(0, 99999)
   document.execCommand("copy");
@@ -61,6 +61,10 @@
     
   .Cbutton:hover {
     background-color:#0069D9;
+  }
+    
+  .fbutton:focus {
+    outline:0;
   }
     
   .fa {
@@ -271,7 +275,7 @@
   <a href="#" class="fa fa-twitter"></a>
   <a href="#" class="fa fa-pinterest"></a>
   <a href="#" class="fa fa-snapchat-ghost"></a>
-  <button onclick="myFunction()" class="fa fa-link"></button>
+  <button onclick="myFunction()" class="fbutton fa fa-link"></button>
 </div>
 
 <input type="text" value="Hello World" id="myInput">
