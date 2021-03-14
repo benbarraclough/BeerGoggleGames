@@ -23,8 +23,9 @@
   
   <script>
   function myFunction() {
+  
   type="text";
-  var copyText = document.getElementById("beergogglegames");//window.location.href
+  var copyText = document.getElementById("URL");
   copyText.select();
   copyText.setSelectionRange(0, 99999)
   document.execCommand("copy");
@@ -275,19 +276,19 @@
   <a href="#" class="fa fa-twitter"></a>
   <a href="#" class="fa fa-pinterest"></a>
   <a href="#" class="fa fa-snapchat-ghost"></a>
-  <button onclick="myFunction()" class="fbutton fa fa-link"></button>
+  <button onclick="Copy()" class="fbutton fa fa-link"></button>
 </div>
 
 <input type="text" value="Hello World" id="myInput">
 <button onclick="myFunctionn()">Copy text</button>
 
 <script>
-function myFunctionn() {
-  var copyText = document.getElementById("myInput");
-  copyText.select();
-  copyText.setSelectionRange(0, 99999)
+function Copy() {
+  var Url = document.getElementById("url");
+  Url.innerHTML = window.location.href;
+  console.log(Url.innerHTML)
+  Url.select();
   document.execCommand("copy");
-  alert("Copied the text: " + copyText.value);
 }
 </script>
 <!-- /.row -->
