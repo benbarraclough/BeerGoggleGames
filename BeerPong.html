@@ -34,12 +34,13 @@
 </script>
   <script>
 function Copy() {
-  var Url = document.getElementById("url");
-  Url.innerHTML = window.location.href;
-  console.log(Url.innerHTML)
-  Url.select();
-  document.execCommand("copy");
-  alert("Copied the text: " + Url.value);
+  var inputc = document.body.appendChild(document.createElement("input"));
+  inputc.value = window.location.href;
+  inputc.focus();
+  inputc.select();
+  document.execCommand('copy');
+  inputc.parentNode.removeChild(inputc);
+  alert("Link Copied");
 }
 </script>
   
@@ -76,7 +77,6 @@ function Copy() {
     
   .fbutton:focus {
     outline:0;
-    border:none;
   }
     
   .fa {
@@ -288,7 +288,6 @@ function Copy() {
   <a href="#" class="fa fa-pinterest"></a>
   <a href="#" class="fa fa-snapchat-ghost"></a>
   <button onclick="Copy()" class="fbutton fa fa-link" style="border:none;"></button>
-  <input type="button" onclick="Copy()" class="fbutton fa fa-link" style="border:none;"></input>
 </div>
 
 <!-- /.row -->
