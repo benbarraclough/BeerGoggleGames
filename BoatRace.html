@@ -6,8 +6,9 @@
   <base href="https://beergogglegames.ga/" >
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
+  <meta name="description" content="The Home of Drinking Games - A non-profit site providing games, entertainment and info on all things alcohol">
   <meta name="author" content="">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="shortcut icon" href="favicon.ico">
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Aladin&family=Comfortaa&family=Frijole&display=swap" rel="stylesheet">
@@ -20,7 +21,28 @@
   <!-- Custom styles for this template -->
   <link href="css/modern-business.css" rel="stylesheet">
   
+  <script>
+    function Copy() {
+      var inputc = document.body.appendChild(document.createElement("input"));
+      inputc.value = window.location.href;
+      inputc.focus();
+      inputc.select();
+      document.execCommand('copy');
+      inputc.parentNode.removeChild(inputc);
+      alert("Link Copied");
+    }
+  </script>
+  
+  <script>
+    function returnURL() {
+      var inputc = document.body.appendChild(document.createElement("input"));
+      inputc.value = window.location.href;
+      return inputc.value;
+    }
+  </script>
+  
   <style>
+    
   .icon{
   position: absolute;
   right: 2%;
@@ -50,12 +72,51 @@
   .Cbutton:hover {
     background-color:#0069D9;
   }
+    
+  .fbutton:focus {
+    outline:0;
+  }
+    
+  .fa {
+  padding: 20px;
+  font-size: 30px;
+  width: 80px;
+  text-align: center;
+  text-decoration: none;
+  margin: 5px 2px;
+}
+
+.fa:hover {
+    opacity: 0.7;
+    text-decoration: none;
+    color:white;
+}
+    
+.fa-facebook {
+  background: #3B5998;
+  color: white;
+}
+
+.fa-twitter {
+  background: #55ACEE;
+  color: white;
+}
+
+.fa-instagram {
+  background-image: url("instaBG1.jpeg");
+  color: white;
+}
+
+.fa-link {
+  background: #FF9D4A;
+  color: white;
+}
   </style>
 </head>
 
 <body class="Comfortaa">
 
-  <!-- Navigation -->
+  <!-- Navigation#125688 -->
   <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-white fixed-top">
     <div class="container">
       <a href="/">
@@ -72,6 +133,7 @@
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories</a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
+              <a class="dropdown-item" href="categories">All Categories</a>
               <a class="dropdown-item" href="AllGames">All Games</a>
               <a class="dropdown-item" href="TeamGames">Team Games</a>
               <a class="dropdown-item" href="CardGames">Card Games</a>
@@ -119,9 +181,10 @@
     <div class="row">
       <div class="col-md-8">
         <img class="img-fluid" src="boatrace.jpg" alt="">
-        <div class="card-footer" style="background-color:white;background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
-          <h3>Description</h3>
-            <p>A relay style game of speed drinking! A quick, easy and competitive game to really get everyone pumped</p>
+        <div class="card-footer" style="text-align:center;background-color:white;background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+          <p>A relay style game of speed drinking! A quick, easy and competitive game to really get everyone pumped</p>
+          <p><b style="color:#278FFF;font-size:18px">Players:</b> 6+ | <b style="color:#278FFF;font-size:18px">Drink:</b> Any | <b style="color:#278FFF;font-size:18px">Type:</b> Competitive | <b style="color:#278FFF;font-size:18px">Consumption:</b> 6/10</p>
+
           </div>
       </div>
       <div class="col-md-4">
@@ -138,7 +201,7 @@
         <div class="card my-4"style="color:white;background-color:#73DBAD;">
           <h3 class="card-header">Setup <img class="icon" src="settings.png" alt="target" width="40" height="40"></img></h3>
           <div class="card-body">
-            Once your drinks of equal amounts are filled to the top, get yourselves into even teams of more than 4 preferably. Each team must sit in a row as though you're in a boat (as shown in picture)
+            Once everyones drinks are filled to the top equally, get yourselves into even teams of more than 4 preferably (the longer the boat the better). Each team must sit in a row, one behind the other like you're in a boat, as shown in the picture. Then await the start of the race.
           </div>
         </div>
         
@@ -182,6 +245,37 @@
       </div>
       </div>
     </div>
+
+<!-- /.Comments -->
+<div id="disqus_thread"></div>
+<script>
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+    
+    var disqus_config = function () {
+    //this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = boatrace; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://beergogglegames.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+<!-- /.social media links -->
+<div class="col-md-12" style="text-align:center">
+  <h4 style="color:#278FFF">&nbsp;&nbsp;&nbsp;&nbsp;Share This Page<i class="fa fa-share-alt"></i></h1>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=beergogglegames.ga/boatrace" target="_blank" class="fa fa-facebook"></a>
+  <a href="https://www.instagram.com/direct/new/" target="_blank" ><button onclick="Copy()" class="fbutton fa fa-instagram" style="border:none;"></button></a>
+  <a href="https://twitter.com/intent/tweet?url=beergogglegames.ga/boatrace" target="_blank" class="fa fa-twitter"></a>
+  <button onclick="Copy()" class=" fbutton fa fa-link" style="border:none;"></button>
+</div>
+
     <!-- /.row -->
 <hr>
   <div class="row mb-4">
