@@ -22,8 +22,30 @@
   <link href="css/modern-business.css" rel="stylesheet">
 
   <style>
+  
+  .Cbutton {
+  background-color:#278FFF;
+  border: none;
+  color:#FFFFFF;
+  padding: 15px 32px;
+  margin: 0;
+  position: absolute;
+  width: 80%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  transition-duration: 0.4s;
+  border-radius: 8px;
+}
   .Comfortaa {  
   font-family: 'Comfortaa', cursive;
+  }
+    
+  .Cbutton:hover {
+    background-color:#0069D9;
   }
     
   .fbutton:focus {
@@ -212,30 +234,22 @@
       
     </div>
 
-    <!-- Pagination -->
-    <ul class="pagination justify-content-center">
-      <li class="page-item disbaled">
-        <a class="page-link" aria-label="Previous">
-          <span aria-hidden="true">&laquo;</span>
-          <span class="sr-only">Previous</span>
-        </a>
-      </li>
-      <li class="page-item disabled">
-        <a class="page-link" >1</a>
-      </li>
-      <li class="page-item">
-        <a class="page-link" href="allgames2">2</a>
-      </li>
-      <li class="page-item">
-        <a class="page-link" href="allgames3">3</a>
-      </li>
-      <li class="page-item">
-        <a class="page-link" href="allgames2" aria-label="Next">
-          <span aria-hidden="true">&raquo;</span>
-          <span class="sr-only">Next</span>
-        </a>
-      </li>
-    </ul>
+    <!-- Call to action -->
+    <hr>
+    <div class="row mb-4">
+      <div class="col-md-8">
+        <h4 class="Comfortaa"style="color:#278FFF">Submit a Game</h4>
+        <p class="Comforta">Know a drinking game that we don't? Submit the details to us through our contact page, if we like it we will add it to the website along with crediting you for your contribution!</p>
+      </div>
+      <div class="col-md-4">
+        <br>
+        <br>
+        <br>
+        <a href="contact">
+          <button class="Cbutton Comfortaa" >Submit a Game</button>
+            </a>
+      </div>
+    </div>
 
   </div>
   <!-- /.container -->
