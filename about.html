@@ -20,6 +20,18 @@
 
   <!-- Custom styles for this template -->
   <link href="css/modern-business.css" rel="stylesheet">
+  
+  <script>
+    function Copy() {
+      var inputc = document.body.appendChild(document.createElement("input"));
+      inputc.value = "1Kz7FysYQvUzZViJyJ33DPiF6HYY413C4j";
+      inputc.focus();
+      inputc.select();
+      document.execCommand('copy');
+      inputc.parentNode.removeChild(inputc);
+      alert("Link Copied");
+    }
+  </script>
 
 <style>
   .Comfortaa {  
@@ -140,6 +152,7 @@
       </div>
         <div class="card-footer" style="background-color:#237EDF;color:white;text-align:center">
               <p>Donate with Bitcoin by sending it to our crypto wallet: 1Kz7FysYQvUzZViJyJ33DPiF6HYY413C4j</p>
+              <button onclick="Copy()" style="border:none;"></button>
             </div>
     </div>
   <!-- Disclaimer -->
