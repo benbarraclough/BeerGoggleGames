@@ -135,38 +135,6 @@
   color: white;
 }
   
-.scroll-left {
- height: 50px;	
- overflow: hidden;
- position: relative;
- background: red;
- color: white;
- border: 1px solid red;
-}
-.scroll-left p {
- position: absolute;
- width: 100%;
- height: 100%;
- margin: 0;
- line-height: 50px;
- text-align: center;
- /* Starting position */
- transform:translateX(100%);
- /* Apply animation to this element */
- animation: scroll-left 15s linear infinite;
-}
-/* Move it (define the animation) */
-@keyframes scroll-left {
- 0%   {
- transform: translateX(100%); 		
- }
- 100% {
- transform: translateX(-100%); 
- }
-}
-
-
-
 </style>
 </head>
 
@@ -264,13 +232,9 @@
   </header>
   
 
-  <!-- Page Content <h1 class="my-4" style="font-family: 'Jua', sans-serif;font-size:75px;text-align:center;-webkit-text-stroke: 3px #278FFF;-webkit-text-fill-color: white;">Welcome to the Home of Drinking Games!</h1>
-      -->
+  <!-- Page Content -->
   <div class="container" >
-    <div class="scroll-left">
-      <p>testing testing</p>
-         </div>
-    
+    <h1 class="my-4" style="font-family: 'Jua', sans-serif;font-size:75px;text-align:center;-webkit-text-stroke: 3px #278FFF;-webkit-text-fill-color: white;">Welcome to the Home of Drinking Games!</h1>
   <div class="container">
   <hr>
     <h2 class="Comfortaa" >Top Categories</h1>
