@@ -134,11 +134,47 @@
   background: #FF9D4A;
   color: white;
 }
+  
+.scroll-left {
+ height: 50px;	
+ overflow: hidden;
+ position: relative;
+ background: red;
+ color: white;
+ border: 1px solid red;
+}
+.scroll-left p {
+ position: absolute;
+ width: 100%;
+ height: 100%;
+ margin: 0;
+ line-height: 50px;
+ text-align: center;
+ /* Starting position */
+ transform:translateX(100%);
+ /* Apply animation to this element */
+ animation: scroll-left 15s linear infinite;
+}
+/* Move it (define the animation) */
+@keyframes scroll-left {
+ 0%   {
+ transform: translateX(100%); 		
+ }
+ 100% {
+ transform: translateX(-100%); 
+ }
+}
+
+
+
 </style>
 </head>
 
 <body class="Comforta" >
 
+  <div class="scroll-left">
+    <p>Testing testing 123</p>
+  </div>
   <!-- Navigation -->
   <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-white fixed-top">
     <div class="container">
@@ -231,7 +267,7 @@
   <!-- Page Content -->
   <div class="container">
 
-    <h1 class="my-4 ComfortaaBig" style="text-align:center;-webkit-text-stroke: 1px black;-webkit-text-fill-color: white;">Welcome to the Home of Drinking Games</h1>
+    <h1 class="my-4" style="font-family: 'Aladin', cursive;font-size:45px;text-align:center;-webkit-text-stroke: 1px black;-webkit-text-fill-color: white;">Welcome to the Home of Drinking Games</h1>
 
   <div class="container">
   <hr>
