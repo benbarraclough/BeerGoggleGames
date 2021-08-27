@@ -2,36 +2,57 @@
 <html lang="en">
 
 <head>
-
+  
+  <base href="https://beergogglegames.ga/" >
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
+  <meta name="description" content="The Home of Drinking Games - A non-profit site providing games, entertainment and info on all things alcohol">
   <meta name="author" content="">
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="apple-touch-icon" href="appleicon.png">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa&family=Frijole&family=Jua&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-  <title>Beer Goggle Games - Drinking Game Website</title>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-0SEF37XKSR"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-0SEF37XKSR');
+  </script>
+  
+  <script>
+    function Copy() {
+      var inputc = document.body.appendChild(document.createElement("input"));
+      inputc.value = window.location.href;
+      inputc.focus();
+      inputc.select();
+      document.execCommand('copy');
+      inputc.parentNode.removeChild(inputc);
+      alert("Link Copied");
+    }
+  </script>
+  
+  <script>
+    function returnURL() {
+      var inputc = document.body.appendChild(document.createElement("input"));
+      inputc.value = window.location.href;
+      return inputc.value;
+    }
+  </script>
+  
+  <title>BEER GOGGLE GAMES</title>
 
   <!-- Bootstrap core CSS -->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- Custom styles for this template -->
   <link href="css/modern-business.css" rel="stylesheet">
-  <link href='https://fonts.googleapis.com/css?family=Prompt:400,800' rel='stylesheet' type='text/css'>
   
-  <style>
-  @import url(https://fonts.googleapis.com/css?family=Lato:700,900);
-
-body { background-color: #0e83cd }
-
-
-#container {
-  height: 370px;
-  margin: 0 auto;
-  overflow: hidden;
-  position: relative;
-  top: 20px;
-}
-
-#container div { position: absolute; }
+<style>
 
 
 #top {
@@ -569,6 +590,8 @@ h1 {
   font-family: 'Prompt', sans-serif;
   font-size: 6em;
   padding-top: 30px;
+  z-index: 10000;
+  position: absolute;
   text-align: center;
 }
 
