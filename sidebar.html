@@ -20,41 +20,25 @@
   <style>
   @import url(https://fonts.googleapis.com/css?family=Lato:700,900);
 
-
-
-
-
-#liquid {
-  background-color: #f2c025;
-  border: 10px solid #f2c025;
-  bottom: -400;
+#container {
   height: 250px;
+  margin: 0 auto;
   overflow: hidden;
-  width: 1300px;
+  position: relative;
+  top: 25px;
 }
 
-#liquid:after {
-  background-color: rgba(255, 255, 255, 0.25);
-  bottom: -10px;
-  content: '';
+#container div { position: absolute; }
+
+#top {
+  border-top: 0;
+  border-radius: 0 0 30px 30px;
   height: 200px;
-  left: -40px;
-  position: absolute;
-  transform: rotate(30deg);
-  -webkit-transform: rotate(15deg);
-  width: 110px;
+
 }
 
-#liquid .bubble {
-  -webkit-animation-name: bubble;
-  -webkit-animation-iteration-count: infinite;
-  -webkit-animation-timing-function: linear;
-  background-color: rgba(255, 255, 255, 0.2);
-  bottom: 0;
-  border-radius: 10px;
-  height: 20px;
-  width: 20px;
-}
+
+
 
 @-webkit-keyframes bubble {
   0% { bottom: 0; }
