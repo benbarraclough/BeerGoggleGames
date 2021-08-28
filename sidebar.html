@@ -3,22 +3,10 @@
 
 <head>
 
-  <base href="https://beergogglegames.ga/" >
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="The Home of Drinking Games - A non-profit site providing games, entertainment and info on all things alcohol">
+  <meta name="description" content="">
   <meta name="author" content="">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="shortcut icon" href="favicon.ico">
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Aladin&family=Comfortaa&family=Frijole&display=swap" rel="stylesheet">
-
-  <!-- Bootstrap core CSS -->
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- Custom styles for this template -->
-  <link href="css/modern-business.css" rel="stylesheet">
-  
 
   <title>Beer Goggle Games - Drinking Game Website</title>
 
@@ -31,6 +19,7 @@
   
   <style>
   @import url(https://fonts.googleapis.com/css?family=Lato:700,900);
+
 
 #container {
   height: 250px;
@@ -50,7 +39,37 @@
 }
 
 
+#liquid {
+  background-color: #f2c025;
+  border: 10px solid #f2c025;
+  bottom: -400;
+  height: 250px;
+  overflow: hidden;
+  width: 1300px;
+}
 
+#liquid:after {
+  background-color: rgba(255, 255, 255, 0.25);
+  bottom: -10px;
+  content: '';
+  height: 200px;
+  left: -40px;
+  position: absolute;
+  transform: rotate(30deg);
+  -webkit-transform: rotate(15deg);
+  width: 110px;
+}
+
+#liquid .bubble {
+  -webkit-animation-name: bubble;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  background-color: rgba(255, 255, 255, 0.2);
+  bottom: 0;
+  border-radius: 10px;
+  height: 20px;
+  width: 20px;
+}
 
 @-webkit-keyframes bubble {
   0% { bottom: 0; }
@@ -581,7 +600,7 @@ h2 {
 }
 </style>  
 </head>
-  <body class="Comfortaa" style="background-color: #0e83cd">
+  <body style="background-color: #0e83cd">
     
   <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-white fixed-top">
     <div class="container">
@@ -597,7 +616,7 @@ h2 {
             <a class="nav-link" href="/">Home</a>
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories</a>
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Categories</a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
               <a class="dropdown-item" href="categories">All Categories</a>
               <a class="dropdown-item" href="AllGames">All Games</a>
@@ -733,9 +752,6 @@ h2 {
     </div>
   </div>
   
-    
-    
-    
   </body>
 
 </html>
