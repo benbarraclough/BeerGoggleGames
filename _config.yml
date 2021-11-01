@@ -1,0 +1,16 @@
+# User config
+author: "Beer Goggle Games"
+tagline: "Beer Goggle Games"
+description: "Beer Goggle Games is a website that holds the most unique, fun and enjoyable range of drinking games for all occasions"
+keywords: "Drinking, Drinking Games, Party"
+email: "ben.barra@sky.com"
+linkedin: "https://www.linkedin.com/"
+twitter: "https://twitter.com/"
+github: "https://github.com/"
+
+# Site config
+baseurl: "/home"
+highlighter: rouge
+sass:
+  sass_dir: assets/scss
+  style: compressed
