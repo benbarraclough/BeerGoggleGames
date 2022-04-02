@@ -160,13 +160,17 @@
         </div>
       </div>
       
-      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item" id="accordion" role="tablist" aria-multiselectable="true">
         <div class="card h-100">
-          
           <a href="#"><img class="card-img-top" src="espresso-martini.jpeg" alt=""></a>
-          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
-            <h4 class="card-title">Espresso Martini</h4>
-            <p class="card-text">Drink Description</p>
+          <div class="card-header" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;" role="tab" id="headingOne">
+            <h5 class="mb-0">
+              <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">Espresso Martini</a>
+            </h5>
+          </div>
+          <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne">
+            <div class="card-body">Example text
+            </div>
           </div>
         </div>
       </div>
