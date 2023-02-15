@@ -191,39 +191,140 @@
       <div class="card-body">
         <form id="search-form">
           <h2>Select your ingredients:</h2>
-
-          <label>
-            <input type="checkbox" name="ingredients" value="vodka">
-            Vodka
-          </label>
-          <label>
-            <input type="checkbox" name="ingredients" value="gin">
-            Gin
-          </label>
-          <label>
-            <input type="checkbox" name="ingredients" value="rum">
-            Rum
-          </label>
-          <label>
-            <input type="checkbox" name="ingredients" value="tequila">
-            Tequila
-          </label>
-          <label>
-            <input type="checkbox" name="ingredients" value="whiskey">
-            Whiskey
-          </label>
-          <label>
-            <input type="checkbox" name="ingredients" value="orange juice">
-            Orange Juice
-          </label>
-          <label>
-            <input type="checkbox" name="ingredients" value="pineapple juice">
-            Pineapple Juice
-          </label>
-          <label>
-            <input type="checkbox" name="ingredients" value="cranberry juice">
-            Cranberry Juice
-          </label>
+          <div>
+            <h4>Spirits</h4>
+            <label>
+              <input type="checkbox" name="ingredients" value="vodka">
+              Vodka
+            </label>
+            
+            <label>
+              <input type="checkbox" name="ingredients" value="gin">
+              Gin
+            </label>
+            
+            <label>
+              <input type="checkbox" name="ingredients" value="white rum">
+              Rum
+            </label>
+            
+            <label>
+              <input type="checkbox" name="ingredients" value="dark rum">
+              Dark Rum
+            </label>
+            
+            <label>
+              <input type="checkbox" name="ingredients" value="tequila">
+              Tequila
+            </label>
+            
+            <label>
+              <input type="checkbox" name="ingredients" value="whiskey">
+              Whiskey
+            </label>
+            
+            <label>
+              <input type="checkbox" name="ingredients" value="bourbon">
+              Bourbon
+            </label>
+          </div>
+          
+          <br>
+          
+          <div>
+            <h4>Liqueurs & Apertifs</h4>
+            <label>
+              <input type="checkbox" name="ingredients" value="kahlua">
+              Kahlua (Coffee Liqueur)
+            </label>
+            <label>
+              <input type="checkbox" name="ingredients" value="irish cream liqueur">
+              Irish Cream Liqueur
+            </label>
+            <label>
+              <input type="checkbox" name="ingredients" value="triple sec">
+              Triple Sec (Orange liqueur)
+            </label>
+            <label>
+              <input type="checkbox" name="ingredients" value="vermouth bianco">
+              Vermouth Bianco
+            </label>
+            <label>
+              <input type="checkbox" name="ingredients" value="vermouth rosso">
+              Vermouth Rosso
+            </label>
+            <label>
+              <input type="checkbox" name="ingredients" value="passoa">
+              Passoa (Passionfruit Liqueur)
+            </label>
+            <label>
+              <input type="checkbox" name="ingredients" value="campari">
+              Campari
+            </label>
+            <label>
+              <input type="checkbox" name="ingredients" value="aperol">
+              Aperol
+            </label>
+            <label>
+              <input type="checkbox" name="ingredients" value="chambord">
+              Chambord (Raspberry liqueur)
+            </label>
+            <label>
+              <input type="checkbox" name="ingredients" value="blue curacao">
+              Blue Curacao
+            </label>
+          </div>
+          
+          <div>
+            <h4>Juices & Mixers</h4>
+            <label>
+              <input type="checkbox" name="ingredients" value="apple juice">
+              Apple Juice
+            </label>
+            <label>
+              <input type="checkbox" name="ingredients" value="orange juice">
+              Orange Juice
+            </label>
+            <label>
+              <input type="checkbox" name="ingredients" value="pineapple juice">
+              Pineapple Juice
+            </label>
+            <label>
+              <input type="checkbox" name="ingredients" value="cranberry juice">
+              Cranberry Juice
+            </label>
+            <label>
+              <input type="checkbox" name="ingredients" value="lemonade">
+              Lemonade
+            </label>
+            <label>
+              <input type="checkbox" name="ingredients" value="ginger ale">
+              Ginger Ale
+            </label>
+            <label>
+              <input type="checkbox" name="ingredients" value="tonic water">
+              Tonic Water
+            </label>
+            <label>
+              <input type="checkbox" name="ingredients" value="soda water">
+              Soda Water
+            </label>
+          </div>
+          
+          <h4>Other</h4>
+            <label>
+              <input type="checkbox" name="ingredients" value="coconut cream">
+              Coconut Cream
+            </label>
+            <label>
+              <input type="checkbox" name="ingredients" value="bitters">
+              Bitters
+            </label>
+            <label>
+              <input type="checkbox" name="ingredients" value="rose water">
+              Rose Water
+            </label>
+          </div>
 
           <br>
           <br>
@@ -271,17 +372,21 @@
             const resultsDiv = document.querySelector('#results');
 
             function searchCocktails(event) {
-              event.preventDefault();
+          event.preventDefault();
 
-              const selectedIngredients = [];
+          const selectedIngredients = [];
 
-              // Get all checked ingredients from the form
-              const ingredientCheckboxes = document.querySelectorAll('input[name=ingredients]:checked');
-              for (let i = 0; i < ingredientCheckboxes.length; i++) {
-                selectedIngredients.push(ingredientCheckboxes[i].value);
-              }
+          // Get all checked ingredients from the form
+          const ingredientCheckboxes = document.querySelectorAll('input[name=ingredients]:checked');
 
-              let matchingCocktails = [];
+          // Only run if all checkboxes are checked
+          if (ingredientCheckboxes.length === 8) {
+
+            for (let i = 0; i < ingredientCheckboxes.length; i++) {
+              selectedIngredients.push(ingredientCheckboxes[i].value);
+            }
+
+            let matchingCocktails = [];
 
             // Loop through all cocktails in the cocktailData array
             for (let i = 0; i < cocktailData.length; i++) {
@@ -300,6 +405,23 @@
                 matchingCocktails.push(cocktailData[i]);
               }
             }
+
+            // Check if any cocktails were found and display them or show "No cocktails found" message
+            if (matchingCocktails.length > 0) {
+              let resultsHTML = '<h2>Results:</h2><ul>';
+              for (let i = 0; i < matchingCocktails.length; i++) {
+                resultsHTML += '<li>' + matchingCocktails[i].name + '</li>';
+              }
+              resultsHTML += '</ul>';
+              resultsDiv.innerHTML = resultsHTML;
+            } else {
+              resultsDiv.innerHTML = '<h2>No cocktails found.</h2>';
+            }
+          } else {
+            // Show a message asking to select all ingredients
+            resultsDiv.innerHTML = '<h2>Please select all ingredients.</h2>';
+          }
+        }
 
             // Check if any cocktails were found and display them or show "No cocktails found" message
             if (matchingCocktails.length > 0) {
