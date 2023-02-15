@@ -383,99 +383,61 @@
         
         <div id="results"></div>
           <script>
-            const cocktailData = [
+            const drinks = [
               {
-                name: 'Margarita',
-                ingredients: ['tequila', 'lime juice', 'triple sec']
+                name: "Margarita",
+                ingredients: ["tequila", "lime juice", "triple sec"],
               },
               {
-                name: 'Martini',
-                ingredients: ['gin', 'vermouth']
+                name: "Martini",
+                ingredients: ["gin", "vermouth"],
               },
               {
-                name: 'Mai Tai',
-                ingredients: ['rum', 'orange juice', 'pineapple juice', 'lime juice', 'orgeat syrup', 'triple sec']
+                name: "Negroni",
+                ingredients: ["gin", "vermouth", "Campari"],
               },
               {
-                name: 'Screwdriver',
-                ingredients: ['vodka', 'orange juice']
+                name: "Manhattan",
+                ingredients: ["whiskey", "sweet vermouth", "Angostura bitters"],
               },
               {
-                name: 'Cosmopolitan',
-                ingredients: ['vodka', 'lime juice', 'triple sec', 'cranberry juice']
+                name: "Old Fashioned",
+                ingredients: ["whiskey", "sugar", "Angostura bitters"],
               },
-              {
-                name: 'Long Island Iced Tea',
-                ingredients: ['vodka', 'rum', 'gin', 'tequila', 'triple sec', 'lemon juice', 'cola']
-              },
-              {
-                name: 'Old Fashioned',
-                ingredients: ['whiskey', 'sugar cube', 'bitters', 'water']
-              },
-              {
-                name: 'Pina Colada',
-                ingredients: ['rum', 'coconut cream', 'pineapple juice']
-              }
             ];
 
-            const searchForm = document.querySelector('#search-form');
-            const resultsDiv = document.querySelector('#results');
+            function displayResults() {
+              const checkedIngredients = getCheckedIngredients();
+              const matchedDrinks = drinks.filter((drink) =>
+                drink.ingredients.every((ingredient) =>
+                  checkedIngredients.includes(ingredient)
+                )
+              );
 
-            function searchCocktails(event) {
-              event.preventDefault();
+              const resultsContainer = document.getElementById("results");
+              resultsContainer.innerHTML = "";
 
-              const selectedIngredients = [];
-
-              // Get all checked ingredients from the form
-              const ingredientCheckboxes = document.querySelectorAll('input[name=ingredients]:checked');
-
-              // Only run if all checkboxes are checked
-              if (ingredientCheckboxes.length === 9) {
-
-                for (let i = 0; i < ingredientCheckboxes.length; i++) {
-                  selectedIngredients.push(ingredientCheckboxes[i].value);
-                }
-
-                let matchingCocktails = [];
-
-                // Loop through all cocktails in the cocktailData array
-                for (let i = 0; i < cocktailData.length; i++) {
-                  let hasAllIngredients = true;
-
-                  // Check if all selected ingredients are in the current cocktail's ingredients list
-                  for (let j = 0; j < selectedIngredients.length; j++) {
-                    if (!cocktailData[i].ingredients.includes(selectedIngredients[j])) {
-                      hasAllIngredients = false;
-                      break;
-                    }
-                  }
-
-                  // If all selected ingredients are in the current cocktail's ingredients list, add the cocktail to matchingCocktails array
-                  if (hasAllIngredients) {
-                    matchingCocktails.push(cocktailData[i]);
-                  }
-                }
-
-                // Check if any cocktails were found and display them or show "No cocktails found" message
-                if (matchingCocktails.length > 0) {
-                  let resultsHTML = '<h2>Results:</h2><ul>';
-                  for (let i = 0; i < matchingCocktails.length; i++) {
-                    resultsHTML += '<li>' + matchingCocktails[i].name + '</li>';
-                  }
-                  resultsHTML += '</ul>';
-                  resultsDiv.innerHTML = resultsHTML;
-                } else {
-                  resultsDiv.innerHTML = '<h2>No cocktails found.</h2>';
-                }
+              if (matchedDrinks.length > 0) {
+                matchedDrinks.forEach((drink) => {
+                  const drinkName = document.createElement("h3");
+                  drinkName.innerText = drink.name;
+                  resultsContainer.appendChild(drinkName);
+                });
               } else {
-                // Show a message asking to select all ingredients
-                resultsDiv.innerHTML = '<h2>Please select all ingredients.</h2>';
+                const noResultsMessage = document.createElement("p");
+                noResultsMessage.innerText = "No drinks found with selected ingredients.";
+                resultsContainer.appendChild(noResultsMessage);
               }
             }
 
+            function getCheckedIngredients() {
+              const checkedBoxes = document.querySelectorAll("input[type=checkbox]:checked");
+              const checkedIngredients = Array.from(checkedBoxes).map((checkbox) => checkbox.value);
+              return checkedIngredients;
+            }
 
-          // Add event listener to the search form
-          searchForm.addEventListener('submit', searchCocktails);
+          const searchButton = document.getElementById("search-btn");
+          searchButton.addEventListener("click", displayResults);
 
         </script>
       </div>
