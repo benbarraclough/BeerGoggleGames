@@ -179,73 +179,50 @@
         <img class="img-fluid rounded mb-4" src="wof1.jpg" alt="">
       </div>
       <div class="col-lg-6">
-        <h2>Spin the wheel</h2>
-        <p>Our wheels contain all categories and games on the site.</p> 
-        <p>First, take a spin to see what category you land on, then spin that category's wheel for a random game of choice. Find the game in the index below the wheel, play & spin again!</p> 
-        <p>Create your own wheels using <a href="https://www.pickerwheel.com">PickerWheel.com</a> to keep decision making easy.</p>
+        <h2>Cocktail Finder</h2>
+        <p>Know which cocktails you can create with the ingredients you have</p> 
+        <p>text</p> 
+        <p>text</p>
       </div>
     </div>
     <!-- /.Content -->
     <hr>
     <div class="card mb-4">
       <div class="card-body">
+        <form>
+          <label for="ingredients">Enter ingredients:</label>
+          <input type="text" id="ingredients" name="ingredients">
+          <button type="button" onclick="searchCocktails()">Search</button>
+        </form>
+        <div id="cocktail-list"></div>
+
         <script>
-          const readline = require('readline').createInterface({
-            input: process.stdin,
-            output: process.stdout
-          });
+          function searchCocktails() {
+            // Get the user input from the form
+            const ingredients = document.getElementById("ingredients").value;
 
-          const cocktails = [
-            {
-                name: 'Screwdriver',
-                ingredients: ['vodka', 'orange juice']
-            },
-            {
-                name: 'Cosmopolitan',
-                ingredients: ['vodka', 'triple sec', 'cranberry juice', 'lime juice']
-            },
-            {
-                name: 'Greyhound',
-                ingredients: ['vodka', 'grapefruit juice']
-            },
-            {
-                name: 'Vodka Martini',
-                ingredients: ['vodka', 'vermouth']
-            }
-          ];
-
-          function getCocktailRecipes(ingredients) {
-            return cocktails.filter(cocktail => ingredients.every(ingredient => cocktail.ingredients.includes(ingredient)));
+            // Make a request to the cocktail API
+            fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredients}`)
+              .then(response => response.json())
+              .then(data => {
+                // Display the list of cocktails that can be made
+                const cocktailList = document.getElementById("cocktail-list");
+                cocktailList.innerHTML = "";
+                if (data.drinks) {
+                  data.drinks.forEach(cocktail => {
+                    const cocktailItem = document.createElement("div");
+                    cocktailItem.innerHTML = cocktail.strDrink;
+                    cocktailList.appendChild(cocktailItem);
+                  });
+                } else {
+                  cocktailList.innerHTML = "No cocktails found.";
+                }
+              })
+              .catch(error => {
+                console.error(error);
+              });
           }
-
-          readline.question("Enter a list of ingredients separated by commas:", ingredients => {
-            const ingredientsArray = ingredients.split(", ");
-            const result = getCocktailRecipes(ingredientsArray);
-            console.log("Cocktail recipes that can be made with the available ingredients:");
-            result.forEach(recipe => console.log(recipe.name));
-            readline.close();
-          });
         </script>
-      </div>
-    </div>
-    
-    <div class="card mb-4">
-      <div class="card-body">
-        <div style="max-width:100%;max-height:100%;margin: 5px auto 10px;display: block;text-align:center;">
-          <h4>Outdoor Games Wheel</h4>
-          <iframe src="https://pickerwheel.com/emb?choices=Burn The Napkin,Detonator,Dizzy Bat,Flunky Ball,Frisbeer,Goon Of Fortune,Polish Horseshoes,Relay,Slip 'n' Slide,Stump" width="100%" height="550px" scrolling="no" frameborder="0"></iframe>
-        </div>
-        <h4><a href="outdoorgames">Outdoor Games</a></h4>
-        <a href="BurnTheNapkin">&nbsp;Burn The Napkin&nbsp;</a><span style="color:lightgrey"> | </span>
-        <a href="Detonator">&nbsp;Detonator&nbsp;</a><span style="color:lightgrey"> | </span>
-        <a href="DizzyBat">&nbsp;Dizzy Bat&nbsp;</a><span style="color:lightgrey"> | </span>
-        <a href="FlunkyBall">&nbsp;Flunky Ball&nbsp;</a><span style="color:lightgrey"> | </span>
-        <a href="Frisbeer">&nbsp;Frisbeer&nbsp;</a><span style="color:lightgrey"> | </span>
-        <a href="GoonOfFortune">&nbsp;Goon Of Fortune&nbsp;</a><span style="color:lightgrey"> | </span>
-        <a href="PolishHorseshoes">&nbsp;Polish Horseshoes&nbsp;</a><span style="color:lightgrey"> | </span>
-        <a href="Relay">&nbsp;Relay&nbsp;</a><span style="color:lightgrey"> | </span>
-        <a href="Slipnslide">&nbsp;Slip 'n' Slide&nbsp;</a><span style="color:lightgrey"> | </span>
-        <a href="Stump">&nbsp;Stump&nbsp;</a>
       </div>
     </div>
     
