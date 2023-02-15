@@ -205,7 +205,7 @@
             
             <label>
               <input type="checkbox" name="ingredients" value="white rum">
-              Rum
+              White Rum
             </label>
             
             <label>
@@ -244,8 +244,18 @@
             </label>
             
             <label>
-              <input type="checkbox" name="ingredients" value="triple sec">
-              Triple Sec (Orange liqueur)
+              <input type="checkbox" name="ingredients" value="orange liqueur">
+              Orange Liqueur
+            </label>
+            
+            <label>
+              <input type="checkbox" name="ingredients" value="passionfruit liqueur">
+              Passionfruit Liqueur
+            </label>
+            
+            <label>
+              <input type="checkbox" name="ingredients" value="raspberry liqueur">
+              Raspberry Liqueur
             </label>
             
             <label>
@@ -259,11 +269,6 @@
             </label>
             
             <label>
-              <input type="checkbox" name="ingredients" value="passoa">
-              Passoa (Passionfruit Liqueur)
-            </label>
-            
-            <label>
               <input type="checkbox" name="ingredients" value="campari">
               Campari
             </label>
@@ -271,11 +276,6 @@
             <label>
               <input type="checkbox" name="ingredients" value="aperol">
               Aperol
-            </label>
-            
-            <label>
-              <input type="checkbox" name="ingredients" value="chambord">
-              Chambord (Raspberry liqueur)
             </label>
             
             <label>
@@ -288,6 +288,17 @@
           
           <div>
             <h4>Juices & Mixers</h4>
+            
+            <label>
+              <input type="checkbox" name="ingredients" value="lemon juice">
+              Lemon Juice
+            </label>
+            
+            <label>
+              <input type="checkbox" name="ingredients" value="lime juice">
+              Lime Juice
+            </label>
+            
             <label>
               <input type="checkbox" name="ingredients" value="apple juice">
               Apple Juice
@@ -322,11 +333,12 @@
               <input type="checkbox" name="ingredients" value="lemonade">
               Lemonade
             </label>
-          </div>
-          
-          <br>
-          
-          <div>
+            
+            <label>
+              <input type="checkbox" name="ingredients" value="cola">
+              Cola
+            </label>
+            
             <label>
               <input type="checkbox" name="ingredients" value="ginger ale">
               Ginger Ale
@@ -410,69 +422,57 @@
             const resultsDiv = document.querySelector('#results');
 
             function searchCocktails(event) {
-          event.preventDefault();
+              event.preventDefault();
 
-          const selectedIngredients = [];
+              const selectedIngredients = [];
 
-          // Get all checked ingredients from the form
-          const ingredientCheckboxes = document.querySelectorAll('input[name=ingredients]:checked');
+              // Get all checked ingredients from the form
+              const ingredientCheckboxes = document.querySelectorAll('input[name=ingredients]:checked');
 
-          // Only run if all checkboxes are checked
-          if (ingredientCheckboxes.length === 8) {
+              // Only run if all checkboxes are checked
+              if (ingredientCheckboxes.length === 9) {
 
-            for (let i = 0; i < ingredientCheckboxes.length; i++) {
-              selectedIngredients.push(ingredientCheckboxes[i].value);
-            }
-
-            let matchingCocktails = [];
-
-            // Loop through all cocktails in the cocktailData array
-            for (let i = 0; i < cocktailData.length; i++) {
-              let hasAllIngredients = true;
-
-              // Check if all selected ingredients are in the current cocktail's ingredients list
-              for (let j = 0; j < selectedIngredients.length; j++) {
-                if (!cocktailData[i].ingredients.includes(selectedIngredients[j])) {
-                  hasAllIngredients = false;
-                  break;
+                for (let i = 0; i < ingredientCheckboxes.length; i++) {
+                  selectedIngredients.push(ingredientCheckboxes[i].value);
                 }
-              }
 
-              // If all selected ingredients are in the current cocktail's ingredients list, add the cocktail to matchingCocktails array
-              if (hasAllIngredients) {
-                matchingCocktails.push(cocktailData[i]);
+                let matchingCocktails = [];
+
+                // Loop through all cocktails in the cocktailData array
+                for (let i = 0; i < cocktailData.length; i++) {
+                  let hasAllIngredients = true;
+
+                  // Check if all selected ingredients are in the current cocktail's ingredients list
+                  for (let j = 0; j < selectedIngredients.length; j++) {
+                    if (!cocktailData[i].ingredients.includes(selectedIngredients[j])) {
+                      hasAllIngredients = false;
+                      break;
+                    }
+                  }
+
+                  // If all selected ingredients are in the current cocktail's ingredients list, add the cocktail to matchingCocktails array
+                  if (hasAllIngredients) {
+                    matchingCocktails.push(cocktailData[i]);
+                  }
+                }
+
+                // Check if any cocktails were found and display them or show "No cocktails found" message
+                if (matchingCocktails.length > 0) {
+                  let resultsHTML = '<h2>Results:</h2><ul>';
+                  for (let i = 0; i < matchingCocktails.length; i++) {
+                    resultsHTML += '<li>' + matchingCocktails[i].name + '</li>';
+                  }
+                  resultsHTML += '</ul>';
+                  resultsDiv.innerHTML = resultsHTML;
+                } else {
+                  resultsDiv.innerHTML = '<h2>No cocktails found.</h2>';
+                }
+              } else {
+                // Show a message asking to select all ingredients
+                resultsDiv.innerHTML = '<h2>Please select all ingredients.</h2>';
               }
             }
 
-            // Check if any cocktails were found and display them or show "No cocktails found" message
-            if (matchingCocktails.length > 0) {
-              let resultsHTML = '<h2>Results:</h2><ul>';
-              for (let i = 0; i < matchingCocktails.length; i++) {
-                resultsHTML += '<li>' + matchingCocktails[i].name + '</li>';
-              }
-              resultsHTML += '</ul>';
-              resultsDiv.innerHTML = resultsHTML;
-            } else {
-              resultsDiv.innerHTML = '<h2>No cocktails found.</h2>';
-            }
-          } else {
-            // Show a message asking to select all ingredients
-            resultsDiv.innerHTML = '<h2>Please select all ingredients.</h2>';
-          }
-        }
-
-            // Check if any cocktails were found and display them or show "No cocktails found" message
-            if (matchingCocktails.length > 0) {
-              let resultsHTML = '<h2>Results:</h2><ul>';
-              for (let i = 0; i < matchingCocktails.length; i++) {
-                resultsHTML += '<li>' + matchingCocktails[i].name + '</li>';
-              }
-              resultsHTML += '</ul>';
-              resultsDiv.innerHTML = resultsHTML;
-            } else {
-              resultsDiv.innerHTML = '<h2>No cocktails found.</h2>';
-            }
-          }
 
           // Add event listener to the search form
           searchForm.addEventListener('submit', searchCocktails);
