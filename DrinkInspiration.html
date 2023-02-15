@@ -189,39 +189,134 @@
     <hr>
     <div class="card mb-4">
       <div class="card-body">
-        <form>
-          <label for="ingredients">Enter ingredients:</label>
-          <input type="text" id="ingredients" name="ingredients">
-          <button type="button" onclick="searchCocktails()">Search</button>
+        <form id="search-form">
+          <h2>Select your ingredients:</h2>
+
+          <label>
+            <input type="checkbox" name="ingredients" value="vodka">
+            Vodka
+          </label>
+          <label>
+            <input type="checkbox" name="ingredients" value="gin">
+            Gin
+          </label>
+          <label>
+            <input type="checkbox" name="ingredients" value="rum">
+            Rum
+          </label>
+          <label>
+            <input type="checkbox" name="ingredients" value="tequila">
+            Tequila
+          </label>
+          <label>
+            <input type="checkbox" name="ingredients" value="whiskey">
+            Whiskey
+          </label>
+          <label>
+            <input type="checkbox" name="ingredients" value="orange juice">
+            Orange Juice
+          </label>
+          <label>
+            <input type="checkbox" name="ingredients" value="pineapple juice">
+            Pineapple Juice
+          </label>
+          <label>
+            <input type="checkbox" name="ingredients" value="cranberry juice">
+            Cranberry Juice
+          </label>
+
+          <br>
+          <br>
+          <input type="submit" value="Search">
         </form>
-        <div id="cocktail-list"></div>
+        
+        <div id="results"></div>
+          <script>
+            const cocktailData = [
+              {
+                name: 'Margarita',
+                ingredients: ['tequila', 'lime juice', 'triple sec']
+              },
+              {
+                name: 'Martini',
+                ingredients: ['gin', 'vermouth']
+              },
+              {
+                name: 'Mai Tai',
+                ingredients: ['rum', 'orange juice', 'pineapple juice', 'lime juice', 'orgeat syrup', 'triple sec']
+              },
+              {
+                name: 'Screwdriver',
+                ingredients: ['vodka', 'orange juice']
+              },
+              {
+                name: 'Cosmopolitan',
+                ingredients: ['vodka', 'lime juice', 'triple sec', 'cranberry juice']
+              },
+              {
+                name: 'Long Island Iced Tea',
+                ingredients: ['vodka', 'rum', 'gin', 'tequila', 'triple sec', 'lemon juice', 'cola']
+              },
+              {
+                name: 'Old Fashioned',
+                ingredients: ['whiskey', 'sugar cube', 'bitters', 'water']
+              },
+              {
+                name: 'Pina Colada',
+                ingredients: ['rum', 'coconut cream', 'pineapple juice']
+              }
+            ];
 
-        <script>
-          function searchCocktails() {
-            // Get the user input from the form
-            const ingredients = document.getElementById("ingredients").value;
+            const searchForm = document.querySelector('#search-form');
+            const resultsDiv = document.querySelector('#results');
 
-            // Make a request to the cocktail API
-            fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredients}`)
-              .then(response => response.json())
-              .then(data => {
-                // Display the list of cocktails that can be made
-                const cocktailList = document.getElementById("cocktail-list");
-                cocktailList.innerHTML = "";
-                if (data.drinks) {
-                  data.drinks.forEach(cocktail => {
-                    const cocktailItem = document.createElement("div");
-                    cocktailItem.innerHTML = cocktail.strDrink;
-                    cocktailList.appendChild(cocktailItem);
-                  });
-                } else {
-                  cocktailList.innerHTML = "No cocktails found.";
+            function searchCocktails(event) {
+              event.preventDefault();
+
+              const selectedIngredients = [];
+
+              // Get all checked ingredients from the form
+              const ingredientCheckboxes = document.querySelectorAll('input[name=ingredients]:checked');
+              for (let i = 0; i < ingredientCheckboxes.length; i++) {
+                selectedIngredients.push(ingredientCheckboxes[i].value);
+              }
+
+              let matchingCocktails = [];
+
+            // Loop through all cocktails in the cocktailData array
+            for (let i = 0; i < cocktailData.length; i++) {
+              let hasAllIngredients = true;
+
+              // Check if all selected ingredients are in the current cocktail's ingredients list
+              for (let j = 0; j < selectedIngredients.length; j++) {
+                if (!cocktailData[i].ingredients.includes(selectedIngredients[j])) {
+                  hasAllIngredients = false;
+                  break;
                 }
-              })
-              .catch(error => {
-                console.error(error);
-              });
+              }
+
+              // If all selected ingredients are in the current cocktail's ingredients list, add the cocktail to matchingCocktails array
+              if (hasAllIngredients) {
+                matchingCocktails.push(cocktailData[i]);
+              }
+            }
+
+            // Check if any cocktails were found and display them or show "No cocktails found" message
+            if (matchingCocktails.length > 0) {
+              let resultsHTML = '<h2>Results:</h2><ul>';
+              for (let i = 0; i < matchingCocktails.length; i++) {
+                resultsHTML += '<li>' + matchingCocktails[i].name + '</li>';
+              }
+              resultsHTML += '</ul>';
+              resultsDiv.innerHTML = resultsHTML;
+            } else {
+              resultsDiv.innerHTML = '<h2>No cocktails found.</h2>';
+            }
           }
+
+          // Add event listener to the search form
+          searchForm.addEventListener('submit', searchCocktails);
+
         </script>
       </div>
     </div>
