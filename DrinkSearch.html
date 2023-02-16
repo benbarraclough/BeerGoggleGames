@@ -383,62 +383,74 @@
         
         <div id="results"></div>
           <script>
-            const drinks = [
+            const cocktailData = [
               {
-                name: "Margarita",
-                ingredients: ["tequila", "lime juice", "triple sec"],
+                name: 'Martini',
+                ingredients: ['gin', 'vodka']
               },
               {
-                name: "Martini",
-                ingredients: ["gin", "vermouth"],
+                name: 'Mai Tai',
+                ingredients: ['white rum', 'vodka']
               },
               {
-                name: "Negroni",
-                ingredients: ["gin", "vermouth", "Campari"],
-              },
-              {
-                name: "Manhattan",
-                ingredients: ["whiskey", "sweet vermouth", "Angostura bitters"],
-              },
-              {
-                name: "Old Fashioned",
-                ingredients: ["whiskey", "sugar", "Angostura bitters"],
-              },
+                name: 'Screwdriver',
+                ingredients: ['vodka', 'orange juice']
+              }
             ];
 
-            function displayResults() {
-              const checkedIngredients = getCheckedIngredients();
-              const matchedDrinks = drinks.filter((drink) =>
-                drink.ingredients.every((ingredient) =>
-                  checkedIngredients.includes(ingredient)
-                )
-              );
+            const searchForm = document.querySelector('#search-form');
+            const resultsDiv = document.querySelector('#results');
 
-              const resultsContainer = document.getElementById("results");
-              resultsContainer.innerHTML = "";
+            function searchCocktails(event) {
+              event.preventDefault();
 
-              if (matchedDrinks.length > 0) {
-                matchedDrinks.forEach((drink) => {
-                  const drinkName = document.createElement("h3");
-                  drinkName.innerText = drink.name;
-                  resultsContainer.appendChild(drinkName);
-                });
-              } else {
-                const noResultsMessage = document.createElement("p");
-                noResultsMessage.innerText = "No drinks found with selected ingredients.";
-                resultsContainer.appendChild(noResultsMessage);
+              const selectedIngredients = [];
+
+              // Get all checked ingredients from the form
+              const ingredientCheckboxes = document.querySelectorAll('input[name=ingredients]:checked');
+
+              // Only run if at least one checkbox is checked
+              if (ingredientCheckboxes.length > 0) {
+                for (let i = 0; i < ingredientCheckboxes.length; i++) {
+                  selectedIngredients.push(ingredientCheckboxes[i].value);
+                }
+
+                let matchingCocktails = [];
+
+                // Loop through all cocktails in the cocktailData array
+                for (let i = 0; i < cocktailData.length; i++) {
+                  let hasAllIngredients = true;
+
+                  // Check if all required ingredients for the current cocktail are in the selected ingredients array
+                  for (let j = 0; j < cocktailData[i].ingredients.length; j++) {
+                    if (!selectedIngredients.includes(cocktailData[i].ingredients[j])) {
+                      hasAllIngredients = false;
+                      break;
+                    }
+                  }
+
+                  // If all required ingredients for the current cocktail are in the selected ingredients array, add the cocktail to matchingCocktails array
+                  if (hasAllIngredients) {
+                    matchingCocktails.push(cocktailData[i]);
+                    }
+                }
+                // Display the matching cocktails, or a message if no cocktails match
+            if (matchingCocktails.length > 0) {
+              let html = '<h2>Matching Cocktails:</h2><ul>';
+              for (let i = 0; i < matchingCocktails.length; i++) {
+                html += '<li>' + matchingCocktails[i].name + '</li>';
               }
+              html += '</ul>';
+              resultsDiv.innerHTML = html;
+            } else {
+              resultsDiv.innerHTML = '<p>No cocktails match your search.</p>';
             }
+          } else {
+            resultsDiv.innerHTML = '';
+          }
+        }
 
-            function getCheckedIngredients() {
-              const checkedBoxes = document.querySelectorAll("input[type=checkbox]:checked");
-              const checkedIngredients = Array.from(checkedBoxes).map((checkbox) => checkbox.value);
-              return checkedIngredients;
-            }
-
-          const searchButton = document.getElementById("search-btn");
-          searchButton.addEventListener("click", displayResults);
-
+        searchForm.addEventListener('submit', searchCocktails);
         </script>
       </div>
     </div>
