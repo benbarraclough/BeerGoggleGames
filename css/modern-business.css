@@ -20,3 +20,9 @@ body {
 .portfolio-item {
   margin-bottom: 30px;
 }
+
+@media screen and (max-width: 767px) {
+  .carousel-item {
+    height: 40vh; /* set the height to 50% of the viewport height on mobile devices */
+  }
+}
