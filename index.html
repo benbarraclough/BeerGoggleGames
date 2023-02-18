@@ -193,8 +193,32 @@
           </li>
         </ul>
       </div>
-      <script async src="https://cse.google.com/cse.js?cx=858a469e0c03f48e7"></script>
-      <div class="gcse-search"></div>
+      <script>
+        document.querySelector('form').addEventListener('submit', function(event) {
+          event.preventDefault();
+          search();
+        });
+
+        function search() {
+          var query = document.getElementById('search').value.toLowerCase();
+          var pages = document.getElementsByTagName('article');
+          var found = false;
+
+          for (var i = 0; i < pages.length; i++) {
+            var pageContent = pages[i].textContent.toLowerCase();
+            if (pageContent.indexOf(query) !== -1) {
+              pages[i].style.display = 'block';
+              found = true;
+            } else {
+              pages[i].style.display = 'none';
+            }
+          }
+
+          if (!found) {
+            alert('No results found.');
+          }
+        }
+      </script>
     </div>
   </nav>
   
