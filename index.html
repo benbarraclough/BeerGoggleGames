@@ -268,7 +268,11 @@
 
   <!-- Page Content -->
   <div class="container" >
-    
+    <form id="searchForm" name="searchForm" action="http://google.com/search">
+      <input name="q" type="text" value="search" maxlength="200" />
+      <input name="q" type="hidden" value="site:mysite.com"/>
+      <input name="submit" type="submit" value="Search" />
+    </form>
     <!-- Title -->
     <h1 class="my-4 ComfortaaBig" style="text-align:center;color:#278FFF;">THE HOME OF DRINKING GAMES</h1>
     <div style="display: flex; justify-content: center; align-items: center;padding-bottom:2;">
