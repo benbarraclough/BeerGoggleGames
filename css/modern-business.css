@@ -6,15 +6,10 @@
 body {
   padding-top: 56px;
 }
-
-@media (max-width: 767px) {
-  .carousel-item {
-    height: 40vh;
-  }
   
 .carousel-item {
   height: 65vh;
-  min-height: 150px;
+  min-height: 300px;
   background: no-repeat center center scroll;
   -webkit-background-size: cover;
   -moz-background-size: cover;
