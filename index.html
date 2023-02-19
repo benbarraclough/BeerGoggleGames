@@ -193,36 +193,6 @@
           </li>
         </ul>
       </div>
-      <form>
-        <input type="text" id="search" placeholder="Search...">
-        <button type="submit">Submit</button>
-      </form>
-      <script>
-        document.querySelector('form').addEventListener('submit', function(event) {
-          event.preventDefault();
-          search();
-        });
-
-        function search() {
-          var query = document.getElementById('search').value.trim().toLowerCase();
-          var pages = document.getElementsByTagName('article');
-          var found = false;
-
-          for (var i = 0; i < pages.length; i++) {
-            var pageContent = pages[i].textContent.toLowerCase();
-            if (pageContent.includes(query)) {
-              pages[i].style.display = 'block';
-              found = true;
-            } else {
-              pages[i].style.display = 'none';
-            }
-          }
-
-          if (!found) {
-            alert('No results found.');
-          }
-        }
-      </script>
     </div>
   </nav>
   
@@ -268,11 +238,6 @@
 
   <!-- Page Content -->
   <div class="container" >
-    <form id="searchForm" name="searchForm" action="https://google.com/search">
-      <input name="q" type="text" value="search" maxlength="200" />
-      <input name="q" type="hidden" value="site:beergogglegames.co.uk"/>
-      <input name="submit" type="submit" value="Search" />
-    </form>
     <!-- Title -->
     <h1 class="my-4 ComfortaaBig" style="text-align:center;color:#278FFF;">THE HOME OF DRINKING GAMES</h1>
     <div style="display: flex; justify-content: center; align-items: center;padding-bottom:2;">
