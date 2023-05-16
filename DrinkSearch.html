@@ -478,34 +478,11 @@
           
           <br>
           
-          <!-- <input type="submit" value="Find Me a Drink"> -->
-          <button type="submit" class="btn btn-primary">Search</button>
+          <input type="submit" value="Find Me a Drink">
           
         </form>
         
         <div id="results"></div>
-        <script>
-          document.addEventListener("DOMContentLoaded", function() {
-            // Find the search form element
-            var form = document.getElementById("search-form");
-
-            // Add submit event listener to the form
-            form.addEventListener("submit", function(event) {
-              event.preventDefault(); // Prevent the form from submitting
-
-              // Get the selected ingredients
-              var selectedIngredients = Array.from(document.querySelectorAll('input[name="ingredients"]:checked')).map(function(input) {
-                return input.value;
-              });
-
-              // Perform any processing or submit the form data as needed
-              // For example, you can send the selected ingredients to a server using AJAX
-
-              // Here, let's just log the selected ingredients to the console
-              console.log(selectedIngredients);
-            });
-          });
-        </script>
 
           <script>
             const cocktailData = [
