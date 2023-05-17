@@ -199,7 +199,7 @@
     <hr>
     <div class="card mb-4">
       <div class="card-body">
-        <form id="search-form" onsubmit="searchCocktails(event)">
+        <form id="search-form">
           <h2 style="color:#278FFF">Select the ingredients you have available:</h2>
           <br>
           <div>
@@ -617,58 +617,59 @@
             ];
 
             const searchForm = document.querySelector('#search-form');
-            const resultsDiv = document.querySelector('#results');
+          const resultsDiv = document.querySelector('#results');
 
-            function searchCocktails(event) {
-              event.preventDefault();
+          function searchCocktails(event) {
+            event.preventDefault();
 
-              const selectedIngredients = [];
+            const selectedIngredients = [];
 
-              // Get all checked ingredients from the form
-              const ingredientCheckboxes = document.querySelectorAll('input[name=ingredients]:checked');
+            // Get all checked ingredients from the form
+            const ingredientCheckboxes = document.querySelectorAll('input[name=ingredients]:checked');
 
-              // Only run if at least one checkbox is checked
-              if (ingredientCheckboxes.length > 0) {
-                for (let i = 0; i < ingredientCheckboxes.length; i++) {
-                  selectedIngredients.push(ingredientCheckboxes[i].value);
-                }
-
-                let matchingCocktails = [];
-
-                // Loop through all cocktails in the cocktailData array
-                for (let i = 0; i < cocktailData.length; i++) {
-                  let hasAllIngredients = true;
-
-                  // Check if all required ingredients for the current cocktail are in the selected ingredients array
-                  for (let j = 0; j < cocktailData[i].ingredients.length; j++) {
-                    if (!selectedIngredients.includes(cocktailData[i].ingredients[j])) {
-                      hasAllIngredients = false;
-                      break;
-                    }
-                  }
-
-                  // If all required ingredients for the current cocktail are in the selected ingredients array, add the cocktail to matchingCocktails array
-                  if (hasAllIngredients) {
-                    matchingCocktails.push(cocktailData[i]);
-                    }
-                }
-                // Display the matching cocktails, or a message if no cocktails match
-            if (matchingCocktails.length > 0) {
-              let html = '<h2>Matching Cocktails:</h2><ul>';
-              for (let i = 0; i < matchingCocktails.length; i++) {
-                html += '<li>' + matchingCocktails[i].name + '</li>';
+            // Only run if at least one checkbox is checked
+            if (ingredientCheckboxes.length > 0) {
+              for (let i = 0; i < ingredientCheckboxes.length; i++) {
+                selectedIngredients.push(ingredientCheckboxes[i].value);
               }
-              html += '</ul>';
-              resultsDiv.innerHTML = html;
-            } else {
-              resultsDiv.innerHTML = '<p>No cocktails match your search.</p>';
-            }
-          } else {
-            resultsDiv.innerHTML = '';
-          }
-        }
 
-        searchForm.addEventListener('submit', searchCocktails);
+              let matchingCocktails = [];
+
+              // Loop through all cocktails in the cocktailData array
+              for (let i = 0; i < cocktailData.length; i++) {
+                let hasAllIngredients = true;
+
+                // Check if all required ingredients for the current cocktail are in the selected ingredients array
+                for (let j = 0; j < cocktailData[i].ingredients.length; j++) {
+                  if (!selectedIngredients.includes(cocktailData[i].ingredients[j])) {
+                    hasAllIngredients = false;
+                    break;
+                  }
+                }
+
+                // If all required ingredients for the current cocktail are in the selected ingredients array, add the cocktail to matchingCocktails array
+                if (hasAllIngredients) {
+                  matchingCocktails.push(cocktailData[i]);
+                }
+              }
+
+              // Display the matching cocktails, or a message if no cocktails match
+              if (matchingCocktails.length > 0) {
+                let html = '<h2>Matching Cocktails:</h2><ul>';
+                for (let i = 0; i < matchingCocktails.length; i++) {
+                  html += '<li>' + matchingCocktails[i].name + '</li>';
+                }
+                html += '</ul>';
+                resultsDiv.innerHTML = html;
+              } else {
+                resultsDiv.innerHTML = '<p>No cocktails match your search.</p>';
+              }
+            } else {
+              resultsDiv.innerHTML = '';
+            }
+          }
+
+          searchForm.addEventListener('submit', searchCocktails);
         </script>
       </div>
     </div>
