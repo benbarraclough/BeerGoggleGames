@@ -847,60 +847,28 @@
       }
     ];
 
-    const searchForm = document.querySelector('#search-form');
-    const resultsDiv = document.querySelector('#results');
+    document.addEventListener('DOMContentLoaded', function () {
+    const form = document.getElementById('cocktailForm');
+    const result = document.getElementById('result');
 
-    function searchCocktails(event) {
-      event.preventDefault();
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
 
-      const selectedIngredients = [];
+      const checkboxes = form.querySelectorAll('input[type="checkbox"]:checked');
+      const selectedIngredients = Array.from(checkboxes).map((checkbox) => checkbox.value);
 
-      // Get all checked ingredients from the form
-      const ingredientCheckboxes = document.querySelectorAll('input[name=ingredients]:checked');
+      const matchingCocktails = cocktailData.filter((cocktail) => {
+        return selectedIngredients.every((ingredient) => cocktail.ingredients.includes(ingredient));
+      });
 
-      // Only run if at least one checkbox is checked
-      if (ingredientCheckboxes.length > 0) {
-        for (let i = 0; i < ingredientCheckboxes.length; i++) {
-          selectedIngredients.push(ingredientCheckboxes[i].value);
-        }
-
-        let matchingCocktails = [];
-
-        // Loop through all cocktails in the cocktailData array
-        for (let i = 0; i < cocktailData.length; i++) {
-          let hasAllIngredients = true;
-
-          // Check if all required ingredients for the current cocktail are in the selected ingredients array
-          for (let j = 0; j < cocktailData[i].ingredients.length; j++) {
-            if (!selectedIngredients.includes(cocktailData[i].ingredients[j])) {
-              hasAllIngredients = false;
-              break;
-            }
-          }
-
-          // If all required ingredients for the current cocktail are in the selected ingredients array, add the cocktail to matchingCocktails array
-          if (hasAllIngredients) {
-            matchingCocktails.push(cocktailData[i]);
-          }
-        }
-
-        // Display the matching cocktails, or a message if no cocktails match
-        if (matchingCocktails.length > 0) {
-          let html = '<h2>Matching Cocktails:</h2><ul>';
-          for (let i = 0; i < matchingCocktails.length; i++) {
-            html += '<li>' + matchingCocktails[i].name + '</li>';
-          }
-          html += '</ul>';
-          resultsDiv.innerHTML = html;
-        } else {
-          resultsDiv.innerHTML = '<p>No cocktails match your search.</p>';
-        }
+      if (matchingCocktails.length > 0) {
+        const cocktailNames = matchingCocktails.map((cocktail) => cocktail.name);
+        result.textContent = `Cocktails you can make: ${cocktailNames.join(', ')}`;
       } else {
-        resultsDiv.innerHTML = '';
+        result.textContent = 'No cocktails found with the selected ingredients.';
       }
-    }
-
-    searchForm.addEventListener('submit', searchCocktails);
+    });
+  });
   </script>
 
   <!-- Bootstrap core JavaScript -->
