@@ -493,7 +493,7 @@
           
           <br>
           
-          <button type="button" onclick="searchDrinks()">Search</button>
+          <button type="button" onclick="searchCocktails()">Search</button>
           
         </form>
         
@@ -544,31 +544,40 @@
   
   <!-- Cocktail search script -->
   <script>
-  function searchDrinks() {
-    var selectedIngredients = Array.from(document.querySelectorAll('input[name="ingredients"]:checked')).map(function(checkbox) {
+  function searchCocktails(event) {
+    event.preventDefault(); // Prevent form submission
+
+    // Get selected ingredients
+    var selectedIngredients = Array.from(document.querySelectorAll('input[name="ingredients"]:checked')).map(function (checkbox) {
       return checkbox.value;
     });
 
-    var filteredDrinks = drinks.filter(function(drink) {
-      return selectedIngredients.every(function(ingredient) {
-        return drink.ingredients.includes(ingredient);
+    // Filter cocktails based on selected ingredients
+    var filteredCocktails = cocktails.filter(function (cocktail) {
+      return selectedIngredients.every(function (ingredient) {
+        return cocktail.ingredients.includes(ingredient);
       });
     });
 
-    var resultsContainer = document.getElementById('resultsContainer');
-    resultsContainer.innerHTML = '';
+    // Display the filtered cocktails
+    var resultsContainer = document.getElementById("resultsContainer");
+    resultsContainer.innerHTML = ""; // Clear previous results
 
-    if (filteredDrinks.length === 0) {
-      resultsContainer.innerHTML = 'No drinks found with the selected ingredients.';
-    } else {
-      filteredDrinks.forEach(function(drink) {
-        var drinkElement = document.createElement('div');
-        drinkElement.innerHTML = '<h4>' + drink.name + '</h4><p>' + drink.description + '</p>';
-        resultsContainer.appendChild(drinkElement);
+    if (filteredCocktails.length > 0) {
+      filteredCocktails.forEach(function (cocktail) {
+        var cocktailElement = document.createElement("p");
+        cocktailElement.textContent = cocktail.name;
+        resultsContainer.appendChild(cocktailElement);
       });
+    } else {
+      var noResultsMessage = document.createElement("p");
+      noResultsMessage.textContent = "No cocktails found with the selected ingredients.";
+      resultsContainer.appendChild(noResultsMessage);
     }
   }
 
+  document.getElementById("cocktailForm").addEventListener("submit", searchCocktails);
+    
   // Mock data for testing
   var drinks = [
       {
@@ -585,6 +594,11 @@
       name: 'Drink 3',
       ingredients: ['ingredient1', 'ingredient3'],
       description: 'Description of Drink 3'
+    },
+    {
+      name: 'Mimosa',
+      ingredients: ['prosecco', 'orange juice'],
+      description: 'Mimosa description'
     }
   ];
 </script>
