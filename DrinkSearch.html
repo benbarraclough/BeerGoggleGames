@@ -199,7 +199,7 @@
     <hr>
     <div class="card mb-4">
       <div class="card-body">
-        <form id="cocktailForm">
+        <form id="cocktailForm" onsubmit="event.preventDefault(); searchCocktails();">
           <h2 style="color:#278FFF">Select the ingredients you have available:</h2>
           <br>
           <div>
@@ -493,7 +493,7 @@
           
           <br>
           
-          <button type="button" onclick="searchCocktails()">Search</button>
+          <button type="submit" id="searchButton" >Search</button>
           
         </form>
         
@@ -544,57 +544,64 @@
   
   <!-- Cocktail search script -->
   <script>
-  function searchCocktails() {
-    // Get all selected ingredients
-    var selectedIngredients = document.querySelectorAll('input[name="ingredients"]:checked');
+    var drinks = [
+      { name: "Mojito", ingredients: ["rum", "mint", "lime", "sugar", "soda water"] },
+      { name: "Martini", ingredients: ["gin", "vermouth"] },
+      { name: "Margarita", ingredients: ["tequila", "lime juice", "triple sec"] },
+      { name: "Cosmopolitan", ingredients: ["vodka", "lime juice", "cranberry juice", "triple sec"] },
+      { name: "Old Fashioned", ingredients: ["whiskey", "sugar", "bitters"] }
+    ];
 
-    // Create an array to store the values of the selected ingredients
-    var selectedValues = [];
-    selectedIngredients.forEach(function (ingredient) {
-      selectedValues.push(ingredient.value);
-    });
+    var searchButton = document.getElementById('searchButton');
+    searchButton.addEventListener('click', handleSearch);
 
-    // Get all cocktail items
-    var cocktails = document.querySelectorAll('.cocktail-item');
+    function handleSearch(event) {
+      event.preventDefault();
 
-    // Loop through each cocktail item and check if it can be made with the selected ingredients
-    cocktails.forEach(function (cocktail) {
-      var cocktailIngredients = cocktail.getAttribute('data-ingredients').split(',');
+      var selectedIngredients = document.querySelectorAll('input[name="ingredients"]:checked');
+      var selectedValues = [];
 
-      // Check if the cocktail can be made with the selected ingredients
-      var canBeMade = selectedValues.every(function (ingredient) {
-        return cocktailIngredients.includes(ingredient);
+      selectedIngredients.forEach(function(ingredient) {
+        selectedValues.push(ingredient.value);
       });
 
-      // Show/hide the cocktail item based on whether it can be made or not
-      cocktail.style.display = canBeMade ? 'block' : 'none';
-    });
-  }
-    
-  // Mock data for testing
-  var drinks = [
-      {
-      name: 'Drink 1',
-      ingredients: ['ingredient1', 'ingredient2'],
-      description: 'Description of Drink 1'
-    },
-    {
-      name: 'Drink 2',
-      ingredients: ['ingredient2', 'ingredient3'],
-      description: 'Description of Drink 2'
-    },
-    {
-      name: 'Drink 3',
-      ingredients: ['ingredient1', 'ingredient3'],
-      description: 'Description of Drink 3'
-    },
-    {
-      name: 'Mimosa',
-      ingredients: ['prosecco', 'orange juice'],
-      description: 'Mimosa description'
+      var matchingDrinks = searchDrinks(selectedValues);
+      displayResults(matchingDrinks);
     }
-  ];
-</script>
+
+    function searchDrinks(selectedValues) {
+      var matchingDrinks = [];
+
+      drinks.forEach(function(drink) {
+        var containsAllIngredients = selectedValues.every(function(ingredient) {
+          return drink.ingredients.includes(ingredient);
+        });
+
+        if (containsAllIngredients) {
+          matchingDrinks.push(drink);
+        }
+      });
+
+      return matchingDrinks;
+    }
+
+    function displayResults(matchingDrinks) {
+      var resultsList = document.getElementById('results');
+      resultsList.innerHTML = '';
+
+      if (matchingDrinks.length === 0) {
+        var listItem = document.createElement('li');
+        listItem.textContent = 'No matching drinks found.';
+        resultsList.appendChild(listItem);
+      } else {
+        matchingDrinks.forEach(function(drink) {
+          var listItem = document.createElement('li');
+          listItem.textContent = drink.name;
+          resultsList.appendChild(listItem);
+        });
+      }
+    }
+  </script>
 
   <!-- Bootstrap core JavaScript -->
   <script src="vendor/jquery/jquery.min.js"></script>
