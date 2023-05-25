@@ -545,15 +545,15 @@
   <!-- Cocktail search script -->
   <script>
   var drinks = [
-    { name: "Mojito", ingredients: ["rum", "mint", "lime", "sugar", "soda water"] },
+    { name: "Mojito", ingredients: ["rum", "mint", "lime juice", "simple syrup", "soda water"] },
     { name: "Martini", ingredients: ["ingredient1", "ingredient2"] },
     { name: "Margarita", ingredients: ["ingredient1", "ingredient3"] },
-    { name: "Cosmopolitan", ingredients: ["vodka", "lime juice", "cranberry juice", "triple sec"] },
+    { name: "Cosmopolitan", ingredients: ["vodka", "lime juice", "cranberry juice", "orange liqueur"] },
     { name: "Old Fashioned", ingredients: ["ingredient2", "ingredient3"] }
   ];
 
-  var searchButton = document.getElementById('searchButton');
-  searchButton.addEventListener('click', handleSearch);
+  var searchForm = document.getElementById('cocktailForm');
+  searchForm.addEventListener('submit', handleSearch);
 
   function handleSearch(event) {
     event.preventDefault();
@@ -573,11 +573,11 @@
     var matchingDrinks = [];
 
     drinks.forEach(function(drink) {
-      var containsAllIngredients = selectedValues.every(function(ingredient) {
-        return drink.ingredients.includes(ingredient);
+      var allIngredientsSelected = drink.ingredients.every(function(ingredient) {
+        return selectedValues.includes(ingredient);
       });
 
-      if (containsAllIngredients) {
+      if (allIngredientsSelected) {
         matchingDrinks.push(drink);
       }
     });
