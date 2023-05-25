@@ -199,7 +199,7 @@
     <hr>
     <div class="card mb-4">
       <div class="card-body">
-        <form id="cocktailForm" onsubmit="event.preventDefault(); searchCocktails();">
+        <form id="cocktailForm">
           <h2 style="color:#278FFF">Select the ingredients you have available:</h2>
           <br>
           <div>
@@ -497,7 +497,7 @@
           
         </form>
         
-        <div id="resultsContainer"></div>
+        <div id="results"></div>
 
       </div>
     </div>
@@ -544,64 +544,64 @@
   
   <!-- Cocktail search script -->
   <script>
-    var drinks = [
-      { name: "Mojito", ingredients: ["rum", "mint", "lime", "sugar", "soda water"] },
-      { name: "Martini", ingredients: ["ingredient1", "ingredient2"] },
-      { name: "Margarita", ingredients: ["ingredient1", "ingredient3"] },
-      { name: "Cosmopolitan", ingredients: ["vodka", "lime juice", "cranberry juice", "triple sec"] },
-      { name: "Old Fashioned", ingredients: ["ingredient2", "ingredient3"] }
-    ];
+  var drinks = [
+    { name: "Mojito", ingredients: ["rum", "mint", "lime", "sugar", "soda water"] },
+    { name: "Martini", ingredients: ["ingredient1", "ingredient2"] },
+    { name: "Margarita", ingredients: ["ingredient1", "ingredient3"] },
+    { name: "Cosmopolitan", ingredients: ["vodka", "lime juice", "cranberry juice", "triple sec"] },
+    { name: "Old Fashioned", ingredients: ["ingredient2", "ingredient3"] }
+  ];
 
-    var searchButton = document.getElementById('searchButton');
-    searchButton.addEventListener('click', handleSearch);
+  var searchButton = document.getElementById('searchButton');
+  searchButton.addEventListener('click', handleSearch);
 
-    function handleSearch(event) {
-      event.preventDefault();
+  function handleSearch(event) {
+    event.preventDefault();
 
-      var selectedIngredients = document.querySelectorAll('input[name="ingredients"]:checked');
-      var selectedValues = [];
+    var selectedIngredients = document.querySelectorAll('input[name="ingredients"]:checked');
+    var selectedValues = [];
 
-      selectedIngredients.forEach(function(ingredient) {
-        selectedValues.push(ingredient.value);
+    selectedIngredients.forEach(function(ingredient) {
+      selectedValues.push(ingredient.value);
+    });
+
+    var matchingDrinks = searchDrinks(selectedValues);
+    displayResults(matchingDrinks);
+  }
+
+  function searchDrinks(selectedValues) {
+    var matchingDrinks = [];
+
+    drinks.forEach(function(drink) {
+      var containsAllIngredients = selectedValues.every(function(ingredient) {
+        return drink.ingredients.includes(ingredient);
       });
 
-      var matchingDrinks = searchDrinks(selectedValues);
-      displayResults(matchingDrinks);
-    }
-
-    function searchDrinks(selectedValues) {
-      var matchingDrinks = [];
-
-      drinks.forEach(function(drink) {
-        var containsAllIngredients = selectedValues.every(function(ingredient) {
-          return drink.ingredients.includes(ingredient);
-        });
-
-        if (containsAllIngredients) {
-          matchingDrinks.push(drink);
-        }
-      });
-
-      return matchingDrinks;
-    }
-
-    function displayResults(matchingDrinks) {
-      var resultsList = document.getElementById('results');
-      resultsList.innerHTML = '';
-
-      if (matchingDrinks.length === 0) {
-        var listItem = document.createElement('li');
-        listItem.textContent = 'No matching drinks found.';
-        resultsList.appendChild(listItem);
-      } else {
-        matchingDrinks.forEach(function(drink) {
-          var listItem = document.createElement('li');
-          listItem.textContent = drink.name;
-          resultsList.appendChild(listItem);
-        });
+      if (containsAllIngredients) {
+        matchingDrinks.push(drink);
       }
+    });
+
+    return matchingDrinks;
+  }
+
+  function displayResults(matchingDrinks) {
+    var resultsList = document.getElementById('results');
+    resultsList.innerHTML = '';
+
+    if (matchingDrinks.length === 0) {
+      var listItem = document.createElement('li');
+      listItem.textContent = 'No matching drinks found.';
+      resultsList.appendChild(listItem);
+    } else {
+      matchingDrinks.forEach(function(drink) {
+        var listItem = document.createElement('li');
+        listItem.textContent = drink.name;
+        resultsList.appendChild(listItem);
+      });
     }
-  </script>
+  }
+</script>
 
   <!-- Bootstrap core JavaScript -->
   <script src="vendor/jquery/jquery.min.js"></script>
