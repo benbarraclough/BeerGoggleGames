@@ -493,7 +493,7 @@
           
           <br>
           
-          <button type="button" onclick="searchCocktails()">Search</button>
+          <button type="button" class="btn btn-primary Cbutton" onclick="searchCocktails()">Search</button>
           
         </form>
         
@@ -544,39 +544,32 @@
   
   <!-- Cocktail search script -->
   <script>
-  function searchCocktails(event) {
-    event.preventDefault(); // Prevent form submission
+  function searchCocktails() {
+    // Get all selected ingredients
+    var selectedIngredients = document.querySelectorAll('input[name="ingredients"]:checked');
 
-    // Get selected ingredients
-    var selectedIngredients = Array.from(document.querySelectorAll('input[name="ingredients"]:checked')).map(function (checkbox) {
-      return checkbox.value;
+    // Create an array to store the values of the selected ingredients
+    var selectedValues = [];
+    selectedIngredients.forEach(function (ingredient) {
+      selectedValues.push(ingredient.value);
     });
 
-    // Filter cocktails based on selected ingredients
-    var filteredCocktails = cocktails.filter(function (cocktail) {
-      return selectedIngredients.every(function (ingredient) {
-        return cocktail.ingredients.includes(ingredient);
+    // Get all cocktail items
+    var cocktails = document.querySelectorAll('.cocktail-item');
+
+    // Loop through each cocktail item and check if it can be made with the selected ingredients
+    cocktails.forEach(function (cocktail) {
+      var cocktailIngredients = cocktail.getAttribute('data-ingredients').split(',');
+
+      // Check if the cocktail can be made with the selected ingredients
+      var canBeMade = selectedValues.every(function (ingredient) {
+        return cocktailIngredients.includes(ingredient);
       });
+
+      // Show/hide the cocktail item based on whether it can be made or not
+      cocktail.style.display = canBeMade ? 'block' : 'none';
     });
-
-    // Display the filtered cocktails
-    var resultsContainer = document.getElementById("resultsContainer");
-    resultsContainer.innerHTML = ""; // Clear previous results
-
-    if (filteredCocktails.length > 0) {
-      filteredCocktails.forEach(function (cocktail) {
-        var cocktailElement = document.createElement("p");
-        cocktailElement.textContent = cocktail.name;
-        resultsContainer.appendChild(cocktailElement);
-      });
-    } else {
-      var noResultsMessage = document.createElement("p");
-      noResultsMessage.textContent = "No cocktails found with the selected ingredients.";
-      resultsContainer.appendChild(noResultsMessage);
-    }
   }
-
-  document.getElementById("cocktailForm").addEventListener("submit", searchCocktails);
     
   // Mock data for testing
   var drinks = [
