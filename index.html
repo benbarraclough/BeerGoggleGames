@@ -148,61 +148,70 @@
   
   <!-- Navigation -->
   <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-white fixed-top">
-    <div class="collapse navbar-collapse" id="navbarResponsive">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="/">Home</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Games</a>
-          <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdownPortfolio">
-            <a class="dropdown-item" href="GameCategories">All Categories</a>
-            <a class="dropdown-item" href="GameCategories/AllGames">All Games</a>
-            <a class="dropdown-item" href="GameCategories/CupGames">Cup Games</a>
-            <a class="dropdown-item" href="GameCategories/CardGames">Card Games</a>
-            <a class="dropdown-item" href="GameCategories/PongGames">Pong Games</a>
-            <a class="dropdown-item" href="GameCategories/DiceGames">Dice Games</a>
-            <a class="dropdown-item" href="GameCategories/CoinGames">Coin Games</a>
-            <a class="dropdown-item" href="GameCategories/VocalGames">Vocal Games</a>
-            <a class="dropdown-item" href="GameCategories/MiscGames">Misc. Games</a>
-            <a class="dropdown-item" href="GameCategories/OutdoorGames">Outdoor Games</a>
-            <!-- New dropdown list -->
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item dropdown-toggle" href="#" id="navbarDropdownGames" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Another Dropdown</a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdownGames">
-              <a class="dropdown-item" href="#">Item 1</a>
-              <a class="dropdown-item" href="#">Item 2</a>
-              <a class="dropdown-item" href="#">Item 3</a>
+    <div class="container">
+      <a href="/">
+      <img src="images/BGG.png" alt="LOGO" width="80" height="80">
+      </a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item" >
+            <a class="nav-link" href="/">Home</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded= "false">Games</a>
+            <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdownPortfolio">
+              <a class="dropdown-item" href="GameCategories">All Categories</a>
+              <a class="dropdown-item" href="GameCategories/AllGames">All Games</a>
+              <a class="dropdown-item" href="GameCategories/TeamGames">Team Games</a>
+              <a class="dropdown-item" href="GameCategories/CardGames">Card Games</a>
+              <a class="dropdown-item" href="GameCategories/PongGames">Pong Games</a>
+              <a class="dropdown-item" href="GameCategories/DiceGames">Dice Games</a>
+              <a class="dropdown-item" href="GameCategories/CoinGames">Coin Games</a>
+              <a class="dropdown-item" href="GameCategories/VocalGames">Vocal Games</a>
+              <a class="dropdown-item" href="GameCategories/MiscGames">Misc. Games</a>
+              <a class="dropdown-item" href="GameCategories/OutdoorGames">Outdoor Games</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item dropdown-toggle" href="#" id="navbarDropdownGames" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Group Types</a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownGames">
+                <a class="dropdown-item" href="TeamGames">Team Games</a>
+                <a class="dropdown-item" href="1v1Games">1v1 Games</a>
+                <a class="dropdown-item" href="PairGames">Pair Games</a>
+                <a class="dropdown-item" href="FreeForAllGames">Free for All Games</a>
+              </div>
             </div>
-          </div>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="drinks" id="navbarDropdownPortfolio2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Drinks</a>
-          <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdownPortfolio2">
-            <a class="dropdown-item" href="Drinks/CocktailRecipes">Cocktail Recipes</a>
-            <a class="dropdown-item" href="Drinks/ShotRecipes">Shot Recipes</a>
-            <a class="dropdown-item" href="Drinks/DrinkSearchTool">Drink Search Tool</a>
-          </div>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="extras" id="navbarDropdownPortfolio2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Extras</a>
-          <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdownPortfolio2">
-            <a class="dropdown-item" href="extras">All Extras</a>
-            <a class="dropdown-item" href="Extras/activities&minigames">Activities & Minigames</a>
-            <a class="dropdown-item" href="Extras/Blog">Blog</a>
-            <a class="dropdown-item" href="Extras/wheeloffortune">Wheel of Fortune</a>
-            <a class="dropdown-item" href="Extras/products">Products</a>
-            <a class="dropdown-item" href="Extras/glossary">Glossary</a>
-            <a class="dropdown-item" href="Extras/Forfeits">Forfeits</a>
-          </div>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="about">About</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="contact">Contact</a>
-        </li>
-      </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="drinks" id="navbarDropdownPortfolio2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Drinks</a>
+            <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdownPortfolio2">
+              <a class="dropdown-item" href="Drinks/CocktailRecipes">Cocktail Recipes</a>
+              <a class="dropdown-item" href="Drinks/ShotRecipes">Shot Recipes</a>
+              <a class="dropdown-item" href="Drinks/DrinkSearchTool">Drink Search Tool</a>
+            </div>
+          </li>
+           </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="extras" id="navbarDropdownPortfolio2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Extras</a>
+            <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdownPortfolio2">
+              <a class="dropdown-item" href="extras">All Extras</a>
+              <a class="dropdown-item" href="Extras/activities&minigames">Activities & Minigames</a>
+              <a class="dropdown-item" href="Extras/Blog">Blog</a>
+              <a class="dropdown-item" href="Extras/wheeloffortune">Wheel of Fortune</a>
+              <a class="dropdown-item" href="Extras/products">Products</a>
+              <a class="dropdown-item" href="Extras/glossary">Glossary</a>
+              <a class="dropdown-item" href="Extras/Forfeits">Forfeits</a>
+            </div>
+          </li>
+          <li class="nav-item" >
+            <a class="nav-link" href="about">About</a>
+          </li>
+          <li class="nav-item">
+           <a class="nav-link" href="contact">Contact</a>
+          </li>
+        </ul>
+      </div>
     </div>
   </nav>
   
