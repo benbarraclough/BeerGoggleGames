@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <base href="https://beergogglegames.co.uk/" >
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="The Home of Drinking Games - A non-profit website providing games, entertainment and information on all things alcohol related">
+  <meta name="author" content="">
+  <meta property="og:title" content="BeerGoggleGames" />
+  <meta property="og:image" content="BGGBW.png" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Aladin&family=Comfortaa&family=Frijole&display=swap" rel="stylesheet">
+
+  <title>BeerGoggleGames</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/modern-business.css" rel="stylesheet">
+  
+  <script>
+    function Copy() {
+      var inputc = document.body.appendChild(document.createElement("input"));
+      inputc.value = window.location.href;
+      inputc.focus();
+      inputc.select();
+      document.execCommand('copy');
+      inputc.parentNode.removeChild(inputc);
+      alert("Link Copied");
+    }
+  </script>
+  
+  <script>
+    function returnURL() {
+      var inputc = document.body.appendChild(document.createElement("input"));
+      inputc.value = window.location.href;
+      return inputc.value;
+    }
+  </script>
+  
+  <style>
+    
+  .icon{
+  position: absolute;
+  right: 2%;
+  }
+  
+  .Cbutton {
+  background-color:#278FFF;
+  border: none;
+  color:#FFFFFF;
+  padding: 15px 32px;
+  margin: 0;
+  position: absolute;
+  width: 80%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  transition-duration: 0.4s;
+  border-radius: 8px;
+}
+  .Comfortaa {  
+  font-family: 'Comfortaa', cursive;
+  }
+    
+  .Cbutton:hover {
+    background-color:#0069D9;
+  }
+    
+  .fbutton:focus {
+    outline:0;
+  }
+    
+  .fa {
+  padding: 20px;
+  font-size: 30px;
+  width: 80px;
+  text-align: center;
+  text-decoration: none;
+  margin: 5px 2px;
+}
+
+.fa:hover {
+    opacity: 0.7;
+    text-decoration: none;
+    color:white;
+}
+    
+.fa-facebook {
+  background: #3B5998;
+  color: white;
+}
+
+.fa-twitter {
+  background: #55ACEE;
+  color: white;
+}
+
+.fa-instagram {
+  background-image: url("instaBG1.jpeg");
+  color: white;
+}
+
+.fa-link {
+  background: #FF9D4A;
+  color: white;
+}
+  </style>
+</head>
+
+<body class="Comfortaa">
+
+  <!-- Navigation#125688 -->
+  <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-white fixed-top">
+    <div class="container">
+      <a href="/">
+      <img src="images/BGG.png" alt="LOGO" width="80" height="80">
+      </a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item" >
+            <a class="nav-link" href="/">Home</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded= "false">Games</a>
+            <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdownPortfolio">
+              <a class="dropdown-item" href="categories">All Categories</a>
+              <a class="dropdown-item" href="Categories/AllGames">All Games</a>
+              <a class="dropdown-item" href="Categories/TeamGames">Team Games</a>
+              <a class="dropdown-item" href="Categories/CardGames">Card Games</a>
+              <a class="dropdown-item" href="Categories/PongGames">Pong Games</a>
+              <a class="dropdown-item" href="Categories/DiceGames">Dice Games</a>
+              <a class="dropdown-item" href="Categories/CoinGames">Coin Games</a>
+              <a class="dropdown-item" href="Categories/VocalGames">Vocal Games</a>
+              <a class="dropdown-item" href="Categories/MiscGames">Misc. Games</a>
+              <a class="dropdown-item" href="Categories/OutdoorGames">Outdoor Games</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="drinks" id="navbarDropdownPortfolio2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Drinks</a>
+            <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdownPortfolio2">
+              <a class="dropdown-item" href="Drinks/CocktailRecipes">Cocktail Recipes</a>
+              <a class="dropdown-item" href="Drinks/ShotRecipes">Shot Recipes</a>
+              <a class="dropdown-item" href="Drinks/DrinkSearch">Drink Search</a>
+            </div>
+          </li>
+           </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="extras" id="navbarDropdownPortfolio2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Extras</a>
+            <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdownPortfolio2">
+              <a class="dropdown-item" href="extras">All Extras</a>
+              <a class="dropdown-item" href="Extras/activities&minigames">Activities & Minigames</a>
+              <a class="dropdown-item" href="Extras/Blog">Blog</a>
+              <a class="dropdown-item" href="Extras/wheeloffortune">Wheel of Fortune</a>
+              <a class="dropdown-item" href="Extras/products">Products</a>
+              <a class="dropdown-item" href="Extras/glossary">Glossary</a>
+              <a class="dropdown-item" href="Extras/Forfeits">Forfeits</a>
+            </div>
+          </li>
+          <li class="nav-item" >
+            <a class="nav-link" href="about">About</a>
+          </li>
+          <li class="nav-item">
+           <a class="nav-link" href="contact">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  <div class="container">
+  <br>
+    <!-- Page Heading/Breadcrumbs -->
+    <h1 class="mt-4 mb-3">Top 5 Greatest Party Themes
+    </h1>
+
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="index">Home</a>
+      </li>
+      <li class="breadcrumb-item">
+        <a href="extras">Extras</a>
+      </li>
+      <li class="breadcrumb-item">
+        <a href="blog">Blog</a>
+      </li>
+      <li class="breadcrumb-item active">Top 5 Greatest Party Themes</li>
+    </ol>
+
+    <div class="row">
+
+      <!-- Post Content Column -->
+      <div class="col-lg-12">
+
+        <!-- Preview Image -->
+        <img class="img-fluid rounded" src="images/top5greatestpartythemes.jpeg" alt="">
+
+        <hr>
+
+        <!-- Date/Time -->
+        <p>Posted September 2022</p>
+
+        <hr>
+        <!-- Post Content -->
+        <p class="lead">A collection of party themes that will help inspire ideas for your next party, with tips on how to do it right.</p>
+
+        <p>A good theme can be an exciting way to up your party game, giving a venue an interesting atmosphere changes it into something a bit different that a regular party. Themes give people a chance to dress up and act a little differently by separating them from the real world.</p>
+        <p>Themed parties usually get a good response and turn-out because of the added element of fun that it involves, but this depends on how you handle the set up.</p>
+        <p>In this blog post, what will also be featured for each theme is how to execute them and make them into a big motive rather than just a lame attempt that will end up lookng like a kids birthday party.</p>
+        <hr>
+        <h4>Quote of the day:</h4>
+        <blockquote class="blockquote">
+          <p class="mb-0">A drunk mans words are a sober mans thoughts.</p>
+          <footer class="blockquote-footer">Steve Fergosi
+          </footer>
+        </blockquote>
+        <hr>
+        
+        <h4>1. Neon Rave</h4>
+        <img class="img-fluid rounded" src="images/neontheme.jpg"></img>
+        <br>
+        <br>
+        <p>At number one we have the best theme by far, it offers everything and nothing at the same time, allowing expectations to go wild and freedom to make the party about whatever you like.</p> 
+        <p>Use glow in the dark items and neon paint to create whatever party you desire, from the Psychadelic Festival vibe to Alien Sci-fi. Use blacklights in each room of the venue and paint on the walls to create the atmosphere you want, this can get messy so make sure that the paint can be easily removed. The more glow in the dark features there are, the cooler the place will look, so get creative or find an artist in to make the place pop.</p>
+        <p>Take a look at the following list for ideas on how to build your party theme:</p>
+        <ul>
+          <li>Neon paint</li>
+          <li>Blacklights</li>
+          <li>Glow in the dark toys</li>
+          <li>Glow sticks</li>
+          <li>Glow in the dark clothing</li>
+          <li>Glow in the dark pens</li>
+          <li>Rave music</li>
+        </ul>
+        <hr>
+      
+        <h4>2. Disco Dudes & Go-Go Gals</h4>
+        <img class="img-fluid rounded" src="images/discotheme.png"></img>
+        <br>
+        <br>
+        <p>You can't beat this theme for its ability to get girls interested, and with that comes the guys too, which makes this our second favourite theme</p>
+        <p>With this theme, you need to be willing to play some disco music to give the party its full effect, because disco is all about the music and the dancing. If you know a DJ with CDJ's, vinyl or even a controller, get them involved to play some funky music and get the people dancing. This can be restrictve, but if multiple rooms are available, a variation of music can be played to please everyone.</p>
+        <p>Take a look at the following list for ideas on how to build your party theme:</p>
+        <ul>
+          <li>Glitter everywhere</li>
+          <li>Disco Ball</li>
+          <li>Colourful lights</li>
+          <li>A punch bowl with ladel</li>
+          <li>Bathtub of colourful ballpt balls</li>
+          <li>Balloons & anything sparkly</li>
+          <li>Checkered dance floor</li>
+          <li>Dangling chrome decor & fake vinyl records</li>
+          <li>Pictures of vinyl records on the wall</li>
+          <li>Lasers/Strobes</li>
+          <li>A vocal DJ hosting dance competitions</li>
+          <li>Hippie quotes</li>
+        </ul>
+        <hr>
+    
+        <h4>3. Toga</h4>
+        <img class="img-fluid rounded" src="images/togatheme.jpeg"></img>
+        <br>
+        <br>
+        <p>An ultimate party theme that gets everyone unified in the sacred toga costume. Make way for games, brotherly love and probably a bit of nudity at some point.</p>
+        <p>The theme usually consists of the colours white and gold as well as purple alongside some greenery. Purple represented royalty and wealth back in the ancient times, so this colour should be used sparingly. Knowing how to tie a toga is rule number one, so follow this <a href="https://youtu.be/_4hWqIW--rQ">link</a> to learn. Otherwise, ensure that there are lots of "toga" chanting, team games and of course drinking.</p>
+        <p>Take a look at the following list for ideas on how to build your party theme:</p>
+        <ul>
+          <li>Award laurel wreath crowns as a reward of triumph for people winning games</li>
+          <li>Greco-Roman invitations</li>
+          <li>Roman pillars</li>
+          <li>Fake ivy</li>
+          <li>Lots of white sheets</li>
+          <li>Thrones</li>
+          <li>Grapes for snacks</li>
+          <li>Chariot race piggy back</li>
+          <li>Tug of war</li>
+          <li>Oiled up wrestling</li>
+          <li>Toga costume</li>
+          <li>Chalices</li>
+        </ul>
+        <hr>
+  
+        <h4>4. Jungle Jamboree</h4>
+        <img class="img-fluid rounded" src="images/jungletheme.jpeg"></img>
+        <br>
+        <br>
+        <p>A fun and easy theme that can be done on a low budget or turned into a full on tropical paradise.</p>
+        <p>The jungle theme usually means one thing, guests must either dress up or paint themselves to look like animals from the jungle. From here the decorations is where the focus should be, tissue paper, plants, inflatables, everything you can to make it feel like a full on forest.</p>
+        <p>Take a look at the following list for ideas on how to build your party theme:</p>
+        <ul>
+          <li>Forest-like wall decorations</li>
+          <li>Atmospheric sound effects in the halls</li>
+          <li>Dangling tissue paper as tree vines</li>
+          <li>Plants</li>
+          <li>Inflatable fruit</li>
+          <li>Inflatable trees</li>
+          <li>Coconuts</li>
+          <li>Fake leaves</li>
+          <li>Green balloons</li>
+          <li>Animal masks</li>
+          <li>Face paint</li>
+        </ul>
+        <hr>
+  
+        <h4>5. Masquerade Ball</h4>
+        <img class="img-fluid rounded" src="images/masquerade.jpeg"></img>
+        <br>
+        <br>
+        <p>For those who would rather a higher class themed party, we have the masquerade party offering a smarter event that people can dress to impress for.</p>
+        <p>This classy affair focuses on the social aspect of the evening and the up-market ambience. The pace can be a lot slower to begin with but can turn into whatever you want after the heavy alcohol percentage of the cocktails kick in.</p>
+        <p>Take a look at the following list for ideas on how to build your party theme:</p>
+        <ul>
+          <li>Cocktails</li>
+          <li>Champagne</li>
+          <li>Drapes</li>
+          <li>Flowers and tall plants</li>
+          <li>Gold and silver decorations</li>
+          <li>Food and canapés</li>
+          <li>Masks</li>
+          <li>Suits and dresses</li>
+        </ul>
+        <hr>
+
+        <h4>Additional Themes</h4>
+        <p>More themes you may also enjoy:</p>
+        <ul>
+          <li>Hawaiian Luau</li>
+          <li>Deepsea Drunks</li>
+          <li>Circus Soiree</li>
+          <li>Day Of The Dead</li>
+          <li>Western</li>
+          <li>Pride</li>
+          <li>Dynamic Duos</li>
+          <li>Bubbles & Bowties</li>
+          <li>Pyjama</li>
+          <li>Countries</li>
+          <li>Pirates</li>
+          <li>Farmyard</li>
+          <li>Halloween</li>
+          <li>Back to School</li>
+          <li>Christmas</li>
+        </ul>
+        <hr>
+        
+        <p>Thats all folks, hope you found some value in this post, more reviews will be coming soon! Please use the share buttons below to let others know about this post or save it for later in your bookmarks.</p>
+        
+        </div>
+  <!-- /.container -->
+    </div>
+  <!-- /.Comments -->
+<div class="commentbox"></div>
+
+<script src="images/https://unpkg.com/commentbox.io/dist/commentBox.min.js"></script>
+<script>commentBox('5750724524769280-proj')</script>
+
+<!-- /.social media links -->
+<div class="col-md-12" style="text-align:center">
+  <h4 style="color:#278FFF">&nbsp;&nbsp;&nbsp;&nbsp;Share This Page<i class="fa fa-share-alt"></i></h1>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=beergogglegames.co.uk/top5greatestpartythemes" target="_blank" class="fa fa-facebook"></a>
+  <a href="https://www.instagram.com/direct/new/" target="_blank" ><button onclick="Copy()" class="fbutton fa fa-instagram" style="border:none;"></button></a>
+  <a href="https://twitter.com/intent/tweet?url=beergogglegames.co.uk/top5greatestpartythemes" target="_blank" class="fa fa-twitter"></a>
+  <button onclick="Copy()" class=" fbutton fa fa-link" style="border:none;"></button>
+</div>
+
+
+    <!-- /.row -->
+<hr>
+  <div class="row mb-4">
+      <div class="col-md-8">
+        <h4 style="color:#278FFF">Feedback</h4>
+        <p>If you think we've missed certain details out of the game or you have something to add, please feel free to contact us.</p>
+      </div>
+    <div class="col-md-4">
+      <br>
+      <br>
+      <br>
+        <a href="contact">
+          <button class="Cbutton" style="background-color=#278FFF">Contact Us</button>
+            </a>
+      </div>
+  </div>
+  </div>
+  <!-- /.container -->
+  
+  <!-- Footer -->
+  <footer class="py-5 " style="background-image:url(background1.png);background-repeat: repeat;background-size: 300px 300px;">
+    <div class="container">
+       <div class="row">
+         
+        <div class="col-lg-4 mb-4" style="text-align:center">
+          <br>
+          <a href="https://www.facebook.com/BeerGoggleGames" target="_blank" class="fa fa-facebook text-center" style="font-size:30px;color:#278FFF;background:none;background-image:none;padding:none;"></a> <a href="https://www.instagram.com/BeerGoggleGames" target="_blank" class="fa fa-instagram text-center" style="font-size:30px;color:#278FFF;background:none;background-image:none;padding:none"></a><a href="mailto:BeerGoggleGames@hotmail.com" class="fa fa-envelope text-center" style="font-size:30px;color:#278FFF;background:none;background-image:none;padding:none"></a>
+         </div>
+         
+         <div class="col-lg-4 mb-4" style="text-align:center">
+           <img src="images/BGG.png" width="100px" height="100px"></img>
+           <br>
+           <br>
+           <p class="m-0 text-dark" style="position: relative; bottom: 0; width:100%; text-align: center">Copyright &copy; Beer Goggle Games 2023</p>
+         </div>
+      
+         <div class="col-lg-4 mb-4" style="text-align:center">
+           <br>
+           <a href="https://www.paypal.com/paypalme/BeerGoggleGames" target="_blank">
+             <img src="images/paypal.png" width="100px" height="57px"></img>
+           </a>
+         </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

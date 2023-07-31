@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <base href="https://beergogglegames.co.uk/" >
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="The Home of Drinking Games - A non-profit website providing games, entertainment and information on all things alcohol related">
+  <meta name="author" content="">
+  <meta property="og:title" content="BeerGoggleGames" />
+  <meta property="og:image" content="BGGBW.png" />
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Aladin&family=Comfortaa&family=Frijole&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <title>BeerGoggleGames - Card Games</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/modern-business.css" rel="stylesheet">
+
+  
+<style>
+  .Cbutton {
+  background-color:#278FFF;
+  border: none;
+  color:#FFFFFF;
+  padding: 15px 32px;
+  margin: 0;
+  position: absolute;
+  width: 80%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  transition-duration: 0.4s;
+  border-radius: 8px;
+}
+  .Comfortaa {  
+  font-family: 'Comfortaa', cursive;
+  }
+    
+  .Cbutton:hover {
+    background-color:#0069D9;
+  }
+    
+  .fbutton:focus {
+    outline:0;
+  }
+    
+  .fa {
+  padding: 20px;
+  font-size: 30px;
+  width: 80px;
+  text-align: center;
+  text-decoration: none;
+  margin: 5px 2px;
+}
+
+.fa:hover {
+    opacity: 0.7;
+    text-decoration: none;
+    color:white;
+}
+</style>
+</head>
+
+<body class="Comfortaa">
+
+  <!-- Navigation -->
+  <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-white fixed-top">
+    <div class="container">
+      <a href="/">
+      <img src="images/BGG.png" alt="LOGO" width="80" height="80">
+      </a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item" >
+            <a class="nav-link" href="/">Home</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded= "false">Games</a>
+            <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdownPortfolio">
+              <a class="dropdown-item" href="categories">All Categories</a>
+              <a class="dropdown-item" href="Categories/AllGames">All Games</a>
+              <a class="dropdown-item" href="Categories/TeamGames">Team Games</a>
+              <a class="dropdown-item" href="Categories/CardGames">Card Games</a>
+              <a class="dropdown-item" href="Categories/PongGames">Pong Games</a>
+              <a class="dropdown-item" href="Categories/DiceGames">Dice Games</a>
+              <a class="dropdown-item" href="Categories/CoinGames">Coin Games</a>
+              <a class="dropdown-item" href="Categories/VocalGames">Vocal Games</a>
+              <a class="dropdown-item" href="Categories/MiscGames">Misc. Games</a>
+              <a class="dropdown-item" href="Categories/OutdoorGames">Outdoor Games</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="drinks" id="navbarDropdownPortfolio2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Drinks</a>
+            <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdownPortfolio2">
+              <a class="dropdown-item" href="Drinks/CocktailRecipes">Cocktail Recipes</a>
+              <a class="dropdown-item" href="Drinks/ShotRecipes">Shot Recipes</a>
+              <a class="dropdown-item" href="Drinks/DrinkSearch">Drink Search</a>
+            </div>
+          </li>
+           </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="extras" id="navbarDropdownPortfolio2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Extras</a>
+            <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdownPortfolio2">
+              <a class="dropdown-item" href="extras">All Extras</a>
+              <a class="dropdown-item" href="Extras/activities&minigames">Activities & Minigames</a>
+              <a class="dropdown-item" href="Extras/Blog">Blog</a>
+              <a class="dropdown-item" href="Extras/wheeloffortune">Wheel of Fortune</a>
+              <a class="dropdown-item" href="Extras/products">Products</a>
+              <a class="dropdown-item" href="Extras/glossary">Glossary</a>
+              <a class="dropdown-item" href="Extras/Forfeits">Forfeits</a>
+            </div>
+          </li>
+          <li class="nav-item" >
+            <a class="nav-link" href="about">About</a>
+          </li>
+          <li class="nav-item">
+           <a class="nav-link" href="contact">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  <div class="container">
+  <br>
+    <!-- Page Heading/Breadcrumbs -->
+    <h1 class="mt-4 mb-3" style="color:#278FFF">Card Games
+      <small></small>
+    </h1>
+
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="/">Home</a>
+      </li>
+      <li class="breadcrumb-item">
+        <a href="Categories">Categories</a>
+      </li>
+      <li class="breadcrumb-item active">Card Games</li>
+    </ol>
+
+    <div class="row">
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="Categories/CardGames/BlowMe"><img class="card-img-top" src="images/blowme2.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="Categories/CardGames/BlowMe">Blow Me</a>
+            </h4>
+            <p class="card-text">Often called Beer Blow or Bottle Blow, this game consists of blowing cards off the top of a drink delicately so that only some of the cards fall but not all.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="Categories/CardGames/CrossTheBridge"><img class="card-img-top" src="images/crossthebridge2.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="Categories/CardGames/CrossTheBridge">Cross The Bridge</a>
+            </h4>
+            <p class="card-text">A fun yet frustrating game of chance and instinct where you must choose the correct cards consecutively to get across the table to your opponent</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="Categories/CardGames/curse"><img class="card-img-top" src="images/curse2.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="Categories/CardGames/curse">Curse</a>
+            </h4>
+            <p class="card-text">A fast paced group game where you try to escape the curse by passing it onto someone else before time runs out!</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="Categories/CardGames/DickHead"><img class="card-img-top" src="images/dickhead2.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="Categories/CardGames/DickHead">Dick Head</a>
+            </h4>
+            <p class="card-text">Feel like verbally abusing your friends but need an excuse? This is the game for you! A simple yet exciting card game for all, similar to a game of snap.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="Categories/CardGames/Doom"><img class="card-img-top" src="images/doom2.jpg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="Categories/CardGames/Doom">Doom</a>
+            </h4>
+            <p class="card-text">Play your cards wisely to avoid the big centre chug cup of doom. If not, hope that chance is in your favour allowing you to escape... otherwise you drink.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="Categories/CardGames/Electricity"><img class="card-img-top" src="images/electricity2.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="Categories/CardGames/Electricity">Electricity</a>
+            </h4>
+            <p class="card-text">A social yet moderately heavy drinking game where you drink when cards 'conduct'. Easy to play, brings the excitement and gets the sparks flying (pun intended).</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="Categories/CardGames/Eleusis"><img class="card-img-top" src="images/eleusis2.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="Categories/CardGames/Eleusis">Eleusis</a>
+            </h4>
+            <p class="card-text">Eleusis is a card game of logical thinking and deduction where one player chooses a secret rule and other players must follow.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="Categories/CardGames/Fuckthedealer"><img class="card-img-top" src="images/fuckthedealer2.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="Categories/CardGames/Fuckthedealer">Fuck the Dealer</a>
+            </h4>
+            <p class="card-text">A game which can get players very drunk if unlucky, guess the cards on the top of the deck to make the dealer drink.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="Categories/CardGames/Give&Take"><img class="card-img-top" src="images/give&take2.png" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="Categories/CardGames/Give&Take">Give & Take</a>
+            </h4>
+            <p class="card-text">A game of truth and dare with an alcoholic twist. Make sure not to give to the wrong people, or else you'll be punished.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="Categories/CardGames/Mushroom"><img class="card-img-top" src="images/mushroom2.jpg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="Categories/CardGames/Mushroom">Mushroom</a>
+            </h4>
+            <p class="card-text">Similar to the boardgame topple, take it in turns to stack the cards on top of the chug cup creating a mushroom. Don't be the one that makes the cards fall.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="Categories/CardGames/NightsAtTheRoundTable"><img class="card-img-top" src="images/nightsattheroundtable2.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="Categories/CardGames/NightsAtTheRoundTable">Nights at the Round Table</a>
+            </h4>
+            <p class="card-text">A luck based drinking game where various alcoholic drinks are dispersed around a table and the draw of a card determines who drinks which.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="Categories/CardGames/Ridethebus"><img class="card-img-top" src="images/ridethebus2.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="Categories/CardGames/Ridethebus">Ride the Bus</a>
+            </h4>
+            <p class="card-text">Ride the Bus is an excellent card drinking game that involves very simple gameplay and rules allowing participants to "learn as they play".</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="Categories/CardGames/RingOfFire"><img class="card-img-top" src="images/ringoffire2.jpg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="Categories/CardGames/RingOfFire">Ring of Fire</a>
+            </h4>
+            <p class="card-text">An empty drinks container entrapped within a circle of 52 cards. Do not break the Ring of Fire! A great group game which works best with more people</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="Categories/CardGames/Spoons"><img class="card-img-top" src="images/spoons2.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="Categories/CardGames/Spoons">Spoons</a>
+            </h4>
+            <p class="card-text">A brilliant game of quick reactions and pure excitement. Match a set of cards to grab a spoon and make it to the next round.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="Categories/CardGames/StripJackDrunk"><img class="card-img-top" src="images/stripjackdrunk2.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="Categories/CardGames/StripJackDrunk">Strip Jack Drunk</a>
+            </h4>
+            <p class="card-text">An excitable card game of quick card flipping, similar to the famous strip jack naked card game but with an alcoholic twist.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="Categories/CardGames/Suck&Blow"><img class="card-img-top" src="images/suck&blow2.png" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="Categories/CardGames/Suck&Blow">Suck & Blow</a>
+            </h4>
+            <p class="card-text">An intimately social card game where you must pass the card around the circle of players by only using the suction from your mouth.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="Categories/CardGames/TheGrandNational"><img class="card-img-top" src="images/thegrandnational2.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="Categories/CardGames/TheGrandNational">The Grand National</a>
+            </h4>
+            <p class="card-text">The most British drinking game of all which involves the betting, drinking and excitement of horse racing without the animal cruelty.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="Categories/CardGames/Tinny"><img class="card-img-top" src="images/tinny2.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="Categories/CardGames/Tinny">Tinny</a>
+            </h4>
+            <p class="card-text">A very simple game which raises a lot of suspense. Take it in turns to place cards under the can tab until it cracks. Don't be the unlucky one!</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="Categories/CardGames/youfuckinjoker"><img class="card-img-top" src="images/youfuckinjoker2.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="Categories/CardGames/youfuckinjoker">You Fuckin' Joker</a>
+            </h4>
+            <p class="card-text">A game of frantic swapsies where you must attempt to collect a set of cards whilst avoiding the joker.</p>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+
+    <!-- Call to action -->
+    <hr>
+    <div class="row mb-4">
+      <div class="col-md-8">
+        <h4 class="Comfortaa"style="color:#278FFF">Submit a Game</h4>
+        <p class="Comforta"><b>Know a drinking game that we don't?</b></p>
+        <p class="Comforta">Submit the details to us through our contact page, if we like it we will add it to the website along with crediting you for your contribution!</p>
+      </div>
+      <div class="col-md-4">
+        <br>
+        <br>
+        <br>
+        <a href="contact">
+          <button class="Cbutton Comfortaa" >Submit a Game</button>
+            </a>
+      </div>
+    </div>
+
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <footer class="py-5 " style="background-image:url(background1.png);background-repeat: repeat;background-size: 300px 300px;">
+    <div class="container">
+       <div class="row">
+         
+        <div class="col-lg-4 mb-4" style="text-align:center">
+          <br>
+          <a href="https://www.facebook.com/BeerGoggleGames" target="_blank" class="fa fa-facebook text-center" style="font-size:30px;color:#278FFF;background:none;background-image:none;padding:none;"></a> <a href="https://www.instagram.com/BeerGoggleGames" target="_blank" class="fa fa-instagram text-center" style="font-size:30px;color:#278FFF;background:none;background-image:none;padding:none"></a><a href="mailto:BeerGoggleGames@hotmail.com" class="fa fa-envelope text-center" style="font-size:30px;color:#278FFF;background:none;background-image:none;padding:none"></a>
+         </div>
+         
+         <div class="col-lg-4 mb-4" style="text-align:center">
+           <img src="images/BGG.png" width="100px" height="100px"></img>
+           <br>
+           <br>
+           <p class="m-0 text-dark" style="position: relative; bottom: 0; width:100%; text-align: center">Copyright &copy; Beer Goggle Games 2023</p>
+         </div>
+      
+         <div class="col-lg-4 mb-4" style="text-align:center">
+           <br>
+           <a href="https://www.paypal.com/paypalme/BeerGoggleGames" target="_blank">
+             <img src="images/paypal.png" width="100px" height="57px"></img>
+           </a>
+         </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

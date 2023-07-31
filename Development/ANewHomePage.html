@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <base href="https://beergogglegames.co.uk/" >
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="The Home of Drinking Games - A non-profit website providing games, entertainment and information on all things alcohol related">
+  <meta name="author" content="">
+  <meta property="og:title" content="BeerGoggleGames" />
+  <meta property="og:image" content="BGGBW.png" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Aladin&family=Comfortaa&family=Frijole&display=swap" rel="stylesheet">
+
+  <title>BeerGoggleGames</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/modern-business.css" rel="stylesheet">
+  
+  <script>
+    function Copy() {
+      var inputc = document.body.appendChild(document.createElement("input"));
+      inputc.value = window.location.href;
+      inputc.focus();
+      inputc.select();
+      document.execCommand('copy');
+      inputc.parentNode.removeChild(inputc);
+      alert("Link Copied");
+    }
+  </script>
+  
+  <script>
+    function returnURL() {
+      var inputc = document.body.appendChild(document.createElement("input"));
+      inputc.value = window.location.href;
+      return inputc.value;
+    }
+  </script>
+  
+  <style>
+    
+  @import url(https://fonts.googleapis.com/css?family=Lato:700,900);
+
+
+#container {
+  height: 250px;
+  margin: 0 auto;
+  overflow: hidden;
+  position: relative;
+  top: 25px;
+}
+
+#container div { position: absolute; }
+
+#top {
+  border-top: 0;
+  border-radius: 0 0 30px 30px;
+  height: 200px;
+
+}
+
+
+#liquid {
+  background-color: #f2c025;
+  border: 10px solid #f2c025;
+  bottom: -400px;
+  height: 250px;
+  overflow: hidden;
+  width: 1300px;
+}
+
+#liquid:after {
+  background-color: rgba(255, 255, 255, 0.25);
+  bottom: -10px;
+  content: '';
+  height: 200px;
+  left: -40px;
+  position: absolute;
+  transform: rotate(30deg);
+  -webkit-transform: rotate(15deg);
+  width: 110px;
+}
+
+#liquid .bubble {
+  -webkit-animation-name: bubble;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  background-color: rgba(255, 255, 255, 0.2);
+  bottom: 0;
+  border-radius: 10px;
+  height: 20px;
+  width: 20px;
+}
+
+@-webkit-keyframes bubble {
+  0% { bottom: 0; }
+
+   50% {
+     background-color: rgba(255, 255, 255, 0.2);
+      bottom: 80px;
+   }
+
+   100% {
+     background-color: rgba(255, 255, 255, 0);
+      bottom: 160px;
+   }
+}
+  
+  
+  .icon{
+  position: absolute;
+  right: 2%;
+  }
+  
+  .Cbutton {
+  background-color:#278FFF;
+  border: none;
+  color:#FFFFFF;
+  padding: 15px 32px;
+  margin: 0;
+  position: absolute;
+  width: 80%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  transition-duration: 0.4s;
+  border-radius: 8px;
+}
+  .Comfortaa {  
+  font-family: 'Comfortaa', cursive;
+  }
+    
+  .Cbutton:hover {
+    background-color:#0069D9;
+  }
+    
+  .fbutton:focus {
+    outline:0;
+  }
+    
+  .fa {
+  padding: 20px;
+  font-size: 30px;
+  width: 80px;
+  text-align: center;
+  text-decoration: none;
+  margin: 5px 2px;
+}
+
+.fa:hover {
+    opacity: 0.7;
+    text-decoration: none;
+    color:white;
+}
+    
+.fa-facebook {
+  background: #3B5998;
+  color: white;
+}
+
+.fa-twitter {
+  background: #55ACEE;
+  color: white;
+}
+
+.fa-instagram {
+  background-image: url("instaBG1.jpeg");
+  color: white;
+}
+
+.fa-link {
+  background: #FF9D4A;
+  color: white;
+}
+    
+.bubble1 {
+  left: 10px;
+  -webkit-animation-delay: 1000ms;
+  -webkit-animation-duration: 1000ms;
+}
+
+.bubble2 {
+  left: 50px;
+  -webkit-animation-delay: 700ms;
+  -webkit-animation-duration: 1100ms;
+}
+
+.bubble3 {
+  left: 100px;
+  -webkit-animation-delay: 1200ms;
+  -webkit-animation-duration: 1300ms;
+}
+
+.bubble4 {
+  left: 130px;
+  -webkit-animation-delay: 1100ms;
+  -webkit-animation-duration: 700ms;
+}
+
+.bubble5 {
+  left: 170px;
+  -webkit-animation-delay: 1300ms;
+  -webkit-animation-duration: 800ms;
+}
+    
+.bubble6 {
+  left: 210px;
+  -webkit-animation-delay: 1200ms;
+  -webkit-animation-duration: 1000ms;
+}
+
+.bubble7 {
+  left: 260px;
+  -webkit-animation-delay: 1300ms;
+  -webkit-animation-duration: 1100ms;
+}
+
+.bubble8 {
+  left: 290px;
+  -webkit-animation-delay: 1000ms;
+  -webkit-animation-duration: 1300ms;
+}
+
+.bubble9 {
+  left: 330px;
+  -webkit-animation-delay: 700ms;
+  -webkit-animation-duration: 900ms;
+}
+
+.bubble10 {
+  left: 360px;
+  -webkit-animation-delay: 900ms;
+  -webkit-animation-duration: 1000ms;
+}
+
+.bubble11 {
+  left: 410px;
+  -webkit-animation-delay: 1100ms;
+  -webkit-animation-duration: 1200ms;
+}
+
+.bubble12 {
+  left: 450px;
+  -webkit-animation-delay: 800ms;
+  -webkit-animation-duration: 800ms;
+}
+
+.bubble13 {
+  left: 480px;
+  -webkit-animation-delay: 1100ms;
+  -webkit-animation-duration: 1300ms;
+}
+
+.bubble14 {
+  left: 530px;
+  -webkit-animation-delay: 700ms;
+  -webkit-animation-duration: 900ms;
+}
+
+.bubble15 {
+  left: 570px;
+  -webkit-animation-delay: 1200ms;
+  -webkit-animation-duration: 700ms;
+}
+    
+.bubble16 {
+  left: 610px;
+  -webkit-animation-delay: 1000ms;
+  -webkit-animation-duration: 1100ms;
+}
+
+.bubble17 {
+  left: 650px;
+  -webkit-animation-delay: 900ms;
+  -webkit-animation-duration: 1200ms;
+}
+
+.bubble18 {
+  left: 680px;
+  -webkit-animation-delay: 1200ms;
+  -webkit-animation-duration: 1300ms;
+}
+
+.bubble19 {
+  left: 730px;
+  -webkit-animation-delay: 1000ms;
+  -webkit-animation-duration: 900ms;
+}
+
+.bubble20 {
+  left: 780px;
+  -webkit-animation-delay: 1300ms;
+  -webkit-animation-duration: 800ms;
+}
+    
+.bubble21 {
+  left: 820px;
+  -webkit-animation-delay: 900ms;
+  -webkit-animation-duration: 1100ms;
+}
+
+.bubble22 {
+  left: 860px;
+  -webkit-animation-delay: 1100ms;
+  -webkit-animation-duration: 800ms;
+}
+
+.bubble23 {
+  left: 890px;
+  -webkit-animation-delay: 1200ms;
+  -webkit-animation-duration: 1100ms;
+}
+
+.bubble24 {
+  left: 940px;
+  -webkit-animation-delay: 1000ms;
+  -webkit-animation-duration: 1000ms;
+}
+
+.bubble25 {
+  left: 970px;
+  -webkit-animation-delay: 1300ms;
+  -webkit-animation-duration: 1300ms;
+}
+    
+.bubble26 {
+  left: 1020px;
+  -webkit-animation-delay: 1000ms;
+  -webkit-animation-duration: 1200ms;
+}
+    
+.bubble27 {
+  left: 1050px;
+  -webkit-animation-delay: 900ms;
+  -webkit-animation-duration: 1000ms;
+}
+
+.bubble28 {
+  left: 1080px;
+  -webkit-animation-delay: 1100ms;
+  -webkit-animation-duration: 1100ms;
+}
+
+.bubble29 {
+  left: 1120px;
+  -webkit-animation-delay: 1400ms;
+  -webkit-animation-duration: 1300ms;
+}
+
+.bubble30 {
+  left: 1170px;
+  -webkit-animation-delay: 1000ms;
+  -webkit-animation-duration: 700ms;
+}
+
+.bubble31 {
+  left: 1210px;
+  -webkit-animation-delay: 1300ms;
+  -webkit-animation-duration: 800ms;
+}
+    
+.bubble32 {
+  left: 1250px;
+  -webkit-animation-delay: 1200ms;
+  -webkit-animation-duration: 1000ms;
+}
+    
+.bubble33 {
+  left: 1280px;
+  -webkit-animation-delay: 900ms;
+  -webkit-animation-duration: 800ms;
+}
+
+.bubble34 {
+  left: 1340px;
+  -webkit-animation-delay: 1100ms;
+  -webkit-animation-duration: 900ms;
+}
+
+.bubble35 {
+  left: 1380px;
+  -webkit-animation-delay: 1300ms;
+  -webkit-animation-duration: 800ms;
+}
+
+.bubble36 {
+  left: 1410px;
+  -webkit-animation-delay: 1000ms;
+  -webkit-animation-duration: 800ms;
+}
+
+.bubble37 {
+  left: 1460px;
+  -webkit-animation-delay: 1000ms;
+  -webkit-animation-duration: 700ms;
+}
+    
+.bubble38 {
+  left: 1500px;
+  -webkit-animation-delay: 1300ms;
+  -webkit-animation-duration: 1000ms;
+}
+    
+.bubble39 {
+  left: 1540px;
+  -webkit-animation-delay: 900ms;
+  -webkit-animation-duration: 1000ms;
+}
+
+.bubble40 {
+  left: 1590px;
+  -webkit-animation-delay: 1100ms;
+  -webkit-animation-duration: 800ms;
+}
+
+.bubble41 {
+  left: 1640px;
+  -webkit-animation-delay: 1200ms;
+  -webkit-animation-duration: 1300ms;
+}
+
+.bubble42 {
+  left: 1670px;
+  -webkit-animation-delay: 1200ms;
+  -webkit-animation-duration: 700ms;
+}
+
+.bubble43 {
+  left: 1720px;
+  -webkit-animation-delay: 1000ms;
+  -webkit-animation-duration: 900ms;
+}
+    
+/* Foam */
+
+.beer-foam {
+  position: absolute;
+  bottom: 10px;
+  height: 180px;
+}
+
+.foam-1, .foam-2, .foam-3, .foam-4, 
+.foam-5, .foam-6, .foam-7, .foam-8, 
+.foam-9, .foam-10, .foam-11, .foam-12,
+.foam-13, .foam-14, .foam-15, .foam-16, 
+.foam-17, .foam-18, .foam-19, 
+.foam-20, .foam-21, .foam-22, .foam-23, 
+.foam-24, .foam-25, .foam-26, .foam-27,
+.foam-28, .foam-29, .foam-30, .foam-31, .foam-32, 
+.foam-33, .foam-34, .foam-35, 
+.foam-36, .foam-37, .foam-38, .foam-39, 
+.foam-40, .foam-41, .foam-42, .foam-43,
+.foam-44, .foam-45
+ {
+  float: left;
+  position: absolute;
+  z-index: 999;
+  width: 50px;
+  height: 50px;
+  border-radius: 30px;
+  background-color: #fefefe;
+}
+.foam-1 {
+  top: -30px;
+  left: -10px;
+}
+.foam-2 {
+  top: -35px;
+  left: 20px; 
+}
+.foam-3 {
+  top: -25px;
+  left: 50px; 
+}
+.foam-4 {
+  top: -35px;
+  left: 80px; 
+}
+.foam-5 {
+  top: -30px;
+  left: 110px; 
+}
+.foam-6 {
+  top: -20px;
+  left: 140px; 
+}
+.foam-7 {
+  top: -30px;
+  left: 160px;
+}
+
+.foam-8 {
+  top: -30px;
+  left: 170px;
+}
+.foam-9 {
+  top: -35px;
+  left: 170px; 
+}
+.foam-10 {
+  top: -25px;
+  left: 210px; 
+}
+.foam-11 {
+  top: -35px;
+  left: 250px; 
+}
+.foam-12 {
+  top: -30px;
+  left: 270px; 
+}
+.foam-13 {
+  top: -20px;
+  left: 300px; 
+}
+.foam-14 {
+  top: -30px;
+  left: 340px;
+}
+
+.foam-15 {
+  top: -30px;
+  left: 385px;
+}
+.foam-16 {
+  top: -30px;
+  left: 415px;
+}
+.foam-17 {
+  top: -35px;
+  left: 445px; 
+}
+.foam-18 {
+  top: -25px;
+  left: 470px; 
+}
+.foam-19 {
+  top: -35px;
+  left: 510px; 
+}
+.foam-20 {
+  top: -30px;
+  left: 550px; 
+}
+.foam-21 {
+  top: -20px;
+  left: 580px; 
+}
+.foam-22 {
+  top: -30px;
+  left: 600px;
+}
+
+.foam-23 {
+  top: -30px;
+  left: 630px;
+}
+.foam-24 {
+  top: -35px;
+  left: 670px; 
+}
+.foam-25 {
+  top: -25px;
+  left: 705px; 
+}
+.foam-26 {
+  top: -35px;
+  left: 725px; 
+}
+.foam-27 {
+  top: -30px;
+  left: 760px; 
+}
+.foam-28 {
+  top: -20px;
+  left: 790px; 
+}
+.foam-29 {
+  top: -30px;
+  left: 825px;
+}
+
+.foam-30 {
+  top: -30px;
+  left: 860px;
+}
+
+.foam-31 {
+  top: -30px;
+  left: 880px;
+}
+.foam-32 {
+  top: -35px;
+  left: 915px; 
+}
+.foam-33 {
+  top: -25px;
+  left: 930px; 
+}
+.foam-34 {
+  top: -35px;
+  left: 950px; 
+}
+.foam-35 {
+  top: -30px;
+  left: 980px; 
+}
+.foam-36 {
+  top: -20px;
+  left: 1010px; 
+}
+.foam-37 {
+  top: -30px;
+  left: 1035px;
+}
+
+.foam-38 {
+  top: -30px;
+  left: 1060px;
+}
+.foam-39 {
+  top: -35px;
+  left: 1090px; 
+}
+.foam-40 {
+  top: -25px;
+  left: 1110px; 
+}
+.foam-41 {
+  top: -35px;
+  left: 1135px; 
+}
+.foam-42 {
+  top: -30px;
+  left: 1165px; 
+}
+.foam-43 {
+  top: -20px;
+  left: 1190px; 
+}
+.foam-44 {
+  top: -30px;
+  left: 1220px;
+}
+
+.foam-45 {
+  top: -30px;
+  left: 1250px;
+}
+    
+h1 {
+  color:#fff;
+  font-weight: 800;
+  font-family: 'Prompt', sans-serif;
+  font-size: 50px;
+  padding-top: 30px;
+  text-align:center;
+}
+
+h2 {
+  font-family: 'Prompt', sans-serif;
+  font-size: 2em;
+  color: #0e83cd;
+  padding-top: 10px;
+}
+
+.parent {
+  padding: 0;
+  margin-top: -130px;
+  list-style: none;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  
+  -webkit-flex-flow: row wrap;
+  justify-content: space-around;
+}
+
+.child {
+  padding: 5px;
+  width: 400px;
+  height: 300px;
+  margin-top: 10px;
+  background-color: #fff;
+  padding: 20px;
+}
+  </style>
+</head>
+<body class="Comfortaa">
+
+  <!-- Navigation#125688 -->
+  <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-white fixed-top">
+    <div class="container">
+      <a href="/">
+      <img src="images/BGG.png" alt="LOGO" width="80" height="80">
+      </a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item" >
+            <a class="nav-link" href="/">Home</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded= "false">Games</a>
+            <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdownPortfolio">
+              <a class="dropdown-item" href="categories">All Categories</a>
+              <a class="dropdown-item" href="Categories/AllGames">All Games</a>
+              <a class="dropdown-item" href="Categories/TeamGames">Team Games</a>
+              <a class="dropdown-item" href="Categories/CardGames">Card Games</a>
+              <a class="dropdown-item" href="Categories/PongGames">Pong Games</a>
+              <a class="dropdown-item" href="Categories/DiceGames">Dice Games</a>
+              <a class="dropdown-item" href="Categories/CoinGames">Coin Games</a>
+              <a class="dropdown-item" href="Categories/VocalGames">Vocal Games</a>
+              <a class="dropdown-item" href="Categories/MiscGames">Misc. Games</a>
+              <a class="dropdown-item" href="Categories/OutdoorGames">Outdoor Games</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="drinks" id="navbarDropdownPortfolio2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Drinks</a>
+            <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdownPortfolio2">
+              <a class="dropdown-item" href="Drinks/CocktailRecipes">Cocktail Recipes</a>
+              <a class="dropdown-item" href="Drinks/ShotRecipes">Shot Recipes</a>
+              <a class="dropdown-item" href="Drinks/DrinkSearch">Drink Search</a>
+            </div>
+          </li>
+           </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="extras" id="navbarDropdownPortfolio2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Extras</a>
+            <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdownPortfolio2">
+              <a class="dropdown-item" href="extras">All Extras</a>
+              <a class="dropdown-item" href="Extras/activities&minigames">Activities & Minigames</a>
+              <a class="dropdown-item" href="Extras/Blog">Blog</a>
+              <a class="dropdown-item" href="Extras/wheeloffortune">Wheel of Fortune</a>
+              <a class="dropdown-item" href="Extras/products">Products</a>
+              <a class="dropdown-item" href="Extras/glossary">Glossary</a>
+              <a class="dropdown-item" href="Extras/Forfeits">Forfeits</a>
+            </div>
+          </li>
+          <li class="nav-item" >
+            <a class="nav-link" href="about">About</a>
+          </li>
+          <li class="nav-item">
+           <a class="nav-link" href="contact">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  
+    <div id="container">
+    <div id="top">
+      
+      <div class="beer-foam">
+        <div class="foam-1"></div>
+        <div class="foam-2"></div>
+        <div class="foam-3"></div>
+        <div class="foam-4"></div>
+        <div class="foam-5"></div>
+        <div class="foam-6"></div>
+        <div class="foam-7"></div>
+        <div class="foam-8"></div>
+        <div class="foam-9"></div>
+        <div class="foam-10"></div>
+        <div class="foam-11"></div>
+        <div class="foam-12"></div>
+        <div class="foam-13"></div>
+        <div class="foam-14"></div>
+        <div class="foam-15"></div>
+        <div class="foam-16"></div>
+        <div class="foam-17"></div>
+        <div class="foam-18"></div>
+        <div class="foam-19"></div>
+        <div class="foam-20"></div>
+        <div class="foam-21"></div>
+        <div class="foam-22"></div>
+        <div class="foam-23"></div>
+        <div class="foam-24"></div>
+        <div class="foam-25"></div>
+        <div class="foam-26"></div>
+        <div class="foam-27"></div>
+        <div class="foam-28"></div>
+        <div class="foam-29"></div>
+        <div class="foam-30"></div>
+        <div class="foam-31"></div>
+        <div class="foam-32"></div>
+        <div class="foam-33"></div>
+        <div class="foam-34"></div>
+        <div class="foam-35"></div>
+        <div class="foam-36"></div>
+        <div class="foam-37"></div>
+        <div class="foam-38"></div>
+        <div class="foam-39"></div>
+        <div class="foam-40"></div>
+        <div class="foam-41"></div>
+        <div class="foam-42"></div>
+        <div class="foam-43"></div>
+        <div class="foam-44"></div>
+        <div class="foam-45"></div>
+      </div>
+      <div id="liquid">
+        <div class="bubble bubble1"></div>
+        <div class="bubble bubble2"></div>
+        <div class="bubble bubble3"></div>
+        <div class="bubble bubble4"></div>
+        <div class="bubble bubble5"></div>
+        <div class="bubble bubble6"></div>
+        <div class="bubble bubble7"></div>
+        <div class="bubble bubble8"></div>
+        <div class="bubble bubble9"></div>
+        <div class="bubble bubble10"></div>
+        <div class="bubble bubble11"></div>
+        <div class="bubble bubble12"></div>
+        <div class="bubble bubble13"></div>
+        <div class="bubble bubble14"></div>
+        <div class="bubble bubble15"></div>
+        <div class="bubble bubble16"></div>
+        <div class="bubble bubble17"></div>
+        <div class="bubble bubble18"></div>
+        <div class="bubble bubble19"></div>
+        <div class="bubble bubble20"></div>
+        <div class="bubble bubble21"></div>
+        <div class="bubble bubble22"></div>
+        <div class="bubble bubble23"></div>
+        <div class="bubble bubble24"></div>
+        <div class="bubble bubble25"></div>
+        <div class="bubble bubble26"></div>
+        <div class="bubble bubble27"></div>
+        <div class="bubble bubble28"></div>
+        <div class="bubble bubble29"></div>
+        <div class="bubble bubble30"></div>
+        <div class="bubble bubble31"></div>
+        <div class="bubble bubble32"></div>
+        <div class="bubble bubble33"></div>
+        <div class="bubble bubble34"></div>
+        <div class="bubble bubble35"></div>
+        <div class="bubble bubble36"></div>
+        <div class="bubble bubble37"></div>
+        <div class="bubble bubble38"></div>
+        <div class="bubble bubble39"></div>
+        <div class="bubble bubble40"></div>
+        <div class="bubble bubble41"></div>
+        <div class="bubble bubble42"></div>
+        <div class="bubble bubble43"></div>
+      </div>
+    </div>
+    <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h1>BEER GOGGLE GAMES</h1>
+      </div>
+    </div>
+  </div>
+  </div>
+    
+  <div class="container">
+  <br>
+    <!-- Page Heading/Breadcrumbs -->
+    <h1 class="mt-4 mb-3" style="color:#278FFF">#</h1>
+
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="/">Home</a>
+      </li>
+      <li class="breadcrumb-item">
+        <a href="#">#</a>
+      </li>
+      <li class="breadcrumb-item active">#</li>
+    </ol>
+
+    <!-- Content -->
+    
+    <div class="col-md-12">
+      <div class="card my-5">
+      <h3 class="card-header " style="background-color:orange;color:white">Aim of the Game <img class="icon" src="images/target.png" alt="target" width="40" height="40"></img></h3>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <p>#</p>
+            </div>
+      </div>
+      <div class="card my-5">
+      <h3 class="card-header " style="background-color:mediumpurple;color:white">How to Play <img class="icon" src="images/question.png" alt="target" width="40" height="40"></img></h3>
+        
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <p>#</p>
+            <p style="color:green;">#</p>
+            <p style="color:orange;">#</p>
+            <p style="color:red;">#</p>
+            <p>#</p>
+      </div>
+      </div>
+  
+  <!-- Footer -->
+  <footer class="py-5 " style="background-image:url(background1.png);background-repeat: repeat;background-size: 300px 300px;">
+    <div class="container">
+       <div class="row">
+         
+        <div class="col-lg-4 mb-4" style="text-align:center">
+          <br>
+          <a href="https://www.facebook.com/BeerGoggleGames" target="_blank" class="fa fa-facebook text-center" style="font-size:30px;color:#278FFF;background:none;background-image:none;padding:none;"></a> <a href="https://www.instagram.com/BeerGoggleGames" target="_blank" class="fa fa-instagram text-center" style="font-size:30px;color:#278FFF;background:none;background-image:none;padding:none"></a><a href="mailto:BeerGoggleGames@hotmail.com" class="fa fa-envelope text-center" style="font-size:30px;color:#278FFF;background:none;background-image:none;padding:none"></a>
+         </div>
+         
+         <div class="col-lg-4 mb-4" style="text-align:center">
+           <img src="images/BGG.png" width="100px" height="100px"></img>
+           <br>
+           <br>
+           <p class="m-0 text-dark" style="position: relative; bottom: 0; width:100%; text-align: center">Copyright &copy; Beer Goggle Games 2023</p>
+         </div>
+      
+         <div class="col-lg-4 mb-4" style="text-align:center">
+           <br>
+           <a href="https://www.paypal.com/paypalme/BeerGoggleGames" target="_blank">
+             <img src="images/paypal.png" width="100px" height="57px"></img>
+           </a>
+         </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

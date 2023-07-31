@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <base href="https://beergogglegames.co.uk/" >
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="The Home of Drinking Games - A non-profit website providing games, entertainment and information on all things alcohol related">
+  <meta name="author" content="">
+  <meta property="og:title" content="BeerGoggleGames" />
+  <meta property="og:image" content="BGGBW.png" />
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Aladin&family=Comfortaa&family=Frijole&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <title>BeerGoggleGames - Cocktail Recipes</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/modern-business.css" rel="stylesheet">
+
+  <style>
+  .Cbutton {
+  background-color:#278FFF;
+  border: none;
+  color:#FFFFFF;
+  padding: 15px 32px;
+  margin: 0;
+  position: absolute;
+  width: 80%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  transition-duration: 0.4s;
+  border-radius: 8px;
+}
+  .Comfortaa {  
+  font-family: 'Comfortaa', cursive;
+  }
+    
+  .Cbutton:hover {
+    background-color:#0069D9;
+  }
+    
+  .fbutton:focus {
+    outline:0;
+  }
+    
+  .fa {
+  padding: 20px;
+  font-size: 30px;
+  width: 80px;
+  text-align: center;
+  text-decoration: none;
+  margin: 5px 2px;
+}
+
+.fa:hover {
+    opacity: 0.7;
+    text-decoration: none;
+    color:white;
+}
+</style>
+</head>
+
+<body class="Comfortaa">
+
+  <!-- Navigation -->
+  <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-white fixed-top">
+    <div class="container">
+      <a href="/">
+      <img src="images/BGG.png" alt="LOGO" width="80" height="80">
+      </a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item" >
+            <a class="nav-link" href="/">Home</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded= "false">Games</a>
+            <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdownPortfolio">
+              <a class="dropdown-item" href="categories">All Categories</a>
+              <a class="dropdown-item" href="Categories/AllGames">All Games</a>
+              <a class="dropdown-item" href="Categories/TeamGames">Team Games</a>
+              <a class="dropdown-item" href="Categories/CardGames">Card Games</a>
+              <a class="dropdown-item" href="Categories/PongGames">Pong Games</a>
+              <a class="dropdown-item" href="Categories/DiceGames">Dice Games</a>
+              <a class="dropdown-item" href="Categories/CoinGames">Coin Games</a>
+              <a class="dropdown-item" href="Categories/VocalGames">Vocal Games</a>
+              <a class="dropdown-item" href="Categories/MiscGames">Misc. Games</a>
+              <a class="dropdown-item" href="Categories/OutdoorGames">Outdoor Games</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="drinks" id="navbarDropdownPortfolio2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Drinks</a>
+            <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdownPortfolio2">
+              <a class="dropdown-item" href="Drinks/CocktailRecipes">Cocktail Recipes</a>
+              <a class="dropdown-item" href="Drinks/ShotRecipes">Shot Recipes</a>
+              <a class="dropdown-item" href="Drinks/DrinkSearch">Drink Search</a>
+            </div>
+          </li>
+           </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="extras" id="navbarDropdownPortfolio2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Extras</a>
+            <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdownPortfolio2">
+              <a class="dropdown-item" href="extras">All Extras</a>
+              <a class="dropdown-item" href="Extras/activities&minigames">Activities & Minigames</a>
+              <a class="dropdown-item" href="Extras/Blog">Blog</a>
+              <a class="dropdown-item" href="Extras/wheeloffortune">Wheel of Fortune</a>
+              <a class="dropdown-item" href="Extras/products">Products</a>
+              <a class="dropdown-item" href="Extras/glossary">Glossary</a>
+              <a class="dropdown-item" href="Extras/Forfeits">Forfeits</a>
+            </div>
+          </li>
+          <li class="nav-item" >
+            <a class="nav-link" href="about">About</a>
+          </li>
+          <li class="nav-item">
+           <a class="nav-link" href="contact">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  <div class="container">
+  <br>
+    <!-- Page Heading/Breadcrumbs -->
+    <h1 class="mt-4 mb-3" style="color:#278FFF">Cocktail Recipes
+      <small></small>
+    </h1>
+
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="/">Home</a>
+      </li>
+      <li class="breadcrumb-item">
+        <a href="extras">Extras</a>
+      </li>
+      <li class="breadcrumb-item active">Cocktail Recipes</li>
+    </ol>
+    <!-- Intro -->
+    <div class="row">
+      <div class="col-lg-6">
+        <img class="img-fluid rounded mb-4" src="images/bar.jpg" alt="">
+      </div>
+      <div class="col-lg-6">
+        <h2>Cocktail Recipe List</h2>
+        <p>A collection of cocktail recipes that cover both the essentials and the experimental.</p>
+        <p>Use the recipes to create signature drinks that both impress with taste and presentation. Recipe measurements are provided for each drink which outlines how much of each ingredient you need to make 1 drink, multiply this however many times to make more of them.</p>
+        <p>Look through our menu to see what interests you or take inspiration and make one of your own.</p>
+      </div>
+    </div>
+    
+    <hr>
+    <h2>Browse the menu</h2>
+    <p>Find a drink that matches your taste</p>
+    <div class="row">
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="dark-n-stormy"><img class="card-img-top" src="images/dark-n-stormy.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="drinks/cocktailrecipes/dark-n-stormy">Dark 'n' Stormy</a>
+            </h4>
+            <p class="card-text">A sweet yet spiced cocktail for those who like their dark rum.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="espresso-martini"><img class="card-img-top" src="images/espresso-martini.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="drinks/cocktailrecipes/espresso-martini">Espresso Martini</a>
+            </h4>
+            <p class="card-text">A coffee infused vodka cocktail, served ice cold for a refreshing pick-me-up.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="pornstar-martini"><img class="card-img-top" src="images/pornstar-martini.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="drinks/cocktailrecipes/pornstar-martini">Pornstar Martini</a>
+            </h4>
+            <p class="card-text">A classic fruity number that never fails to impress when done right.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="raspberry-gin-fizz"><img class="card-img-top" src="images/raspberry-gin-fizz.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="drinks/cocktailrecipes/raspberry-gin-fizz">Raspberry Gin Fizz</a>
+            </h4>
+            <p class="card-text">A sweet cocktail with fresh fruit and mint, simple and very easy to drink.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="mojito"><img class="card-img-top" src="images/mojito.jpg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="drinks/cocktailrecipes/mojito">Mojito</a>
+            </h4>
+            <p class="card-text">The Cuban crowd-pleaser, a sweet & refreshing drink with a hint of mint.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="margarita"><img class="card-img-top" src="images/margarita.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="drinks/cocktailrecipes/margarita">Margarita</a>
+            </h4>
+            <p class="card-text">A classic tequila based drink that hits you like a tonne of bricks after a few.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="pina-colada"><img class="card-img-top" src="images/pina-colada.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="drinks/cocktailrecipes/pina-colada">Piña Colada</a>
+            </h4>
+            <p class="card-text">A smooth & fresh tropical drink with pineapple, one of the best cocktails for a summers day.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="frozen-daiquiri"><img class="card-img-top" src="images/frozen-daiquiri.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="drinks/cocktailrecipes/frozen-daiquiri">Frozen Daiquiri</a>
+            </h4>
+            <p class="card-text">A frosty favourite with fruit and ice, perfect for a warm day drink in the summer sun.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="mudslide"><img class="card-img-top" src="images/mudslide.jpg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="drinks/cocktailrecipes/mudslide">Mudslide</a>
+            </h4>
+            <p class="card-text">A dessert cocktail featuring coffee liqueur, chocolate and cream with a bit of a kick.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="pimms"><img class="card-img-top" src="images/pimms.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="drinks/cocktailrecipes/pimms">Pimms</a>
+            </h4>
+            <p class="card-text">A refreshing fruit filled punch drink that epitomises summer time drinking.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="cosmopolitan"><img class="card-img-top" src="images/cosmopolitan.jpg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="drinks/cocktailrecipes/cosmopolitan">Cosmopolitan</a>
+            </h4>
+            <p class="card-text">A citrus infused vodka cocktail with a sweet and sharp taste, served in a martini glass.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="amaretto-sour"><img class="card-img-top" src="images/amaretto-sour.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="drinks/cocktailrecipes/amaretto-sour">Amaretto Sour</a>
+            </h4>
+            <p class="card-text">A sweet and sour cocktail with a rich taste and nutty essence.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="zombie"><img class="card-img-top" src="images/zombie.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="drinks/cocktailrecipes/zombie">Zombie</a>
+            </h4>
+            <p class="card-text">A tiki cocktail combining fruit juices, liqueurs, and various rums, founded in Hollywood in the 1930's.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="long-island-iced-tea"><img class="card-img-top" src="images/long-island-iced-tea.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="drinks/cocktailrecipes/long-island-iced-tea">Long Island Iced Tea</a>
+            </h4>
+            <p class="card-text">The ultimate cocktail that hits hard, containing four separate spirits with a sweet cola mixer.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="english-garden"><img class="card-img-top" src="images/english-garden.jpg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="drinks/cocktailrecipes/english-garden">English Garden</a>
+            </h4>
+            <p class="card-text">A fresh daytime gin based cocktail that can be sweetened to your liking.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="negroni"><img class="card-img-top" src="images/negroni.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="drinks/cocktailrecipes/negroni">Negroni</a>
+            </h4>
+            <p class="card-text">A bitter cocktail served neat with a citrusy yet sharp taste, you will either love it or hate it.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="blue-lagoon"><img class="card-img-top" src="images/blue-lagoon.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="drinks/cocktailrecipes/blue-lagoon">Blue Lagoon</a>
+            </h4>
+            <p class="card-text">Similar to a sweet blue lemonade but with more alcohol and a hint of cherry.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="aperol-spritz"><img class="card-img-top" src="images/aperol-spritz.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="drinks/cocktailrecipes/aperol-spritz">Aperol Spritz</a>
+            </h4>
+            <p class="card-text">A Venetian wine-based cocktail with a light, refreshing and unique bittersweet taste.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="old-fashioned"><img class="card-img-top" src="images/old-fashioned.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="drinks/cocktailrecipes/old-fashioned">Old Fashioned</a>
+            </h4>
+            <p class="card-text">A traditional whisky cocktail that can be drank neat or with soda.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="sex-on-the-beach"><img class="card-img-top" src="images/sex-on-the-beach.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="drinks/cocktailrecipes/sex-on-the-beach">Sex On The Beach</a>
+            </h4>
+            <p class="card-text">A fruity cocktail that goes down very easily, combining peach, cranberry and orange.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="moscow-mule"><img class="card-img-top" src="images/moscow-mule.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="drinks/cocktailrecipes/moscow-mule">Moscow Mule</a>
+            </h4>
+            <p class="card-text">A spiced vodka based drink with a hint of lime commonly served ice cold in a copper mug.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="hugo"><img class="card-img-top" src="images/hugo.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="drinks/cocktailrecipes/hugo">Hugo</a>
+            </h4>
+            <p class="card-text">A simple yet refreshing gin spritz, the perfect drink for summer evenings.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="trinidad-sour"><img class="card-img-top" src="images/trinidad-sour.jpg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="drinks/cocktailrecipes/trinidad-sour">Trinidad Sour</a>
+            </h4>
+            <p class="card-text">A rich whisky based delight, its dark and aromatic flavours make it a very satisying drink.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="sidecar"><img class="card-img-top" src="images/sidecar.jpg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="drinks/cocktailrecipes/sidecar">Sidecar</a>
+            </h4>
+            <p class="card-text">An old but popular classic dating back to the early 1900s, a deep yet sweet orange flavour.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="bloody-mary"><img class="card-img-top" src="images/bloody-mary.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="drinks/cocktailrecipes/bloody-mary">Bloody Mary</a>
+            </h4>
+            <p class="card-text">One of the worlds most famous cocktails thats known for its ability to jumpstart even the groggiest of mornings.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="mai-tai"><img class="card-img-top" src="images/mai-tai.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="drinks/cocktailrecipes/mai-tai">Mai Tai</a>
+            </h4>
+            <p class="card-text">A drink that tastes of pure paradise, a sweet and tropical tiki cocktail that encorporates 2 types of rum.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="paloma"><img class="card-img-top" src="images/paloma.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="drinks/cocktailrecipes/paloma">Paloma</a>
+            </h4>
+            <p class="card-text">A drink with the refreshing taste of grapefruit and the counteracting sweetness of honey and tequila.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="martinez"><img class="card-img-top" src="images/martinez.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="drinks/cocktailrecipes/martinez">Martinez</a>
+            </h4>
+            <p class="card-text">A gin based variation of the Manhattan which has deep flavours and fruity accents.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="white-russian"><img class="card-img-top" src="images/white-russian.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="drinks/cocktailrecipes/white-russian">White Russian</a>
+            </h4>
+            <p class="card-text">This popular beverage combines just 3 ingredients, providing a smooth and pleasant coffee flavour as seen in The Big Lebowski.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="blinker"><img class="card-img-top" src="images/blinker.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="drinks/cocktailrecipes/blinker">Blinker</a>
+            </h4>
+            <p class="card-text">A simple yet interesting cocktail with a whisky base and flavours of berries.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="mimosa"><img class="card-img-top" src="images/mimosa.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="drinks/cocktailrecipes/mimosa">Mimosa</a>
+            </h4>
+            <p class="card-text">Simply juice and fizz but a great drink to start an evening or enjoy as a light drink in the day.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="queens-park-swizzle"><img class="card-img-top" src="images/queens-park-swizzle.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="drinks/cocktailrecipes/queens-park-swizzle">Queens Park Swizzle</a>
+            </h4>
+            <p class="card-text">A spiced long drink with deep flavours and sweet accents, something simple but not easily found at a bar.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+            <a href="drinks/cocktailrecipes/sangria"><img class="card-img-top" src="images/sangria.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="drinks/cocktailrecipes/sangria">Sangria</a>
+            </h4>
+            <p class="card-text">A sweet and fruity wine drink with the slightly tart taste of red wine giving it a rich flavour.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+            <a href="drinks/cocktailrecipes/woo-woo"><img class="card-img-top" src="images/woowoo.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="drinks/cocktailrecipes/woo-woo">Woo Woo</a>
+            </h4>
+            <p class="card-text">A very sweet and fruity drink, with strong flavours of cranberry and peach giving it a refreshing taste.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+            <a href="drinks/cocktailrecipes/singapore-sling"><img class="card-img-top" src="images/singaporesling.jpg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="drinks/cocktailrecipes/singapore-sling">Singapore Sling</a>
+            </h4>
+            <p class="card-text">An upfront fruity flavour on the tongue that is followed by a very subtle, deep earthiness from the various liqueurs.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+            <a href="drinks/cocktailrecipes/vodka-martini"><img class="card-img-top" src="vodka-martini.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="drinks/cocktailrecipes/vodka-martini">Vodka Martini</a>
+            </h4>
+            <p class="card-text">A classy drink that is easy to make using just vodka and vermouth, a favourite amongst cocktail enthusiasts.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+            <a href="drinks/cocktailrecipes/limoncello-spritz"><img class="card-img-top" src="images/limoncello-spritz.jpg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="drinks/cocktailrecipes/limoncello-spritz">Limoncello Spritz</a>
+            </h4>
+            <p class="card-text">A refreshing cocktail that combines the zesty flavour of lemon and the bubbly vibrance of prosecco.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+            <a href="drinks/cocktailrecipes/manhattan"><img class="card-img-top" src="images/manhattan.jpg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="drinks/cocktailrecipes/manhattan">Manhattan</a>
+            </h4>
+            <p class="card-text">A classic whisky based cocktail offering a rich and balanced flavour thats not too sweet.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+            <a href="drinks/cocktailrecipes/oat-so-delicious"><img class="card-img-top" src="images/oat-so-delicious.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="drinks/cocktailrecipes/oat-so-delicious">Oat So Delicious</a>
+            </h4>
+            <p class="card-text">A unique cocktail with a creamy and spiced taste offering both sweet and comforting flavours</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+            <a href="drinks/cocktailrecipes/gimlet"><img class="card-img-top" src="images/gimlet.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="drinks/cocktailrecipes/gimlet">Gimlet</a>
+            </h4>
+            <p class="card-text">A classic cocktail known for its refreshing and tangy character, offering balanced sweet and botanical flavours.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+            <a href="drinks/cocktailrecipes/appletini"><img class="card-img-top" src="images/appletini.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="drinks/cocktailrecipes/appletini">Appletini</a>
+            </h4>
+            <p class="card-text">A drink that describes itself giving strong tastes of apple with the elegance of a martini.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+            <a href="drinks/cocktailrecipes/bushwacker"><img class="card-img-top" src="images/bushwacker.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="drinks/cocktailrecipes/bushwacker">Bushwacker</a>
+            </h4>
+            <p class="card-text">A sweet and creamy concoction which is basically a boozy milkshake, with tastes of chocolate, coconut and coffee.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+            <a href="drinks/cocktailrecipes/brandy-sour"><img class="card-img-top" src="images/brandy-sour.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="drinks/cocktailrecipes/brandy-sour">Brandy Sour</a>
+            </h4>
+            <p class="card-text">A classic sweet and sour drink with a predominant taste of lemon and a frothy top.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+            <a href="drinks/cocktailrecipes/tequila-sunrise"><img class="card-img-top" src="images/tequila-sunrise.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="drinks/cocktailrecipes/tequila-sunrise">Tequila Sunrise</a>
+            </h4>
+            <p class="card-text">One of the most popular tequila based drinks that reminds people of holiday and keeps them refreshed.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+            <a href="drinks/cocktailrecipes/shirley-temple"><img class="card-img-top" src="images/shirley-temple.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="drinks/cocktailrecipes/shirley-temple">Shirley Temple</a>
+            </h4>
+            <p class="card-text">A traditionally non-alcoholic cocktail made with vodka, sweet and refreshing usually made with ginger ale.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+            <a href="drinks/cocktailrecipes/cuba-libre"><img class="card-img-top" src="images/cuba-libre.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="drinks/cocktailrecipes/cuba-libre">Cuba Libre</a>
+            </h4>
+            <p class="card-text">One of the simplest cocktails to make, no equipment required. This drink combines just three ready-made ingredients.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+            <a href="drinks/cocktailrecipes/adonis"><img class="card-img-top" src="images/adonis.jpg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="drinks/cocktailrecipes/adonis">Adonis</a>
+            </h4>
+            <p class="card-text">A deeply flavoured wine based drink that is quite simple to make with just two ingredients and a twist of orange peel.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+            <a href="drinks/cocktailrecipes/sea-breeze"><img class="card-img-top" src="images/sea-breeze.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="drinks/cocktailrecipes/sea-breeze">Sea Breeze</a>
+            </h4>
+            <p class="card-text">A 1920's light and refreshing cocktail that pairs perfectly with sunny days at the beach, using vodka and fruit juices.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+            <a href="drinks/cocktailrecipes/"><img class="card-img-top" src="images/ComingSoon700x400.png" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="drinks/cocktailrecipes/">Alabama Slammer</a>
+            </h4>
+            <p class="card-text">Coming soon</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+            <a href="drinks/cocktailrecipes/"><img class="card-img-top" src="images/ComingSoon700x400.png" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="drinks/cocktailrecipes/">Greek Sea</a>
+            </h4>
+            <p class="card-text">Coming soon</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+            <a href="drinks/cocktailrecipes/"><img class="card-img-top" src="images/ComingSoon700x400.png" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="drinks/cocktailrecipes/">Blanco Diablo</a>
+            </h4>
+            <p class="card-text">Coming soon</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+            <a href="drinks/cocktailrecipes/"><img class="card-img-top" src="images/ComingSoon700x400.png" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="drinks/cocktailrecipes/">Savoy Special</a>
+            </h4>
+            <p class="card-text">Coming soon</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+            <a href="drinks/cocktailrecipes/"><img class="card-img-top" src="images/ComingSoon700x400.png" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="drinks/cocktailrecipes/">Kamikaze</a>
+            </h4>
+            <p class="card-text">Coming soon</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+            <a href="drinks/cocktailrecipes/"><img class="card-img-top" src="images/ComingSoon700x400.png" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="drinks/cocktailrecipes/">French 75</a>
+            </h4>
+            <p class="card-text">Coming soon</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+            <a href="drinks/cocktailrecipes/"><img class="card-img-top" src="images/ComingSoon700x400.png" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="drinks/cocktailrecipes/">Jungle Bird</a>
+            </h4>
+            <p class="card-text">Coming soon</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+            <a href="drinks/cocktailrecipes/"><img class="card-img-top" src="images/ComingSoon700x400.png" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="drinks/cocktailrecipes/">Brandy Alexander</a>
+            </h4>
+            <p class="card-text">Coming soon</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+            <a href="drinks/cocktailrecipes/"><img class="card-img-top" src="images/ComingSoon700x400.png" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="drinks/cocktailrecipes/">Caipirinha</a>
+            </h4>
+            <p class="card-text">Coming soon</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+            <a href="drinks/cocktailrecipes/"><img class="card-img-top" src="images/ComingSoon700x400.png" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="drinks/cocktailrecipes/">Coco Batida</a>
+            </h4>
+            <p class="card-text">Coming soon</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+            <a href="drinks/cocktailrecipes/"><img class="card-img-top" src="images/ComingSoon700x400.png" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="drinks/cocktailrecipes/">Vesper Martini</a>
+            </h4>
+            <p class="card-text">Coming soon</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+            <a href="drinks/cocktailrecipes/"><img class="card-img-top" src="images/ComingSoon700x400.png" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="drinks/cocktailrecipes/">Sazerac</a>
+            </h4>
+            <p class="card-text">Coming soon</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+            <a href="drinks/cocktailrecipes/"><img class="card-img-top" src="images/ComingSoon700x400.png" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="drinks/cocktailrecipes/">Cane Flower</a>
+            </h4>
+            <p class="card-text">Coming soon</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+            <a href="drinks/cocktailrecipes/"><img class="card-img-top" src="images/ComingSoon700x400.png" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="drinks/cocktailrecipes/">Green Lantern</a>
+            </h4>
+            <p class="card-text">Coming soon</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+            <a href="drinks/cocktailrecipes/"><img class="card-img-top" src="images/ComingSoon700x400.png" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="drinks/cocktailrecipes/">Berry Nice</a>
+            </h4>
+            <p class="card-text">Coming soon</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+            <a href="drinks/cocktailrecipes/"><img class="card-img-top" src="images/ComingSoon700x400.png" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="drinks/cocktailrecipes/">Blue Cinnamon</a>
+            </h4>
+            <p class="card-text">Coming soon</p>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+
+    <!-- Call to action -->
+    <hr>
+    <div class="row mb-4">
+      <div class="col-md-8">
+        <h4 class="Comfortaa"style="color:#278FFF">Submit a Recipe</h4>
+        <p class="Comforta"><b>Got drinks recipes of your own?</b></p>
+        <p class="Comforta">Submit the details to us through our contact page, if we like it we will add it to the website along with crediting you for your contribution!</p>
+      </div>
+      <div class="col-md-4">
+        <br>
+        <br>
+        <br>
+        <a href="contact">
+          <button class="Cbutton Comfortaa">Submit a Recipe</button>
+            </a>
+      </div>
+    </div>
+
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <footer class="py-5 " style="background-image:url(background1.png);background-repeat: repeat;background-size: 300px 300px;">
+    <div class="container">
+       <div class="row">
+         
+        <div class="col-lg-4 mb-4" style="text-align:center">
+          <br>
+          <a href="https://www.facebook.com/BeerGoggleGames" target="_blank" class="fa fa-facebook text-center" style="font-size:30px;color:#278FFF;background:none;background-image:none;padding:none;"></a> <a href="https://www.instagram.com/BeerGoggleGames" target="_blank" class="fa fa-instagram text-center" style="font-size:30px;color:#278FFF;background:none;background-image:none;padding:none"></a><a href="mailto:BeerGoggleGames@hotmail.com" class="fa fa-envelope text-center" style="font-size:30px;color:#278FFF;background:none;background-image:none;padding:none"></a>
+         </div>
+         
+         <div class="col-lg-4 mb-4" style="text-align:center">
+           <img src="images/BGG.png" width="100px" height="100px"></img>
+           <br>
+           <br>
+           <p class="m-0 text-dark" style="position: relative; bottom: 0; width:100%; text-align: center">Copyright &copy; Beer Goggle Games 2023</p>
+         </div>
+      
+         <div class="col-lg-4 mb-4" style="text-align:center">
+           <br>
+           <a href="https://www.paypal.com/paypalme/BeerGoggleGames" target="_blank">
+             <img src="images/paypal.png" width="100px" height="57px"></img>
+           </a>
+         </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

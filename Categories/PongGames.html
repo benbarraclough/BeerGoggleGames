@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <base href="https://beergogglegames.co.uk/" >
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="The Home of Drinking Games - A non-profit website providing games, entertainment and information on all things alcohol related">
+  <meta name="author" content="">
+  <meta property="og:title" content="BeerGoggleGames" />
+  <meta property="og:image" content="BGGBW.png" />
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Aladin&family=Comfortaa&family=Frijole&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <title>BeerGoggleGames - Pong Games</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/modern-business.css" rel="stylesheet">
+
+  <style>
+    
+  .Cbutton {
+  background-color:#278FFF;
+  border: none;
+  color:#FFFFFF;
+  padding: 15px 32px;
+  margin: 0;
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  transition-duration: 0.4s;
+  border-radius: 8px;
+}
+  
+  .Cbutton:hover {
+    background-color:#0069D9;
+  }
+    
+  .Comfortaa {  
+  font-family: 'Comfortaa', cursive;
+  }
+    
+.fbutton:focus {
+    outline:0;
+  }
+    
+  .fa {
+  padding: 20px;
+  font-size: 30px;
+  width: 80px;
+  text-align: center;
+  text-decoration: none;
+  margin: 5px 2px;
+}
+
+.fa:hover {
+    opacity: 0.7;
+    text-decoration: none;
+    color:white;
+}
+</style>
+</head>
+
+<body class="Comfortaa">
+
+  <!-- Navigation -->
+  <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-white fixed-top">
+    <div class="container">
+      <a href="/">
+      <img src="images/BGG.png" alt="LOGO" width="80" height="80">
+      </a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item" >
+            <a class="nav-link" href="/">Home</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded= "false">Games</a>
+            <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdownPortfolio">
+              <a class="dropdown-item" href="categories">All Categories</a>
+              <a class="dropdown-item" href="Categories/AllGames">All Games</a>
+              <a class="dropdown-item" href="Categories/TeamGames">Team Games</a>
+              <a class="dropdown-item" href="Categories/CardGames">Card Games</a>
+              <a class="dropdown-item" href="Categories/PongGames">Pong Games</a>
+              <a class="dropdown-item" href="Categories/DiceGames">Dice Games</a>
+              <a class="dropdown-item" href="Categories/CoinGames">Coin Games</a>
+              <a class="dropdown-item" href="Categories/VocalGames">Vocal Games</a>
+              <a class="dropdown-item" href="Categories/MiscGames">Misc. Games</a>
+              <a class="dropdown-item" href="Categories/OutdoorGames">Outdoor Games</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="drinks" id="navbarDropdownPortfolio2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Drinks</a>
+            <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdownPortfolio2">
+              <a class="dropdown-item" href="Drinks/CocktailRecipes">Cocktail Recipes</a>
+              <a class="dropdown-item" href="Drinks/ShotRecipes">Shot Recipes</a>
+              <a class="dropdown-item" href="Drinks/DrinkSearch">Drink Search</a>
+            </div>
+          </li>
+           </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="extras" id="navbarDropdownPortfolio2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Extras</a>
+            <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdownPortfolio2">
+              <a class="dropdown-item" href="extras">All Extras</a>
+              <a class="dropdown-item" href="Extras/activities&minigames">Activities & Minigames</a>
+              <a class="dropdown-item" href="Extras/Blog">Blog</a>
+              <a class="dropdown-item" href="Extras/wheeloffortune">Wheel of Fortune</a>
+              <a class="dropdown-item" href="Extras/products">Products</a>
+              <a class="dropdown-item" href="Extras/glossary">Glossary</a>
+              <a class="dropdown-item" href="Extras/Forfeits">Forfeits</a>
+            </div>
+          </li>
+          <li class="nav-item" >
+            <a class="nav-link" href="about">About</a>
+          </li>
+          <li class="nav-item">
+           <a class="nav-link" href="contact">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  <div class="container">
+  <br>
+    <!-- Page Heading/Breadcrumbs -->
+    <h1 class="mt-4 mb-3" style="color:#278FFF">Pong Games
+      <small></small>
+    </h1>
+
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="/">Home</a>
+      </li>
+      <li class="breadcrumb-item">
+        <a href="categories">Categories</a>
+      </li>
+      <li class="breadcrumb-item active">Pong Games</li>
+    </ol>
+
+    <div class="row">
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="Categories/PongGames/Baseball"><img class="card-img-top" src="images/baseball2.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="Categories/PongGames/Baseball">Baseball</a>
+            </h4>
+            <p class="card-text">An All-American team sport made easy, using elements of beer pong as the competitive aspect, hit some runs and don't get out.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="Categories/PongGames/BeerPong"><img class="card-img-top" src="images/beerpong2.jpg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="Categories/PongGames/BeerPong">Beer Pong</a>
+            </h4>
+            <p class="card-text">The most legendary drinking game of all time originating from the Roman Empire when a stone fell from above into the chalice of Julius Caesar.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="Categories/PongGames/blowball"><img class="card-img-top" src="images/blowball2.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="Categories/PongGames/blowball">Blow Ball</a>
+            </h4>
+            <p class="card-text">Using the skill of blowing, navigate a ping pong ball through an obstacle course to glory as fast as possible.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="Categories/PongGames/Chandelier"><img class="card-img-top" src="images/chandelier2.jpg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="Categories/PongGames/Chandelier">Chandelier</a>
+            </h4>
+            <p class="card-text">Throw the ball into your oppponents cups to make them drink. Get it in the wrong cup and you'll need to be good at flip cup to avoid the chug cup.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="Categories/PongGames/Corners"><img class="card-img-top" src="images/corners2.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="Categories/PongGames/Corners">Corners</a>
+            </h4>
+            <p class="card-text">A quick and easy 4 player version of Beer Pong, whereby two ping pong balls are thrown in rapid succession by both teams to eliminate eachothers lives as quickly as possible.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="Categories/PongGames/gameofseven"><img class="card-img-top" src="images/gameofseven2.jpg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="Categories/PongGames/gameofseven">Game of Seven</a>
+            </h4>
+            <p class="card-text">A game for those who like a good challenge, work as a pair to get a full 7 bounces of the ball across the table without messing up.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="Categories/PongGames/hungryhungryhippos"><img class="card-img-top" src="images/hungryhungryhippos2.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="Categories/PongGames/hungryhungryhippos">Hungry Hungry Hippos</a>
+            </h4>
+            <p class="card-text">A childhood game repurposed for adult use, collect and consume as many cups from the centre just like the greedy hippo you are.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="Categories/PongGames/knockoutpong"><img class="card-img-top" src="images/knockoutpong2.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="Categories/PongGames/knockoutpong">Knockout Pong</a>
+            </h4>
+            <p class="card-text">A game sourced from the USA, similar to a game of knockout basketball. Score your shots as quick as you can before the player behind you to stay in the game.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="Categories/PongGames/Oblivion"><img class="card-img-top" src="images/oblivion2.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="Categories/PongGames/Oblivion">Oblivion</a>
+            </h4>
+            <p class="card-text">A game of high risk requiring great nerve to compete and composure to perform. Complete the tasks before your opponent to trap them into oblivion. Do not play this game lightly!</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="Categories/PongGames/RageCage"><img class="card-img-top" src="images/ragecage2.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="Categories/PongGames/RageCage">Rage Cage</a>
+            </h4>
+            <p class="card-text">A high intensity group game of short range beer pong. Bounce it in the cup as quick as you can before being stacked by an opponent and suffering a tepid beer.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="Categories/PongGames/RingPong"><img class="card-img-top" src="images/ringpong2.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="Categories/PongGames/RingPong">Ring Pong</a>
+            </h4>
+            <p class="card-text">A frantically fast paced beer pong game that involves quick shots and quick drinking whilst running round the table.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="Categories/PongGames/#"><img class="card-img-top" src="images/ComingSoon700x400.png" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="Categories/PongGames/#">Coming Soon</a>
+            </h4>
+            <p class="card-text">New Game on the way, check back soon!</p>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+
+    <!-- Call to action -->
+    <hr>
+    <div class="row mb-4">
+      <div class="col-md-8">
+        <h4 class="Comfortaa"style="color:#278FFF">Submit a Game</h4>
+        <p class="Comforta"><b>Know a drinking game that we don't?</b></p>
+        <p class="Comforta">Submit the details to us through our contact page, if we like it we will add it to the website along with crediting you for your contribution!</p>
+      </div>
+      <div class="col-md-4">
+        <br>
+        <br>
+        <br>
+        <a href="contact">
+          <button class="Cbutton Comfortaa" >Submit a Game</button>
+            </a>
+      </div>
+    </div>
+
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <footer class="py-5 " style="background-image:url(background1.png);background-repeat: repeat;background-size: 300px 300px;">
+    <div class="container">
+       <div class="row">
+         
+        <div class="col-lg-4 mb-4" style="text-align:center">
+          <br>
+          <a href="https://www.facebook.com/BeerGoggleGames" target="_blank" class="fa fa-facebook text-center" style="font-size:30px;color:#278FFF;background:none;background-image:none;padding:none;"></a> <a href="https://www.instagram.com/BeerGoggleGames" target="_blank" class="fa fa-instagram text-center" style="font-size:30px;color:#278FFF;background:none;background-image:none;padding:none"></a><a href="mailto:BeerGoggleGames@hotmail.com" class="fa fa-envelope text-center" style="font-size:30px;color:#278FFF;background:none;background-image:none;padding:none"></a>
+         </div>
+         
+         <div class="col-lg-4 mb-4" style="text-align:center">
+           <img src="images/BGG.png" width="100px" height="100px"></img>
+           <br>
+           <br>
+           <p class="m-0 text-dark" style="position: relative; bottom: 0; width:100%; text-align: center">Copyright &copy; Beer Goggle Games 2023</p>
+         </div>
+      
+         <div class="col-lg-4 mb-4" style="text-align:center">
+           <br>
+           <a href="https://www.paypal.com/paypalme/BeerGoggleGames" target="_blank">
+             <img src="images/paypal.png" width="100px" height="57px"></img>
+           </a>
+         </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

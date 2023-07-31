@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <base href="https://beergogglegames.co.uk/" >
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="The Home of Drinking Games - A non-profit website providing games, entertainment and information on all things alcohol related">
+  <meta name="author" content="">
+  <meta property="og:title" content="BeerGoggleGames" />
+  <meta property="og:image" content="BGGBW.png" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Aladin&family=Comfortaa&family=Frijole&display=swap" rel="stylesheet">
+
+  <title>BeerGoggleGames - Forfeits</title>
+
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/modern-business.css" rel="stylesheet">
+  
+  <script>
+    function Copy() {
+      var inputc = document.body.appendChild(document.createElement("input"));
+      inputc.value = window.location.href;
+      inputc.focus();
+      inputc.select();
+      document.execCommand('copy');
+      inputc.parentNode.removeChild(inputc);
+      alert("Link Copied");
+    }
+  </script>
+  
+  <script>
+    function returnURL() {
+      var inputc = document.body.appendChild(document.createElement("input"));
+      inputc.value = window.location.href;
+      return inputc.value;
+    }
+  </script>
+
+  <style>
+    .Cbutton {
+    background-color:#278FFF;
+    border: none;
+    color:#FFFFFF;
+    padding: 15px 32px;
+    margin: 0;
+    position: absolute;
+    width: 80%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    transition-duration: 0.4s;
+    border-radius: 8px;
+  }
+    .Comfortaa {  
+    font-family: 'Comfortaa', cursive;
+    }
+
+    .fbutton:focus {
+      outline:0;
+    }
+
+    .fa {
+    padding: 20px;
+    font-size: 30px;
+    width: 80px;
+    text-align: center;
+    text-decoration: none;
+    margin: 5px 2px;
+  }
+
+  .fa:hover {
+      opacity: 0.7;
+      text-decoration: none;
+      color:white;
+  }
+
+  .fa-facebook {
+    background: #3B5998;
+    color: white;
+  }
+
+  .fa-twitter {
+    background: #55ACEE;
+    color: white;
+  }
+
+  .fa-instagram {
+    background-image: url("instaBG1.jpeg");
+    color: white;
+  }
+
+  .fa-link {
+    background: #FF9D4A;
+    color: white;
+  }
+</style>
+</head>
+
+<body class="Comfortaa">
+
+  <!-- Navigation -->
+  <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-white fixed-top">
+    <div class="container">
+      <a href="/">
+      <img src="images/BGG.png" alt="LOGO" width="80" height="80">
+      </a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item" >
+            <a class="nav-link" href="/">Home</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded= "false">Games</a>
+            <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdownPortfolio">
+              <a class="dropdown-item" href="categories">All Categories</a>
+              <a class="dropdown-item" href="Categories/AllGames">All Games</a>
+              <a class="dropdown-item" href="Categories/TeamGames">Team Games</a>
+              <a class="dropdown-item" href="Categories/CardGames">Card Games</a>
+              <a class="dropdown-item" href="Categories/PongGames">Pong Games</a>
+              <a class="dropdown-item" href="Categories/DiceGames">Dice Games</a>
+              <a class="dropdown-item" href="Categories/CoinGames">Coin Games</a>
+              <a class="dropdown-item" href="Categories/VocalGames">Vocal Games</a>
+              <a class="dropdown-item" href="Categories/MiscGames">Misc. Games</a>
+              <a class="dropdown-item" href="Categories/OutdoorGames">Outdoor Games</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="drinks" id="navbarDropdownPortfolio2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Drinks</a>
+            <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdownPortfolio2">
+              <a class="dropdown-item" href="Drinks/CocktailRecipes">Cocktail Recipes</a>
+              <a class="dropdown-item" href="Drinks/ShotRecipes">Shot Recipes</a>
+              <a class="dropdown-item" href="Drinks/DrinkSearch">Drink Search</a>
+            </div>
+          </li>
+           </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="extras" id="navbarDropdownPortfolio2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Extras</a>
+            <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdownPortfolio2">
+              <a class="dropdown-item" href="extras">All Extras</a>
+              <a class="dropdown-item" href="Extras/activities&minigames">Activities & Minigames</a>
+              <a class="dropdown-item" href="Extras/Blog">Blog</a>
+              <a class="dropdown-item" href="Extras/wheeloffortune">Wheel of Fortune</a>
+              <a class="dropdown-item" href="Extras/products">Products</a>
+              <a class="dropdown-item" href="Extras/glossary">Glossary</a>
+              <a class="dropdown-item" href="Extras/Forfeits">Forfeits</a>
+            </div>
+          </li>
+          <li class="nav-item" >
+            <a class="nav-link" href="about">About</a>
+          </li>
+          <li class="nav-item">
+           <a class="nav-link" href="contact">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  <div class="container">
+  <br>
+    <!-- Page Heading/Breadcrumbs -->
+    <h1 class="mt-4 mb-3" style="color:#278FFF">Forfeits
+    </h1>
+
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="/">Home</a>
+      </li>
+      <li class="breadcrumb-item">
+        <a href="extras">Extras</a>
+      </li>
+      <li class="breadcrumb-item active">Forfeits</li>
+    </ol>
+<!-- Intro -->
+    <div class="row">
+      <div class="col-lg-6">
+        <img class="img-fluid rounded mb-4" src="images/forfeits.jpg" alt="">
+      </div>
+      <div class="col-lg-6">
+        <h2>Forfeits</h2>
+        <p>A collection of some popular and creative forfeits that you can use as part of any drinking game.</p>
+        <p>Contact us by clicking the feedback button at the bottom of this page for your chance to make an addition to this list.</p>
+      </div>
+    </div>
+    <!-- Content -->
+    <hr>
+    <h2>Browse the list</h2>
+    <p>Select one of the dropdowns below to view their definition</p>
+    <div class="mb-4" id="accordion" role="tablist" aria-multiselectable="true">
+      
+      <div class="card">
+        <div class="card-header" role="tab" id="headingAllFours">
+          <h5 class="mb-0">
+            <p><a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseAllFours" aria-expanded="false" aria-controls="collapseAllFours">All Fours</a> - A degrading punishment</p>
+          </h5>
+        </div>
+        <div id="collapseAllFours" class="collapse" role="tabpanel" aria-labelledby="headingAllFours">
+          <div class="card-body">You must travel on all fours for a set amount of time.
+          </div>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="card-header" role="tab" id="headingBeerBong">
+          <h5 class="mb-0">
+            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseBeerBong" aria-expanded="false" aria-controls="collapseBeerBong">Beer Bong - A classic drinking penalty</a>
+          </h5>
+        </div>
+        <div id="collapseBeerBong" class="collapse" role="tabpanel" aria-labelledby="headingBeerBong">
+          <div class="card-body">Neck a full drink using a beer bong funnel and pipe.
+          </div>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="card-header" role="tab" id="headingCheeseOnCrackers">
+          <h5 class="mb-0">
+            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseCheeseOnCrackers" aria-expanded="false" aria-controls="collapseCheeseOnCrackers">Cheese On Crackers - Quite a tricky eating task</a>
+          </h5>
+        </div>
+        <div id="collapseCheeseOnCrackers" class="collapse" role="tabpanel" aria-labelledby="headingCheeseOnCrackers">
+          <div class="card-body">Shave a thin slice of soap off of the top of a bar of soap. Place it on top of a cracker or similar carbohydrate and eat.
+          </div>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="card-header" role="tab" id="headingChugCup">
+          <h5 class="mb-0">
+            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseChugCup" aria-expanded="false" aria-controls="collapseChugCup">Chug Cup - Sharing is caring, a difficult drinking challenge.</a>
+          </h5>
+        </div>
+        <div id="collapseChugCup" class="collapse" role="tabpanel" aria-labelledby="headingChugCup">
+          <div class="card-body">Everyone involved puts a little bit of their own drink into a glass until full, you must drink it whole. This is usually set up before a game so people are more reserved with their donations. The fact that the forfeit is visible also creates more dread.
+          </div>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="card-header" role="tab" id="headingDancingmonkey">
+          <h5 class="mb-0">
+            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseDancingmonkey" aria-expanded="false" aria-controls="collapseDancingmonkey">Dancing Monkey - An embarrassing bundle of fun</a>
+          </h5>
+        </div>
+        <div id="collapseDancingmonkey" class="collapse" role="tabpanel" aria-labelledby="headingDancingmonkey">
+          <div class="card-body">Whether it is for half an hour or for the entire evening, you must be a dancing monkey, strutting your stuff anytime someone demands so.
+          </div>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="card-header" role="tab" id="headingEdwardCiderhands">
+          <h5 class="mb-0">
+            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseEdwardCiderhands" aria-expanded="false" aria-controls="collapseEdwardCiderhands">Edward Ciderhands - Drink to release yourself from the curse.</a>
+          </h5>
+        </div>
+        <div id="collapseEdwardCiderhands" class="collapse" role="tabpanel" aria-labelledby="headingEdwardCiderhands">
+          <div class="card-body">Tape a bottle of cider to each hand, only when you finish the drink can you take them off. Top tip: Some cider bottles go up to 4 litres.
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header" role="tab" id="headingDiceOfDoom">
+          <h5 class="mb-0">
+            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseDiceOfDoom" aria-expanded="false" aria-controls="collapseDiceOfDoom">Dice of Doom - A luck based punishment</a>
+          </h5>
+        </div>
+        <div id="collapseDiceOfDoom" class="collapse" role="tabpanel" aria-labelledby="headingDiceOfDoom">
+          <div class="card-body">Choose a number on the dice, then roll. When the dice stops any number but your chosen number, you must take a drink. Once your number is rolled 3 times, you are free.
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header" role="tab" id="headingDisabled">
+          <h5 class="mb-0">
+            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseDisabled" aria-expanded="false" aria-controls="collapseDisabled">Disabled - Handicapping the loser</a>
+          </h5>
+        </div>
+        <div id="collapseDisabled" class="collapse" role="tabpanel" aria-labelledby="headingDisabled">
+          <div class="card-body">Someone must tape one of your limbs, which must stay that way for a set amount of time.
+          </div>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="card-header" role="tab" id="headingFlirt">
+          <h5 class="mb-0">
+            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFlirt" aria-expanded="false" aria-controls="collapseFlirt">Flirt - A task requiring confidence or self-esteem made of stone</a>
+          </h5>
+        </div>
+        <div id="collapseFlirt" class="collapse" role="tabpanel" aria-labelledby="headingFlirt">
+          <div class="card-body">Flirt for a set amount of time with an individual who is chosen for you. This is good for a group who are all involved or for a small group with others who are not involved.
+          </div>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="card-header" role="tab" id="headingFlourPower">
+          <h5 class="mb-0">
+            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFlourPower" aria-expanded="false" aria-controls="collapseFlourPower">Flour Power - An unrewarding eating challenge</a>
+          </h5>
+        </div>
+        <div id="collapseFlourPower" class="collapse" role="tabpanel" aria-labelledby="headingFlourPower">
+          <div class="card-body">Eat a spoon full of flour, nothing more.
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header" role="tab" id="headingConcussion">
+          <h5 class="mb-0">
+            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseConcussion" aria-expanded="false" aria-controls="collapseConcussion">Concussion - A mission that you need a strong skull for</a>
+          </h5>
+        </div>
+        <div id="collapseConcussion" class="collapse" role="tabpanel" aria-labelledby="headingConcussion">
+          <div class="card-body">Open a can of beer with nothing but your head and drink until it is empty.
+          </div>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="card-header" role="tab" id="headingDilemma">
+          <h5 class="mb-0">
+            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseDilemma" aria-expanded="false" aria-controls="collapseDilemma">Dilemma - A tricky choice of 3 evils</a>
+          </h5>
+        </div>
+        <div id="collapseDilemma" class="collapse" role="tabpanel" aria-labelledby="headingDilemma">
+          <div class="card-body">Two different drinkable options should be presented to you, this should include one badly tasting alcoholic shot, two or three nice shots and 2 big drinks of beer/cider. You must choose one of these options to consume.
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header" role="tab" id="headingFlamingShot">
+          <h5 class="mb-0">
+            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFlamingShot" aria-expanded="false" aria-controls="collapseFlamingShot">FlamingShot</a>
+          </h5>
+        </div>
+        <div id="collapseFlamingShot" class="collapse" role="tabpanel" aria-labelledby="headingFlamingShot">
+          <div class="card-body">Pour any high-proof alcoholic drink into a shot glass, light it and consume it in one. (WARNING: This should be done incredibly carefully. Don't sip. Don't spill Don't miss the mouth. Close mouth after consumption. Have a bucket of water nearby.)
+          </div>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="card-header" role="tab" id="headingGoLive">
+          <h5 class="mb-0">
+            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseGoLive" aria-expanded="false" aria-controls="collapseGoLive">Go live - Broadcast the fun to the world</a>
+          </h5>
+        </div>
+        <div id="collapseGoLive" class="collapse" role="tabpanel" aria-labelledby="headingGoLive">
+          <div class="card-body">You must go live on a social media app for 10 minutes with somebody on the screen at all times.
+          </div>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="card-header" role="tab" id="headingGraffiti">
+          <h5 class="mb-0">
+            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseGraffiti" aria-expanded="false" aria-controls="collapseGraffiti">Graffiti - An artistic and creative outlet</a>
+          </h5>
+        </div>
+        <div id="collapseGraffiti" class="collapse" role="tabpanel" aria-labelledby="headingGraffiti">
+          <div class="card-body">You must choose someone to draw on you with a marker pen, in any place they choose.
+          </div>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="card-header" role="tab" id="headingIceT">
+          <h5 class="mb-0">
+            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseIceT" aria-expanded="false" aria-controls="collapseIceT">Ice-T - A wearable punishment</a>
+          </h5>
+        </div>
+        <div id="collapseIceT" class="collapse" role="tabpanel" aria-labelledby="headingIceT">
+          <div class="card-body">Soak a t-shirt in water, ring it out a little, place it in the freezer for 30 mins or until frozen. The forfeit is then to wear the top as normal until it thaws out.
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header" role="tab" id="headingLeash">
+          <h5 class="mb-0">
+            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseLeash" aria-expanded="false" aria-controls="collapseLeash">Leash - You're now property</a>
+          </h5>
+        </div>
+        <div id="collapseLeash" class="collapse" role="tabpanel" aria-labelledby="headingLeash">
+          <div class="card-body">You must choose your owner and they must tie a belt or leash around your neck and hold it for a set amount of time. The leash must be held by someone at all times.
+          </div>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="card-header" role="tab" id="headingOutcast">
+          <h5 class="mb-0">
+            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOutcast" aria-expanded="false" aria-controls="collapseOutcast">Outcast - An incredibly cruel social punishment</a>
+          </h5>
+        </div>
+        <div id="collapseOutcast" class="collapse" role="tabpanel" aria-labelledby="headingOutcast">
+          <div class="card-body">You must be ignored by everyone for a set amount of time. This includes touching speaking or looking into their eyes.
+          </div>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="card-header" role="tab" id="headingShitShave">
+          <h5 class="mb-0">
+            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseShitShave" aria-expanded="false" aria-controls="collapseShitShave">Shit Shave - A sacrifice of hair</a>
+          </h5>
+        </div>
+        <div id="collapseShitShave" class="collapse" role="tabpanel" aria-labelledby="headingShitShave">
+          <div class="card-body">You must be shaven by a person of your choosing in any place they wish to do so.
+          </div>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="card-header" role="tab" id="headingShotRoulette">
+          <h5 class="mb-0">
+            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseShotRoulette" aria-expanded="false" aria-controls="collapseShotRoulette">Shot Roulette - A selection of shots</a>
+          </h5>
+        </div>
+        <div id="collapseShotRoulette" class="collapse" role="tabpanel" aria-labelledby="headingShotRoulette">
+          <div class="card-body">Once multiple shots are poured you must choose one of them by being blindfolded and picking one up or using a roulette wheel.
+          </div>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="card-header" role="tab" id="headingSockIt">
+          <h5 class="mb-0">
+            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSockIt" aria-expanded="false" aria-controls="collapseSockIt">Sock It - A gruesome drinking challenge</a>
+          </h5>
+        </div>
+        <div id="collapseSockIt" class="collapse" role="tabpanel" aria-labelledby="headingSockIt">
+          <div class="card-body">You must choose a person's sock to take and consume a drink through this sock by placing it over the rim of the glass.
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header" role="tab" id="headingSpinningMad">
+          <h5 class="mb-0">
+            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSpinningMad" aria-expanded="false" aria-controls="collapseSpinningMad">Spinning Mad - A test of mental strength</a>
+          </h5>
+        </div>
+        <div id="collapseSpinningMad" class="collapse" role="tabpanel" aria-labelledby="headingSpinningMad">
+          <div class="card-body">You must complete the challenge of spinning a coin and stopping it with just one finger, once with the finger on your right hand and once with the finger on your left. The cannot stop trying until this is done.
+          </div>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="card-header" role="tab" id="headingTheSalon">
+          <h5 class="mb-0">
+            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTheSalon" aria-expanded="false" aria-controls="collapseTheSalon">The Salon - A bad tanning experince</a>
+          </h5>
+        </div>
+        <div id="collapseTheSalon" class="collapse" role="tabpanel" aria-labelledby="headingTheSalon">
+          <div class="card-body">You must choose a person to tan a particular part of your body using fake tan.
+          </div>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="card-header" role="tab" id="headingToiletTroll">
+          <h5 class="mb-0">
+            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseToiletTroll" aria-expanded="false" aria-controls="collapseToiletTroll">Toilet Troll - The worst temp job</a>
+          </h5>
+        </div>
+        <div id="collapseToiletTroll" class="collapse" role="tabpanel" aria-labelledby="headingToiletTroll">
+          <div class="card-body">You must enter the bathroom looking suspicious and offer 'a hand' to others in the bathroom without actually using the facilities yourself. This is good for when you're out in public or in a big group when some people aren't in on the joke.
+          </div>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="card-header" role="tab" id="headingTP">
+          <h5 class="mb-0">
+            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTP" aria-expanded="false" aria-controls="collapseTP">TP - Something inedible, now edible</a>
+          </h5>
+        </div>
+        <div id="collapseTP" class="collapse" role="tabpanel" aria-labelledby="headingTP">
+          <div class="card-body">Take one square off of a roll of toilet paper and eat whole. Depending on whether the paper is scented or multi-ply, some efforts may be trickier than others.
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header" role="tab" id="headingWintersComing">
+          <h5 class="mb-0">
+            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseWintersComing" aria-expanded="false" aria-controls="collapseWintersComing">Winters coming - A bit too many extra layers of warmth</a>
+          </h5>
+        </div>
+        <div id="collapseWintersComing" class="collapse" role="tabpanel" aria-labelledby="headingWintersComing">
+          <div class="card-body">Find and wear 3 more layers of clothing for a set period of time.
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header" role="tab" id="heading50shades">
+          <h5 class="mb-0">
+            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse50shades" aria-expanded="false" aria-controls="collapse50shades">50 Shades - A performance of a lifetime</a>
+          </h5>
+        </div>
+        <div id="collapse50shades" class="collapse" role="tabpanel" aria-labelledby="heading50shades">
+          <div class="card-body">Seductively read to one person of your choosing using some sort of literature. The literature can be found in a book or online, it can be sexual context or not, it just needs to be read seductively.
+          </div>
+        </div>
+      </div>
+      
+    </div>
+    
+    <!-- /.social media links -->
+<div class="col-md-12" style="text-align:center">
+  <h4 style="color:#278FFF">&nbsp;&nbsp;&nbsp;&nbsp;Share This Page<i class="fa fa-share-alt"></i></h1>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=beergogglegames.co.uk/forfeits" target="_blank" class="fa fa-facebook"></a>
+  <a href="https://www.instagram.com/direct/new/" target="_blank" ><button onclick="Copy()" class="fbutton fa fa-instagram" style="border:none;"></button></a>
+  <a href="https://twitter.com/intent/tweet?url=beergogglegames.co.uk/forfeits" target="_blank" class="fa fa-twitter"></a>
+  <button onclick="Copy()" class=" fbutton fa fa-link" style="border:none;"></button>
+</div>
+    
+    
+    <!-- /.Feedback -->
+    <hr>
+    <div class="row mb-4">
+      <div class="col-md-8">
+        <h4 style="color:#278FFF">Feedback</h4>
+        <p>If you have any notes or suggestions, please feel free to contact St. Chugsalot.</p>
+      </div>
+    <div class="col-md-4">
+      <br>
+      <br>
+      <br>
+        <a href="contact">
+          <button class="Cbutton" style="background-color=#278FFF">Contact Us</button>
+            </a>
+      </div>
+  </div>
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <footer class="py-5 " style="background-image:url(background1.png);background-repeat: repeat;background-size: 300px 300px;">
+    <div class="container">
+       <div class="row">
+         
+        <div class="col-lg-4 mb-4" style="text-align:center">
+          <br>
+          <a href="https://www.facebook.com/BeerGoggleGames" target="_blank" class="fa fa-facebook text-center" style="font-size:30px;color:#278FFF;background:none;background-image:none;padding:none;"></a> <a href="https://www.instagram.com/BeerGoggleGames" target="_blank" class="fa fa-instagram text-center" style="font-size:30px;color:#278FFF;background:none;background-image:none;padding:none"></a><a href="mailto:BeerGoggleGames@hotmail.com" class="fa fa-envelope text-center" style="font-size:30px;color:#278FFF;background:none;background-image:none;padding:none"></a>
+         </div>
+         
+         <div class="col-lg-4 mb-4" style="text-align:center">
+           <img src="images/BGG.png" width="100px" height="100px"></img>
+           <br>
+           <br>
+           <p class="m-0 text-dark" style="position: relative; bottom: 0; width:100%; text-align: center">Copyright &copy; Beer Goggle Games 2023</p>
+         </div>
+      
+         <div class="col-lg-4 mb-4" style="text-align:center">
+           <br>
+           <a href="https://www.paypal.com/paypalme/BeerGoggleGames" target="_blank">
+             <img src="images/paypal.png" width="100px" height="57px"></img>
+           </a>
+         </div>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

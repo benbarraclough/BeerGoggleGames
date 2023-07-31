@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <base href="https://beergogglegames.co.uk/" >
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="The Home of Drinking Games - A non-profit website providing games, entertainment and information on all things alcohol related">
+  <meta name="author" content="">
+  <meta property="og:title" content="BeerGoggleGames" />
+  <meta property="og:image" content="BGGBW.png" />
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Aladin&family=Comfortaa&family=Frijole&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <title>BeerGoggleGames - Dice Games</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/modern-business.css" rel="stylesheet">
+
+  <style>
+    
+  .Cbutton {
+  background-color:#278FFF;
+  border: none;
+  color:#FFFFFF;
+  padding: 15px 32px;
+  margin: 0;
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  transition-duration: 0.4s;
+  border-radius: 8px;
+}
+  
+  .Cbutton:hover {
+    background-color:#0069D9;
+  }
+    
+  .Comfortaa {  
+  font-family: 'Comfortaa', cursive;
+  }
+    
+  .fbutton:focus {
+    outline:0;
+  }
+    
+  .fa {
+  padding: 20px;
+  font-size: 30px;
+  width: 80px;
+  text-align: center;
+  text-decoration: none;
+  margin: 5px 2px;
+}
+
+.fa:hover {
+    opacity: 0.7;
+    text-decoration: none;
+    color:white;
+}
+</style>
+</head>
+
+<body class="Comfortaa">
+
+  <!-- Navigation -->
+  <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-white fixed-top">
+    <div class="container">
+      <a href="/">
+      <img src="images/BGG.png" alt="LOGO" width="80" height="80">
+      </a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item" >
+            <a class="nav-link" href="/">Home</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded= "false">Games</a>
+            <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdownPortfolio">
+              <a class="dropdown-item" href="categories">All Categories</a>
+              <a class="dropdown-item" href="Categories/AllGames">All Games</a>
+              <a class="dropdown-item" href="Categories/TeamGames">Team Games</a>
+              <a class="dropdown-item" href="Categories/CardGames">Card Games</a>
+              <a class="dropdown-item" href="Categories/PongGames">Pong Games</a>
+              <a class="dropdown-item" href="Categories/DiceGames">Dice Games</a>
+              <a class="dropdown-item" href="Categories/CoinGames">Coin Games</a>
+              <a class="dropdown-item" href="Categories/VocalGames">Vocal Games</a>
+              <a class="dropdown-item" href="Categories/MiscGames">Misc. Games</a>
+              <a class="dropdown-item" href="Categories/OutdoorGames">Outdoor Games</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="drinks" id="navbarDropdownPortfolio2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Drinks</a>
+            <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdownPortfolio2">
+              <a class="dropdown-item" href="Drinks/CocktailRecipes">Cocktail Recipes</a>
+              <a class="dropdown-item" href="Drinks/ShotRecipes">Shot Recipes</a>
+              <a class="dropdown-item" href="Drinks/DrinkSearch">Drink Search</a>
+            </div>
+          </li>
+           </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="extras" id="navbarDropdownPortfolio2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Extras</a>
+            <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdownPortfolio2">
+              <a class="dropdown-item" href="extras">All Extras</a>
+              <a class="dropdown-item" href="Extras/activities&minigames">Activities & Minigames</a>
+              <a class="dropdown-item" href="Extras/Blog">Blog</a>
+              <a class="dropdown-item" href="Extras/wheeloffortune">Wheel of Fortune</a>
+              <a class="dropdown-item" href="Extras/products">Products</a>
+              <a class="dropdown-item" href="Extras/glossary">Glossary</a>
+              <a class="dropdown-item" href="Extras/Forfeits">Forfeits</a>
+            </div>
+          </li>
+          <li class="nav-item" >
+            <a class="nav-link" href="about">About</a>
+          </li>
+          <li class="nav-item">
+           <a class="nav-link" href="contact">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  <div class="container">
+  <br>
+    <!-- Page Heading/Breadcrumbs -->
+    <h1 class="mt-4 mb-3" style="color:#278FFF">Dice Games
+      <small></small>
+    </h1>
+
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="/">Home</a>
+      </li>
+      <li class="breadcrumb-item">
+        <a href="categories">Categories</a>
+      </li>
+      <li class="breadcrumb-item active">Dice Games</li>
+    </ol>
+
+    <div class="row">
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="Categories/DiceGames/1-2-3"><img class="card-img-top" src="images/1-2-32.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="Categories/DiceGames/1-2-3">1 2 3</a>
+            </h4>
+            <p class="card-text">A simple dice rolling game that gets you as drunk as you wish. The first two people who roll 6's prep the drink and the person who rolls the third 6 chugs it.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="Categories/DiceGames/666"><img class="card-img-top" src="images/666-2.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="Categories/DiceGames/666">666</a>
+            </h4>
+            <p class="card-text">A fast paced game requiring full concentration. Watch the clock and roll the dice, make sure you arent holding the token when a 6 is rolled.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="Categories/DiceGames/7-11Doubles"><img class="card-img-top" src="images/7-11doubles2.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="Categories/DiceGames/7-11Doubles">7 11 Doubles</a>
+            </h4>
+            <p class="card-text">An easy to understand and very entertaining game that tests a players speed drinking and dice rolling abilities whilst others watch with joy.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="Categories/DiceGames/beerdie"><img class="card-img-top" src="images/beerdie2.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="Categories/DiceGames/beerdie">Beer Die</a>
+            </h4>
+            <p class="card-text">Deep in the Alpha Tau Omega house at the University of Maine in 1972, four fraternity brothers discovered the legendary die throwing, point scoring, drink sinking game.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="Categories/DiceGames/boxing"><img class="card-img-top" src="images/boxing2.jpg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="Categories/DiceGames/boxing">Boxing</a>
+            </h4>
+            <p class="card-text">A quick-fire dice rolling game similar to a boxing match, testing your drinking endurance and rolling ability.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="Categories/DiceGames/IrishLuckCup"><img class="card-img-top" src="images/irishluckcup2.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="Categories/DiceGames/IrishLuckCup">Irish Luck-Cup</a>
+            </h4>
+            <p class="card-text">A wonderfully simple game of luck that can be played with ease in any drinking environment, let the magic dice and coin decide who gets battered.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="Categories/DiceGames/liarsdice"><img class="card-img-top" src="images/liarsdice2.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="Categories/DiceGames/liarsdice">Liars Dice</a>
+            </h4>
+            <p class="card-text">Also known as Perudo, this famous dice game requires tactics, forward thinking and prediction to win, alongside a level of deception that may cause uproar.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="Categories/DiceGames/luckynumber"><img class="card-img-top" src="images/luckynumber2.jpg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="Categories/DiceGames/luckynumber">Lucky Number</a>
+            </h4>
+            <p class="card-text">A dice rolling game for groups where you must roll your number to exit the game.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="Categories/DiceGames/oddoreven"><img class="card-img-top" src="images/oddoreven2.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="Categories/DiceGames/oddoreven">Odd or Even</a>
+            </h4>
+            <p class="card-text">Similar to the casino game "Craps", use your intuition to guess the outcome of the dice correctly to make others drink.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="Categories/DiceGames/SixCups"><img class="card-img-top" src="images/sixcups2.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="Categories/DiceGames/SixCups">Six Cups</a>
+            </h4>
+            <p class="card-text">Each cup has a designated number and each player rolls the dice. A game of chance will decide whether you will get to fill or drink from the cup.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="Categories/DiceGames/threeman"><img class="card-img-top" src="images/threeman2.png" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="Categories/DiceGames/threeman">Three Man</a>
+            </h4>
+            <p class="card-text">Dice games at their best. Roll the dice and hope that it lands on a three just as long as you're not the Three Man.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="Categories/DiceGames/Tower"><img class="card-img-top" src="images/tower2.jpeg" alt=""></a>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <h4 class="card-title">
+              <a href="Categories/DiceGames/Tower">Tower</a>
+            </h4>
+            <p class="card-text">A game of chance and suspense. Create some dodgy drinks, make a tower, roll the dice and hope that you don't have to drink.</p>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+
+    <!-- Call to action -->
+    <hr>
+    <div class="row mb-4">
+      <div class="col-md-8">
+        <h4 class="Comfortaa"style="color:#278FFF">Submit a Game</h4>
+        <p class="Comforta"><b>Know a drinking game that we don't?</b></p>
+        <p class="Comforta">Submit the details to us through our contact page, if we like it we will add it to the website along with crediting you for your contribution!</p>
+      </div>
+      <div class="col-md-4">
+        <br>
+        <br>
+        <br>
+        <a href="contact">
+          <button class="Cbutton Comfortaa" >Submit a Game</button>
+            </a>
+      </div>
+    </div>
+
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <footer class="py-5 " style="background-image:url(background1.png);background-repeat: repeat;background-size: 300px 300px;">
+    <div class="container">
+       <div class="row">
+         
+        <div class="col-lg-4 mb-4" style="text-align:center">
+          <br>
+          <a href="https://www.facebook.com/BeerGoggleGames" target="_blank" class="fa fa-facebook text-center" style="font-size:30px;color:#278FFF;background:none;background-image:none;padding:none;"></a> <a href="https://www.instagram.com/BeerGoggleGames" target="_blank" class="fa fa-instagram text-center" style="font-size:30px;color:#278FFF;background:none;background-image:none;padding:none"></a><a href="mailto:BeerGoggleGames@hotmail.com" class="fa fa-envelope text-center" style="font-size:30px;color:#278FFF;background:none;background-image:none;padding:none"></a>
+         </div>
+         
+         <div class="col-lg-4 mb-4" style="text-align:center">
+           <img src="images/BGG.png" width="100px" height="100px"></img>
+           <br>
+           <br>
+           <p class="m-0 text-dark" style="position: relative; bottom: 0; width:100%; text-align: center">Copyright &copy; Beer Goggle Games 2023</p>
+         </div>
+      
+         <div class="col-lg-4 mb-4" style="text-align:center">
+           <br>
+           <a href="https://www.paypal.com/paypalme/BeerGoggleGames" target="_blank">
+             <img src="images/paypal.png" width="100px" height="57px"></img>
+           </a>
+         </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

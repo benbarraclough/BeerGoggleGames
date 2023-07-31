@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <base href="https://beergogglegames.co.uk/" >
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="The Home of Drinking Games - A non-profit website providing games, entertainment and information on all things alcohol related">
+  <meta name="author" content="">
+  <meta property="og:title" content="BeerGoggleGames" />
+  <meta property="og:image" content="BGGBW.png" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Aladin&family=Comfortaa&family=Frijole&display=swap" rel="stylesheet">
+
+  <title>BeerGoggleGames</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/modern-business.css" rel="stylesheet">
+  
+  <script>
+    function Copy() {
+      var inputc = document.body.appendChild(document.createElement("input"));
+      inputc.value = window.location.href;
+      inputc.focus();
+      inputc.select();
+      document.execCommand('copy');
+      inputc.parentNode.removeChild(inputc);
+      alert("Link Copied");
+    }
+  </script>
+  
+  <script>
+    function returnURL() {
+      var inputc = document.body.appendChild(document.createElement("input"));
+      inputc.value = window.location.href;
+      return inputc.value;
+    }
+  </script>
+  
+  <style>
+    
+  .icon{
+  position: absolute;
+  right: 2%;
+  }
+  
+  .Cbutton {
+  background-color:#278FFF;
+  border: none;
+  color:#FFFFFF;
+  padding: 15px 32px;
+  margin: 0;
+  position: absolute;
+  width: 80%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  transition-duration: 0.4s;
+  border-radius: 8px;
+}
+  .Comfortaa {  
+  font-family: 'Comfortaa', cursive;
+  }
+    
+  .Cbutton:hover {
+    background-color:#0069D9;
+  }
+    
+  .fbutton:focus {
+    outline:0;
+  }
+    
+  .fa {
+  padding: 20px;
+  font-size: 30px;
+  width: 80px;
+  text-align: center;
+  text-decoration: none;
+  margin: 5px 2px;
+}
+
+.fa:hover {
+    opacity: 0.7;
+    text-decoration: none;
+    color:white;
+}
+    
+.fa-facebook {
+  background: #3B5998;
+  color: white;
+}
+
+.fa-twitter {
+  background: #55ACEE;
+  color: white;
+}
+
+.fa-instagram {
+  background-image: url("instaBG1.jpeg");
+  color: white;
+}
+
+.fa-link {
+  background: #FF9D4A;
+  color: white;
+}
+  </style>
+</head>
+
+<body class="Comfortaa">
+
+  <!-- Navigation#125688 -->
+  <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-white fixed-top">
+    <div class="container">
+      <a href="/">
+      <img src="images/BGG.png" alt="LOGO" width="80" height="80">
+      </a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item" >
+            <a class="nav-link" href="/">Home</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded= "false">Games</a>
+            <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdownPortfolio">
+              <a class="dropdown-item" href="categories">All Categories</a>
+              <a class="dropdown-item" href="Categories/AllGames">All Games</a>
+              <a class="dropdown-item" href="Categories/TeamGames">Team Games</a>
+              <a class="dropdown-item" href="Categories/CardGames">Card Games</a>
+              <a class="dropdown-item" href="Categories/PongGames">Pong Games</a>
+              <a class="dropdown-item" href="Categories/DiceGames">Dice Games</a>
+              <a class="dropdown-item" href="Categories/CoinGames">Coin Games</a>
+              <a class="dropdown-item" href="Categories/VocalGames">Vocal Games</a>
+              <a class="dropdown-item" href="Categories/MiscGames">Misc. Games</a>
+              <a class="dropdown-item" href="Categories/OutdoorGames">Outdoor Games</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="drinks" id="navbarDropdownPortfolio2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Drinks</a>
+            <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdownPortfolio2">
+              <a class="dropdown-item" href="Drinks/CocktailRecipes">Cocktail Recipes</a>
+              <a class="dropdown-item" href="Drinks/ShotRecipes">Shot Recipes</a>
+              <a class="dropdown-item" href="Drinks/DrinkSearch">Drink Search</a>
+            </div>
+          </li>
+           </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="extras" id="navbarDropdownPortfolio2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Extras</a>
+            <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdownPortfolio2">
+              <a class="dropdown-item" href="extras">All Extras</a>
+              <a class="dropdown-item" href="Extras/activities&minigames">Activities & Minigames</a>
+              <a class="dropdown-item" href="Extras/Blog">Blog</a>
+              <a class="dropdown-item" href="Extras/wheeloffortune">Wheel of Fortune</a>
+              <a class="dropdown-item" href="Extras/products">Products</a>
+              <a class="dropdown-item" href="Extras/glossary">Glossary</a>
+              <a class="dropdown-item" href="Extras/Forfeits">Forfeits</a>
+            </div>
+          </li>
+          <li class="nav-item" >
+            <a class="nav-link" href="about">About</a>
+          </li>
+          <li class="nav-item">
+           <a class="nav-link" href="contact">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  <div class="container">
+  <br>
+    <!-- Page Heading/Breadcrumbs -->
+    <h1 class="mt-4 mb-3" style="color:#278FFF">B-52</h1>
+
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="/">Home</a>
+      </li>
+      <li class="breadcrumb-item">
+        <a href="drinks">Drinks</a>
+      </li>
+      <li class="breadcrumb-item">
+        <a href="drinks/shotrecipes">Shot Recipes</a>
+      </li>
+      <li class="breadcrumb-item active">B-52</li>
+    </ol>
+
+    <!-- Portfolio Item Row -->
+    <div class="row">
+      
+      <div class="col-md-8">
+        <div class="card my-8">
+          <img class="img-fluid" style="text-align:center" src="images/b52.jpeg" alt="">
+        </div>
+      </div>
+      
+      <div class="col-md-4">
+        <h4 class="mt-4 mb-3" style="color:#278FFF">Overview</h4>
+        <p><b style="color:#278FFF">Description: </b>A multitude of sweet and creamy liqueurs layered in the glass in order of most dense to lease dense.</p>
+        <p><i class="fa fa-clock-o" style="font-size:30px;color:#278FFF;padding:0"></i><span>&nbsp;&nbsp;</span><b style="color:#278FFF">Time:</b> 3 mins</p>
+        <p><i class="fa fa-tachometer" style="font-size:30px;color:#278FFF;padding:0"></i><span>&nbsp;&nbsp;</span><b style="color:#278FFF">Difficulty:</b> Medium</p>
+        <p><i class="fa fa-glass" style="font-size:30px;color:#278FFF;padding:0"></i><span>&nbsp;&nbsp;</span><b style="color:#278FFF">Glass type:</b> Shot glass</p>
+        <p><i class="fa fa-info-circle" style="font-size:30px;color:#278FFF;padding:0"></i><span>&nbsp;&nbsp;</span><b style="color:#278FFF">Dietary Notes:</b> None</p>
+        <p><i class="fa fa-globe" style="font-size:30px;color:#278FFF;padding:0"></i><span >&nbsp;&nbsp;</span><b style="color:#278FFF">Origin:</b> Canada</p>
+      </div>
+    
+    </div>
+    
+    <hr>
+    
+    <div class="col-md-12">
+    
+      <div class="card my-5">
+        <h3 class="card-header " style="background-color:#73DBAD;color:white">Ingredients <img class="icon" src="images/liquor.png" alt="target" width="40" height="40"></img></h3>
+        <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+          <ul>
+            <li>Irish cream liqueur - 15ml</li>
+            <li>Coffee liqueur - 15ml</li>
+            <li>Grand Marnier liqueur - 15ml</li>
+          </ul>  
+        </div>
+      </div>
+      
+      <div class="card my-5">
+      <h3 class="card-header " style="background-color:#FF5667;color:white">Recipe <img class="icon" src="images/rules.png" alt="target" width="40" height="40"></img></h3>
+        <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+          <ol>
+            <li>First pour the coffee liqueur in the bottom of the glass</li>
+            <li>Slowly pour the Irish cream liqueur on top</li>
+            <li>Gently top with Grand marnier so that each liqueur has a separate and equal share of the shot glass</li>
+          </ol>  
+        </div>
+      </div>
+  
+      <div class="card my-5">
+        <h3 class="card-header " style="background-color:gold;color:white">Top Tips <img class="icon" src="images/lightbulb.png" alt="target" width="40" height="40"></img></h3>
+        <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+          <ul>
+            <li>The best alternative to Grand marnier is Cointreau, similar in taste and alcohol percentage.</li>
+          </ul> 
+        </div>
+      </div>
+  
+    </div>
+
+<!-- /.Comments -->
+<div class="commentbox"></div>
+
+<script src="images/https://unpkg.com/commentbox.io/dist/commentBox.min.js"></script>
+<script>commentBox('5750724524769280-proj')</script>
+
+<!-- /.social media links -->
+<div class="col-md-12" style="text-align:center">
+  <h4 style="color:#278FFF">&nbsp;&nbsp;&nbsp;&nbsp;Share This Page<i class="fa fa-share-alt"></i></h1>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=beergogglegames.co.uk/drinks/shotrecipes/B-52" target="_blank" class="fa fa-facebook"></a>
+  <a href="https://www.instagram.com/direct/new/" target="_blank" ><button onclick="Copy()" class="fbutton fa fa-instagram" style="border:none;"></button></a>
+  <a href="https://twitter.com/intent/tweet?url=beergogglegames.co.uk/drinks/shotrecipes/B-52" target="_blank" class="fa fa-twitter"></a>
+  <button onclick="Copy()" class=" fbutton fa fa-link" style="border:none;"></button>
+</div>
+
+
+    <!-- /.row -->
+<hr>
+  <div class="row mb-4">
+      <div class="col-md-8">
+        <h4 style="color:#278FFF">Feedback</h4>
+        <p>If you think we've missed certain details out of the drink recipe or you have something to add, please feel free to contact us.</p>
+      </div>
+    <div class="col-md-4">
+      <br>
+      <br>
+      <br>
+        <a href="contact">
+          <button class="Cbutton" style="background-color=#278FFF">Contact Us</button>
+            </a>
+      </div>
+  </div>
+  </div>
+  <!-- /.container -->
+  
+  <!-- Footer -->
+  <footer class="py-5 " style="background-image:url(background1.png);background-repeat: repeat;background-size: 300px 300px;">
+    <div class="container">
+       <div class="row">
+         
+        <div class="col-lg-4 mb-4" style="text-align:center">
+          <br>
+          <a href="https://www.facebook.com/BeerGoggleGames" target="_blank" class="fa fa-facebook text-center" style="font-size:30px;color:#278FFF;background:none;background-image:none;padding:none;"></a> <a href="https://www.instagram.com/BeerGoggleGames" target="_blank" class="fa fa-instagram text-center" style="font-size:30px;color:#278FFF;background:none;background-image:none;padding:none"></a><a href="mailto:BeerGoggleGames@hotmail.com" class="fa fa-envelope text-center" style="font-size:30px;color:#278FFF;background:none;background-image:none;padding:none"></a>
+         </div>
+         
+         <div class="col-lg-4 mb-4" style="text-align:center">
+           <img src="images/BGG.png" width="100px" height="100px"></img>
+           <br>
+           <br>
+           <p class="m-0 text-dark" style="position: relative; bottom: 0; width:100%; text-align: center">Copyright &copy; Beer Goggle Games 2023</p>
+         </div>
+      
+         <div class="col-lg-4 mb-4" style="text-align:center">
+           <br>
+           <a href="https://www.paypal.com/paypalme/BeerGoggleGames" target="_blank">
+             <img src="images/paypal.png" width="100px" height="57px"></img>
+           </a>
+         </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <base href="https://beergogglegames.co.uk/" >
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="The Home of Drinking Games - A non-profit website providing games, entertainment and information on all things alcohol related">
+  <meta name="author" content="">
+  <meta property="og:title" content="BeerGoggleGames" />
+  <meta property="og:image" content="BGGBW.png" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Aladin&family=Comfortaa&family=Frijole&display=swap" rel="stylesheet">
+
+  <title>BeerGoggleGames</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/modern-business.css" rel="stylesheet">
+  
+  <script>
+    function Copy() {
+      var inputc = document.body.appendChild(document.createElement("input"));
+      inputc.value = window.location.href;
+      inputc.focus();
+      inputc.select();
+      document.execCommand('copy');
+      inputc.parentNode.removeChild(inputc);
+      alert("Link Copied");
+    }
+  </script>
+  
+  <script>
+    function returnURL() {
+      var inputc = document.body.appendChild(document.createElement("input"));
+      inputc.value = window.location.href;
+      return inputc.value;
+    }
+  </script>
+  
+  <style>
+    
+  .icon{
+  position: absolute;
+  right: 2%;
+  }
+  
+  .Cbutton {
+  background-color:#278FFF;
+  border: none;
+  color:#FFFFFF;
+  padding: 15px 32px;
+  margin: 0;
+  position: absolute;
+  width: 80%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  transition-duration: 0.4s;
+  border-radius: 8px;
+}
+  .Comfortaa {  
+  font-family: 'Comfortaa', cursive;
+  }
+    
+  .Cbutton:hover {
+    background-color:#0069D9;
+  }
+    
+  .fbutton:focus {
+    outline:0;
+  }
+    
+  .fa {
+  padding: 20px;
+  font-size: 30px;
+  width: 80px;
+  text-align: center;
+  text-decoration: none;
+  margin: 5px 2px;
+}
+
+.fa:hover {
+    opacity: 0.7;
+    text-decoration: none;
+    color:white;
+}
+    
+.fa-facebook {
+  background: #3B5998;
+  color: white;
+}
+
+.fa-twitter {
+  background: #55ACEE;
+  color: white;
+}
+
+.fa-instagram {
+  background-image: url("instaBG1.jpeg");
+  color: white;
+}
+
+.fa-link {
+  background: #FF9D4A;
+  color: white;
+}
+  </style>
+</head>
+
+<body class="Comfortaa">
+
+  <!-- Navigation#125688 -->
+  <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-white fixed-top">
+    <div class="container">
+      <a href="/">
+      <img src="images/BGG.png" alt="LOGO" width="80" height="80">
+      </a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item" >
+            <a class="nav-link" href="/">Home</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded= "false">Games</a>
+            <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdownPortfolio">
+              <a class="dropdown-item" href="categories">All Categories</a>
+              <a class="dropdown-item" href="Categories/AllGames">All Games</a>
+              <a class="dropdown-item" href="Categories/TeamGames">Team Games</a>
+              <a class="dropdown-item" href="Categories/CardGames">Card Games</a>
+              <a class="dropdown-item" href="Categories/PongGames">Pong Games</a>
+              <a class="dropdown-item" href="Categories/DiceGames">Dice Games</a>
+              <a class="dropdown-item" href="Categories/CoinGames">Coin Games</a>
+              <a class="dropdown-item" href="Categories/VocalGames">Vocal Games</a>
+              <a class="dropdown-item" href="Categories/MiscGames">Misc. Games</a>
+              <a class="dropdown-item" href="Categories/OutdoorGames">Outdoor Games</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="drinks" id="navbarDropdownPortfolio2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Drinks</a>
+            <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdownPortfolio2">
+              <a class="dropdown-item" href="Drinks/CocktailRecipes">Cocktail Recipes</a>
+              <a class="dropdown-item" href="Drinks/ShotRecipes">Shot Recipes</a>
+              <a class="dropdown-item" href="Drinks/DrinkSearch">Drink Search</a>
+            </div>
+          </li>
+           </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="extras" id="navbarDropdownPortfolio2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Extras</a>
+            <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdownPortfolio2">
+              <a class="dropdown-item" href="extras">All Extras</a>
+              <a class="dropdown-item" href="Extras/activities&minigames">Activities & Minigames</a>
+              <a class="dropdown-item" href="Extras/Blog">Blog</a>
+              <a class="dropdown-item" href="Extras/wheeloffortune">Wheel of Fortune</a>
+              <a class="dropdown-item" href="Extras/products">Products</a>
+              <a class="dropdown-item" href="Extras/glossary">Glossary</a>
+              <a class="dropdown-item" href="Extras/Forfeits">Forfeits</a>
+            </div>
+          </li>
+          <li class="nav-item" >
+            <a class="nav-link" href="about">About</a>
+          </li>
+          <li class="nav-item">
+           <a class="nav-link" href="contact">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  <div class="container">
+  <br>
+    <!-- Page Heading/Breadcrumbs -->
+    <h1 class="mt-4 mb-3" style="color:#278FFF">Ice Tray Blitz</h1>
+
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="/">Home</a>
+      </li>
+      <li class="breadcrumb-item">
+        <a href="categories">Categories</a>
+      </li>
+      <li class="breadcrumb-item">
+        <a href="categories/coingames">Coin Games</a>
+      </li>
+      <li class="breadcrumb-item active">Ice Tray Blitz</li>
+    </ol>
+
+    <!-- Portfolio Item Row -->
+    <div class="row">
+      <div class="col-md-8">
+        <img class="img-fluid" src="images/icetrayblitz1.jpeg" alt="">
+        <div class="card-footer" style="text-align:center;background-color:white;background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+          <p>An easy group game similar to quarters but involves spirit sipping, put an ice tray in the middle and bounce.</p>
+          <p><b style="color:#278FFF;font-size:18px">Players:</b> 2+ | <b style="color:#278FFF;font-size:18px">Drink:</b> Spirits | <b style="color:#278FFF;font-size:18px">Type:</b> Challenge | <b style="color:#278FFF;font-size:18px">Consumption:</b> 9/10</p>
+          
+          </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card my-4"style="color:white;background-color:#FF5667;">
+          <h3 class="card-header">Equipment <img class="icon" src="images/liquor.png" alt="target" width="40" height="40"></img></h3>
+          <div class="card-body">
+           <ul>
+             <li>1 Ice Tray</li>
+             <li>1 Coin</li>
+             <li>A straw</li>
+             <li>A table</li>
+           </ul>
+          </div>
+        </div>
+        <div class="card my-4"style="color:white;background-color:#73DBAD;">
+          <h3 class="card-header">Setup <img class="icon" src="images/settings.png" alt="target" width="40" height="40"></img></h3>
+          <div class="card-body">Place an empty ice tray in the centre of a table and gather players around it with a drink each. Give one player a coin and you’re ready to play.
+        </div>
+        </div>
+        
+      </div>
+       
+    </div>
+    <hr>
+    <div class="col-md-12">
+      <div class="card my-5">
+      <h3 class="card-header " style="background-color:orange;color:white">Aim of the Game <img class="icon" src="images/target.png" alt="target" width="40" height="40"></img></h3>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <p>Bounce the tray into as many empty ice tray spaces as possible.</p>
+            </div>
+      </div>
+      <div class="card my-5">
+      <h3 class="card-header " style="background-color:mediumpurple;color:white">How to Play <img class="icon" src="images/question.png" alt="target" width="40" height="40"></img></h3>
+        
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <p>Starting with the player with the coin, one at a time, each player takes it in turns to bounce the coin on the table in an attempt to land it in a space within the ice tray (similar to the game quarters).</p>
+            <p style="color:green;">If the player lands it in an empty ice tray space, they must fill it up with their drink of choice</p>
+            <p style="color:orange;">If the player misses, nothing happens.</p>
+            <p style="color:red;">If the player lands it in an ice tray space that has been filled already. The player who bounced it must drink the liquid with a straw to retrieve the coin and takes another turn.</p>
+            <p>After each players turn, the coin is passed to the next player in the circle. This game continues until all players are sufficiently drunk.</p>
+      </div>
+      </div>
+      <div class="card my-5">
+          <h3 class="card-header "style="background-color:cornflowerblue;color:white">Rules <img class="icon" src="images/rules.png" alt="target" width="40" height="40"></img></h3>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+          <ul>
+            <li>The coin must remain in the ice tray space to count</li>
+            <li>The coin must bounce, it can’t be thrown straight into a tray space</li>
+            <li>Whoever bounces the coin into an empty tray space chooses the drink that it is filled with</li>
+           </ul>  
+          </div>
+        </div>
+     <div class="card my-5">
+      <h3 class="card-header "style="background-color:gold;color:black">Special Edition <img class="icon" src="images/special.png" alt="target" width="40" height="40"></img></h3>
+          <div class="card-body" style="background-image:url(background6.png);background-repeat: repeat;background-size: 300px 300px;">
+            <p style="text-align:center">Add an extra layer of excitement to your game by using:</p>
+            <h4 style="text-align:center"><b>Mayhem</b></h4>
+            <p style="text-align:center">A rapid fire game of bouncing, filling and drinking. Multiple coins for multiple players all playing simultaneously with a communal drink that is used to fill up. Once the drink is finished, play stops.</p>
+      </div>
+      </div>
+    </div>
+
+<!-- /.Comments -->
+<div class="commentbox"></div>
+
+<script src="images/https://unpkg.com/commentbox.io/dist/commentBox.min.js"></script>
+<script>commentBox('5750724524769280-proj')</script>
+
+<!-- /.social media links -->
+<div class="col-md-12" style="text-align:center">
+  <h4 style="color:#278FFF">&nbsp;&nbsp;&nbsp;&nbsp;Share This Page<i class="fa fa-share-alt"></i></h1>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=beergogglegames.co.uk/categories/coingames/icetrayblitz" target="_blank" class="fa fa-facebook"></a>
+  <a href="https://www.instagram.com/direct/new/" target="_blank" ><button onclick="Copy()" class="fbutton fa fa-instagram" style="border:none;"></button></a>
+  <a href="https://twitter.com/intent/tweet?url=beergogglegames.co.uk/categories/coingames/icetrayblitz" target="_blank" class="fa fa-twitter"></a>
+  <button onclick="Copy()" class=" fbutton fa fa-link" style="border:none;"></button>
+</div>
+
+
+    <!-- /.row -->
+<hr>
+  <div class="row mb-4">
+      <div class="col-md-8">
+        <h4 style="color:#278FFF">Feedback</h4>
+        <p>If you think we've missed certain details out of the game or you have something to add, please feel free to contact us.</p>
+      </div>
+    <div class="col-md-4">
+      <br>
+      <br>
+      <br>
+        <a href="contact">
+          <button class="Cbutton" style="background-color=#278FFF">Contact Us</button>
+            </a>
+      </div>
+  </div>
+  </div>
+  <!-- /.container -->
+  
+  <!-- Footer -->
+  <footer class="py-5 " style="background-image:url(background1.png);background-repeat: repeat;background-size: 300px 300px;">
+    <div class="container">
+       <div class="row">
+         
+        <div class="col-lg-4 mb-4" style="text-align:center">
+          <br>
+          <a href="https://www.facebook.com/BeerGoggleGames" target="_blank" class="fa fa-facebook text-center" style="font-size:30px;color:#278FFF;background:none;background-image:none;padding:none;"></a> <a href="https://www.instagram.com/BeerGoggleGames" target="_blank" class="fa fa-instagram text-center" style="font-size:30px;color:#278FFF;background:none;background-image:none;padding:none"></a><a href="mailto:BeerGoggleGames@hotmail.com" class="fa fa-envelope text-center" style="font-size:30px;color:#278FFF;background:none;background-image:none;padding:none"></a>
+         </div>
+         
+         <div class="col-lg-4 mb-4" style="text-align:center">
+           <img src="images/BGG.png" width="100px" height="100px"></img>
+           <br>
+           <br>
+           <p class="m-0 text-dark" style="position: relative; bottom: 0; width:100%; text-align: center">Copyright &copy; Beer Goggle Games 2023</p>
+         </div>
+      
+         <div class="col-lg-4 mb-4" style="text-align:center">
+           <br>
+           <a href="https://www.paypal.com/paypalme/BeerGoggleGames" target="_blank">
+             <img src="images/paypal.png" width="100px" height="57px"></img>
+           </a>
+         </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
