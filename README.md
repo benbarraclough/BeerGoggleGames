@@ -4,7 +4,7 @@
 
 ## Preview
 
-[![Modern Business Preview](https://assets.startbootstrap.com/img/screenshots/templates/modern-business.png)](https://startbootstrap.github.io/startbootstrap-modern-business/)
+[![Modern Business Preview](https://assets.startbootstrap.com/img/screenshots/templates/modern-business.webp)](https://startbootstrap.github.io/startbootstrap-modern-business/)
 
 **[View Live Preview](https://startbootstrap.github.io/startbootstrap-modern-business/)**
 
