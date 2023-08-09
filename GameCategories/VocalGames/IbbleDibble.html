@@ -10,20 +10,46 @@
   <meta name="author" content="">
   <meta property="og:title" content="BeerGoggleGames" />
   <meta property="og:image" content="BGGBW.webp" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="shortcut icon" href="favicon.ico">
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Aladin&family=Comfortaa&family=Frijole&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-  <title>BeerGoggleGames - Cup Games</title>
+  <title>BeerGoggleGames</title>
 
   <!-- Bootstrap core CSS -->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- Custom styles for this template -->
   <link href="css/modern-business.css" rel="stylesheet">
-
+  
+  <script>
+    function Copy() {
+      var inputc = document.body.appendChild(document.createElement("input"));
+      inputc.value = window.location.href;
+      inputc.focus();
+      inputc.select();
+      document.execCommand('copy');
+      inputc.parentNode.removeChild(inputc);
+      alert("Link Copied");
+    }
+  </script>
+  
+  <script>
+    function returnURL() {
+      var inputc = document.body.appendChild(document.createElement("input"));
+      inputc.value = window.location.href;
+      return inputc.value;
+    }
+  </script>
+  
   <style>
+    
+  .icon{
+  position: absolute;
+  right: 2%;
+  }
+  
   .Cbutton {
   background-color:#278FFF;
   border: none;
@@ -67,12 +93,32 @@
     text-decoration: none;
     color:white;
 }
-</style>
+    
+.fa-facebook {
+  background: #3B5998;
+  color: white;
+}
+
+.fa-twitter {
+  background: #55ACEE;
+  color: white;
+}
+
+.fa-instagram {
+  background-image: url("images/instaBG1.webp");
+  color: white;
+}
+
+.fa-link {
+  background: #FF9D4A;
+  color: white;
+}
+  </style>
 </head>
 
 <body class="Comfortaa">
 
-  <!-- Navigation -->
+  <!-- Navigation#125688 -->
   <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-white fixed-top">
     <div class="container">
       <a href="/">
@@ -142,179 +188,131 @@
   <div class="container">
   <br>
     <!-- Page Heading/Breadcrumbs -->
-    <h1 class="mt-4 mb-3" style="color:#278FFF">Cup Games
-      <small></small>
-    </h1>
+    <h1 class="mt-4 mb-3" style="color:#278FFF">#</h1>
 
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
         <a href="/">Home</a>
       </li>
       <li class="breadcrumb-item">
-        <a href="GameCategories">Categories</a>
+        <a href="#">#</a>
       </li>
-      <li class="breadcrumb-item active">Cup Games</li>
+      <li class="breadcrumb-item active">#</li>
     </ol>
 
-    <!-- Intro -->
+    <!-- Portfolio Item Row -->
     <div class="row">
-      <div class="col-lg-6">
-        <img class="img-fluid rounded mb-4" src="images/cups.webp" alt="">
-      </div>
-      <div class="col-lg-6">
-        <h2>Cup Games</h2>
-        <p>Great for big groups and wanting to get pissed quick. This brings everyone together whilst creating a divide that will ultimately create the perfect storm of competitiveness.</p>
-      </div>
-    </div>
-
-    <!-- games -->
-    <hr>
-    <h2>Browse the list</h2>
-    <p>Select one of the games below to see further details on how to play</p>
-    <div class="row">
-      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
-        <div class="card h-100">
-          <a href="GameCategories/CupGames/BlowCup"><img class="card-img-top" src="images/blowcup.webp" alt=""></a>
-          <div class="card-body" style="background-image:url(images/background6.webp);background-repeat: repeat;background-size: 300px 300px;">
-            <h4 class="card-title">
-              <a href="GameCategories/CupGames/BlowCup">Blow Cup</a>
-            </h4>
-            <p class="card-text">A game requiring composure where you must transport an empty cup to the finish by only using the blowing power of your mouth.</p>
-          </div>
-        </div>
-      </div>
-      
-      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
-        <div class="card h-100">
-          <a href="GameCategories/CupGames/cuptoss"><img class="card-img-top" src="images/cuptoss.webp" alt=""></a>
-          <div class="card-body" style="background-image:url(images/background6.webp);background-repeat: repeat;background-size: 300px 300px;">
-            <h4 class="card-title">
-              <a href="GameCategories/CupGames/cuptoss">Cup Toss</a>
-            </h4>
-            <p class="card-text">Similar to a game of ring toss at the fair, throw the solo cups onto the beer bottles to make the opposition drink.</p>
-          </div>
-        </div>
-      </div>
-      
-      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
-        <div class="card h-100">
-          <a href="GameCategories/CupGames/flipcup"><img class="card-img-top" src="images/flipcup.webp" alt=""></a>
-          <div class="card-body" style="background-image:url(images/background6.webp);background-repeat: repeat;background-size: 300px 300px;">
-            <h4 class="card-title">
-              <a href="GameCategories/CupGames/flipcup">Flip Cup</a>
-            </h4>
-            <p class="card-text">A game of speed and composure for teams of any size, simply flip the cup and hope you're teammates don't screw up.</p>
-          </div>
-        </div>
-      </div>
-      
-      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
-        <div class="card h-100">
-          <a href="GameCategories/CupGames/getstacked"><img class="card-img-top" src="images/getstacked.webp" alt=""></a>
-          <div class="card-body" style="background-image:url(images/background6.webp);background-repeat: repeat;background-size: 300px 300px;">
-            <h4 class="card-title">
-              <a href="GameCategories/CupGames/getstacked">Get Stacked</a>
-            </h4>
-            <p class="card-text">A competitive game for teams of two where drinking, stacking and unstacking cups is the way to win. Play it tournament style or head to head.</p>
-          </div>
-        </div>
-      </div>
-      
-      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
-        <div class="card h-100">
-          <a href="GameCategories/CupGames/jurassicchug"><img class="card-img-top" src="images/jurassicchug.webp" alt=""></a>
-          <div class="card-body" style="background-image:url(images/background6.webp);background-repeat: repeat;background-size: 300px 300px;">
-            <h4 class="card-title">
-              <a href="GameCategories/CupGames/jurassicchug">Jurassic Chug</a>
-            </h4>
-            <p class="card-text">A drinking game for those who have the spirit animal of a T-rex. Group into teams to pass, drink and flip cups only using the mouth. No hands allowed!</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
-        <div class="card h-100">
-          <a href="GameCategories/CupGames/KnockoutFlipCup"><img class="card-img-top" src="images/knockoutflipcup.webp" alt=""></a>
-          <div class="card-body" style="background-image:url(images/background6.webp);background-repeat: repeat;background-size: 300px 300px;">
-            <h4 class="card-title">
-              <a href="GameCategories/CupGames/KnockoutFlipCup">Knockout Flip Cup</a>
-            </h4>
-            <p class="card-text">A tournament of flipping cups, multiple teams battle it out to prove they are the best of the best.</p>
-          </div>
-        </div>
-      </div>
-      
-      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
-        <div class="card h-100">
-          <a href="GameCategories/CupGames/naughts&crosses"><img class="card-img-top" src="images/naughts&crosses.webp" alt=""></a>
-          <div class="card-body" style="background-image:url(images/background6.webp);background-repeat: repeat;background-size: 300px 300px;">
-            <h4 class="card-title">
-              <a href="GameCategories/CupGames/naughts&crosses">Naughts & Crosses</a>
-            </h4>
-            <p class="card-text">A game of naughts and crosses or tic tac toe with an alcoholic twist. This game encorporates quickfire flip cup, rewarding the fastest, most skilled flippers.</p>
-          </div>
-        </div>
-      </div>
-      
-      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
-        <div class="card h-100">
-          <a href="GameCategories/CupGames/Pairs"><img class="card-img-top" src="images/pairs.webp" alt=""></a>
-          <div class="card-body" style="background-image:url(images/background6.webp);background-repeat: repeat;background-size: 300px 300px;">
-            <h4 class="card-title">
-              <a href="GameCategories/CupGames/Pairs">Pairs</a>
-            </h4>
-            <p class="card-text">A classic memory game turned fun with drink. Find the object pairs to create alcoholic concoctions for friends and participants.</p>
-          </div>
-        </div>
-      </div>
-      
-      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
-        <div class="card h-100">
-          <a href="GameCategories/CupGames/QuickFlip"><img class="card-img-top" src="images/quickflip.webp" alt=""></a>
-          <div class="card-body" style="background-image:url(images/background6.webp);background-repeat: repeat;background-size: 300px 300px;">
-            <h4 class="card-title">
-              <a href="GameCategories/CupGames/QuickFlip">Quick Flip</a>
-            </h4>
-            <p class="card-text">A fast paced 1v1 duel! Flip the cup over successfully to move the centre drink one step closer to your competitors side of the table whilst they do the same.
-          </div>
-        </div>
-      </div>
-      
-      <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
-        <div class="card h-100">
-          <a href="GameCategories/CupGames/tableofterror"><img class="card-img-top" src="images/tableofterror.webp" alt=""></a>
-          <div class="card-body" style="background-image:url(images/background6.webp);background-repeat: repeat;background-size: 300px 300px;">
-            <h4 class="card-title">
-              <a href="GameCategories/CupGames/tableofterror">Table of Terror</a>
-            </h4>
-            <p class="card-text">A game of spirit drinking terror that only ends once the table is empty. This game has no winner per se, but if you choose correctly, you just might not be a loser.</p>
-          </div>
-        </div>
-      </div>
-      
-    </div>
-
-    <!-- Call to action -->
-    <hr>
-    <div class="row mb-4">
       <div class="col-md-8">
-        <h4 class="Comfortaa"style="color:#278FFF">Submit a Game</h4>
-        <p class="Comforta"><b>Know a drinking game that we don't?</b></p>
-        <p class="Comforta">Submit the details to us through our contact page, if we like it we will add it to the website along with crediting you for your contribution!</p>
+        <img class="img-fluid" src="images/ComingSoon750x300.webp" alt="">
+        <div class="card-footer" style="text-align:center;background-color:white;background-image:url(images/background6.webp);background-repeat: repeat;background-size: 300px 300px;">
+          <p>#</p>
+          <p><b style="color:#278FFF;font-size:18px">Players:</b> # | <b style="color:#278FFF;font-size:18px">Drink:</b> # | <b style="color:#278FFF;font-size:18px">Type:</b> # | <b style="color:#278FFF;font-size:18px">Consumption:</b> #/10</p>
+          
+          </div>
       </div>
       <div class="col-md-4">
-        <br>
-        <br>
-        <br>
-        <a href="contact">
-          <button class="Cbutton Comfortaa" >Submit a Game</button>
-            </a>
+        <div class="card my-4"style="color:white;background-color:#FF5667;">
+          <h3 class="card-header">Equipment <img class="icon" src="images/liquor.webp" alt="target" width="40" height="40"></img></h3>
+          <div class="card-body">
+           <ul>
+             <li>#</li>
+             <li>#</li>
+             <li>#</li>
+             <li>#</li>
+           </ul>
+          </div>
+        </div>
+        <div class="card my-4"style="color:white;background-color:#73DBAD;">
+          <h3 class="card-header">Setup <img class="icon" src="images/settings.webp" alt="target" width="40" height="40"></img></h3>
+          <div class="card-body">#
+        </div>
+        </div>
+        
+      </div>
+       
+    </div>
+    <hr>
+    <div class="col-md-12">
+      <div class="card my-5">
+      <h3 class="card-header " style="background-color:orange;color:white">Aim of the Game <img class="icon" src="images/target.webp" alt="target" width="40" height="40"></img></h3>
+          <div class="card-body" style="background-image:url(images/background6.webp);background-repeat: repeat;background-size: 300px 300px;">
+            <p>#</p>
+            </div>
+      </div>
+      <div class="card my-5">
+      <h3 class="card-header " style="background-color:mediumpurple;color:white">How to Play <img class="icon" src="images/question.webp" alt="target" width="40" height="40"></img></h3>
+        
+          <div class="card-body" style="background-image:url(images/background6.webp);background-repeat: repeat;background-size: 300px 300px;">
+            <p>#</p>
+            <p style="color:green;">#</p>
+            <p style="color:orange;">#</p>
+            <p style="color:red;">#</p>
+            <p>#</p>
+      </div>
+      </div>
+      <div class="card my-5">
+          <h3 class="card-header "style="background-color:cornflowerblue;color:white">Rules <img class="icon" src="images/rules.webp" alt="target" width="40" height="40"></img></h3>
+          <div class="card-body" style="background-image:url(images/background6.webp);background-repeat: repeat;background-size: 300px 300px;">
+          <ul>
+            <li>#</li>
+            <li>#</li>
+            <li>#</li>
+            <li>#</li>
+           </ul>  
+          </div>
+        </div>
+     <div class="card my-5">
+      <h3 class="card-header "style="background-color:gold;color:black">Special Edition <img class="icon" src="images/special.webp" alt="target" width="40" height="40"></img></h3>
+          <div class="card-body" style="background-image:url(images/background6.webp);background-repeat: repeat;background-size: 300px 300px;">
+            <p style="text-align:center">Add an extra layer of excitement to your game by using:</p>
+            <h4 style="text-align:center"><b>#</b></h4>
+            <p style="text-align:center">#</p>
+            <ul>
+              <h4>#</h4>
+              <li>#</li>
+              <li>#</li>
+              <li>#</li>
+              <li>#</li>
+           </ul> 
+      </div>
       </div>
     </div>
 
+<!-- /.Comments -->
+<div class="commentbox"></div>
+
+<script src="https://unpkg.com/commentbox.io/dist/commentBox.min.js"></script>
+<script>commentBox('5750724524769280-proj')</script>
+
+<!-- /.social media links -->
+<div class="col-md-12" style="text-align:center">
+  <h4 style="color:#278FFF">&nbsp;&nbsp;&nbsp;&nbsp;Share This Page<i class="fa fa-share-alt"></i></h1>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=beergogglegames.co.uk/" target="_blank" class="fa fa-facebook"></a>
+  <a href="https://www.instagram.com/direct/new/" target="_blank" ><button onclick="Copy()" class="fbutton fa fa-instagram" style="border:none;"></button></a>
+  <a href="https://twitter.com/intent/tweet?url=beergogglegames.co.uk/" target="_blank" class="fa fa-twitter"></a>
+  <button onclick="Copy()" class=" fbutton fa fa-link" style="border:none;"></button>
+</div>
+
+
+    <!-- /.row -->
+<hr>
+  <div class="row mb-4">
+      <div class="col-md-8">
+        <h4 style="color:#278FFF">Feedback</h4>
+        <p>If you think we've missed certain details out of the game or you have something to add, please feel free to contact us.</p>
+      </div>
+    <div class="col-md-4">
+      <br>
+      <br>
+      <br>
+        <a href="contact">
+          <button class="Cbutton" style="background-color=#278FFF">Contact Us</button>
+            </a>
+      </div>
+  </div>
   </div>
   <!-- /.container -->
-
+  
   <!-- Footer -->
   <footer class="py-5 " style="background-image:url(images/background1.webp);background-repeat: repeat;background-size: 300px 300px;">
     <div class="container">
