@@ -1,7 +1,11 @@
 ---
 import Analytics from './Analytics.astro';
 import '../styles.css';
-const { title = 'BeerGoggleGames', description = 'Drinking games, cocktails, and chaos—curated.', ogImage } = Astro.props;
+const {
+  title = 'BeerGoggleGames',
+  description = 'Drinking games, cocktails, and chaos—curated.',
+  ogImage
+} = Astro.props;
 const base = import.meta.env.BASE_URL || '/';
 ---
 <html lang="en" class="bg-bg text-fg">
@@ -18,22 +22,45 @@ const base = import.meta.env.BASE_URL || '/';
     {ogImage && <meta property="og:image" content={ogImage} />}
   </head>
   <body class="min-h-screen">
-    <header class="border-b border-fg/20">
-      <div class="mx-auto max-w-6xl px-4 py-4 flex items-center justify-between">
+    <header class="sticky top-0 z-50 bg-bg/80 backdrop-blur border-b border-fg/20">
+      <div class="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between">
         <a href={`${base}`} class="font-display text-2xl tracking-tight hover:text-neon">BeerGoggleGames</a>
-        <nav class="flex gap-4 text-sm">
+        <nav class="hidden md:flex gap-5 text-sm">
+          <a class="hover:text-neon" href={`${base}games`}>Games</a>
+            <a class="hover:text-neon" href={`${base}drinks`}>Drinks</a>
+            <a class="hover:text-neon" href={`${base}extras`}>Extras</a>
+            <a class="hover:text-neon" href={`${base}blog`}>Blog</a>
+            <a class="hover:text-neon" href={`${base}about`}>About</a>
+            <a class="hover:text-neon" href={`${base}contact`}>Contact</a>
+        </nav>
+        <button
+          id="menuBtn"
+          class="md:hidden p-2 border border-fg/30"
+          aria-controls="mobileMenu"
+          aria-expanded="false"
+          aria-label="Toggle menu">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+      <nav id="mobileMenu" class="md:hidden hidden border-t border-fg/20">
+        <div class="mx-auto max-w-6xl px-4 py-3 grid gap-3 text-base">
           <a class="hover:text-neon" href={`${base}games`}>Games</a>
           <a class="hover:text-neon" href={`${base}drinks`}>Drinks</a>
           <a class="hover:text-neon" href={`${base}extras`}>Extras</a>
           <a class="hover:text-neon" href={`${base}blog`}>Blog</a>
           <a class="hover:text-neon" href={`${base}about`}>About</a>
           <a class="hover:text-neon" href={`${base}contact`}>Contact</a>
-        </nav>
-      </div>
+        </div>
+      </nav>
     </header>
+
     <main class="mx-auto max-w-6xl px-4 py-8">
       <slot />
     </main>
+
     <footer class="border-t border-fg/20">
       <div class="mx-auto max-w-6xl px-4 py-6 text-sm text-muted">
         <div class="flex items-center justify-between">
@@ -42,6 +69,7 @@ const base = import.meta.env.BASE_URL || '/';
         </div>
       </div>
     </footer>
+
     <script is:inline>
       (function(){
         var basePath = {JSON.stringify(base)};
@@ -50,15 +78,28 @@ const base = import.meta.env.BASE_URL || '/';
           if (!p.startsWith(basePath)) return;
           var rest = p.slice(basePath.length);
           var normalizedRest = rest
-            .replace(/%26/g, 'and')
-            .replace(/&/g, 'and')
-            .replace(/ /g, '-')
-            .replace(/[A-Z]/g, function(m){ return m.toLowerCase(); });
+            .replace(/%26/g,'and')
+            .replace(/&/g,'and')
+            .replace(/ /g,'-')
+            .replace(/[A-Z]/g,m=>m.toLowerCase());
           var normalized = basePath + normalizedRest;
-          if (normalized !== p) {
-            history.replaceState({}, '', normalized);
-          }
+            if (normalized !== p) { history.replaceState({}, '', normalized); }
         } catch(e) {}
+      })();
+      (function(){
+        var btn = document.getElementById('menuBtn');
+        var menu = document.getElementById('mobileMenu');
+        if (!btn || !menu) return;
+        btn.addEventListener('click', function(){
+          var open = !menu.classList.contains('hidden');
+          if (open){
+            menu.classList.add('hidden');
+            btn.setAttribute('aria-expanded','false');
+          } else {
+            menu.classList.remove('hidden');
+            btn.setAttribute('aria-expanded','true');
+          }
+        });
       })();
     </script>
     <Analytics />
