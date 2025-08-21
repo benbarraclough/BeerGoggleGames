@@ -1,7 +1,7 @@
 import fs from 'fs';
 import fsp from 'fs/promises';
 import path from 'path';
-import cheerio from 'cheerio';
+import { load as loadHtml } from 'cheerio';
 
 const root = process.cwd();
 const legacyDir = path.join(root, 'legacy');
@@ -66,13 +66,11 @@ function classify(relPath) {
     const type = GAME_TYPES.find(t => p.includes(t)) || 'misc';
     return { collection: 'games', type };
   }
-  // fallback: try folder hints
   if (p.includes('drink')) return { collection: p.includes('cock') ? 'cocktails' : 'shots' };
   return null;
 }
 
 function rewriteSrcs($) {
-  // Make asset paths work on GitHub Pages base (/BeerGoggleGames/)
   $('img, source').each((_, el) => {
     const $el = $(el);
     const attr = $el.attr('srcset') ? 'srcset' : 'src';
@@ -82,7 +80,7 @@ function rewriteSrcs($) {
     const rewritten = parts.map(part => {
       const [url, descriptor] = part.trim().split(/\s+/, 2);
       if (/^https?:\/\//i.test(url) || url.startsWith('data:')) return part.trim();
-      const normalized = url.replace(/^\.?\/*/, ''); // drop leading ./ or /
+      const normalized = url.replace(/^\.?\/*/, '');
       const withBase = `/BeerGoggleGames/${normalized}`;
       return descriptor ? `${withBase} ${descriptor}` : withBase;
     });
@@ -142,7 +140,7 @@ async function migrate() {
     if (!cls) { counts.skipped++; continue; }
 
     const raw = await fsp.readFile(file, 'utf8');
-    const $ = cheerio.load(raw, { decodeEntities: false });
+    const $ = loadHtml(raw, { decodeEntities: false });
 
     const baseName = path.basename(file, path.extname(file));
     const parent = path.basename(path.dirname(file));
@@ -178,7 +176,6 @@ async function migrate() {
     console.log(`+ ${cls.collection}/${slug}.mdx`);
   }
 
-  // Copy common asset folders
   const assetDirs = ['images', 'img', 'assets', 'static', 'media', 'uploads'];
   for (const dir of assetDirs) {
     await copyDir(path.join(legacyDir, dir), path.join(outPublic, dir));
