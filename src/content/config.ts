@@ -4,8 +4,9 @@ const game = defineCollection({
   type: 'content',
   schema: z.object({
     title: z.string(),
+    slug: z.string().optional(),
     type: z.enum(['pong', 'dice', 'cup', 'card', 'coin', 'vocal', 'outdoor', 'misc']),
-    format: z.enum(['team', '1v1', 'pair', 'ffa']),
+    format: z.enum(['team', '1v1', 'pair', 'ffa']).optional(),
     players: z.string().optional(),
     equipment: z.array(z.string()).optional(),
     summary: z.string().optional(),
@@ -19,6 +20,7 @@ const cocktail = defineCollection({
   type: 'content',
   schema: z.object({
     title: z.string(),
+    slug: z.string().optional(),
     ingredients: z.array(z.string()),
     method: z.array(z.string()),
     glass: z.string().optional(),
@@ -28,16 +30,13 @@ const cocktail = defineCollection({
   })
 });
 
-const shot = defineCollection({
-  type: 'content',
-  schema: cocktail.schema
-});
+const shot = defineCollection({ type: 'content', schema: cocktail.schema });
 
 const post = defineCollection({
   type: 'content',
   schema: z.object({
     title: z.string(),
-    date: z.string(),
+    date: z.string().optional(),   // optional now
     excerpt: z.string().optional(),
     tags: z.array(z.string()).default([]),
     cover: z.string().optional(),
@@ -57,10 +56,4 @@ const activity = defineCollection({
   })
 });
 
-export const collections = {
-  games: game,
-  cocktails: cocktail,
-  shots: shot,
-  posts: post,
-  activities: activity
-};
+export const collections = { games: game, cocktails: cocktail, shots: shot, posts: post, activities: activity };
