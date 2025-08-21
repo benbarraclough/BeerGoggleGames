@@ -1,7 +1,14 @@
 ---
 import Layout from '../../components/Layout.astro';
 import { getCollection } from 'astro:content';
-const posts = (await getCollection('posts')).sort((a,b) => (a.data.date > b.data.date ? -1 : 1));
+const posts = (await getCollection('posts')).sort((a,b) => {
+  const ad = a.data.date || '';
+  const bd = b.data.date || '';
+  if (ad && bd) return ad > bd ? -1 : 1;
+  if (ad && !bd) return -1;
+  if (!ad && bd) return 1;
+  return (a.data.title || '').localeCompare(b.data.title || '');
+});
 const base = import.meta.env.BASE_URL || '/';
 ---
 <Layout title="Blog">
@@ -11,8 +18,9 @@ const base = import.meta.env.BASE_URL || '/';
       const slug = (p.slug ?? p.id).split('/').pop();
       return (
         <li class="border border-fg/20 p-4">
-          <a class="font-semibold hover:text-neon" href={`${base}blog/${slug}/`}>{p.data.title}</a>
+          <a class="font-semibold hover:text-neon" href={`${base}blog/${slug}`}>{p.data.title}</a>
           {p.data.excerpt && <p class="text-sm text-muted mt-1">{p.data.excerpt}</p>}
+          {p.data.date && <div class="text-xs text-muted mt-1">{p.data.date}</div>}
         </li>
       );
     })}
