@@ -1,22 +1,35 @@
 ---
 import Layout from '../../../components/Layout.astro';
 import { getCollection } from 'astro:content';
+
 export async function getStaticPaths() {
-  const types = ['pong','dice','cup','card','coin','vocal','outdoor','misc'];
+  const all = await getCollection('games');
+  const types = Array.from(new Set(all.map(e => e.data.type || 'misc')));
   return types.map((type) => ({ params: { type } }));
 }
+
 const { type } = Astro.params;
-const games = (await getCollection('games')).filter(g => g.data.type === type);
+const items = (await getCollection('games'))
+  .filter(e => (e.data.type || 'misc') === type)
+  .sort((a,b) => (a.data.title || '').localeCompare(b.data.title || ''));
 const base = import.meta.env.BASE_URL || '/';
 ---
-<Layout title={type}>
-  <h1 class="font-display text-3xl mb-4">{type} games</h1>
-  <ul class="grid md:grid-cols-2 gap-4">
-    {games.map(g => {
-      const slug = (g.slug ?? g.id).split('/').pop();
+<Layout title={`${type?.charAt(0).toUpperCase()}${type?.slice(1)} Games`}>
+  <h1 class="font-display text-3xl mb-6">{type?.charAt(0).toUpperCase()}{type?.slice(1)} Games</h1>
+  <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    {items.map(p => {
+      const slug = (p.slug ?? p.id).split('/').pop();
       return (
         <li class="border border-fg/20 p-4">
-          <a class="font-semibold hover:text-neon" href={`${base}games/${type}/${slug}/`}>{g.data.title}</a>
+          <a class="font-semibold hover:text-neon" href={`${base}games/${type}/${slug}`}>{p.data.title}</a>
+          {p.data.cover && (
+            <img class="mt-3 max-h-40 border border-fg/20 object-cover"
+                 src={`${base}${p.data.cover}`}
+                 alt={p.data.title} />
+          )}
+          {p.data.tags?.length ? (
+            <div class="text-xs text-muted mt-2">{p.data.tags.join(' • ')}</div>
+          ) : null}
         </li>
       );
     })}
