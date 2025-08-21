@@ -1,22 +1,38 @@
 ---
 import Layout from '../../../components/Layout.astro';
 import { getCollection } from 'astro:content';
+
 export async function getStaticPaths() {
   const items = await getCollection('cocktails');
-  return items.map((item) => ({ params: { slug: item.slug?.split('/').pop() ?? item.id.split('/').pop() }, props: { item } }));
+  return items.map((item) => ({
+    params: { slug: item.slug?.split('/').pop() ?? item.id.split('/').pop() },
+    props: { item }
+  }));
 }
+
 const { item } = Astro.props;
 const d = item.data;
+const base = import.meta.env.BASE_URL || '/';
 ---
 <Layout title={d.title}>
   <h1 class="font-display text-3xl mb-4">{d.title}</h1>
-  {d.cover && <img class="mb-4 max-w-md border border-fg/20" src={d.cover} alt={d.title} />}
-  <h2 class="font-semibold">Ingredients</h2>
-  <ul class="list-disc pl-5 mb-4">
-    {d.ingredients.map(i => <li>{i}</li>)}
-  </ul>
-  <h2 class="font-semibold">Method</h2>
-  <ol class="list-decimal pl-5">
-    {d.method.map(s => <li class="mb-1">{s}</li>)}
-  </ol>
+  {d.cover && <img class="mb-4 max-w-md border border-fg/20" src={`${base}${d.cover}`} alt={d.title} />}
+
+  {d.ingredients?.length ? (
+    <>
+      <h2 class="font-semibold">Ingredients</h2>
+      <ul class="list-disc pl-5 mb-4">
+        {d.ingredients.map(i => <li>{i}</li>)}
+      </ul>
+    </>
+  ) : null}
+
+  {d.method?.length ? (
+    <>
+      <h2 class="font-semibold">Method</h2>
+      <ol class="list-decimal pl-5">
+        {d.method.map(s => <li class="mb-1">{s}</li>)}
+      </ol>
+    </>
+  ) : null}
 </Layout>
