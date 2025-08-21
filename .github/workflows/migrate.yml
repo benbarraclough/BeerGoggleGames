@@ -1,0 +1,40 @@
+name: Migrate legacy content
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout new site
+        uses: actions/checkout@v4
+
+      - name: Checkout legacy site
+        uses: actions/checkout@v4
+        with:
+          repository: benbarraclough/beergogglegames-old
+          ref: main
+          path: legacy
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Run migration
+        run: npm run migrate
+
+      - name: Commit migrated content
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: migrate content from legacy"
+          file_pattern: |
+            src/content/**
+            public/**
