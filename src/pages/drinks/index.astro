@@ -4,16 +4,14 @@ const base = import.meta.env.BASE_URL || '/';
 ---
 <Layout title="Drinks">
   <h1 class="font-display text-3xl mb-6">Drinks</h1>
-  <div class="grid gap-4 sm:grid-cols-2">
-    <a class="block border border-fg/20 p-5 hover:text-neon"
-       href={`${base}drinks/cocktail-recipes`}>
-      <h2 class="font-semibold text-xl">Cocktails</h2>
-      <p class="text-sm text-muted mt-1">Shaken, stirred, and everything in between.</p>
-    </a>
-    <a class="block border border-fg/20 p-5 hover:text-neon"
-       href={`${base}drinks/shot-recipes`}>
-      <h2 class="font-semibold text-xl">Shots</h2>
-      <p class="text-sm text-muted mt-1">Quick hits for the party.</p>
-    </a>
-  </div>
+  <ul class="grid gap-4 sm:grid-cols-2">
+    <li class="border border-fg/20 p-4">
+      <a class="font-semibold hover:text-neon" href={`${base}drinks/cocktail-recipes`}>Cocktail Recipes</a>
+      <p class="text-sm text-muted mt-1">Classic and party cocktails.</p>
+    </li>
+    <li class="border border-fg/20 p-4">
+      <a class="font-semibold hover:text-neon" href={`${base}drinks/shot-recipes`}>Shot Recipes</a>
+      <p class="text-sm text-muted mt-1">Quick hitters and crowd-pleasers.</p>
+    </li>
+  </ul>
 </Layout>
