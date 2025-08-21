@@ -9,15 +9,14 @@ export async function getStaticPaths() {
     props: { item }
   }));
 }
-
 const { item } = Astro.props;
 const d = item.data;
 const base = import.meta.env.BASE_URL || '/';
+const { Content } = await item.render();
 ---
 <Layout title={d.title}>
   <h1 class="font-display text-3xl mb-4">{d.title}</h1>
   {d.cover && <img class="mb-4 max-w-md border border-fg/20" src={`${base}${d.cover}`} alt={d.title} />}
-
   {d.ingredients?.length ? (
     <>
       <h2 class="font-semibold">Ingredients</h2>
@@ -26,13 +25,15 @@ const base = import.meta.env.BASE_URL || '/';
       </ul>
     </>
   ) : null}
-
   {d.method?.length ? (
     <>
       <h2 class="font-semibold">Method</h2>
-      <ol class="list-decimal pl-5">
+      <ol class="list-decimal pl-5 mb-4">
         {d.method.map(s => <li class="mb-1">{s}</li>)}
       </ol>
     </>
   ) : null}
+  <section class="prose prose-invert max-w-none">
+    <Content />
+  </section>
 </Layout>
