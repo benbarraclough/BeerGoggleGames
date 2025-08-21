@@ -2,7 +2,9 @@ name: Deploy Astro site to GitHub Pages
 
 on:
   push:
-    branches: [ "site-revamp" ]
+    branches:
+      - "copilot/fix-8d5b9369-febd-4be8-9315-eb0f77fc7b2a"
+      # when ready to go live, change to: - "main"
   workflow_dispatch:
 
 permissions:
@@ -17,6 +19,9 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      ASTRO_TELEMETRY_DISABLED: "1"   # prevent telemetry in CI
+      PUBLIC_GA_ID: "G-0SEF37XKSR"    # optional; override baked-in GA id
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -28,6 +33,7 @@ jobs:
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
+
   deploy:
     needs: build
     runs-on: ubuntu-latest
