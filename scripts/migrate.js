@@ -168,7 +168,7 @@ async function migrate() {
     const front = frontmatter(data);
     const mdxBody = `${front}${html}\n`;
 
-    const dest = path.join(outContent, cls.collection, `${slug}.mdx`);
+    const dest = path.join(outContent, cls.collection, `${slug}.md`);
     ensureDir(path.dirname(dest));
     await fsp.writeFile(dest, mdxBody, 'utf8');
 
