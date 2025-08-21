@@ -1,13 +1,14 @@
 ---
 import Layout from '../../components/Layout.astro';
 import { getCollection } from 'astro:content';
+import { excludeLegacyNoise } from '../../lib/filters';
 
-const all = await getCollection('games');
-const types = Array.from(new Set(all.map(e => e.data.type || 'misc')));
+const all = excludeLegacyNoise(await getCollection('games'));
+const types = Array.from(new Set(all.map(e => e.data.type || 'misc'))).sort();
 const base = import.meta.env.BASE_URL || '/';
 ---
 <Layout title="Games">
-  <h1 class="font-display text-3xl mb-6">Games</h1>
+  <h1 class="font-display text-3xl mb-6">Game Types</h1>
   <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
     {types.map(type => (
       <li class="border border-fg/20 p-4">
