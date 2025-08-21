@@ -1,24 +1,28 @@
 ---
 import Layout from '../../components/Layout.astro';
 import { getCollection } from 'astro:content';
-const games = await getCollection('games');
-const types = ['pong','dice','cup','card','coin','vocal','outdoor','misc'];
+
+const all = await getCollection('games');
+const types = Array.from(
+  all.reduce((m, e) => {
+    const t = e.data.type || 'misc';
+    m.set(t, (m.get(t) || 0) + 1);
+    return m;
+  }, new Map())
+).sort(([a], [b]) => a.localeCompare(b));
+
 const base = import.meta.env.BASE_URL || '/';
 ---
 <Layout title="Games">
-  <h1 class="font-display text-3xl mb-4">Games</h1>
-  <div class="mb-6 flex flex-wrap gap-2">
-    {types.map(t => <a class="px-3 py-1 border border-fg/30 hover:border-neon" href={`${base}games/${t}/`}>{t}</a>)}
-  </div>
-  <ul class="grid md:grid-cols-2 gap-4">
-    {games.map(g => {
-      const slug = (g.slug ?? g.id).split('/').pop();
-      return (
-        <li class="border border-fg/20 p-4">
-          <a class="font-semibold hover:text-neon" href={`${base}games/${g.data.type}/${slug}/`}>{g.data.title}</a>
-          <div class="text-xs text-muted mt-1">{g.data.format}</div>
-        </li>
-      );
-    })}
+  <h1 class="font-display text-3xl mb-6">Games</h1>
+  <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    {types.map(([t, count]) => (
+      <li class="border border-fg/20 p-4">
+        <a class="font-semibold hover:text-neon" href={`${base}games/${t}`}>
+          {t.charAt(0).toUpperCase() + t.slice(1)}
+        </a>
+        <div class="text-xs text-muted mt-1">{count} game{count === 1 ? '' : 's'}</div>
+      </li>
+    ))}
   </ul>
 </Layout>
