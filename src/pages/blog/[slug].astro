@@ -1,19 +1,22 @@
 ---
 import Layout from '../../components/Layout.astro';
-import Comments from '../../components/Comments.astro';
 import { getCollection } from 'astro:content';
+
 export async function getStaticPaths() {
   const items = await getCollection('posts');
-  return items.map((item) => ({ params: { slug: item.slug?.split('/').pop() ?? item.id.split('/').pop() }, props: { item } }));
+  return items.map((item) => ({
+    params: { slug: item.slug?.split('/').pop() ?? item.id.split('/').pop() },
+    props: { item }
+  }));
 }
 const { item } = Astro.props;
 const d = item.data;
+const { Content } = await item.render();
 ---
 <Layout title={d.title}>
-  <h1 class="font-display text-3xl mb-2">{d.title}</h1>
-  <div class="text-sm text-muted mb-6">{d.date}</div>
-  <slot />
-  <div class="mt-10">
-    <Comments />
-  </div>
+  <article class="prose prose-invert max-w-none">
+    <h1 class="font-display text-3xl">{d.title}</h1>
+    {d.date && <div class="text-sm text-muted mb-4">{d.date}</div>}
+    <Content />
+  </article>
 </Layout>
