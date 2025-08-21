@@ -11,12 +11,17 @@ export async function getStaticPaths() {
 }
 const { item } = Astro.props;
 const d = item.data;
+const base = import.meta.env.BASE_URL || '/';
 ---
 <Layout title={d.title}>
   <h1 class="font-display text-3xl">{d.title}</h1>
   <div class="text-sm text-muted mb-4">{d.type} • {d.format}</div>
+  {d.cover && <img class="mb-4 max-w-md border border-fg/20" src={`${base}${d.cover}`} alt={d.title} />}
   <section class="prose prose-invert max-w-none mt-4">
-    <h2>Summary</h2>
-    <p>{d.summary}</p>
+    {d.summary && <>
+      <h2>Summary</h2>
+      <p>{d.summary}</p>
+    </>}
+    <slot />
   </section>
 </Layout>
