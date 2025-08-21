@@ -5,23 +5,21 @@ import { getCollection } from 'astro:content';
 export async function getStaticPaths() {
   const items = await getCollection('games');
   return items.map((item) => ({
-    params: { type: item.data.type, slug: item.slug?.split('/').pop() ?? item.id.split('/').pop() },
+    params: { type: item.data.type || 'misc', slug: item.slug?.split('/').pop() ?? item.id.split('/').pop() },
     props: { item }
   }));
 }
 const { item } = Astro.props;
 const d = item.data;
 const base = import.meta.env.BASE_URL || '/';
+const { Content } = await item.render();
 ---
 <Layout title={d.title}>
   <h1 class="font-display text-3xl">{d.title}</h1>
-  <div class="text-sm text-muted mb-4">{d.type} • {d.format}</div>
+  <div class="text-sm text-muted mb-4">{(d.type || 'misc')}{d.format ? ` • ${d.format}` : ''}</div>
   {d.cover && <img class="mb-4 max-w-md border border-fg/20" src={`${base}${d.cover}`} alt={d.title} />}
-  <section class="prose prose-invert max-w-none mt-4">
-    {d.summary && <>
-      <h2>Summary</h2>
-      <p>{d.summary}</p>
-    </>}
-    <slot />
+  {d.summary && <p class="mb-4">{d.summary}</p>}
+  <section class="prose prose-invert max-w-none">
+    <Content />
   </section>
 </Layout>
