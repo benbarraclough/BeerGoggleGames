@@ -4,10 +4,7 @@ import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
   const items = await getCollection('cocktails');
-  return items.map((item) => ({
-    params: { slug: item.slug?.split('/').pop() ?? item.id.split('/').pop() },
-    props: { item }
-  }));
+  return items.map((item) => ({ params: { slug: item.slug?.split('/').pop() ?? item.id.split('/').pop() }, props: { item } }));
 }
 const { item } = Astro.props;
 const d = item.data;
@@ -20,17 +17,13 @@ const { Content } = await item.render();
   {d.ingredients?.length ? (
     <>
       <h2 class="font-semibold">Ingredients</h2>
-      <ul class="list-disc pl-5 mb-4">
-        {d.ingredients.map(i => <li>{i}</li>)}
-      </ul>
+      <ul class="list-disc pl-5 mb-4">{d.ingredients.map(i => <li>{i}</li>)}</ul>
     </>
   ) : null}
   {d.method?.length ? (
     <>
       <h2 class="font-semibold">Method</h2>
-      <ol class="list-decimal pl-5 mb-4">
-        {d.method.map(s => <li class="mb-1">{s}</li>)}
-      </ol>
+      <ol class="list-decimal pl-5 mb-4">{d.method.map(s => <li class="mb-1">{s}</li>)}</ol>
     </>
   ) : null}
   <section class="prose prose-invert max-w-none">
