@@ -124,11 +124,42 @@ async function copyDir(src, dest) {
   }
 }
 
+async function cleanupMdxFiles() {
+  console.log('Cleaning up existing .mdx files in src/content...');
+  let renamedCount = 0;
+  
+  for (const collection of collections) {
+    const collectionDir = path.join(outContent, collection);
+    if (!fs.existsSync(collectionDir)) continue;
+    
+    const entries = await fsp.readdir(collectionDir, { withFileTypes: true });
+    for (const entry of entries) {
+      if (entry.isFile() && entry.name.endsWith('.mdx')) {
+        const oldPath = path.join(collectionDir, entry.name);
+        const newPath = path.join(collectionDir, entry.name.replace(/\.mdx$/, '.md'));
+        
+        await fsp.rename(oldPath, newPath);
+        renamedCount++;
+        console.log(`Renamed: ${path.relative(root, oldPath)} → ${path.relative(root, newPath)}`);
+      }
+    }
+  }
+  
+  if (renamedCount > 0) {
+    console.log(`Successfully renamed ${renamedCount} .mdx files to .md`);
+  } else {
+    console.log('No .mdx files found to rename');
+  }
+}
+
 async function migrate() {
   if (!fs.existsSync(legacyDir)) {
     console.log('Legacy folder not found. Make sure the workflow checked out benbarraclough/beergogglegames-old to ./legacy');
     process.exit(0);
   }
+
+  // Clean up any existing .mdx files first
+  await cleanupMdxFiles();
 
   let counts = { games: 0, cocktails: 0, shots: 0, posts: 0, skipped: 0 };
 
@@ -173,7 +204,7 @@ async function migrate() {
     await fsp.writeFile(dest, mdxBody, 'utf8');
 
     counts[cls.collection]++;
-    console.log(`+ ${cls.collection}/${slug}.mdx`);
+    console.log(`+ ${cls.collection}/${slug}.md`);
   }
 
   const assetDirs = ['images', 'img', 'assets', 'static', 'media', 'uploads'];
