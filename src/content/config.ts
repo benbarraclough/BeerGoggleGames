@@ -4,8 +4,8 @@ const game = defineCollection({
   type: 'content',
   schema: z.object({
     title: z.string(),
-    slug: z.string().optional(),
-    type: z.enum(['pong', 'dice', 'cup', 'card', 'coin', 'vocal', 'outdoor', 'misc']),
+    // type/format optional for now so existing content won’t fail validation
+    type: z.enum(['pong', 'dice', 'cup', 'card', 'coin', 'vocal', 'outdoor', 'misc']).optional(),
     format: z.enum(['team', '1v1', 'pair', 'ffa']).optional(),
     players: z.string().optional(),
     equipment: z.array(z.string()).optional(),
@@ -20,9 +20,8 @@ const cocktail = defineCollection({
   type: 'content',
   schema: z.object({
     title: z.string(),
-    slug: z.string().optional(),
-    ingredients: z.array(z.string()),
-    method: z.array(z.string()),
+    ingredients: z.array(z.string()).optional(),
+    method: z.array(z.string()).optional(),
     glass: z.string().optional(),
     garnish: z.string().optional(),
     cover: z.string().optional(),
@@ -36,7 +35,7 @@ const post = defineCollection({
   type: 'content',
   schema: z.object({
     title: z.string(),
-    date: z.string().optional(),   // optional now
+    date: z.string().optional(),
     excerpt: z.string().optional(),
     tags: z.array(z.string()).default([]),
     cover: z.string().optional(),
