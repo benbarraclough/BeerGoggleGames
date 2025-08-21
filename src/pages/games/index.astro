@@ -3,25 +3,17 @@ import Layout from '../../components/Layout.astro';
 import { getCollection } from 'astro:content';
 
 const all = await getCollection('games');
-const types = Array.from(
-  all.reduce((m, e) => {
-    const t = e.data.type || 'misc';
-    m.set(t, (m.get(t) || 0) + 1);
-    return m;
-  }, new Map())
-).sort(([a], [b]) => a.localeCompare(b));
-
+const types = Array.from(new Set(all.map(e => e.data.type || 'misc')));
 const base = import.meta.env.BASE_URL || '/';
 ---
 <Layout title="Games">
   <h1 class="font-display text-3xl mb-6">Games</h1>
   <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-    {types.map(([t, count]) => (
+    {types.map(type => (
       <li class="border border-fg/20 p-4">
-        <a class="font-semibold hover:text-neon" href={`${base}games/${t}`}>
-          {t.charAt(0).toUpperCase() + t.slice(1)}
+        <a class="font-semibold hover:text-neon" href={`${base}games/${type}`}>
+          {type.charAt(0).toUpperCase()}{type.slice(1)} Games
         </a>
-        <div class="text-xs text-muted mt-1">{count} game{count === 1 ? '' : 's'}</div>
       </li>
     ))}
   </ul>
