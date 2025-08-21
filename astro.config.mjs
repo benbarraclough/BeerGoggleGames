@@ -1,12 +1,10 @@
 import { defineConfig } from 'astro/config';
-import tailwind from '@astrojs/tailwind';
 import mdx from '@astrojs/mdx';
+import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://benbarraclough.github.io/BeerGoggleGames',
+  site: 'https://benbarraclough.github.io/BeerGoggleGames/',
   base: '/BeerGoggleGames/',
-  integrations: [tailwind({ applyBaseStyles: true }), mdx(), sitemap()],
-  markdown: { drafts: false },
-  build: { format: 'directory' }
+  integrations: [mdx(), tailwind(), sitemap()],
 });
