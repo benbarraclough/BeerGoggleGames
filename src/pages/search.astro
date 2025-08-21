@@ -1,0 +1,14 @@
+---
+import Layout from '../components/Layout.astro';
+---
+<Layout title="Search">
+  <h1 class="font-display text-3xl mb-4">Search</h1>
+  <link href="https://cdn.jsdelivr.net/npm/@pagefind/default-ui@1.0.0/dist/pagefind-ui.css" rel="stylesheet">
+  <div id="search"></div>
+  <script src="https://cdn.jsdelivr.net/npm/@pagefind/default-ui@1.0.0/dist/pagefind-ui.js"></script>
+  <script is:inline>
+    window.addEventListener('DOMContentLoaded', () => {
+      new PagefindUI({ element: "#search", showImages: false, showSubResults: true, autofocus: true });
+    });
+  </script>
+</Layout>

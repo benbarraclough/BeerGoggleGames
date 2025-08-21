@@ -1,0 +1,19 @@
+---
+import Layout from '../../../components/Layout.astro';
+import { getCollection } from 'astro:content';
+const cocktails = await getCollection('cocktails');
+const base = import.meta.env.BASE_URL || '/';
+---
+<Layout title="Cocktail Recipes">
+  <h1 class="font-display text-3xl mb-6">Cocktails</h1>
+  <ul class="grid md:grid-cols-2 gap-4">
+    {cocktails.map(c => {
+      const slug = (c.slug ?? c.id).split('/').pop();
+      return (
+        <li class="border border-fg/20 p-4">
+          <a class="font-semibold hover:text-neon" href={`${base}drinks/cocktail-recipes/${slug}`}>{c.data.title}</a>
+        </li>
+      );
+    })}
+  </ul>
+</Layout>

@@ -1,60 +1,57 @@
-# [Start Bootstrap - Modern Business](https://startbootstrap.com/template/modern-business/)
+# BeerGoggleGames (Astro)
 
-[Modern Business](https://startbootstrap.com/template/modern-business/) is a multipurpose, full website template for [Bootstrap](https://getbootstrap.com/) created by [Start Bootstrap](https://startbootstrap.com/). This template includes 17 unique HTML pages and a working PHP contact form.
+## Develop
+- npm install
+- npm run dev
+- Content lives under src/content (Markdown/MDX).
 
-## Preview
+## Collections
+- games: src/content/games
+- cocktails: src/content/cocktails
+- shots: src/content/shots
+- posts: src/content/posts
+- activities: src/content/activities
 
-[![Modern Business Preview](https://assets.startbootstrap.com/img/screenshots/templates/modern-business.webp)](https://startbootstrap.github.io/startbootstrap-modern-business/)
+Frontmatter is validated. See examples in each folder.
 
-**[View Live Preview](https://startbootstrap.github.io/startbootstrap-modern-business/)**
+## URLs (normalized)
+- /about
+- /games/{type}/{slug}
+- /drinks/cocktail-recipes/{slug}
+- /drinks/shot-recipes/{slug}
+- /extras/{glossary|forfeits|wheel-of-fortune|activities-and-minigames}
 
-## Status
+## Search
+We use Pagefind. Build step indexes content automatically. A default UI is provided at /search.
 
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/StartBootstrap/startbootstrap-modern-business/master/LICENSE)
-[![npm version](https://img.shields.io/npm/v/startbootstrap-modern-business.svg)](https://www.npmjs.com/package/startbootstrap-modern-business)
-[![Build Status](https://travis-ci.org/StartBootstrap/startbootstrap-modern-business.svg?branch=master)](https://travis-ci.org/StartBootstrap/startbootstrap-modern-business)
-[![dependencies Status](https://david-dm.org/StartBootstrap/startbootstrap-modern-business/status.svg)](https://david-dm.org/StartBootstrap/startbootstrap-modern-business)
-[![devDependencies Status](https://david-dm.org/StartBootstrap/startbootstrap-modern-business/dev-status.svg)](https://david-dm.org/StartBootstrap/startbootstrap-modern-business?type=dev)
+## Comments
+We use Giscus. Enable Discussions on this repo, create a category (e.g., "General"), then visit https://giscus.app/ to generate:
+- data-repo-id
+- data-category-id
+Paste into src/components/Comments.astro.
 
-## Download and Installation
+## Contact form
+Create a free Formspree form, then replace the action URL in src/pages/contact.astro:
+https://formspree.io/forms
+Set the destination email to BeerGoggleGames@hotmail.com.
 
-To begin using this template, choose one of the following options to get started:
+## Analytics
+GA4 is integrated. To change the ID, either:
+- Add PUBLIC_GA_ID as a repository secret/environment var for Actions/Pages (value like G-XXXXXXXXXX), or
+- Replace the baked-in ID in src/components/Analytics.astro.
 
-* [Download the latest release on Start Bootstrap](https://startbootstrap.com/template/modern-business/)
-* Install via npm: `npm i startbootstrap-modern-business`
-* Clone the repo: `git clone https://github.com/StartBootstrap/startbootstrap-modern-business.git`
-* [Fork, Clone, or Download on GitHub](https://github.com/StartBootstrap/startbootstrap-modern-business)
+## GitHub Pages
+This repo uses a base path (/BeerGoggleGames). If you add a custom domain, update astro.config.mjs to:
+- site: 'https://yourdomain.tld'
+- base: '/' 
 
-## Usage
+## Redirect/normalization
+GitHub Pages doesn't support server redirects. We provide client-side normalization for uppercase and ampersands. For critical legacy URLs, we can add small HTML files with meta-refresh.
 
-### Basic Usage
-
-After downloading, simply edit the HTML and CSS files included with the template in your favorite text editor to make changes. These are the only files you need to worry about, you can ignore everything else! To preview the changes you make to the code, you can open the `index.html` file in your web browser.
-
-### Advanced Usage
-
-After installation, run `npm install` and then run `npm start` which will open up a preview of the template in your default browser, watch for changes to core template files, and live reload the browser when changes are saved. You can view the `gulpfile.js` to see which tasks are included with the dev environment.
-
-You must have npm and Gulp installed globally on your machine in order to use these features.
-
-## Bugs and Issues
-
-Have a bug or an issue with this template? [Open a new issue](https://github.com/StartBootstrap/startbootstrap-modern-business/issues) here on GitHub or leave a comment on the [template overview page at Start Bootstrap](https://startbootstrap.com/template/modern-business/).
-
-## About
-
-Start Bootstrap is an open source library of free Bootstrap templates and themes. All of the free templates and themes on Start Bootstrap are released under the MIT license, which means you can use them for any purpose, even for commercial projects.
-
-* <https://startbootstrap.com>
-* <https://twitter.com/SBootstrap>
-
-Start Bootstrap was created by and is maintained by **[David Miller](https://davidmiller.io/)**.
-
-* <https://davidmiller.io>
-* <https://twitter.com/davidmillerhere>
-* <https://github.com/davidtmiller>
-
-Start Bootstrap is based on the [Bootstrap](https://getbootstrap.com/) framework created by [Mark Otto](https://twitter.com/mdo) and [Jacob Thorton](https://twitter.com/fat).
+## Deployment
+A workflow deploys when pushing to the site-revamp branch. Once ready:
+- Change the workflow trigger to main, or
+- Merge site-revamp → main and enable GitHub Pages (Build and deployment: GitHub Actions).
 
 ## Copyright and License
 

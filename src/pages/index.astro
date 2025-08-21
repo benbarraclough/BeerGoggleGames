@@ -1,0 +1,26 @@
+---
+import Layout from '../components/Layout.astro';
+const base = import.meta.env.BASE_URL || '/';
+---
+<Layout title="BeerGoggleGames" description="Drinking games, cocktails, shots, and extras.">
+  <section class="grid md:grid-cols-2 gap-6 items-stretch">
+    <div class="p-6 border border-fg/20 bg-black/30">
+      <h1 class="font-display text-4xl md:text-5xl leading-tight">
+        Drinking Games, <span class="text-neon">No Chaser</span>.
+      </h1>
+      <p class="mt-4 text-muted max-w-prose">
+        Explore 80+ games, 80+ drinks, and extras—from forfeits to a wheel of fortune.
+      </p>
+      <div class="mt-6 flex gap-3">
+        <a href={`${base}games`} class="px-4 py-2 border border-neon text-neon hover:shadow-neon">Browse Games</a>
+        <a href={`${base}drinks/cocktail-recipes`} class="px-4 py-2 border border-fg/30 hover:border-neon">Cocktails</a>
+      </div>
+    </div>
+    <div class="p-6 border border-fg/20 bg-black/30">
+      <h2 class="font-display text-2xl">Latest Posts</h2>
+      <ul class="mt-3 text-sm list-disc pl-5">
+        <li><a class="hover:text-neon" href={`${base}blog`}>View the blog →</a></li>
+      </ul>
+    </div>
+  </section>
+</Layout>

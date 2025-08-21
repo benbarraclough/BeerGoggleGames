@@ -1,1 +1,8 @@
 node_modules
+.dist
+/.astro
+/.vercel
+/.netlify
+/dist
+.env
+.DS_Store

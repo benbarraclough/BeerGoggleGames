@@ -1,0 +1,24 @@
+---
+import Layout from '../../../components/Layout.astro';
+import { getCollection } from 'astro:content';
+export async function getStaticPaths() {
+  const types = ['pong','dice','cup','card','coin','vocal','outdoor','misc'];
+  return types.map((type) => ({ params: { type } }));
+}
+const { type } = Astro.params;
+const games = (await getCollection('games')).filter(g => g.data.type === type);
+const base = import.meta.env.BASE_URL || '/';
+---
+<Layout title={type}>
+  <h1 class="font-display text-3xl mb-4">{type} games</h1>
+  <ul class="grid md:grid-cols-2 gap-4">
+    {games.map(g => {
+      const slug = (g.slug ?? g.id).split('/').pop();
+      return (
+        <li class="border border-fg/20 p-4">
+          <a class="font-semibold hover:text-neon" href={`${base}games/${type}/${slug}`}>{g.data.title}</a>
+        </li>
+      );
+    })}
+  </ul>
+</Layout>

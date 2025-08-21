@@ -1,0 +1,23 @@
+---
+import Layout from '../../components/Layout.astro';
+---
+<Layout title="Wheel of Fortune">
+  <h1 class="font-display text-3xl mb-4">Wheel of Fortune</h1>
+  <div class="border border-fg/20 p-4 max-w-lg">
+    <label class="text-sm">Segments (comma-separated)</label>
+    <input id="segments" class="mt-1 w-full bg-transparent border border-fg/30 px-3 py-2 text-sm" value="Shot, Truth, Dare, Swap Seats, Water, Skip" />
+    <button id="spin" class="mt-3 px-4 py-2 border border-neon text-neon hover:shadow-neon">Spin</button>
+    <div id="result" class="mt-4 text-xl"></div>
+  </div>
+  <script is:inline>
+    const btn = document.getElementById('spin');
+    const input = document.getElementById('segments');
+    const out = document.getElementById('result');
+    btn?.addEventListener('click', () => {
+      const items = input.value.split(',').map(s => s.trim()).filter(Boolean);
+      if (!items.length) return;
+      const pick = items[Math.floor(Math.random() * items.length)];
+      out.textContent = `→ ${pick}`;
+    });
+  </script>
+</Layout>

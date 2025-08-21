@@ -1,0 +1,20 @@
+---
+import Layout from '../../components/Layout.astro';
+import { getCollection } from 'astro:content';
+const posts = (await getCollection('posts')).sort((a,b) => (a.data.date > b.data.date ? -1 : 1));
+const base = import.meta.env.BASE_URL || '/';
+---
+<Layout title="Blog">
+  <h1 class="font-display text-3xl mb-6">Blog</h1>
+  <ul class="grid gap-4">
+    {posts.map(p => {
+      const slug = (p.slug ?? p.id).split('/').pop();
+      return (
+        <li class="border border-fg/20 p-4">
+          <a class="font-semibold hover:text-neon" href={`${base}blog/${slug}`}>{p.data.title}</a>
+          {p.data.excerpt && <p class="text-sm text-muted mt-1">{p.data.excerpt}</p>}
+        </li>
+      );
+    })}
+  </ul>
+</Layout>

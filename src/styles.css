@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Extras */
+::selection { background: #00ff9c66; }
+a { transition: color .15s ease, box-shadow .15s ease; }

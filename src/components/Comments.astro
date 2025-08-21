@@ -1,0 +1,26 @@
+---
+/*
+  Requires setup at https://giscus.app/
+  Steps:
+  1) Enable Discussions on the repo (done)
+  2) Create or use a category (e.g., "General")
+  3) Generate repoId/categoryId and paste below
+*/
+const { mapping = 'pathname' } = Astro.props;
+---
+<script
+  src="https://giscus.app/client.js"
+  data-repo="benbarraclough/BeerGoggleGames"
+  data-repo-id=""
+  data-category="General"
+  data-category-id=""
+  data-mapping={mapping}
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="dark"
+  data-lang="en"
+  crossorigin="anonymous"
+  async
+></script>

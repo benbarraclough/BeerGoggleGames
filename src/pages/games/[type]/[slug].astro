@@ -1,0 +1,22 @@
+---
+import Layout from '../../../components/Layout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const items = await getCollection('games');
+  return items.map((item) => ({
+    params: { type: item.data.type, slug: item.slug?.split('/').pop() ?? item.id.split('/').pop() },
+    props: { item }
+  }));
+}
+const { item } = Astro.props;
+const d = item.data;
+---
+<Layout title={d.title}>
+  <h1 class="font-display text-3xl">{d.title}</h1>
+  <div class="text-sm text-muted mb-4">{d.type} • {d.format}</div>
+  <section class="prose prose-invert max-w-none mt-4">
+    <h2>Summary</h2>
+    <p>{d.summary}</p>
+  </section>
+</Layout>
