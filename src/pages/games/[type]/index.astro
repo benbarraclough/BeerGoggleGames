@@ -16,7 +16,7 @@ const base = import.meta.env.BASE_URL || '/';
       const slug = (g.slug ?? g.id).split('/').pop();
       return (
         <li class="border border-fg/20 p-4">
-          <a class="font-semibold hover:text-neon" href={`${base}games/${type}/${slug}`}>{g.data.title}</a>
+          <a class="font-semibold hover:text-neon" href={`${base}games/${type}/${slug}/`}>{g.data.title}</a>
         </li>
       );
     })}
