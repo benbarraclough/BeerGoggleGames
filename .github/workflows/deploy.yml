@@ -3,8 +3,7 @@ name: Deploy Astro site to GitHub Pages
 on:
   push:
     branches:
-      - "copilot/fix-8d5b9369-febd-4be8-9315-eb0f77fc7b2a"
-      # when ready to go live, change to: - "main"
+      - "main"
   workflow_dispatch:
 
 permissions:
