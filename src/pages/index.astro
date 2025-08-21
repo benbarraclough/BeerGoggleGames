@@ -1,26 +1,98 @@
 ---
 import Layout from '../components/Layout.astro';
+import { getCollection } from 'astro:content';
+import { excludeLegacyNoise } from '../lib/filters';
+
+const allGames = excludeLegacyNoise(await getCollection('games'));
+const recentGames = allGames.slice(0, 6);
+
+const posts = excludeLegacyNoise(await getCollection('posts'))
+  .filter(p => !p.data.draft)
+  .sort((a,b) => (b.data.date || '').localeCompare(a.data.date || ''))
+  .slice(0, 3);
+
+const cocktails = excludeLegacyNoise(await getCollection('cocktails')).slice(0,3);
+const shots = excludeLegacyNoise(await getCollection('shots')).slice(0,3);
+
 const base = import.meta.env.BASE_URL || '/';
 ---
-<Layout title="BeerGoggleGames" description="Drinking games, cocktails, shots, and extras.">
-  <section class="grid md:grid-cols-2 gap-6 items-stretch">
-    <div class="p-6 border border-fg/20 bg-black/30">
-      <h1 class="font-display text-4xl md:text-5xl leading-tight">
-        Drinking Games, <span class="text-neon">No Chaser</span>.
-      </h1>
-      <p class="mt-4 text-muted max-w-prose">
-        Explore 80+ games, 80+ drinks, and extras—from forfeits to a wheel of fortune.
-      </p>
-      <div class="mt-6 flex gap-3">
-        <a href={`${base}games/`} class="px-4 py-2 border border-neon text-neon hover:shadow-neon">Browse Games</a>
-        <a href={`${base}drinks/cocktail-recipes/`} class="px-4 py-2 border border-fg/30 hover:border-neon">Cocktails</a>
+<Layout title="BeerGoggleGames">
+  <h1 class="font-display text-4xl mb-6">BeerGoggleGames</h1>
+  <p class="text-muted mb-10 max-w-prose">Drinking games, cocktail & shot recipes, and party extras. Fast, clean, mobile-ready.</p>
+
+  <section class="mb-12">
+    <h2 class="font-display text-2xl mb-4">Latest Games</h2>
+    <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {recentGames.map(g => {
+        const slug = (g.slug ?? g.id).split('/').pop();
+        const type = g.data.type || 'misc';
+        return (
+          <li class="border border-fg/20 p-4">
+            <a class="font-semibold hover:text-neon" href={`${base}games/${type}/${slug}`}>{g.data.title}</a>
+            {g.data.tags?.length ? <div class="text-xs text-muted mt-2">{g.data.tags.join(' • ')}</div> : null}
+          </li>
+        );
+      })}
+    </ul>
+    <p class="mt-4 text-sm"><a class="hover:text-neon" href={`${base}games`}>Browse all game types →</a></p>
+  </section>
+
+  <section class="mb-12">
+    <h2 class="font-display text-2xl mb-4">Drinks</h2>
+    <div class="grid gap-6 lg:grid-cols-2">
+      <div>
+        <h3 class="font-semibold mb-2">Cocktails</h3>
+        <ul class="grid gap-2">
+          {cocktails.map(c => {
+            const slug = (c.slug ?? c.id).split('/').pop();
+            return (
+              <li>
+                <a class="hover:text-neon" href={`${base}drinks/cocktail-recipes/${slug}`}>{c.data.title}</a>
+              </li>
+            );
+          })}
+        </ul>
+        <p class="mt-2 text-xs"><a class="hover:text-neon" href={`${base}drinks/cocktail-recipes`}>All cocktails →</a></p>
+      </div>
+      <div>
+        <h3 class="font-semibold mb-2">Shots</h3>
+        <ul class="grid gap-2">
+          {shots.map(s => {
+            const slug = (s.slug ?? s.id).split('/').pop();
+            return (
+              <li>
+                <a class="hover:text-neon" href={`${base}drinks/shot-recipes/${slug}`}>{s.data.title}</a>
+              </li>
+            );
+          })}
+        </ul>
+        <p class="mt-2 text-xs"><a class="hover:text-neon" href={`${base}drinks/shot-recipes`}>All shots →</a></p>
       </div>
     </div>
-    <div class="p-6 border border-fg/20 bg-black/30">
-      <h2 class="font-display text-2xl">Latest Posts</h2>
-      <ul class="mt-3 text-sm list-disc pl-5">
-        <li><a class="hover:text-neon" href={`${base}blog/`}>View the blog →</a></li>
+  </section>
+
+  <section class="mb-12">
+    <h2 class="font-display text-2xl mb-4">From the Blog</h2>
+    {posts.length === 0 ? <p class="text-muted">No posts yet.</p> : (
+      <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {posts.map(p => {
+          const slug = (p.slug ?? p.id).split('/').pop();
+          return (
+            <li class="border border-fg/20 p-4">
+              <a class="font-semibold hover:text-neon" href={`${base}blog/${slug}`}>{p.data.title}</a>
+              {p.data.date && <div class="text-xs text-muted mt-1">{p.data.date}</div>}
+              {p.data.excerpt && <p class="text-sm text-muted mt-2">{p.data.excerpt}</p>}
+            </li>
+          );
+        })}
       </ul>
-    </div>
+    )}
+    <p class="mt-4 text-sm"><a class="hover:text-neon" href={`${base}blog`}>All posts →</a></p>
+  </section>
+
+  <section class="mb-8">
+    <h2 class="font-display text-2xl mb-4">Extras</h2>
+    <p class="text-sm text-muted">Check out forfeits, glossary, wheel of fortune, and more in Extras.</p>
+    <a class="inline-block mt-2 hover:text-neon text-sm" href={`${base}extras`}>Explore Extras →</a>
   </section>
 </Layout>
