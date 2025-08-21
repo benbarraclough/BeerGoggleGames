@@ -1,14 +1,16 @@
 ---
 import Layout from '../../components/Layout.astro';
 import { getCollection } from 'astro:content';
+import { excludeLegacyNoise } from '../../lib/filters';
 
 export async function getStaticPaths() {
-  const items = await getCollection('posts');
-  return items.map((item) => ({
-    params: { slug: item.slug?.split('/').pop() ?? item.id.split('/').pop() },
+  const items = excludeLegacyNoise(await getCollection('posts'));
+  return items.map(item => ({
+    params: { slug: (item.slug?.split('/').pop() ?? item.id.split('/').pop()) },
     props: { item }
   }));
 }
+
 const { item } = Astro.props;
 const d = item.data;
 const { Content } = await item.render();
