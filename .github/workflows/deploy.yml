@@ -20,15 +20,15 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      ASTRO_TELEMETRY_DISABLED: "1"   # prevent telemetry in CI
-      PUBLIC_GA_ID: "G-0SEF37XKSR"    # optional; override baked-in GA id
+      ASTRO_TELEMETRY_DISABLED: "1"
+      PUBLIC_GA_ID: "G-0SEF37XKSR"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: 'npm'
-      - run: npm ci
+      - run: npm install --no-audit --no-fund
       - run: npm run build
       - uses: actions/upload-pages-artifact@v3
         with:
