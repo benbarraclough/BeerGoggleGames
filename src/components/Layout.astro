@@ -23,8 +23,7 @@ const base = import.meta.env.BASE_URL || '/';
         <a href={`${base}`} class="font-display text-2xl tracking-tight hover:text-neon">BeerGoggleGames</a>
         <nav class="flex gap-4 text-sm">
           <a class="hover:text-neon" href={`${base}games`}>Games</a>
-          <a class="hover:text-neon" href={`${base}drinks/cocktail-recipes`}>Cocktails</a>
-          <a class="hover:text-neon" href={`${base}drinks/shot-recipes`}>Shots</a>
+          <a class="hover:text-neon" href={`${base}drinks`}>Drinks</a>
           <a class="hover:text-neon" href={`${base}extras`}>Extras</a>
           <a class="hover:text-neon" href={`${base}blog`}>Blog</a>
           <a class="hover:text-neon" href={`${base}about`}>About</a>
@@ -44,7 +43,6 @@ const base = import.meta.env.BASE_URL || '/';
       </div>
     </footer>
     <script is:inline>
-      // Client-side normalization for legacy uppercase and ampersands
       (function(){
         var basePath = {JSON.stringify(base)};
         try {
