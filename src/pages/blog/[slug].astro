@@ -1,24 +1,51 @@
 ---
-import Layout from '../../components/Layout.astro';
+import Layout from '../../layouts/Layout.astro';
+import StructuredData from '../../components/StructuredData.astro';
 import { getCollection } from 'astro:content';
-import { excludeLegacyNoise } from '../../lib/filters';
 
 export async function getStaticPaths() {
-  const items = excludeLegacyNoise(await getCollection('posts'));
-  return items.map(item => ({
-    params: { slug: (item.slug?.split('/').pop() ?? item.id.split('/').pop()) },
-    props: { item }
+  const posts = await getCollection('posts').catch(() => []); // uses src/content/posts
+  return posts.map(p => ({
+    params: { slug: p.slug },
+    props: { entry: p }
   }));
 }
 
-const { item } = Astro.props;
-const d = item.data;
-const { Content } = await item.render();
+const base = import.meta.env.BASE_URL || '/';
+const { entry } = Astro.props;
+const title = entry?.data?.title || 'Post';
+if (!entry) {
+  throw new Error('Post not found');
+}
+const description = entry.data.excerpt || entry.data.description || '';
+const date = entry.data.date ? new Date(entry.data.date) : null;
+const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://benbarraclough.github.io/BeerGoggleGames').toString();
+const authorName = entry.data.author || 'Beer Goggle Games';
+const image = entry.data.image || entry.data.hero || null;
+const blogLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: title,
+  description,
+  datePublished: date ? date.toISOString() : undefined,
+  dateModified: date ? date.toISOString() : undefined,
+  author: { '@type': 'Person', name: authorName },
+  publisher: { '@type': 'Organization', name: 'Beer Goggle Games' },
+  url: canonical,
+  image: image ? [image.startsWith('http') ? image : `${base}images/${image.replace(/^\/+/, '')}`] : undefined,
+  inLanguage: 'en'
+};
 ---
-<Layout title={d.title}>
-  <article class="prose prose-invert max-w-none">
-    <h1 class="font-display text-3xl">{d.title}</h1>
-    {d.date && <div class="text-sm text-muted mb-4">{d.date}</div>}
-    <Content />
+<Layout title={title} description={description}>
+  <article class="prose max-w-none">
+    <h1>{title}</h1>
+    {date && <p><time dateTime={date.toISOString()}>{date.toDateString()}</time></p>}
+    <div set:html={entry.body} />
   </article>
+
+  <p class="mt-8">
+    <a class="text-blue-600 hover:underline" href={`${base}blog/`}>← All Posts</a>
+  </p>
+
+  <StructuredData data={blogLd} />
 </Layout>
