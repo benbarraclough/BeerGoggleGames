@@ -2,6 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Extras */
+/* Global tweaks */
 ::selection { background: #00ff9c66; }
 a { transition: color .15s ease, box-shadow .15s ease; }
+
+/* Typography plugin dark (safety net) */
+.prose.prose-invert {
+  --tw-prose-links: theme(colors.neon);
+  --tw-prose-headings: theme(colors.fg);
+  --tw-prose-body: theme(colors.fg);
+}
+
+.prose.prose-invert a:hover {
+  color: theme(colors.neon);
+}
+
+.prose h1, .prose h2, .prose h3, .prose h4 {
+  @apply font-display;
+}
+
+/* Remove default list bullets where we apply list-none explicitly */
+ul.list-none { list-style: none; }
