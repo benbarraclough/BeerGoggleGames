@@ -2,7 +2,7 @@
 import Layout from '../../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 
-const PER_PAGE = 40;
+const PER_PAGE = 40; // MUST be above getStaticPaths
 
 export async function getStaticPaths() {
   const games = await getCollection('games');
