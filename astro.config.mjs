@@ -5,6 +5,6 @@ import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   site: 'https://benbarraclough.github.io/BeerGoggleGames',
-  base: '/BeerGoggleGames',
+  base: '/BeerGoggleGames/', // NOTE: now has trailing slash
   integrations: [tailwind(), mdx(), sitemap()]
 });
