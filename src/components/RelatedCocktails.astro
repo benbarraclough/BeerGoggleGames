@@ -1,0 +1,26 @@
+---
+import { getCollection } from 'astro:content';
+const { currentSlug, ingredients = [], limit = 3 } = Astro.props;
+
+const drinks = await getCollection('cocktails');
+const baseSet = new Set(ingredients.map(i => i.toLowerCase()));
+const related = drinks
+  .filter(d => d.slug !== currentSlug)
+  .map(d => {
+    const ing = (d.data.ingredients || []).map(x => x.toLowerCase());
+    const overlap = ing.filter(i => baseSet.has(i));
+    return { d, score: overlap.length };
+  })
+  .filter(x => x.score > 0)
+  .sort((a,b)=> b.score - a.score || a.d.data.title.localeCompare(b.d.data.title))
+  .slice(0, limit)
+  .map(x => x.d);
+---
+{related.length > 0 && (
+  <section>
+    <h2>Related Cocktails</h2>
+    <ul>
+      {related.map(r => <li><a href={`/cocktails/${r.slug}/`}>{r.data.title}</a></li>)}
+    </ul>
+  </section>
+)}
