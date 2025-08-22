@@ -1,29 +1,48 @@
 name: Fix Image Paths
 on:
   workflow_dispatch:
+
 jobs:
   fix:
     runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - uses: actions/setup-node@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: npm
-      - run: npm install
+
+      - name: Install deps
+        run: npm install
+
       - name: Run image fixer
         run: node scripts/fix-images.js
+
+      - name: Show diff
+        run: |
+          git status --short
+          git diff --name-only | head -50
+
       - name: Commit changes
         run: |
-          if git diff --name-only | grep -q .; then
-            git add public/images src/content
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git commit -m "chore: normalize image paths and copy missing images"
-            git push
-          else
-            echo "No changes."
+          set -euo pipefail
+          # Stage potential changes
+            git add public/images src/content || true
+
+          # If nothing staged, exit gracefully
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore: normalize image paths and copy missing images"
+          git push
