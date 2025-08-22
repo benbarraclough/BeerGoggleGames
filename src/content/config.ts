@@ -1,58 +1,47 @@
 import { defineCollection, z } from 'astro:content';
 
-const game = defineCollection({
+const baseFields = {
+  title: z.string(),
+  date: z.string().optional(),
+  cover: z.string().optional(),
+  tags: z.array(z.string()).optional(),
+  excerpt: z.string().optional()
+};
+
+const games = defineCollection({
   type: 'content',
   schema: z.object({
-    title: z.string(),
-    // type/format optional for now so existing content won’t fail validation
-    type: z.enum(['pong', 'dice', 'cup', 'card', 'coin', 'vocal', 'outdoor', 'misc']).optional(),
-    format: z.enum(['team', '1v1', 'pair', 'ffa']).optional(),
+    ...baseFields,
+    type: z.string().default('misc'),
     players: z.string().optional(),
-    equipment: z.array(z.string()).optional(),
-    summary: z.string().optional(),
-    tags: z.array(z.string()).default([]),
-    cover: z.string().optional(),
-    updated: z.string().optional()
+    equipment: z.array(z.string()).optional()
   })
 });
 
-const cocktail = defineCollection({
+const cocktails = defineCollection({
   type: 'content',
   schema: z.object({
-    title: z.string(),
+    ...baseFields,
     ingredients: z.array(z.string()).optional(),
-    method: z.array(z.string()).optional(),
-    glass: z.string().optional(),
-    garnish: z.string().optional(),
-    cover: z.string().optional(),
-    tags: z.array(z.string()).default([])
+    method: z.array(z.string()).optional()
   })
 });
 
-const shot = defineCollection({ type: 'content', schema: cocktail.schema });
-
-const post = defineCollection({
+const shots = defineCollection({
   type: 'content',
   schema: z.object({
-    title: z.string(),
-    date: z.string().optional(),
-    excerpt: z.string().optional(),
-    tags: z.array(z.string()).default([]),
-    cover: z.string().optional(),
-    draft: z.boolean().default(false)
+    ...baseFields,
+    ingredients: z.array(z.string()).optional(),
+    method: z.array(z.string()).optional()
   })
 });
 
-const activity = defineCollection({
+const posts = defineCollection({
   type: 'content',
   schema: z.object({
-    title: z.string(),
-    duration: z.string().optional(),
-    materials: z.array(z.string()).optional(),
-    steps: z.array(z.string()).optional(),
-    cover: z.string().optional(),
-    tags: z.array(z.string()).default([])
+    ...baseFields,
+    draft: z.boolean().optional()
   })
 });
 
-export const collections = { games: game, cocktails: cocktail, shots: shot, posts: post, activities: activity };
+export const collections = { games, cocktails, shots, posts };
