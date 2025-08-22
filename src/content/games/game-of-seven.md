@@ -12,25 +12,25 @@ type: pong
 3.  [Pong Games](GameCategories/PongGames)
 4.  Game of Seven
 
-![](images/gameofseven.webp)
+![](/images/gameofseven.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   A table
 -   1 ping pong ball
 -   A drink each
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Find a partner to take on the challenge with, fill a drink and grab the ball ready to play.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Work your way up to bouncing the ball 7 times across the table to your partner without messing up to complete the game.
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 The player holding the ball starts by bouncing the ball to the other player using only one bounce, the player then bounces back with only two bounces.
 
@@ -38,7 +38,7 @@ This continues back and forth until the players reach 7 bounces without messing 
 
 If a player messes up, they must drink and start again from 1 bounce.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   The only mistake allowed is bouncing the exact amount of times the previous player did (note: this can only be done once per game).
 -   Once a player messes up, the game must restart
@@ -46,7 +46,7 @@ If a player messes up, they must drink and start again from 1 bounce.
 -   The ball must be thrown with elbows behind the table.
 -   No drinks should be missed.
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by using:
 

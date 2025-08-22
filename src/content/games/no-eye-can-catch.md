@@ -13,24 +13,24 @@ players: "1"
 3.  [Outdoor Games](GameCategories/OutdoorGames)
 4.  No Eye Can Catch
 
-![](images/noeyecancatch.webp)
+![](/images/noeyecancatch.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   2 blindfolds
 -   Canned drinks
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Pair participants into teams of 2 and provide a can to each team. The starting pair must be blindfolded as well as possible and placed facing each-other within arms length. Make sure there is enough space around and behind the players and they are ready to begin.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Successfully throw the can to your team-mate so that they catch it in each stage of the game to not lose.
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 The game starts as soon as both team mates say ready to eachother. The player with the can must throw it to the other player who must try to catch it.
 
@@ -40,14 +40,14 @@ If the can is dropped, the game ends and the team must open and share the can.
 
 If there is only one pair playing, the player who makes the mistake must drink. If there are multiple teams, each team takes their turn and the ultimate loser is the team who catches the least amount of throws.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   Vocal communication is allowed
 -   No peaking through holes in the blindfold
 -   Nothing can be used to assist catching.
 -   The crowd can make as much noise as possible to distract the throwers, but no physical disturbances are allowed.
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by using:
 

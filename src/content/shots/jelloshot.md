@@ -11,7 +11,7 @@ excerpt: "Description: A classic party favourite, easy to make in big batches wi
 3.  [Shot Recipes](drinks/shotrecipes)
 4.  Jelloshot
 
-![](images/jellshot.webp)
+![](/images/jellshot.webp)
 
 #### Overview
 
@@ -29,13 +29,13 @@ excerpt: "Description: A classic party favourite, easy to make in big batches wi
 
 * * *
 
-### Ingredients ![target](images/liquor.webp)
+### Ingredients ![target](/images/liquor.webp)
 
 -   Vodka - 120ml
 -   Jelly mixture - 1 packet
 -   Water - 360ml
 
-### Recipe ![target](images/rules.webp)
+### Recipe ![target](/images/rules.webp)
 
 The following recipe makes enough for 12 jello shots.
 
@@ -46,7 +46,7 @@ The following recipe makes enough for 12 jello shots.
 5.  Pour the mixture into shot glasses or tubs.
 6.  Place these containers on a tray and refridgerate for a minimum of 2 hours.
 
-### Top Tips ![target](images/lightbulb.webp)
+### Top Tips ![target](/images/lightbulb.webp)
 
 -   The recipe may vary dependent on the mixture used, see the back of whtever packet you use.
 -   In this recipe, a quarter of the liquid used is alcohol. Increase the amount for a stronger shot.

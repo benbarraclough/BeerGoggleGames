@@ -12,23 +12,23 @@ type: misc
 3.  [Misc. Games](GameCategories/MiscGames)
 4.  Slap Shots
 
-![](images/slapshots.webp)
+![](/images/slapshots.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   A liquor bottle
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Gather all players willing to be involved in the game and physically assaulted by other players. Pass the full bottle of alcohol to the person with the biggest hands and you're ready.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Simple. Pick a player to take a shot from the bottle of liquor and give them a slap.
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 The player holding the bottle, passes it to any other person playing.
 
@@ -38,14 +38,14 @@ The passing player gets to slap the receiver in the face as hard or as soft as d
 
 Continue passing the bottle and Repeat. The game ends when the bottle is empty.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   You cannot pass the bottle to the player who passed it to you (unless playing within a group of 2 or 3)
 -   If the group believes a player hasn't taken their shot properly, they can object which makes the player take another
 -   Players can remove themselves from the game at any time
 -   The player passing the drink decides how hard they will slap the other player
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by using:
 

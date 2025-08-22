@@ -11,7 +11,7 @@ excerpt: "Description: The ultimate party starter shot, combining energy drink a
 3.  [Shot Recipes](drinks/shotrecipes)
 4.  Jägerbomb
 
-![](images/jagerbomb.webp)
+![](/images/jagerbomb.webp)
 
 #### Overview
 
@@ -29,17 +29,17 @@ excerpt: "Description: The ultimate party starter shot, combining energy drink a
 
 * * *
 
-### Ingredients ![target](images/liquor.webp)
+### Ingredients ![target](/images/liquor.webp)
 
 -   Jägermeister - 50ml
 -   Energy drink (Redbull) - 100ml
 
-### Recipe ![target](images/rules.webp)
+### Recipe ![target](/images/rules.webp)
 
 1.  Pour the jägermeister in the shot section of the glass
 2.  Pour the energy drink in the outer part of the glass to the top. The jäger should stay in place as it is heavier than the carbonated energy drink.
 
-### Top Tips ![target](images/lightbulb.webp)
+### Top Tips ![target](/images/lightbulb.webp)
 
 -   If you don't have a Jägerbomb glass, drop a shot glass into a regular glass.
 

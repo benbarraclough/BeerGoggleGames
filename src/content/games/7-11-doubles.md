@@ -12,26 +12,26 @@ type: dice
 3.  [Dice Games](GameCategories/DiceGames)
 4.  7 11 Doubles
 
-![](images/7-11doubles.webp)
+![](/images/7-11doubles.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   1 centre cup
 -   2 dice
 -   A table
 -   Various drinks
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Place a cup in the centre of the table filled with various drinks of choice, gather all players around it and have further alcohol readily avaialble. Assign the oldest player as the first roller and issue them the dice to begin with.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Roll a 7, 11 or double to put a player in the hot seat. If you are put in the hot seat, drink the centre chug cup as quickly as possible so you dont have to repeat it.
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 Starting with the roller, everyone takes it in turn to roll the two dice. Based on what is rolled, two actions can occur.
 
@@ -41,14 +41,14 @@ If a player is placed in the hot seat, they must choose what to fill the centre 
 
 Once the drinking is over, The Roller refills the glass and the dice are handed to the player on the left of the player. This player is now the new Roller.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   The Drinker must place the cup down when finished to stop The Roller from rolling the dice
 -   If a 7, 11 or double is rolled with drink remaining for the drinker, the player does not have to drink the remainder when filling the cup up again
 -   A player cannot escape the hot seat until they finish their drink before another 7, 11 or double is rolled
 -   The drink is always filled by the designated Roller at the time that the cup is empty
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by using:
 

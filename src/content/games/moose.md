@@ -12,9 +12,9 @@ type: coin
 3.  [Coin Games](GameCategories/CoinGames)
 4.  Moose
 
-![](images/moose.webp)
+![](/images/moose.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   1 Coin
 -   1 Table
@@ -23,17 +23,17 @@ type: coin
 -   A drink each
 -   Tape (optional)
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 As shown in the picture above, place the ice tray long ways on one end of the table and the solo cup at the furthest end, filled with a drink of choice. Place the coin on the other end of the table which is where all players will stand from and shoot. The ice tray can be taped to the front of the cup as shown but this isn't a requirement and may cause spillages if cup isn't weighed down enough.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Bounce the coin in the farthest left side slot of the ice tray to make others drink the most and make sure you're not last to show your moose antlers.
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 Everybody takes turns (usually starting with the person who donated the coin) bouncing the coin onto the table aiming for the ice tray at the other end.
 
@@ -47,13 +47,13 @@ The last slot on each side are the Moose slots. When a player bounces a quarter 
 
 This continues until everyone is good and drunk
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   All player bounce from the same spot
 -   The coin has to bounce at least once, but not limited to any number of bounces.
 -   If a coin lands and rests on top of the ice tray without going in a slot, you get a moose mark. Three moose marks and you must down the solo cup.
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by using:
 

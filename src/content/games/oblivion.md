@@ -12,9 +12,9 @@ type: pong
 3.  [Pong Games](GameCategories/PongGames)
 4.  Oblivion
 
-![](images/oblivion.webp)
+![](/images/oblivion.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   6 solo cups
 -   2 pong balls
@@ -23,17 +23,17 @@ type: pong
 -   Alcohol of choice
 -   Wearable token
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 The instigator of the game must find a player willing to compete with them. Each player must then take 3 cups, fill one with a drink of their choice to the top, fill the second with an inch of water and place the third empty cup closely in front of the the second cup. The wearable token must be sitting somewhere closeby ready for the game to start.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Finish the race by scoring, drinking, blowing and then flipping your cup before your competitor or be faced with the repercussions of having to play again.
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 At the signal of a designated referee or countdown, the players must race to the finish by performing the 4 challenges below:
 
@@ -51,7 +51,7 @@ The loser must then hold the token until they can find a new challenger or a cha
 
 This game is essentially never ending and sends the repeating loser into oblivion unless the token is destroyed. The token is only worthy of destruction if a chunder is performed by the player wearing it.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   The ping pong ball can be bounced as close to the cup as the player wishes
 -   Both cups need to contains equal amounts of drink
@@ -61,7 +61,7 @@ This game is essentially never ending and sends the repeating loser into oblivio
 -   Water in the second cup can be modified to the players liking
 -   The player with the token cannot deny playing when challenged
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by playing:
 

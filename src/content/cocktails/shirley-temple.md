@@ -11,7 +11,7 @@ excerpt: "Description: A traditionally non-alcoholic cocktail made with vodka, s
 3.  [Cocktail Recipes](drinks/cocktailrecipes)
 4.  Shirley Temple
 
-![](images/shirley-temple.webp)
+![](/images/shirley-temple.webp)
 
 #### Overview
 
@@ -29,7 +29,7 @@ excerpt: "Description: A traditionally non-alcoholic cocktail made with vodka, s
 
 * * *
 
-### Ingredients ![target](images/liquor.webp)
+### Ingredients ![target](/images/liquor.webp)
 
 -   Vodka - 50ml
 -   Ginger ale - 100ml
@@ -38,14 +38,14 @@ excerpt: "Description: A traditionally non-alcoholic cocktail made with vodka, s
 -   Ice - 1 handful
 -   Maraschino cherry - 1 (optional)
 
-### Recipe ![target](images/rules.webp)
+### Recipe ![target](/images/rules.webp)
 
 1.  Add ice, vodka, lime juice and grenadine to a shaker.
 2.  Shake until ice cold then pour into a glass with ice.
 3.  Fill to the top with ginger ale or your chosen mixer.
 4.  Garnish with a maraschino cherry.
 
-### Top Tips ![target](images/lightbulb.webp)
+### Top Tips ![target](/images/lightbulb.webp)
 
 -   For more of an alcohol kick, use triple sec in place of the lime juice.
 -   Replace the plain vodka with cherry vodka, vanilla vodka, or whipped vodka for added flavor.

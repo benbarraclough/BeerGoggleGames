@@ -11,7 +11,7 @@ excerpt: "Description: One of the most popular tequila based drinks that reminds
 3.  [Cocktail Recipes](drinks/cocktailrecipes)
 4.  Tequila Sunrise
 
-![](images/tequila-sunrise.webp)
+![](/images/tequila-sunrise.webp)
 
 #### Overview
 
@@ -29,7 +29,7 @@ excerpt: "Description: One of the most popular tequila based drinks that reminds
 
 * * *
 
-### Ingredients ![target](images/liquor.webp)
+### Ingredients ![target](/images/liquor.webp)
 
 -   Tequila - 50ml
 -   Triple Sec - 20ml
@@ -39,7 +39,7 @@ excerpt: "Description: One of the most popular tequila based drinks that reminds
 -   Ice - 1 handful
 -   Cherry (optional) - 1
 
-### Recipe ![target](images/rules.webp)
+### Recipe ![target](/images/rules.webp)
 
 1.  Pour the grenadine into the bottom of the glass and set it aside.
 2.  Add the tequila, triple sec, fruit juice and ice to a shaker.
@@ -48,7 +48,7 @@ excerpt: "Description: One of the most popular tequila based drinks that reminds
 5.  Strain mixed drink into the glass.
 6.  Garnish with a slice of orange and a cherry.
 
-### Top Tips ![target](images/lightbulb.webp)
+### Top Tips ![target](/images/lightbulb.webp)
 
 -   A maraschino cherry is the preferred type to use for this drink.
 -   The grenadine can be poured in last for the waterfall effect, as it still rests on the bottom due to its higher density.

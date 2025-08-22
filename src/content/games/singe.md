@@ -12,9 +12,9 @@ type: coin
 3.  [Coin Games](GameCategories/CoinGames)
 4.  Singe
 
-![](images/singe.webp)
+![](/images/singe.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   A coin
 -   A napkin
@@ -23,17 +23,17 @@ type: coin
 -   A table
 -   A drink each
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Gather all players with filled drinks around a table and place the empty cup in the centre with a clean napkin on top of it and a coin in the centre of the napkin. The owner of the lighter claims first turn and must hold the lighter to begin with.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Burn holes in the napkin without making the coin drop into the cup.
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 The player holding the lighter starts first by burning a hole in the napkin as big or as little as they wish yet trying not to make the coin fall into the empty cup.
 
@@ -45,7 +45,7 @@ Once the drink has been consumed, the loser must place a new napkin and the coin
 
 This is played until there is a house fire
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   The lighter cannot be passed on until the fire has been extinguished
 -   Whoever is holding the lighter at the time the coin falls into the cup loses
@@ -54,7 +54,7 @@ This is played until there is a house fire
 -   Deodorant is not advised anywhere near the game
 -   The napkin can be lit on fire from anywhere, not just the edges
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by using:
 

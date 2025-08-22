@@ -11,7 +11,7 @@ excerpt: "Description: A classic fruity number that never fails to impress when 
 3.  [Cocktail Recipes](drinks/cocktailrecipes)
 4.  Pornstar Martini
 
-![](images/pornstar-martini.webp)
+![](/images/pornstar-martini.webp)
 
 #### Overview
 
@@ -29,7 +29,7 @@ excerpt: "Description: A classic fruity number that never fails to impress when 
 
 * * *
 
-### Ingredients ![target](images/liquor.webp)
+### Ingredients ![target](/images/liquor.webp)
 
 1.  Vanilla vodka - 25ml
 2.  Passion fruit liqueur - 15ml
@@ -39,7 +39,7 @@ excerpt: "Description: A classic fruity number that never fails to impress when 
 6.  Prosecco (served separately) - 1 shot glass
 7.  Ice - 1 handful
 
-### Recipe ![target](images/rules.webp)
+### Recipe ![target](/images/rules.webp)
 
 1.  Add the ice, vodka, liqueur and juices to a shaker.
 2.  Shake vigorously until chilled.
@@ -47,7 +47,7 @@ excerpt: "Description: A classic fruity number that never fails to impress when 
 4.  Place half a passion fruit on top as garnish.
 5.  Serve with a shot of prosecco to pour into the cocktail or drink separately.
 
-### Top Tip ![target](images/lightbulb.webp)
+### Top Tip ![target](/images/lightbulb.webp)
 
 Passoa is used as the liqueur for the best pornstar martinis.
 

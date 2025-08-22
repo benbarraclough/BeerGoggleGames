@@ -11,7 +11,7 @@ excerpt: "Description: This popular beverage combines just 3 ingredients, provid
 3.  [Cocktail Recipes](drinks/cocktailrecipes)
 4.  White Russian
 
-![](images/white-russian.webp)
+![](/images/white-russian.webp)
 
 #### Overview
 
@@ -29,20 +29,20 @@ excerpt: "Description: This popular beverage combines just 3 ingredients, provid
 
 * * *
 
-### Ingredients ![target](images/liquor.webp)
+### Ingredients ![target](/images/liquor.webp)
 
 1.  Vodka - 50ml
 2.  Coffee Liqueur - 25ml
 3.  Cream - 15ml
 4.  Ice - 1 handful
 
-### Recipe ![target](images/rules.webp)
+### Recipe ![target](/images/rules.webp)
 
 1.  Add ice to a rocks glass along with a shot of vodka and half a shot of coffee liqueur.
 2.  Mix these together with a stirer or give it a quick swirl.
 3.  Slowly pour the cream in and you're ready to serve.
 
-### Top Tips ![target](images/lightbulb.webp)
+### Top Tips ![target](/images/lightbulb.webp)
 
 -   Milk can be used in place of cream, however a heavy cream will give a richer taste.
 -   Slowly pour the cream in using a spoon to delicately layer the liquid on top of what is already in the glass to create a colour gradient.

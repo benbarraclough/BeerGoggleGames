@@ -13,26 +13,26 @@ players: "4"
 3.  [Dice Games](GameCategories/DiceGames)
 4.  Beer Die
 
-![](images/beerdie.webp)
+![](/images/beerdie.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   4 solo cups
 -   1 table
 -   1 die
 -   4 chairs
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Get 4 players together and separate into two teams, each with a solo cup filled 3/4 of the way with beer or a similar drink. Place 1 cup on each corner of the table and have each team sitting in front of their cups facing each other with the oldest player holding the die ready to begin.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Score points for your team by throwing the die across the table into a players cup or other ways to win the game.
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 Between the teams, decide what the minimum height that the die must reach on each throw, this is usually the length of the table (a regulation 8 foot) if outside or the height of the tallest player if inside.
 
@@ -54,7 +54,7 @@ Once a players throw is over, one of the members of the opposite team takes thei
 
 This continues until a team reaches 9 points and wins. The losing team then must finish their drinks and begin another round or end the game.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   If a die is thrown under the minimum height, a player must shout "height" for the throw to be marked as void.
 -   If the die is accidentally dropped on the floor or misses the table entirely on an offensive throw, both team members must take a sip.
@@ -67,7 +67,7 @@ This continues until a team reaches 9 points and wins. The losing team then must
 -   As soon as the die hits the drink inside the cup, it classes as a sink, no matter if it bounces out.
 -   If self sunk, the player must kill & fill.
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by using:
 

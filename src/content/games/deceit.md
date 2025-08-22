@@ -12,26 +12,26 @@ type: misc
 3.  [Misc. Games](GameCategories/MiscGames)
 4.  Deceit
 
-![](images/deceit.webp)
+![](/images/deceit.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   Shot glasses
 -   A clear spirit (vodka)
 -   Paper and pen each
 -   A drink each
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Lay out 1 less shot glasses as there are players in the game and hand each player a pen & paper to write on during the game. Gather everyone around the playing area with a filled drink of any kind and you're ready to play.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Retain a good poker face and don't let anyone recognise when you have taken the alcoholic shot
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 Choose one player to start as the oracle, this person must fill 1 shot with the clear alcohol and the rest with water before shuffling them around so none of the other players know which is which.
 
@@ -49,13 +49,13 @@ If all players guess the correct drinker, the drinker must take a shot.
 
 In the next round, the oracle status switches to the player who drank the shot and the above game is repeated. The game continues until the spirits are depleted.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   Grab shot without examining
 -   Deceiving your opponents as best you can is advised
 -   No peaking at other players written answers
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by playing:
 

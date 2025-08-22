@@ -12,24 +12,24 @@ type: card
 3.  [Card Games](GameCatgories/CardGames)
 4.  Bluff
 
-![](images/bluff.webp)
+![](/images/bluff.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   Deck of Cards
 -   A drink each
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Gather players around a table with a filled drink each, shuffle the cards and create a pyramid placing a random selection of cards face down, a row of 5 at the bottom up to 1 at the top. Then provide each player 3 cards each face down, keeping them secret from other players.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Dish out as many drinks as you can without getting caught lying about the cards in your hand.
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 To begin, any player may turn over the bottom left card of the pyramid displaying the first card to the group.
 
@@ -47,14 +47,14 @@ A player who is forced to show their cards is entitled to change the used card f
 
 This continues until the cards of the pyramid are all flipped
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   The only cards flipped for all to see can be the pyramid cards and the specific card in a persons deck that has been flipped (for proof).
 -   If a card is accidentally shown to the group, it cannot be replaced.
 -   The next card on the pyramid can only be flipped once everyone gives the nod.
 -   Drink allocations are set for each row and increase up the pyramid, this must be agreed before the game starts.
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by using:
 

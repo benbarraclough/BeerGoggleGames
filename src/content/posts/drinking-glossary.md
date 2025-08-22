@@ -10,7 +10,7 @@ excerpt: A constantly expanding list of some well known and not so well known dr
 2.  [Extras](extras)
 3.  The Glossary
 
-![](images/glossary.webp)
+![](/images/glossary.webp)
 
 ## Glossary
 

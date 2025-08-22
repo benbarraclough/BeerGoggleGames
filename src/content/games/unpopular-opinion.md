@@ -12,24 +12,24 @@ type: vocal
 3.  [Vocal Games](GameCategories/VocalGames)
 4.  Unpopular Opinion
 
-![](images/unpopularopinion.webp)
+![](/images/unpopularopinion.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   1 drink each
 -   1 centre cup
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Gather all participants into a circle with full drinks ready to begin. Fill the centre cup with an appropriate amount of alcohol for a frequent punishment.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Provide a truthful, acceptable and original unpopular opinion to not face the forfeits.
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 The player with the least liquid in their cup at the time begins by taking a sip and providing the first unpopular opinion to the group e.g. "I hate The Cat in the Hat".
 
@@ -43,7 +43,7 @@ Players who give answers that aren't quite unpopular enough drink.
 
 The round ends and the centre cup is refilled. The game then moves on to the next round and starts to the left of the the most popular person.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   After votes have been made, a discussion should be had to agree on drinks given as forfeits.
 -   The centre drink can be modified (additional alcohol only) at any time before voting commences.
@@ -51,7 +51,7 @@ The round ends and the centre cup is refilled. The game then moves on to the nex
 -   If a player fails to provide an answer in 30 seconds, they must finish their drink.
 -   A player can skip their turn, but only once in the entire game.
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by using:
 

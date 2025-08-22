@@ -11,24 +11,24 @@ type: cup
 2.  [Cup Games](GameCategories/CupGames)
 3.  Jurassic Chug
 
-![](images/jurassicchug.webp)
+![](/images/jurassicchug.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   1 plastic cup per player
 -   A table
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Gather teams together with 2 or more players and assign a cup to each player in the game. Each cup needs to be filled and placed on the table whilst teams assign eachother numbers to decide in which order they will take their turn.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Be the first team to pass, drink and flip all cups onto the table with only mouths to win.
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 The game starts after a countdown of 3, then the first player in each team begins by performing step 1.
 
@@ -40,14 +40,14 @@ Step 3: After each player has finished their drink they must place the empty cup
 
 The first team to have all cups on the table flipped upside down and empty wins.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   If any drink is spilled, a 5 second penalty is issued
 -   If a player touches a cup with any other part of the body other than the mouth, a 5 second penalty is issued
 -   The next player in the team cannot drink until the previous player has finished their drink
 -   To hold drinks, players can use their mouth or place the cup down
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by playing:
 

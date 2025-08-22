@@ -11,7 +11,7 @@ excerpt: "Description: A sweet whisky shot with flavours of apple, originally so
 3.  [Shot Recipes](drinks/shotrecipes)
 4.  Washington Apple Shot
 
-![](images/washingtonappleshot.webp)
+![](/images/washingtonappleshot.webp)
 
 #### Overview
 
@@ -29,7 +29,7 @@ excerpt: "Description: A sweet whisky shot with flavours of apple, originally so
 
 * * *
 
-### Ingredients ![target](images/liquor.webp)
+### Ingredients ![target](/images/liquor.webp)
 
 -   Whisky (Canadian) - 15ml
 -   Apple Schnapps - 15ml
@@ -37,14 +37,14 @@ excerpt: "Description: A sweet whisky shot with flavours of apple, originally so
 -   Soda - to fill
 -   Ice - 1 handful
 
-### Recipe ![target](images/rules.webp)
+### Recipe ![target](/images/rules.webp)
 
 1.  Add the Whisky (preferably Canadian), Schnapps and juice to a shaker with ice
 2.  Shake until shaker feels cold
 3.  Pour into a shot glass
 4.  Fill to the top with soda
 
-### Top Tips ![target](images/lightbulb.webp)
+### Top Tips ![target](/images/lightbulb.webp)
 
 -   Serving chilled is best when enjoying this drink, however if the cranberry juice has been refridgerated then it doesnt need to be shaken.
 

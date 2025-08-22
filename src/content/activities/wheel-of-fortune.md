@@ -10,7 +10,7 @@ excerpt: Our wheels contain all categories and games on the site.
 2.  [Extras](extras)
 3.  Wheel Of Fortune
 
-![](images/wof.webp)
+![](/images/wof.webp)
 
 ## Spin the wheel
 

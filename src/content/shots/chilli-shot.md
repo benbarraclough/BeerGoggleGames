@@ -11,7 +11,7 @@ excerpt: "Description: A hot and spicy shot for adventurous drinkers that don't 
 3.  [Shot Recipes](drinks/shotrecipes)
 4.  Chilli Shot
 
-![](images/chillishot.webp)
+![](/images/chillishot.webp)
 
 #### Overview
 
@@ -29,19 +29,19 @@ excerpt: "Description: A hot and spicy shot for adventurous drinkers that don't 
 
 * * *
 
-### Ingredients ![target](images/liquor.webp)
+### Ingredients ![target](/images/liquor.webp)
 
 -   Vodka - 50ml
 -   Hot sauce - 2 dashes
 -   Chilli powder - 1 tsp
 
-### Recipe ![target](images/rules.webp)
+### Recipe ![target](/images/rules.webp)
 
 1.  Rub the rim of the shot glass with a lime and dip the rim in chilli powder
 2.  Pour the hot sauce in the bottom of the shot glass
 3.  Fill to the top with vodka. Pouring this in last should mix the chilli into the vodka
 
-### Top Tips ![target](images/lightbulb.webp)
+### Top Tips ![target](/images/lightbulb.webp)
 
 -   Add hot sauce based on preference
 -   Use chilli flakes or shaved chilli to add a little more heat

@@ -11,7 +11,7 @@ excerpt: "Description: A drink origniating from a German bartender in Japan, com
 3.  [Shot Recipes](drinks/shotrecipes)
 4.  Bamboo Shooter
 
-![](images/bamboo-shooter.webp)
+![](/images/bamboo-shooter.webp)
 
 #### Overview
 
@@ -29,7 +29,7 @@ excerpt: "Description: A drink origniating from a German bartender in Japan, com
 
 * * *
 
-### Ingredients ![target](images/liquor.webp)
+### Ingredients ![target](/images/liquor.webp)
 
 -   Sherry - 30ml
 -   Bianco vermouth - 30ml
@@ -39,13 +39,13 @@ excerpt: "Description: A drink origniating from a German bartender in Japan, com
 -   Salt - 1 pinch
 -   Ice - 1 handful
 
-### Recipe ![target](images/rules.webp)
+### Recipe ![target](/images/rules.webp)
 
 1.  Add the sherry, vermouth, lemon juice and bitters into a shaker with ice.
 2.  Shake until the shaker turns ice cold.
 3.  Strain into a shot glass and garnish with a sprinkle of salt
 
-### Top Tips ![target](images/lightbulb.webp)
+### Top Tips ![target](/images/lightbulb.webp)
 
 -   Dry or bianco vrmouth should be used, not sweet or rosso.
 -   Fino or manzanilla sherry should be used for this drink.

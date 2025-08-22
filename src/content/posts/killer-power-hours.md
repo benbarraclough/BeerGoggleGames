@@ -10,7 +10,7 @@ excerpt: "An excellent selection of some of the best power hour videos that can 
 2.  [Blog](extras/blog)
 3.  Killer Power Hours
 
-![](images/powerhour.webp)
+![](/images/powerhour.webp)
 
 * * *
 

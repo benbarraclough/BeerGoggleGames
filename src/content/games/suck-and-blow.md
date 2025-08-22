@@ -12,24 +12,24 @@ type: card
 3.  [Card Games](GameCategories/CardGames)
 4.  Suck & Blow
 
-![](images/suck&blow.webp)
+![](/images/suck&blow.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   Deck of Cards
 -   1 drink each
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Get all participating players in a circle with drinks filled and the deck of cards flipped upside down where they can be reached (the more players involved the better). Preferably position players next to those that they are comfortable going mouth to mouth with and you're ready to play.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Take the card safely from the player before you and pass it to the next player without dropping it.
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 Starting with the player with the biggest mouth, they must take a card from the top of the deck and suck it so that it sticks to their mouth without anything else other than suction.
 
@@ -41,14 +41,14 @@ If you break a rule whilst passing the card or drop the card, you must take a si
 
 Suck and blow until you're all out of puff!
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   No touching the card with your hands after the card is in play
 -   No tilting of the head to balance the card rather than suck
 -   No holding the card by any other means other than mouth suction
 -   If a card is dropped and there is no 1 clear person responsible, all involved must drink
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game with:
 

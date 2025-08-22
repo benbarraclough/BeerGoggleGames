@@ -12,23 +12,23 @@ type: vocal
 3.  [Vocal Games](GameCategories/VocalGames)
 4.  Never Have I Ever
 
-![](images/neverhaveiever.webp)
+![](/images/neverhaveiever.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   A drink each
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Gather as many participants as possible into a circle, fill the drinks up to the top and make sure everyone can hear and see eachother.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Think of some funny scenarios and ask the group whether anyone has ever done or experienced them.
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 The first person who can think of a scenario goes first by announcing their "Never Have I Ever..." statement to the whole group.
 
@@ -40,13 +40,13 @@ If you have ever done or been in the stated scenario, you must take a sip to rev
 
 The next person around the circle must then take their turn. This game lasts as long as everyones imagination.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   When a player passes their go multiple times, they must take the same amount of sips
 -   No lying, players must bare all truths in this game
 -   No repeated scenarios
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by using:
 

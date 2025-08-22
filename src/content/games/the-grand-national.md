@@ -12,25 +12,25 @@ type: card
 3.  [Card Games](GameCategories/CardGames)
 4.  The Grand National
 
-![](images/thegrandnational.webp)
+![](/images/thegrandnational.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   52 Card Deck
 -   A drink each
 -   1 Host
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Gather as many players as possible to play, this is The Grand National, the more the merrier. Pick out all four Aces from the deck and place them face up side by side, whilst placing 8 cards above each other in a line to the side of the aces as "hurdles" (shown within the image).
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Pick the correct suit that wins The Grand National horse race.
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 To start, each player must pick a suit that they think will win the race. After everyone has chosen, the host must cut the betting off and refuse any further changes.
 
@@ -40,12 +40,12 @@ When a suit reaches 9 cards in its row and passes the markers on the side (the f
 
 Players who do not win the race drink as many fingers of their drink as there are hurdles left to jump for their suit.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   No changing of suits after betting is cut off
 -   Shout and scream to make sure your suit wins
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by using:
 

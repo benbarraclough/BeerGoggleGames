@@ -11,7 +11,7 @@ excerpt: "Description: An ancient & noble sport redesigned to cater for the mode
 3.  [Activities & Minigames](extras/activities&minigames)
 4.  Jousting
 
-![](images/joust.webp)
+![](/images/joust.webp)
 
 #### Overview
 
@@ -23,7 +23,7 @@ excerpt: "Description: An ancient & noble sport redesigned to cater for the mode
 
 * * *
 
-### Requirements ![target](images/rules.webp)
+### Requirements ![target](/images/rules.webp)
 
 -   2 pushers
 -   2 jousters
@@ -31,7 +31,7 @@ excerpt: "Description: An ancient & noble sport redesigned to cater for the mode
 -   A long floor space
 -   Lances (optional)
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 Each jouster begins by choosing their 'horse' which is an office chair with wheels, typically the chair with the most stablility and protection is best. From here the jouster must then find a pusher who will be on their team to motivate and push them to victory.
 
@@ -41,7 +41,7 @@ The pushers should then get their jousters into position at opposite ends of the
 
 The same process continues until a player is crowned the winner.
 
-### Top Tips ![target](images/lightbulb.webp)
+### Top Tips ![target](/images/lightbulb.webp)
 
 -   Keep duct tape on hand for in-game repairs
 -   Turn this into a tournament by playing winner stays on

@@ -11,26 +11,26 @@ type: misc
 2.  [Team Games](GameCategories/TeamGames)
 3.  Can Slide
 
-![](images/canslide.webp)
+![](/images/canslide.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   1 Can of beer/cider
 -   A flat table
 -   1 pen
 -   Your own drink
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 All players must fill their own drinks and divide into 2 teams standing either side of a flat table. Each team must then draw 3 zones from their end of the table, similar to shuffle board. Zone 3 first (4 inches long,) zone 2 second (5 inches long) and zone 3 last (6 inches long).
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Slide the can into the score zones to win the game and avoid the forfeit
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 Starting with the team who holds the can, they must slide the can across the table into one of the three zones
 
@@ -46,14 +46,14 @@ Off the edge: If your can throw falls off the edge, you must finish the can and 
 
 Play this until you're out of cans
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   No touching the can after it has been thrown until it has stopped still
 -   The can must be slid standing up
 -   Scoring still counts if the can lands in a zone but has fallen over
 -   Zones drawn must be equally sized on both teams
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by playing:
 

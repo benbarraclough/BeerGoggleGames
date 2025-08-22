@@ -12,26 +12,26 @@ players: "2"
 2.  [Cup Games](GameCategories/CupGames)
 3.  Quick Flip
 
-![](images/quickflip.webp)
+![](/images/quickflip.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   6 section markers (pens, straws, etc.)
 -   1 cup each
 -   1 centre cup
 -   A table
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Find someone to play 1 on 1 with, position a player on either side of the table with a cup each and a centre drink. Place the section markers from one side of the table to the other, all parallel and equal distance of around 3 inches from each other. The straws represent sections and in the centre section must be placed the centre chug cup with a filled drink of choice as the forfeit.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Flip the cup successfully as many times as possible to move the centre cup one step closer to your players side of the table until it reaches the outside of the outlined sections.
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 Everyone starts at the same time after a countdown from 3 by flipping their own cup repeatedly in order to score a point.
 
@@ -41,14 +41,14 @@ If you fail to flip successfully, you can just keep trying. Your only enemy is t
 
 If the cup is moved outside of all straws, completely onto one players side of the table, that team loses and must drink the chug cup.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   If either team scores a point and needs to move the cup at the same time, the cup stays where it is.
 -   The chug cup must be reachable by all players at all times from their playing spot.
 -   Each players cup is to be flipped right side up to upside down.
 -   Not interference with the flipping of cups is allowed.
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by playing:
 

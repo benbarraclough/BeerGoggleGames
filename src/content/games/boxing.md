@@ -12,26 +12,26 @@ type: dice
 3.  [Dice Games](GameCategories/DiceGames)
 4.  Boxing
 
-![](images/boxing.webp)
+![](/images/boxing.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   2 Dice
 -   Alcohol of choice
 -   Table
 -   Stopwatch
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Find two players that agree to compete against eachother and an alcoholic drink that they both agree to drink. If others are available, a referee is found and each competitor can choose a corner man to help them. Give the referee the stopwatch and each fighter a dice to start.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Be the last one standing by being a resilient drinker.
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 To begin, each player grabs a dice and rolls it at the same time onto the table.
 
@@ -47,7 +47,7 @@ Whilst the round is in play, corner men are responsible for delivering the alcoh
 
 Play continues until either player admits defeat, throws up, or has to be excused to use the bathroom. This is a KNOCKOUT!
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   If the roll doesn't land on the table, it is void.
 -   Opponents must roll at the same time.
@@ -55,7 +55,7 @@ Play continues until either player admits defeat, throws up, or has to be excuse
 -   Endurance tactics are allowed during rests in between each round (e.g. water, burping, hot towel).
 -   The referee is in charge of timekeeping and keeping the players rolling.
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by using:
 

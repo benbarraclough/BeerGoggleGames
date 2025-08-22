@@ -12,26 +12,26 @@ type: pong
 3.  [Pong Games](GameCategories/PongGames)
 4.  Rage Cage
 
-![](images/ragecage.webp)
+![](/images/ragecage.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   20-30 solo cups
 -   Table
 -   2 pong balls
 -   1 centre cup
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Fill solo cups up a third full with beer, and place them all together in the center of a round table. Pick up 1 more cup to be the centre cup and fill it completely with beer. Spread all players evenly around the table, pick two players standing across from eachother to start the game by giving them a pong ball.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Bounce the ball into the cup as quickly as possible before the player behind you to prevent being stacked.
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 On the count of 3, both starting players begin by grabbing a cup from the centre, chugging it and bouncing the ball into the empty cup they have.
 
@@ -45,14 +45,14 @@ At this point, instead of passing the cup on, the player stacks the cup in front
 
 This continues until all centre cups are gone and the final full cup is drank by the ultimate loser
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   Cups must move clockwise
 -   If a player makes the shot on the first try, they can pass the cup to anybody on the table
 -   If a cup accidentally falls into a centre cup with alcohol in, the player must drink it and then continue the game
 -   No moving the cup to catch the ball
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by using:
 

@@ -11,7 +11,7 @@ excerpt: "Description: A citrus infused vodka cocktail with a sweet and sharp ta
 3.  [Cocktail Recipes](drinks/cocktailrecipes)
 4.  Cosmopolitan
 
-![](images/cosmopolitan.webp)
+![](/images/cosmopolitan.webp)
 
 #### Overview
 
@@ -27,7 +27,7 @@ excerpt: "Description: A citrus infused vodka cocktail with a sweet and sharp ta
 
 * * *
 
-### Ingredients![target](images/liquor.webp)
+### Ingredients![target](/images/liquor.webp)
 
 1.  Lemon vodka - 50ml
 2.  Triple sec - 15ml
@@ -36,14 +36,14 @@ excerpt: "Description: A citrus infused vodka cocktail with a sweet and sharp ta
 5.  Ice - 1 handful
 6.  Orange (to garnish) - 1
 
-### Recipe ![target](images/rules.webp)
+### Recipe ![target](/images/rules.webp)
 
 1.  Add ice, 3 parts vodka, 2 parts cranberry juice, 1 part triple sec & 1 part lime juice to a cocktail shaker.
 2.  Shake until the shaker is ice cold.
 3.  Strain the drink into a martini glass.
 4.  Garnish with a slice of orange peel.
 
-### Top Tips ![target](images/lightbulb.webp)
+### Top Tips ![target](/images/lightbulb.webp)
 
 -   To make a twisted orange garnish, twist and heat one edge with a flame.
 -   If you don't have lemon vodka, use regular vodka and lemon liqueur or lemon juice.

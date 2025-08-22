@@ -12,23 +12,23 @@ type: vocal
 3.  [Vocal Games](GameCategories/VocalGames)
 4.  Around The World
 
-![](images/aroundtheworld.webp)
+![](/images/aroundtheworld.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   A drink each
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Gather your group in a circle and make sure everyone has a drink. The more players the better, as this is a social game and has no limit on the amount of players playing.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Don't mess up and keep the chain of answers going
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 Starting with the game organiser, each player must name a country. Each answer (except the starting answer) must start with the letter the previous answer ends on.
 
@@ -40,14 +40,14 @@ If you say an answer theat doesnt fit in or can't think of an answer, you must t
 
 Play this for as long as you like and maybe change up the rules.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   You can't skip a turn
 -   Each player must have a drink
 -   Answer within 5 seconds
 -   No repeated answers
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by using:
 

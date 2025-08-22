@@ -11,7 +11,7 @@ excerpt: "Description: The legendary party shot, a combination of sweet, sour an
 3.  [Shot Recipes](drinks/shotrecipes)
 4.  Tequila Shot
 
-![](images/tequilashot.webp)
+![](/images/tequilashot.webp)
 
 #### Overview
 
@@ -29,19 +29,19 @@ excerpt: "Description: The legendary party shot, a combination of sweet, sour an
 
 * * *
 
-### Ingredients ![target](images/liquor.webp)
+### Ingredients ![target](/images/liquor.webp)
 
 -   Tequila - 50ml
 -   Lime - 1 wedge
 -   Salt - 1 pinch
 
-### Recipe ![target](images/rules.webp)
+### Recipe ![target](/images/rules.webp)
 
 1.  Fill the shot glass to the top with tequila of any kind
 2.  Cut a lime into wedges
 3.  Take a pinch of salt and sit it on the back of your hand
 
-### Top Tips ![target](images/lightbulb.webp)
+### Top Tips ![target](/images/lightbulb.webp)
 
 -   Proceed by licking th salt off the back of your hand, taking the shot and finally sucking the flesh of the lime wedge in this order.
 

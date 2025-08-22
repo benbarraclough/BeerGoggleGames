@@ -11,7 +11,7 @@ excerpt: The essential list for house party planning. Use our tips as your basic
 3.  [Blog](extras/blog)
 4.  Party Prep 101
 
-![](images/partyprep1.webp)
+![](/images/partyprep1.webp)
 
 * * *
 
@@ -37,7 +37,7 @@ On top of this, we've included BeerGoggleGames bonus ideas which we believe are 
 
 #### 1\. Music
 
-![](images/partymusic.webp)  
+![](/images/partymusic.webp)  
   
 
 The first and most essential in our list is music, which can be done in many different ways but should basically be the main vibe behind the party.
@@ -50,7 +50,7 @@ You can then use the genre of music and the volume to create the atmosphere you 
 
 #### 2\. Drink
 
-![](images/partydrink.webp)  
+![](/images/partydrink.webp)  
   
 
 Next is the almighty alcohol, this is the driving force behind most parties which allows everyone to let loose and have some fun without too much thought ruining things.
@@ -63,7 +63,7 @@ Getting a variation of alcohol can take your party to the next level, from doing
 
 #### 3\. Space & Seating
 
-![](images/partyseating.webp)  
+![](/images/partyseating.webp)  
   
 
 The area that you use is vital to any party, there needs to be the right amount of space for people to chat, move, dance, rest, drink, smoke and PLAY GAMES.
@@ -76,7 +76,7 @@ If you do all of these things correctly, people will feel comfortable in all are
 
 #### 4\. Lighting & Decor
 
-![](images/partylighting.webp)  
+![](/images/partylighting.webp)  
   
 
 A major part of any party is how the atmosphere feels which is very much a visual thing. The visuals at a party are one of the best things you can focus on to make sure that the atmosphere isn't shit.
@@ -97,7 +97,7 @@ If you know how to do interior design, fashion or just generally good at knowing
 
 #### 5\. People
 
-![](images/partypeople.webp)  
+![](/images/partypeople.webp)  
   
 
 Last but by no means least, you can't have a party without the people, or else its just sad and lonely.

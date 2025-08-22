@@ -11,7 +11,7 @@ excerpt: "Description: A coffee infused vodka cocktail, served ice cold for a re
 3.  [Cocktail Recipes](drinks/cocktailrecipes)
 4.  Espresso Martini
 
-![](images/espresso-martini.webp)
+![](/images/espresso-martini.webp)
 
 #### Overview
 
@@ -29,7 +29,7 @@ excerpt: "Description: A coffee infused vodka cocktail, served ice cold for a re
 
 * * *
 
-### ingredients ![target](images/liquor.webp)
+### ingredients ![target](/images/liquor.webp)
 
 1.  Coffee liqueur - 25ml
 2.  Vodka - 25ml
@@ -37,7 +37,7 @@ excerpt: "Description: A coffee infused vodka cocktail, served ice cold for a re
 4.  Ice - 1 handful
 5.  Simple syrup (demerara) - 15ml
 
-### Recipe ![target](images/rules.webp)
+### Recipe ![target](/images/rules.webp)
 
 1.  Mix equal parts caster sugar and boiling water in a pan, stir and bring to the boil.
 2.  Turn the heat off and let the mixture cool.
@@ -45,7 +45,7 @@ excerpt: "Description: A coffee infused vodka cocktail, served ice cold for a re
 4.  Shake until the outside of the cocktail shaker feels icy cold.
 5.  Pour evenly into the chilled glasses and garnish with coffee beans.
 
-### Top Tips ![target](images/lightbulb.webp)
+### Top Tips ![target](/images/lightbulb.webp)
 
 -   Place glasses in the fridge before preparing the drink.
 -   When adding all of the ingredients in the shaker, pour the coffee in last to reduce the ice from melting as quickly.

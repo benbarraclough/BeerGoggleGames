@@ -10,7 +10,7 @@ excerpt: A collection of some popular and creative forfeits that you can use as 
 2.  [Extras](extras)
 3.  Forfeits
 
-![](images/forfeits.webp)
+![](/images/forfeits.webp)
 
 ## Forfeits
 

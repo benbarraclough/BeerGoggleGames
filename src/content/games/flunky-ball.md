@@ -12,9 +12,9 @@ type: outdoor
 3.  [Outdoor Games](GameCategories/OutdoorGames)
 4.  Flunky Ball
 
-![](images/flunkyball.webp)
+![](/images/flunkyball.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   2 Balls
 -   3 Bottles
@@ -22,17 +22,17 @@ type: outdoor
 -   Outdoor area
 -   Referee (optional)
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Fill your drinks up to the brim, divide the players into 2 teams and mark out your playing area. The playing area should be wide enough to fit all players shoulder to shoulder and preferably 30 foot long. Teams should be standing face to face on either side of the area, with a centre line marked in between. The 3 bottles must be standing up straight on the centre line ready to start.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Finish your drinks before the other team to win the game and avoid the forfeit
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 To decide who starts with the balls, the captain of each team must play rock, paper, scissors. To start the game, selected players must throw all balls at once from behind their line in attempt to knock the bottles over.
 
@@ -44,7 +44,7 @@ If the other team knocks over a bottle(s), any member of your team must run as q
 
 The game continues until all players in one team finishes their drinks. The losing team must finish the rest of their drink and fill another up to finish as well.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   Each team must take it in turns to throw
 -   If a bottle is hit and not knocked over, this does not count
@@ -57,7 +57,7 @@ The game continues until all players in one team finishes their drinks. The losi
 -   No tactical Spilling
 -   Insults encouraged
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game with:
 

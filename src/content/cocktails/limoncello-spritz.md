@@ -11,7 +11,7 @@ excerpt: "Description: A refreshing cocktail that combines the zesty flavour of 
 3.  [Cocktail Recipes](drinks/cocktailrecipes)
 4.  Example
 
-![](images/limoncello-spritz.webp)
+![](/images/limoncello-spritz.webp)
 
 #### Overview
 
@@ -29,7 +29,7 @@ excerpt: "Description: A refreshing cocktail that combines the zesty flavour of 
 
 * * *
 
-### Ingredients ![target](images/liquor.webp)
+### Ingredients ![target](/images/liquor.webp)
 
 -   Limoncello - 40ml
 -   Prosecco - 100ml
@@ -37,13 +37,13 @@ excerpt: "Description: A refreshing cocktail that combines the zesty flavour of 
 -   Lemon - 1
 -   Ice - 1 handful
 
-### Recipe ![target](images/rules.webp)
+### Recipe ![target](/images/rules.webp)
 
 1.  Add the ice to a glass, then pour in the prosecco and limoncello.
 2.  Fill to the top with soda water and mix.
 3.  Garnish with a slice of lemon.
 
-### Top Tips ![target](images/lightbulb.webp)
+### Top Tips ![target](/images/lightbulb.webp)
 
 -   To make for a stronger flavour, add less soda water or replace the soda with lemonade.
 -   If the limoncello is weak in alcohol percentage, give the drink an extra kick by adding some vodka.

@@ -12,25 +12,25 @@ type: dice
 3.  [Dice Games](GameCategories/DiceGames)
 4.  Edge
 
-![](images/edge.webp)
+![](/images/edge.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   Dice
 -   A table
 -   A drink each
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Gather everyone at one end of a table with a full drink and a dice each, try make the dice different from eachother if possible to tell them apart.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Roll your individual die closest to the end of the table than any other player to make others drink.
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 All players side by side roll their dice at the same time down to the end of the table in attempt to get as close to the edge.
 
@@ -42,13 +42,13 @@ Any player who rolls their die off of the table surface must drink 3 sips.
 
 This continues until one person wins 3 times.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   All players should roll from the same point.
 -   No roll interference is allowed.
 -   If multiple dice are equally close to the edge, there should be a vote as to who is closest. Alternatively, those players take a reroll.
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by using:
 

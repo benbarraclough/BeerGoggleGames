@@ -12,9 +12,9 @@ type: misc
 3.  [Misc. Games](GameCategories/MiscGames)
 4.  Race Car Shots
 
-![](images/racecarshots.webp)
+![](/images/racecarshots.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   Toy cars
 -   Table
@@ -22,17 +22,17 @@ type: misc
 -   Spirit bottles
 -   Shot glasses
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Gather various spirit bottles and line them up a few inches apart up the side of the table closer to one end. Create sections for each bottle by sticking tape across the table making equally sized areas for each of them. Give each player a toy car (if not enough, share) and place them at the other end of the table behind a start line you can make with tape, making sure the empty shot glasses are to hand.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Roll your toy car into the selected section of the scoring area.
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 The player who owns the toy car(s) goes first by naming which section they're intending to land their car in. Once stated, that same player takes their turn by attempting to roll their car into the correct scoring area.
 
@@ -42,13 +42,13 @@ If the car does not roll into the correct zone chosen, the player who rolled mus
 
 This is played for multiple rounds until no more shots can be taken.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   If the car falls off the table, the player takes a shot of the groups choice.
 -   Any car roll over the start line is invalid and should be taken again.
 -   Whichever zone the car is most within is the zone that is scored.
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by using:
 

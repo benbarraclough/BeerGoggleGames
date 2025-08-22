@@ -11,7 +11,7 @@ excerpt: "Description: A whisky shot with a sweet yet sharp twist, utilising pic
 3.  [Shot Recipes](drinks/shotrecipes)
 4.  Pickleback
 
-![](images/pickleback.webp)
+![](/images/pickleback.webp)
 
 #### Overview
 
@@ -29,19 +29,19 @@ excerpt: "Description: A whisky shot with a sweet yet sharp twist, utilising pic
 
 * * *
 
-### Ingredients ![target](images/liquor.webp)
+### Ingredients ![target](/images/liquor.webp)
 
 -   Whisky - 50ml
 -   Pickle juice - 50ml
 -   Pickle - 1 (optional)
 
-### Recipe ![target](images/rules.webp)
+### Recipe ![target](/images/rules.webp)
 
 1.  Pour the whisky into the first shot glass.
 2.  Pour the pickle juice into the second shot glass.
 3.  Garnish with a slice or minature pickle on top.
 
-### Top Tips ![target](images/lightbulb.webp)
+### Top Tips ![target](/images/lightbulb.webp)
 
 -   The traditional recipe was made with Jameson Irish Whiskey but any can be used.
 

@@ -12,25 +12,25 @@ type: dice
 3.  [Dice Games](GameCategories/DiceGames)
 4.  Lucky Number
 
-![](images/luckynumber.webp)
+![](/images/luckynumber.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   Dice
 -   A table
 -   A drink each
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Ensure all players have a full drink and surround the table ready to play with dice in the middle.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Roll your number using the dice 3 times to leave the game and stop drinking.
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 Each player must choose 1 number on the dice, everybody should have a unique number.
 
@@ -44,14 +44,14 @@ The game continues until somebody has rolled their own number three times, then 
 
 The last person left in the game must take a forfeit.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   If a players number is rolled and they are out of the game, the player who rolled the number drinks.
 -   The dice must travel clockwise when passing to the next player.
 -   If a player is found to have lied about the number of times they rolled their own number, they are reset to 0.
 -   If the dice roll on to the floor, this is still a valid roll.
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by using:
 

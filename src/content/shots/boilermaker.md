@@ -11,7 +11,7 @@ excerpt: "Description: A simple yet versatile concoction of beer and whisky dati
 3.  [Shot Recipes](drinks/shotrecipes)
 4.  Boilermaker
 
-![](images/boilermaker.webp)
+![](/images/boilermaker.webp)
 
 #### Overview
 
@@ -29,18 +29,18 @@ excerpt: "Description: A simple yet versatile concoction of beer and whisky dati
 
 * * *
 
-### Ingredients ![target](images/liquor.webp)
+### Ingredients ![target](/images/liquor.webp)
 
 -   Whisky - 50ml
 -   Beer - 1 pint
 
-### Recipe ![target](images/rules.webp)
+### Recipe ![target](/images/rules.webp)
 
 1.  Pour your pint of beer as full as you'd like (expect overspill if you fill it to the top)
 2.  Pour your full shot of whisky
 3.  Simply drop the shot of whisky into the pint and leave it as it lies
 
-### Top Tips ![target](images/lightbulb.webp)
+### Top Tips ![target](/images/lightbulb.webp)
 
 -   The pint/shot is usually drank in one
 -   Combine different types of whisky with different types of beer for new flavours (e.g. Bourbon & IPA, Irish & Lager, Scotch & Ale)

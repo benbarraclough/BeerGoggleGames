@@ -13,26 +13,26 @@ players: "1"
 3.  [Misc. Games](GameCategories/MiscGames)
 4.  Battle Shots
 
-![](images/battleshots.webp)
+![](/images/battleshots.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   16-20 shot glasses
 -   Spirits of choice
 -   2 Pizza boxes/Cardboard
 -   2 pens
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Divide the shot glasses between 2 teams and construct your side of the board using a pizza box (or multiple pieces of cardboard) and a pen to draw both the opponents 6x6 grid and your 6x6 grid. Then place all of your shots on a grid square of your choosing marked with an "S" so they can't be changed. Follow this short [setup video](https://www.youtube.com/watch?v=YlVWspeDEgw) by [tipsy elves](https://www.youtube.com/channel/UCLIzW8i9xH6vhyPdYuWyfNQ) for assistance.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Guess all of your opponents shot coordinates before they do to avoid losing the game
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 Very similar to Battleships, you must guess the locations of your opponents shots turn by turn and mark where each guess has been taken on your grids. If played within a team, only 1 player can go each time the team gets a guess.
 
@@ -42,14 +42,14 @@ If a guess misses, the person who missed must take a sip of their own drink.
 
 Once all of the shots have been drank by the loser, the losing team must also drink the remaining shots from the other teams' board.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   Peaking is disciplined by having one of your shots taken away
 -   Reverse psychology and insults are encouraged
 -   No takebacks (once you said it, consider it guessed)
 -   Mark the spots where you place your shots with an "S" so theres no cheating
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by adding:
 

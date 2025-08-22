@@ -11,7 +11,7 @@ excerpt: "Description: A classic whisky based cocktail offering a rich and balan
 3.  [Cocktail Recipes](drinks/cocktailrecipes)
 4.  Manhattan
 
-![](images/manhattan.webp)
+![](/images/manhattan.webp)
 
 #### Overview
 
@@ -29,20 +29,20 @@ excerpt: "Description: A classic whisky based cocktail offering a rich and balan
 
 * * *
 
-### Ingredients ![target](images/liquor.webp)
+### Ingredients ![target](/images/liquor.webp)
 
 -   Whisky (rye) - 60ml
 -   Vermouth rosso - 30ml
 -   Angostura bitters - 2 dashes
 -   Ice - 1 handful
 
-### Recipe ![target](images/rules.webp)
+### Recipe ![target](/images/rules.webp)
 
 1.  Add the whisky, vermouth and bitters into a shaker woth ice.
 2.  Shake until ice cold and serve into a martini glass.
 3.  Garnish with a skewered cherry.
 
-### Top Tips ![target](images/lightbulb.webp)
+### Top Tips ![target](/images/lightbulb.webp)
 
 -   Other vermouths can work in this drink, but a sweet vermouth is preferred.
 -   The maraschino cherry is the best for this cocktail.

@@ -11,25 +11,25 @@ type: outdoor
 2.  [Team Games](GameCategories/TeamGames)
 3.  Stein Run
 
-![](images/steinrun.webp)
+![](/images/steinrun.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   Long tables
 -   Lots of beer
 -   Stein glasses
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Gather players and divide them into teams of two or more. Set up one long table per team with space either side of them to run around (preferably on soft ground or snow). Provide each team with two steins and ensure plenty of beer is available for easily accessible. The table must be flat with no edges so a stein glass can slide on and off with no issues. Cover the table in water or ice to make it slippy and test that a stein will slide right the way down.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Finish all of your teams drinks quicker than any other team to win.
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 The game begins on the count of 3, 2, 1. The first player on the team must fill their stein to the brim with beer and run to the other end of the table where the second player slides it to them.
 
@@ -49,14 +49,14 @@ The quickest team wins and become the champions of Stein Run.
 
 The losers are given shots of ice cold Jägermeister.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   When drinking, the player must stay stood at the far end of the table.
 -   A new drink can only be poured once the previous stein has been finished.
 -   The catcher of the stein cannot grab the filled stein from the table, it must slide off and be caught.
 -   Badly filled steins or big spills cause for a refill of the drink.
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by using:
 

@@ -11,7 +11,7 @@ excerpt: "Description: A creative activity for those rainy days, this custom-mad
 3.  [Activities & Minigames](extras/activities&minigames)
 4.  DIY Drunkopoly
 
-![](images/diydrunkopoly.webp)
+![](/images/diydrunkopoly.webp)
 
 #### Overview
 
@@ -23,7 +23,7 @@ excerpt: "Description: A creative activity for those rainy days, this custom-mad
 
 * * *
 
-### Requirements ![target](images/rules.webp)
+### Requirements ![target](/images/rules.webp)
 
 -   Cardboard
 -   Paper
@@ -33,7 +33,7 @@ excerpt: "Description: A creative activity for those rainy days, this custom-mad
 -   Dice
 -   Clear tape
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 To begin, make a rough plan of how you want your boardgame to look like (sketch, features, rules, objectives).
 
@@ -49,7 +49,7 @@ Cut your game board out of the cardboard and cover the top in paper. Draw the ga
 
 Ensure that the accessories needed for the game are available (dice, counters, pen, paper) and then give it a go.
 
-### Top Tips ![target](images/lightbulb.webp)
+### Top Tips ![target](/images/lightbulb.webp)
 
 -   Make your rules dynamic and varied so that the game can be multiple times without being boring.
 -   Ensure the game is complete before taping over it.

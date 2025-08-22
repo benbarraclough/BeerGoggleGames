@@ -12,9 +12,9 @@ type: coin
 3.  [Coin Games](GameCategories/CoinGames)
 4.  Landmines
 
-![](images/landmines.webp)
+![](/images/landmines.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   Plenty of bottles/cans
 -   1 coin
@@ -22,17 +22,17 @@ type: coin
 -   Shot glasses
 -   Hard alcohol
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Gather all of the participants around the table with a full can or bottle of ehatever they're drinking and assign one random person with the coin.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Spin the coin, drink a considerable amount of drink and catch the coin without hitting a landmine.
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 The beginning player spins the coin on the table and drinks their drink whilst the coin spins. Before the coin stops spinning/falls, the player must sit their drink down and grab the coin with the same hand.
 
@@ -46,7 +46,7 @@ Once a drink is finished it can be then placed on the table in a strategic posit
 
 The game continues until the table is unplayable, no further drinks are available or the participants can no longer participate.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   A bottle/can can be saved and placed on the table mid turn.
 -   The spinner must drink with the same hand that they pick the coin up with.
@@ -54,7 +54,7 @@ The game continues until the table is unplayable, no further drinks are availabl
 -   Bullying using mine surrounding techniques or impact hits are allowed
 -   If a coin spin hits a land mine, a shot is given in punishment
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by using:
 

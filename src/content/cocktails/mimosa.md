@@ -11,7 +11,7 @@ excerpt: "Description: Simply juice and fizz but a great drink to start an eveni
 3.  [Cocktail Recipes](drinks/cocktailrecipes)
 4.  Mimosa
 
-![](images/mimosa.webp)
+![](/images/mimosa.webp)
 
 #### Overview
 
@@ -29,19 +29,19 @@ excerpt: "Description: Simply juice and fizz but a great drink to start an eveni
 
 * * *
 
-### Ingredients ![target](images/liquor.webp)
+### Ingredients ![target](/images/liquor.webp)
 
 1.  Champagne - 75ml
 2.  Orange juice - 75ml
 3.  Strawberry (to garnish) - 1
 
-### Recipe ![target](images/rules.webp)
+### Recipe ![target](/images/rules.webp)
 
 1.  Fill half the glass with chilled orange juice
 2.  Add the other half of champagne
 3.  Cut a strawberry and add to the side of the glass as a ganish
 
-### Top Tips ![target](images/lightbulb.webp)
+### Top Tips ![target](/images/lightbulb.webp)
 
 If you screw this one up, you're a moron
 

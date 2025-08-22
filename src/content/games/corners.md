@@ -12,26 +12,26 @@ type: pong
 3.  [Pong Games](GameCategories/PongGames)
 4.  Corners
 
-![](images/corners.webp)
+![](/images/corners.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   4 Cups of water
 -   A drink each
 -   2 Ping Pong balls
 -   A table with corners
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Gather 2 teams of two to play against each other with a cup of water per player, a drink per player and a pong ball per team. Each player is positioned on a corner of the table, 1 team on either side with their cup of water also placed on that corner. Each players drink must bebe by their side ready to drink from when needed.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Eliminate your opponents lives by hitting the rim or scoring the ball in the opposing teams cups to win.
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 Starting when both teams are ready, each team throws the ping pong balls atHaving no physical representation of a player's lifeline, (such as a 6-cup rack in Beer Pong) each player has 4 quarters of a life which they can lose in the two possible ways noted below.
 
@@ -47,14 +47,14 @@ Once a player loses their entire life, they are knocked out of the game but can 
 
 This is played until one team eliminates both players from the other team and wins the game.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   Each player must drink the corresponding amount of alcohol as lives lost before they shoot their shot
 -   Winner stays on - Winning team continues playing until they are beaten
 -   Shots cannot be interfered or intercepted with until bounced
 -   Cups cannot be touched unless to retrieve a pong ball
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by playing:
 

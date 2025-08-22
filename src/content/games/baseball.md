@@ -13,27 +13,27 @@ players: "3"
 3.  [Pong Games](GameCategories/PongGames)
 4.  Baseball
 
-![](images/baseball.webp)
+![](/images/baseball.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   1-3 Pong balls
 -   A table
 -   14 Solo cups
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Gather players into teams (preferably 8 people in teams of 4) and line up the plastic cups on your pong table with alcohol in as shown in the diagram below. Teams decide who defends first and start by positioning themselves as shown in the diagram. In this instance, the black team will be “leading off” the inning and the white team will be defending (DF). Both teams should agree to how many innings will be played to complete the game. Three fingers of drink should be added to each cup on the table and the game can begin once the leading team have hold of the ball.
 
-![](images/baseballsetup.webp)
+![](/images/baseballsetup.webp)
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Score as many runs as possible by getting the ball into the cups and stop the other team from scoring.
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 The first team up to bat starts the game by throwing ping pong balls at the four cups that are lined up on the opposite side of the table. Each player takes it in turns to throw their three balls each.
 
@@ -49,13 +49,13 @@ Defending: The defender opposite of the base stealer has a chance to “throw ou
 
 Once 3 players in a team are out, the innings flips and the defenders are now batting. The above is repeated until the innings comes to an end. Runs are counted up and marked down before the next innings starts.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   The defence can only interfere with the ball once it bounces.
 -   Strikes reset after a player scores.
 -   Multiple players can be on one base.
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by using:
 

@@ -11,7 +11,7 @@ excerpt: "Description: A pleasant tropical flavoured shot with lots of different
 3.  [Shot Recipes](drinks/shotrecipes)
 4.  Blue Balls
 
-![](images/blue-balls.webp)
+![](/images/blue-balls.webp)
 
 #### Overview
 
@@ -29,7 +29,7 @@ excerpt: "Description: A pleasant tropical flavoured shot with lots of different
 
 * * *
 
-### Ingredients ![target](images/liquor.webp)
+### Ingredients ![target](/images/liquor.webp)
 
 -   Coconut rum - 15ml
 -   Blue Curacao - 15ml
@@ -38,13 +38,13 @@ excerpt: "Description: A pleasant tropical flavoured shot with lots of different
 -   Lemon-lime soda - 1 splash
 -   Ice - 1 handful
 
-### Recipe ![target](images/rules.webp)
+### Recipe ![target](/images/rules.webp)
 
 1.  Add the rum, blue curacao, schnapps and sweet-sour mix into a shaker with ice.
 2.  Shake until ice cold and then strain into a shot glass.
 3.  Top off with sprite or another lemon-lime soda then serve.
 
-### Top Tips ![target](images/lightbulb.webp)
+### Top Tips ![target](/images/lightbulb.webp)
 
 -   Do not shake with the sprite in the shaker, this will bubble up and ruin the lemon-lime soda.
 -   Ensure equal parts ingredients.

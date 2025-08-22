@@ -11,7 +11,7 @@ excerpt: "Description: A fresh daytime gin based cocktail that can be sweetened 
 3.  [Cocktail Recipes](drinks/cocktailrecipes)
 4.  English Garden
 
-![](images/english-garden.webp)
+![](/images/english-garden.webp)
 
 #### Overview
 
@@ -29,7 +29,7 @@ excerpt: "Description: A fresh daytime gin based cocktail that can be sweetened 
 
 * * *
 
-### Ingredients ![target](images/liquor.webp)
+### Ingredients ![target](/images/liquor.webp)
 
 1.  Gin - 30ml
 2.  Elderflower cordial - 2tsp
@@ -39,14 +39,14 @@ excerpt: "Description: A fresh daytime gin based cocktail that can be sweetened 
 6.  Cucumber - 1 long peeled strip
 7.  Ice - 1 handful
 
-### Recipe ![target](images/rules.webp)
+### Recipe ![target](/images/rules.webp)
 
 1.  Add the mint leaves, gin, elderflower, lemon juice and ice to a glass.
 2.  Slice a cucumber length ways with a peeler so that you get a long strip with the flesh showing on either side.
 3.  Add the cucumber slice to the glass so that it swirls within the drink.
 4.  Top the drink up with apple juice and stir well to finish before serving.
 
-### Top Tips ![target](images/lightbulb.webp)
+### Top Tips ![target](/images/lightbulb.webp)
 
 -   Add more elderflower cordial or syrup to the drink for a sweeter taste.
 -   Add a slice of cucumber or apple to the edge of the glass or even a flower.

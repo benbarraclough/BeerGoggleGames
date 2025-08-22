@@ -12,26 +12,26 @@ type: outdoor
 3.  [Outdoor Games](GameCategories/OutdoorGames)
 4.  Stump
 
-![](images/stump.webp)
+![](/images/stump.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   1 Hammer
 -   A tree stump
 -   Nails
 -   A drink each
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Players must gather evenly around the tree stump with a nail slightly knocked into the stump in front of each of them. Drinks should be prepped and players can either sit or stand. The owner of the hammer holds the hammer to begin with.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Knock other players nails into the stump to make them drink.
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 The player with the hammer must throw the hammer up into the air making it do a 360 degree spin, catch it and hit another players nail into the the stump
 
@@ -53,14 +53,14 @@ The game continues until somebody gets injured or players have run out of drink/
 
 Watch this video for a simple walkthrough: [Video](https://www.youtube.com/watch?v=xNAagrjILAwtarget)
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   A hammer spin and hit must be done quickly in one clean motion
 -   If you knock your own nail in by accident, double the amount of drinks required
 -   A player must always have a nail stuck in the stump assigned to them
 -   A nail is knocked in entirely when the head of the nail touches the wood
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by using:
 

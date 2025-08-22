@@ -11,7 +11,7 @@ excerpt: A helpful list of accessories that will assist you with some creative m
 3.  [Blog](extras/blog)
 4.  Most Useful Drinking Accessories
 
-![](images/mostusefuldrinkingaccessories.webp)
+![](/images/mostusefuldrinkingaccessories.webp)
 
 * * *
 
@@ -35,7 +35,7 @@ The following items are not in any way sponsored by specific companies, the link
 
 #### Beer Bong
 
-![](images/beerbong.webp)  
+![](/images/beerbong.webp)  
   
 
 An undeniable favourite for consuming large amounts of alcohol in a short amount of time.
@@ -50,7 +50,7 @@ A beer bong can be utilised in many circumstances for forfeits, races and gettin
 
 #### Push-down Bottle Opener
 
-![](images/pushdownbottleopener.webp)  
+![](/images/pushdownbottleopener.webp)  
   
 
 Treat your bottles of beer with their own version of a flesh light!
@@ -65,7 +65,7 @@ Less ugly than most bottle openers and acts as a brilliant time saving device. T
 
 #### Snorkel
 
-![](images/snorkel.webp)  
+![](/images/snorkel.webp)  
   
 
 Struggle to neck your bottled drinks? Being called a pussy by your friends? Do we have the solution for you!
@@ -80,7 +80,7 @@ The perfect way to quickly drink bottles of alcohol with no fuss. Get a full set
 
 #### Breathalyser
 
-![](images/breathalyser.webp)  
+![](/images/breathalyser.webp)  
   
 
 Struggle to know when enough is enough? Get a pocket size breathalyser to settle your worries.
@@ -95,7 +95,7 @@ This can be used as a bit of fun during a night of drinking, testing who the lig
 
 #### Cap Shooter
 
-![](images/capshooter.webp)  
+![](/images/capshooter.webp)  
   
 
 A brilliant way to maintain a tidy pad and keep the drinks flowing in at the same time.
@@ -110,7 +110,7 @@ Use the gun as a part of a game by necking drinks and shooting targets or holste
 
 #### Spirit Pistol
 
-![](images/spiritpistol.webp)  
+![](/images/spiritpistol.webp)  
   
 
 A playful way to get shots down people during a party.
@@ -125,7 +125,7 @@ Use this as a punishment during games or pass a few round for a bit of fun durin
 
 #### Shotgun Tool
 
-![](images/shotguntool.webp)  
+![](/images/shotguntool.webp)  
   
 
 The tool for all the pro drinkers out there who love to shotgun a beer, learn more about shotguns in the [glossary](extras/glossary).

@@ -12,25 +12,25 @@ type: misc
 3.  [Misc. Games](GameCategories/MiscGames)
 4.  Tealight Trial
 
-![](images/tealighttrial.webp)
+![](/images/tealighttrial.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   Tealights
 -   1 drink each
 -   A table
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Line as many tea lights in a row as possible, about the width of a few fingers apart. Make sure each player has a drink and light all the candles when you’re ready to begin.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Blow as many candles out as possible with one puff.
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 One by one, each player must step up to the table facing down the line of candles and blow as many candles out as possible with one breath. The amount of candles are then recorded, the candles are relit and the next player takes their turn.
 
@@ -38,13 +38,13 @@ Once everyone has taken their turn, the player who blew out the least amount of 
 
 The game is then repeated for multiple rounds until finished.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   The number of candles blown out is defined by the number of candles up until the first lit candle (no candles blown out beyond this point count).
 -   Only 1 breath is allowed when blowing.
 -   Both feet must stay in the same position when blowing.
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by using:
 

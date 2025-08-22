@@ -12,24 +12,24 @@ type: card
 3.  [Card Games](GameCategories/CardGames)
 4.  Mushroom
 
-![](images/mushroom.webp)
+![](/images/mushroom.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   52 Card Deck
 -   1 drink container
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 A container filled with a drink of your choice must be placed in the centre of the group with 1 card placed on top of it. Everyone playing should be able to reach the cup and the rest of the cards so a centre table is advised.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Balance cards on top of a drink without the the rest of the cards toppling too
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 Starting with the youngest in the group, they must take a card from the deck and place it on the cup with a minimum of two corners hanging off the edge.
 
@@ -41,7 +41,7 @@ If the card falls alongside other cards, you lose the game and must drink the ce
 
 After 5 or 6 cards are placed, the mushroom is formed and this is played until the mushroom crumbles to the ground.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   2 corners of each card must be floating over the edge when placed
 -   If the card you placed falls and only that card, it can be re-placed
@@ -49,7 +49,7 @@ After 5 or 6 cards are placed, the mushroom is formed and this is played until t
 -   Shaking or disrupting the stability of the mushroom is punished by 2 sips
 -   If someone disrupts and topples the cards on the mushroom, they lose the game, even if it is not their turn
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by using:
 

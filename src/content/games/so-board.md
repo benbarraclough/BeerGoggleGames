@@ -12,26 +12,26 @@ type: coin
 3.  [Coin Games](GameCategories/CoinGames)
 4.  So Board
 
-![](images/soboard.webp)
+![](/images/soboard.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   A piece of paper/cardboard
 -   1 Pen
 -   1 coin
 -   A drink each
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Place the blank piece of paper/cardboard (the playing board)on a table in a place where everyone can reach and see it.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Complete each task that you're assigned to avoid forfeits
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 Starting with the person whos coin it is, they must flip it onto the playing board.
 
@@ -43,14 +43,14 @@ If the coin doesn't land anywhere on the playing board, you must sip 4 fingers o
 
 One by one, round the group you takes turns flipping the coin, creating Play until you're bored
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   If the coin lands on two different tasks, the group picks the one that is most relevant
 -   Each time a player consecutively misses the playing board, they must take twice as many sips as the last
 -   The coin only slightly needs to touch a task circle for it to be performed
 -   Tasks can be anything! From rules, truths, dares, rewards and forfeits
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by using:
 

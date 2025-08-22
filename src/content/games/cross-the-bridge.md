@@ -12,25 +12,25 @@ type: card
 3.  [Card Games](GameCategories/CardGames)
 4.  Cross the Bridge
 
-![](images/crossthebridge.webp)
+![](/images/crossthebridge.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   52 Card Deck
 -   A drink each
 -   Table
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 The two players competing must sit face to face at a table with their drinks filled. Take 9 cards from the top of the deck and place them upside-down in a diamond shape, as shown in the game image.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Choose the correct card on each row to make your way across the 'bridge' to make your competitor drink.
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 Split the deck for the highest number to decide who goes first. This player will pick one card from each row and flip it over face up starting from the row closest to them and moving to the next until you reach the other side.
 
@@ -42,14 +42,14 @@ If a player successfully crosses the bridge by not picking up a face or an ace o
 
 Each round is played 1 at a time until a player successfully crosses the bridge 3 times
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   No card peaking or backsies
 -   1 card is picked per row
 -   If a card is revealed it must be replaced
 -   At the start of a new round, players start on the first row on their side of the bridge
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by playing:
 

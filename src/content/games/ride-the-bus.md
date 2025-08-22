@@ -13,20 +13,20 @@ players: "2"
 3.  [Card Games](GameCategories/CardGames)
 4.  Ride The Bus
 
-![](images/ridethebus.webp)
+![](/images/ridethebus.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   52 Card Deck
 -   A drink each
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Sit everyone down at the table with filled drinks and extra beverages nearby. Designate a dealer who can also join in the game and then everything is set.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Round 1: Guess correctly to dish out punishments to other players
 
@@ -34,7 +34,7 @@ Round 2: Get rid of all your cards
 
 Round 3: Guess all consecutive questions correctly to get off the bus
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 Round 1
 
@@ -64,14 +64,14 @@ The player who is riding the bus must complete all four questions IN A ROW. Each
 
 Any incorrect guess requires the player to start back at question one. The only way the player can finish the game is by answering all questions or getting through the entire deck of cards
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   Ace is high
 -   Multiple cards can be laid down on the pyramid
 -   Players do have the option of saving their cards in hopes of getting a matching card higher up the pyramid
 -   Only 1 player can ride the bus, use a tie breaker to decide if required
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Shorten your game by playing:
 

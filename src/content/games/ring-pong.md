@@ -12,25 +12,25 @@ type: pong
 3.  [Pong Games](GameCategories/PongGames)
 4.  Ring Pong
 
-![](images/ringpong.webp)
+![](/images/ringpong.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   20 solo cups
 -   1 pong ball
 -   A table
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Set up two regular beer pong triangles at either ends of the table, 10 cups each with drinks filled half way in each. Make sure the table has space all around so that you can walk all the way around. Half of the players should then stand behind one rack of cups and half behind the other with one player holding the ball ready to throw.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Score as many shots as possible to knock down the cups and make your friends drink.
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 The person with the ball begins the game by throwing the ball to the other side of the table in attempt to score in a cup. After shooting, they must move clockwise to the other side of the table behind the other players who are currently queueing to take their shot.
 
@@ -42,7 +42,7 @@ After each shot, the next player to shoot grabs the ball and takes their shot be
 
 The game ends when all cups are gone.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   Balls cannot be intercepted unless it bounces
 -   Only one ball should be in play at any time.
@@ -50,7 +50,7 @@ The game ends when all cups are gone.
 -   If a ball bounces off a rim of one cup and then goes into another cup, both cups must be drank.
 -   If a shot misses the table, the player must be booed.
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by using:
 

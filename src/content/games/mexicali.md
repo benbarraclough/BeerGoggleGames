@@ -12,26 +12,26 @@ type: dice
 3.  [Dice Games](GameCategories/DiceGames)
 4.  Mexicali
 
-![](images/mexicali.webp)
+![](/images/mexicali.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   A Plastic Cup
 -   2 Dice
 -   A drink each
 -   A table
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Gather all players round the table with a filled drink, placing the cup in the centre with the dice.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Guess your rolls correctly or bluff convincingly enough to not drink
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 The game begins by a taking it in turns to shake the two dice in the cup and slap it top-down on the table trapping the dice.
 
@@ -49,12 +49,12 @@ If someones bluff gets called or if someone calls someones bluff incorrectly, th
 
 This continues until the flow breaks and someone drinks. Then the game starts from the beginning
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   A 2 and a 1 makes a Mexicali and beats all other rolls.
 -   Once the next person touches the cup, nobody can call the previous roller's bluff
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by using:
 

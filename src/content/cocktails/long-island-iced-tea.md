@@ -11,7 +11,7 @@ excerpt: "Description: The ultimate cocktail that hits hard, containing four sep
 3.  [Cocktail Recipes](drinks/cocktailrecipes)
 4.  Long Island Iced Tea
 
-![](images/long-island-iced-tea.webp)
+![](/images/long-island-iced-tea.webp)
 
 #### Overview
 
@@ -29,7 +29,7 @@ excerpt: "Description: The ultimate cocktail that hits hard, containing four sep
 
 * * *
 
-### Ingredients ![target](images/liquor.webp)
+### Ingredients ![target](/images/liquor.webp)
 
 1.  Vodka - 25ml
 2.  Gin - 25ml
@@ -41,14 +41,14 @@ excerpt: "Description: The ultimate cocktail that hits hard, containing four sep
 8.  Ice - Handful
 9.  Lemon (optional) - Two slices
 
-### Recipe ![target](images/rules.webp)
+### Recipe ![target](/images/rules.webp)
 
 1.  Pour each spirit and the liqueur into a shaker with a handful of ice, shake until the outside of the shaker is very cold.
 2.  Strain the mixture into a glass and add the lemon juice.
 3.  Fill to the top with cola and add a slice of lemon into the drink
 4.  Garnish with another slice of lemon and take a sip with a straw
 
-### Top Tips ![target](images/lightbulb.webp)
+### Top Tips ![target](/images/lightbulb.webp)
 
 -   Try to use high quality spirits to reduce the impact of the hangover.
 -   Replace the lemon slices and lemon juice with lime for a slightly different taste.

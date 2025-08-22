@@ -13,25 +13,25 @@ players: "1"
 3.  [Card Games](GameCategories/CardGames)
 4.  Spoons
 
-![](images/spoons.webp)
+![](/images/spoons.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   A drink each
 -   Spoons
 -   A table
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Gather all players around a table with filled drinks and deal everybody with 4 cards, the rest of the deck must then be close to the dealer. Place 1 less spoon than there are players playing the game in the middle of the table, an even distance away from everyone so that they can grab one when needed.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Match 4 of the same cards in order to grab a spoon. Just make sure you have a spoon at the end of each round
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 Players should keep there cards close to them and not reveal them whilst the dealer begins by picking up a card from the top of the deck and passing it around the circle to the next player and then getting another and so on until all players are picking up a card passed to them and passing another card on.
 
@@ -41,7 +41,7 @@ The 1 player without a spoon is knocked out (of the game, NOT physically assault
 
 The next person around the circle then becomes the dealer for the next round and deals 4 cards to everyone still in the game whilst placing 1 less spoons in the centre to play the next round. This continues until there is only 1 player in the game.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   Pass cards face down
 -   Cards must be passed to the next player
@@ -52,7 +52,7 @@ The next person around the circle then becomes the dealer for the next round and
 -   A player can’t have more than 5 cards in your hand at a time (pick one up, pass one on)
 -   If no sets are made, use the bin pile to start the round again
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by using:
 

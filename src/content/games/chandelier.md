@@ -12,26 +12,26 @@ type: pong
 3.  [Pong Games](GameCategories/PongGames)
 4.  Chandelier
 
-![](images/chandelier.webp)
+![](/images/chandelier.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   1 centre solo cup
 -   1 solo cup each
 -   1 pong ball
 -   1 table
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Fill your own solo cup with a drink of your choice and then decide between the group what will go in the centre chug cup and fill that. Once these are filled, form a chandelier (as in the image) with the centre cup on top of another upside down cup so it is higher than the rest which surround it. Each player should be standing in front their cup and know which is theirs.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Make your opponents drink by scoring the ball in their cups and avoid drinking the centre chug cup
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 Whoever has the ball starts by bouncing the ball on the table trying to get it in an opponents cup.
 
@@ -43,14 +43,14 @@ If the shot goes in the centre cup, everyone must compete to not drink the chug 
 
 The game continues until everyone is too drunk to play
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   The ball must bounce on the table at least once for the shot to count
 -   The ball cannot be grabbed until is has bounced twice
 -   No pong ball disruptions
 -   All cups must be filled equally
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by using:
 

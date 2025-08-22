@@ -11,7 +11,7 @@ excerpt: "Description: A sweet and citrussy punch of tartness that, easy to make
 3.  [Shot Recipes](drinks/shotrecipes)
 4.  Kamikaze
 
-![](images/kamikaze.webp)
+![](/images/kamikaze.webp)
 
 #### Overview
 
@@ -29,19 +29,19 @@ excerpt: "Description: A sweet and citrussy punch of tartness that, easy to make
 
 * * *
 
-### Ingredients ![target](images/liquor.webp)
+### Ingredients ![target](/images/liquor.webp)
 
 -   Vodka - 25ml
 -   Triple sec - 15ml
 -   lime juice - 10ml
 
-### Recipe ![target](images/rules.webp)
+### Recipe ![target](/images/rules.webp)
 
 1.  Pour the vodka in the shot glass
 2.  Add the triple sec
 3.  Finish with the lime juice
 
-### Top Tips ![target](images/lightbulb.webp)
+### Top Tips ![target](/images/lightbulb.webp)
 
 -   Turn the shot into a blue Kamikaze by replacing the Triple sec with Blue Curacao
 

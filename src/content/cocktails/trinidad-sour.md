@@ -11,7 +11,7 @@ excerpt: "Description: A rich whisky based delight, its dark and aromatic flavou
 3.  [Cocktail Recipes](drinks/cocktailrecipes)
 4.  Trinidad Sour
 
-![](images/trinidad-sour.webp)
+![](/images/trinidad-sour.webp)
 
 #### Overview
 
@@ -29,7 +29,7 @@ excerpt: "Description: A rich whisky based delight, its dark and aromatic flavou
 
 * * *
 
-### Ingredients ![target](images/liquor.webp)
+### Ingredients ![target](/images/liquor.webp)
 
 -   Whisky - 15ml
 -   Angostura bitters - 45ml
@@ -37,13 +37,13 @@ excerpt: "Description: A rich whisky based delight, its dark and aromatic flavou
 -   Lemon juice - 25ml
 -   Ice - 1 handful
 
-### Recipe ![target](images/rules.webp)
+### Recipe ![target](/images/rules.webp)
 
 1.  Add the bitters, whisky, almond liqueur, lemon juice and ice to a shaker
 2.  Shake the mixture until the shaker turns ice cold
 3.  Strain into the glass
 
-### Top Tips ![target](images/lightbulb.webp)
+### Top Tips ![target](/images/lightbulb.webp)
 
 -   Garnish with a lemon twist
 

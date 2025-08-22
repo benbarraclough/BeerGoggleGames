@@ -11,7 +11,7 @@ excerpt: "Description: An old but popular classic dating back to the early 1900s
 3.  [Cocktail Recipes](drinks/cocktailrecipes)
 4.  Sidecar/li>
 
-![](images/sidecar.webp)
+![](/images/sidecar.webp)
 
 #### Overview
 
@@ -29,20 +29,20 @@ excerpt: "Description: An old but popular classic dating back to the early 1900s
 
 * * *
 
-### Ingredients ![target](images/liquor.webp)
+### Ingredients ![target](/images/liquor.webp)
 
 -   Brandy - 60ml
 -   Orange liqueur (Triple Sec) - 30ml
 -   Lemon juice - 30ml
 -   Ice - 1 handful
 
-### Recipe ![target](images/rules.webp)
+### Recipe ![target](/images/rules.webp)
 
 1.  Add the brandy, orange liqueur, lemon juice and ice to a mixer
 2.  Shake the mixture until the shaker becomes ice cold
 3.  Strain the mixture into the glass
 
-### Top Tips ![target](images/lightbulb.webp)
+### Top Tips ![target](/images/lightbulb.webp)
 
 -   If brandy isn't available, it can be replaced with a bourbon or a smooth blended whisky alonside a little simple syrup
 -   Garnish with an orange twist

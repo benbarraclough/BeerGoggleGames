@@ -12,26 +12,26 @@ type: coin
 3.  [Coin Games](GameCategories/CoinGames)
 4.  Pyramid Coin
 
-![](images/pyramidcoin.webp)
+![](/images/pyramidcoin.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   1 solo cup
 -   2 shot glasses
 -   2 double-shot glasses
 -   2 coins
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Place the solo cup in the very middle followed by the double-shot glasses either side, and finally the shot glasses so that there is a sort of pyramid structure in a line. Fill them all up with beer and ensure they are all set 4 fingers apart. The two players participating then sit across from each other holding their coins, aligning themselves with the row of glasses ready to play.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Shoot your coin into the drinks containers going from smallest to largest, racing to make it into all three in a row to win.
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 The game begins on the count of three where both players attempt to throw their coin into the shot glass.
 
@@ -43,14 +43,14 @@ When a shot is scored in a glass out of order (bigger than the smallest availabl
 
 The game continues until a player completes the set of three shots and ends the game by scoring in the solo cup. The losing player must then chug the entire solo cup full of beer.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   Shots can be bounced or thrown straight in.
 -   Drinks that have been consumed should be set aside.
 -   If you swallow the coin, game over, you lose.
 -   The throwing distance must be the same for each player.
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by using:
 

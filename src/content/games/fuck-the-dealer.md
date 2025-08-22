@@ -13,26 +13,26 @@ players: "3"
 3.  [Card Games](GameCategories/CardGames)
 4.  Fuck The Dealer
 
-![](images/fuckthedealer.webp)
+![](/images/fuckthedealer.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   1 Shot glass
 -   A table
 -   52 card deck
 -   Spirits
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Gather participants round a table with a full deck of shuffled cards and shot glasses with nearby spirits available.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Guess the cards that the dealer turns over from the top of the deck to make the dealer drink instead of you
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 Spread the cards across the table face down and ask everyone to pick one card. Each player flips their card, the person with the lowest number is the dealer (if multiple players have the lowest card, cards are picked again by just those players).
 
@@ -58,12 +58,12 @@ If guessed incorrectly, the guesser takes two sips.
 
 If the dealer is not beaten (cards aren't guessed successfully) by 3 players in a row, the dealer may give up their responsibility and pass the cards to another particpant who then becomes the new dealer.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   Ace is high
 -   A new card is used for each player
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by using:
 

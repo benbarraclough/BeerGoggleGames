@@ -12,25 +12,25 @@ type: card
 3.  [Card Games](GameCategories/CardGames)
 4.  Strip Jack Drunk
 
-![](images/stripjackdrunk.webp)
+![](/images/stripjackdrunk.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   52 Card Deck
 -   A drink each
 -   A table
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Gather players with filled drinks around the game table and hand all the cards out evenly amongst them face down so each player cannot see their cards.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Get rid of all the cards in your hand before anyone else to win the game.
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 Starting with the player who dealt, each player must flip the top card of their hand into the middle without seeing it until flipped. This continues with the next player placing their card on top of the previous players and so on.
 
@@ -48,13 +48,13 @@ If a player fails to put a face card down within their amount of chances, they m
 
 The game then starts again with the player who picked up the cards playing their top card and moving to the next player. The first one to get rid of all their cards is the winner, gets to choose who the loser is and the forfeit they must do.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   The winner may choose any player as the loser but should take the thickness of their hand into account
 -   Each player must play 1 card at a time
 -   Players must have their cards upside down at all times so they cannot see the cards until they’re played
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by using:
 

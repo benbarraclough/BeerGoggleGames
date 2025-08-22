@@ -12,24 +12,24 @@ type: vocal
 3.  [Vocal Games](GameCategories/VocalGames)
 4.  Hotseat
 
-![](images/hotseat.webp)
+![](/images/hotseat.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   Shot Glass
 -   Bottle of hard liquor
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Gather particpants in a circle, fill a shot glass full of your hard alcohol and keep the bottle nearby.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Take it in turns around the circle sharing information that will 'satisfy' the group, so that you don't drink the shot.
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 Starting with the person who last touched the bottle of alcohol, one person begins in the hot seat and the others act as the jury. The person in the hot seat starts by providing information that is valuable enough to the group so that they are satisfied.
 
@@ -45,14 +45,14 @@ If the person in the hot seat fails to provide information or the amount of thum
 
 The game continues clockwise around the circle until the momentum slows down and nobody wants to play anymore.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   If there is no majority, this can be discussed further between the jury and re-voted but only once.
 -   Social politics & alliances are allowed
 -   No repeated themes
 -   The information provided cannot be altered, rephrased or added to.
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by using:
 

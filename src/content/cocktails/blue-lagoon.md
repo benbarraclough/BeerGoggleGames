@@ -11,7 +11,7 @@ excerpt: "Description: Similar to a sweet blue lemonade but with more alcohol an
 3.  [Cocktail Recipes](drinks/cocktailrecipes)
 4.  Blue Lagoon
 
-![](images/blue-lagoon.webp)
+![](/images/blue-lagoon.webp)
 
 #### Overview
 
@@ -29,7 +29,7 @@ excerpt: "Description: Similar to a sweet blue lemonade but with more alcohol an
 
 * * *
 
-### Ingredients ![target](images/liquor.webp)
+### Ingredients ![target](/images/liquor.webp)
 
 1.  Vodka - 50ml
 2.  Lemonade - 200ml
@@ -39,14 +39,14 @@ excerpt: "Description: Similar to a sweet blue lemonade but with more alcohol an
 6.  Lemons - 1 Slice
 7.  Ice
 
-### Recipe ![target](images/rules.webp)
+### Recipe ![target](/images/rules.webp)
 
 1.  Add vodka, blue Curaçao and ice to a shaker.
 2.  Shake the shaker until it turns very cold
 3.  Strain the shaker contents into a glass with ice and top up with lemonade
 4.  Pour the cherry syrup on top of the drink, then garnish with cherry and lemon.
 
-### Top Tips ![target](images/lightbulb.webp)
+### Top Tips ![target](/images/lightbulb.webp)
 
 -   Use fresh lemon, lime and orange juice along with soda water instead of lemonade
 -   If possible, use maraschino cherries and the syrup from them insetad of regular cherries

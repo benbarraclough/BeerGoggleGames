@@ -11,7 +11,7 @@ excerpt: "Description: A stomach full of the Irish charm with an extra kick, dro
 3.  [Shot Recipes](drinks/shotrecipes)
 4.  Irish Car Bomb
 
-![](images/irishcarbomb.webp)
+![](/images/irishcarbomb.webp)
 
 #### Overview
 
@@ -29,19 +29,19 @@ excerpt: "Description: A stomach full of the Irish charm with an extra kick, dro
 
 * * *
 
-### Ingredients ![target](images/liquor.webp)
+### Ingredients ![target](/images/liquor.webp)
 
 -   Guinness - 3/4 pint
 -   Irish whisky - 25ml
 -   Irish cream liqueur - 25ml
 
-### Recipe ![target](images/rules.webp)
+### Recipe ![target](/images/rules.webp)
 
 1.  Pour the three quarters of a pint into a pint glass
 2.  Pour the whisky and the Irish cream liqueur into the shot glass
 3.  Drop the shot glass into the pint glass
 
-### Top Tips ![target](images/lightbulb.webp)
+### Top Tips ![target](/images/lightbulb.webp)
 
 -   Pour the Guinness against the side of the glass so that it doesn't foam in the glass. When the shot is dropped in, more foam will be made.
 

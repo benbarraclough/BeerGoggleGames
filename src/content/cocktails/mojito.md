@@ -11,7 +11,7 @@ excerpt: "Description: The Cuban crowd-pleaser, a sweet & refreshing drink with 
 3.  [Cocktail Recipes](drinks/cocktailrecipes)
 4.  Mojito
 
-![](images/mojito.webp)
+![](/images/mojito.webp)
 
 #### Overview
 
@@ -29,7 +29,7 @@ excerpt: "Description: The Cuban crowd-pleaser, a sweet & refreshing drink with 
 
 * * *
 
-### Ingredients ![target](images/liquor.webp)
+### Ingredients ![target](/images/liquor.webp)
 
 1.  White rum - 25ml
 2.  Soda water - 100ml
@@ -37,7 +37,7 @@ excerpt: "Description: The Cuban crowd-pleaser, a sweet & refreshing drink with 
 4.  Granulated sugar - 1tsp
 5.  Mint - 2 handfuls
 
-### Recipe ![target](images/rules.webp)
+### Recipe ![target](/images/rules.webp)
 
 1.  Muddle the lime juice, sugar and 1 handful of mint leaves together in a shaker using a cocktail muddler, the aim is to bash and grind the sugar into the mint.
 2.  Add the shot of rum and a couple cubes of ice, then shake until the shaker is ice cold.
@@ -45,7 +45,7 @@ excerpt: "Description: The Cuban crowd-pleaser, a sweet & refreshing drink with 
 4.  Stir and garnish with mint leaf and a slice of lime on top to serve.
 5.  Add more of whatever ingredient you need to suit your own taste.
 
-### Top Tip ![target](images/lightbulb.webp)
+### Top Tip ![target](/images/lightbulb.webp)
 
 Add different fresh fruits and syrups to easily create flavoured mojitos (strawberry, pineapple etc.)
 

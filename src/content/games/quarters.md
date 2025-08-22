@@ -12,25 +12,25 @@ type: coin
 3.  [Coin Games](GameCategories/CoinGames)
 4.  Quarters
 
-![](images/quarters.webp)
+![](/images/quarters.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   1 centre cup
 -   1 coin
 -   A table
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Fill the cup with a drink of choice and place it in the middle of the table. Create a circle of players around the drink and decide who gets to throw first.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Get the coin in the drink by bouncing it on the table.
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 Whoever owns the coin has the right to go first. They must bounce the coin on the table in an attempt to get it into the drink. (If you are a pansy and worry about hygeine, fill the cup with water and drink from a separate cup)
 
@@ -40,13 +40,13 @@ If the shot misses, nobody drinks and whoever the coin bounces to goes next
 
 The game continues until everyone is too drunk to play
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   The coin must bounce on the table at least once for the shot to count
 -   The coin cannot be grabbed until is has bounced twice
 -   Bounce the coin on its face
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by using:
 

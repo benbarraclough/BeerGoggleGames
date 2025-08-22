@@ -12,23 +12,23 @@ type: outdoor
 3.  [Outdoor Games](GameCategories/OutdoorGames)
 4.  Detonator
 
-![](images/detonator.webp)
+![](/images/detonator.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   Cans of alcohol
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 A group of players typically gather together in an outdoor setting with a can of beer at the ready.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Destroy the can using your head.
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 Game play starts with one can, which is still in its unopened state. Players take turns smashing the beer on their foreheads, yelling "Detonator!" as they do so.
 
@@ -38,12 +38,12 @@ Play continues until the structural integrity of the can is compromised. At this
 
 The game can then be repeated.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   Your can use any part of the head to impact the can.
 -   A player can withdraw from the game if they either obtain an injury.
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by using:
 

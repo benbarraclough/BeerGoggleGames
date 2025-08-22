@@ -12,24 +12,24 @@ type: misc
 3.  [Misc. Games](GameCategories/MiscGames)
 4.  Fingers On
 
-![](images/fingerson.webp)
+![](/images/fingerson.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   1 centre drink
 -   2 or more players
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Place the centre drink (shot, can, cocktail) in the middle of the group where everyone playing is in reach of it. This is preferably played on a round table.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Guess the amount of fingers on the cup correctly to remove yourself from the game and avoid the forfeit
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 To start, everyone who is playing must place one finger on the centre drink. Starting with the youngest, each round one person must guess how many fingers will be left on the drink after the count down of “3,2,1”. Initiated by the current guesser, at the end of each countdown each person decides to either take their finger off or keep it on the drink whilst the guesser shouts out a number.
 
@@ -39,14 +39,14 @@ If the guesser guesses incorrectly, they stay in the game and the round continue
 
 This continues until one last person is left on the drink, which then means that they are the loser and must drink the centre drink.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   Each player gets one guess at a time
 -   The turn to guess moves clockwise around the circle
 -   There must be no hesitation when guessing a number
 -   There must be no hesitation when placing a finger on or off
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by adding:
 

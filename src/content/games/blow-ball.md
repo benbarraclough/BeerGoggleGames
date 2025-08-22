@@ -12,9 +12,9 @@ type: pong
 3.  [Pong Games](GameCategories/PongGames)
 4.  Blow Ball
 
-![](images/blowball.webp)
+![](/images/blowball.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   1 timer
 -   Make-shift obstacles
@@ -22,17 +22,17 @@ type: pong
 -   1 pong ball
 -   Straws
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Creatively build an obstacle course on a table with anything you can find (bottles, string, cushions) and designate start and finish points. Place the ball behind the start line and provide each player with a straw, ensuring they have a full drink ready. To decide the order of play, ask one player to turn around and assign numbers to each participating member. The player who turned then decides the order of play by randomly listing numbers from the range.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Complete the obstacle course by getting the ping pong ball over the finish line as fast as possible.
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 The player to go first must get ready in front of the ball with there straw before another player starts the timer. As soon as the timer starts, the player must blow through the straw to move the ball which will eventually reach the finish line. Once the ball passes the finish line, the timer is stopped and the time is recorded.
 
@@ -42,14 +42,14 @@ The player who wins, gets to instruct another player of their choice to drink ha
 
 The player with the longest time loses and must finish their drink.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   The ball can only be touched when it has fallen off the table or stuck.
 -   If the ball is touched, it must be placed back at the start.
 -   Only two false start do-overs are allowed. If a player is guilty of a third false start, 30 seconds is added to their finish time.
 -   A player must only blow through the straw.
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by using:
 

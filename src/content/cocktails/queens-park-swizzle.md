@@ -11,7 +11,7 @@ excerpt: "Description: A spiced long drink with deep flavours and sweet accents,
 3.  [Cocktail Recipes](drinks/cocktailrecipes)
 4.  Queens Park Swizzle
 
-![](images/queens-park-swizzle.webp)
+![](/images/queens-park-swizzle.webp)
 
 #### Overview
 
@@ -29,7 +29,7 @@ excerpt: "Description: A spiced long drink with deep flavours and sweet accents,
 
 * * *
 
-### Ingredients ![target](images/liquor.webp)
+### Ingredients ![target](/images/liquor.webp)
 
 1.  Spiced rum - 50ml
 2.  Simple syrup - 15ml
@@ -38,7 +38,7 @@ excerpt: "Description: A spiced long drink with deep flavours and sweet accents,
 5.  Mint - 1 handful
 6.  Ice - 1 handful
 
-### Recipe ![target](images/rules.webp)
+### Recipe ![target](/images/rules.webp)
 
 1.  Start by adding the mint leaves and simple syrup into a Collins glass and gently muddle/stir.
 2.  Add the rum, lime juice, and 2 dashes of bitters.
@@ -46,7 +46,7 @@ excerpt: "Description: A spiced long drink with deep flavours and sweet accents,
 4.  Add a little more ice bringing it to the top of the glass.
 5.  Finish with the a few dashes of bitters, a little syrup and a sprig of mint.
 
-### Top Tips ![target](images/lightbulb.webp)
+### Top Tips ![target](/images/lightbulb.webp)
 
 -   Use demarara rum to recreate the original recipe.
 -   Crushed ice is preferable for this long drink.

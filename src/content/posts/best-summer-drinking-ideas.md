@@ -11,7 +11,7 @@ excerpt: "Want to get the most out of summertime? Try these new drinking ideas t
 3.  [Blog](extras/blog)
 4.  Best Summer Drinking Ideas
 
-![](images/bestsummerdrinkingideas.webp)
+![](/images/bestsummerdrinkingideas.webp)
 
 * * *
 
@@ -35,7 +35,7 @@ Not all of these will work for the type of summer party you have in mind, but th
 
 #### Cocktail Dispensers
 
-![](images/dispenser.webp)  
+![](/images/dispenser.webp)  
   
 
 Get a few 10L dispensers and make some summer cocktails using your own creative acumen or using our [cocktail recipes](Drinks/CocktailRecipes).
@@ -50,7 +50,7 @@ Link: [Cooler/Dispenser](https://www.amazon.co.uk/Gatorade-49031-3-Gallon-Cooler
 
 #### Outdoor Games
 
-![](images/OutdoorGamesidea.webp)  
+![](/images/OutdoorGamesidea.webp)  
   
 
 Have a browse through our list of outdoor games which are perfect for those hot summer days when you don't want to be indoors.
@@ -65,7 +65,7 @@ Link: [Outdoor Games](GameCategories/OutdoorGames)
 
 #### Floating Drinks Cooler
 
-![](images/floatingcooler.webp)  
+![](/images/floatingcooler.webp)  
   
 
 For those of you lucky to have a pool at your disposal, floating drink coolers are a great way to keep the drinks flowing whilst having fun in the pool.
@@ -80,7 +80,7 @@ Links: [Floating Cooler](https://www.amazon.co.uk/Intex-56822NP-Floating-Swimmin
 
 #### Beer Run
 
-![](images/beerrun.webp)  
+![](/images/beerrun.webp)  
   
 
 A more creative activity where you build a maze for your drinks, similar to a marble run but it takes alcohol instead and transports it down a series of channels towards an end point where someone would drink.
@@ -93,7 +93,7 @@ An alternative if you don't have the equipment is a beer delivery system that us
 
 #### Drunk Sports Day
 
-![](images/sportsday.webp)  
+![](/images/sportsday.webp)  
   
 
 An active series of games that involve day drinking and a lot of energy. The best way to get a party started is with competitive drinking.
@@ -108,7 +108,7 @@ Link: [Drunk Sports Day](drunksportsday)
 
 #### Wearable Drinks Containers
 
-![](images/beerhelmet.webp)  
+![](/images/beerhelmet.webp)  
   
 
 No matter how convenient something is, nothing can beat the convenience of drinking a beer with no hands.
@@ -123,7 +123,7 @@ Links: [Beer Helmet](https://www.amazon.co.uk/Novelty-Place-Guzzler-Drinking-Hel
 
 #### Lucky dip
 
-![](images/luckydip.webp)  
+![](/images/luckydip.webp)  
   
 
 Create a bit of excitment by making a lucky dip and placing a variation of drinks inside that people can pick at random.

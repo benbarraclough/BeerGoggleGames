@@ -13,23 +13,23 @@ players: "2"
 3.  [Vocal Games](GameCategories/VocalGames)
 4.  Don't Interrupt
 
-![](images/dontinterrupt.webp)
+![](/images/dontinterrupt.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   A drink each
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Gather a group of people with filled drinks where everyone can hear eachother, the more the better. A circle is not required as this game is purely based on sound but its good if you want to see everybody participating.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Collectively count to 21 without interrupting each other by saying the same number.
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 The player introducing the game starts the game by saying the first number which is "1". This is followed by someone saying "2" and so on in no particular order until a player reaches 21.
 
@@ -39,14 +39,14 @@ If you say the wrong number, clash with another player speaking at the same time
 
 Play for as long as possible where you can either start a fresh round or develop the game using the special edition below.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   No hesitations
 -   No whispers
 -   No signalling
 -   If a player doesn't get involved, the group can issue 2 sips as retribution
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by using:
 

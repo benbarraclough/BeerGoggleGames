@@ -12,26 +12,26 @@ type: dice
 3.  [Coin Games](GameCategories/CoinGames)  &   [Dice Games](GameCategories/DiceGames)
 4.  Irish Luck-Cup
 
-![](images/irishluckcup.webp)
+![](/images/irishluckcup.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   1 solo cup
 -   1 coin
 -   1 dice
 -   a drink each
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Gather all participants with filled drinks around the cup of luck. Place the dice & coin in the cup and everything is set ready to play.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Simple, just guess which side the coin lands on when flipped out of the cup to avoid drinking
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 The most Irish looking player goes first by picking up the cup with the dice & coin in and shaking it with their hand over the top whilst choosing either heads or tails. Once decided, the player must slam the cup upside down on the table with the dice & coin underneath and slowly reveal what side the coin has landed on.
 
@@ -43,14 +43,14 @@ The loser can contest their drinks by rolling the dice out of the cup and guessi
 
 This is played until drunk or until the game loses the dice/coin after a player gets angry at their bad luck.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   Minimum 3 second cup shake
 -   The cup must be used to roll dice and coin
 -   Dice and coin are still in play if they fall onto the floor
 -   Re-roll is required if a guess is not made clear to the group
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by playing:
 

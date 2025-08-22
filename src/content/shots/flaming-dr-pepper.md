@@ -11,7 +11,7 @@ excerpt: "Description: The fiery mix of sweet Amaretto, bubbly beer and overproo
 3.  [Shot Recipes](drinks/shotrecipes)
 4.  Flaming Dr. Pepper
 
-![](images/flamingdrpepper.webp)
+![](/images/flamingdrpepper.webp)
 
 #### Overview
 
@@ -29,13 +29,13 @@ excerpt: "Description: The fiery mix of sweet Amaretto, bubbly beer and overproo
 
 * * *
 
-### Ingredients ![target](images/liquor.webp)
+### Ingredients ![target](/images/liquor.webp)
 
 -   Amaretto - 35ml
 -   Overproof rum - 15ml
 -   Lager - 1/2 pint
 
-### Recipe ![target](images/rules.webp)
+### Recipe ![target](/images/rules.webp)
 
 1.  Pour the Amaretto in the bottom of the shot glass
 2.  Top this shot off slowly with overproof rum, making sure it sits on top of the Amaretto
@@ -43,7 +43,7 @@ excerpt: "Description: The fiery mix of sweet Amaretto, bubbly beer and overproo
 4.  Light the shot on fire with a match or lighter
 5.  Drop the shot glass in the pint and you're good to go
 
-### Top Tips ![target](images/lightbulb.webp)
+### Top Tips ![target](/images/lightbulb.webp)
 
 -   Don't fill the shot glass right to the top in case of spillage when picking it up, the overproof rum is will stay lit until extinguished.
 

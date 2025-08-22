@@ -12,25 +12,25 @@ type: cup
 3.  [Cup Games](GameCategories/CupGames)
 4.  Pairs
 
-![](images/pairs.webp)
+![](/images/pairs.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   16 opaque cups
 -   8 pairs of random items
 -   A table
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Gather 8 pairs of items small enough for each of them to fit under a cup. Cover each item with a cup and shuffle them around the table so nobody knows whats under each of them and then make a 4x4 formation in the centre. Gather all players around the table with full drinks of their own ready to play.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Find as many pairs as possible by picking the correct cups to make your friends drink.
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 The person who looks most like they would have a twin goes first by selecting two cups from the stack and lifting them up to reveal the objects underneath.
 
@@ -40,14 +40,14 @@ If the objects do not match, the cups are to be placed back over them and the pl
 
 These steps are repeated for each person around the circle until all cups have been paired up and dished out. The player with the most object pairs wins and everyone else must finish their drinks
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   When lifting up cups, make sure that all players see the objects under the cups.
 -   Only two cups can be lifted per turn
 -   Drinks given as punishments can be anything as long as they don't exceed the cup
 -   Each player takes one turn at a time which rotates clockwise
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by using:
 

@@ -11,7 +11,7 @@ excerpt: "Description: A quick and easy shot to make that uses a base of whisky 
 3.  [Shot Recipes](drinks/shotrecipes)
 4.  Green Tea
 
-![](images/greentea.webp)
+![](/images/greentea.webp)
 
 #### Overview
 
@@ -29,7 +29,7 @@ excerpt: "Description: A quick and easy shot to make that uses a base of whisky 
 
 * * *
 
-### Ingredients ![target](images/liquor.webp)
+### Ingredients ![target](/images/liquor.webp)
 
 -   Whisky (Irish) - 15ml
 -   Peach schnapps - 15ml
@@ -39,14 +39,14 @@ excerpt: "Description: A quick and easy shot to make that uses a base of whisky 
 -   Water - 5ml
 -   Lemon & lime soda (Sprite) - To fill
 
-### Recipe ![target](images/rules.webp)
+### Recipe ![target](/images/rules.webp)
 
 1.  Create a sour mix by muddling together the lemon juice, lime juice, simple syrup and water.
 2.  Pour this mixture into the shot glass
 3.  Add equal amounts whisky and peach schnapps trying to keep them the same as the sour mixture
 4.  Top off with lemon and lime soda if needed
 
-### Top Tips ![target](images/lightbulb.webp)
+### Top Tips ![target](/images/lightbulb.webp)
 
 -   To make sure the sour mix is made correctly, make more than enough and test it. You should be able to taste the sourness and the sweetness equally.
 

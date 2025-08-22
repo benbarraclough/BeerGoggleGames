@@ -11,7 +11,7 @@ excerpt: "Description: A gin based variation of the Manhattan which has deep fla
 3.  [Cocktail Recipes](drinks/cocktailrecipes)
 4.  Martinez
 
-![](images/martinez.webp)
+![](/images/martinez.webp)
 
 #### Overview
 
@@ -29,7 +29,7 @@ excerpt: "Description: A gin based variation of the Manhattan which has deep fla
 
 * * *
 
-### Ingredients ![target](images/liquor.webp)
+### Ingredients ![target](/images/liquor.webp)
 
 1.  Gin - 50ml
 2.  Vermouth Rosso - 50ml
@@ -37,13 +37,13 @@ excerpt: "Description: A gin based variation of the Manhattan which has deep fla
 4.  Angostura bitters - 2 dashes
 5.  Orange (optional)
 
-### Recipe ![target](images/rules.webp)
+### Recipe ![target](/images/rules.webp)
 
 1.  Add the gin, vermouth, cherry liqueur and bitters into a mixing glass with ice and stir until well-chilled.
 2.  Strain into a chilled glass
 3.  Cut some orange peel to make an orange twist
 
-### Top Tips ![target](images/lightbulb.webp)
+### Top Tips ![target](/images/lightbulb.webp)
 
 -   Extra dry gin is traditionally used for this drink, however if you want a sweeter drink, regular gin can be used just the same.
 

@@ -12,9 +12,9 @@ type: dice
 3.  [Dice Games](GameCategories/DiceGames)
 4.  Three Man
 
-![](images/threeman.webp)
+![](/images/threeman.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   2 Dice
 -   A drink each
@@ -23,17 +23,17 @@ type: dice
 -   A notepad
 -   A pen
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 All players must fill their drinks and gather around a table where the game will be played. A random player will be assigned the hat and they will be the three man to start. The rules of the numbers mentioned below should then be noted down on the pad for everyone to see.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 If you are the three man, get rid of the hat at all costs to avoid the many drinks that the hat will bestow upon you.
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 The game starts by the Three Man rolling the dice and performing whichever task(s) is required as noted below.
 
@@ -51,14 +51,14 @@ Doubles: If you roll doubles, you can pass the dice to the player(s) of your cho
 
 The dice are then passed to the next player around the circle to take their turn. This game can be played for as long as everyone has alcohol to drink.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   Multiple players can drink from a single roll (e.g. a 3 and a 6 would make the Three Man drink and the person to the right of the roller)
 -   The dice must be passed clockwise around the circle
 -   If the dice land on the floor, this is still a valid roll
 -   No disrupting players from their rolls
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by playing:
 

@@ -12,26 +12,26 @@ type: cup
 3.  [Cup Games](GameCategories/CupGames)
 4.  Naughts & Crosses
 
-![](images/naughts&crosses.webp)
+![](/images/naughts&crosses.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   10 cups
 -   Tape
 -   Table
 -   Alcohol of choice
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Tape a 3x3 grid in the centre of the table and provide 5 cups each to the two players. Each set off cups must be distinguishable so that it is clear what team they represent (coloured, graffitied, altered in some way). Each of these cups must be filled with a drink and placed in front of the player on the table ready to begin.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Win the game of naughts and crosses by placing 3 empty cups in the grid to form a 3 cup line.
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 On the count of 3, the game begins and each player starts by picking up one of the cups, drinking until empty and then flipping the cup so that it lands on the table upside down.
 
@@ -41,7 +41,7 @@ Once a player has 3 cups in a row, they win the game of naughts and crosses and 
 
 The losing player must finish the remaining drinks on the table including the winners.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   No need to take turns, cups can be placed at any time
 -   A cup must be placed on the grid immediately after finishing the drink.
@@ -50,7 +50,7 @@ The losing player must finish the remaining drinks on the table including the wi
 -   You cannot move another players cup once it is placed on the grid.
 -   The cup is flipped right-side-up to upside-down.
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by using:
 

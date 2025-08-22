@@ -11,7 +11,7 @@ excerpt: "Description: A simple yet refreshing gin spritz, the perfect drink for
 3.  [Cocktail Recipes](drinks/cocktailrecipes)
 4.  Hugo
 
-![](images/hugo.webp)
+![](/images/hugo.webp)
 
 #### Overview
 
@@ -29,7 +29,7 @@ excerpt: "Description: A simple yet refreshing gin spritz, the perfect drink for
 
 * * *
 
-### Ingredients ![target](images/liquor.webp)
+### Ingredients ![target](/images/liquor.webp)
 
 -   Gin - 25ml
 -   Elderflower cordial - 25ml
@@ -39,14 +39,14 @@ excerpt: "Description: A simple yet refreshing gin spritz, the perfect drink for
 -   Mint - 1 sprig
 -   Lime - 1 wedge
 
-### Recipe ![target](images/rules.webp)
+### Recipe ![target](/images/rules.webp)
 
 1.  Start by slightly bruising the mint and placing it at the bottom of glass
 2.  Pour the cordial and gin in the glass and leave it to infuse for 1-2 minutes
 3.  Fill the glass with ice, then add the soda and prosecco
 4.  Stir and add the lime wedge to finish
 
-### Top Tips ![target](images/lightbulb.webp)
+### Top Tips ![target](/images/lightbulb.webp)
 
 -   For a stronger taste, replace the soda with more cordial and gin
 -   Prosecco can just be used to fill the drink to the top, the exact measurement is not needed

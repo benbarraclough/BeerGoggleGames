@@ -12,25 +12,25 @@ type: vocal
 3.  [Vocal Games](GamesCategories/VocalGames)
 4.  Ibble Dibble
 
-![](images/ibbledibble.webp)
+![](/images/ibbledibble.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   A drink each
 -   A cork
 -   A lighter
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Gather each participant in a circle with a filled drink and burn one end of the cork with the lighter so it goes black. Each player is then given a number starting from 1 going around the circle.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Correctly say the ibble dibble tongue twister when you're called upon.
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 Person number 1 starts by saying e.g."This is one ibble-dibble with no dibble-ibbles calling three ibble-dibble with no dibble-ibbles."
 
@@ -42,14 +42,14 @@ If a player says the tongue twister wrong, that person gets a black mark from th
 
 The game continues adding more dibble ibbles to people's faces until everyone the game comes to a stop.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   Dibble-ibbles need to be well-visible on a persons face.
 -   Dibble-ibbles are issued by the person who last called correctly.
 -   When calling, you must not stutter, pause, get numbers wrong or say the tongue twister too slowly.
 -   You cannot call back the same person who called you.
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by using:
 

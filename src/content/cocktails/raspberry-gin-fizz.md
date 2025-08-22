@@ -11,7 +11,7 @@ excerpt: "Description: A sweet cocktail with fresh fruit and mint, simple and ve
 3.  [Cocktail Recipes](drinks/cocktailrecipes)
 4.  Raspberry Gin Fizz
 
-![](images/raspberry-gin-fizz.webp)
+![](/images/raspberry-gin-fizz.webp)
 
 #### Overview
 
@@ -29,7 +29,7 @@ excerpt: "Description: A sweet cocktail with fresh fruit and mint, simple and ve
 
 * * *
 
-### Ingredients ![target](images/liquor.webp)
+### Ingredients ![target](/images/liquor.webp)
 
 1.  Gin - 25ml
 2.  Raspberry Syrup - 10ml
@@ -38,7 +38,7 @@ excerpt: "Description: A sweet cocktail with fresh fruit and mint, simple and ve
 5.  Mint leaves - 1 handful
 6.  Ice - 1 handful
 
-### Recipe ![target](images/rules.webp)
+### Recipe ![target](/images/rules.webp)
 
 1.  Add a few cubes of ice to the empty glass.
 2.  Add as many shots of gin as you would like.
@@ -47,7 +47,7 @@ excerpt: "Description: A sweet cocktail with fresh fruit and mint, simple and ve
 5.  Evenly Drizzle the raspberry syrup over the top of the drink, measuring to taste.
 6.  Mix and garnish with a sprig of mint.
 
-### Top Tip ![target](images/lightbulb.webp)
+### Top Tip ![target](/images/lightbulb.webp)
 
 -   Use basil leaves instead of mint to get a different essence of the same drink.
 -   Frozen fruit can keep your drink cooler for longer.

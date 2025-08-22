@@ -11,7 +11,7 @@ excerpt: "Description: A twist on the traditional tequila shot, flavouring the w
 3.  [Shot Recipes](drinks/shotrecipes)
 4.  Snap, Crackle, Drop
 
-![](images/snap-crackle-drop.webp)
+![](/images/snap-crackle-drop.webp)
 
 #### Overview
 
@@ -29,21 +29,21 @@ excerpt: "Description: A twist on the traditional tequila shot, flavouring the w
 
 * * *
 
-### Ingredients ![target](images/liquor.webp)
+### Ingredients ![target](/images/liquor.webp)
 
 -   Tequila - 50ml
 -   Bitters - 10ml
 -   Black pepper - 1 sprinkle
 -   Lime - 1
 
-### Recipe ![target](images/rules.webp)
+### Recipe ![target](/images/rules.webp)
 
 1.  Pour out the tequila in the shot glass.
 2.  Mix together the bitters and black pepper on a plate.
 3.  Cut a wedge out of the lime and soak the flesh in the bitters and black pepper mixture.
 4.  Balance the lime on the top of the shot glass for presentation.
 
-### Top Tips ![target](images/lightbulb.webp)
+### Top Tips ![target](/images/lightbulb.webp)
 
 -   For a weeter taste, add sugar to the bitters and black pepper mixture.
 -   An alternative flavour for the lime would be to use tajin

@@ -12,25 +12,25 @@ type: dice
 3.  [Dice Games](GameCategories/DiceGames)
 4.  Odd or Even
 
-![](images/oddoreven.webp)
+![](/images/oddoreven.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   2 Dice
 -   A table
 -   A drink each
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Gather players with filled drinks around the game table with 2 dice placed in the centre ready to start.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Guess correctly whether the dice rolled will be odd or even to issue drinks out to other players.
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 Take it in turns to call either "Even" or "Odd" before rolling the dice.
 
@@ -42,13 +42,13 @@ If a player guesses both numbers incorrectly, they must take 2 sips and roll aga
 
 After each players turn has ended, they must then pass the dice clockwise for the next player to go.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   The call must be made before the dice are rolled
 -   Dice that land on the floor when rolled still count
 -   If a player gets 3 guesses in a row wrong, they must retain the dice until they guess a roll correct.
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by playing:
 

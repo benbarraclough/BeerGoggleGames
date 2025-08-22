@@ -11,7 +11,7 @@ excerpt: "Description: A true piece of art, depicting the image of a brain hemor
 3.  [Shot Recipes](drinks/shotrecipes)
 4.  Brain Haemorrhage
 
-![](images/brain-haemorrhage.webp)
+![](/images/brain-haemorrhage.webp)
 
 #### Overview
 
@@ -29,20 +29,20 @@ excerpt: "Description: A true piece of art, depicting the image of a brain hemor
 
 * * *
 
-### Ingredients ![target](images/liquor.webp)
+### Ingredients ![target](/images/liquor.webp)
 
 -   Peach Schnapps - 30ml
 -   Irish cream liqueur - 10ml
 -   Grenadine - 5ml
 -   Blue Curaçao - 5ml (optional)
 
-### Recipe ![target](images/rules.webp)
+### Recipe ![target](/images/rules.webp)
 
 1.  Pour the peach schnapps into the bottom of the glass.
 2.  Carefully pour the Irish cream on top of the schnapps so it sits on top.
 3.  Drop the grenadine into the shot and then do the same with the blue curacao if available.
 
-### Top Tips ![target](images/lightbulb.webp)
+### Top Tips ![target](/images/lightbulb.webp)
 
 -   Adding blue curacao turns the brain hemorrhage into an alien brain hemorrhage.
 

@@ -11,7 +11,7 @@ excerpt: "Description: A drink with the refreshing taste of grapefruit and the c
 3.  [Cocktail Recipes](drinks/cocktailrecipes)
 4.  Paloma
 
-![](images/paloma.webp)
+![](/images/paloma.webp)
 
 #### Overview
 
@@ -29,7 +29,7 @@ excerpt: "Description: A drink with the refreshing taste of grapefruit and the c
 
 * * *
 
-### Ingredients ![target](images/liquor.webp)
+### Ingredients ![target](/images/liquor.webp)
 
 -   Tequila - 50ml
 -   Grapefruit juice - 60ml
@@ -40,14 +40,14 @@ excerpt: "Description: A drink with the refreshing taste of grapefruit and the c
 -   Ice - 2 handfuls
 -   Grapefruit (optional) - 1 Slice
 
-### Recipe ![target](images/rules.webp)
+### Recipe ![target](/images/rules.webp)
 
 -   Pour some salt onto a plate, wet the rim of the glass with lime juice and dip the rim in the salt to cover it.
 -   Fill a cocktail shaker with the tequila, juices, honey and ice then shake until the shaker feels ice cold.
 -   Add a handful of ice to the glass and then pour in the strained mixture.
 -   Top up with soda water and garnish with a slice of grapefruit.
 
-### Top Tips ![target](images/lightbulb.webp)
+### Top Tips ![target](/images/lightbulb.webp)
 
 -   If you prefer a sweeter cocktail, use more simple syrup and cover the rim in granulated sugar
 -   Aged tequila is better for this drink, try to use reposada or añejo

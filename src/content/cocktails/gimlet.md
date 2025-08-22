@@ -11,7 +11,7 @@ excerpt: "Description: A classic cocktail known for its refreshing and tangy cha
 3.  [Cocktail Recipes](drinks/cocktailrecipes)
 4.  Gimlet
 
-![](images/gimlet.webp)
+![](/images/gimlet.webp)
 
 #### Overview
 
@@ -29,7 +29,7 @@ excerpt: "Description: A classic cocktail known for its refreshing and tangy cha
 
 * * *
 
-### Ingredients ![target](images/liquor.webp)
+### Ingredients ![target](/images/liquor.webp)
 
 -   Gin - 60ml
 -   Lime juice - 25ml
@@ -37,13 +37,13 @@ excerpt: "Description: A classic cocktail known for its refreshing and tangy cha
 -   Ice - 1 handful
 -   Lime - 1
 
-### Recipe ![target](images/rules.webp)
+### Recipe ![target](/images/rules.webp)
 
 1.  Combine the gin, syrup and juice in a shaker with ice.
 2.  Shake until the shaker is ice cold
 3.  Strain into a glass and garnish with a lime wedge.
 
-### Top Tips ![target](images/lightbulb.webp)
+### Top Tips ![target](/images/lightbulb.webp)
 
 -   Make your own lime infused syrup by combining equal parts sugar and boiling water, them steeping the rind of lime within the mixture.
 -   Freshly squeezed lime juice is preferred.

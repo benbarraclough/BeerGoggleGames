@@ -11,7 +11,7 @@ excerpt: "Description: A tiki cocktail combining fruit juices, liqueurs, and var
 3.  [Cocktail Recipes](drinks/cocktailrecipes)
 4.  Zombie
 
-![](images/zombie.webp)
+![](/images/zombie.webp)
 
 #### Overview
 
@@ -29,7 +29,7 @@ excerpt: "Description: A tiki cocktail combining fruit juices, liqueurs, and var
 
 * * *
 
-### Ingredients ![target](images/liquor.webp)
+### Ingredients ![target](/images/liquor.webp)
 
 1.  Dark rum
 2.  White rum
@@ -41,13 +41,13 @@ excerpt: "Description: A tiki cocktail combining fruit juices, liqueurs, and var
 8.  Cherry (optional)
 9.  Mint (optional)
 
-### Recipe ![target](images/rules.webp)
+### Recipe ![target](/images/rules.webp)
 
 1.  Pour the rums and fruit juices into a cocktail shaker filled with ice and shake hard until the outside of the shaker feels really cold.
 2.  Strain the mixture into a tall glass or hurricane glass filled with ice, then pour in the grenadine to colour the drink.
 3.  Add the orange, cherry and mint to garnish
 
-### Top Tips ![target](images/lightbulb.webp)
+### Top Tips ![target](/images/lightbulb.webp)
 
 -   Skewer the fruit garnish for a more elegant garnish
 -   Slowly pour the grenadine onto a spoon to gently add it to the drink so that the drink has a colour gradient.

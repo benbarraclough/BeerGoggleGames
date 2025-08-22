@@ -11,7 +11,7 @@ excerpt: "Description: A bit more palatable than the similarly named cocktail, u
 3.  [Shot Recipes](drinks/shotrecipes)
 4.  Red Snapper Shot
 
-![](images/red-snapper-shot.webp)
+![](/images/red-snapper-shot.webp)
 
 #### Overview
 
@@ -29,19 +29,19 @@ excerpt: "Description: A bit more palatable than the similarly named cocktail, u
 
 * * *
 
-### Ingredients ![target](images/liquor.webp)
+### Ingredients ![target](/images/liquor.webp)
 
 -   Whisky - 20ml
 -   Amaretto - 20ml
 -   Cranberry juice - 40ml
 
-### Recipe ![target](images/rules.webp)
+### Recipe ![target](/images/rules.webp)
 
 1.  Add the whisky, amaretto and juice into a shaker with ice.
 2.  Shake until the shaker turns ice cold.
 3.  Pour into a shot glass and serve.
 
-### Top Tips ![target](images/lightbulb.webp)
+### Top Tips ![target](/images/lightbulb.webp)
 
 -   A sweet whisky is preferred for this shot, traditionally a Canadian whisky is used, alterantively use a bourbon.
 

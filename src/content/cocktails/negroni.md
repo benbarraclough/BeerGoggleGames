@@ -11,7 +11,7 @@ excerpt: "Description: A bitter cocktail served neat with a citrusy yet sharp ta
 3.  [Cocktail Recipes](drinks/cocktailrecipes)
 4.  Negroni
 
-![](images/negroni.webp)
+![](/images/negroni.webp)
 
 #### Overview
 
@@ -29,7 +29,7 @@ excerpt: "Description: A bitter cocktail served neat with a citrusy yet sharp ta
 
 * * *
 
-### Ingredients ![target](images/liquor.webp)
+### Ingredients ![target](/images/liquor.webp)
 
 1.  Gin - 25ml
 2.  Vermouth - 25ml
@@ -37,13 +37,13 @@ excerpt: "Description: A bitter cocktail served neat with a citrusy yet sharp ta
 4.  Ice - 1 Handful
 5.  Orange - 1 Slice
 
-### Recipe ![target](images/rules.webp)
+### Recipe ![target](/images/rules.webp)
 
 1.  Pour the gin, vermouth and Campari into a shaker with some ice and shake well until the outside of the shaker feels cold.
 2.  Strain the contents into a glass with ice
 3.  Garnish with a slice of orange and serve
 
-### Top Tips ![target](images/lightbulb.webp)
+### Top Tips ![target](/images/lightbulb.webp)
 
 -   Add simple syrup or a flavoured citrus gin to make the drink less bitter and more sweet
 -   Use one large ice cube in the glass to make the drink complete

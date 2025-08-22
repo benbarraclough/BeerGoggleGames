@@ -11,7 +11,7 @@ excerpt: Here we have a list of the best drinking game apps that we suggest down
 3.  [Blog](extras/blog)
 4.  Top 5 Drinking Apps
 
-![](images/top5drinkingapps.webp)
+![](/images/top5drinkingapps.webp)
 
 * * *
 
@@ -37,7 +37,7 @@ This is purely based on opinion and may not be agreed with by all, however comme
 
 #### 1\. Psych
 
-![](images/psych.webp)  
+![](/images/psych.webp)  
   
 
 Possibly one of the best party apps out there! Psych gets everyone involved by creating a joinable lobby for all participants.
@@ -52,7 +52,7 @@ This reaches the top of our list for many reasons but mainly due to the amount o
 
 #### 2\. Charades
 
-![](images/charades.webp)  
+![](/images/charades.webp)  
   
 
 A close second place is the app that everyone knows the rules for and does not fail to entertain.
@@ -67,7 +67,7 @@ One of the best things about the app is that it can be played by a group of any 
 
 #### 3\. iPuke
 
-![](images/ipuke.webp)  
+![](/images/ipuke.webp)  
   
 
 A largely underappreciated game which can be played with a small or large group by placing the device in the middle to act as the game board.
@@ -82,7 +82,7 @@ This app comes in at third place as it offers a good variety of unique dares tha
 
 #### 4\. Picolo
 
-![](images/picolo.webp)  
+![](/images/picolo.webp)  
   
 
 An app that is raved about and unarguably highly developed and fun to play. Use the questions, prompts and dares given to you to compete against eachother in a alcohol-fuelled game of ability.
@@ -97,7 +97,7 @@ The Picolo app is free to download but comes only with the basic level. You will
 
 #### 5\. Dirty Potato
 
-![](images/dpotato.webp)  
+![](/images/dpotato.webp)  
   
 
 Lastly is the alternative game of the year in our books, a simple yet exciting game that is played best in groups and creates a thrilling sense of urgency & anxiety for all.

@@ -11,7 +11,7 @@ excerpt: "Description: A 1920's light and refreshing cocktail that pairs perfect
 3.  [Cocktail Recipes](drinks/cocktailrecipes)
 4.  Sea Breeze
 
-![](images/sea-breeze.webp)
+![](/images/sea-breeze.webp)
 
 #### Overview
 
@@ -29,7 +29,7 @@ excerpt: "Description: A 1920's light and refreshing cocktail that pairs perfect
 
 * * *
 
-### Ingredients ![target](images/liquor.webp)
+### Ingredients ![target](/images/liquor.webp)
 
 -   Vodka - 50ml
 -   Cranberry juice - 100ml
@@ -37,13 +37,13 @@ excerpt: "Description: A 1920's light and refreshing cocktail that pairs perfect
 -   Ice - 1 handful
 -   Lime - 1
 
-### Recipe ![target](images/rules.webp)
+### Recipe ![target](/images/rules.webp)
 
 1.  Add the vodka and juices to a shaker with ice.
 2.  Shake until ice cold, then pour into a glass.
 3.  Garnish with a slice of lime.
 
-### Top Tips ![target](images/lightbulb.webp)
+### Top Tips ![target](/images/lightbulb.webp)
 
 -   The fresher the juice the better, use real fruit for a better quality drink.
 

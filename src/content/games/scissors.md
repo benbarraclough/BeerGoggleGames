@@ -12,24 +12,24 @@ type: vocal
 3.  [Vocal Games](GameCategories/VocalGames)
 4.  Scissors
 
-![](images/scissors.webp)
+![](/images/scissors.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   A drink each
 -   A handheld object
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 The participating players (the more the better) sit on chairs in a circle preferably without a table in the way. The game master should then be announced which is usually the organiser, as they know the rules. The game master should then hold the game object which can be anything such as an empty plastic drink bottle or even a genuine pair of scissors.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Figure out the solution behind the game and answer correctly on your turn.
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 Starting with the game master, each player passes the object to the player on their left stating whether they are passing the scissors open or passing the scissors closed.
 
@@ -45,14 +45,14 @@ DO NOT DISCLOSE: The most common solution to this game is that scissors are pass
 
 The game continues until either everyone knows the solution or everyone gets bored of guessing.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   If scissors are passed without saying open or closed loud enough for everyone to hear, the passer must take a drink.
 -   If a player works out the solution, they should keep it to themselves.
 -   Hints can be given if you have a dumb group of players that can't figure out the game
 -   The scissors must move clockwise
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by using:
 

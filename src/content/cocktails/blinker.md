@@ -11,7 +11,7 @@ excerpt: "Description: A simple yet interesting cocktail with a whisky base and 
 3.  [Cocktail Recipes](drinks/cocktailrecipes)
 4.  Blinker
 
-![](images/blinker.webp)
+![](/images/blinker.webp)
 
 #### Overview
 
@@ -29,7 +29,7 @@ excerpt: "Description: A simple yet interesting cocktail with a whisky base and 
 
 * * *
 
-### Ingredients ![target](images/liquor.webp)
+### Ingredients ![target](/images/liquor.webp)
 
 1.  Whisky (rye) - 50ml
 2.  Grapefruit juice - 25ml
@@ -37,14 +37,14 @@ excerpt: "Description: A simple yet interesting cocktail with a whisky base and 
 4.  Raspberries (to garnish) - 3
 5.  Ice - 1 handful
 
-### Recipe ![target](images/rules.webp)
+### Recipe ![target](/images/rules.webp)
 
 1.  Add the whisky, juice, syrup and ice to a shaker.
 2.  Shake until ice cold
 3.  Strain in the glass
 4.  Garnish with raspberries using a skewer
 
-### Top Tips ![target](images/lightbulb.webp)
+### Top Tips ![target](/images/lightbulb.webp)
 
 -   Most whiskys can be used for this drink but rye whisky is famously used in this drink to add the spiced flavour to the drink.
 -   To add a little fizz to the drink, grapefuit soda can be used instead of juice.

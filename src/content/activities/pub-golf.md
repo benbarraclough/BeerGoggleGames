@@ -11,7 +11,7 @@ excerpt: "Description: A drinking marathon of many bars or pubs that requires yo
 3.  [Activities & Minigames](extras/activities&minigames)
 4.  Pub Golf
 
-![](images/pubgolf.webp)
+![](/images/pubgolf.webp)
 
 #### Overview
 
@@ -23,14 +23,14 @@ excerpt: "Description: A drinking marathon of many bars or pubs that requires yo
 
 * * *
 
-### Requirements ![target](images/rules.webp)
+### Requirements ![target](/images/rules.webp)
 
 -   A list of bars
 -   Score cards
 -   Golf outfits
 -   A pen
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 Gather a group of players that are prepared for a night of heavy drinking and plan a route through your nearby local area, hitting 9 or more pubs/bars if possible. This plan should then be written down onto a scorecard along with each player
 
@@ -42,7 +42,7 @@ Once drinks have been consumed, the group must travel to the next hole to have t
 
 Scores are kept up to date by the golf captain, if a player cannot complete a hole a standard sip count of 5 is given.
 
-### Top Tips ![target](images/lightbulb.webp)
+### Top Tips ![target](/images/lightbulb.webp)
 
 -   Top off your outfits with visors and inflatable golf clubs.
 -   If a player throws up, a +2 will be added to the score sheet.

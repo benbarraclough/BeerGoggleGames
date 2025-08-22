@@ -12,25 +12,25 @@ type: outdoor
 3.  [Outdoor Games](GameCategories/OutdoorGames)
 4.  Polish Horseshoes
 
-![](images/polishhorseshoes.webp)
+![](/images/polishhorseshoes.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   Frisbee
 -   2 Poles
 -   2 Empty bottles/cans
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Stick two poles about 6 feet tall into the ground about 20-40 feet apart. Place a bottle or can on top of each pole so it is stable but can be knocked off. The group of players should then divide into two teams and stand by their teams pole (one team holing the frisbee). If you find this tricky to set up, you could also use a long stick with an upsidedown cup placed on top of it.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Knock the bottle/can off the pole the other teams pole using the frisbee to earn points and make the other team drink.
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 Decide between you all whether the winning score should be 11 or 21 before the game begins and then the game can commence.
 
@@ -58,7 +58,7 @@ This is repeated whilst keeping track of team scores throughout the game until o
 
 Each player on the losing team should then drink a bottle, cup, can of whatever you have available as forfeit.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   All defensive players must remain behind their pole and cannot interfere with a throw.
 -   Scores can only be given to the offending team.
@@ -66,7 +66,7 @@ Each player on the losing team should then drink a bottle, cup, can of whatever 
 -   Both striking the bottle and the pole with the frisbee are valid methods of scoring.
 -   Hitting the bottle/can twice in a row gets the offense a third throw using the throwers' weak hand (however this does not then apply for a fourth, fifth etc.)
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by using:
 

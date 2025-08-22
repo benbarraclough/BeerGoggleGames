@@ -12,9 +12,9 @@ type: card
 3.  [Card Games](GameCategories/CardGames)
 4.  Nights at the Round Table
 
-![](images/nightsattheroundtable.webp)
+![](/images/nightsattheroundtable.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   52 Card Deck
 -   1 table
@@ -22,17 +22,17 @@ type: card
 -   Shot glasses
 -   Various alcohol types
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Place the deck of cards face-down in the center of a table. Fill the cups and shot glasses with various drinks from beer and cider to cocktails and spirit shots. Once these are filled, space them out evenly around the edge of the table and posiiton each player in front of a drink also evenly spaced. A good rule of thumb is to have at least 2 drinks on the table per player.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Turn over the cards in the centre to decide which drinks you and other players drink.
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 Going around the table counter clockwise, the player to the left of the host draws a card first. The instructions for each card follow below:
 
@@ -50,7 +50,7 @@ NUMBER: Move anti-clockwise in front of the next available drink
 
 If a drink is empty, players can choose to remove it or refill it, as the game lasts until all cards have been drawn.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   If a player spills a drink on the table, they must take a shot and refill the drink
 -   Before leaving the table, a player must bow to each knight at the table
@@ -58,7 +58,7 @@ If a drink is empty, players can choose to remove it or refill it, as the game l
 -   A sip of a shot is equal to the entire shot
 -   Multiple players cannot be in front of the same drink
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by playing:
 

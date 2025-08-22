@@ -12,25 +12,25 @@ type: cup
 3.  [Cup Games](GameCategories/CupGames)
 4.  Get Stacked
 
-![](images/getstacked.webp)
+![](/images/getstacked.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   10 Cups
 -   1 drink per player
 -   A table
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Get all players into pairs with 7 cups per team, each player must fill 1 cup with a drink of their choice and place it in front of them next to the 5 empty cups stacked within eachother. Each team must then decide who is player 1 and who is player 2 before the game begins.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Finish drink 1, stack the cups, finish drink 2 and unstack them first before the other team(s) to win.
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 To begin, someone must initiate a count down to start the race for all teams involved.
 
@@ -44,14 +44,14 @@ Step 4: Player 2 must unstack the pyramid and put all 7 empty cups within eachot
 
 The first team to have all 7 cups empty within eachother on the table wins the race.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   #
 -   #
 -   #
 -   #
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by playing:
 

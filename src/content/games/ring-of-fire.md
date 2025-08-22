@@ -12,25 +12,25 @@ type: card
 3.  [Card Games](GameCategories/CardGames)
 4.  Ring Of Fire
 
-![](images/ringoffire.webp)
+![](/images/ringoffire.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   Deck of 52 cards
 -   An empty cup
 -   A drink each
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Place an empty cup in the middle of a table and make a ring of cards surrounding it using a mixed deck. There should be no gaps in the cards before playing.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Try not to lose the game by not picking the last king or breaking the ring of fire.
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 To start, each player must surround the ring of fire and take their turn one at a time to choose a card from the ring. Each card corersponds to a certain task or rule which must be completed.
 
@@ -38,11 +38,11 @@ The next player can go when the previous player completes the task given to them
 
 When a king is drawn, a small amount of alcohol needs to be added to the centre cup by the drawer. Whoever picks up the last king must add their drink to the centre cup and chug it all to end the game.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
-![rules](images/rofrules.webp)
+![rules](/images/rofrules.webp)
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by adding:
 

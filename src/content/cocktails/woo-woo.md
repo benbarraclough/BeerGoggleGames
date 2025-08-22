@@ -11,7 +11,7 @@ excerpt: "Description: A very sweet and fruity drink, with strong flavours of cr
 3.  [Cocktail Recipes](drinks/cocktailrecipes)
 4.  Woo Woo
 
-![](images/woowoo.webp)
+![](/images/woowoo.webp)
 
 #### Overview
 
@@ -29,7 +29,7 @@ excerpt: "Description: A very sweet and fruity drink, with strong flavours of cr
 
 * * *
 
-### Ingredients ![target](images/liquor.webp)
+### Ingredients ![target](/images/liquor.webp)
 
 -   Vodka - 50ml
 -   Peach Schnapps - 25ml
@@ -39,14 +39,14 @@ excerpt: "Description: A very sweet and fruity drink, with strong flavours of cr
 -   Lime - 1 wedge
 -   Ice - 1 handful
 
-### Recipe ![target](images/rules.webp)
+### Recipe ![target](/images/rules.webp)
 
 1.  Add the vodka, peach schnapps, peach syrup, cranberry juice and lime juice to a shaker with ice.
 2.  Shake the shaker until ice cold.
 3.  Pour the drink into a glass with the ice.
 4.  Garnish with a wedge of lime and serve.
 
-### Top Tips ![target](images/lightbulb.webp)
+### Top Tips ![target](/images/lightbulb.webp)
 
 -   Peach purée can also be added to give the drink more of a fruity taste.
 

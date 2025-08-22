@@ -12,25 +12,25 @@ type: card
 3.  [Card Games](GameCategories/CardGames)
 4.  Electricity
 
-![](images/electricity.webp)
+![](/images/electricity.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   52 Card Deck
 -   A drink each
 -   A table
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Gather all players into a circle with their drinks filled and deal cards out evenly between everyone face down. Once everyone is ready with their cards in front of them, the game is ready to be played.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Form "electrical currents" by matching cards with other players around the circle to drink as a group or avoid this by not matching cards with others.
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 1 by 1 moving clockwise around the circle, each player must flip over and reveal their top card to the group without knowing what it is themselves. Depending on other peoples cards to the left and right of you, this may create a current by making a line of conducting cards (consecutively matching cards)
 
@@ -44,14 +44,14 @@ If you flip over a card that doesn't conduct, you must make sure the players inv
 
 The game continues in a circle as fast as each player wants, whilst trying to keep everyone focused and drinking the amount of sips they are due. This ends when there are no cards left to flip and can be played again.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   No skipping sips
 -   The pace that a player flips their cards is their own choice
 -   No hiding cards
 -   Conductions can be interlinked as long as the previous card links to the next card in the line **e.g 2 of Hearts, 2 of Clubs, 6 of Clubs, 6 of Hearts**
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by playing:
 

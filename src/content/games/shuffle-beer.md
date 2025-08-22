@@ -12,25 +12,25 @@ type: misc
 3.  [Misc. Games](GameCategories/MiscGames)
 4.  Shuffle Beer
 
-![](images/shufflebeer.webp)
+![](/images/shufflebeer.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   4 cans or more per team
 -   A long hallway
 -   String
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Mark the scoring zones at one end of the hallway by forming 3 circles with the string as big as possible, 1 smaller than the next within eachother similar to a curling score zone. Assign each team with a captain and each player with a can or two each whilst everyone stands at the other end of the hall ready to begin.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Score points for your team by sliding cans within the scoring zones to beat the other team and win.
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 To decide who goes first, captains of each time must play rock paper scissors. The winner then chooses the order.
 
@@ -46,7 +46,7 @@ Once everyone from a team has slid all of their cans, the points are then counte
 
 After each team has taken their turn and counted their points for that round. The team with the least points must drink their cans and get new ones to play the next round.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   A throw is void if the player throws it when over the throw line
 -   Points are counted at the end of each round and not where it originally lands (avoid knocking your teammates cans out)
@@ -54,7 +54,7 @@ After each team has taken their turn and counted their points for that round. Th
 -   If a can bursts open, the can becomes void and cannot earn points
 -   Cans can only be picked up when all players in the team have taken their shot
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by playing:
 

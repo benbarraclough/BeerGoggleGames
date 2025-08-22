@@ -11,7 +11,7 @@ excerpt: "Description: A refreshing fruit filled punch drink that epitomises sum
 3.  [Cocktail Recipes](drinks/cocktailrecipes)
 4.  Pimms
 
-![](images/pimms.webp)
+![](/images/pimms.webp)
 
 #### Overview
 
@@ -29,7 +29,7 @@ excerpt: "Description: A refreshing fruit filled punch drink that epitomises sum
 
 * * *
 
-### Ingredients ![target](images/liquor.webp)
+### Ingredients ![target](/images/liquor.webp)
 
 1.  Pimms - 50ml
 2.  Lemonade - 100ml
@@ -38,14 +38,14 @@ excerpt: "Description: A refreshing fruit filled punch drink that epitomises sum
 5.  Ice - 1 handful
 6.  Mint - a few leaves
 
-### Recipe ![target](images/rules.webp)
+### Recipe ![target](/images/rules.webp)
 
 1.  Chop up the mixed fruits (strawberry, orange, apple, lemon) and slice a cucumber strip so that its all prepared.
 2.  Get your tall glass and fill it with ice.
 3.  Add the Pimms and lemonade along with the fruit & cucumber.
 4.  Give it a mix, add the mint and pop a straw in to top it off
 
-### Top Tips ![target](images/lightbulb.webp)
+### Top Tips ![target](/images/lightbulb.webp)
 
 -   Keep the fruit chunks big so they don't get stuck in straws.
 -   Make enough for all using a punch bowl or a dispenser, just multiply the recipe by however many drinks you want it to make.

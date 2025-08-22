@@ -11,7 +11,7 @@ excerpt: "Description: A unique cocktail with a creamy and spiced taste offering
 3.  [Cocktail Recipes](drinks/cocktailrecipes)
 4.  Oat so Delicious
 
-![](images/oat-so-delicious.webp)
+![](/images/oat-so-delicious.webp)
 
 #### Overview
 
@@ -29,7 +29,7 @@ excerpt: "Description: A unique cocktail with a creamy and spiced taste offering
 
 * * *
 
-### Ingredients ![target](images/liquor.webp)
+### Ingredients ![target](/images/liquor.webp)
 
 -   Rum - 60ml
 -   Oat milk - 100ml
@@ -40,14 +40,14 @@ excerpt: "Description: A unique cocktail with a creamy and spiced taste offering
 -   Popcorn - 1 handful
 -   Ice - 2 handfuls
 
-### Recipe ![target](images/rules.webp)
+### Recipe ![target](/images/rules.webp)
 
 1.  Spoon the nutmeg and cinnamon into the bottom of the shaker, then pour in the simple syrup and muddle so that the spices combine and dissolve.
 2.  Add the rum, oat milk, cream and 1 handful of ice then shake until ice cold.
 3.  Strain the contents into the glass over fresh ice.
 4.  Top with a handful of popcorn and serve with a straw.
 
-### Top Tips ![target](images/lightbulb.webp)
+### Top Tips ![target](/images/lightbulb.webp)
 
 -   Regular milk can be used, for a thicker drink use a full fat milk.
 -   Caramel is a good additional flavour, using either syrup, sauce or toffee popcorn.

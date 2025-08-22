@@ -11,7 +11,7 @@ excerpt: "Description: A drink that describes itself giving strong tastes of app
 3.  [Cocktail Recipes](drinks/cocktailrecipes)
 4.  Appletini
 
-![](images/appletini.webp)
+![](/images/appletini.webp)
 
 #### Overview
 
@@ -29,7 +29,7 @@ excerpt: "Description: A drink that describes itself giving strong tastes of app
 
 * * *
 
-### Ingredients ![target](images/liquor.webp)
+### Ingredients ![target](/images/liquor.webp)
 
 -   Vodka - 50ml
 -   Apple juice - 50ml
@@ -38,14 +38,14 @@ excerpt: "Description: A drink that describes itself giving strong tastes of app
 -   Ice - 1 handful
 -   Cherry - 1
 
-### Recipe ![target](images/rules.webp)
+### Recipe ![target](/images/rules.webp)
 
 1.  Combine the syrup, vodka, apple juice and lemon juice with ice in a shaker.
 2.  Shake until ice cold.
 3.  Strain into a martini glass.
 4.  Use a skewered cherry to garnish.
 
-### Top Tips ![target](images/lightbulb.webp)
+### Top Tips ![target](/images/lightbulb.webp)
 
 -   A marachino cherry is preferred.
 -   You can add apple schnapps or apple syrup to the drink to give it a stronger taste.

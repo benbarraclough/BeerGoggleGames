@@ -11,7 +11,7 @@ excerpt: "Description: A sweet and creamy concoction which is basically a boozy 
 3.  [Cocktail Recipes](drinks/cocktailrecipes)
 4.  Bushwacker
 
-![](images/bushwacker.webp)
+![](/images/bushwacker.webp)
 
 #### Overview
 
@@ -29,7 +29,7 @@ excerpt: "Description: A sweet and creamy concoction which is basically a boozy 
 
 * * *
 
-### Ingredients ![target](images/liquor.webp)
+### Ingredients ![target](/images/liquor.webp)
 
 -   Dark rum - 60ml
 -   Coffee liqueur - 30ml
@@ -39,13 +39,13 @@ excerpt: "Description: A sweet and creamy concoction which is basically a boozy 
 -   Ice - 1 handful
 -   Nutmeg (optional)
 
-### Recipe ![target](images/rules.webp)
+### Recipe ![target](/images/rules.webp)
 
 1.  Add the dark rum, coffee liqueur, creme de cacao, milk, cream of coconut and a handful of ice into a blender.
 2.  Blend until combined and frothy.
 3.  Pour mixture into the glass and garnish with a sprinkle of nutmeg.
 
-### Top Tips ![target](images/lightbulb.webp)
+### Top Tips ![target](/images/lightbulb.webp)
 
 -   The higher fat content of the milk used, the thicker and richer the drink.
 -   Chocolate bitters can be used in place of the chocolate liqueur but the drink may need to be sweetened with a little simple syrup.

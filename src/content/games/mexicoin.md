@@ -12,25 +12,25 @@ type: coin
 3.  [Coin Games](GameCategories/CoinGames)
 4.  Mexicoin
 
-![](images/mexicoin.webp)
+![](/images/mexicoin.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   A coin
 -   A table
 -   A drink each
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 2 people need to be ready with a filled drink and a coin on a table.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Guess correctly and spin well to protect yourself from drinking shit loads.
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 First, to decide who goes first one player flips the coin and the other calls it in the air. If the player who calls it is right, they take the coin and spin first, if not the flipper spins first.
 
@@ -44,13 +44,13 @@ If they call the coin incorrectly, the spinner retains the coin.
 
 This continues until someone gives up from too many drinks
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   If the coin spins off the table, the drinker takes posession of the coin.
 -   If the drinker is spotted faking their drink, they must down their drink and get another.
 -   The coin cannot be interfered with once spinned. If the spinner interferes they lose posession, if the drinker interferes, they must down their drink.
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by using:
 

@@ -12,25 +12,25 @@ type: misc
 3.  [Misc. Games](GameCategories/MiscGames)
 4.  Wicked
 
-![](images/wicked.webp)
+![](/images/wicked.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   2 Candles
 -   2 Lighters/matches
 -   A drink each
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Find two players willing to compete and provide each participant with a full drink, a candle and method of lighting the candle (lighter, matches). Ensure that each player is within blowing distance of eachothers candles before beginning.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Light your candle to drink your drink and finish it before your opponent to win.
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 On the countdown, the game begins by each player simultaneously attempting to light their own candle with their lighter or matches. As soon as the player lights their candle they can drink their drink
 
@@ -40,14 +40,14 @@ As soon as one player finishes their drink, they win.
 
 The loser of the game finishes their drink and refills their drink to finish as a punishment.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   A player cannot blow out another players candle if theirs is not lit.
 -   A player cannot drink unless their candle is lit.
 -   If either of the above rules are broken, a forced pause of play must be taken.
 -   A player cannot interfere with another player candle-lighting.
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by using:
 

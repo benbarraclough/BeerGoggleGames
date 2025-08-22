@@ -11,7 +11,7 @@ excerpt: "Description: A frosty favourite with fruit and ice, perfect for a warm
 3.  [Cocktail Recipes](drinks/cocktailrecipes)
 4.  Frozen Daiquiri
 
-![](images/frozen-daiquiri.webp)
+![](/images/frozen-daiquiri.webp)
 
 #### Overview
 
@@ -29,7 +29,7 @@ excerpt: "Description: A frosty favourite with fruit and ice, perfect for a warm
 
 * * *
 
-### Ingredients ![target](images/liquor.webp)
+### Ingredients ![target](/images/liquor.webp)
 
 1.  White rum - 50ml
 2.  Fruit of choice - 250g
@@ -37,13 +37,13 @@ excerpt: "Description: A frosty favourite with fruit and ice, perfect for a warm
 4.  Lime - 15ml
 5.  Simple syrup - 15ml
 
-### Recipe ![target](images/rules.webp)
+### Recipe ![target](/images/rules.webp)
 
 1.  Blend your chosen fruit into a puree (strawberries in this instance) and sieve out the unwanted bits.
 2.  Blend again the fruit puree with the ice, the rum, lime and sugar syrup.
 3.  Pour the contents into a glass, garnish with a few pieces of fruit and add a straw.
 
-### Top Tips ![target](images/lightbulb.webp)
+### Top Tips ![target](/images/lightbulb.webp)
 
 -   You can use frozen fruit to give your drinks a thicker texture.
 -   Don't blend for too long, or else your misture will become too watery.

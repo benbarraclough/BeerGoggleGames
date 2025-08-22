@@ -11,7 +11,7 @@ excerpt: "Description: A sweet and fruity wine drink with the slightly tart tast
 3.  [Cocktail Recipes](drinks/cocktailrecipes)
 4.  Sangria
 
-![](images/sangria.webp)
+![](/images/sangria.webp)
 
 #### Overview
 
@@ -29,7 +29,7 @@ excerpt: "Description: A sweet and fruity wine drink with the slightly tart tast
 
 * * *
 
-### Ingredients ![target](images/liquor.webp)
+### Ingredients ![target](/images/liquor.webp)
 
 -   Red wine - 150ml
 -   Brandy - 20ml
@@ -40,7 +40,7 @@ excerpt: "Description: A sweet and fruity wine drink with the slightly tart tast
 -   Orange - Half
 -   Ice - 1 handful
 
-### Recipe ![target](images/rules.webp)
+### Recipe ![target](/images/rules.webp)
 
 1.  Chop fruit into slices and add to a shaker with the brown sugar.
 2.  Muddle the fruit and sugar so that the fruit juice combines with the sugar.
@@ -48,7 +48,7 @@ excerpt: "Description: A sweet and fruity wine drink with the slightly tart tast
 4.  Put a handful of ice in your glass then pour in the muddled mixture
 5.  Add the wine and orange juice and then mix
 
-### Top Tips ![target](images/lightbulb.webp)
+### Top Tips ![target](/images/lightbulb.webp)
 
 -   Use a light red wine (preferably spanish) as some full bodied wines can be too strong in flavour.
 -   Garnish with slices of apple and orange after making the drink as the fruit muddled is usually not very presentable.

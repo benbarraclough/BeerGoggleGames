@@ -12,9 +12,9 @@ type: coin
 3.  [Coin Games](GameCategories/CoinGames)  &   [Card Games](GameCategories/CardGames)
 4.  Doom
 
-![](images/doom.webp)
+![](/images/doom.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   1 centre cup
 -   1 Coin
@@ -22,17 +22,17 @@ type: coin
 -   1 drink each
 -   A table
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Fill your drinks with a beverage of your choice then gather at a table that everyone can reach, placing the coin and the empty cup in the middle.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Drink the least by strategically playing your cards and winning the rounds of doom.
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 Each player gets 6 cards which they keep to themselves. Every round a player must play one of their cards (the higher the better, this is where strategy comes in). Once everyone has chosen a card to play, they are all flipped over at once.
 
@@ -52,14 +52,14 @@ If you fail - you must drink the contents of the centre drink and top it up with
 
 Keep playing your cards until you have none left. From here, you can either pick up another six to repeat the game or pick one last card to decide who finishes the drink off
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   The coin spin on DOOM ROUND 2 should be fair (whether a spin was fair is voted on by everyone playing)
 -   Keep your cards to yourself
 -   Cards cannot be swapped, you play with what you're dealt
 -   If you can't add any more drinks to chug cup, a second cup should be used
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by using:
 

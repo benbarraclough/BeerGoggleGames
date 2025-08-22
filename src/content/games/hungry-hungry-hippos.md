@@ -12,25 +12,25 @@ type: pong
 3.  [Pong Games](GameCategories/PongGames)
 4.  Hungry Hungry Hippos
 
-![](images/hungryhungryhippos.webp)
+![](/images/hungryhungryhippos.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   16 Solo Cups
 -   1 Pong ball each
 -   A table
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Place the 16 or as many solo cups available on the table, following a honeycomb pattern. Fill all cups with about a quarter of a drink of choice. Each player must then claim their pong ball and position themselves around the table ready to begin.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Score and claim the highest amount of solo cups out of the group to win
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 After the group counts down from 3 the game starts, each player simultaneously attempts to bounce their ping pong ball into one of the cups in the centre.
 
@@ -40,7 +40,7 @@ When a player misses, they must retrieve their ball as best as they can to conti
 
 The game ends when all cups in the centre have been claimed and drank. The winner is the player with the most cups and can then issue a forfeit to each loser.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   Shots must be bounced at least once to count
 -   Interferance with other players balls is advised
@@ -48,7 +48,7 @@ The game ends when all cups in the centre have been claimed and drank. The winne
 -   No touching or moving the centre cups unless scored within or to retrieve a ball
 -   If two people score the same cup at the same time, the first one to grab it gets it
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by using:
 

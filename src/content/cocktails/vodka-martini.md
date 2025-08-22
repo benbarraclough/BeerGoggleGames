@@ -29,20 +29,20 @@ excerpt: "Description: A classy drink that is easy to make using just vodka and 
 
 * * *
 
-### Ingredients ![target](images/liquor.webp)
+### Ingredients ![target](/images/liquor.webp)
 
 -   Vodka - 90ml
 -   Vermouth Bianco - 30ml
 -   Ice - 1 handful
 -   Olive - 1
 
-### Recipe ![target](images/rules.webp)
+### Recipe ![target](/images/rules.webp)
 
 1.  Add the vodka and vermouth to a shaker with the ice
 2.  Shake until ice cold and strain into a glass
 3.  Skewer an olive to garnish and place on top
 
-### Top Tips ![target](images/lightbulb.webp)
+### Top Tips ![target](/images/lightbulb.webp)
 
 -   To make it a dirty martini, add some olive juice.
 -   If you don't like olives, use lemon rind to garnish

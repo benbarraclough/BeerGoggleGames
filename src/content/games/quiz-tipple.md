@@ -13,24 +13,24 @@ players: "2"
 3.  [Vocal Games](GameCategories/VocalGames)
 4.  Quiz Tipple
 
-![](images/quiztipple.webp)
+![](/images/quiztipple.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   A table
 -   A drink each
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Gather all players in a circle arounf a table with a full drink ready to play.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Respond to the questions as quickly as possible and answer correctly to win.
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 Each round starts with a reaping which is done to gather two players who will duel it out in the quiz as the quizzers.
 
@@ -50,14 +50,14 @@ Loser - The loser is then punished with half a cup of drink but has a choice of 
 
 The reaping then begins again to select the next quizzers.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   If a question asked is biased and tailored to a certain player, it can be appealed and revoked.
 -   The quizzers cups must stay on the table as questions are asked, touching cups is not allowed.
 -   The quizzer who is first to put liquid to their mouth gets first chance to answer.
 -   Once a question is answered wrong, the other player has a chance to answer correctly or pass with no consequences.
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by using:
 

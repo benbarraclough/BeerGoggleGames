@@ -13,25 +13,25 @@ players: "3"
 3.  [Outdoor Games](GameCategories/OutdoorGames)
 4.  Dizzy Bat
 
-![](images/dizzybat.webp)
+![](/images/dizzybat.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   Canned drinks
 -   Bat
 -   Zone markers
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Mark out the batting zone with a random item (clothing, empty can, etc.), provide the most confident player with the bat and a can whilst assigning another player as the thrower.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Chug, spin and then swing the bat to hit the can as far as possible.
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 On the count of 3, the batter begins the game by carrying out these 5 steps:
 
@@ -47,14 +47,14 @@ On the count of 3, the batter begins the game by carrying out these 5 steps:
 
 Each participant takes their turn to see who can hit the can the furthest. Measure the distance once everyone has been and crown the winner.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   As a player spins, other players must chant the number of spins.
 -   The batter is only allowed 3 seconds to recover between when they finished spinning and when the can is thrown.
 -   No re-throws, 1 throw per empty can (unless the thrower misthrows).
 -   The batter must hit the can from the batting zone for it to ba a valid hit.
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by using:
 

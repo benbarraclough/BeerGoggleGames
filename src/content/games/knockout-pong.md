@@ -13,25 +13,25 @@ players: "2"
 3.  [Pong Games](GameCategories/PongGames)
 4.  Knockout Pong
 
-![](images/knockoutpong.webp)
+![](/images/knockoutpong.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   2 Pong balls
 -   3 Water Cups
 -   A long Table
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Fill 3 cups half way with water and place them at the end of the table around 4-5 feet away. Gather the best of the best in the world of alcoholic pong games and form a line of players behind eachother starting at a suitable distance away from the cups. Pass the 2 pong balls to the front 2 players of the line and the game is good to go.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Bounce the ping pong ball into one of the cups to knock other players out and be the last one in the game to win
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 The first player starts the game by attempting their shot from behind the marker using the table to bounce the ball off, the game then begins and the second player may take their shot in the same manner.
 
@@ -43,7 +43,7 @@ If the second player scores their shot before the first player, the first player
 
 This continues at high pace in a repetitive manner and doesn't end until there is just 1 player remaining. The last player remaining is the winner and may choose one player to face a forfeit.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   If a player behind you scores before you, you are knocked out
 -   You must score in the cup to proceed to the back of the queue
@@ -51,7 +51,7 @@ This continues at high pace in a repetitive manner and doesn't end until there i
 -   If a player has not taken their initial shot from behind the marker, the player behind them cannot take theirs
 -   Only initial shots from behind the marker can be scored without a bounce
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by playing:
 

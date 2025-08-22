@@ -11,7 +11,7 @@ excerpt: "Description: One of the simplest cocktails to make, no equipment requi
 3.  [Cocktail Recipes](drinks/cocktailrecipes)
 4.  Cuba Libre
 
-![](images/cuba-libre.webp)
+![](/images/cuba-libre.webp)
 
 #### Overview
 
@@ -29,7 +29,7 @@ excerpt: "Description: One of the simplest cocktails to make, no equipment requi
 
 * * *
 
-### Ingredients ![target](images/liquor.webp)
+### Ingredients ![target](/images/liquor.webp)
 
 -   Rum - 50ml
 -   Lime juice - 15ml
@@ -37,13 +37,13 @@ excerpt: "Description: One of the simplest cocktails to make, no equipment requi
 -   Ice - 1 handful
 -   Lime - 1 (optional)
 
-### Recipe ![target](images/rules.webp)
+### Recipe ![target](/images/rules.webp)
 
 1.  Add ice, vodka and lime juice to a glass
 2.  Top up with a fizzy cola drink.
 3.  Garnish with a few slices or a wedge of lime and stir.
 
-### Top Tips ![target](images/lightbulb.webp)
+### Top Tips ![target](/images/lightbulb.webp)
 
 -   Vary the type of rum to change the taste of the drink (e.g. spiced, flavoured, dark, light)
 

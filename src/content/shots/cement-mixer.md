@@ -11,7 +11,7 @@ excerpt: "Description: A disturbing mix of dairy and citrus that is considered a
 3.  [Shot Recipes](drinks/shotrecipes)
 4.  Cement Mixer
 
-![](images/cementmixer.webp)
+![](/images/cementmixer.webp)
 
 #### Overview
 
@@ -29,17 +29,17 @@ excerpt: "Description: A disturbing mix of dairy and citrus that is considered a
 
 * * *
 
-### Ingredients ![target](images/liquor.webp)
+### Ingredients ![target](/images/liquor.webp)
 
 -   Irish cream liqueur - 35ml
 -   Lime juice - 15ml
 
-### Recipe ![target](images/rules.webp)
+### Recipe ![target](/images/rules.webp)
 
 1.  Add the Irish cream liqueur
 2.  Pour the lime juice on top using a spoon
 
-### Top Tips ![target](images/lightbulb.webp)
+### Top Tips ![target](/images/lightbulb.webp)
 
 -   Pour the lime juice as gently as possible so that the flavour of lime is the first to hit the tongue. These liquids will likely blend, just do as best as you can.
 

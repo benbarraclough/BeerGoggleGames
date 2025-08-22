@@ -13,25 +13,25 @@ players: "3"
 3.  [Card Games](GameCategories/CardGames)
 4.  You Fuckin' joker
 
-![](images/youfuckinjoker.webp)
+![](/images/youfuckinjoker.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   Deck of cards
 -   Centre chug cup
 -   A table
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Gather all participants round a table and unpack the cards. Separate the deck by grouping the cards into numbered sets, then take as many sets as there are players participating and shuffle them together. Discard the rest of the cards for now. After mixing well, blindly take one card out of the deck and place it to the side before adding 1 joker to the mix. Shuffle again and deal each player 4 cards face down so that they are hidden. (Whilst the game can be played with 3 players, it is better with more).
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Collect a matching set of cards (4 of the same number) to withdraw from the game.
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 All players begin at the same time on the count of 3. When the game starts, players may swap cards as quickly or slowly as they wish in order to collect a set of 4 cards with the same number.
 
@@ -47,14 +47,14 @@ if it is a joker, that player is the loser and must then finish the centre chug 
 
 Cards can then be shuffled to play again.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   Cards can only by swapped one at a time.
 -   A player cannot have more than 4 cards in hand at any time.
 -   If a player is caught marking the joker card, they automatically lose.
 -   When swapping cards, you cannot pass the joker back to the player you received it from.
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by using:
 

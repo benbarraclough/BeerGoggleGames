@@ -10,7 +10,7 @@ excerpt: "Posted on January 1, 2017 at 12:00 PM"
 2.  [Blog](extras/blog)
 3.  The Best Remote Play Drinking Games
 
-![](images/ComingSoon750x300.webp)
+![](/images/ComingSoon750x300.webp)
 
 * * *
 

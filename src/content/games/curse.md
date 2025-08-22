@@ -12,9 +12,9 @@ type: card
 3.  [Card Games](GameCategories/CardGames)
 4.  Curse
 
-![](images/curse.webp)
+![](/images/curse.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   Deck of cards
 -   A table
@@ -22,17 +22,17 @@ type: card
 -   Any spirit
 -   1 shot glass
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Gather all players around the table with a shuffled deck of cards in the centre next to a timer and a filled shot glass. Ask the group who wants to be cursed first, if nobody wants to, trick someone into touching the deck of cards to curse them.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Stick to the rules and make sure you don’t have the curse when the timer ends.
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 The cursed one begins the game by grabbing the cards, setting the timer off for an unknown amount of time and setting it down in the centre so it can’t be seen but can be reached.
 
@@ -44,7 +44,7 @@ The player who is cursed when the timer ends is the loser and takes the shot.
 
 The round can be restarted by the loser refilling the shot glass, shuffling the cards and setting the timer off again.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   If you look in the eyes of the player who is cursed, the curse is transferred to you.
 -   If you touch any of the cards, the curse is transferred to you.
@@ -53,7 +53,7 @@ The round can be restarted by the loser refilling the shot glass, shuffling the 
 -   To find your number, only one card can be turned over at a time.
 -   If you answer a question asked by the cursed one, the curse is transferred to you.
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by using:
 

@@ -11,7 +11,7 @@ excerpt: "Description: A traditional Mexican shot served as a chaser alongside t
 3.  [Shot Recipes](drinks/shotrecipes)
 4.  Sangrita
 
-![](images/sangrita.webp)
+![](/images/sangrita.webp)
 
 #### Overview
 
@@ -29,7 +29,7 @@ excerpt: "Description: A traditional Mexican shot served as a chaser alongside t
 
 * * *
 
-### Ingredients ![target](images/liquor.webp)
+### Ingredients ![target](/images/liquor.webp)
 
 -   Tequila - 50ml
 -   Tomato juice - 25ml
@@ -40,14 +40,14 @@ excerpt: "Description: A traditional Mexican shot served as a chaser alongside t
 -   Salt - 1 pinch
 -   Ice - 1 handful
 
-### Recipe ![target](images/rules.webp)
+### Recipe ![target](/images/rules.webp)
 
 1.  Fill one shot glass to the brim with the tequila
 2.  Fill a shaker with the tomato juice, orange juice, lime juice, tabasco, pepper, salt and ice.
 3.  Shake until the shaker turns ice cold
 4.  Pour into a second shot glass
 
-### Top Tips ![target](images/lightbulb.webp)
+### Top Tips ![target](/images/lightbulb.webp)
 
 -   A shaker is not explicitly needed, however makes sure all ingredients are well mixed as this is tricky to do in a shot glass.
 -   The tequila should be drank before the sangrita shot which acts as the chaser.

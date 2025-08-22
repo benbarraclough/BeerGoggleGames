@@ -12,23 +12,23 @@ type: vocal
 3.  [Vocal Games](GameCategories/VocalGames)
 4.  Fat Boy
 
-![](images/fatboy.webp)
+![](/images/fatboy.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   A full drink each
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Gather a big group into a circle, the more the merrier. As long as everyone can hear and see everyone then you're all good to go!
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Replace all 7 related numbers with the word "Fatboy" to avoid the drinking forfeit.
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 Starting with the game organiser, each person must count in order around the circle from 1 upwards. However, if the number contains a 7 or is a multiple of 7, you must replace it with "Fat boy".
 
@@ -38,13 +38,13 @@ If a player fails to keep within the rules by saying the wrong number, messing u
 
 Each time there is a failure, the count starts again from the person who gets it wrong.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   No delaying
 -   Sips must be taken before the next round starts
 -   No empty drinks allowed!
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by using:
 

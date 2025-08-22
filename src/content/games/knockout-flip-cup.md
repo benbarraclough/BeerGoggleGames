@@ -12,25 +12,25 @@ type: cup
 3.  [Cup Games](GameCategories/CupGames)
 4.  Knockout Flip Cup
 
-![](images/knockoutflipcup.webp)
+![](/images/knockoutflipcup.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   3 Cups per person
 -   A drink
 -   A table
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Organise the players into teams or not if playing singles, then ensure each player has 3 cups in front of them with drink in up to the same fill line as everyone else.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Flip the cups as fast as you can so neither you or your team get knocked out of the competition
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 Start the game by counting down from 3 and then play can begin by each player drinking and flipping a cup at a time the same as regular flip cup, but each player has multiple cups.
 
@@ -42,13 +42,13 @@ This continues knocking 1 person or team out each round until there is only 1 le
 
 Losers take a shot
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   Cups are flipped right side up to upside down.
 -   No interference is allowed with cups during its flip.
 -   Cups can flip any amount of times before landing.
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by using:
 

@@ -11,7 +11,7 @@ excerpt: "Description: An upfront fruity flavour on the tongue that is followed 
 3.  [Cocktail Recipes](drinks/cocktailrecipes)
 4.  Singapore Sling
 
-![](images/singaporesling.webp)
+![](/images/singaporesling.webp)
 
 #### Overview
 
@@ -29,7 +29,7 @@ excerpt: "Description: An upfront fruity flavour on the tongue that is followed 
 
 * * *
 
-### Ingredients ![target](images/liquor.webp)
+### Ingredients ![target](/images/liquor.webp)
 
 -   Gin - 25ml
 -   Benedictine - 10ml
@@ -43,14 +43,14 @@ excerpt: "Description: An upfront fruity flavour on the tongue that is followed 
 -   Cherry - 1
 -   Ice - 1 handful
 
-### Recipe ![target](images/rules.webp)
+### Recipe ![target](/images/rules.webp)
 
 1.  Add the gin, Benedictine, Grand Marnier, cherry liqueur, pineapple juice, lime juice and bitters into a shaker with ice.
 2.  Shake well until the shaker turns ice cold.
 3.  Strain into a glass over fresh ice, and top up with the soda water.
 4.  Garnish with orange slices and a cherry
 
-### Top Tips ![target](images/lightbulb.webp)
+### Top Tips ![target](/images/lightbulb.webp)
 
 -   The Benedictine can be substituted for Chartreuse or Drambuie if it is not available.
 -   The Grand Marnier can be substituted for Cointreau if it is not available.

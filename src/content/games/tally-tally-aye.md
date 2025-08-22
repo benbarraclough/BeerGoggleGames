@@ -12,24 +12,24 @@ type: vocal
 3.  [Vocal Games](GameCategories/VocalGames)
 4.  Tally Tally Aye
 
-![](images/tallytallyaye.webp)
+![](/images/tallytallyaye.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   A drink each
 -   A big room
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Gather a big group of players in a circle with filled drinks before explaining to everyone the game. Everyone must then decide on a gesture or a move that they will perform on their turn. Going around the circle, everyone must then take it in turns to showcase their gesture to the group so others can remember it (e.g. Double Clap, knee wobble, middle finger)
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Remember the gestures and don’t mess the chant up when you are jinxed!
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 To begin the game, everybody must chant “tally tally aye, tally tally oh” in sync together whilst slapping thighs on "tally" and clapping hands on "aye" and "oh". The organiser of the game starts by having what is called the jinx and using the 2 steps below this is passed to other players.
 
@@ -41,7 +41,7 @@ This is all done one repetition after another, whereby no "aye" or "oh" is chant
 
 If a player fails to keep in time with the rhythm, forgets any gestures or performs them at the wrong time, they must drink and start the game from the top.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   A player cannot pass the jinx back to the player who gave it to them
 -   Only one player can gesture at a time
@@ -49,7 +49,7 @@ If a player fails to keep in time with the rhythm, forgets any gestures or perfo
 -   When jinxing, the player being given the jinx must be looked at
 -   When starting each round, begin gestures after a few chant repetitions have been recited to establish the rhythm
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by using:
 

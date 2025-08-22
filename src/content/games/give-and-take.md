@@ -12,25 +12,25 @@ type: card
 3.  [Card Games](GameCategories/CardGames)
 4.  Give & Take
 
-![](images/give&take.webp)
+![](/images/give&take.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   52 Card Deck
 -   A drink each
 -   A table
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Gather all participating players around the table with drinks and refills nearby. Lay two sepearte rows of 6 cards on the table and assign one as the give row and the other as take. Hand the rest of the cards out evenly between all players who must lay theser face up in front of them so everyone can see.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Match your cards with the cards in the give row to hand out some fun dares and ask some good truths
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 Gameplay starts by flipping a single card from either the give or take lines in alternating fashion. Each time a card is flipped, the players check their own and eachothers hands for card matches where the number/rank is the same.
 
@@ -42,14 +42,14 @@ If a card flipped over does not match any card in a players hand, no action is r
 
 If the option of a drink is chosen by a player, the amount of fingers of drink is based on the row that the card was flipped on. E.g. If it was the 6th card, it will be 6 fingers. This continues until all 6 cards on both rows have been flipped over.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   Unless spotted by another player, you don't have to admit a card match
 -   No moving on to the next card in the line until everyone has finished their tasks and is happy to move on
 -   If a player is not happy with both the dare and truth, drinks can be taken instead
 -   Dares and truths can be decided between the whole group
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by using:
 

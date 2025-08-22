@@ -11,7 +11,7 @@ excerpt: "Description: A drink using the same flavours as the famous cake, givin
 3.  [Shot Recipes](drinks/shotrecipes)
 4.  Pineapple Upside Down
 
-![](images/pineappleupsidedown.webp)
+![](/images/pineappleupsidedown.webp)
 
 #### Overview
 
@@ -29,20 +29,20 @@ excerpt: "Description: A drink using the same flavours as the famous cake, givin
 
 * * *
 
-### Ingredients ![target](images/liquor.webp)
+### Ingredients ![target](/images/liquor.webp)
 
 -   Vodka - 30ml
 -   Grenadine - 10ml
 -   Pineapple juice - 30ml
 -   Cherry - 1 (optional)
 
-### Recipe ![target](images/rules.webp)
+### Recipe ![target](/images/rules.webp)
 
 1.  Add the vodka and pineapple juice into a shaker with ice.
 2.  Shake until ice cold and strain into a shot glass.
 3.  Pour the grenadine over and serve with a cherry on top.
 
-### Top Tips ![target](images/lightbulb.webp)
+### Top Tips ![target](/images/lightbulb.webp)
 
 -   A maraschino cherry is the type to use for this drink.
 -   Vanilla vodka is preferred in this drink to give it a little more flavour.

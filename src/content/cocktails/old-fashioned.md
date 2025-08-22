@@ -11,7 +11,7 @@ excerpt: "Description: A traditional whisky cocktail that can be drank neat or w
 3.  [Cocktail Recipes](drinks/cocktailrecipes)
 4.  Old Fashioned
 
-![](images/old-fashioned.webp)
+![](/images/old-fashioned.webp)
 
 #### Overview
 
@@ -29,7 +29,7 @@ excerpt: "Description: A traditional whisky cocktail that can be drank neat or w
 
 * * *
 
-### Ingredients ![target](images/liquor.webp)
+### Ingredients ![target](/images/liquor.webp)
 
 1.  Whisky - 60ml
 2.  Angostura bitters - 1 dash
@@ -38,13 +38,13 @@ excerpt: "Description: A traditional whisky cocktail that can be drank neat or w
 5.  Water - 1 Splash
 6.  Ice
 
-### Recipe ![target](images/rules.webp)
+### Recipe ![target](/images/rules.webp)
 
 1.  Put the syrup, bitters and water into a glass.
 2.  Add the whisky and stir until mixed.
 3.  Garnish with a slice of orange.
 
-### Top Tips ![target](images/lightbulb.webp)
+### Top Tips ![target](/images/lightbulb.webp)
 
 -   The whisky can be replaced with a bourbon
 -   If you want a long drink instead of neat, add soda water

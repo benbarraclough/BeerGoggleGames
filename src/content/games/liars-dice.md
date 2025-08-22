@@ -12,26 +12,26 @@ type: dice
 3.  [Dice Games](GameCategories/DiceGames)
 4.  Liars Dice
 
-![](images/liarsdice.webp)
+![](/images/liarsdice.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   5 dice per player
 -   A drink each
 -   A table
 -   1 empty cup per player
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Gather all participating players around the game table. Each player must have a drink filled to the top, an empty solo cup and 5 dice in hand ready to play.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Correctly guess the number of dice rolled between the group to retain your dice for the longest.
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 To decide who begins, each player rolls one die, the player with the highest number starts.
 
@@ -63,7 +63,7 @@ When a player loses all of their dice, they must finish their drink.
 
 A player can enter back into the game after getting knocked out by redeeming a die through redemption. Each player has 1 redemption attempt that can only be used if 3 or more people are still in the game. Redemption allows a player to make a dudo call of the exact amount of a certain number. If guessed wrong they must take 2 sips.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   If a player damages their cup, they must drink half a cups worth of drink.
 -   Damaged cups can be hidden.
@@ -72,7 +72,7 @@ A player can enter back into the game after getting knocked out by redeeming a d
 -   All sips must be taken before the next round commences.
 -   Drinks must be refilled before each round.
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by using:
 

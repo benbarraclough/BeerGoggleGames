@@ -12,23 +12,23 @@ type: vocal
 3.  [Vocal Games](GameCategories/VocalGames)
 4.  Black Black White
 
-![](images/blackblackwhite.webp)
+![](/images/blackblackwhite.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   A drink each
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Gather as many players as possible with filled drinks in a circle where everyone can see and hear eachother. As the gamemaster will run the game, possibly confide in another player the true intentions of the game before starting to assist in the conviction of other players.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 As the game master, fool other players in the game into thinking that there are rules to the game.
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 The game master begin by saying "I propose a game of Black Black White to my left". At which point, the person to the left of the game master says must say any combination of the words "Black" and "White".
 
@@ -40,13 +40,13 @@ If you want that player to drink, tell them that their answer was not right and 
 
 The game continues until the players realise that the game is a hoax and the game master gets overthrown.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   Players must take their turn one by one in the direction proposed
 -   No other words other than "Black" and "White" are valid as an answer
 -   Players must attempt to go when it is their turn
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by using:
 

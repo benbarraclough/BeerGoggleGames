@@ -12,25 +12,25 @@ type: card
 3.  [Card Games](GameCategories/CardGames)
 4.  Dick Head
 
-![](images/dickhead.webp)
+![](/images/dickhead.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   52 Card deck
 -   A drink each
 -   a table
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 All players need to be gathered round the table with drinks filled and ready to play. The dealer must then hand the cards out evenly between the players face down so that there are no cards remaining and that the players cannot see their cards.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Be quick to call other players a dick head before they call you, the quickest drinks the least
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 To start, all players must pick up their cards but they must be facing down as they cannot be seen. At the same time all players flip the top card over and place it on the table for everyone to see. If your card is 1 above, the same or 1 below the number of another players card, you may call them a "dick head" by pointing at them and shouting. By doing this, you make them take a sip of their drink and it prevents them calling you a dick head.
 
@@ -42,7 +42,7 @@ If someone unrightfully calls someone a dick head, they must take 2 sips.
 
 A round ends when no more dick heads can be called and then everyone flips over the next card. The game is played everyone runs out of cards.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   Everyone must flip their cards at the same time, 1 by 1
 -   A player can call multiple players a dick head
@@ -51,7 +51,7 @@ A round ends when no more dick heads can be called and then everyone flips over 
 -   No slow flips
 -   If a decision on which player was quicker cannot be made, everyone must vote
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by playing:
 

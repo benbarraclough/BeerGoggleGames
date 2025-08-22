@@ -12,23 +12,23 @@ type: vocal
 3.  [Vocal Games](GameCategories/VocalGames)
 4.  Drink While You Think
 
-![](images/drinkwhileyouthink.webp)
+![](/images/drinkwhileyouthink.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   A drink each
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 No setup needed, get everyone wihtin shouting distance with a drink in their hand.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Come up with quick answers to limit the time you're drinking.
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 The game starts with the first person in the circle saying the name of a celebrity or someone famous out loud to the group (e.g. Bruce Willis).
 
@@ -38,13 +38,13 @@ This then continues until somebody chokes, passes or gives up.
 
 The player who gives up first must take a shot.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   If a player does not drink whilst they think, an appeal can be made by other players as to how many seconds of drinking they should do as punishment.
 -   If a person gives an incorrect answer or a repeat answer, they must continue to think and drink until a successful answer is given. After this they must pay a drink debt of 3 seconds.
 -   If a person cannot think of an answer, they get 1 pass per game which costs a drink debt of 5 seconds.
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by using:
 

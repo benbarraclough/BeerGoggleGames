@@ -11,7 +11,7 @@ excerpt: "Description: A dessert cocktail featuring coffee liqueur, chocolate an
 3.  [Cocktail Recipes](Drinks/CocktailRecipes)
 4.  Mudslide
 
-![](images/mudslide.webp)
+![](/images/mudslide.webp)
 
 #### Overview
 
@@ -29,7 +29,7 @@ excerpt: "Description: A dessert cocktail featuring coffee liqueur, chocolate an
 
 * * *
 
-### Ingredients ![target](images/liquor.webp)
+### Ingredients ![target](/images/liquor.webp)
 
 1.  Coffee liqueur - 25ml
 2.  Vodka - 25ml
@@ -38,7 +38,7 @@ excerpt: "Description: A dessert cocktail featuring coffee liqueur, chocolate an
 5.  Irish cream liqueur - 25ml
 6.  Double cream - 50ml
 
-### Recipe ![target](images/rules.webp)
+### Recipe ![target](/images/rules.webp)
 
 1.  Chill a glass by putting it in the fridge.
 2.  Whilst the glass chills, put the chocolate in a shallow bowl and melt in the microwave in short bursts.
@@ -47,7 +47,7 @@ excerpt: "Description: A dessert cocktail featuring coffee liqueur, chocolate an
 5.  Shake until the outside of the shaker is very cold.
 6.  Get the glass out and put a few ice cubes in, then strain in the cocktail. Finely grate over the remaining chocolate and serve with a straw.
 
-### Top Tips ![target](images/lightbulb.webp)
+### Top Tips ![target](/images/lightbulb.webp)
 
 -   Make sure the chocolate has chilled for long enough in the fridge
 -   Use a shallow bowl for your chocolate so its easy to dip your glasses into

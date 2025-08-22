@@ -11,7 +11,7 @@ excerpt: "Description: A drink that tastes of pure paradise, a sweet and tropica
 3.  [Cocktail Recipes](drinks/cocktailrecipes)
 4.  Mai Tai
 
-![](images/mai-tai.webp)
+![](/images/mai-tai.webp)
 
 #### Overview
 
@@ -29,7 +29,7 @@ excerpt: "Description: A drink that tastes of pure paradise, a sweet and tropica
 
 * * *
 
-### Ingredients ![target](images/liquor.webp)
+### Ingredients ![target](/images/liquor.webp)
 
 1.  White rum - 50ml
 2.  Dark rum - 15ml
@@ -40,14 +40,14 @@ excerpt: "Description: A drink that tastes of pure paradise, a sweet and tropica
 7.  Crushed ice - 2 handfuls
 8.  Mint (optional) - 1 sprig
 
-### Recipe ![target](images/rules.webp)
+### Recipe ![target](/images/rules.webp)
 
 1.  Add the white rum, lime juice, orange liqueur, almond liqueur and crushed ice to a shaker
 2.  Shake lightly for a few seconds and pour the mixture unstrained into the glass
 3.  Top the drink off with the dark rum and then the grenadine. This should give the drink a cascading colour change.
 4.  Add the mint sprig to complete
 
-### Top Tips ![target](images/lightbulb.webp)
+### Top Tips ![target](/images/lightbulb.webp)
 
 -   Make sure the crushed ice isn't partially melted as this will water own the drink
 -   The drink can just be stirred in, however a quick allows the multiple flavours of the spirits and liqueurs to meld better

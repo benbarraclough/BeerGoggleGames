@@ -12,26 +12,26 @@ type: cup
 3.  [Cup Games](GameCategories/CupGames)
 4.  Table of Terror
 
-![](images/tableofterror.webp)
+![](/images/tableofterror.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   20 opaque solo cups
 -   3-10 shot glasses
 -   1 Table
 -   Bottle of spirit
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Depending on how hardcore you want to play this game, fill the amount of shots you want to play with and spread them out over the table. To hide the shots, a non-player (3rd party) must cover them with opaque solo cups and then scatter the rest of them around the table as decoys with nothing underneath. Gather all players around the table and instruct them not to look under the cups until their turn.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 On your turn to select a cup from the table of terror, pick a cup that doesn't have a shot underneath it.
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 Starting with the player that has the longest arms, one by one everyone must interact with the table of terror by lifting up a cup to see whats underneath.
 
@@ -41,13 +41,13 @@ If there is a shot underneath the cup, the player must drink the shot and place 
 
 The game ends once all cups on the table have been flipped
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   If a cup is picked up by someone out of turn, they must take shot including the shot under the cup if there is one.
 -   Once you are playing at the table of terror, you may not leave until the game is finished
 -   If more than half of the cups are still unflipped on the table, a player can shout "pledge!". By doing this they are betting that they will get a shot under their cup. If they do, then they can give it to whoever they please. If they do not, they must take 2 shots of their own. Play then continues from the person next to the shot drinker.
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by using:
 

@@ -11,7 +11,7 @@ excerpt: "Description: A fruity cocktail that goes down very easily, combining p
 3.  [Cocktail Recipes](drinks/cocktailrecipes)
 4.  Sex On The Beach
 
-![](images/sex-on-the-beach.webp)
+![](/images/sex-on-the-beach.webp)
 
 #### Overview
 
@@ -29,7 +29,7 @@ excerpt: "Description: A fruity cocktail that goes down very easily, combining p
 
 * * *
 
-### Ingredients ![target](images/liquor.webp)
+### Ingredients ![target](/images/liquor.webp)
 
 1.  Vodka - 50ml
 2.  Peach Schnapps - 25ml
@@ -38,14 +38,14 @@ excerpt: "Description: A fruity cocktail that goes down very easily, combining p
 5.  Orange - 1 Slice
 6.  Ice
 
-### Recipe ![target](images/rules.webp)
+### Recipe ![target](/images/rules.webp)
 
 1.  Fill a glass with ice
 2.  Put ice, vodka and peach schnapps and the juices to a shaker
 3.  Shake until very cold and strain into the glass
 4.  Add a slice of orange to the glass as garnish
 
-### Top Tips ![target](images/lightbulb.webp)
+### Top Tips ![target](/images/lightbulb.webp)
 
 -   Add Chambord as an additional ingredient to spice up the drink.
 -   Gently pour the juices in one after the other to create a colour gradient in the drink.

@@ -11,7 +11,7 @@ excerpt: "Description: A full concoction of flavours that may repulse some and e
 3.  [Shot Recipes](drinks/shotrecipes)
 4.  Slippery Nipple
 
-![](images/slipperynipple.webp)
+![](/images/slipperynipple.webp)
 
 #### Overview
 
@@ -29,19 +29,19 @@ excerpt: "Description: A full concoction of flavours that may repulse some and e
 
 * * *
 
-### Ingredients ![target](images/liquor.webp)
+### Ingredients ![target](/images/liquor.webp)
 
 -   Grenadine - 15ml
 -   Sambuca - 15ml
 -   Irish Cream Liqueur - 15ml
 
-### Recipe ![target](images/rules.webp)
+### Recipe ![target](/images/rules.webp)
 
 1.  Pour the Grenadine in the bottom of th glass
 2.  Follow this up with pouring the sambuca in gently so it sits on top of the grenadine
 3.  Finish it off by pouring the Irish cream liqueur gently on top
 
-### Top Tips ![target](images/lightbulb.webp)
+### Top Tips ![target](/images/lightbulb.webp)
 
 -   Use a spoon to pour each element in gently so that it layers perfectly
 

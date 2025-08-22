@@ -12,26 +12,26 @@ type: card
 3.  [Card Games](GameCategories/CardGames)
 4.  Tinny
 
-![](images/tinny.webp)
+![](/images/tinny.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   1 Can
 -   A drink each
 -   52 Card Deck
 -   A Table
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Place an unopened can in the centre of a table and a deck of cards scattered around it all face down so the numbers cannot be seen. Grab as many people to play as possible with drinks filled to the brim and give this game a go.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Take it in turns to grab a card and either drink or place it under the can tab without breaking the seal.
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 Starting with the player who raises their hand in the air last, they must take a turn to pick a card from the centre and perform the task outlined below based on the number. This continues one player at a time moving clockwise around the circle.
 
@@ -53,14 +53,14 @@ If a player cracks the seal of the can and opens it by placing a card under the 
 
 This is played until the seal of the can is cracked. If all cards have been turned and the seal has not cracked (unlikely), take it in turns to place face cards under the tab.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   Cards must be placed fully under the tab of the can
 -   Each player takes their turn one at a time
 -   Punishment cards are not required to be placed under the can tab
 -   If everyone cannot decide whether the seal is cracked, the group must vote to decide
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by using:
 

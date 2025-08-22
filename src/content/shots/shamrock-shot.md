@@ -11,7 +11,7 @@ excerpt: "Description: A very Irish looking shot with a bold mint green colour a
 3.  [Shot Recipes](drinks/shotrecipes)
 4.  Shamrock Shot
 
-![](images/shamrock-shot.webp)
+![](/images/shamrock-shot.webp)
 
 #### Overview
 
@@ -29,7 +29,7 @@ excerpt: "Description: A very Irish looking shot with a bold mint green colour a
 
 * * *
 
-### Ingredients ![target](images/liquor.webp)
+### Ingredients ![target](/images/liquor.webp)
 
 -   Vodka - 20ml
 -   Creme de Menthe - 20ml
@@ -37,14 +37,14 @@ excerpt: "Description: A very Irish looking shot with a bold mint green colour a
 -   Chocolate bitters - 2 dashes
 -   Whipped cream - 1 squirt (optional)
 
-### Recipe ![target](images/rules.webp)
+### Recipe ![target](/images/rules.webp)
 
 1.  Add the creme de menthe, vodka, cream and chocolate bitters into a shaker with ice.
 2.  Shake until the shaker turns ice cold.
 3.  Strain into a shot glass.
 4.  Top with whipped cream.
 
-### Top Tips ![target](images/lightbulb.webp)
+### Top Tips ![target](/images/lightbulb.webp)
 
 -   If available, an AfterEight chocolate works well as a side snack.
 -   The best cream to use for this drink would be heavy cream, but any should do.

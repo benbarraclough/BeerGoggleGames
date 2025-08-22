@@ -12,25 +12,25 @@ type: outdoor
 3.  [Outdoor Games](GameCategories/OutdoorGames)
 4.  Frisbeer
 
-![](images/frisbeer.webp)
+![](/images/frisbeer.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   A frisbee
 -   A drink each
 -   String/Rope
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Mark 2 round target areas a frisbee throw away from one another using whatever you can (string, rope, etc.). The target should be similar to an archery target with 3 rings within eachother. Each team should stand by their target with a full drink facing each other ready to begin.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Throw the frisbee into your opponents target area to make them drink.
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 Starting with the team who first grabs the frisbee, one of the players must attempt to throw the frisbee into the other teams target area.
 
@@ -42,14 +42,14 @@ If the frisbee misses, the thrower must take a sip.
 
 The game finishes once all players on a team finish their drinks. The winning team is the team who still have drink remaining.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   If the frisbee lands in two different areas, it counts as the inner most ring that it lands in.
 -   Players in a team must take turns when throwing.
 -   If drinks are given out, they must be drank before the frisbee is next thrown.
 -   If a false throw is thrown, whichever team is next to pick up the frisbee gets the next turn.
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by using:
 

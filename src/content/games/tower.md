@@ -12,25 +12,25 @@ type: dice
 3.  [Dice Games](GameCategories/DiceGames)
 4.  Tower
 
-![](images/tower.webp)
+![](/images/tower.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   1 Dice
 -   6 drink containers
 -   5 drink coasters
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Write a different rule or task on each coaster and make 6 drinks/shots of choice, then stack them all on top of eachother with coasters in between each drink. (If the tower won't stand with all 6 drinks, make 2 seperate towers or a pyramid)
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Avoid the tower by not rolling a 6 and not breaking any rules.
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 The person holding the dice rolls first.
 
@@ -40,14 +40,14 @@ If a 6 is rolled, a coaster or drink is taken from the tower which will need to 
 
 After the tower is finished, the game ends.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   If someone touches the dice who isn't the designated roller at that time, they automatically become the roller.
 -   If a drink is not drank or a task is not completed, a seperate forfeit must be done.
 -   Shaking or disrupting the stability of the tower is punished by 2 tower removals (1 coaster & 1 drink).
 -   If someone disrupts and topples the tower, they lose the game and must drink a whole tower after cleaning up the mess.
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by using:
 

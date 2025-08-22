@@ -11,9 +11,9 @@ type: cup
 2.  [Cup Games](GameCategories/CupGames)
 3.  Blow Cup
 
-![](images/blowcup.webp)
+![](/images/blowcup.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   2 water cups each
 -   A drink each
@@ -21,17 +21,17 @@ type: cup
 -   Start & finish line
 -   Water jug
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Gather all players onto one side of the table with a filled drink and two water cups each filled about 1/3 of the way. Mark out a start and finish line around 2-4 feet apart. Each players water cups should be placed behind the start line and positioned in front of each other so that each player has a path to the finish line.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Chug a drink until empty and then blow the empty cup from one water cup to the next repeatedly until passing the finish line.
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 Each player must attempt to complete the 3 stages below to win the race
 
@@ -45,7 +45,7 @@ If the empty cup misses, this is placed back in the same water cup and the playe
 
 The second stage should be repeated so that each successful blow cup moves a player closer to the finish line. This continues until a player passes the finish line.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   If a player requires more water in their cups, they may top up using the water jug
 -   A player can place their water cups wherever they like (as close or far away as desired)
@@ -53,7 +53,7 @@ The second stage should be repeated so that each successful blow cup moves a pla
 -   The empty cup must touch the water of the water cup to be a successful blow cup attempt
 -   A water cup cannot be moved unless the empty cup is within the other water cup
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by playing:
 

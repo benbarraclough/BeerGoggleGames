@@ -12,9 +12,9 @@ type: misc
 3.  [Misc. Games](GameCategories/MiscGames)
 4.  Titanic
 
-![](images/titanic.webp)
+![](/images/titanic.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   Spirit Bottle
 -   1 Cup
@@ -22,17 +22,17 @@ type: misc
 -   Other alcohol
 -   A table
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Fill 3/4 of a cup with a drink of choice and then float an empty shot glass on top. Gather everyone around the table and have a designated spirit bottle nearby to play with, then you’re all set.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Pour alcohol into the shot glass but make sure not to sink the ship
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 Starting with the player who has the biggest hands, everyone around the circle must take it in turns to pour a spirit of choice from the bottle into the shot glass whilst it floats in the cup.
 
@@ -42,14 +42,14 @@ If a player sinks the shot glass whilst pouring the alcohol into it, they must f
 
 This is played until the shot glass (Titanic) is sunk and can be replayed pretty quickly and easily.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   Wait three seconds after pouring the shot before passing to the next player
 -   The bottle should always be passed clockwise
 -   A player may pour as much as they wish into the shot glass
 -   The cup or shot glass may not be touched or disrupted at any time
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by playing:
 

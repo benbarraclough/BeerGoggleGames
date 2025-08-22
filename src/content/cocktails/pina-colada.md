@@ -11,7 +11,7 @@ excerpt: "Description: A smooth & fresh tropical drink with pineapple, one of th
 3.  [Cocktail Recipes](drinks/cocktailrecipes)
 4.  Piña Colada
 
-![](images/pina-colada.webp)
+![](/images/pina-colada.webp)
 
 #### Overview
 
@@ -29,7 +29,7 @@ excerpt: "Description: A smooth & fresh tropical drink with pineapple, one of th
 
 * * *
 
-### Ingredients ![target](images/liquor.webp)
+### Ingredients ![target](/images/liquor.webp)
 
 1.  White rum - 50ml
 2.  Coconut cream - 50ml
@@ -37,13 +37,13 @@ excerpt: "Description: A smooth & fresh tropical drink with pineapple, one of th
 4.  Ice - 2 handfuls
 5.  Pineapple (optional) - 1
 
-### Recipe ![target](images/rules.webp)
+### Recipe ![target](/images/rules.webp)
 
 1.  Pour the rum, coconut cream, pineapple juice and a handful of ice into a blender.
 2.  Blend until smooth and then pour into a glass with ice.
 3.  Garnish with a slice of pineapple and a leaf or two.
 
-### Top Tip ![target](images/lightbulb.webp)
+### Top Tip ![target](/images/lightbulb.webp)
 
 -   If you don't have a blender at hand, crush the ice manually somehow and mix everything together using a cocktail shaker.
 -   Coconut cream and cream of coconut are used to make the best piña coladas, however coconut milk can be used as well. Coconut milk is a little less rich in flavour and unsweetened, keep this in mind.

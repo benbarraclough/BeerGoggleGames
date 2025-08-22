@@ -11,7 +11,7 @@ excerpt: "A collection of party themes that will help inspire ideas for your nex
 3.  [Blog](extras/blog)
 4.  Top 5 Greatest Party Themes
 
-![](images/top5greatestpartythemes.webp)
+![](/images/top5greatestpartythemes.webp)
 
 * * *
 
@@ -37,7 +37,7 @@ In this blog post, what will also be featured for each theme is how to execute t
 
 #### 1\. Neon Rave
 
-![](images/neontheme.webp)  
+![](/images/neontheme.webp)  
   
 
 At number one we have the best theme by far, it offers everything and nothing at the same time, allowing expectations to go wild and freedom to make the party about whatever you like.
@@ -58,7 +58,7 @@ Take a look at the following list for ideas on how to build your party theme:
 
 #### 2\. Disco Dudes & Go-Go Gals
 
-![](images/discotheme.webp)  
+![](/images/discotheme.webp)  
   
 
 You can't beat this theme for its ability to get girls interested, and with that comes the guys too, which makes this our second favourite theme
@@ -84,7 +84,7 @@ Take a look at the following list for ideas on how to build your party theme:
 
 #### 3\. Toga
 
-![](images/togatheme.webp)  
+![](/images/togatheme.webp)  
   
 
 An ultimate party theme that gets everyone unified in the sacred toga costume. Make way for games, brotherly love and probably a bit of nudity at some point.
@@ -110,7 +110,7 @@ Take a look at the following list for ideas on how to build your party theme:
 
 #### 4\. Jungle Jamboree
 
-![](images/jungletheme.webp)  
+![](/images/jungletheme.webp)  
   
 
 A fun and easy theme that can be done on a low budget or turned into a full on tropical paradise.
@@ -135,7 +135,7 @@ Take a look at the following list for ideas on how to build your party theme:
 
 #### 5\. Masquerade Ball
 
-![](images/masquerade.webp)  
+![](/images/masquerade.webp)  
   
 
 For those who would rather a higher class themed party, we have the masquerade party offering a smarter event that people can dress to impress for.

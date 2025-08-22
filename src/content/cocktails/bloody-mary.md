@@ -11,7 +11,7 @@ excerpt: "Description: One of the worlds most famous cocktails known for its abi
 3.  [Cocktail Recipes](drinks/cocktailrecipes)
 4.  Bloody Mary
 
-![](images/bloody-mary.webp)
+![](/images/bloody-mary.webp)
 
 #### Overview
 
@@ -29,7 +29,7 @@ excerpt: "Description: One of the worlds most famous cocktails known for its abi
 
 * * *
 
-### Ingredients ![target](images/liquor.webp)
+### Ingredients ![target](/images/liquor.webp)
 
 -   Vodka - 50ml
 -   Tomato juice - 100ml
@@ -41,14 +41,14 @@ excerpt: "Description: One of the worlds most famous cocktails known for its abi
 -   Ice - 2 Handfuls
 -   Celery - 1 Stick
 
-### Recipe ![target](images/rules.webp)
+### Recipe ![target](/images/rules.webp)
 
 1.  Add all of the ingredients except the celery stick to a shaker
 2.  Stir or shake gently to mix the ingredients without making the mixture frothy
 3.  Add ice to the glass and pour in the mixture
 4.  Crush the celery stick a little to make the juices flow and drop it in to finish
 
-### Top Tips ![target](images/lightbulb.webp)
+### Top Tips ![target](/images/lightbulb.webp)
 
 -   Add more spice where necessary if you like a stronger kick
 -   You can add a lemon or lime slice as a garnish

@@ -11,7 +11,7 @@ excerpt: "Description: A game of sneaking and secret drinking, get as drunk as y
 3.  [Activities & Minigames](extras/activities&minigames)
 4.  Undercover Alcoholic
 
-![](images/undercoveralcoholic.webp)
+![](/images/undercoveralcoholic.webp)
 
 #### Overview
 
@@ -23,12 +23,12 @@ excerpt: "Description: A game of sneaking and secret drinking, get as drunk as y
 
 * * *
 
-### Requirements ![target](images/rules.webp)
+### Requirements ![target](/images/rules.webp)
 
 -   Any alcohol
 -   A group of sober unwise individuals
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 This game can be played with any amount of players but the smaller amount of people within a group the better. However, it is not encouraged to be played alone, as that is called being an alcoholic and we do not support that.
 
@@ -36,7 +36,7 @@ Find a partner or two to get involved in the deception of the wider group and ma
 
 Once someone is found out, the other can either confess or continue until they get found out themselves.
 
-### Top Tips ![target](images/lightbulb.webp)
+### Top Tips ![target](/images/lightbulb.webp)
 
 -   Find a safe place where the alcohol can be stored or hidden so you don't have to drink it nearby the others.
 -   Use breath mints so that alcohol can't be smelt on your breath.

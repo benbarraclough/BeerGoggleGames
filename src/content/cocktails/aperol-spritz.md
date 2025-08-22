@@ -11,7 +11,7 @@ excerpt: "Description: A Venetian wine-based cocktail with a light, refreshing a
 3.  [Cocktail Recipes](drinks/cocktailrecipes)
 4.  Aperol Spritz
 
-![](images/aperol-spritz.webp)
+![](/images/aperol-spritz.webp)
 
 #### Overview
 
@@ -29,7 +29,7 @@ excerpt: "Description: A Venetian wine-based cocktail with a light, refreshing a
 
 * * *
 
-### Ingredients ![target](images/liquor.webp)
+### Ingredients ![target](/images/liquor.webp)
 
 1.  Aperol - 100ml
 2.  Prosecco - 150ml
@@ -37,13 +37,13 @@ excerpt: "Description: A Venetian wine-based cocktail with a light, refreshing a
 4.  Orange - 1 Slice
 5.  Ice
 
-### Recipe ![target](images/rules.webp)
+### Recipe ![target](/images/rules.webp)
 
 1.  Add a handful of ice to a glass
 2.  Pour the aperol and prosecco into the glass and top up with soda
 3.  Cut a slice of orange and add to the drink to finish
 
-### Top Tips ![target](images/lightbulb.webp)
+### Top Tips ![target](/images/lightbulb.webp)
 
 -   Use aperol glasses to make the drink fully authentic.
 -   Use orange bitters to add another element to the drink

@@ -13,24 +13,24 @@ players: "1"
 3.  [Outdoor Games](GameCategories/OutdoorGames)
 4.  Beer Darts
 
-![](images/beerdarts.webp)
+![](/images/beerdarts.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   2-3 Metal Darts
 -   A can each
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Position all players equal distance away from each other, either on chairs or standing with their cans at their feet. Assign one player as the thrower by providing them all the darts to begin with.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Penetrate an opponents can by throwing darts at it to make them finish their drink before you.
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 The game begins by the thrower choosing a players can to aim for and throwing all darts at the target in an attempt to penetrate the can.
 
@@ -46,14 +46,14 @@ Once all darts have been thrown, the player who has had their can shot at can no
 
 This continues until there is only 1 player with a can remaining.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   Players can use backboards to shield themselves from the darts
 -   When a can is penetrated, a minimum of 1 sip is required
 -   Cans must be unopened until hit or penetrated
 -   Darts must be removed from a can when penetrated to be used again
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by playing:
 

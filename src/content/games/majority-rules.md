@@ -13,23 +13,23 @@ players: "1"
 3.  [Misc. Games](GameCategories/MiscGames)
 4.  Majority Rules
 
-![](images/majorityrules.webp)
+![](/images/majorityrules.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   A drink each
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Find a group of participants to play, the more the better. Not much set up needed for this one, all players must have filled drinks and be ready to play.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Guess the same as the king by showing a hand or a fist to prevent yourself from drinking and losing lives
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 Each player has 3 lives
 
@@ -45,13 +45,13 @@ After each round of showing fists and hands, the king status switches to the nex
 
 When a player has lost all lives, they must finish their drink and remove themself from the game. The game continues until there is only 1 player left, who remains the king and can pass out forfeits to the losers.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   No delays allowed in showing fists or hands
 -   king status only remains for one round
 -   No lying about how many lives you have remaining
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by using:
 

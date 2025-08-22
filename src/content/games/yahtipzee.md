@@ -12,26 +12,26 @@ type: dice
 3.  [Dice Games](GameCategories/DiceGames)
 4.  Yahtipzee
 
-![](images/yahtipzee.webp)
+![](/images/yahtipzee.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   A cup
 -   5 Dice
 -   A drink each
 -   A table
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Gather everyone with a filled drink around the table placing the dice and cup in the centre ready to roll.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Roll number matches or sequences with the dice to not drink and make others drink at the same time.
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 The game begins like a game of Yahtzee where one player grabs the dice, puts them in the cup, shakes and rolls on the table.
 
@@ -50,7 +50,7 @@ If a player doesnt manage to get a set, they have to drink the amount of times t
 
 This continues until everyone has had enough and very drunk.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   Any dice rolled on the floor are void and cannot be used.
 -   Any dice kept cannot be touched or moved, they must stay in their place.
@@ -58,7 +58,7 @@ This continues until everyone has had enough and very drunk.
 -   If a 5 of a kind or yahtzee is rolled, everybody except the roller drinks.
 -   No dice roll until shots are completed. Once someone is punished to drink, the next player in turn shouldn’t roll the dice until they finish drinking.
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by using:
 

@@ -12,23 +12,23 @@ type: vocal
 3.  [Vocal Games](GameCategories/VocalGames)
 4.  Fuzzy Duck
 
-![](images/fuzzyduck.webp)
+![](/images/fuzzyduck.webp)
 
-### Equipment ![target](images/liquor.webp)
+### Equipment ![target](/images/liquor.webp)
 
 -   A drink each
 
-### Setup ![target](images/settings.webp)
+### Setup ![target](/images/settings.webp)
 
 Nothing needed other than a group of willing inidividuals in a circle with drinks. Make sure everyone can hear eachother and is ready to play.
 
 * * *
 
-### Aim of the Game ![target](images/target.webp)
+### Aim of the Game ![target](/images/target.webp)
 
 Don't fuck up, say the correct phrase to pass the challenge onto the next person, or else you drink.
 
-### How to Play ![target](images/question.webp)
+### How to Play ![target](/images/question.webp)
 
 The player to first "propose a game of Fuzzy Duck" to their left begins, the player to the left of them must say "Fuzzy Duck", this then continues clockwise until someone chooses to say "Does he?"
 
@@ -40,14 +40,14 @@ Whenever someone says the wrong phrase or mispronounces the saying, they have to
 
 The player who messes up starts the game off again by proposing a new game to the player next to them. This continues until all drink is consumed.
 
-### Rules ![target](images/rules.webp)
+### Rules ![target](/images/rules.webp)
 
 -   A time limit should be set for a player to answer.
 -   A game of Ducky Fuzz can be proposed to the right which would proceed anti-clockwise.
 -   Any rule breaks such as stalling, pronunciation or other faults result in drink punishments.
 -   A player can only change the direction of play twice or three times each round (depending on group size).
 
-### Special Edition ![target](images/special.webp)
+### Special Edition ![target](/images/special.webp)
 
 Add an extra layer of excitement to your game by using:
 

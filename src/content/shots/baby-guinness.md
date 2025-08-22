@@ -11,7 +11,7 @@ excerpt: "Description: A smooth and creamy delight, the only relation it has to 
 3.  [Shot Recipes](drinks/shotrecipes)
 4.  Baby Guinness
 
-![](images/babyguinness.webp)
+![](/images/babyguinness.webp)
 
 #### Overview
 
@@ -29,17 +29,17 @@ excerpt: "Description: A smooth and creamy delight, the only relation it has to 
 
 * * *
 
-### Ingredients ![target](images/liquor.webp)
+### Ingredients ![target](/images/liquor.webp)
 
 -   Coffee liqueur (Kahlua) - 35ml
 -   Irish cream liqueur (Baileys) - 15ml
 
-### Recipe ![target](images/rules.webp)
+### Recipe ![target](/images/rules.webp)
 
 1.  Start with the coffee liqueur, filling the shot glass 70% of the way.
 2.  Fill to the top with the Irish cream liqueur, pouring it slowly so that it sits on top of the coffee liqueur
 
-### Top Tips ![target](images/lightbulb.webp)
+### Top Tips ![target](/images/lightbulb.webp)
 
 -   Use a spoon when pouring in the Irish cream liqueur to make sure it sits on top and doesn't mix with the coffee liqueur
 

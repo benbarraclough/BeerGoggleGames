@@ -11,7 +11,7 @@ excerpt: "If you think we've missed certain details out of the drink recipe or y
 3.  [Cocktail Recipes](drinks/cocktailrecipes)
 4.  Example
 
-![](images/ComingSoon700x400.webp)
+![](/images/ComingSoon700x400.webp)
 
 #### Overview
 
@@ -29,11 +29,11 @@ excerpt: "If you think we've missed certain details out of the drink recipe or y
 
 * * *
 
-### Ingredients ![target](images/liquor.webp)
+### Ingredients ![target](/images/liquor.webp)
 
-### Recipe ![target](images/rules.webp)
+### Recipe ![target](/images/rules.webp)
 
-### Top Tips ![target](images/lightbulb.webp)
+### Top Tips ![target](/images/lightbulb.webp)
 
 ####     Share This Page
 
