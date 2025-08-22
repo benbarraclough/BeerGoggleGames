@@ -236,7 +236,7 @@ A very sweet and fruity drink, with strong flavours of cranberry and peach givin
 
 An upfront fruity flavour on the tongue that is followed by a very subtle, deep earthiness from the various liqueurs.
 
-[![](vodka-martini.webp)](drinks/CocktailRecipes/vodka-martini)
+[![](/images/vodka-martini.webp)](drinks/CocktailRecipes/vodka-martini)
 
 #### [Vodka Martini](drinks/CocktailRecipes/vodka-martini)
 
