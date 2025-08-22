@@ -1,16 +1,10 @@
 /**
- * Legacy HTML → Astro Content collections (games, activities, cocktails, shots, posts)
- * Updated: Unique title/slug derivation; avoids every file becoming "beergogglegames".
- *
- * ENV:
- *   FORCE=true  overwrite existing files
- *   DRY=true    preview only
- *
- * Override mapping: scripts/extract-map.json (optional)
- *   {
- *     "legacy/Drinks/ShotRecipes/B-52.html": { "collection": "shots", "title": "B-52 Shot" },
- *     "legacy/Extras/WheelOfFortune.html": { "collection": "activities" }
- *   }
+ * Legacy HTML → Astro content collections (games, activities, cocktails, shots, posts)
+ * Improvements:
+ *  - Treat "example" (and variants) as generic → fall back to filename
+ *  - Proper diacritic stripping (piña → pina, jäger → jager)
+ *  - Skip vocalgames.html category index
+ *  - Prevent placeholder "example(-n)" slugs
  */
 
 import fs from 'fs';
@@ -56,7 +50,8 @@ const GENERIC_TITLES = new Set([
   'game categories',
   'drinks',
   'extras',
-  'home'
+  'home',
+  'example' // NEW
 ]);
 
 const SKIP_FILENAMES = new Set([
@@ -84,7 +79,8 @@ const SKIP_FILENAMES = new Set([
   'freeforallgames.html',
   'pairgames.html',
   'teamgames.html',
-  'drinksearchtool.html'
+  'drinksearchtool.html',
+  'vocalgames.html' // NEW skip
 ]);
 
 const TYPE_MAP = {
@@ -125,8 +121,11 @@ function loadOverrides() {
   catch { console.warn('WARN: Bad extract-map.json'); return {}; }
 }
 
+// Diacritic-safe slugify
 function slugify(str) {
   return (str || '')
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')     // remove diacritics
     .toLowerCase()
     .replace(/&/g, 'and')
     .replace(/[^a-z0-9]+/g, '-')
@@ -139,15 +138,12 @@ function humanizeFilename(filePath) {
   let base = path.basename(filePath, path.extname(filePath));
   // Replace camelCase / PascalCase boundaries with space
   base = base.replace(/([a-z])([A-Z])/g, '$1 $2');
-  // Replace digits-letter boundaries
+  // Digits-letter
   base = base.replace(/([0-9])([A-Za-z])/g, '$1 $2');
-  // Replace underscores & hyphens & multiple spaces
+  // Underscores / hyphens / & -> spacing
   base = base.replace(/[_-]+/g, ' ');
-  // Replace URL-ish encodings (&)
   base = base.replace(/&/g, ' & ');
-  base = base.replace(/\s{2,}/g, ' ');
-  base = base.trim();
-  // Capitalize words
+  base = base.replace(/\s{2,}/g, ' ').trim();
   return base.split(' ').map(w => w ? w[0].toUpperCase() + w.slice(1).toLowerCase() : '').join(' ');
 }
 
@@ -194,7 +190,6 @@ function firstNonEmpty(arr) {
 function extractStructured(html, filePath) {
   const $ = cheerio.load(html);
 
-  // Remove global clutter
   ['nav', 'header', 'footer', 'script', 'style'].forEach(sel => $(sel).remove());
   $('[class*="nav"],[class*="footer"],[id*="nav"]').remove();
 
@@ -204,21 +199,24 @@ function extractStructured(html, filePath) {
 
   let titleCandidate = normalizeTitle(firstNonEmpty([h1Text, metaTitle, docTitle]));
 
+  // If first candidate generic, look for any other h1 that isn't
   if (looksGeneric(titleCandidate)) {
-    // fallback to a second h1 if exists
     const h1s = $('h1').map((_, el) => $(el).text().trim()).get().filter(Boolean);
-    if (h1s.length > 1) {
-      const alt = normalizeTitle(h1s.find(t => !looksGeneric(t)));
-      if (alt) titleCandidate = alt;
-    }
+    const alt = h1s.find(t => !looksGeneric(t));
+    if (alt) titleCandidate = normalizeTitle(alt);
   }
 
   if (looksGeneric(titleCandidate)) {
     titleCandidate = humanizeFilename(filePath);
   }
 
-  // Extra cleaning: remove site name pieces inside parentheses
+  // Clean site name residues
   titleCandidate = titleCandidate.replace(/\(.*beergogglegames.*\)/i, '').trim();
+
+  // Avoid placeholder titles that reduce to 'example'
+  if (looksGeneric(titleCandidate) || /^example$/i.test(titleCandidate)) {
+    titleCandidate = humanizeFilename(filePath);
+  }
 
   const cover = $('meta[property="og:image"]').attr('content')
     || $('img').first().attr('src')
@@ -291,12 +289,10 @@ function extractStructured(html, filePath) {
 
 function classify(rel, data, overrides) {
   if (overrides[rel]?.collection) return overrides[rel].collection;
-
   const bn = path.basename(rel).toLowerCase();
   if (SKIP_FILENAMES.has(bn)) return null;
 
   const lower = rel.toLowerCase();
-
   if (lower.includes('/drinks/cocktailrecipes/')) return 'cocktails';
   if (lower.includes('/drinks/shotrecipes/')) return 'shots';
   if (lower.includes('/extras/blog/')) return 'posts';
@@ -308,7 +304,6 @@ function classify(rel, data, overrides) {
     return 'cocktails';
   }
   if (/game/i.test(data.rawText)) return 'games';
-
   return 'posts';
 }
 
@@ -344,14 +339,12 @@ function buildFrontmatter(collection, slug, data, rel, overrides) {
     if (data.method.length) fm.method = data.method;
   }
 
-  // Apply override extras (title, type, difficulty, etc.)
   if (overrides[rel]) {
     for (const [k, v] of Object.entries(overrides[rel])) {
       if (k === 'collection') continue;
       fm[k] = v;
     }
   }
-
   return fm;
 }
 
@@ -359,9 +352,8 @@ function buildFrontmatter(collection, slug, data, rel, overrides) {
 
 function yamlEscape(val) {
   if (typeof val !== 'string') return JSON.stringify(val);
-  if (val === '' || /[:{}[\],&*#?|<>=!%@`]/.test(val) || /^\d/.test(val) || /\n/.test(val)) {
+  if (val === '' || /[:{}[\],&*#?|<>=!%@`]/.test(val) || /^\d/.test(val) || /\n/.test(val))
     return JSON.stringify(val);
-  }
   return val;
 }
 
@@ -383,10 +375,16 @@ function frontmatterToString(obj) {
 // ---------- WRITE ----------
 
 function writeMarkdown(collection, slug, fm, body, summary, rel, usedSlugs) {
+  // Fallback to humanized filename if slug is 'example' (paranoid)
+  if (/^example(-\d+)?$/.test(slug)) {
+    const human = humanizeFilename(rel);
+    const alt = slugify(human);
+    if (alt && alt !== 'example') slug = alt;
+  }
+
   const dir = path.join(CONTENT_DIR, collection);
   ensureDir(dir);
 
-  // Ensure unique slug (per run) to avoid accidental collisions if titles duplicate
   let finalSlug = slug;
   let i = 2;
   while (usedSlugs.has(`${collection}:${finalSlug}`)) {
@@ -423,13 +421,11 @@ function processFile(filePath, overrides, summary, usedSlugs) {
     summary.skipped++;
     return;
   }
+
   const html = fs.readFileSync(filePath, 'utf8');
   const data = extractStructured(html, filePath);
 
-  // If override supplies explicit title
-  if (overrides[rel]?.title) {
-    data.title = overrides[rel].title;
-  }
+  if (overrides[rel]?.title) data.title = overrides[rel].title;
 
   const collection = classify(rel, data, overrides);
   if (!collection) {
@@ -439,8 +435,7 @@ function processFile(filePath, overrides, summary, usedSlugs) {
   }
 
   let slug = slugify(data.title);
-  if (!slug) slug = slugify(path.basename(filePath, path.extname(filePath)));
-  if (!slug || slug === 'beergogglegames') {
+  if (!slug || /^example$/.test(slug)) {
     slug = slugify(humanizeFilename(filePath));
   }
 
