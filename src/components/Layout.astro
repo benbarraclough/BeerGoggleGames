@@ -11,15 +11,14 @@ const {
   canonical
 } = Astro.props;
 
-// For active nav highlighting:
-const current = Astro.url.pathname; // includes base path
+const current = Astro.url.pathname;
 function isActive(segment: string) {
   const normalized = segment.endsWith('/') ? segment : segment + '/';
   return current.startsWith(withBase(normalized));
 }
 ---
 <!DOCTYPE html>
-<html lang="en" class="bg-bg text-fg font-body" data-base={base}>
+<html lang="en" class="bg-bg text-fg font-body antialiased" data-base={base}>
   <head>
     <meta charset="utf-8" />
     <title>{title}</title>
@@ -31,14 +30,14 @@ function isActive(segment: string) {
     <meta property="og:type" content="website" />
     {ogImage && <meta property="og:image" content={withBase(ogImage.replace(/^\/+/, ''))} />}
   </head>
-  <body class="min-h-screen flex flex-col">
+  <body class="min-h-screen flex flex-col selection:bg-neon/40">
     <SkipLink />
     <header class="border-b border-fg/20">
       <div class="mx-auto max-w-6xl px-4 py-4 flex items-center justify-between">
         <a href={withBase()} class="font-display text-2xl tracking-tight hover:text-neon">
           BeerGoggleGames
         </a>
-        <nav class="flex gap-4 text-sm">
+        <nav class="flex flex-wrap gap-4 text-sm">
           <a href={withBase('games/')} class:list={['hover:text-neon', isActive('games') && 'text-neon font-semibold']} aria-current={isActive('games') ? 'page' : undefined}>Games</a>
           <a href={withBase('drinks/')} class:list={['hover:text-neon', isActive('drinks') && 'text-neon font-semibold']} aria-current={isActive('drinks') ? 'page' : undefined}>Drinks</a>
           <a href={withBase('activities/')} class:list={['hover:text-neon', isActive('activities') && 'text-neon font-semibold']} aria-current={isActive('activities') ? 'page' : undefined}>Activities</a>
