@@ -1,9 +1,10 @@
----
+export const prerender = true;
+
 import { getCollection } from 'astro:content';
 
 export async function GET() {
-  const collections = ['games','cocktails','shots','activities','posts'];
-  const entries = [];
+  const collections = ['games', 'cocktails', 'shots', 'activities', 'posts'];
+  const entries: any[] = [];
 
   for (const c of collections) {
     try {
@@ -15,11 +16,11 @@ export async function GET() {
           title: it.data.title,
           excerpt: it.data.excerpt || '',
           type: it.data.type || '',
-          ingredients: it.data.ingredients || it.data.Ingredients || [],
+          ingredients: it.data.ingredients || it.data.Ingredients || []
         });
       }
     } catch {
-      // collection may not exist; ignore
+      // Collection may not exist; ignore.
     }
   }
 
