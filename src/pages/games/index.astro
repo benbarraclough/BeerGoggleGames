@@ -1,19 +1,35 @@
 ---
+import Layout from '../../layouts/Layout.astro'; // adjust if needed
 import { getCollection } from 'astro:content';
-const games = (await getCollection('games')).sort((a,b)=> a.data.title.localeCompare(b.data.title));
-const firstPage = games.slice(0,40);
-const total = games.length;
-const totalPages = Math.ceil(total / 40);
+const all = (await getCollection('games')).sort((a,b)=> a.data.title.localeCompare(b.data.title));
+const PER_PAGE = 40;
+const firstPage = all.slice(0, PER_PAGE);
+const totalPages = Math.ceil(all.length / PER_PAGE);
+const pageTitle = 'Games';
 ---
-<html lang="en">
-  <head><title>Games</title></head>
-  <body>
-    <h1>All Games</h1>
-    <p>Total: {total} {totalPages>1 && `(Page 1 of ${totalPages} – see pagination below)`}</p>
-    <ul>
-      {firstPage.map(g => <li><a href={`/games/${g.slug}/`}>{g.data.title}</a> <small>{g.data.type}</small></li>)}
+<Layout title={pageTitle}>
+  <section class="prose max-w-none">
+    <h1>{pageTitle}</h1>
+    <p>Total: {all.length}{totalPages > 1 && ` (Page 1 of ${totalPages})`}</p>
+    <ul class="columns-1 sm:columns-2 lg:columns-3 gap-4 !mt-4">
+      {firstPage.map(g => (
+        <li class="break-inside-avoid">
+          <a class="text-blue-600 hover:underline" href={`/games/${g.slug}/`}>{g.data.title}</a>
+          {g.data.type && <small class="text-gray-500"> ({g.data.type})</small>}
+        </li>
+      ))}
     </ul>
-    {totalPages>1 && <p>More pages: {Array.from({length: totalPages},(_,i)=> <a style="margin-right:.5rem;" href={`/games/page/${i+1}/`}>{i+1}</a>)}</p>}
-    <p><a href="/games/types/">Browse by Type</a></p>
-  </body>
-</html>
+    {totalPages > 1 && (
+      <p class="mt-4">
+        More pages:{' '}
+        {Array.from({ length: totalPages }, (_, i) => (
+          <a class="inline-block mr-2 text-blue-600 hover:underline" href={`/games/page/${i + 1}/`}>{i + 1}</a>
+        ))}
+      </p>
+    )}
+    <p class="mt-6 space-x-4">
+      <a class="text-blue-600 hover:underline" href="/games/types/">Browse by Type</a>
+      <a class="text-blue-600 hover:underline" href="/search">Search</a>
+    </p>
+  </section>
+</Layout>
