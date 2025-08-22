@@ -1,16 +1,16 @@
 import { getCollection } from 'astro:content';
 
 interface SearchItem {
-  c: string;          // collection slug used in link construction (e.g. 'games', 'drinks/cocktail-recipes')
-  slug: string;       // content slug (can contain subfolders)
+  c: string;
+  slug: string;
   title: string;
   excerpt?: string;
   type?: string;
   ingredients?: string[];
 }
 
-function norm(str: unknown) {
-  return typeof str === 'string' ? str : '';
+function norm(v: unknown) {
+  return typeof v === 'string' ? v : '';
 }
 
 export async function GET() {
@@ -26,17 +26,17 @@ export async function GET() {
     for (const g of games) {
       index.push({
         c: 'games',
-        slug: g.slug,             // g.slug includes type folder if present (e.g. "dice/beer-pong")
+        slug: g.slug,
         title: norm(g.data.title),
         excerpt: norm(g.data.excerpt),
-        type: norm(g.data.type),
+        type: norm(g.data.type)
       });
     }
 
     for (const c of cocktails) {
       index.push({
         c: 'drinks/cocktail-recipes',
-        slug: c.slug,             // usually plain slug
+        slug: c.slug,
         title: norm(c.data.title),
         excerpt: norm(c.data.excerpt),
         ingredients: Array.isArray(c.data.ingredients) ? c.data.ingredients.map(String) : undefined
@@ -64,7 +64,6 @@ export async function GET() {
     }
 
     for (const p of posts) {
-      // omit drafts if you use a draft flag
       if (p.data.draft) continue;
       index.push({
         c: 'blog',
@@ -81,9 +80,9 @@ export async function GET() {
       }
     });
   } catch (e: any) {
-    return new Response(JSON.stringify({ error: 'failed', detail: String(e?.message || e) }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' }
-    });
+    return new Response(
+      JSON.stringify({ error: 'failed', detail: String(e?.message || e) }),
+      { status: 500, headers: { 'Content-Type': 'application/json' } }
+    );
   }
 }
