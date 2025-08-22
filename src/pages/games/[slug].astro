@@ -12,14 +12,19 @@ export async function getStaticPaths() {
   }));
 }
 
-const base = import.meta.env.BASE_URL || '/';
+const rawBase = import.meta.env.BASE_URL || '/';
+let base = rawBase;
+if (!base.startsWith('/')) base = '/' + base;
+if (!base.endsWith('/')) base += '/';
+
 const { entry } = Astro.props;
+const { Content } = await entry.render();
+
 const title = entry.data.title;
 const type = entry.data.type;
 const description = entry.data.excerpt || `How to play ${title}.`;
 const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://benbarraclough.github.io/BeerGoggleGames').toString();
 
-// JSON-LD schema for a single game
 const gameLd = {
   '@context': 'https://schema.org',
   '@type': 'Game',
@@ -34,7 +39,7 @@ const gameLd = {
   <article class="prose max-w-none">
     <h1>{title}</h1>
     {type && <p><strong>Type:</strong> {type}</p>}
-    <div set:html={entry.body} />
+    <Content />
   </article>
 
   {type && (
