@@ -4,6 +4,8 @@ import { getCollection } from 'astro:content';
 import RelatedGames from '../../components/RelatedGames.astro';
 import StructuredData from '../../components/StructuredData.astro';
 import { withBase } from '../../lib/paths';
+import { canonical } from '../../lib/urls';
+import { gameLD } from '../../lib/schema';
 
 export async function getStaticPaths() {
   const games = await getCollection('games');
@@ -16,19 +18,16 @@ const { Content } = await entry.render();
 const title = entry.data.title;
 const type = entry.data.type;
 const description = entry.data.excerpt || `How to play ${title}.`;
-const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://benbarraclough.github.io/BeerGoggleGames').toString();
+const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 
-const gameLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Game',
-  name: title,
-  gameCategory: type || undefined,
+const ld = gameLD({
+  title,
   description,
-  url: canonical,
-  inLanguage: 'en'
-};
+  type,
+  url: pageCanonical
+});
 ---
-<Layout title={title} description={description}>
+<Layout title={title} description={description} canonical={pageCanonical}>
   <article class="prose prose-invert max-w-none">
     {type && <p><strong>Type:</strong> {type}</p>}
     <Content />
@@ -44,5 +43,5 @@ const gameLd = {
     <a class="hover:text-neon" href={withBase('games/')}>← All Games</a>
   </p>
 
-  <StructuredData data={gameLd} />
+  <StructuredData data={ld} />
 </Layout>
