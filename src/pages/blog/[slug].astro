@@ -4,17 +4,15 @@ import StructuredData from '../../components/StructuredData.astro';
 import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('posts').catch(() => []);
-  return posts.map(p => ({
-    params: { slug: p.slug },
-    props: { entry: p }
-  }));
+  const posts = await getCollection('posts').catch(()=>[]);
+  return posts.map(p => ({ params: { slug: p.slug }, props: { entry: p } }));
 }
 
 const rawBase = import.meta.env.BASE_URL || '/';
-let base = rawBase;
-if (!base.startsWith('/')) base = '/' + base;
-if (!base.endsWith('/')) base += '/';
+const base = (() => {
+  const t = rawBase.replace(/^\/+|\/+$/g,'');
+  return t ? `/${t}/` : '/';
+})();
 
 const { entry } = Astro.props;
 if (!entry) throw new Error('Post not found');
@@ -37,15 +35,12 @@ const blogLd = {
   author: { '@type': 'Person', name: authorName },
   publisher: { '@type': 'Organization', name: 'Beer Goggle Games' },
   url: canonical,
-  image: image
-    ? [image.startsWith('http') ? image : `${base}images/${image.replace(/^\/+/, '')}`]
-    : undefined,
+  image: image ? [image.startsWith('http') ? image : `${base}images/${image.replace(/^\/+/, '')}`] : undefined,
   inLanguage: 'en'
 };
 ---
 <Layout title={title} description={description}>
   <article class="prose max-w-none">
-    <h1>{title}</h1>
     {date && <p><time dateTime={date.toISOString()}>{date.toDateString()}</time></p>}
     <Content />
   </article>
