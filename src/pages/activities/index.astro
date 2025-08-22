@@ -2,11 +2,13 @@
 import Layout from '../../components/Layout.astro';
 import { getCollection } from 'astro:content';
 import { withBase } from '../../lib/paths';
+import { canonical } from '../../lib/urls';
 
 const items = (await getCollection('activities'))
   .sort((a,b)=>(a.data.title||'').localeCompare(b.data.title||''));
+const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 ---
-<Layout title="Activities">
+<Layout title="Activities" description="Party activities & minigames." canonical={pageCanonical}>
   <h1 class="font-display text-3xl mb-6">Activities</h1>
   {items.length === 0 ? (
     <p class="text-muted">No activities yet.</p>
@@ -16,12 +18,7 @@ const items = (await getCollection('activities'))
         const slug = (p.slug ?? p.id).split('/').pop();
         return (
           <li class="border border-fg/20 p-4">
-            <a
-              class="font-semibold hover:text-neon"
-              href={withBase(`activities/${slug}/`)}
-            >
-              {p.data.title}
-            </a>
+            <a class="font-semibold hover:text-neon" href={withBase(`activities/${slug}/`)}>{p.data.title}</a>
             {p.data.difficulty && (
               <div class="text-xs text-muted mt-2">
                 Difficulty: {p.data.difficulty}
