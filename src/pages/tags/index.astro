@@ -1,0 +1,21 @@
+---
+import { getCollection } from 'astro:content';
+const collections = ['games','cocktails','shots','activities','posts'];
+const entries = (await Promise.all(collections.map(c=>getCollection(c).catch(()=>[])))).flat();
+const tagSet = new Set();
+entries.forEach(e => {
+  const tags = e.data.tags || [];
+  tags.forEach(t => tagSet.add(t));
+});
+const tags = [...tagSet].sort();
+---
+<html lang="en">
+  <head><title>Tags</title></head>
+  <body>
+    <h1>Tags</h1>
+    {tags.length === 0 && <p>No tags yet.</p>}
+    <ul>
+      {tags.map(t => <li><a href={`/tags/${t}/`}>{t}</a></li>)}
+    </ul>
+  </body>
+</html>
