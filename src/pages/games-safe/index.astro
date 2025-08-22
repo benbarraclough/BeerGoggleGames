@@ -1,0 +1,26 @@
+---
+import { getCollection } from 'astro:content';
+const unsafeWords = ['fuck','shit','cunt','twat']; // extend
+function censor(str){
+  let s = str;
+  unsafeWords.forEach(w => {
+    const re = new RegExp(w,'ig');
+    s = s.replace(re, w[0] + '*'.repeat(w.length-1));
+  });
+  return s;
+}
+const games = (await getCollection('games')).sort((a,b)=> a.data.title.localeCompare(b.data.title));
+---
+<html lang="en">
+  <head><title>Games (Safe List)</title></head>
+  <body>
+    <h1>Games (Safe List)</h1>
+    <ul>
+      {games.map(g => {
+        const safeSlug = g.data.safe_slug || g.slug;
+        return <li><a href={`/games/${g.slug}/`}>{censor(g.data.title)}</a>{g.data.safe_slug && <small> (alias: {safeSlug})</small>}</li>;
+      })}
+    </ul>
+    <p>Include safe_slug in frontmatter to define clean aliases (not separate routes by default).</p>
+  </body>
+</html>
