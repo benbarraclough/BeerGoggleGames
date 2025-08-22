@@ -18,6 +18,14 @@ const games = defineCollection({
   })
 });
 
+const activities = defineCollection({
+  type: 'content',
+  schema: z.object({
+    ...baseFields,
+    difficulty: z.string().optional()
+  })
+});
+
 const cocktails = defineCollection({
   type: 'content',
   schema: z.object({
@@ -44,4 +52,4 @@ const posts = defineCollection({
   })
 });
 
-export const collections = { games, cocktails, shots, posts };
+export const collections = { games, activities, cocktails, shots, posts };
