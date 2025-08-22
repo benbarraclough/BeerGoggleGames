@@ -4,18 +4,34 @@ import Analytics from './Analytics.astro';
 import SkipLink from './SkipLink.astro';
 import { base, withBase } from '../lib/paths';
 
+interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+  canonical?: string;
+  wide?: boolean;      // max-w-7xl
+  fullBleed?: boolean; // no max width constraint
+}
+
 const {
   title = 'Beer Goggle Games',
   description = 'Drinking games, cocktails, party activities & more.',
   ogImage,
-  canonical
-} = Astro.props;
+  canonical,
+  wide = false,
+  fullBleed = false
+} = Astro.props as Props;
 
 const current = Astro.url.pathname;
 function isActive(segment: string) {
   const normalized = segment.endsWith('/') ? segment : segment + '/';
   return current.startsWith(withBase(normalized));
 }
+
+const mainClass = [
+  'grow mx-auto w-full px-4 py-8',
+  fullBleed ? '' : (wide ? 'max-w-7xl' : 'max-w-6xl')
+].join(' ');
 ---
 <!DOCTYPE html>
 <html lang="en" class="bg-bg text-fg font-body antialiased" data-base={base}>
@@ -33,13 +49,13 @@ function isActive(segment: string) {
   <body class="min-h-screen flex flex-col selection:bg-neon/40">
     <SkipLink />
     <header class="border-b border-fg/20">
-      <div class="mx-auto max-w-6xl px-4 py-4 flex items-center justify-between">
+      <div class="mx-auto max-w-7xl px-4 py-4 flex items-center justify-between">
         <a href={withBase()} class="font-display text-2xl tracking-tight hover:text-neon">
           BeerGoggleGames
         </a>
         <nav class="flex flex-wrap gap-4 text-sm">
           <a href={withBase('games/')} class:list={['hover:text-neon', isActive('games') && 'text-neon font-semibold']} aria-current={isActive('games') ? 'page' : undefined}>Games</a>
-          <a href={withBase('drinks/')} class:list={['hover:text-neon', isActive('drinks') && 'text-neon font-semibold']} aria-current={isActive('drinks') ? 'page' : undefined}>Drinks</a>
+            <a href={withBase('drinks/')} class:list={['hover:text-neon', isActive('drinks') && 'text-neon font-semibold']} aria-current={isActive('drinks') ? 'page' : undefined}>Drinks</a>
           <a href={withBase('activities/')} class:list={['hover:text-neon', isActive('activities') && 'text-neon font-semibold']} aria-current={isActive('activities') ? 'page' : undefined}>Activities</a>
           <a href={withBase('blog/')} class:list={['hover:text-neon', isActive('blog') && 'text-neon font-semibold']} aria-current={isActive('blog') ? 'page' : undefined}>Blog</a>
           <a href={withBase('search')} class:list={['hover:text-neon', isActive('search') && 'text-neon font-semibold']} aria-current={isActive('search') ? 'page' : undefined}>Search</a>
@@ -47,11 +63,11 @@ function isActive(segment: string) {
         </nav>
       </div>
     </header>
-    <main id="main" class="grow mx-auto max-w-6xl px-4 py-8">
+    <main id="main" class={mainClass}>
       <slot />
     </main>
     <footer class="border-t border-fg/20">
-      <div class="mx-auto max-w-6xl px-4 py-6 text-sm text-muted flex items-center justify-between">
+      <div class="mx-auto max-w-7xl px-4 py-6 text-sm text-muted flex items-center justify-between">
         <span>© {new Date().getFullYear()} Beer Goggle Games</span>
         <a class="hover:text-neon" href={withBase('rss.xml')}>RSS</a>
       </div>
