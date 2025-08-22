@@ -1,0 +1,44 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import StructuredData from '../../components/StructuredData.astro';
+
+export async function getStaticPaths() {
+  const acts = await getCollection('activities').catch(() => []);
+  return acts.map(a => ({
+    params: { slug: a.slug },
+    props: { entry: a }
+  }));
+}
+
+const base = import.meta.env.BASE_URL || '/';
+const { entry } = Astro.props;
+const title = entry?.data?.title || 'Activity';
+if (!entry) {
+  throw new Error('Activity not found');
+}
+const description = entry.data.excerpt || `Party activity: ${title}.`;
+const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://benbarraclough.github.io/BeerGoggleGames').toString();
+const gameLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Game',
+  name: title,
+  description,
+  url: canonical,
+  gameCategory: entry.data.category || entry.data.type || undefined,
+  inLanguage: 'en'
+};
+---
+<Layout title={title} description={description}>
+  <article class="prose max-w-none">
+    <h1>{title}</h1>
+    {entry.data.type && <p><strong>Type:</strong> {entry.data.type}</p>}
+    <div set:html={entry.body} />
+  </article>
+
+  <p class="mt-8">
+    <a class="text-blue-600 hover:underline" href={`${base}activities/`}>← All Activities</a>
+  </p>
+
+  <StructuredData data={gameLd} />
+</Layout>
