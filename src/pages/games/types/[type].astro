@@ -1,4 +1,5 @@
 ---
+import Layout from '../../../layouts/Layout.astro'; // adjust
 import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -8,17 +9,24 @@ export async function getStaticPaths() {
 }
 
 const { type } = Astro.props;
-const games = (await getCollection('games'))
+const items = (await getCollection('games'))
   .filter(g => g.data.type === type)
   .sort((a,b)=> a.data.title.localeCompare(b.data.title));
+const pageTitle = `${type} Games`;
 ---
-<html lang="en">
-  <head><title>{type} Games</title></head>
-  <body>
-    <h1>{type} Games</h1>
-    <ul>
-      {games.map(g => <li><a href={`/games/${g.slug}/`}>{g.data.title}</a></li>)}
+<Layout title={pageTitle}>
+  <section class="prose max-w-none">
+    <h1>{pageTitle}</h1>
+    <ul class="columns-1 sm:columns-2 lg:columns-3 gap-4 !mt-4">
+      {items.map(g => (
+        <li class="break-inside-avoid">
+          <a class="text-blue-600 hover:underline" href={`/games/${g.slug}/`}>{g.data.title}</a>
+        </li>
+      ))}
     </ul>
-    <p><a href="/games/types/">All Types</a></p>
-  </body>
-</html>
+    <p class="mt-6 space-x-4">
+      <a class="text-blue-600 hover:underline" href="/games/types/">All Types</a>
+      <a class="text-blue-600 hover:underline" href="/games/">All Games</a>
+    </p>
+  </section>
+</Layout>
