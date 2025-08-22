@@ -3,33 +3,34 @@ import Layout from '../../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 
 /**
- * Pagination page for games.
- * Fix for build error: ensure PER_PAGE is defined before any reference.
+ * Games pagination page.
+ * Refactored so PER_PAGE is defined inside every scope that needs it,
+ * eliminating any chance of an undefined reference during getStaticPaths.
  */
-const PER_PAGE = 40;
 
 export async function getStaticPaths() {
+  const PER_PAGE = 40;
   const games = await getCollection('games').catch(() => []);
   const totalPages = Math.max(1, Math.ceil(games.length / PER_PAGE));
   return Array.from({ length: totalPages }, (_, i) => ({
     params: { page: String(i + 1) },
-    props: { currentPage: i + 1, totalPages, totalItems: games.length }
+    props: { currentPage: i + 1, totalPages, totalItems: games.length, perPage: PER_PAGE }
   }));
 }
 
 const base = import.meta.env.BASE_URL || '/';
-const { currentPage, totalPages, totalItems } = Astro.props;
+const { currentPage, totalPages, totalItems, perPage } = Astro.props;
 
-// Re-fetch (Astro recommended pattern; data fetching here is fine)
+// Use the perPage value passed via props (fallback to 40 if absent)
+const PER_PAGE = typeof perPage === 'number' ? perPage : 40;
+
 const all = (await getCollection('games').catch(() => []))
   .sort((a, b) => a.data.title.localeCompare(b.data.title));
 
 const start = (currentPage - 1) * PER_PAGE;
 const items = all.slice(start, start + PER_PAGE);
 
-const pageTitle = totalPages > 1
-  ? `Games – Page ${currentPage}`
-  : 'Games';
+const pageTitle = totalPages > 1 ? `Games – Page ${currentPage}` : 'Games';
 ---
 <Layout title={pageTitle}>
   <section class="prose max-w-none">
