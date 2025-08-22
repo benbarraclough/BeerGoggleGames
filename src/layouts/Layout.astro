@@ -1,8 +1,4 @@
 ---
-/**
- * Generic site layout using Astro's BASE_URL for GitHub Pages compatibility.
- * Pass optional { title, description, noindex } when using.
- */
 const {
   title = 'Beer Goggle Games',
   description = 'Drinking games, cocktails, party activities & more.',
@@ -12,6 +8,8 @@ const {
 const siteTitle = 'Beer Goggle Games';
 const fullTitle = title === siteTitle ? title : `${title} | ${siteTitle}`;
 const base = import.meta.env.BASE_URL || '/';
+const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://benbarraclough.github.io/BeerGoggleGames').toString();
+const ogImage = `${base}og-default.png`; // Add an og-default.png under public/ if not present
 ---
 <!DOCTYPE html>
 <html lang="en" class="h-full">
@@ -20,7 +18,17 @@ const base = import.meta.env.BASE_URL || '/';
     <title>{fullTitle}</title>
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     {description && <meta name="description" content={description} />}
+    <link rel="canonical" href={canonical} />
     {noindex && <meta name="robots" content="noindex" />}
+    <meta property="og:title" content={fullTitle} />
+    {description && <meta property="og:description" content={description} />}
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    {description && <meta name="twitter:description" content={description} />}
+    <meta name="twitter:image" content={ogImage} />
     <link rel="icon" type="image/png" href={`${base}favicon.png`} />
   </head>
   <body class="min-h-screen bg-white text-gray-900 antialiased">
@@ -30,10 +38,11 @@ const base = import.meta.env.BASE_URL || '/';
         <nav class="flex flex-wrap gap-4 text-sm">
           <a href={`${base}games/`} class="hover:underline">Games</a>
           <a href={`${base}cocktails/`} class="hover:underline">Cocktails</a>
-            <a href={`${base}shots/`} class="hover:underline">Shots</a>
+          <a href={`${base}shots/`} class="hover:underline">Shots</a>
           <a href={`${base}activities/`} class="hover:underline">Activities</a>
           <a href={`${base}posts/`} class="hover:underline">Posts</a>
           <a href={`${base}games/types/`} class="hover:underline">Types</a>
+          <a href={`${base}games/random/`} class="hover:underline">Random</a>
           <a href={`${base}tags/`} class="hover:underline">Tags</a>
           <a href={`${base}search`} class="hover:underline">Search</a>
         </nav>
