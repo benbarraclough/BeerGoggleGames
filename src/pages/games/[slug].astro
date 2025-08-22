@@ -20,16 +20,12 @@ const type = entry.data.type;
 const description = entry.data.excerpt || `How to play ${title}.`;
 const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 
-const ld = gameLD({
-  title,
-  description,
-  type,
-  url: pageCanonical
-});
+const ld = gameLD({ title, description, type, url: pageCanonical });
 ---
 <Layout title={title} description={description} canonical={pageCanonical}>
   <article class="prose prose-invert max-w-none">
-    {type && <p><strong>Type:</strong> {type}</p>}
+    <h1 class="!mb-4 !leading-tight !text-fg font-display text-3xl md:text-4xl">{title}</h1>
+    {type && <p class="!mt-0"><strong>Type:</strong> {type}</p>}
     <Content />
   </article>
 
@@ -39,8 +35,8 @@ const ld = gameLD({
     </div>
   )}
 
-  <p class="mt-8">
-    <a class="hover:text-neon" href={withBase('games/')}>← All Games</a>
+  <p class="mt-10">
+    <a class="hover:text-neon underline underline-offset-4" href={withBase('games/')}>← All Games</a>
   </p>
 
   <StructuredData data={ld} />
