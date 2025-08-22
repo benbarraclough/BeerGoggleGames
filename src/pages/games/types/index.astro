@@ -1,0 +1,15 @@
+---
+import { getCollection } from 'astro:content';
+const games = await getCollection('games');
+const types = [...new Set(games.map(g => g.data.type).filter(Boolean))].sort();
+---
+<html lang="en">
+  <head><title>Game Types</title></head>
+  <body>
+    <h1>Game Types</h1>
+    <ul>
+      {types.map(t => <li><a href={`/games/types/${t}/`}>{t} ({games.filter(g => g.data.type===t).length})</a></li>)}
+    </ul>
+    <p><a href="/games/">All Games</a></p>
+  </body>
+</html>
