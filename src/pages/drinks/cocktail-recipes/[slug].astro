@@ -37,6 +37,7 @@ const ld = recipeLD({
 ---
 <Layout title={title} description={description} canonical={pageCanonical}>
   <article class="prose prose-invert max-w-none">
+    <h1 class="!mb-4 !leading-tight !text-fg font-display text-3xl md:text-4xl">{title}</h1>
     {ingredients.length > 0 && (
       <>
         <h2>Ingredients</h2>
@@ -60,8 +61,8 @@ const ld = recipeLD({
     <RelatedCocktails currentSlug={entry.slug} ingredients={ingredients} />
   </div>
 
-  <p class="mt-8">
-    <a class="hover:text-neon" href={withBase('drinks/cocktail-recipes/')}>← All Cocktails</a>
+  <p class="mt-10">
+    <a class="hover:text-neon underline underline-offset-4" href={withBase('drinks/cocktail-recipes/')}>← All Cocktails</a>
   </p>
 
   <StructuredData data={ld} />
