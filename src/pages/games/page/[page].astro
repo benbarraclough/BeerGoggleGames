@@ -1,0 +1,35 @@
+---
+import { getCollection } from 'astro:content';
+import { paginate } from '../../../utils/paginate.js';
+
+export async function getStaticPaths() {
+  const games = await getCollection('games');
+  const sorted = games.sort((a,b)=> a.data.title.localeCompare(b.data.title));
+  const { totalPages } = paginate(sorted, 40);
+  return Array.from({length: totalPages}, (_,i)=> ({
+    params: { page: String(i+1) },
+    props: { page: i+1, totalPages }
+  }));
+}
+
+const { page, totalPages } = Astro.props;
+const gamesAll = await getCollection('games');
+const sorted = gamesAll.sort((a,b)=> a.data.title.localeCompare(b.data.title));
+import { paginate } from '../../../utils/paginate.js';
+const { slice } = paginate(sorted, 40);
+const pageItems = slice(page);
+---
+<html lang="en">
+  <head><title>Games – Page {page}</title></head>
+  <body>
+    <h1>Games (Page {page} / {totalPages})</h1>
+    <ul>
+      {pageItems.map(g => <li><a href={`/games/${g.slug}/`}>{g.data.title}</a> <small>{g.data.type}</small></li>)}
+    </ul>
+    <nav>
+      {page > 1 && <a href={`/games/page/${page-1}/`}>Prev</a>}{" "}
+      {page < totalPages && <a href={`/games/page/${page+1}/`}>Next</a>}
+    </nav>
+    <p><a href="/games/">Games Index</a></p>
+  </body>
+</html>
