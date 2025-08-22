@@ -1,14 +1,41 @@
 ---
 import Analytics from './Analytics.astro';
 import '../styles.css';
+
 const {
   title = 'BeerGoggleGames',
   description = 'Drinking games, cocktails, and chaos—curated.',
   ogImage
 } = Astro.props;
-const base = import.meta.env.BASE_URL || '/';
+
+// Raw value from Astro/Vite
+const rawBase = import.meta.env.BASE_URL || '/';
+
+// Normalize to always: leading slash, single trailing slash (except just '/')
+function normalizeBase(b) {
+  if (!b) return '/';
+  // Strip whitespace
+  b = b.trim();
+  // Ensure leading slash
+  if (!b.startsWith('/')) b = '/' + b;
+  // Remove extra trailing slashes
+  b = b.replace(/\/+$/,'');
+  // Add exactly one trailing slash unless root
+  if (b !== '/') b = b + '/';
+  return b;
+}
+const base = normalizeBase(rawBase);
+
+// Helper to create URLs safely (never double slash in middle)
+function withBase(path = '') {
+  const p = String(path);
+  if (!p) return base;
+  return base + p.replace(/^\/+/, '');
+}
+
+// (Optional) expose base to other scripts via a data attribute if needed
 ---
-<html lang="en" class="bg-bg text-fg">
+<html lang="en" class="bg-bg text-fg" data-base={base}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -16,88 +43,54 @@ const base = import.meta.env.BASE_URL || '/';
     <meta name="description" content={description} />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono:wght@500&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono:wght@500&family=Space+Grotesk:wght@700&display=swap"
+      rel="stylesheet"
+    >
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    {ogImage && <meta property="og:image" content={ogImage} />}
+    {ogImage && <meta property="og:image" content={withBase(ogImage.replace(/^\/+/, ''))} />}
   </head>
   <body class="min-h-screen">
-    <header class="sticky top-0 z-50 bg-bg/80 backdrop-blur border-b border-fg/20">
-      <div class="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between">
-        <a href={`${base}`} class="font-display text-2xl tracking-tight hover:text-neon">BeerGoggleGames</a>
-        <nav class="hidden md:flex gap-5 text-sm">
-          <a class="hover:text-neon" href={`${base}games`}>Games</a>
-            <a class="hover:text-neon" href={`${base}drinks`}>Drinks</a>
-            <a class="hover:text-neon" href={`${base}extras`}>Extras</a>
-            <a class="hover:text-neon" href={`${base}blog`}>Blog</a>
-            <a class="hover:text-neon" href={`${base}about`}>About</a>
-            <a class="hover:text-neon" href={`${base}contact`}>Contact</a>
+    <header class="border-b border-fg/20">
+      <div class="mx-auto max-w-6xl px-4 py-4 flex items-center justify-between">
+        <a href={withBase()} class="font-display text-2xl tracking-tight hover:text-neon">BeerGoggleGames</a>
+        <nav class="flex gap-4 text-sm">
+          <a class="hover:text-neon" href={withBase('games/')}>Games</a>
+          <a class="hover:text-neon" href={withBase('drinks/')}>Drinks</a>
+          <a class="hover:text-neon" href={withBase('extras/')}>Extras</a>
+          <a class="hover:text-neon" href={withBase('blog/')}>Blog</a>
+          <a class="hover:text-neon" href={withBase('about')}>About</a>
+          <a class="hover:text-neon" href={withBase('contact')}>Contact</a>
         </nav>
-        <button
-          id="menuBtn"
-          class="md:hidden p-2 border border-fg/30"
-          aria-controls="mobileMenu"
-          aria-expanded="false"
-          aria-label="Toggle menu">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
-        </button>
       </div>
-      <nav id="mobileMenu" class="md:hidden hidden border-t border-fg/20">
-        <div class="mx-auto max-w-6xl px-4 py-3 grid gap-3 text-base">
-          <a class="hover:text-neon" href={`${base}games`}>Games</a>
-          <a class="hover:text-neon" href={`${base}drinks`}>Drinks</a>
-          <a class="hover:text-neon" href={`${base}extras`}>Extras</a>
-          <a class="hover:text-neon" href={`${base}blog`}>Blog</a>
-          <a class="hover:text-neon" href={`${base}about`}>About</a>
-          <a class="hover:text-neon" href={`${base}contact`}>Contact</a>
-        </div>
-      </nav>
     </header>
-
     <main class="mx-auto max-w-6xl px-4 py-8">
       <slot />
     </main>
-
     <footer class="border-t border-fg/20">
-      <div class="mx-auto max-w-6xl px-4 py-6 text-sm text-muted">
-        <div class="flex items-center justify-between">
-          <span>© {new Date().getFullYear()} BeerGoggleGames</span>
-          <a class="hover:text-neon" href={`${base}search`}>Search</a>
-        </div>
+      <div class="mx-auto max-w-6xl px-4 py-6 text-sm text-muted flex items-center justify-between">
+        <span>© {new Date().getFullYear()} BeerGoggleGames</span>
+        <a class="hover:text-neon" href={withBase('search')}>Search</a>
       </div>
     </footer>
-
     <script is:inline>
       (function(){
-        var basePath = {JSON.stringify(base)};
-        try {
-          var p = location.pathname;
-          if (!p.startsWith(basePath)) return;
-          var rest = p.slice(basePath.length);
-          var normalizedRest = rest
-            .replace(/%26/g,'and')
-            .replace(/&/g,'and')
-            .replace(/ /g,'-')
-            .replace(/[A-Z]/g,m=>m.toLowerCase());
-          var normalized = basePath + normalizedRest;
-            if (normalized !== p) { history.replaceState({}, '', normalized); }
-        } catch(e) {}
-      })();
-      (function(){
-        var btn = document.getElementById('menuBtn');
-        var menu = document.getElementById('mobileMenu');
-        if (!btn || !menu) return;
-        btn.addEventListener('click', function(){
-          var open = !menu.classList.contains('hidden');
-          if (open){
-            menu.classList.add('hidden');
-            btn.setAttribute('aria-expanded','false');
-          } else {
-            menu.classList.remove('hidden');
-            btn.setAttribute('aria-expanded','true');
+        // Diagnostic: remove after confirming
+        console.log('DEBUG base values:', {
+          rawBase: {JSON.stringify(rawBase)},
+          normalizedBase: {JSON.stringify(base)}
+        });
+        // If for some reason links were rendered without leading slash (shouldn't happen now),
+        // force-fix any anchor without protocol that starts with "BeerGoggleGames"
+        var norm = {JSON.stringify(base)};
+        document.querySelectorAll('a[href]').forEach(a=>{
+          var h = a.getAttribute('href');
+            // Already absolute or starts with '/'
+          if (/^[a-zA-Z]+:/.test(h) || h.startsWith('/')) return;
+          if (h.startsWith(norm.replace(/^\/+/,''))) {
+            // Ensure it has a leading slash
+            a.setAttribute('href','/' + h);
           }
         });
       })();
