@@ -1,15 +1,24 @@
 ---
+import Layout from '../../../layouts/Layout.astro'; // adjust
 import { getCollection } from 'astro:content';
 const games = await getCollection('games');
 const types = [...new Set(games.map(g => g.data.type).filter(Boolean))].sort();
+const pageTitle = 'Game Types';
 ---
-<html lang="en">
-  <head><title>Game Types</title></head>
-  <body>
-    <h1>Game Types</h1>
-    <ul>
-      {types.map(t => <li><a href={`/games/types/${t}/`}>{t} ({games.filter(g => g.data.type===t).length})</a></li>)}
+<Layout title={pageTitle}>
+  <section class="prose max-w-none">
+    <h1>{pageTitle}</h1>
+    <ul class="grid gap-2 sm:grid-cols-2 md:grid-cols-3">
+      {types.map(t => (
+        <li>
+          <a class="block border rounded px-3 py-2 hover:bg-gray-50" href={`/games/types/${t}/`}>
+            {t} <small class="text-gray-500">({games.filter(g => g.data.type === t).length})</small>
+          </a>
+        </li>
+      ))}
     </ul>
-    <p><a href="/games/">All Games</a></p>
-  </body>
-</html>
+    <p class="mt-6">
+      <a class="text-blue-600 hover:underline" href="/games/">Back to Games</a>
+    </p>
+  </section>
+</Layout>
