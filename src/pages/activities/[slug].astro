@@ -11,14 +11,19 @@ export async function getStaticPaths() {
   }));
 }
 
-const base = import.meta.env.BASE_URL || '/';
+const rawBase = import.meta.env.BASE_URL || '/';
+let base = rawBase;
+if (!base.startsWith('/')) base = '/' + base;
+if (!base.endsWith('/')) base += '/';
+
 const { entry } = Astro.props;
-const title = entry?.data?.title || 'Activity';
-if (!entry) {
-  throw new Error('Activity not found');
-}
+if (!entry) throw new Error('Activity not found');
+const { Content } = await entry.render();
+
+const title = entry.data.title || 'Activity';
 const description = entry.data.excerpt || `Party activity: ${title}.`;
 const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://benbarraclough.github.io/BeerGoggleGames').toString();
+
 const gameLd = {
   '@context': 'https://schema.org',
   '@type': 'Game',
@@ -33,7 +38,7 @@ const gameLd = {
   <article class="prose max-w-none">
     <h1>{title}</h1>
     {entry.data.type && <p><strong>Type:</strong> {entry.data.type}</p>}
-    <div set:html={entry.body} />
+    <Content />
   </article>
 
   <p class="mt-8">
