@@ -1,11 +1,13 @@
 ---
-import Layout from '../layouts/Layout.astro'; // Adjust path/name if different
+import Layout from '../layouts/Layout.astro'; // If your layout ended up elsewhere, adjust this path.
 const pageTitle = 'Search';
+const base = import.meta.env.BASE_URL || '/BeerGoggleGames/';
 ---
 <Layout title={pageTitle}>
   <section class="prose max-w-none">
     <h1>{pageTitle}</h1>
-    <p>Type to search games, cocktails, shots, activities, posts. Press Enter or just pause typing.</p>
+    <p>Type to search games, cocktails, shots, activities, posts. Results show live.</p>
+
     <div class="mb-4">
       <input
         id="q"
@@ -23,11 +25,10 @@ const pageTitle = 'Search';
     const input = document.getElementById('q');
     const list = document.getElementById('results');
     const status = document.getElementById('status');
-
     let data = [];
     let ready = false;
 
-    function renderResults(items) {
+    function render(items) {
       list.innerHTML = '';
       if (!items.length) {
         list.innerHTML = '<li class="text-gray-500">No results.</li>';
@@ -36,14 +37,14 @@ const pageTitle = 'Search';
       const frag = document.createDocumentFragment();
       items.forEach(m => {
         const li = document.createElement('li');
-        li.innerHTML = `<a class="text-blue-600 hover:underline" href='/${m.c}/${m.slug}/'>${m.title}</a>
+        li.innerHTML = `<a class="text-blue-600 hover:underline" href='${base}${m.c}/${m.slug}/'>${m.title}</a>
           <small class="text-gray-500">(${m.c}${m.type ? ' · ' + m.type : ''})</small>`;
         frag.appendChild(li);
       });
       list.appendChild(frag);
     }
 
-    function search(q) {
+    function doSearch(q) {
       if (!ready) return;
       const term = q.trim().toLowerCase();
       if (!term) {
@@ -58,18 +59,19 @@ const pageTitle = 'Search';
           .toLowerCase();
         return terms.every(t => hay.includes(t));
       }).slice(0, 100);
-      renderResults(matches);
+      render(matches);
     }
 
-    input.addEventListener('input', () => search(input.value));
+    input.addEventListener('input', () => doSearch(input.value));
     input.addEventListener('keydown', e => {
       if (e.key === 'Enter') {
         e.preventDefault();
-        search(input.value);
+        doSearch(input.value);
       }
     });
 
-    fetch('/search-index.json')
+    const indexUrl = base + 'search-index.json'; // Works with base path.
+    fetch(indexUrl)
       .then(r => r.json())
       .then(json => {
         data = json;
