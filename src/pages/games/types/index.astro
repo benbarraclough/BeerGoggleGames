@@ -1,6 +1,7 @@
 ---
-import Layout from '../../../layouts/Layout.astro'; // adjust
+import Layout from '../../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
+const base = import.meta.env.BASE_URL || '/';
 const games = await getCollection('games');
 const types = [...new Set(games.map(g => g.data.type).filter(Boolean))].sort();
 const pageTitle = 'Game Types';
@@ -11,14 +12,14 @@ const pageTitle = 'Game Types';
     <ul class="grid gap-2 sm:grid-cols-2 md:grid-cols-3">
       {types.map(t => (
         <li>
-          <a class="block border rounded px-3 py-2 hover:bg-gray-50" href={`/games/types/${t}/`}>
+          <a class="block border rounded px-3 py-2 hover:bg-gray-50" href={`${base}games/types/${t}/`}>
             {t} <small class="text-gray-500">({games.filter(g => g.data.type === t).length})</small>
           </a>
         </li>
       ))}
     </ul>
     <p class="mt-6">
-      <a class="text-blue-600 hover:underline" href="/games/">Back to Games</a>
+      <a class="text-blue-600 hover:underline" href={`${base}games/`}>Back to Games</a>
     </p>
   </section>
 </Layout>
