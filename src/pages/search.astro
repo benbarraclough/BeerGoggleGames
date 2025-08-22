@@ -1,7 +1,7 @@
 ---
 import Layout from '../components/Layout.astro';
 import { canonical } from '../lib/urls';
-import { base, withBase } from '../lib/paths';
+import { base } from '../lib/paths';
 
 const pageTitle = 'Search';
 const pageCanonical = canonical(Astro.url.pathname, Astro.site);
@@ -26,7 +26,6 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
   </section>
 
   <script is:inline>
-    // base path injected at build
     const BASE = {JSON.stringify(base)};
     const input = document.getElementById('q');
     const list = document.getElementById('results');
@@ -48,9 +47,9 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       for (const m of items) {
         const li = document.createElement('li');
         const title = escapeHTML(m.title);
-        const type = escapeHTML(m.c + (m.type ? ' · ' + m.type : ''));
+        const typeTxt = escapeHTML(m.c + (m.type ? ' · ' + m.type : ''));
         li.innerHTML = \`<a class="hover:text-neon font-medium" href="\${BASE}\${m.c}/\${m.slug}/">\${title}</a>
-          <small class="text-muted ml-1">(\${type})</small>\`;
+          <small class="text-muted ml-1">(\${typeTxt})</small>\`;
         frag.appendChild(li);
       }
       list.appendChild(frag);
@@ -83,13 +82,17 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
     });
 
     fetch(BASE + 'search-index.json')
-      .then(r => r.ok ? r.json() : Promise.reject(r.status))
+      .then(r => {
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        return r.json();
+      })
       .then(json => {
         data = json;
         ready = true;
         status.textContent = 'Index loaded. Start typing.';
       })
-      .catch(() => {
+      .catch(err => {
+        console.error('Search index load error:', err);
         status.textContent = 'Failed to load search index.';
       });
   </script>
