@@ -1,0 +1,10 @@
+---
+/**
+ * Usage:
+ * <StructuredData data={objectOrArray} />
+ * Renders a single <script type="application/ld+json"> with JSON-LD.
+ */
+const { data } = Astro.props;
+const json = JSON.stringify(data, null, 2);
+---
+<script type="application/ld+json">{json}</script>
