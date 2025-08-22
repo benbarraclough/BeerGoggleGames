@@ -1,99 +1,64 @@
 ---
-import Analytics from './Analytics.astro';
 import '../styles.css';
+import Analytics from './Analytics.astro';
 
 const {
-  title = 'BeerGoggleGames',
-  description = 'Drinking games, cocktails, and chaos—curated.',
+  title = 'Beer Goggle Games',
+  description = 'Drinking games, cocktails, party activities & more.',
   ogImage
 } = Astro.props;
 
-// Raw value from Astro/Vite
-const rawBase = import.meta.env.BASE_URL || '/';
-
-// Normalize to always: leading slash, single trailing slash (except just '/')
+// Normalize base: always leading slash, single trailing slash unless root.
 function normalizeBase(b) {
   if (!b) return '/';
-  // Strip whitespace
   b = b.trim();
-  // Ensure leading slash
   if (!b.startsWith('/')) b = '/' + b;
-  // Remove extra trailing slashes
   b = b.replace(/\/+$/,'');
-  // Add exactly one trailing slash unless root
-  if (b !== '/') b = b + '/';
-  return b;
+  return b === '' ? '/' : b + '/';
 }
+
+const rawBase = import.meta.env.BASE_URL || '/';
 const base = normalizeBase(rawBase);
 
-// Helper to create URLs safely (never double slash in middle)
 function withBase(path = '') {
-  const p = String(path);
-  if (!p) return base;
-  return base + p.replace(/^\/+/, '');
+  const p = path.replace(/^\/+/, '');
+  return base + p;
 }
-
-// (Optional) expose base to other scripts via a data attribute if needed
 ---
+<!DOCTYPE html>
 <html lang="en" class="bg-bg text-fg" data-base={base}>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono:wght@500&family=Space+Grotesk:wght@700&display=swap"
-      rel="stylesheet"
-    >
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     {ogImage && <meta property="og:image" content={withBase(ogImage.replace(/^\/+/, ''))} />}
   </head>
-  <body class="min-h-screen">
+  <body class="min-h-screen flex flex-col">
     <header class="border-b border-fg/20">
       <div class="mx-auto max-w-6xl px-4 py-4 flex items-center justify-between">
         <a href={withBase()} class="font-display text-2xl tracking-tight hover:text-neon">BeerGoggleGames</a>
         <nav class="flex gap-4 text-sm">
-          <a class="hover:text-neon" href={withBase('games/')}>Games</a>
-          <a class="hover:text-neon" href={withBase('drinks/')}>Drinks</a>
-          <a class="hover:text-neon" href={withBase('extras/')}>Extras</a>
-          <a class="hover:text-neon" href={withBase('blog/')}>Blog</a>
-          <a class="hover:text-neon" href={withBase('about')}>About</a>
-          <a class="hover:text-neon" href={withBase('contact')}>Contact</a>
+          <a href={withBase('games/')} class="hover:text-neon">Games</a>
+          <a href={withBase('drinks/')} class="hover:text-neon">Drinks</a>
+          <a href={withBase('activities/')} class="hover:text-neon">Activities</a>
+          <a href={withBase('blog/')} class="hover:text-neon">Blog</a>
+          <a href={withBase('search')} class="hover:text-neon">Search</a>
+          <a href={withBase('contact')} class="hover:text-neon">Contact</a>
         </nav>
       </div>
     </header>
-    <main class="mx-auto max-w-6xl px-4 py-8">
+    <main class="grow mx-auto max-w-6xl px-4 py-8">
       <slot />
     </main>
     <footer class="border-t border-fg/20">
       <div class="mx-auto max-w-6xl px-4 py-6 text-sm text-muted flex items-center justify-between">
-        <span>© {new Date().getFullYear()} BeerGoggleGames</span>
-        <a class="hover:text-neon" href={withBase('search')}>Search</a>
+        <span>© {new Date().getFullYear()} Beer Goggle Games</span>
+        <a class="hover:text-neon" href={withBase('rss.xml')}>RSS</a>
       </div>
     </footer>
     <script is:inline>
-      (function(){
-        // Diagnostic: remove after confirming
-        console.log('DEBUG base values:', {
-          rawBase: {JSON.stringify(rawBase)},
-          normalizedBase: {JSON.stringify(base)}
-        });
-        // If for some reason links were rendered without leading slash (shouldn't happen now),
-        // force-fix any anchor without protocol that starts with "BeerGoggleGames"
-        var norm = {JSON.stringify(base)};
-        document.querySelectorAll('a[href]').forEach(a=>{
-          var h = a.getAttribute('href');
-            // Already absolute or starts with '/'
-          if (/^[a-zA-Z]+:/.test(h) || h.startsWith('/')) return;
-          if (h.startsWith(norm.replace(/^\/+/,''))) {
-            // Ensure it has a leading slash
-            a.setAttribute('href','/' + h);
-          }
-        });
-      })();
+      console.log('Layout base debug:', { rawBase: {JSON.stringify(rawBase)}, normalized: {JSON.stringify(base)} });
     </script>
     <Analytics />
   </body>
