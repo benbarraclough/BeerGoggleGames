@@ -1,7 +1,8 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import RelatedGames from '../../components/RelatedGames.astro';
 import { getCollection } from 'astro:content';
+import RelatedGames from '../../components/RelatedGames.astro';
+import StructuredData from '../../components/StructuredData.astro';
 
 export async function getStaticPaths() {
   const games = await getCollection('games');
@@ -15,7 +16,19 @@ const base = import.meta.env.BASE_URL || '/';
 const { entry } = Astro.props;
 const title = entry.data.title;
 const type = entry.data.type;
-const description = entry.data.excerpt || `How to play ${title}, a drinking game.`;
+const description = entry.data.excerpt || `How to play ${title}.`;
+const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://benbarraclough.github.io/BeerGoggleGames').toString();
+
+// JSON-LD schema for a single game
+const gameLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Game',
+  name: title,
+  gameCategory: type || undefined,
+  description,
+  url: canonical,
+  inLanguage: 'en'
+};
 ---
 <Layout title={title} description={description}>
   <article class="prose max-w-none">
@@ -23,12 +36,16 @@ const description = entry.data.excerpt || `How to play ${title}, a drinking game
     {type && <p><strong>Type:</strong> {type}</p>}
     <div set:html={entry.body} />
   </article>
+
   {type && (
     <div class="mt-10">
       <RelatedGames currentSlug={entry.slug} currentType={type} />
     </div>
   )}
+
   <p class="mt-8">
     <a class="text-blue-600 hover:underline" href={`${base}games/`}>← All Games</a>
   </p>
+
+  <StructuredData data={gameLd} />
 </Layout>
