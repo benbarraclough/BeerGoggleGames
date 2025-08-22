@@ -12,7 +12,7 @@ type: coin
 3.  [Coin Games](GameCategories/CoinGames)
 4.  Millennium Bridge
 
-![](/images/milleniumbridge.webp)
+![](/images/millenniumbridge.webp)
 
 ### Equipment ![target](/images/liquor.webp)
 
