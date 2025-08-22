@@ -1,35 +1,40 @@
 ---
+import Layout from '../../../layouts/Layout.astro'; // adjust
 import { getCollection } from 'astro:content';
-import { paginate } from '../../../utils/paginate.js';
+
+const PER_PAGE = 40;
 
 export async function getStaticPaths() {
   const games = await getCollection('games');
-  const sorted = games.sort((a,b)=> a.data.title.localeCompare(b.data.title));
-  const { totalPages } = paginate(sorted, 40);
-  return Array.from({length: totalPages}, (_,i)=> ({
-    params: { page: String(i+1) },
-    props: { page: i+1, totalPages }
+  const totalPages = Math.ceil(games.length / PER_PAGE);
+  return Array.from({ length: totalPages }, (_, i) => ({
+    params: { page: String(i + 1) },
+    props: { currentPage: i + 1, totalPages }
   }));
 }
 
-const { page, totalPages } = Astro.props;
-const gamesAll = await getCollection('games');
-const sorted = gamesAll.sort((a,b)=> a.data.title.localeCompare(b.data.title));
-import { paginate } from '../../../utils/paginate.js';
-const { slice } = paginate(sorted, 40);
-const pageItems = slice(page);
+const { currentPage, totalPages } = Astro.props;
+const all = (await getCollection('games')).sort((a,b)=> a.data.title.localeCompare(b.data.title));
+const start = (currentPage - 1) * PER_PAGE;
+const items = all.slice(start, start + PER_PAGE);
+const pageTitle = `Games – Page ${currentPage}`;
 ---
-<html lang="en">
-  <head><title>Games – Page {page}</title></head>
-  <body>
-    <h1>Games (Page {page} / {totalPages})</h1>
-    <ul>
-      {pageItems.map(g => <li><a href={`/games/${g.slug}/`}>{g.data.title}</a> <small>{g.data.type}</small></li>)}
+<Layout title={pageTitle}>
+  <section class="prose max-w-none">
+    <h1>{pageTitle}</h1>
+    <p>Total games: {all.length} (Page {currentPage} of {totalPages})</p>
+    <ul class="columns-1 sm:columns-2 lg:columns-3 gap-4 !mt-4">
+      {items.map(g => (
+        <li class="break-inside-avoid">
+          <a class="text-blue-600 hover:underline" href={`/games/${g.slug}/`}>{g.data.title}</a>
+          {g.data.type && <small class="text-gray-500"> ({g.data.type})</small>}
+        </li>
+      ))}
     </ul>
-    <nav>
-      {page > 1 && <a href={`/games/page/${page-1}/`}>Prev</a>}{" "}
-      {page < totalPages && <a href={`/games/page/${page+1}/`}>Next</a>}
+    <nav class="mt-6 space-x-4">
+      {currentPage > 1 && <a class="text-blue-600 hover:underline" href={`/games/page/${currentPage - 1}/`}>← Prev</a>}
+      {currentPage < totalPages && <a class="text-blue-600 hover:underline" href={`/games/page/${currentPage + 1}/`}>Next →</a>}
+      <a class="text-blue-600 hover:underline" href="/games/">First Page</a>
     </nav>
-    <p><a href="/games/">Games Index</a></p>
-  </body>
-</html>
+  </section>
+</Layout>
