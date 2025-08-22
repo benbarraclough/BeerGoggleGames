@@ -270,6 +270,14 @@ function extractStructured(html, filePath) {
   const mainHtml = $('main').html() || $('article').html() || $('body').html() || '';
   const markdown = td.turndown(mainHtml);
 
+  // Normalize relative image sources to root /images/
+  function normalizeImageMarkdown(md) {
+    return md
+      .replace(/!\[([^\]]*)\]\(\s*(?:\.{0,2}\/)?images\//gi, '![$1](/images/')
+      .replace(/<img([^>]*?)src=["'](?:\.{0,2}\/)?images\//gi, '<img$1src="/images/');
+  }
+  const markdownNormalized = normalizeImageMarkdown(markdown);
+
   return {
     title: titleCandidate,
     cover,
