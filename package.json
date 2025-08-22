@@ -11,7 +11,7 @@
     "rename-slugs": "node scripts/rename-slugs.js",
     "audit": "node scripts/audit-content.js",
     "generate-auto-redirects": "node scripts/generate-auto-redirects.js",
-    "prebuild": "node scripts/build-search-index.js && npm run generate-auto-redirects",
+    "prebuild": "npm run generate-auto-redirects",
     "build": "astro build",
     "preview": "astro preview"
   },
