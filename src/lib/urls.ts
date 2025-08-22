@@ -2,11 +2,20 @@ import { base } from './paths';
 
 const FALLBACK_SITE = 'https://benbarraclough.github.io/BeerGoggleGames';
 
-export function canonical(pathname: string, site?: string): string {
-  const s = (site || FALLBACK_SITE).replace(/\/+$/,'');
-  // pathname may already include base; ensure single leading slash
-  const clean = '/' + pathname.replace(/^\/+/, '');
-  return s + clean;
+// Returns a canonical absolute URL.
+// - pathname should be Astro.url.pathname (already includes base).
+// - site may be a string or URL (Astro.site is a URL object at build time).
+export function canonical(pathname: string, site?: string | URL): string {
+  const p = pathname.startsWith('/') ? pathname : '/' + pathname;
+  if (site) {
+    const u = new URL(String(site));
+    // Use origin + the runtime pathname (which already includes base)
+    return u.origin + p;
+  }
+  // Fallback: strip trailing slashes from fallback site path part? We only need origin; fallback already includes base path,
+  // so to avoid double-including base, we take origin of fallback and append pathname.
+  const f = new URL(FALLBACK_SITE);
+  return f.origin + p;
 }
 
 export function imageUrl(src: string): string {
