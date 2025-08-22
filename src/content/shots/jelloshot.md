@@ -11,7 +11,7 @@ excerpt: "Description: A classic party favourite, easy to make in big batches wi
 3.  [Shot Recipes](drinks/shotrecipes)
 4.  Jelloshot
 
-![](/images/jellshot.webp)
+![](/images/jelloshot.webp)
 
 #### Overview
 
