@@ -1,8 +1,8 @@
 const raw = import.meta.env.BASE_URL || '/';
 
-// Ensure leading slash, single trailing slash.
 function normalizeBase(b: string) {
   if (!b) return '/';
+  b = b.trim();
   if (!b.startsWith('/')) b = '/' + b;
   b = b.replace(/\/+$/,'');
   return b === '' ? '/' : b + '/';
