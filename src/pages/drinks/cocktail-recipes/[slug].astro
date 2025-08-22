@@ -4,6 +4,8 @@ import { getCollection } from 'astro:content';
 import RelatedCocktails from '../../../components/RelatedCocktails.astro';
 import StructuredData from '../../../components/StructuredData.astro';
 import { withBase } from '../../../lib/paths';
+import { canonical, imageUrl } from '../../../lib/urls';
+import { recipeLD } from '../../../lib/schema';
 
 export async function getStaticPaths() {
   const cocktails = await getCollection('cocktails');
@@ -15,26 +17,25 @@ const { Content } = await entry.render();
 
 const title = entry.data.title;
 const ingredients = (entry.data.ingredients || []).map((i: any) => String(i));
-const method = Array.isArray(entry.data.method) ? entry.data.method.join(' ') : (entry.data.method || '');
+const methodArray = Array.isArray(entry.data.method)
+  ? entry.data.method.map((m: any) => String(m))
+  : entry.data.method
+    ? [String(entry.data.method)]
+    : [];
 const description = entry.data.excerpt || `Cocktail recipe: ${title}.`;
-const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://benbarraclough.github.io/BeerGoggleGames').toString();
-const image = entry.data.image || entry.data.images?.[0] || null;
+const pageCanonical = canonical(Astro.url.pathname, Astro.site);
+const img = entry.data.image ? imageUrl(entry.data.image) : undefined;
 
-const recipeLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Recipe',
-  name: title,
+const ld = recipeLD({
+  title,
   description,
-  recipeCategory: 'Cocktail',
-  recipeCuisine: 'International',
-  recipeIngredient: ingredients,
-  recipeInstructions: method ? [{ '@type': 'HowToStep', text: method }] : undefined,
-  image: image ? [image.startsWith('http') ? image : withBase(`images/${image.replace(/^\/+/, '')}`)] : undefined,
-  url: canonical,
-  inLanguage: 'en'
-};
+  ingredients,
+  method: methodArray.join(' '),
+  url: pageCanonical,
+  image: img
+});
 ---
-<Layout title={title} description={description}>
+<Layout title={title} description={description} canonical={pageCanonical}>
   <article class="prose prose-invert max-w-none">
     {ingredients.length > 0 && (
       <>
@@ -44,10 +45,12 @@ const recipeLd = {
         </ul>
       </>
     )}
-    {method && (
+    {methodArray.length > 0 && (
       <>
         <h2>Method</h2>
-        <p>{method}</p>
+        <ol>
+          {methodArray.map(step => <li>{step}</li>)}
+        </ol>
       </>
     )}
     <Content />
@@ -61,5 +64,5 @@ const recipeLd = {
     <a class="hover:text-neon" href={withBase('drinks/cocktail-recipes/')}>← All Cocktails</a>
   </p>
 
-  <StructuredData data={recipeLd} />
+  <StructuredData data={ld} />
 </Layout>
