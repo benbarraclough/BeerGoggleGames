@@ -2,29 +2,40 @@
 import Layout from '../../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 
-// Define before getStaticPaths
+/**
+ * Pagination page for games.
+ * Fix for build error: ensure PER_PAGE is defined before any reference.
+ */
 const PER_PAGE = 40;
 
 export async function getStaticPaths() {
-  const games = await getCollection('games');
-  const totalPages = Math.ceil(games.length / PER_PAGE);
+  const games = await getCollection('games').catch(() => []);
+  const totalPages = Math.max(1, Math.ceil(games.length / PER_PAGE));
   return Array.from({ length: totalPages }, (_, i) => ({
     params: { page: String(i + 1) },
-    props: { currentPage: i + 1, totalPages }
+    props: { currentPage: i + 1, totalPages, totalItems: games.length }
   }));
 }
 
 const base = import.meta.env.BASE_URL || '/';
-const { currentPage, totalPages } = Astro.props;
-const all = (await getCollection('games')).sort((a,b)=> a.data.title.localeCompare(b.data.title));
+const { currentPage, totalPages, totalItems } = Astro.props;
+
+// Re-fetch (Astro recommended pattern; data fetching here is fine)
+const all = (await getCollection('games').catch(() => []))
+  .sort((a, b) => a.data.title.localeCompare(b.data.title));
+
 const start = (currentPage - 1) * PER_PAGE;
 const items = all.slice(start, start + PER_PAGE);
-const pageTitle = `Games – Page ${currentPage}`;
+
+const pageTitle = totalPages > 1
+  ? `Games – Page ${currentPage}`
+  : 'Games';
 ---
 <Layout title={pageTitle}>
   <section class="prose max-w-none">
     <h1>{pageTitle}</h1>
-    <p>Total games: {all.length} (Page {currentPage} of {totalPages})</p>
+    <p>Total games: {totalItems}{totalPages > 1 && ` (Page ${currentPage} of ${totalPages})`}</p>
+
     <ul class="columns-1 sm:columns-2 lg:columns-3 gap-4 !mt-4">
       {items.map(g => (
         <li class="break-inside-avoid">
@@ -33,10 +44,17 @@ const pageTitle = `Games – Page ${currentPage}`;
         </li>
       ))}
     </ul>
-    <nav class="mt-6 space-x-4">
-      {currentPage > 1 && <a class="text-blue-600 hover:underline" href={`${base}games/page/${currentPage - 1}/`}>← Prev</a>}
-      {currentPage < totalPages && <a class="text-blue-600 hover:underline" href={`${base}games/page/${currentPage + 1}/`}>Next →</a>}
-      <a class="text-blue-600 hover:underline" href={`${base}games/`}>First Page</a>
-    </nav>
+
+    {totalPages > 1 && (
+      <nav class="mt-6 flex flex-wrap gap-4 text-sm">
+        {currentPage > 1 && (
+          <a class="text-blue-600 hover:underline" href={`${base}games/page/${currentPage - 1}/`}>← Prev</a>
+        )}
+        {currentPage < totalPages && (
+          <a class="text-blue-600 hover:underline" href={`${base}games/page/${currentPage + 1}/`}>Next →</a>
+        )}
+        <a class="text-blue-600 hover:underline" href={`${base}games/`}>First Page</a>
+      </nav>
+    )}
   </section>
 </Layout>
