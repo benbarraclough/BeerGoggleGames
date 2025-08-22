@@ -1,78 +1,53 @@
 ---
-import Layout from '../../../layouts/Layout.astro';
+import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
-import RelatedCocktails from '../../../components/RelatedCocktails.astro';
-import StructuredData from '../../../components/StructuredData.astro';
+import RelatedGames from '../../components/RelatedGames.astro';
+import StructuredData from '../../components/StructuredData.astro';
 
 export async function getStaticPaths() {
-  const cocktails = await getCollection('cocktails'); // adjust if collection id differs
-  return cocktails.map(c => ({
-    params: { slug: c.slug },
-    props: { entry: c }
-  }));
+  const games = await getCollection('games');
+  return games.map(g => ({ params: { slug: g.slug }, props: { entry: g } }));
 }
 
 const rawBase = import.meta.env.BASE_URL || '/';
-let base = rawBase;
-if (!base.startsWith('/')) base = '/' + base;
-if (!base.endsWith('/')) base += '/';
+const base = (() => {
+  const t = rawBase.replace(/^\/+|\/+$/g,'');
+  return t ? `/${t}/` : '/';
+})();
 
 const { entry } = Astro.props;
 const { Content } = await entry.render();
 
 const title = entry.data.title;
-const ingredientsRaw = entry.data.ingredients || [];
-const ingredients = ingredientsRaw.map(i => typeof i === 'string' ? i : (i.name || i.ingredient || JSON.stringify(i)));
-const method = entry.data.method || entry.data.instructions || '';
-const description = entry.data.excerpt || `Cocktail recipe: ${title}.`;
+const type = entry.data.type;
+const description = entry.data.excerpt || `How to play ${title}.`;
 const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://benbarraclough.github.io/BeerGoggleGames').toString();
-const image = entry.data.image || entry.data.images?.[0] || null;
 
-const recipeLd = {
+const gameLd = {
   '@context': 'https://schema.org',
-  '@type': 'Recipe',
+  '@type': 'Game',
   name: title,
+  gameCategory: type || undefined,
   description,
-  recipeCategory: 'Cocktail',
-  recipeCuisine: 'International',
-  recipeIngredient: ingredients,
-  recipeInstructions: method
-    ? [{ '@type': 'HowToStep', text: method }]
-    : undefined,
-  image: image
-    ? [image.startsWith('http') ? image : `${base}images/${image.replace(/^\/+/, '')}`]
-    : undefined,
   url: canonical,
   inLanguage: 'en'
 };
 ---
 <Layout title={title} description={description}>
   <article class="prose max-w-none">
-    <h1>{title}</h1>
-    {ingredients.length > 0 && (
-      <>
-        <h2>Ingredients</h2>
-        <ul>
-          {ingredients.map(i => <li>{i}</li>)}
-        </ul>
-      </>
-    )}
-    {method && (
-      <>
-        <h2>Method</h2>
-        <p>{method}</p>
-      </>
-    )}
+    {type && <p><strong>Type:</strong> {type}</p>}
     <Content />
   </article>
 
-  <div class="mt-10">
-    <RelatedCocktails currentSlug={entry.slug} ingredients={ingredients} />
-  </div>
+  {type && (
+    <div class="mt-10">
+      <RelatedGames currentSlug={entry.slug} currentType={type} />
+    </div>
+  )}
 
   <p class="mt-8">
-    <a class="text-blue-600 hover:underline" href={`${base}drinks/cocktail-recipes/`}>← All Cocktails</a>
+    <a class="text-blue-600 hover:underline" href={`${base}games/`}>← All Games</a>
   </p>
 
-  <StructuredData data={recipeLd} />
+  <StructuredData data={gameLd} />
 </Layout>
