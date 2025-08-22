@@ -6,12 +6,12 @@ import { base } from '../lib/paths';
 const pageTitle = 'Search';
 const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 ---
-<Layout title={pageTitle} canonical={pageCanonical} description="Search games, cocktails, shots, activities & posts.">
+<Layout title={pageTitle} canonical={pageCanonical} description="Search games, cocktails, shots, activities & posts." wide={true}>
   <section class="prose prose-invert max-w-none" data-base={base}>
     <h1 class="!mb-4 !leading-tight !text-fg font-display text-3xl md:text-4xl">{pageTitle}</h1>
     <p class="!mt-0">Type to search games, cocktails, shots, activities, and posts.</p>
 
-    <div class="mb-4">
+    <div class="mb-4 max-w-xl">
       <input
         id="q"
         type="search"
@@ -26,74 +26,74 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
   </section>
 
   <script is:inline>
-    const BASE = {JSON.stringify(base)};
-    const input = document.getElementById('q');
-    const list = document.getElementById('results');
-    const status = document.getElementById('status');
-    let data = [];
-    let ready = false;
+{`const BASE = ${JSON.stringify(base)};
+const input = document.getElementById('q');
+const list = document.getElementById('results');
+const status = document.getElementById('status');
+let data = [];
+let ready = false;
 
-    function escapeHTML(s) {
-      return s.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-    }
+function escapeHTML(s){
+  return s.replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+}
 
-    function render(items) {
-      list.innerHTML = '';
-      if (!items.length) {
-        list.innerHTML = '<li class="text-muted text-sm">No results.</li>';
-        return;
-      }
-      const frag = document.createDocumentFragment();
-      for (const m of items) {
-        const li = document.createElement('li');
-        const title = escapeHTML(m.title);
-        const typeTxt = escapeHTML(m.c + (m.type ? ' · ' + m.type : ''));
-        li.innerHTML = \`<a class="hover:text-neon font-medium" href="\${BASE}\${m.c}/\${m.slug}/">\${title}</a>
-          <small class="text-muted ml-1">(\${typeTxt})</small>\`;
-        frag.appendChild(li);
-      }
-      list.appendChild(frag);
-    }
+function render(items){
+  list.innerHTML = '';
+  if(!items.length){
+    list.innerHTML = '<li class="text-muted text-sm">No results.</li>';
+    return;
+  }
+  const frag = document.createDocumentFragment();
+  for(const m of items){
+    const li = document.createElement('li');
+    const title = escapeHTML(m.title);
+    const typeTxt = escapeHTML(m.c + (m.type ? ' · ' + m.type : ''));
+    li.innerHTML = \`<a class="hover:text-neon font-medium" href="\${BASE}\${m.c}/\${m.slug}/">\${title}</a>
+      <small class="text-muted ml-1">(\${typeTxt})</small>\`;
+    frag.appendChild(li);
+  }
+  list.appendChild(frag);
+}
 
-    function doSearch(q) {
-      if (!ready) return;
-      const term = q.trim().toLowerCase();
-      if (!term) {
-        list.innerHTML = '';
-        status.textContent = 'Enter a term to see results.';
-        return;
-      }
-      status.textContent = '';
-      const terms = term.split(/\\s+/);
-      const matches = data.filter(item => {
-        const hay = (item.title + ' ' +
-          (item.excerpt || '') + ' ' +
-          (item.type || '') + ' ' +
-          (item.ingredients || []).join(' ')
-        ).toLowerCase();
-        return terms.every(t => hay.includes(t));
-      }).slice(0, 100);
-      render(matches);
-    }
+function doSearch(q){
+  if(!ready) return;
+  const term = q.trim().toLowerCase();
+  if(!term){
+    list.innerHTML = '';
+    status.textContent = 'Enter a term to see results.';
+    return;
+  }
+  status.textContent = '';
+  const terms = term.split(/\\s+/);
+  const matches = data.filter(item=>{
+    const hay = (item.title + ' ' +
+      (item.excerpt||'') + ' ' +
+      (item.type||'') + ' ' +
+      (item.ingredients||[]).join(' ')
+    ).toLowerCase();
+    return terms.every(t => hay.includes(t));
+  }).slice(0,100);
+  render(matches);
+}
 
-    input.addEventListener('input', () => doSearch(input.value));
-    input.addEventListener('keydown', e => {
-      if (e.key === 'Enter') { e.preventDefault(); doSearch(input.value); }
-    });
+input.addEventListener('input', ()=>doSearch(input.value));
+input.addEventListener('keydown', e=>{
+  if(e.key==='Enter'){ e.preventDefault(); doSearch(input.value); }
+});
 
-    fetch(BASE + 'search-index.json')
-      .then(r => {
-        if (!r.ok) throw new Error('HTTP ' + r.status);
-        return r.json();
-      })
-      .then(json => {
-        data = json;
-        ready = true;
-        status.textContent = 'Index loaded. Start typing.';
-      })
-      .catch(err => {
-        console.error('Search index load error:', err);
-        status.textContent = 'Failed to load search index.';
-      });
+fetch(BASE + 'search-index.json')
+  .then(r => {
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    return r.json();
+  })
+  .then(json=>{
+    data = json;
+    ready = true;
+    status.textContent = 'Index loaded. Start typing.';
+  })
+  .catch(err=>{
+    console.error('Search index load error', err);
+    status.textContent = 'Failed to load search index.';
+  });`}
   </script>
 </Layout>
