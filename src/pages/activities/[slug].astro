@@ -18,21 +18,17 @@ const title = entry.data.title;
 const description = entry.data.excerpt || `Activity: ${title}.`;
 const difficulty = entry.data.difficulty;
 const pageCanonical = canonical(Astro.url.pathname, Astro.site);
-
-const ld = activityLD({
-  title,
-  description,
-  url: pageCanonical
-});
+const ld = activityLD({ title, description, url: pageCanonical });
 ---
 <Layout title={title} description={description} canonical={pageCanonical}>
   <article class="prose prose-invert max-w-none">
-    {difficulty && <p><strong>Difficulty:</strong> {difficulty}</p>}
+    <h1 class="!mb-4 !leading-tight !text-fg font-display text-3xl md:text-4xl">{title}</h1>
+    {difficulty && <p class="!mt-0"><strong>Difficulty:</strong> {difficulty}</p>}
     <Content />
   </article>
 
-  <p class="mt-8">
-    <a class="hover:text-neon" href={withBase('activities/')}>← All Activities</a>
+  <p class="mt-10">
+    <a class="hover:text-neon underline underline-offset-4" href={withBase('activities/')}>← All Activities</a>
   </p>
 
   <StructuredData data={ld} />
