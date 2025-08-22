@@ -1,6 +1,7 @@
 ---
-import Layout from '../../layouts/Layout.astro'; // adjust if needed
+import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
+const base = import.meta.env.BASE_URL || '/';
 const all = (await getCollection('games')).sort((a,b)=> a.data.title.localeCompare(b.data.title));
 const PER_PAGE = 40;
 const firstPage = all.slice(0, PER_PAGE);
@@ -14,7 +15,7 @@ const pageTitle = 'Games';
     <ul class="columns-1 sm:columns-2 lg:columns-3 gap-4 !mt-4">
       {firstPage.map(g => (
         <li class="break-inside-avoid">
-          <a class="text-blue-600 hover:underline" href={`/games/${g.slug}/`}>{g.data.title}</a>
+          <a class="text-blue-600 hover:underline" href={`${base}games/${g.slug}/`}>{g.data.title}</a>
           {g.data.type && <small class="text-gray-500"> ({g.data.type})</small>}
         </li>
       ))}
@@ -23,13 +24,13 @@ const pageTitle = 'Games';
       <p class="mt-4">
         More pages:{' '}
         {Array.from({ length: totalPages }, (_, i) => (
-          <a class="inline-block mr-2 text-blue-600 hover:underline" href={`/games/page/${i + 1}/`}>{i + 1}</a>
+          <a class="inline-block mr-2 text-blue-600 hover:underline" href={`${base}games/page/${i + 1}/`}>{i + 1}</a>
         ))}
       </p>
     )}
     <p class="mt-6 space-x-4">
-      <a class="text-blue-600 hover:underline" href="/games/types/">Browse by Type</a>
-      <a class="text-blue-600 hover:underline" href="/search">Search</a>
+      <a class="text-blue-600 hover:underline" href={`${base}games/types/`}>Browse by Type</a>
+      <a class="text-blue-600 hover:underline" href={`${base}search`}>Search</a>
     </p>
   </section>
 </Layout>
