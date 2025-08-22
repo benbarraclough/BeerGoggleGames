@@ -1,13 +1,13 @@
 ---
 import Layout from '../components/Layout.astro';
-import { withBase } from '../lib/paths';
 import { canonical } from '../lib/urls';
+import { base, withBase } from '../lib/paths';
 
 const pageTitle = 'Search';
 const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 ---
-<Layout title={pageTitle} canonical={pageCanonical} description="Search games, cocktails, shots, activities and blog posts.">
-  <section class="prose prose-invert max-w-none">
+<Layout title={pageTitle} canonical={pageCanonical} description="Search games, cocktails, shots, activities & posts.">
+  <section class="prose prose-invert max-w-none" data-base={base}>
     <h1 class="!mb-4 !leading-tight !text-fg font-display text-3xl md:text-4xl">{pageTitle}</h1>
     <p class="!mt-0">Type to search games, cocktails, shots, activities, and posts.</p>
 
@@ -26,7 +26,8 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
   </section>
 
   <script is:inline>
-    const base = ${JSON.stringify(import.meta.env.BASE_URL || '/')};
+    // base path injected at build
+    const BASE = {JSON.stringify(base)};
     const input = document.getElementById('q');
     const list = document.getElementById('results');
     const status = document.getElementById('status');
@@ -34,9 +35,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
     let ready = false;
 
     function escapeHTML(s) {
-      return s.replace(/[&<>"]/g, c => ({
-        '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'
-      }[c]));
+      return s.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
     }
 
     function render(items) {
@@ -50,7 +49,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         const li = document.createElement('li');
         const title = escapeHTML(m.title);
         const type = escapeHTML(m.c + (m.type ? ' · ' + m.type : ''));
-        li.innerHTML = \`<a class="hover:text-neon font-medium" href="\${base}\${m.c}/\${m.slug}/">\${title}</a>
+        li.innerHTML = \`<a class="hover:text-neon font-medium" href="\${BASE}\${m.c}/\${m.slug}/">\${title}</a>
           <small class="text-muted ml-1">(\${type})</small>\`;
         frag.appendChild(li);
       }
@@ -68,7 +67,11 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       status.textContent = '';
       const terms = term.split(/\\s+/);
       const matches = data.filter(item => {
-        const hay = (item.title + ' ' + (item.excerpt||'') + ' ' + (item.type||'') + ' ' + (item.ingredients||[]).join(' ')).toLowerCase();
+        const hay = (item.title + ' ' +
+          (item.excerpt || '') + ' ' +
+          (item.type || '') + ' ' +
+          (item.ingredients || []).join(' ')
+        ).toLowerCase();
         return terms.every(t => hay.includes(t));
       }).slice(0, 100);
       render(matches);
@@ -79,7 +82,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       if (e.key === 'Enter') { e.preventDefault(); doSearch(input.value); }
     });
 
-    fetch(base + 'search-index.json')
+    fetch(BASE + 'search-index.json')
       .then(r => r.ok ? r.json() : Promise.reject(r.status))
       .then(json => {
         data = json;
