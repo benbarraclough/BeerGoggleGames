@@ -1,46 +1,45 @@
 name: Extract Legacy Content
-
 on:
   workflow_dispatch:
     inputs:
       force:
-        description: "Overwrite existing slugs (true/false)"
-        required: false
+        description: "Overwrite existing"
         default: "false"
       dry:
-        description: "Dry run (true/false)"
-        required: false
+        description: "Dry run"
         default: "false"
-
 jobs:
   extract:
     runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
-      - name: Install deps
-        run: npm install
+          cache: npm
+      - run: npm ci || npm install
       - name: Run extractor
-        run: |
-          FORCE=${{ github.event.inputs.force }} DRY=${{ github.event.inputs.dry }} npm run extract-legacy
-      - name: Commit changes
+        env:
+          FORCE: ${{ github.event.inputs.force }}
+          DRY: ${{ github.event.inputs.dry }}
+        run: npm run extract-legacy
+      - name: Show changes
+        run: git status --porcelain
+      - name: Commit generated content
         if: ${{ github.event.inputs.dry != 'true' }}
         run: |
-          if [ -n "$(git status --porcelain)" ]; then
+          git add src/content
+          if git diff --name-only | grep -q '^package-lock.json$'; then
+            git add package-lock.json
+          fi
+          if git diff --cached --name-only | grep -q .; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add src/content
             git commit -m "chore: extract legacy content (force=${{ github.event.inputs.force }})"
             git push
           else
-            echo "No new content generated."
-          fi
+            echo "Nothing to commit."
