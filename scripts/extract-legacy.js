@@ -1,46 +1,16 @@
 /**
- * Extract legacy HTML into Astro content collections:
- *   games, activities, cocktails, shots, posts
+ * Legacy HTML → Astro Content collections (games, activities, cocktails, shots, posts)
+ * Updated: Unique title/slug derivation; avoids every file becoming "beergogglegames".
  *
- * Supports override mapping via scripts/extract-map.json
+ * ENV:
+ *   FORCE=true  overwrite existing files
+ *   DRY=true    preview only
  *
- * ENV FLAGS:
- *   FORCE=true   overwrite existing markdown
- *   DRY=true     do not write anything (preview)
- *
- * HOW CLASSIFICATION WORKS (order):
- *  1. Mapping override (exact relative path match)
- *  2. Path heuristics based on your provided folder structure
- *     - Drinks/CocktailRecipes  -> cocktails
- *     - Drinks/ShotRecipes      -> shots
- *     - Extras/Blog             -> posts
- *     - Extras/activities&minigames -> activities
- *     - GameCategories/...      -> games
- *     - Anything else with ingredients list -> cocktails/shots heuristic
- *     - Fallback: posts
- *
- * GAME TYPE (games.type) is derived from subfolder (CardGames -> card, etc.)
- *
- * SKIPS: Known index / category / sitemap / overview pages (config below).
- *
- * FRONTMATTER:
- *   Common: title, date (if found), cover, tags, excerpt
- *   games:  type, players, equipment
- *   cocktails/shots: ingredients[], method[]
- *   activities: (only base fields; you can extend by mapping overrides)
- *   posts: draft optional if add later manually
- *
- * IMAGES:
- *   If cover image is relative and exists in legacy/, it's copied to public/images/
- *
- * OVERRIDE (scripts/extract-map.json) example:
- * {
- *   "legacy/Extras/WheelOfFortune.html": { "collection": "activities" },
- *   "legacy/GameCategories/CardGames/speed-cards.html": { "collection": "games", "type": "card" },
- *   "legacy/Drinks/ShotRecipes/rainbow-bomb.html": { "collection": "shots" }
- * }
- *
- * SUMMARY printed at end.
+ * Override mapping: scripts/extract-map.json (optional)
+ *   {
+ *     "legacy/Drinks/ShotRecipes/B-52.html": { "collection": "shots", "title": "B-52 Shot" },
+ *     "legacy/Extras/WheelOfFortune.html": { "collection": "activities" }
+ *   }
  */
 
 import fs from 'fs';
@@ -63,15 +33,32 @@ const td = new TurndownService({
   codeBlockStyle: 'fenced'
 });
 
-// Remove script/style etc.
 td.addRule('stripScripts', {
   filter: ['script', 'style', 'noscript'],
   replacement: () => ''
 });
 
-// ---------- CONFIGURABLE LISTS ----------
+// ---------- CONFIG ----------
 
-// Filenames to skip (case-insensitive exact matches)
+const BRAND_NAMES = new Set([
+  'beergogglegames',
+  'beer goggle games',
+  'beer gogglegames',
+  'beergoggle games'
+]);
+
+const GENERIC_TITLES = new Set([
+  'cocktail recipes',
+  'shot recipes',
+  'blog',
+  'activities & minigames',
+  'activities and minigames',
+  'game categories',
+  'drinks',
+  'extras',
+  'home'
+]);
+
 const SKIP_FILENAMES = new Set([
   'index.html',
   'drinks.html',
@@ -97,10 +84,9 @@ const SKIP_FILENAMES = new Set([
   'freeforallgames.html',
   'pairgames.html',
   'teamgames.html',
-  'drinksearchtool.html' // treat as tool page; skip or map manually if desired
+  'drinksearchtool.html'
 ]);
 
-// Map folder names (for games) to a "type" value in frontmatter
 const TYPE_MAP = {
   cardgames: 'card',
   coingames: 'coin',
@@ -112,36 +98,31 @@ const TYPE_MAP = {
   '1v1games': '1v1',
   freeforallgames: 'free-for-all',
   pairgames: 'pair',
-  teamgames: 'team'
+  teamgames: 'team',
+  vocalgames: 'vocal'
 };
 
-// ---------- HELPERS ----------
+// ---------- UTIL ----------
 
 function ensureDir(p) { if (!fs.existsSync(p)) fs.mkdirSync(p, { recursive: true }); }
+function relativePath(fp) { return fp.replace(ROOT + path.sep, '').replace(/\\/g, '/'); }
 
 function walk(dir) {
   if (!fs.existsSync(dir)) return [];
   const out = [];
-  for (const entry of fs.readdirSync(dir)) {
-    const full = path.join(dir, entry);
-    const stat = fs.statSync(full);
-    if (stat.isDirectory()) {
-      out.push(...walk(full));
-    } else if (/\.html?$/i.test(entry)) {
-      out.push(full);
-    }
+  for (const e of fs.readdirSync(dir)) {
+    const full = path.join(dir, e);
+    const st = fs.statSync(full);
+    if (st.isDirectory()) out.push(...walk(full));
+    else if (/\.html?$/i.test(e)) out.push(full);
   }
   return out;
 }
 
 function loadOverrides() {
   if (!fs.existsSync(MAP_PATH)) return {};
-  try {
-    return JSON.parse(fs.readFileSync(MAP_PATH, 'utf8'));
-  } catch (e) {
-    console.warn('WARN: Failed to parse extract-map.json:', e.message);
-    return {};
-  }
+  try { return JSON.parse(fs.readFileSync(MAP_PATH, 'utf8')); }
+  catch { console.warn('WARN: Bad extract-map.json'); return {}; }
 }
 
 function slugify(str) {
@@ -154,30 +135,48 @@ function slugify(str) {
     .slice(0, 120) || 'item';
 }
 
-function firstNonEmpty(arr) {
-  for (const v of arr) if (v && v.trim()) return v.trim();
-  return '';
+function humanizeFilename(filePath) {
+  let base = path.basename(filePath, path.extname(filePath));
+  // Replace camelCase / PascalCase boundaries with space
+  base = base.replace(/([a-z])([A-Z])/g, '$1 $2');
+  // Replace digits-letter boundaries
+  base = base.replace(/([0-9])([A-Za-z])/g, '$1 $2');
+  // Replace underscores & hyphens & multiple spaces
+  base = base.replace(/[_-]+/g, ' ');
+  // Replace URL-ish encodings (&)
+  base = base.replace(/&/g, ' & ');
+  base = base.replace(/\s{2,}/g, ' ');
+  base = base.trim();
+  // Capitalize words
+  return base.split(' ').map(w => w ? w[0].toUpperCase() + w.slice(1).toLowerCase() : '').join(' ');
 }
 
-function relativePath(filePath) {
-  return filePath.replace(ROOT + path.sep, '').replace(/\\/g, '/');
+function normalizeTitle(t) {
+  return (t || '').trim().replace(/\s+/g, ' ');
+}
+
+function looksGeneric(title) {
+  if (!title) return true;
+  const norm = title.toLowerCase();
+  if (BRAND_NAMES.has(norm)) return true;
+  if (GENERIC_TITLES.has(norm)) return true;
+  return false;
 }
 
 function copyImageIfLocal(src) {
   if (!src || /^https?:/i.test(src)) return src;
-  // Normalize weird leading ./ or /
   const clean = src.replace(/^\.?\//, '');
-  const possible = path.join(LEGACY_DIR, clean);
+  const candidate = path.join(LEGACY_DIR, clean);
   ensureDir(PUBLIC_IMAGES_DIR);
-  if (fs.existsSync(possible)) {
+  if (fs.existsSync(candidate)) {
     const base = path.basename(clean).split('?')[0];
     const dest = path.join(PUBLIC_IMAGES_DIR, base);
     if (!fs.existsSync(dest)) {
       try {
-        fs.copyFileSync(possible, dest);
+        fs.copyFileSync(candidate, dest);
         console.log(`Copied image → public/images/${base}`);
       } catch (e) {
-        console.warn('Failed to copy image:', src, e.message);
+        console.warn('Image copy failed:', src, e.message);
       }
     }
     return `/images/${base}`;
@@ -185,21 +184,41 @@ function copyImageIfLocal(src) {
   return src;
 }
 
+function firstNonEmpty(arr) {
+  for (const v of arr) if (v && v.trim()) return v.trim();
+  return '';
+}
+
 // ---------- EXTRACTION ----------
 
 function extractStructured(html, filePath) {
   const $ = cheerio.load(html);
 
-  // Attempt to remove clutter (nav, footer)
+  // Remove global clutter
   ['nav', 'header', 'footer', 'script', 'style'].forEach(sel => $(sel).remove());
   $('[class*="nav"],[class*="footer"],[id*="nav"]').remove();
 
-  const title = firstNonEmpty([
-    $('meta[property="og:title"]').attr('content'),
-    $('h1').first().text(),
-    $('title').text(),
-    path.basename(filePath, '.html')
-  ]);
+  const metaTitle = $('meta[property="og:title"]').attr('content') || '';
+  const h1Text = $('h1').first().text();
+  const docTitle = $('title').text();
+
+  let titleCandidate = normalizeTitle(firstNonEmpty([h1Text, metaTitle, docTitle]));
+
+  if (looksGeneric(titleCandidate)) {
+    // fallback to a second h1 if exists
+    const h1s = $('h1').map((_, el) => $(el).text().trim()).get().filter(Boolean);
+    if (h1s.length > 1) {
+      const alt = normalizeTitle(h1s.find(t => !looksGeneric(t)));
+      if (alt) titleCandidate = alt;
+    }
+  }
+
+  if (looksGeneric(titleCandidate)) {
+    titleCandidate = humanizeFilename(filePath);
+  }
+
+  // Extra cleaning: remove site name pieces inside parentheses
+  titleCandidate = titleCandidate.replace(/\(.*beergogglegames.*\)/i, '').trim();
 
   const cover = $('meta[property="og:image"]').attr('content')
     || $('img').first().attr('src')
@@ -211,27 +230,23 @@ function extractStructured(html, filePath) {
 
   const rawText = $('body').text();
 
-  // Excerpt: first substantial paragraph
   const excerpt = $('p').map((_, p) => $(p).text().trim()).get()
     .find(p => p.length > 30 && p.length < 300) || '';
 
-  // Players pattern
   const playersMatch = rawText.match(/(\d+\s*(?:-\s*\d+)?|\d+\+)\s+players?/i);
   const players = playersMatch ? playersMatch[1].replace(/\s+/g, '') : '';
 
-  // Equipment (look for heading "Equipment")
   let equipment = [];
   $('h2,h3').each((_, el) => {
     const t = $(el).text().trim();
     if (/equipment/i.test(t)) {
-      const next = $(el).next();
-      if (next.is('ul,ol')) {
-        equipment = next.find('li').map((_, li) => $(li).text().trim()).get();
+      const n = $(el).next();
+      if (n.is('ul,ol')) {
+        equipment = n.find('li').map((_, li) => $(li).text().trim()).get();
       }
     }
   });
 
-  // Ingredients + method (drinks)
   let ingredients = [];
   let method = [];
   $('h2,h3').each((_, el) => {
@@ -250,18 +265,15 @@ function extractStructured(html, filePath) {
     }
   });
 
-  // Tags (meta keywords if present)
   let tags = [];
   const mk = $('meta[name="keywords"]').attr('content');
-  if (mk) {
-    tags = mk.split(',').map(s => s.trim()).filter(Boolean);
-  }
+  if (mk) tags = mk.split(',').map(s => s.trim()).filter(Boolean);
 
   const mainHtml = $('main').html() || $('article').html() || $('body').html() || '';
   const markdown = td.turndown(mainHtml);
 
   return {
-    title,
+    title: titleCandidate,
     cover,
     date,
     excerpt,
@@ -277,47 +289,33 @@ function extractStructured(html, filePath) {
 
 // ---------- CLASSIFICATION ----------
 
-function classify(relPath, extracted, overrides) {
-  // 1. Override mapping
-  if (overrides[relPath]?.collection) {
-    return overrides[relPath].collection;
-  }
+function classify(rel, data, overrides) {
+  if (overrides[rel]?.collection) return overrides[rel].collection;
 
-  const lower = relPath.toLowerCase();
+  const bn = path.basename(rel).toLowerCase();
+  if (SKIP_FILENAMES.has(bn)) return null;
 
-  // Skip overview / index pages if they slipped through
-  if (SKIP_FILENAMES.has(path.basename(lower))) return null;
+  const lower = rel.toLowerCase();
 
-  // Drinks
   if (lower.includes('/drinks/cocktailrecipes/')) return 'cocktails';
   if (lower.includes('/drinks/shotrecipes/')) return 'shots';
-
-  // Extras subfolders
   if (lower.includes('/extras/blog/')) return 'posts';
   if (lower.includes('/extras/activities&minigames/')) return 'activities';
-
-  // Game categories
   if (lower.includes('/gamecategories/')) return 'games';
 
-  // Heuristic: ingredients => drink
-  if (extracted.ingredients.length) {
-    if (extracted.ingredients.length <= 4 || /shot/i.test(extracted.title))
-      return 'shots';
+  if (data.ingredients.length) {
+    if (data.ingredients.length <= 4 || /shot/i.test(data.title)) return 'shots';
     return 'cocktails';
   }
+  if (/game/i.test(data.rawText)) return 'games';
 
-  // Fallback: if 'game' words appear
-  if (/game/i.test(extracted.rawText)) return 'games';
-
-  // Final fallback
   return 'posts';
 }
 
-function deriveGameType(relPath) {
-  // Extract the folder name after /GameCategories/
-  const match = relPath.toLowerCase().match(/gamecategories\/([^/]+)/);
-  if (match) {
-    const folder = match[1];
+function deriveGameType(rel) {
+  const m = rel.toLowerCase().match(/gamecategories\/([^/]+)/);
+  if (m) {
+    const folder = m[1];
     if (TYPE_MAP[folder]) return TYPE_MAP[folder];
     const cleaned = folder.replace(/games$/, '');
     if (TYPE_MAP[cleaned + 'games']) return TYPE_MAP[cleaned + 'games'];
@@ -326,30 +324,29 @@ function deriveGameType(relPath) {
   return 'misc';
 }
 
-// ---------- FRONTMATTER BUILD ----------
+// ---------- FRONTMATTER ----------
 
-function buildFrontmatter(collection, slug, extracted, relPath, overrides) {
+function buildFrontmatter(collection, slug, data, rel, overrides) {
   const fm = {};
-  fm.title = extracted.title || slug;
-  if (extracted.date) fm.date = extracted.date;
-  if (extracted.cover) fm.cover = copyImageIfLocal(extracted.cover);
-  if (extracted.tags.length) fm.tags = extracted.tags;
-  if (extracted.excerpt) fm.excerpt = extracted.excerpt;
+  fm.title = data.title || slug;
+  if (data.date) fm.date = data.date;
+  if (data.cover) fm.cover = copyImageIfLocal(data.cover);
+  if (data.tags.length) fm.tags = data.tags;
+  if (data.excerpt) fm.excerpt = data.excerpt;
 
   if (collection === 'games') {
-    fm.type = deriveGameType(relPath);
-    if (extracted.players) fm.players = extracted.players;
-    if (extracted.equipment.length) fm.equipment = extracted.equipment;
+    fm.type = deriveGameType(rel);
+    if (data.players) fm.players = data.players;
+    if (data.equipment.length) fm.equipment = data.equipment;
   }
-
   if (collection === 'cocktails' || collection === 'shots') {
-    if (extracted.ingredients.length) fm.ingredients = extracted.ingredients;
-    if (extracted.method.length) fm.method = extracted.method;
+    if (data.ingredients.length) fm.ingredients = data.ingredients;
+    if (data.method.length) fm.method = data.method;
   }
 
-  // Mapping override property merges (e.g. specify type or difficulty)
-  if (overrides[relPath]) {
-    for (const [k, v] of Object.entries(overrides[relPath])) {
+  // Apply override extras (title, type, difficulty, etc.)
+  if (overrides[rel]) {
+    for (const [k, v] of Object.entries(overrides[rel])) {
       if (k === 'collection') continue;
       fm[k] = v;
     }
@@ -358,14 +355,13 @@ function buildFrontmatter(collection, slug, extracted, relPath, overrides) {
   return fm;
 }
 
-// ---------- WRITE OUTPUT ----------
+// ---------- YAML ----------
 
 function yamlEscape(val) {
   if (typeof val !== 'string') return JSON.stringify(val);
-  if (val === '' || /[:{}[\],&*#?|<>=!%@`]/.test(val) || /^\d/.test(val)) {
+  if (val === '' || /[:{}[\],&*#?|<>=!%@`]/.test(val) || /^\d/.test(val) || /\n/.test(val)) {
     return JSON.stringify(val);
   }
-  if (/\n/.test(val)) return JSON.stringify(val);
   return val;
 }
 
@@ -384,13 +380,24 @@ function frontmatterToString(obj) {
   return lines.join('\n');
 }
 
-function writeMarkdown(collection, slug, fm, body, summary, relPath) {
+// ---------- WRITE ----------
+
+function writeMarkdown(collection, slug, fm, body, summary, rel, usedSlugs) {
   const dir = path.join(CONTENT_DIR, collection);
   ensureDir(dir);
-  const file = path.join(dir, `${slug}.md`);
+
+  // Ensure unique slug (per run) to avoid accidental collisions if titles duplicate
+  let finalSlug = slug;
+  let i = 2;
+  while (usedSlugs.has(`${collection}:${finalSlug}`)) {
+    finalSlug = `${slug}-${i++}`;
+  }
+  usedSlugs.add(`${collection}:${finalSlug}`);
+
+  const file = path.join(dir, `${finalSlug}.md`);
 
   if (fs.existsSync(file) && !FORCE) {
-    console.log(`Skip (exists): ${collection}/${slug}.md`);
+    console.log(`Skip (exists): ${collection}/${finalSlug}.md`);
     summary.skipped++;
     return;
   }
@@ -398,73 +405,75 @@ function writeMarkdown(collection, slug, fm, body, summary, relPath) {
   const content = `---\n${frontmatterToString(fm)}\n---\n\n${body.trim()}\n`;
 
   if (DRY) {
-    console.log(`[DRY] Would write: ${collection}/${slug}.md (from ${relPath})`);
+    console.log(`[DRY] Would write: ${collection}/${finalSlug}.md (from ${rel})`);
   } else {
     fs.writeFileSync(file, content, 'utf8');
-    console.log(`Wrote: ${collection}/${slug}.md`);
+    console.log(`Wrote: ${collection}/${finalSlug}.md`);
   }
   summary[collection] = (summary[collection] || 0) + 1;
 }
 
-// ---------- MAIN PROCESS ----------
+// ---------- PROCESS ----------
 
-function processFile(filePath, overrides, summary) {
+function processFile(filePath, overrides, summary, usedSlugs) {
   const rel = relativePath(filePath);
-
-  const baseNameLower = path.basename(rel).toLowerCase();
-  if (SKIP_FILENAMES.has(baseNameLower)) {
+  const baseLower = path.basename(rel).toLowerCase();
+  if (SKIP_FILENAMES.has(baseLower)) {
     console.log(`Skip (listed skip): ${rel}`);
     summary.skipped++;
     return;
   }
+  const html = fs.readFileSync(filePath, 'utf8');
+  const data = extractStructured(html, filePath);
 
-  const raw = fs.readFileSync(filePath, 'utf8');
-  const extracted = extractStructured(raw, filePath);
-  const slug = slugify(extracted.title);
-  const collection = classify(rel, extracted, overrides);
+  // If override supplies explicit title
+  if (overrides[rel]?.title) {
+    data.title = overrides[rel].title;
+  }
 
+  const collection = classify(rel, data, overrides);
   if (!collection) {
-    console.log(`Skip (no collection resolved): ${rel}`);
+    console.log(`Skip (no collection): ${rel}`);
     summary.skipped++;
     return;
   }
 
-  const fm = buildFrontmatter(collection, slug, extracted, rel, overrides);
-  writeMarkdown(collection, slug, fm, extracted.markdown || '', summary, rel);
+  let slug = slugify(data.title);
+  if (!slug) slug = slugify(path.basename(filePath, path.extname(filePath)));
+  if (!slug || slug === 'beergogglegames') {
+    slug = slugify(humanizeFilename(filePath));
+  }
+
+  const fm = buildFrontmatter(collection, slug, data, rel, overrides);
+  writeMarkdown(collection, slug, fm, data.markdown || '', summary, rel, usedSlugs);
 }
 
 function main() {
   if (!fs.existsSync(LEGACY_DIR)) {
-    console.log('No legacy directory found. Nothing to do.');
+    console.log('No legacy directory.');
     return;
   }
-
   const overrides = loadOverrides();
   const files = walk(LEGACY_DIR);
-
   if (!files.length) {
-    console.log('No HTML files under legacy/.');
+    console.log('No HTML files found.');
     return;
   }
-
   console.log(`Found ${files.length} legacy HTML files.`);
   const summary = { games: 0, activities: 0, cocktails: 0, shots: 0, posts: 0, skipped: 0 };
+  const usedSlugs = new Set();
   files.forEach(f => {
     try {
-      processFile(f, overrides, summary);
+      processFile(f, overrides, summary, usedSlugs);
     } catch (e) {
       console.warn(`Failed ${relativePath(f)}: ${e.message}`);
       summary.skipped++;
     }
   });
-
   console.log('--------- SUMMARY ---------');
   console.log(JSON.stringify(summary, null, 2));
-  if (DRY) {
-    console.log('DRY RUN complete – no files were written.');
-  } else {
-    console.log('Extraction complete.');
-  }
+  if (DRY) console.log('DRY RUN complete – no files written.');
+  else console.log('Extraction complete.');
 }
 
 main();
