@@ -1,38 +1,54 @@
 ---
 import '../styles.css';
 import Analytics from './Analytics.astro';
+import SkipLink from './SkipLink.astro';
 import { base, withBase } from '../lib/paths';
 
 const {
   title = 'Beer Goggle Games',
   description = 'Drinking games, cocktails, party activities & more.',
-  ogImage
+  ogImage,
+  canonical
 } = Astro.props;
+
+// For active nav highlighting:
+const current = Astro.url.pathname; // includes base path
+function isActive(segment: string) {
+  const normalized = segment.endsWith('/') ? segment : segment + '/';
+  return current.startsWith(withBase(normalized));
+}
 ---
 <!DOCTYPE html>
-<html lang="en" class="bg-bg text-fg" data-base={base}>
+<html lang="en" class="bg-bg text-fg font-body" data-base={base}>
   <head>
     <meta charset="utf-8" />
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {canonical && <link rel="canonical" href={canonical} />}
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
     {ogImage && <meta property="og:image" content={withBase(ogImage.replace(/^\/+/, ''))} />}
   </head>
   <body class="min-h-screen flex flex-col">
+    <SkipLink />
     <header class="border-b border-fg/20">
       <div class="mx-auto max-w-6xl px-4 py-4 flex items-center justify-between">
-        <a href={withBase()} class="font-display text-2xl tracking-tight hover:text-neon">BeerGoggleGames</a>
+        <a href={withBase()} class="font-display text-2xl tracking-tight hover:text-neon">
+          BeerGoggleGames
+        </a>
         <nav class="flex gap-4 text-sm">
-          <a href={withBase('games/')} class="hover:text-neon">Games</a>
-            <a href={withBase('drinks/')} class="hover:text-neon">Drinks</a>
-            <a href={withBase('activities/')} class="hover:text-neon">Activities</a>
-            <a href={withBase('blog/')} class="hover:text-neon">Blog</a>
-            <a href={withBase('search')} class="hover:text-neon">Search</a>
-            <a href={withBase('contact')} class="hover:text-neon">Contact</a>
+          <a href={withBase('games/')} class:list={['hover:text-neon', isActive('games') && 'text-neon font-semibold']} aria-current={isActive('games') ? 'page' : undefined}>Games</a>
+          <a href={withBase('drinks/')} class:list={['hover:text-neon', isActive('drinks') && 'text-neon font-semibold']} aria-current={isActive('drinks') ? 'page' : undefined}>Drinks</a>
+          <a href={withBase('activities/')} class:list={['hover:text-neon', isActive('activities') && 'text-neon font-semibold']} aria-current={isActive('activities') ? 'page' : undefined}>Activities</a>
+          <a href={withBase('blog/')} class:list={['hover:text-neon', isActive('blog') && 'text-neon font-semibold']} aria-current={isActive('blog') ? 'page' : undefined}>Blog</a>
+          <a href={withBase('search')} class:list={['hover:text-neon', isActive('search') && 'text-neon font-semibold']} aria-current={isActive('search') ? 'page' : undefined}>Search</a>
+          <a href={withBase('contact')} class:list={['hover:text-neon', isActive('contact') && 'text-neon font-semibold']} aria-current={isActive('contact') ? 'page' : undefined}>Contact</a>
         </nav>
       </div>
     </header>
-    <main class="grow mx-auto max-w-6xl px-4 py-8">
+    <main id="main" class="grow mx-auto max-w-6xl px-4 py-8">
       <slot />
     </main>
     <footer class="border-t border-fg/20">
@@ -41,9 +57,6 @@ const {
         <a class="hover:text-neon" href={withBase('rss.xml')}>RSS</a>
       </div>
     </footer>
-    <script is:inline>
-      console.log('Layout base debug:', { rawBase: {JSON.stringify(raw)}, normalized: {JSON.stringify(base)} });
-    </script>
     <Analytics />
   </body>
 </html>
