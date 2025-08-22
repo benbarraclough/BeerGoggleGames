@@ -1,13 +1,12 @@
 ---
-import Layout from '../layouts/Layout.astro'; // If your layout ended up elsewhere, adjust this path.
+import Layout from '../layouts/Layout.astro';
 const pageTitle = 'Search';
-const base = import.meta.env.BASE_URL || '/BeerGoggleGames/';
+const base = import.meta.env.BASE_URL || '/';
 ---
 <Layout title={pageTitle}>
   <section class="prose max-w-none">
     <h1>{pageTitle}</h1>
-    <p>Type to search games, cocktails, shots, activities, posts. Results show live.</p>
-
+    <p>Type to search games, cocktails, shots, activities, posts.</p>
     <div class="mb-4">
       <input
         id="q"
@@ -20,8 +19,8 @@ const base = import.meta.env.BASE_URL || '/BeerGoggleGames/';
     <div id="status" class="text-sm text-gray-500">Loading index…</div>
     <ul id="results" class="list-disc pl-5 space-y-1 mt-3"></ul>
   </section>
-
   <script type="module">
+    const base = (import.meta.env.BASE_URL || '/');
     const input = document.getElementById('q');
     const list = document.getElementById('results');
     const status = document.getElementById('status');
@@ -55,31 +54,18 @@ const base = import.meta.env.BASE_URL || '/BeerGoggleGames/';
       status.textContent = '';
       const terms = term.split(/\s+/);
       const matches = data.filter(item => {
-        const hay = (item.title + ' ' + item.excerpt + ' ' + item.type + ' ' + (item.ingredients || []).join(' '))
-          .toLowerCase();
+        const hay = (item.title + ' ' + item.excerpt + ' ' + item.type + ' ' + (item.ingredients || []).join(' ')).toLowerCase();
         return terms.every(t => hay.includes(t));
       }).slice(0, 100);
       render(matches);
     }
 
     input.addEventListener('input', () => doSearch(input.value));
-    input.addEventListener('keydown', e => {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        doSearch(input.value);
-      }
-    });
+    input.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); doSearch(input.value); }});
 
-    const indexUrl = base + 'search-index.json'; // Works with base path.
-    fetch(indexUrl)
+    fetch(base + 'search-index.json')
       .then(r => r.json())
-      .then(json => {
-        data = json;
-        ready = true;
-        status.textContent = 'Index loaded. Start typing.';
-      })
-      .catch(() => {
-        status.textContent = 'Failed to load search index.';
-      });
+      .then(json => { data = json; ready = true; status.textContent = 'Index loaded. Start typing.'; })
+      .catch(() => { status.textContent = 'Failed to load search index.'; });
   </script>
 </Layout>
