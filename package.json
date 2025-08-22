@@ -31,6 +31,7 @@
   }
   "scripts": {
    "prebuild": "node scripts/build-search-index.js",
+   "generate-auto-redirects": "node scripts/generate-auto-redirects.js",
    "build": "astro build"
   }
 }
