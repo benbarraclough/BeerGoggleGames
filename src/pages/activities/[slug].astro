@@ -1,46 +1,43 @@
 ---
 import Layout from '../../components/Layout.astro';
 import { getCollection } from 'astro:content';
+import { withBase } from '../../lib/paths';
 import StructuredData from '../../components/StructuredData.astro';
 
 export async function getStaticPaths() {
-  const acts = await getCollection('activities').catch(()=>[]);
-  return acts.map(a => ({ params: { slug: a.slug }, props: { entry: a } }));
+  const activities = await getCollection('activities');
+  return activities.map(a => ({ params: { slug: a.slug }, props: { entry: a } }));
 }
 
-const rawBase = import.meta.env.BASE_URL || '/';
-const base = (() => {
-  const t = rawBase.replace(/^\/+|\/+$/g,'');
-  return t ? `/${t}/` : '/';
-})();
-
 const { entry } = Astro.props;
-if (!entry) throw new Error('Activity not found');
 const { Content } = await entry.render();
 
-const title = entry.data.title || 'Activity';
-const description = entry.data.excerpt || `Party activity: ${title}.`;
-const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://benbarraclough.github.io/BeerGoggleGames').toString();
+const title = entry.data.title;
+const description = entry.data.excerpt || `Activity: ${title}.`;
+const difficulty = entry.data.difficulty;
+const canonical = new URL(
+  Astro.url.pathname,
+  Astro.site ?? 'https://benbarraclough.github.io/BeerGoggleGames'
+).toString();
 
-const gameLd = {
+const activityLd = {
   '@context': 'https://schema.org',
-  '@type': 'Game',
+  '@type': 'CreativeWork',
   name: title,
   description,
   url: canonical,
-  gameCategory: entry.data.category || entry.data.type || undefined,
   inLanguage: 'en'
 };
 ---
 <Layout title={title} description={description}>
-  <article class="prose max-w-none">
-    {entry.data.type && <p><strong>Type:</strong> {entry.data.type}</p>}
+  <article class="prose prose-invert max-w-none">
+    {difficulty && <p><strong>Difficulty:</strong> {difficulty}</p>}
     <Content />
   </article>
 
   <p class="mt-8">
-    <a class="text-blue-600 hover:underline" href={`${base}activities/`}>← All Activities</a>
+    <a class="hover:text-neon" href={withBase('activities/')}>← All Activities</a>
   </p>
 
-  <StructuredData data={gameLd} />
+  <StructuredData data={activityLd} />
 </Layout>
