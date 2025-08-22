@@ -5,11 +5,15 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
     "format": "prettier --write .",
     "migrate": "node scripts/migrate.js",
-    "extract-legacy": "node scripts/extract-legacy.js"
+    "extract-legacy": "node scripts/extract-legacy.js",
+    "rename-slugs": "node scripts/rename-slugs.js",
+    "audit": "node scripts/audit-content.js",
+    "generate-auto-redirects": "node scripts/generate-auto-redirects.js",
+    "prebuild": "node scripts/build-search-index.js && npm run generate-auto-redirects",
+    "build": "astro build",
+    "preview": "astro preview"
   },
   "dependencies": {
     "@astrojs/mdx": "^3.1.0",
@@ -21,17 +25,12 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@tailwindcss/typography": "^0.5.15",
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.45",
     "prettier": "^3.3.3",
     "prettier-plugin-astro": "^0.14.0",
     "prettier-plugin-tailwindcss": "^0.6.6",
-    "tailwindcss": "^3.4.10",
-    "@tailwindcss/typography": "^0.5.15"
-  }
-  "scripts": {
-   "prebuild": "node scripts/build-search-index.js",
-   "generate-auto-redirects": "node scripts/generate-auto-redirects.js",
-   "build": "astro build"
+    "tailwindcss": "^3.4.10"
   }
 }
