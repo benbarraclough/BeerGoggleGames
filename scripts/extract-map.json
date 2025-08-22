@@ -1,0 +1,5 @@
+{
+  "legacy/games/flip-cup.html": { "collection": "games", "type": "party" },
+  "legacy/activities/icebreaker.html": { "collection": "activities" },
+  "legacy/drinks/rainbow-shot.html": { "collection": "shots" }
+}
