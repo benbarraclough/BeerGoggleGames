@@ -1,34 +1,23 @@
 ---
-import Layout from '../../../components/Layout.astro'; // 3 levels up from this file
+import Layout from '../../../components/Layout.astro';
 import { getCollection } from 'astro:content';
 import RelatedCocktails from '../../../components/RelatedCocktails.astro';
 import StructuredData from '../../../components/StructuredData.astro';
+import { withBase } from '../../../lib/paths';
 
 export async function getStaticPaths() {
   const cocktails = await getCollection('cocktails');
   return cocktails.map(c => ({ params: { slug: c.slug }, props: { entry: c } }));
 }
 
-const rawBase = import.meta.env.BASE_URL || '/';
-const base = (() => {
-  const t = rawBase.replace(/^\/+|\/+$/g,'');
-  return t ? `/${t}/` : '/';
-})();
-
 const { entry } = Astro.props;
 const { Content } = await entry.render();
 
 const title = entry.data.title;
-const ingredientsRaw = entry.data.ingredients || [];
-const ingredients = ingredientsRaw.map(i =>
-  typeof i === 'string' ? i : (i.name || i.ingredient || JSON.stringify(i))
-);
-const method = entry.data.method || entry.data.instructions || '';
+const ingredients = (entry.data.ingredients || []).map((i: any) => String(i));
+const method = Array.isArray(entry.data.method) ? entry.data.method.join(' ') : (entry.data.method || '');
 const description = entry.data.excerpt || `Cocktail recipe: ${title}.`;
-const canonical = new URL(
-  Astro.url.pathname,
-  Astro.site ?? 'https://benbarraclough.github.io/BeerGoggleGames'
-).toString();
+const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://benbarraclough.github.io/BeerGoggleGames').toString();
 const image = entry.data.image || entry.data.images?.[0] || null;
 
 const recipeLd = {
@@ -40,15 +29,13 @@ const recipeLd = {
   recipeCuisine: 'International',
   recipeIngredient: ingredients,
   recipeInstructions: method ? [{ '@type': 'HowToStep', text: method }] : undefined,
-  image: image
-    ? [image.startsWith('http') ? image : `${base}images/${image.replace(/^\/+/, '')}`]
-    : undefined,
+  image: image ? [image.startsWith('http') ? image : withBase(`images/${image.replace(/^\/+/, '')}`)] : undefined,
   url: canonical,
   inLanguage: 'en'
 };
 ---
 <Layout title={title} description={description}>
-  <article class="prose max-w-none">
+  <article class="prose prose-invert max-w-none">
     {ingredients.length > 0 && (
       <>
         <h2>Ingredients</h2>
@@ -71,7 +58,7 @@ const recipeLd = {
   </div>
 
   <p class="mt-8">
-    <a class="text-blue-600 hover:underline" href={`${base}drinks/cocktail-recipes/`}>← All Cocktails</a>
+    <a class="hover:text-neon" href={withBase('drinks/cocktail-recipes/')}>← All Cocktails</a>
   </p>
 
   <StructuredData data={recipeLd} />
