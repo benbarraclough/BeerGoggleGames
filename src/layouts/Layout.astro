@@ -1,7 +1,6 @@
 ---
 /**
- * Site layout with robust base normalization.
- * Ensures: leading slash, trailing slash.
+ * Global layout with robust base handling and helper.
  */
 const {
   title = 'Beer Goggle Games',
@@ -12,15 +11,20 @@ const {
 const siteTitle = 'Beer Goggle Games';
 const fullTitle = title === siteTitle ? title : `${title} | ${siteTitle}`;
 
-// Normalize base
+// Normalize base to always look like: /BeerGoggleGames/
 const rawBase = import.meta.env.BASE_URL || '/';
-let base = rawBase;
-if (!base.startsWith('/')) base = '/' + base;
-if (!base.endsWith('/')) base = base + '/';
+const base = (() => {
+  const trimmed = rawBase.replace(/^\/+|\/+$/g, ''); // remove leading/trailing slashes
+  return trimmed ? `/${trimmed}/` : '/';
+})();
+
+// Helper to join paths safely
+function withBase(path = '') {
+  return base + path.replace(/^\/+/, '');
+}
 
 const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://benbarraclough.github.io/BeerGoggleGames').toString();
-// Use image inside /public/images/ (adjust if you duplicated file at root)
-const ogImage = `${base}images/og-default.png`;
+const ogImage = withBase('images/og-default.png');
 ---
 <!DOCTYPE html>
 <html lang="en" class="h-full">
@@ -40,23 +44,23 @@ const ogImage = `${base}images/og-default.png`;
     <meta name="twitter:title" content={fullTitle} />
     {description && <meta name="twitter:description" content={description} />}
     <meta name="twitter:image" content={ogImage} />
-    <link rel="icon" type="image/png" href={`${base}favicon.png`} />
+    <link rel="icon" type="image/png" href={withBase('favicon.png')} />
   </head>
   <body class="min-h-screen bg-white text-gray-900 antialiased">
     <header class="border-b bg-gray-50">
       <div class="max-w-6xl mx-auto px-4 py-4 flex flex-wrap items-center gap-4">
-        <a href={base} class="font-bold text-lg">{siteTitle}</a>
+        <a href={withBase()} class="font-bold text-lg">{siteTitle}</a>
         <nav class="flex flex-wrap gap-4 text-sm">
-          <a href={`${base}games/`} class="hover:underline">Games</a>
-          <a href={`${base}games/types/`} class="hover:underline">Types</a>
-          <a href={`${base}games/random/`} class="hover:underline">Random</a>
-          <a href={`${base}drinks/`} class="hover:underline">Drinks</a>
-          <a href={`${base}drinks/cocktail-recipes/`} class="hover:underline">Cocktails</a>
-          <a href={`${base}drinks/shot-recipes/`} class="hover:underline">Shots</a>
-            <a href={`${base}activities/`} class="hover:underline">Activities</a>
-          <a href={`${base}blog/`} class="hover:underline">Posts</a>
-          <a href={`${base}search`} class="hover:underline">Search</a>
-          <a href={`${base}rss.xml`} class="hover:underline">RSS</a>
+          <a href={withBase('games/')} class="hover:underline">Games</a>
+          <a href={withBase('games/types/')} class="hover:underline">Types</a>
+          <a href={withBase('games/random/')} class="hover:underline">Random</a>
+          <a href={withBase('drinks/')} class="hover:underline">Drinks</a>
+          <a href={withBase('drinks/cocktail-recipes/')} class="hover:underline">Cocktails</a>
+          <a href={withBase('drinks/shot-recipes/')} class="hover:underline">Shots</a>
+          <a href={withBase('activities/')} class="hover:underline">Activities</a>
+          <a href={withBase('blog/')} class="hover:underline">Posts</a>
+          <a href={withBase('search')} class="hover:underline">Search</a>
+          <a href={withBase('rss.xml')} class="hover:underline">RSS</a>
         </nav>
       </div>
     </header>
@@ -66,8 +70,22 @@ const ogImage = `${base}images/og-default.png`;
     <footer class="border-t text-sm text-gray-500 py-8">
       <div class="max-w-6xl mx-auto px-4 space-y-2">
         <div>© {new Date().getFullYear()} Beer Goggle Games</div>
-        <div><a class="text-blue-600 hover:underline" href={`${base}rss.xml`}>RSS Feed</a></div>
+        <div><a class="text-blue-600 hover:underline" href={withBase('rss.xml')}>RSS Feed</a></div>
       </div>
     </footer>
+    <script>
+      // Rewrite any <img src="/images/..."> to include base (GitHub Pages friendly)
+      (function() {
+        var b = {base};
+        if (!b || b === '/') return;
+        document.querySelectorAll('img[src^="/images/"]').forEach(img => {
+          img.src = b.replace(/\/$/, '') + img.getAttribute('src');
+        });
+        // Also fix any anchor href starting with '/images/'
+        document.querySelectorAll('a[href^="/images/"]').forEach(a => {
+          a.href = b.replace(/\/$/, '') + a.getAttribute('href');
+        });
+      })();
+    </script>
   </body>
 </html>
