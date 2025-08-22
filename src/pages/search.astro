@@ -1,42 +1,83 @@
 ---
+import Layout from '../layouts/Layout.astro'; // Adjust path/name if different
+const pageTitle = 'Search';
 ---
-<html lang="en">
-  <head>
-    <title>Search</title>
-    <style>
-      body { font-family: sans-serif; padding: 1rem; }
-      input { width: 100%; padding: 0.5rem; font-size: 1rem; }
-      .results { margin-top: 1rem; }
-      .results li { margin: 0.25rem 0; }
-      small { color: #666; }
-    </style>
-  </head>
-  <body>
-    <h1>Search</h1>
-    <input id="q" type="text" placeholder="Type to search..." autocomplete="off" />
-    <ul id="results" class="results"></ul>
-    <script type="module">
-      const input = document.getElementById('q');
-      const list = document.getElementById('results');
-      let data = [];
-      fetch('/search-index.json').then(r=>r.json()).then(d=>data=d);
+<Layout title={pageTitle}>
+  <section class="prose max-w-none">
+    <h1>{pageTitle}</h1>
+    <p>Type to search games, cocktails, shots, activities, posts. Press Enter or just pause typing.</p>
+    <div class="mb-4">
+      <input
+        id="q"
+        type="search"
+        placeholder="e.g. beer pong, vodka, dice..."
+        class="w-full border rounded px-3 py-2"
+        aria-label="Search site content"
+      />
+    </div>
+    <div id="status" class="text-sm text-gray-500">Loading index…</div>
+    <ul id="results" class="list-disc pl-5 space-y-1 mt-3"></ul>
+  </section>
 
-      function normalize(s){return s.toLowerCase();}
-      input.addEventListener('input', () => {
-        const q = normalize(input.value.trim());
-        list.innerHTML = '';
-        if (!q) return;
-        const terms = q.split(/\s+/);
-        const matches = data.filter(item => {
-          const hay = normalize(item.title + ' ' + item.excerpt + ' ' + item.type + ' ' + (item.ingredients||[]).join(' '));
-          return terms.every(t => hay.includes(t));
-        }).slice(0,100);
-        matches.forEach(m => {
-          const li = document.createElement('li');
-          li.innerHTML = `<a href='/${m.c}/${m.slug}/'>${m.title}</a> <small>(${m.c}${m.type? ' · '+m.type:''})</small>`;
-          list.appendChild(li);
-        });
+  <script type="module">
+    const input = document.getElementById('q');
+    const list = document.getElementById('results');
+    const status = document.getElementById('status');
+
+    let data = [];
+    let ready = false;
+
+    function renderResults(items) {
+      list.innerHTML = '';
+      if (!items.length) {
+        list.innerHTML = '<li class="text-gray-500">No results.</li>';
+        return;
+      }
+      const frag = document.createDocumentFragment();
+      items.forEach(m => {
+        const li = document.createElement('li');
+        li.innerHTML = `<a class="text-blue-600 hover:underline" href='/${m.c}/${m.slug}/'>${m.title}</a>
+          <small class="text-gray-500">(${m.c}${m.type ? ' · ' + m.type : ''})</small>`;
+        frag.appendChild(li);
       });
-    </script>
-  </body>
-</html>
+      list.appendChild(frag);
+    }
+
+    function search(q) {
+      if (!ready) return;
+      const term = q.trim().toLowerCase();
+      if (!term) {
+        list.innerHTML = '';
+        status.textContent = 'Enter a term to see results.';
+        return;
+      }
+      status.textContent = '';
+      const terms = term.split(/\s+/);
+      const matches = data.filter(item => {
+        const hay = (item.title + ' ' + item.excerpt + ' ' + item.type + ' ' + (item.ingredients || []).join(' '))
+          .toLowerCase();
+        return terms.every(t => hay.includes(t));
+      }).slice(0, 100);
+      renderResults(matches);
+    }
+
+    input.addEventListener('input', () => search(input.value));
+    input.addEventListener('keydown', e => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        search(input.value);
+      }
+    });
+
+    fetch('/search-index.json')
+      .then(r => r.json())
+      .then(json => {
+        data = json;
+        ready = true;
+        status.textContent = 'Index loaded. Start typing.';
+      })
+      .catch(() => {
+        status.textContent = 'Failed to load search index.';
+      });
+  </script>
+</Layout>
