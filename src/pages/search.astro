@@ -1,14 +1,42 @@
 ---
-import Layout from '../components/Layout.astro';
 ---
-<Layout title="Search">
-  <h1 class="font-display text-3xl mb-4">Search</h1>
-  <link href="https://cdn.jsdelivr.net/npm/@pagefind/default-ui@1.0.0/dist/pagefind-ui.css" rel="stylesheet">
-  <div id="search"></div>
-  <script src="https://cdn.jsdelivr.net/npm/@pagefind/default-ui@1.0.0/dist/pagefind-ui.js"></script>
-  <script is:inline>
-    window.addEventListener('DOMContentLoaded', () => {
-      new PagefindUI({ element: "#search", showImages: false, showSubResults: true, autofocus: true });
-    });
-  </script>
-</Layout>
+<html lang="en">
+  <head>
+    <title>Search</title>
+    <style>
+      body { font-family: sans-serif; padding: 1rem; }
+      input { width: 100%; padding: 0.5rem; font-size: 1rem; }
+      .results { margin-top: 1rem; }
+      .results li { margin: 0.25rem 0; }
+      small { color: #666; }
+    </style>
+  </head>
+  <body>
+    <h1>Search</h1>
+    <input id="q" type="text" placeholder="Type to search..." autocomplete="off" />
+    <ul id="results" class="results"></ul>
+    <script type="module">
+      const input = document.getElementById('q');
+      const list = document.getElementById('results');
+      let data = [];
+      fetch('/search-index.json').then(r=>r.json()).then(d=>data=d);
+
+      function normalize(s){return s.toLowerCase();}
+      input.addEventListener('input', () => {
+        const q = normalize(input.value.trim());
+        list.innerHTML = '';
+        if (!q) return;
+        const terms = q.split(/\s+/);
+        const matches = data.filter(item => {
+          const hay = normalize(item.title + ' ' + item.excerpt + ' ' + item.type + ' ' + (item.ingredients||[]).join(' '));
+          return terms.every(t => hay.includes(t));
+        }).slice(0,100);
+        matches.forEach(m => {
+          const li = document.createElement('li');
+          li.innerHTML = `<a href='/${m.c}/${m.slug}/'>${m.title}</a> <small>(${m.c}${m.type? ' · '+m.type:''})</small>`;
+          list.appendChild(li);
+        });
+      });
+    </script>
+  </body>
+</html>
