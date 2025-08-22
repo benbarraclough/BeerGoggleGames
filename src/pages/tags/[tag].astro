@@ -1,0 +1,25 @@
+---
+import { getCollection } from 'astro:content';
+export async function getStaticPaths() {
+  const collections = ['games','cocktails','shots','activities','posts'];
+  const entries = (await Promise.all(collections.map(c=>getCollection(c).catch(()=>[])))).flat();
+  const tagSet = new Set();
+  entries.forEach(e => (e.data.tags||[]).forEach(t => tagSet.add(t)));
+  return [...tagSet].map(tag => ({ params: { tag }, props: { tag } }));
+}
+
+const { tag } = Astro.props;
+const collections = ['games','cocktails','shots','activities','posts'];
+const entries = (await Promise.all(collections.map(c=>getCollection(c).catch(()=>[])))).flat();
+const tagged = entries.filter(e => (e.data.tags||[]).includes(tag));
+---
+<html lang="en">
+  <head><title>Tag: {tag}</title></head>
+  <body>
+    <h1>Tag: {tag}</h1>
+    <ul>
+      {tagged.map(e => <li><a href={`/${e.collection}/${e.slug}/`}>{e.data.title}</a> <small>({e.collection})</small></li>)}
+    </ul>
+    <p><a href="/tags/">All Tags</a></p>
+  </body>
+</html>
