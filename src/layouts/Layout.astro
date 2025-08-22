@@ -1,0 +1,50 @@
+---
+/**
+ * Generic site layout. Adjust paths (logo, global CSS) to match your project.
+ * If you already import a global stylesheet elsewhere, you can remove the import line.
+ */
+const {
+  title = 'BeerGoggleGames',
+  description = 'Drinking games, cocktails, and party activities.',
+  noindex = false
+} = Astro.props;
+
+const siteTitle = 'Beer Goggle Games';
+const fullTitle = title === siteTitle ? title : `${title} | ${siteTitle}`;
+---
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+  <head>
+    <meta charset="utf-8" />
+    <title>{fullTitle}</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    {description && <meta name="description" content={description} />}
+    {noindex && <meta name="robots" content="noindex" />}
+    <link rel="icon" type="image/png" href="/BeerGoggleGames/favicon.png" />
+  </head>
+  <body class="min-h-screen bg-white text-gray-900 antialiased">
+    <header class="border-b bg-gray-50">
+      <div class="max-w-6xl mx-auto px-4 py-4 flex flex-wrap items-center gap-4">
+        <a href="/BeerGoggleGames/" class="font-bold text-lg">{siteTitle}</a>
+        <nav class="flex flex-wrap gap-4 text-sm">
+          <a href="/BeerGoggleGames/games/" class="hover:underline">Games</a>
+          <a href="/BeerGoggleGames/cocktails/" class="hover:underline">Cocktails</a>
+          <a href="/BeerGoggleGames/shots/" class="hover:underline">Shots</a>
+          <a href="/BeerGoggleGames/activities/" class="hover:underline">Activities</a>
+          <a href="/BeerGoggleGames/posts/" class="hover:underline">Posts</a>
+          <a href="/BeerGoggleGames/search" class="hover:underline">Search</a>
+          <a href="/BeerGoggleGames/games/types/" class="hover:underline">Types</a>
+          <a href="/BeerGoggleGames/tags/" class="hover:underline">Tags</a>
+        </nav>
+      </div>
+    </header>
+    <main class="max-w-6xl mx-auto px-4 py-8">
+      <slot />
+    </main>
+    <footer class="border-t text-sm text-gray-500 py-8">
+      <div class="max-w-6xl mx-auto px-4">
+        © {new Date().getFullYear()} Beer Goggle Games
+      </div>
+    </footer>
+  </body>
+</html>
