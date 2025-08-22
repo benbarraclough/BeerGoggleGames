@@ -1,34 +1,72 @@
 ---
-import Layout from '../../../components/Layout.astro';
+import Layout from '../../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
-import { excludeLegacyNoise } from '../../../lib/filters';
+import RelatedCocktails from '../../../components/RelatedCocktails.astro';
+import StructuredData from '../../../components/StructuredData.astro';
 
 export async function getStaticPaths() {
-  const items = excludeLegacyNoise(await getCollection('shots'));
-  return items.map(item => ({ params: { slug: (item.slug ?? item.id).split('/').pop() }, props: { item } }));
+  const shots = await getCollection('shots').catch(() => []);
+  return shots.map(s => ({
+    params: { slug: s.slug },
+    props: { entry: s }
+  }));
 }
 
-const { item } = Astro.props;
-const d = item.data;
 const base = import.meta.env.BASE_URL || '/';
-const { Content } = await item.render();
+const { entry } = Astro.props;
+const title = entry?.data?.title || 'Shot';
+if (!entry) {
+  throw new Error('Shot not found');
+}
+const ingredientsRaw = entry.data.ingredients || [];
+const ingredients = ingredientsRaw.map(i =>
+  typeof i === 'string' ? i : (i.name || i.ingredient || JSON.stringify(i))
+);
+const method = entry.data.method || entry.data.instructions || entry.data.directions || '';
+const description = entry.data.excerpt || `Shot recipe: ${title}.`;
+const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://benbarraclough.github.io/BeerGoggleGames').toString();
+const image = entry.data.image || entry.data.images?.[0] || null;
+const recipeLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Recipe',
+  name: title,
+  description,
+  recipeCategory: 'Shot',
+  recipeCuisine: 'International',
+  recipeIngredient: ingredients,
+  recipeInstructions: method ? [{ '@type': 'HowToStep', text: method }] : undefined,
+  image: image ? [image.startsWith('http') ? image : `${base}images/${image.replace(/^\/+/, '')}`] : undefined,
+  url: canonical,
+  inLanguage: 'en'
+};
 ---
-<Layout title={d.title}>
-  <h1 class="font-display text-3xl mb-4">{d.title}</h1>
-  {d.cover && <img class="mb-4 max-w-md border border-fg/20" src={`${base}${d.cover}`} alt={d.title} />}
-  {d.ingredients?.length ? (
-    <>
-      <h2 class="font-semibold">Ingredients</h2>
-      <ul class="list-disc pl-5 mb-4">{d.ingredients.map(i => <li>{i}</li>)}</ul>
-    </>
-  ) : null}
-  {d.method?.length ? (
-    <>
-      <h2 class="font-semibold">Method</h2>
-      <ol class="list-decimal pl-5 mb-4">{d.method.map(s => <li class="mb-1">{s}</li>)}</ol>
-    </>
-  ) : null}
-  <section class="prose prose-invert max-w-none">
-    <Content />
-  </section>
+<Layout title={title} description={description}>
+  <article class="prose max-w-none">
+    <h1>{title}</h1>
+    {ingredients.length > 0 && (
+      <>
+        <h2>Ingredients</h2>
+        <ul>
+          {ingredients.map(i => <li>{i}</li>)}
+        </ul>
+      </>
+    )}
+    {method && (
+      <>
+        <h2>Method</h2>
+        <p>{method}</p>
+      </>
+    )}
+    <div set:html={entry.body} />
+  </article>
+
+  <div class="mt-10">
+    <RelatedCocktails currentSlug={entry.slug} ingredients={ingredients} />
+  </div>
+
+  <p class="mt-8">
+    <a class="text-blue-600 hover:underline" href={`${base}drinks/shot-recipes/`}>← All Shots</a>
+  </p>
+
+  <StructuredData data={recipeLd} />
 </Layout>
