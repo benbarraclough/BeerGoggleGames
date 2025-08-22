@@ -1,0 +1,44 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const games = await getCollection('games');
+  const types = [...new Set(games.map(g => g.data.type).filter(Boolean))];
+  return types.map(type => ({ params: { type }, props: { type } }));
+}
+
+const base = import.meta.env.BASE_URL || '/';
+const { type } = Astro.props;
+const all = await getCollection('games');
+const pool = all.filter(g => g.data.type === type);
+const pageTitle = `Random ${type} Game`;
+---
+<Layout title={pageTitle} description={`Random ${type} drinking game selector.`}>
+  <section class="prose max-w-none">
+    <h1>{pageTitle}</h1>
+    {pool.length === 0
+      ? <p>No games for this type.</p>
+      : (
+        <>
+          <p>Click the button to pick a random {type} game.</p>
+          <button id="btn" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Random {type} Game</button>
+          <p id="out" class="mt-4"></p>
+        </>
+      )
+    }
+    <p class="mt-8"><a class="text-blue-600 hover:underline" href={`${base}games/random/`}>← Back to Random (All Types)</a></p>
+  </section>
+  {pool.length > 0 && (
+    <script type="module">
+      const base = import.meta.env.BASE_URL || '/';
+      const games = {JSON.stringify(pool.map(g => ({ slug: g.slug, title: g.data.title })))}; 
+      const btn = document.getElementById('btn');
+      const out = document.getElementById('out');
+      btn.addEventListener('click', () => {
+        const choice = games[Math.floor(Math.random() * games.length)];
+        out.innerHTML = `<a class="text-blue-600 underline" href='${base}games/${choice.slug}/'>${choice.title}</a>`;
+      });
+    </script>
+  )}
+</Layout>
