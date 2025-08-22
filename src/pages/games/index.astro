@@ -2,14 +2,16 @@
 import Layout from '../../components/Layout.astro';
 import { getCollection } from 'astro:content';
 import { withBase } from '../../lib/paths';
+import { canonical } from '../../lib/urls';
 
 const all = (await getCollection('games')).sort((a,b)=> a.data.title.localeCompare(b.data.title));
 const PER_PAGE = 40;
 const firstPage = all.slice(0, PER_PAGE);
 const totalPages = Math.ceil(all.length / PER_PAGE);
 const pageTitle = 'Games';
+const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 ---
-<Layout title={pageTitle}>
+<Layout title={pageTitle} canonical={pageCanonical} description="Index of drinking games.">
   <section class="prose prose-invert max-w-none">
     <h1>{pageTitle}</h1>
     <p>Total: {all.length}{totalPages > 1 && ` (Page 1 of ${totalPages})`}</p>
