@@ -3,11 +3,12 @@ on:
   workflow_dispatch:
     inputs:
       force:
-        description: "Overwrite existing"
+        description: Overwrite existing
         default: "false"
       dry:
-        description: "Dry run"
+        description: Dry run
         default: "false"
+
 jobs:
   extract:
     runs-on: ubuntu-latest
@@ -21,7 +22,8 @@ jobs:
         with:
           node-version: 20
           cache: npm
-      - run: npm ci || npm install
+      - name: Install deps
+        run: npm install
       - name: Run extractor
         env:
           FORCE: ${{ github.event.inputs.force }}
@@ -29,7 +31,7 @@ jobs:
         run: npm run extract-legacy
       - name: Show changes
         run: git status --porcelain
-      - name: Commit generated content
+      - name: Commit changes
         if: ${{ github.event.inputs.dry != 'true' }}
         run: |
           git add src/content
