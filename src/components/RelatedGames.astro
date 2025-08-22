@@ -1,0 +1,18 @@
+---
+import { getCollection } from 'astro:content';
+const { currentSlug, currentType, limit = 3 } = Astro.props;
+
+const games = await getCollection('games');
+const related = games
+  .filter(g => g.data.type === currentType && g.slug !== currentSlug)
+  .sort(() => 0.5 - Math.random())
+  .slice(0, limit);
+---
+{related.length > 0 && (
+  <section>
+    <h2>Related {currentType} Games</h2>
+    <ul>
+      {related.map(r => <li><a href={`/games/${r.slug}/`}>{r.data.title}</a></li>)}
+    </ul>
+  </section>
+)}
