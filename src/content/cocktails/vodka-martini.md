@@ -11,7 +11,7 @@ excerpt: "Description: A classy drink that is easy to make using just vodka and 
 3.  [Cocktail Recipes](drinks/cocktailrecipes)
 4.  Vodka Martini
 
-![](vodka-martini.webp)
+![](/images/vodka-martini.webp)
 
 #### Overview
 
