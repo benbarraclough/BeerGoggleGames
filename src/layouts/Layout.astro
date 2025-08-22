@@ -1,16 +1,17 @@
 ---
 /**
- * Generic site layout. Adjust paths (logo, global CSS) to match your project.
- * If you already import a global stylesheet elsewhere, you can remove the import line.
+ * Generic site layout using Astro's BASE_URL for GitHub Pages compatibility.
+ * Pass optional { title, description, noindex } when using.
  */
 const {
-  title = 'BeerGoggleGames',
-  description = 'Drinking games, cocktails, and party activities.',
+  title = 'Beer Goggle Games',
+  description = 'Drinking games, cocktails, party activities & more.',
   noindex = false
 } = Astro.props;
 
 const siteTitle = 'Beer Goggle Games';
 const fullTitle = title === siteTitle ? title : `${title} | ${siteTitle}`;
+const base = import.meta.env.BASE_URL || '/';
 ---
 <!DOCTYPE html>
 <html lang="en" class="h-full">
@@ -20,21 +21,21 @@ const fullTitle = title === siteTitle ? title : `${title} | ${siteTitle}`;
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     {description && <meta name="description" content={description} />}
     {noindex && <meta name="robots" content="noindex" />}
-    <link rel="icon" type="image/png" href="/BeerGoggleGames/favicon.png" />
+    <link rel="icon" type="image/png" href={`${base}favicon.png`} />
   </head>
   <body class="min-h-screen bg-white text-gray-900 antialiased">
     <header class="border-b bg-gray-50">
       <div class="max-w-6xl mx-auto px-4 py-4 flex flex-wrap items-center gap-4">
-        <a href="/BeerGoggleGames/" class="font-bold text-lg">{siteTitle}</a>
+        <a href={base} class="font-bold text-lg">{siteTitle}</a>
         <nav class="flex flex-wrap gap-4 text-sm">
-          <a href="/BeerGoggleGames/games/" class="hover:underline">Games</a>
-          <a href="/BeerGoggleGames/cocktails/" class="hover:underline">Cocktails</a>
-          <a href="/BeerGoggleGames/shots/" class="hover:underline">Shots</a>
-          <a href="/BeerGoggleGames/activities/" class="hover:underline">Activities</a>
-          <a href="/BeerGoggleGames/posts/" class="hover:underline">Posts</a>
-          <a href="/BeerGoggleGames/search" class="hover:underline">Search</a>
-          <a href="/BeerGoggleGames/games/types/" class="hover:underline">Types</a>
-          <a href="/BeerGoggleGames/tags/" class="hover:underline">Tags</a>
+          <a href={`${base}games/`} class="hover:underline">Games</a>
+          <a href={`${base}cocktails/`} class="hover:underline">Cocktails</a>
+            <a href={`${base}shots/`} class="hover:underline">Shots</a>
+          <a href={`${base}activities/`} class="hover:underline">Activities</a>
+          <a href={`${base}posts/`} class="hover:underline">Posts</a>
+          <a href={`${base}games/types/`} class="hover:underline">Types</a>
+          <a href={`${base}tags/`} class="hover:underline">Tags</a>
+          <a href={`${base}search`} class="hover:underline">Search</a>
         </nav>
       </div>
     </header>
