@@ -1,0 +1,68 @@
+---
+title: Raspberry Gin Fizz
+cover: BGGBW.webp
+excerpt: "Description: A sweet cocktail with fresh fruit and mint, simple and very easy to drink."
+---
+
+# Raspberry Gin Fizz
+
+1.  [Home](/)
+2.  [Drinks](drinks)
+3.  [Cocktail Recipes](drinks/cocktailrecipes)
+4.  Raspberry Gin Fizz
+
+![](images/raspberry-gin-fizz.webp)
+
+#### Overview
+
+**Description:** A sweet cocktail with fresh fruit and mint, simple and very easy to drink.
+
+  **Time:** 5 mins
+
+  **Difficulty:** Medium
+
+  **Glass type:** Rocks glass
+
+  **Dietary Notes:** None
+
+  **Origin:** United Kingdom
+
+* * *
+
+### Ingredients ![target](images/liquor.webp)
+
+1.  Gin - 25ml
+2.  Raspberry Syrup - 10ml
+3.  Soda water - 100ml
+4.  Raspberries - 1 handful
+5.  Mint leaves - 1 handful
+6.  Ice - 1 handful
+
+### Recipe ![target](images/rules.webp)
+
+1.  Add a few cubes of ice to the empty glass.
+2.  Add as many shots of gin as you would like.
+3.  Rip a few leaves of mint and drop them in along with a few berries.
+4.  Fill the glass to the top with soda water.
+5.  Evenly Drizzle the raspberry syrup over the top of the drink, measuring to taste.
+6.  Mix and garnish with a sprig of mint.
+
+### Top Tip ![target](images/lightbulb.webp)
+
+-   Use basil leaves instead of mint to get a different essence of the same drink.
+-   Frozen fruit can keep your drink cooler for longer.
+
+####     Share This Page
+
+[](https://www.facebook.com/sharer/sharer.php?u=beergogglegames.co.uk/Drinks/CocktailRecipes/raspberry-gin-fizz)[](https://www.instagram.com/direct/new/)[](https://twitter.com/intent/tweet?url=beergogglegames.co.uk/Drinks/CocktailRecipes/raspberry-gin-fizz)
+
+* * *
+
+#### Feedback
+
+If you think we've missed certain details out of the game or you have something to add, please feel free to contact us.
+
+  
+  
+  
+[Contact Us](contact)

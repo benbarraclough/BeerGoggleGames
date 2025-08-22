@@ -1,0 +1,89 @@
+---
+title: Tinny
+cover: BGGBW.webp
+excerpt: Take it in turns to grab a card and either drink or place it under the can tab without breaking the seal.
+type: card
+---
+
+# Tinny
+
+1.  [Home](/)
+2.  [Categories](GameCategories)
+3.  [Card Games](GameCategories/CardGames)
+4.  Tinny
+
+![](images/tinny.webp)
+
+### Equipment ![target](images/liquor.webp)
+
+-   1 Can
+-   A drink each
+-   52 Card Deck
+-   A Table
+
+### Setup ![target](images/settings.webp)
+
+Place an unopened can in the centre of a table and a deck of cards scattered around it all face down so the numbers cannot be seen. Grab as many people to play as possible with drinks filled to the brim and give this game a go.
+
+* * *
+
+### Aim of the Game ![target](images/target.webp)
+
+Take it in turns to grab a card and either drink or place it under the can tab without breaking the seal.
+
+### How to Play ![target](images/question.webp)
+
+Starting with the player who raises their hand in the air last, they must take a turn to pick a card from the centre and perform the task outlined below based on the number. This continues one player at a time moving clockwise around the circle.
+
+If it is a number then it must be placed under the can tab on top of the can.
+
+If it is any of the below cards, the required sips must be taken.
+
+Ace = 4 sips
+
+King = 3 sips
+
+Queen = 2 sips
+
+Jack = 1 sip
+
+Joker (optional) = 1 shot
+
+If a player cracks the seal of the can and opens it by placing a card under the tab, that player loses and must finish the tinny.
+
+This is played until the seal of the can is cracked. If all cards have been turned and the seal has not cracked (unlikely), take it in turns to place face cards under the tab.
+
+### Rules ![target](images/rules.webp)
+
+-   Cards must be placed fully under the tab of the can
+-   Each player takes their turn one at a time
+-   Punishment cards are not required to be placed under the can tab
+-   If everyone cannot decide whether the seal is cracked, the group must vote to decide
+
+### Special Edition ![target](images/special.webp)
+
+Add an extra layer of excitement to your game by using:
+
+#### **Extra Rules**
+
+Apply these extra rules to the cards for a bit of extra fun and interest whilst playing the game.
+
+-   Number 10 = Again - Place the card under the tab and pick another card
+-   Number 2 = Safe - Discard the card, no further action
+-   Number 8 = Mate - Pick a mate to drink whenever you drink
+-   Shotgun - Instead of the loser just drinking the can, they must shotgun it (see BGG glossary for definition)
+
+####     Share This Page
+
+[](https://www.facebook.com/sharer/sharer.php?u=beergogglegames.co.uk/GameCategories/CardGames/tinny)[](https://www.instagram.com/direct/new/)[](https://twitter.com/intent/tweet?url=beergogglegames.co.uk/GameCategories/CardGames/tinny)
+
+* * *
+
+#### Feedback
+
+If you think we've missed certain details out of the game or you have something to add, please feel free to contact us.
+
+  
+  
+  
+[Contact Us](contact)

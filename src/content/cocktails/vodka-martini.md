@@ -1,0 +1,63 @@
+---
+title: Vodka Martini
+cover: BGGBW.webp
+excerpt: "Description: A classy drink that is easy to make using just vodka and vermouth, a favourite amongst cocktail enthusiasts."
+---
+
+# Vodka Martini
+
+1.  [Home](/)
+2.  [Drinks](drinks)
+3.  [Cocktail Recipes](drinks/cocktailrecipes)
+4.  Vodka Martini
+
+![](vodka-martini.webp)
+
+#### Overview
+
+**Description:** A classy drink that is easy to make using just vodka and vermouth, a favourite amongst cocktail enthusiasts.
+
+  **Time:** 2 mins
+
+  **Difficulty:** Easy
+
+  **Glass type:** Martini glass
+
+  **Dietary Notes:** None
+
+  **Origin:** USA
+
+* * *
+
+### Ingredients ![target](images/liquor.webp)
+
+-   Vodka - 90ml
+-   Vermouth Bianco - 30ml
+-   Ice - 1 handful
+-   Olive - 1
+
+### Recipe ![target](images/rules.webp)
+
+1.  Add the vodka and vermouth to a shaker with the ice
+2.  Shake until ice cold and strain into a glass
+3.  Skewer an olive to garnish and place on top
+
+### Top Tips ![target](images/lightbulb.webp)
+
+-   To make it a dirty martini, add some olive juice.
+-   If you don't like olives, use lemon rind to garnish
+
+####     Share This Page
+
+[](https://www.facebook.com/sharer/sharer.php?u=beergogglegames.co.uk/Drinks/CocktailRecipes/vodka-martini)[](https://www.instagram.com/direct/new/)[](https://twitter.com/intent/tweet?url=beergogglegames.co.uk/Drinks/CocktailRecipes/vodka-martini)
+
+* * *
+
+#### Feedback
+
+If you think we've missed certain details out of the drink recipe or you have something to add, please feel free to contact us.
+
+  
+  
+  
+[Contact Us](contact)

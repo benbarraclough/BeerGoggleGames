@@ -1,0 +1,80 @@
+---
+title: Irish Luck-Cup
+cover: BGGBW.webp
+excerpt: "Simple, just guess which side the coin lands on when flipped out of the cup to avoid drinking"
+type: dice
+---
+
+# Irish Luck-Cup
+
+1.  [Home](/)
+2.  [Categories](GameCategories)
+3.  [Coin Games](GameCategories/CoinGames)  &   [Dice Games](GameCategories/DiceGames)
+4.  Irish Luck-Cup
+
+![](images/irishluckcup.webp)
+
+### Equipment ![target](images/liquor.webp)
+
+-   1 solo cup
+-   1 coin
+-   1 dice
+-   a drink each
+
+### Setup ![target](images/settings.webp)
+
+Gather all participants with filled drinks around the cup of luck. Place the dice & coin in the cup and everything is set ready to play.
+
+* * *
+
+### Aim of the Game ![target](images/target.webp)
+
+Simple, just guess which side the coin lands on when flipped out of the cup to avoid drinking
+
+### How to Play ![target](images/question.webp)
+
+The most Irish looking player goes first by picking up the cup with the dice & coin in and shaking it with their hand over the top whilst choosing either heads or tails. Once decided, the player must slam the cup upside down on the table with the dice & coin underneath and slowly reveal what side the coin has landed on.
+
+If the player guesses the side of the coin correctly, no drinking happens and then they must pass the cup over to the next player to take their turn.
+
+If the player guesses the side of the coin incorrectly, they must look at the number rolled on the dice and drink that many sips.
+
+The loser can contest their drinks by rolling the dice out of the cup and guessing the number, which if correctly guessed would revoke their punishment and move to the next player. However, if this is guessed wrong, the number on the second dice roll is added to the number of sips required.
+
+This is played until drunk or until the game loses the dice/coin after a player gets angry at their bad luck.
+
+### Rules ![target](images/rules.webp)
+
+-   Minimum 3 second cup shake
+-   The cup must be used to roll dice and coin
+-   Dice and coin are still in play if they fall onto the floor
+-   Re-roll is required if a guess is not made clear to the group
+
+### Special Edition ![target](images/special.webp)
+
+Add an extra layer of excitement to your game by playing:
+
+#### **Luck Cup XL**
+
+#### XL Rules:
+
+-   The luck of the Irish: If you guess 3 coin flips in a row correctly, you get to give out 3 sips to participants in the game
+-   The luck of the devil: If you guess 3 coin flips in a row incorrectly, the player must now take shots instead of taking sips until the luck is reversed and thy guess correctly
+-   Risk: A player may choose to guess the coin side as well as the number on the dice at the same time on their turn. If guessed correctly, every other player in the game must finish their drinks. If guessed incorrectly, that player must drink their drink
+-   2: If a player guesses the coin flip correctly and the number on the dice is a 2, they can give out two sips to whoever they like.
+-   6: If a player guesses the coin flip correctly and the number on the dice is a 6, it skips the next player in line to take their turn.
+
+####     Share This Page
+
+[](https://www.facebook.com/sharer/sharer.php?u=beergogglegames.co.uk/GameCategories/DiceGames/irishluckcup)[](https://www.instagram.com/direct/new/)[](https://twitter.com/intent/tweet?url=beergogglegames.co.uk/GameCategories/DiceGames/irishluckcup)
+
+* * *
+
+#### Feedback
+
+If you think we've missed certain details out of the game or you have something to add, please feel free to contact us.
+
+  
+  
+  
+[Contact Us](contact)

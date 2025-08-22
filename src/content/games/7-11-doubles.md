@@ -1,0 +1,75 @@
+---
+title: "7 11 Doubles"
+cover: BGGBW.webp
+excerpt: "Roll a 7, 11 or double to put a player in the hot seat. If you are put in the hot seat, drink the centre chug cup as quickly as possible so you dont have to repeat it."
+type: dice
+---
+
+# 7 11 Doubles
+
+1.  [Home](/)
+2.  [Categories](GameCategories)
+3.  [Dice Games](GameCategories/DiceGames)
+4.  7 11 Doubles
+
+![](images/7-11doubles.webp)
+
+### Equipment ![target](images/liquor.webp)
+
+-   1 centre cup
+-   2 dice
+-   A table
+-   Various drinks
+
+### Setup ![target](images/settings.webp)
+
+Place a cup in the centre of the table filled with various drinks of choice, gather all players around it and have further alcohol readily avaialble. Assign the oldest player as the first roller and issue them the dice to begin with.
+
+* * *
+
+### Aim of the Game ![target](images/target.webp)
+
+Roll a 7, 11 or double to put a player in the hot seat. If you are put in the hot seat, drink the centre chug cup as quickly as possible so you dont have to repeat it.
+
+### How to Play ![target](images/question.webp)
+
+Starting with the roller, everyone takes it in turn to roll the two dice. Based on what is rolled, two actions can occur.
+
+If a player rolls either a 7, 11 or a double then they get to pick another player to put in the hot seat and become The Drinker.
+
+If a player is placed in the hot seat, they must choose what to fill the centre chug cup with before drinking it. From the moment The Drinker touches the filled drink to the moment they put it down empty, The Roller must keep rolling the dice over and over again in attempt to get a 7, 11 or a double. If The Roller gets another 7, 11 or double then the glass is refilled and The Drinker needs to start chugging all over again. If The Roller does not roll another 7, 11 or doubles while The Drinker is chugging then the turn is over.
+
+Once the drinking is over, The Roller refills the glass and the dice are handed to the player on the left of the player. This player is now the new Roller.
+
+### Rules ![target](images/rules.webp)
+
+-   The Drinker must place the cup down when finished to stop The Roller from rolling the dice
+-   If a 7, 11 or double is rolled with drink remaining for the drinker, the player does not have to drink the remainder when filling the cup up again
+-   A player cannot escape the hot seat until they finish their drink before another 7, 11 or double is rolled
+-   The drink is always filled by the designated Roller at the time that the cup is empty
+
+### Special Edition ![target](images/special.webp)
+
+Add an extra layer of excitement to your game by using:
+
+#### **Bonus Rules**
+
+-   If The Roller picks a drinker but doesn't remember to pick up the dice and The Drinker does this first, the roles are switched.
+-   Snake Eyes: If a roller rolls snake eyes when there is nobody in the hot seat, they must finish the chug cup and refill it to resume the game.
+-   Chance: After each Drinker refills their drink, they get a chance to escape the hot seat by rolling the dice in attempt to get a 7, 11 or a double
+-   Sloppy Jalopy: Only rolls that land on the table count, if it lands anywhere else The Roller miss their current and next turn
+
+####     Share This Page
+
+[](https://www.facebook.com/sharer/sharer.php?u=beergogglegames.co.uk/GameCategories/DiceGames/7-11doubles)[](https://www.instagram.com/direct/new/)[](https://twitter.com/intent/tweet?url=beergogglegames.co.uk/GameCategories/DiceGames/7-11doubles)
+
+* * *
+
+#### Feedback
+
+If you think we've missed certain details out of the game or you have something to add, please feel free to contact us.
+
+  
+  
+  
+[Contact Us](contact)

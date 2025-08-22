@@ -1,0 +1,65 @@
+---
+title: Blue Balls
+cover: BGGBW.webp
+excerpt: "Description: A pleasant tropical flavoured shot with lots of different fruits combined to make a low strength enjoyable shot."
+---
+
+# Blue Balls
+
+1.  [Home](/)
+2.  [Drinks](drinks)
+3.  [Shot Recipes](drinks/shotrecipes)
+4.  Blue Balls
+
+![](images/blue-balls.webp)
+
+#### Overview
+
+**Description:** A pleasant tropical flavoured shot with lots of different fruits combined to make a low strength enjoyable shot.
+
+  **Time:** 4 mins
+
+  **Difficulty:** Medium
+
+  **Glass type:** Shot glass
+
+  **Dietary Notes:** None
+
+  **Origin:** France
+
+* * *
+
+### Ingredients ![target](images/liquor.webp)
+
+-   Coconut rum - 15ml
+-   Blue Curacao - 15ml
+-   Peach Schnapps - 15ml
+-   Sweet and Sour mix - 15ml
+-   Lemon-lime soda - 1 splash
+-   Ice - 1 handful
+
+### Recipe ![target](images/rules.webp)
+
+1.  Add the rum, blue curacao, schnapps and sweet-sour mix into a shaker with ice.
+2.  Shake until ice cold and then strain into a shot glass.
+3.  Top off with sprite or another lemon-lime soda then serve.
+
+### Top Tips ![target](images/lightbulb.webp)
+
+-   Do not shake with the sprite in the shaker, this will bubble up and ruin the lemon-lime soda.
+-   Ensure equal parts ingredients.
+
+####     Share This Page
+
+[](https://www.facebook.com/sharer/sharer.php?u=beergogglegames.co.uk/Drinks/ShotRecipes/blue-balls)[](https://www.instagram.com/direct/new/)[](https://twitter.com/intent/tweet?url=beergogglegames.co.uk/Drinks/ShotRecipes/blue-balls)
+
+* * *
+
+#### Feedback
+
+If you think we've missed certain details out of the drink recipe or you have something to add, please feel free to contact us.
+
+  
+  
+  
+[Contact Us](contact)
