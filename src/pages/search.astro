@@ -1,45 +1,59 @@
 ---
 import Layout from '../components/Layout.astro';
+import { withBase } from '../lib/paths';
+import { canonical } from '../lib/urls';
+
 const pageTitle = 'Search';
-const base = import.meta.env.BASE_URL || '/';
+const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 ---
-<Layout title={pageTitle}>
-  <section class="prose max-w-none">
-    <h1>{pageTitle}</h1>
-    <p>Type to search games, cocktails, shots, activities, posts.</p>
+<Layout title={pageTitle} canonical={pageCanonical} description="Search games, cocktails, shots, activities and blog posts.">
+  <section class="prose prose-invert max-w-none">
+    <h1 class="!mb-4 !leading-tight !text-fg font-display text-3xl md:text-4xl">{pageTitle}</h1>
+    <p class="!mt-0">Type to search games, cocktails, shots, activities, and posts.</p>
+
     <div class="mb-4">
       <input
         id="q"
         type="search"
         placeholder="e.g. beer pong, vodka, dice..."
-        class="w-full border rounded px-3 py-2"
+        class="w-full border border-fg/30 bg-transparent rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-neon/70"
         aria-label="Search site content"
+        autocomplete="off"
       />
     </div>
-    <div id="status" class="text-sm text-gray-500">Loading index…</div>
-    <ul id="results" class="list-disc pl-5 space-y-1 mt-3"></ul>
+    <div id="status" class="text-sm text-muted">Loading index…</div>
+    <ul id="results" class="mt-4 space-y-2 list-none p-0"></ul>
   </section>
-  <script type="module">
-    const base = (import.meta.env.BASE_URL || '/');
+
+  <script is:inline>
+    const base = ${JSON.stringify(import.meta.env.BASE_URL || '/')};
     const input = document.getElementById('q');
     const list = document.getElementById('results');
     const status = document.getElementById('status');
     let data = [];
     let ready = false;
 
+    function escapeHTML(s) {
+      return s.replace(/[&<>"]/g, c => ({
+        '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'
+      }[c]));
+    }
+
     function render(items) {
       list.innerHTML = '';
       if (!items.length) {
-        list.innerHTML = '<li class="text-gray-500">No results.</li>';
+        list.innerHTML = '<li class="text-muted text-sm">No results.</li>';
         return;
       }
       const frag = document.createDocumentFragment();
-      items.forEach(m => {
+      for (const m of items) {
         const li = document.createElement('li');
-        li.innerHTML = `<a class="text-blue-600 hover:underline" href='${base}${m.c}/${m.slug}/'>${m.title}</a>
-          <small class="text-gray-500">(${m.c}${m.type ? ' · ' + m.type : ''})</small>`;
+        const title = escapeHTML(m.title);
+        const type = escapeHTML(m.c + (m.type ? ' · ' + m.type : ''));
+        li.innerHTML = \`<a class="hover:text-neon font-medium" href="\${base}\${m.c}/\${m.slug}/">\${title}</a>
+          <small class="text-muted ml-1">(\${type})</small>\`;
         frag.appendChild(li);
-      });
+      }
       list.appendChild(frag);
     }
 
@@ -52,20 +66,28 @@ const base = import.meta.env.BASE_URL || '/';
         return;
       }
       status.textContent = '';
-      const terms = term.split(/\s+/);
+      const terms = term.split(/\\s+/);
       const matches = data.filter(item => {
-        const hay = (item.title + ' ' + item.excerpt + ' ' + item.type + ' ' + (item.ingredients || []).join(' ')).toLowerCase();
+        const hay = (item.title + ' ' + (item.excerpt||'') + ' ' + (item.type||'') + ' ' + (item.ingredients||[]).join(' ')).toLowerCase();
         return terms.every(t => hay.includes(t));
       }).slice(0, 100);
       render(matches);
     }
 
     input.addEventListener('input', () => doSearch(input.value));
-    input.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); doSearch(input.value); }});
+    input.addEventListener('keydown', e => {
+      if (e.key === 'Enter') { e.preventDefault(); doSearch(input.value); }
+    });
 
     fetch(base + 'search-index.json')
-      .then(r => r.json())
-      .then(json => { data = json; ready = true; status.textContent = 'Index loaded. Start typing.'; })
-      .catch(() => { status.textContent = 'Failed to load search index.'; });
+      .then(r => r.ok ? r.json() : Promise.reject(r.status))
+      .then(json => {
+        data = json;
+        ready = true;
+        status.textContent = 'Index loaded. Start typing.';
+      })
+      .catch(() => {
+        status.textContent = 'Failed to load search index.';
+      });
   </script>
 </Layout>
