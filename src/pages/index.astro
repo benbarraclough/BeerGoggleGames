@@ -2,6 +2,7 @@
 import Layout from '../components/Layout.astro';
 import { getCollection } from 'astro:content';
 import { excludeLegacyNoise } from '../lib/filters';
+import { withBase } from '../lib/paths';
 
 const allGames = excludeLegacyNoise(await getCollection('games'));
 const recentGames = allGames.slice(0, 6);
@@ -13,8 +14,6 @@ const posts = excludeLegacyNoise(await getCollection('posts'))
 
 const cocktails = excludeLegacyNoise(await getCollection('cocktails')).slice(0,3);
 const shots = excludeLegacyNoise(await getCollection('shots')).slice(0,3);
-
-const base = import.meta.env.BASE_URL || '/';
 ---
 <Layout title="BeerGoggleGames">
   <h1 class="font-display text-4xl mb-6">BeerGoggleGames</h1>
@@ -28,13 +27,13 @@ const base = import.meta.env.BASE_URL || '/';
         const type = g.data.type || 'misc';
         return (
           <li class="border border-fg/20 p-4">
-            <a class="font-semibold hover:text-neon" href={`${base}games/${type}/${slug}`}>{g.data.title}</a>
+            <a class="font-semibold hover:text-neon" href={withBase(`games/${type}/${slug}/`)}>{g.data.title}</a>
             {g.data.tags?.length ? <div class="text-xs text-muted mt-2">{g.data.tags.join(' • ')}</div> : null}
           </li>
         );
       })}
     </ul>
-    <p class="mt-4 text-sm"><a class="hover:text-neon" href={`${base}games`}>Browse all game types →</a></p>
+    <p class="mt-4 text-sm"><a class="hover:text-neon" href={withBase('games/')}>Browse all game types →</a></p>
   </section>
 
   <section class="mb-12">
@@ -47,12 +46,12 @@ const base = import.meta.env.BASE_URL || '/';
             const slug = (c.slug ?? c.id).split('/').pop();
             return (
               <li>
-                <a class="hover:text-neon" href={`${base}drinks/cocktail-recipes/${slug}`}>{c.data.title}</a>
+                <a class="hover:text-neon" href={withBase(`drinks/cocktail-recipes/${slug}/`)}>{c.data.title}</a>
               </li>
             );
           })}
         </ul>
-        <p class="mt-2 text-xs"><a class="hover:text-neon" href={`${base}drinks/cocktail-recipes`}>All cocktails →</a></p>
+        <p class="mt-2 text-xs"><a class="hover:text-neon" href={withBase('drinks/cocktail-recipes/')}>All cocktails →</a></p>
       </div>
       <div>
         <h3 class="font-semibold mb-2">Shots</h3>
@@ -61,12 +60,12 @@ const base = import.meta.env.BASE_URL || '/';
             const slug = (s.slug ?? s.id).split('/').pop();
             return (
               <li>
-                <a class="hover:text-neon" href={`${base}drinks/shot-recipes/${slug}`}>{s.data.title}</a>
+                <a class="hover:text-neon" href={withBase(`drinks/shot-recipes/${slug}/`)}>{s.data.title}</a>
               </li>
             );
           })}
         </ul>
-        <p class="mt-2 text-xs"><a class="hover:text-neon" href={`${base}drinks/shot-recipes`}>All shots →</a></p>
+        <p class="mt-2 text-xs"><a class="hover:text-neon" href={withBase('drinks/shot-recipes/')}>All shots →</a></p>
       </div>
     </div>
   </section>
@@ -79,7 +78,7 @@ const base = import.meta.env.BASE_URL || '/';
           const slug = (p.slug ?? p.id).split('/').pop();
           return (
             <li class="border border-fg/20 p-4">
-              <a class="font-semibold hover:text-neon" href={`${base}blog/${slug}`}>{p.data.title}</a>
+              <a class="font-semibold hover:text-neon" href={withBase(`blog/${slug}/`)}>{p.data.title}</a>
               {p.data.date && <div class="text-xs text-muted mt-1">{p.data.date}</div>}
               {p.data.excerpt && <p class="text-sm text-muted mt-2">{p.data.excerpt}</p>}
             </li>
@@ -87,12 +86,12 @@ const base = import.meta.env.BASE_URL || '/';
         })}
       </ul>
     )}
-    <p class="mt-4 text-sm"><a class="hover:text-neon" href={`${base}blog`}>All posts →</a></p>
+    <p class="mt-4 text-sm"><a class="hover:text-neon" href={withBase('blog/')}>All posts →</a></p>
   </section>
 
   <section class="mb-8">
     <h2 class="font-display text-2xl mb-4">Extras</h2>
     <p class="text-sm text-muted">Check out forfeits, glossary, wheel of fortune, and more in Extras.</p>
-    <a class="inline-block mt-2 hover:text-neon text-sm" href={`${base}extras`}>Explore Extras →</a>
+    <a class="inline-block mt-2 hover:text-neon text-sm" href={withBase('extras/')}>Explore Extras →</a>
   </section>
 </Layout>
