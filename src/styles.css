@@ -26,3 +26,11 @@ a { transition: color .15s ease, box-shadow .15s ease; }
 
 .prose.prose-invert a:hover { color: theme(colors.neon); }
 ul.list-none { list-style: none; }
+
+/* Player mode pill */
+.mode-pill {
+  @apply inline-block px-2 py-0.5 rounded text-xs font-medium bg-fg/10 border border-fg/20;
+}
+.mode-pill-team { @apply text-accent; }
+.mode-pill-pairs { @apply text-neon; }
+.mode-pill-solo  { @apply text-fg; }
