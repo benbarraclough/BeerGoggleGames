@@ -80,6 +80,7 @@ const navLinks = [
           class="lg:hidden inline-flex items-center gap-2 border border-fg/30 px-3 py-2 text-sm rounded hover:border-neon hover:text-neon"
           aria-controls="nav-overlay"
           aria-expanded="false"
+          type="button"
         >
           <span class="sr-only">Open menu</span>
           <svg width="22" height="18" viewBox="0 0 22 18" fill="none" xmlns="http://www.w3.org/2000/svg" class="stroke-current">
@@ -93,21 +94,22 @@ const navLinks = [
     {/* Overlay Menu */}
     <div
       id="nav-overlay"
-      class="fixed inset-0 bg-bg/90 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-200 z-30"
+      class="nav-overlay"
       aria-hidden="true"
     >
-      <div class="flex flex-col h-full">
+      <div class="nav-overlay-panel">
         <div class="flex items-center justify-between px-5 py-4 border-b border-fg/25">
           <span class="font-display text-xl">Menu</span>
           <button
             id="nav-close"
             class="inline-flex items-center gap-2 border border-fg/30 px-3 py-2 text-sm rounded hover:border-neon hover:text-neon"
             aria-label="Close menu"
+            type="button"
           >
             ✕
           </button>
         </div>
-        <nav class="px-6 py-8 grow flex flex-col gap-5 text-lg" aria-label="Mobile Primary">
+        <nav class="px-6 py-8 grow flex flex-col gap-5 text-lg overflow-y-auto" aria-label="Mobile Primary">
           {navLinks.map(link => (
             <a
               href={link.href}
@@ -151,23 +153,19 @@ const navLinks = [
         if(!toggle || !overlay) return;
 
         function open(){
-          overlay.classList.remove('pointer-events-none');
+          overlay.classList.add('open');
           overlay.setAttribute('aria-hidden','false');
           toggle.setAttribute('aria-expanded','true');
+          // Focus first link after frame
           requestAnimationFrame(()=> {
-            overlay.classList.add('opacity-100');
-            overlay.classList.remove('opacity-0');
-          });
-          // Focus first link
-          const first = overlay.querySelector('a');
+            const first = overlay.querySelector('a');
             first && (first as HTMLElement).focus({ preventScroll: true });
+          });
         }
         function close(){
-          overlay.classList.add('opacity-0');
-          overlay.classList.remove('opacity-100');
-          overlay.setAttribute('aria-hidden','true');
+          overlay.classList.remove('open');
+            overlay.setAttribute('aria-hidden','true');
           toggle.setAttribute('aria-expanded','false');
-          setTimeout(()=>overlay.classList.add('pointer-events-none'), 200);
           toggle.focus();
         }
 
