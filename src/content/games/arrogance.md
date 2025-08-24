@@ -3,7 +3,7 @@ title: Arrogance
 cover: BGGBW.webp
 excerpt: Guess the coin flip correctly to avoid drinking the centre chug cup.
 type: coin
-players: [team]
+players: team
 tags: [classic, fast]
 ---
 
