@@ -1,25 +1,72 @@
 ---
+import Layout from '../../components/Layout.astro';
 import { getCollection } from 'astro:content';
+import { canonical } from '../../lib/urls';
+import { withBase } from '../../lib/paths';
+
 export async function getStaticPaths() {
-  const collections = ['games','cocktails','shots','activities','posts'];
-  const entries = (await Promise.all(collections.map(c=>getCollection(c).catch(()=>[])))).flat();
-  const tagSet = new Set();
-  entries.forEach(e => (e.data.tags||[]).forEach(t => tagSet.add(t)));
-  return [...tagSet].map(tag => ({ params: { tag }, props: { tag } }));
+  const collections = await Promise.all([
+    getCollection('games').catch(()=>[]),
+    getCollection('posts').catch(()=>[]),
+    getCollection('cocktails').catch(()=>[]),
+    getCollection('shots').catch(()=>[]),
+    getCollection('activities').catch(()=>[])
+  ]);
+  const tagSet = new Set<string>();
+  for (const group of collections) {
+    for (const entry of group) {
+      const tags = entry.data.tags;
+      if (Array.isArray(tags)) tags.forEach(t => t && tagSet.add(String(t)));
+    }
+  }
+  return Array.from(tagSet).map(tag => ({ params: { tag } }));
 }
 
-const { tag } = Astro.props;
-const collections = ['games','cocktails','shots','activities','posts'];
-const entries = (await Promise.all(collections.map(c=>getCollection(c).catch(()=>[])))).flat();
-const tagged = entries.filter(e => (e.data.tags||[]).includes(tag));
+const { tag } = Astro.params;
+const pageCanonical = canonical(Astro.url.pathname, Astro.site);
+
+function tagged(entry: any, t: string) {
+  return Array.isArray(entry.data.tags) && entry.data.tags.map(String).includes(t);
+}
+
+const [games, posts, cocktails, shots, activities] = await Promise.all([
+  getCollection('games').catch(()=>[]),
+  getCollection('posts').catch(()=>[]),
+  getCollection('cocktails').catch(()=>[]),
+  getCollection('shots').catch(()=>[]),
+  getCollection('activities').catch(()=>[])
+]);
+
+const matched = [
+  ...games.filter(e => tagged(e, tag)),
+  ...posts.filter(e => tagged(e, tag)),
+  ...cocktails.filter(e => tagged(e, tag)),
+  ...shots.filter(e => tagged(e, tag)),
+  ...activities.filter(e => tagged(e, tag))
+].sort((a,b)=> (a.data.title||'').localeCompare(b.data.title||''));
 ---
-<html lang="en">
-  <head><title>Tag: {tag}</title></head>
-  <body>
-    <h1>Tag: {tag}</h1>
-    <ul>
-      {tagged.map(e => <li><a href={`/${e.collection}/${e.slug}/`}>{e.data.title}</a> <small>({e.collection})</small></li>)}
+<Layout title={`Tag: ${tag}`} description={`Items tagged ${tag}.`} canonical={pageCanonical} wide={true}>
+  <h1 class="font-display text-3xl mb-6">Tag: {tag}</h1>
+  {matched.length === 0 ? (
+    <p class="text-muted">No items with this tag.</p>
+  ) : (
+    <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 list-none p-0 m-0">
+      {matched.map(item => (
+        <li class="border border-fg/20 p-4">
+          <a class="font-semibold hover:text-neon" href={withBase(`${item.collection}/${item.slug}/`)}>{item.data.title}</a>
+          {item.data.type && <div class="text-xs text-muted mt-1">{item.data.type}</div>}
+          {Array.isArray(item.data.tags) && (
+            <div class="mt-2 flex flex-wrap gap-2">
+              {item.data.tags.slice(0,5).map((t: any) => (
+                <span class="mode-pill">{t}</span>
+              ))}
+            </div>
+          )}
+        </li>
+      ))}
     </ul>
-    <p><a href="/tags/">All Tags</a></p>
-  </body>
-</html>
+  )}
+  <p class="mt-8 text-sm">
+    <a class="hover:text-neon underline underline-offset-4" href={withBase('tags/')}>← All Tags</a>
+  </p>
+</Layout>
