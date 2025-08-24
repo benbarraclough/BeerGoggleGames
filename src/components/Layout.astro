@@ -1,14 +1,12 @@
 ---
 import '../styles.css';
-import Analytics from './Analytics.astro';
-import SkipLink from './SkipLink.astro';
-import { base, withBase } from '../lib/paths';
+import { withBase, base } from '../lib/paths';
 
 interface Props {
   title?: string;
   description?: string;
-  ogImage?: string;
   canonical?: string;
+  ogImage?: string;
   wide?: boolean;
   fullBleed?: boolean;
 }
@@ -16,22 +14,17 @@ interface Props {
 const {
   title = 'Beer Goggle Games',
   description = 'Drinking games, cocktails, party activities & more.',
-  ogImage,
   canonical,
+  ogImage,
   wide = false,
   fullBleed = false
 } = Astro.props as Props;
 
 const current = Astro.url.pathname;
 function isActive(segment: string) {
-  const normalized = segment.endsWith('/') ? segment : segment + '/';
-  return current.startsWith(withBase(normalized));
+  const norm = segment.endsWith('/') ? segment : segment + '/';
+  return current.startsWith(withBase(norm));
 }
-
-const mainClass = [
-  'grow mx-auto w-full px-4 py-8',
-  fullBleed ? '' : (wide ? 'max-w-7xl' : 'max-w-6xl')
-].join(' ');
 
 const navLinks = [
   { href: withBase('games/'),   label: 'Games',   key: 'games' },
@@ -41,169 +34,163 @@ const navLinks = [
   { href: withBase('search'),   label: 'Search',  key: 'search' },
   { href: withBase('contact'),  label: 'Contact', key: 'contact' }
 ];
+
+const mainClass = [
+  'grow mx-auto w-full px-4 py-8',
+  fullBleed ? '' : (wide ? 'max-w-7xl' : 'max-w-6xl')
+].join(' ');
 ---
 <!DOCTYPE html>
-<html lang="en" class="bg-bg text-fg font-body antialiased" data-base={base}>
-<head>
-  <meta charset="utf-8" />
-  <title>{title}</title>
-  <meta name="description" content={description} />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  {canonical && <link rel="canonical" href={canonical} />}
-  <meta property="og:title" content={title} />
-  <meta property="og:description" content={description} />
-  <meta property="og:type" content="website" />
-  {ogImage && <meta property="og:image" content={withBase(ogImage.replace(/^\/+/, ''))} />}
-</head>
-<body class="min-h-screen flex flex-col selection:bg-neon/40">
-  <SkipLink />
-  <header class="border-b border-fg/20 relative z-40">
-    <div class="mx-auto max-w-7xl px-4 py-4 flex items-center justify-between">
-      <a href={withBase()} class="font-display text-2xl tracking-tight hover:text-neon">
-        BeerGoggleGames
-      </a>
-      {/* Desktop Nav */}
-      <nav class="hidden lg:flex flex-wrap gap-6 text-sm" aria-label="Primary">
-        {navLinks.map(link => (
-          <a
-            href={link.href}
-            class:list={['hover:text-neon', isActive(link.key) && 'text-neon font-semibold']}
-            aria-current={isActive(link.key) ? 'page' : undefined}
-          >
-            {link.label}
-          </a>
-        ))}
-      </nav>
-      {/* Mobile Toggle */}
-      <button
-        id="nav-toggle"
-        class="lg:hidden inline-flex items-center gap-2 border border-fg/30 px-3 py-2 text-sm rounded hover:border-neon hover:text-neon"
-        aria-controls="nav-overlay"
-        aria-expanded="false"
-        type="button"
-      >
-        <span class="sr-only">Open menu</span>
-        <svg width="22" height="18" viewBox="0 0 22 18" fill="none" xmlns="http://www.w3.org/2000/svg" class="stroke-current">
-          <path d="M1 1H21M1 9H21M1 17H21" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-        Menu
-      </button>
-    </div>
-  </header>
-
-  {/* Overlay (hidden by attribute) */}
-  <div
-    id="nav-overlay"
-    hidden
-    role="dialog"
-    aria-modal="true"
-    aria-label="Site navigation"
-  >
-    <div class="nav-ov-panel">
-      <div class="flex items-center justify-between px-5 py-4 border-b border-fg/25">
-        <span class="font-display text-xl">Menu</span>
+<html lang="en" class="bg-bg text-fg font-body" data-base={base}>
+  <head>
+    <meta charset="utf-8" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    {canonical && <link rel="canonical" href={canonical} />}
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    {ogImage && <meta property="og:image" content={withBase(ogImage.replace(/^\/+/, ''))} />}
+  </head>
+  <body class="min-h-screen flex flex-col selection:bg-neon/40">
+    <header class="border-b border-fg/20 relative z-40">
+      <div class="mx-auto max-w-7xl px-4 py-4 flex items-center justify-between">
+        <a href={withBase()} class="font-display text-2xl tracking-tight hover:text-neon">
+          BeerGoggleGames
+        </a>
+        <nav class="hidden lg:flex flex-wrap gap-6 text-sm" aria-label="Primary">
+          {navLinks.map(l => (
+            <a
+              href={l.href}
+              class:list={['hover:text-neon', isActive(l.key) && 'text-neon font-semibold']}
+              aria-current={isActive(l.key) ? 'page' : undefined}
+            >{l.label}</a>
+          ))}
+        </nav>
         <button
-          id="nav-close"
-          class="inline-flex items-center gap-2 border border-fg/30 px-3 py-2 text-sm rounded hover:border-neon hover:text-neon"
-          aria-label="Close menu"
+          id="nav-toggle"
+          class="lg:hidden inline-flex items-center gap-2 border border-fg/30 px-3 py-2 text-sm rounded hover:border-neon hover:text-neon"
+          aria-controls="nav-overlay"
+          aria-expanded="false"
           type="button"
         >
-          ✕
+          <span class="sr-only">Open menu</span>
+          <svg width="22" height="18" viewBox="0 0 22 18" fill="none" xmlns="http://www.w3.org/2000/svg" class="stroke-current">
+            <path d="M1 1H21M1 9H21M1 17H21" stroke-width="2" stroke-linecap="round" />
+          </svg>
+          Menu
         </button>
       </div>
-      <nav class="px-6 py-8 grow flex flex-col gap-5 text-lg overflow-y-auto" aria-label="Mobile Primary">
-        {navLinks.map(link => (
-          <a
-            href={link.href}
-            class:list={[
-              'hover:text-neon',
-              isActive(link.key) && 'text-neon font-semibold'
-            ]}
-            aria-current={isActive(link.key) ? 'page' : undefined}
-            data-nav-close
-          >
-            {link.label}
-          </a>
-        ))}
-        <div class="mt-8 pt-6 border-t border-fg/20 text-sm text-muted leading-relaxed max-w-prose">
-          <p class="mb-3">
-            Explore hundreds of drinking games, cocktails, shots, activities & extras.
-          </p>
-          <p>
-            Visit the <a class="hover:text-neon underline underline-offset-4" href={withBase('blog/')}>Blog</a> for guides & ideas.
-          </p>
+    </header>
+
+    <!-- CLOSE THE BUTTON ABOVE BEFORE STARTING OVERLAY -->
+    <div id="nav-overlay" hidden>
+      <div class="nav-ov-panel">
+        <div class="flex items-center justify-between px-5 py-4 border-b border-fg/25">
+          <span class="font-display text-xl">Menu</span>
+          <button
+            id="nav-close"
+            class="inline-flex items-center gap-2 border border-fg/30 px-3 py-2 text-sm rounded hover:border-neon hover:text-neon"
+            aria-label="Close menu"
+            type="button"
+          >✕</button>
         </div>
-      </nav>
+        <nav class="px-6 py-8 grow flex flex-col gap-5 text-lg overflow-y-auto" aria-label="Mobile Primary">
+          {navLinks.map(l => (
+            <a
+              href={l.href}
+              class:list={[
+                'hover:text-neon',
+                isActive(l.key) && 'text-neon font-semibold'
+              ]}
+              aria-current={isActive(l.key) ? 'page' : undefined}
+              data-nav-close
+            >{l.label}</a>
+          ))}
+          <div class="mt-8 pt-6 border-t border-fg/20 text-sm text-muted leading-relaxed max-w-prose">
+            <p class="mb-3">
+              Explore hundreds of drinking games, cocktails, shots, activities & extras.
+            </p>
+            <p>
+              Visit the <a class="hover:text-neon underline underline-offset-4" href={withBase('blog/')}>Blog</a> for guides & ideas.
+            </p>
+          </div>
+        </nav>
+      </div>
     </div>
-  </div>
 
-  <main id="main" class={mainClass}>
-    <slot />
-  </main>
-  <footer class="border-t border-fg/20">
-    <div class="mx-auto max-w-7xl px-4 py-6 text-sm text-muted flex items-center justify-between">
-      <span>© {new Date().getFullYear()} Beer Goggle Games</span>
-      <a class="hover:text-neon" href={withBase('rss.xml')}>RSS</a>
-    </div>
-  </footer>
-  <Analytics />
+    <main id="main" class={mainClass}>
+      <slot />
+    </main>
 
-  <script is:inline>
-(function(){
-  const toggle = document.getElementById('nav-toggle');
-  const closeBtn = document.getElementById('nav-close');
-  const overlay = document.getElementById('nav-overlay');
+    <footer class="border-t border-fg/20">
+      <div class="mx-auto max-w-7xl px-4 py-6 text-sm text-muted flex items-center justify-between">
+        <span>© {new Date().getFullYear()} Beer Goggle Games</span>
+        <a class="hover:text-neon" href={withBase('rss.xml')}>RSS</a>
+      </div>
+    </footer>
 
-  function log(...a){ console.log('[NAV]', ...a); }
+    <script is:inline>
+      (function(){
+        const toggle = document.getElementById('nav-toggle');
+        const closeBtn = document.getElementById('nav-close');
+        const overlay = document.getElementById('nav-overlay');
+        if(!toggle || !overlay){
+          console.error('[NAV] Elements missing',{toggle:!!toggle,overlay:!!overlay});
+          return;
+        }
+        console.log('[NAV] init ok');
 
-  if(!toggle || !overlay){
-    log('Missing elements', { toggle: !!toggle, overlay: !!overlay });
-    return;
-  }
+        // Inline fallback styles (even if CSS fails)
+        Object.assign(overlay.style,{
+          position:'fixed',
+          inset:'0',
+          display:'none',
+          flexDirection:'column',
+          background:'rgba(0,0,0,0.9)',
+          backdropFilter:'blur(6px)',
+          opacity:'0',
+          transition:'opacity .2s ease',
+          zIndex:'2000'
+        });
 
-  // Ensure starting state
-  overlay.style.display = 'none';
-  overlay.style.opacity = '0';
-  overlay.style.transition = 'opacity .2s ease';
-  overlay.style.position = 'fixed';
-  overlay.style.inset = '0';
-  overlay.style.zIndex = '2000';
-  overlay.style.background = 'rgba(0,0,0,0.9)';
-  overlay.style.backdropFilter = 'blur(6px)';
-
-  function open(){
-    log('open()');
-    overlay.hidden = false; // remove attribute if present
-    overlay.style.display = 'flex';
-    requestAnimationFrame(()=>{
-      overlay.style.opacity = '1';
-    });
-    toggle.setAttribute('aria-expanded','true');
-  }
-
-  function close(){
-    log('close()');
-    overlay.style.opacity = '0';
-    toggle.setAttribute('aria-expanded','false');
-    setTimeout(()=>{
-      overlay.style.display = 'none';
-      overlay.hidden = true;
-    },200);
-  }
-
-  toggle.addEventListener('click', () => {
-    const expanded = toggle.getAttribute('aria-expanded') === 'true';
-    expanded ? close() : open();
-  });
-
-  closeBtn?.addEventListener('click', close);
-  overlay.addEventListener('click', e => { if (e.target === overlay) close(); });
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
-
-  // Debug helper
-  (window as any).NAV_DEBUG = { open, close, toggle, overlay };
-  log('initialized');
-})();
-</script>
-</body>
+        function open(){
+          console.log('[NAV] open()');
+          overlay.hidden = false;
+          overlay.style.display='flex';
+          requestAnimationFrame(()=> overlay.style.opacity='1');
+          toggle.setAttribute('aria-expanded','true');
+          document.documentElement.style.overflow='hidden';
+          const first = overlay.querySelector('a');
+          first && (first as HTMLElement).focus({preventScroll:true});
+        }
+        function close(){
+          console.log('[NAV] close()');
+            overlay.style.opacity='0';
+          toggle.setAttribute('aria-expanded','false');
+          document.documentElement.style.overflow='';
+          setTimeout(()=>{
+            overlay.style.display='none';
+            overlay.hidden = true;
+          },180);
+        }
+        toggle.addEventListener('click', () => {
+          const expanded = toggle.getAttribute('aria-expanded')==='true';
+          expanded ? close() : open();
+        });
+        closeBtn?.addEventListener('click', close);
+        overlay.addEventListener('click', e=>{
+          if(e.target === overlay) close();
+          const link = (e.target as HTMLElement).closest('[data-nav-close]');
+          if (link) close();
+        });
+        document.addEventListener('keydown', e=>{
+          if(e.key==='Escape') close();
+        });
+        // Expose for manual debug
+        (window as any).__NAV = {open,close,overlay,toggle};
+      })();
+    </script>
+  </body>
 </html>
