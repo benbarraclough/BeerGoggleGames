@@ -1,35 +1,72 @@
 ---
 import Layout from '../../../components/Layout.astro';
 import { getCollection } from 'astro:content';
-import { excludeLegacyNoise } from '../../../lib/filters';
+import { canonical } from '../../../lib/urls';
+import { withBase } from '../../../lib/paths';
+import { playerModeClass, playerModeLabel } from '../../../lib/playerMode';
+
+const PAGE_SIZE = 36;
 
 export async function getStaticPaths() {
-  const all = excludeLegacyNoise(await getCollection('games'));
-  const types = Array.from(new Set(all.map(e => e.data.type || 'misc')));
-  return types.map((type) => ({ params: { type } }));
+  const games = await getCollection('games').catch(()=>[]);
+  const types = Array.from(new Set(games.map(g => g.data.type || 'misc')));
+  return types.map(type => ({ params: { type } }));
 }
 
 const { type } = Astro.params;
-const items = excludeLegacyNoise(await getCollection('games'))
-  .filter(e => (e.data.type || 'misc') === type)
-  .sort((a,b) => (a.data.title || '').localeCompare(b.data.title || ''));
-const base = import.meta.env.BASE_URL || '/';
+
+const all = (await getCollection('games'))
+  .filter(g => (g.data.type || 'misc') === type)
+  .sort((a,b)=> (a.data.title||'').localeCompare(b.data.title||''));
+
+const totalPages = Math.ceil(all.length / PAGE_SIZE);
+const pageItems = all.slice(0, PAGE_SIZE);
+const pageCanonical = canonical(Astro.url.pathname, Astro.site);
+const title = `${type} Games`;
+const description = `All ${type} games. Page 1 of ${totalPages || 1}.`;
 ---
-<Layout title={`${type?.charAt(0).toUpperCase()}${type?.slice(1)} Games`}>
-  <h1 class="font-display text-3xl mb-6">{type?.charAt(0).toUpperCase()}{type?.slice(1)} Games</h1>
-  {items.length === 0 ? <p class="text-muted">No games of this type yet.</p> : (
-    <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      {items.map(p => {
-        const slug = (p.slug ?? p.id).split('/').pop();
+<Layout title={title} description={description} canonical={pageCanonical} wide={true}>
+  <h1 class="font-display text-4xl mb-4">{title}</h1>
+  <p class="text-sm text-muted mb-6">
+    {all.length} game{all.length !== 1 && 's'}{totalPages > 1 && ` • Page 1 of ${totalPages}`}.
+    <a class="hover:text-neon underline underline-offset-4 ml-4" href={withBase('games/')}>All Types</a>
+    <a class="hover:text-neon underline underline-offset-4 ml-4" href={withBase('games/all/')}>A–Z</a>
+  </p>
+
+  {pageItems.length === 0 ? (
+    <p class="text-muted">No games found.</p>
+  ) : (
+    <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 list-none p-0 m-0">
+      {pageItems.map(g => {
+        const parts = g.slug.split('/');
+        const shortSlug = parts[parts.length -1];
         return (
-          <li class="border border-fg/20 p-4">
-            <a class="font-semibold hover:text-neon" href={`${base}games/${type}/${slug}`}>{p.data.title}</a>
-            {p.data.tags?.length ? (
-              <div class="text-xs text-muted mt-2">{p.data.tags.join(' • ')}</div>
-            ) : null}
+          <li class="border border-fg/15 hover:border-fg/40 transition-colors p-4">
+            <a class="font-semibold hover:text-neon block" href={withBase(`games/${type}/${shortSlug}/`)}>{g.data.title}</a>
+            <div class="mt-2 flex flex-wrap gap-2">
+              {g.data.players && <span class={playerModeClass(g.data.players)}>{playerModeLabel(g.data.players)}</span>}
+              {g.data.type && <span class="mode-pill">{g.data.type}</span>}
+              {Array.isArray(g.data.tags) && g.data.tags.slice(0,2).map((t:any) => <span class="mode-pill">{t}</span>)}
+            </div>
           </li>
         );
       })}
     </ul>
+  )}
+
+  {totalPages > 1 && (
+    <nav class="mt-8 text-sm flex flex-wrap gap-2 items-center" aria-label="Pagination">
+      <span class="text-muted">Pages:</span>
+      <span class="px-2 py-1 border border-neon/60 text-neon rounded">1</span>
+      {Array.from({ length: totalPages - 1 }, (_, i) => {
+        const p = i + 2;
+        return (
+          <a
+            href={withBase(`games/${type}/page/${p}/`)}
+            class="px-2 py-1 border border-fg/30 rounded hover:border-neon hover:text-neon"
+          >{p}</a>
+        );
+      })}
+    </nav>
   )}
 </Layout>
