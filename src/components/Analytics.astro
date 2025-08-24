@@ -4,9 +4,9 @@ const GA_ID = import.meta.env.PUBLIC_GA_ID || 'G-0SEF37XKSR';
 <!-- Google Analytics -->
 <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}></script>
 <script is:inline>
-{`const GA_ID = ${JSON.stringify(GA_ID)};
+const GA_ID = {JSON.stringify(GA_ID)};
 window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
+function gtag(){ dataLayer.push(arguments); }
 gtag('js', new Date());
-gtag('config', GA_ID, { send_page_view: true });`}
+gtag('config', GA_ID, { send_page_view: true });
 </script>
