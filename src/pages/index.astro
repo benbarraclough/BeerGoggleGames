@@ -18,7 +18,7 @@ const shots = excludeLegacyNoise(await getCollection('shots')).slice(0,3);
 
 const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 ---
-<Layout title="BeerGoggleGames" description="Drinking games, cocktail & shot recipes, and party extras." canonical={pageCanonical}>
+<Layout title="BeerGoggleGames" description="Drinking games, cocktail & shot recipes, and party extras." canonical={pageCanonical} wide={true}>
   <h1 class="font-display text-4xl mb-6">BeerGoggleGames</h1>
   <p class="text-muted mb-10 max-w-prose">Drinking games, cocktail & shot recipes, and party extras. Fast, clean, mobile-ready.</p>
 
@@ -31,7 +31,6 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         return (
           <li class="border border-fg/20 p-4">
             <a class="font-semibold hover:text-neon" href={withBase(`games/${type}/${slug}/`)}>{g.data.title}</a>
-            {g.data.tags?.length ? <div class="text-xs text-muted mt-2">{g.data.tags.join(' • ')}</div> : null}
           </li>
         );
       })}
