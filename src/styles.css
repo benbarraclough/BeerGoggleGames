@@ -1,37 +1,26 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-::selection { background: #00ff9c66; }
-a { transition: color .15s ease, box-shadow .15s ease; }
-
-/* Dark prose tune-up */
-.prose.prose-invert {
-  --tw-prose-body: theme(colors.fg);
-  --tw-prose-headings: theme(colors.fg);
-  --tw-prose-links: theme(colors.neon);
-  --tw-prose-bold: theme(colors.fg);
-  --tw-prose-counters: theme(colors.muted);
-  --tw-prose-bullets: theme(colors.muted);
-  --tw-prose-hr: theme(colors.fg / 0.2);
-  --tw-prose-quotes: theme(colors.fg);
-  --tw-prose-quote-borders: theme(colors.neon);
-  --tw-prose-captions: theme(colors.muted);
-  --tw-prose-code: theme(colors.accent);
-  --tw-prose-pre-code: theme(colors.fg);
-  --tw-prose-pre-bg: #111111;
-  --tw-prose-th-borders: theme(colors.fg / 0.2);
-  --tw-prose-td-borders: theme(colors.fg / 0.1);
+/* Mobile nav overlay (burger menu) */
+.nav-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  background: rgba(var(--bg-rgb,0,0,0),0.9);
+  backdrop-filter: blur(6px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .25s ease;
+  z-index: 30;
 }
-
-.prose.prose-invert a:hover { color: theme(colors.neon); }
-ul.list-none { list-style: none; }
-
-/* Player mode pills */
-.mode-pill {
-  @apply inline-block px-2 py-0.5 rounded text-xs font-medium bg-fg/10 border border-fg/15 tracking-wide uppercase;
-  letter-spacing: 0.05em;
+.nav-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
 }
-.mode-pill-team  { @apply text-accent; }
-.mode-pill-pairs { @apply text-neon; }
-.mode-pill-solo  { @apply text-fg; }
+.nav-overlay-panel {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+@media (min-width: 1024px) {
+  .nav-overlay { display: none; }
+}
