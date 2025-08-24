@@ -315,6 +315,19 @@ mark {
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* Ensure these specific IDs exist (add near end if not already there) */
+#nav-overlay {
+  /* The inline JS will set fallback styles; these enhance them */
+  background: rgba(var(--bg-rgb,0,0,0),0.90);
+}
+
+#nav-overlay .nav-ov-panel {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
 /* ------------------------------------------------------------------
    Dark mode preference hook (if you later add light mode)
    ------------------------------------------------------------------ */
