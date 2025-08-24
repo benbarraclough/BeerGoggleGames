@@ -8,7 +8,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 
 const games = (await getCollection('games'))
   .filter(g => g.data.type)
-  .sort((a,b)=> (a.data.type||'').localeCompare(b.data.type||'') || a.data.title.localeCompare(b.data.title));
+  .sort((a,b)=> (a.data.type||'').localeCompare(b.data.type||'') || (a.data.title||'').localeCompare(b.data.title||''));
 
 const byType = new Map<string, { count: number, examples: string[] }>();
 for (const g of games) {
@@ -22,8 +22,9 @@ const typeEntries = Array.from(byType.entries()).sort((a,b)=> a[0].localeCompare
 ---
 <Layout title="Game Types" description="Browse drinking games by category." canonical={pageCanonical} wide={true}>
   <h1 class="font-display text-4xl mb-6">Game Types</h1>
-  <p class="text-sm text-muted mb-8">
-    Browse all categories. Click through to see every game in that type. Or view <a class="hover:text-neon underline underline-offset-4" href={withBase('games/all/')}>the full A–Z list</a>.
+  <p class="text-sm text-muted mb-6">
+    Browse all categories. Click a type to view its games (with pagination if large). Or view
+    <a class="hover:text-neon underline underline-offset-4 mx-1" href={withBase('games/all/')}>the full A–Z list</a>.
   </p>
 
   {typeEntries.length === 0 ? (
@@ -32,8 +33,7 @@ const typeEntries = Array.from(byType.entries()).sort((a,b)=> a[0].localeCompare
     <ul class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 list-none p-0 m-0">
       {typeEntries.map(([type, info]) => (
         <li class="border border-fg/15 hover:border-fg/40 transition-colors p-4 flex flex-col">
-          <a class="font-semibold text-lg hover:text-neon" href={withBase(`games/types/${type}/`)}>{type}</a>
-          <a class="hover:text-neon underline underline-offset-4" href={withBase('games/random')}>Random Game</a>
+          <a class="font-semibold text-lg hover:text-neon" href={withBase(`games/${type}/`)}>{type}</a>
           <div class="text-xs text-muted mt-1">{info.count} game{info.count !== 1 && 's'}</div>
           {info.examples.length > 0 && (
             <ul class="mt-3 text-xs space-y-1 text-muted list-disc list-inside">
@@ -44,4 +44,11 @@ const typeEntries = Array.from(byType.entries()).sort((a,b)=> a[0].localeCompare
       ))}
     </ul>
   )}
+
+  <div class="mt-10 text-sm flex flex-wrap gap-6">
+    <a class="hover:text-neon underline underline-offset-4" href={withBase('games/all/')}>All Games (A–Z)</a>
+    <a class="hover:text-neon underline underline-offset-4" href={withBase('games/random')}>Random Game</a>
+    <a class="hover:text-neon underline underline-offset-4" href={withBase('tags/')}>Tags</a>
+    <a class="hover:text-neon underline underline-offset-4" href={withBase('search')}>Search</a>
+  </div>
 </Layout>
