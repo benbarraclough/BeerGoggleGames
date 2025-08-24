@@ -149,54 +149,61 @@ const navLinks = [
   <Analytics />
 
   <script is:inline>
-    (function(){
-      const toggle = document.getElementById('nav-toggle');
-      const closeBtn = document.getElementById('nav-close');
-      const overlay = document.getElementById('nav-overlay');
+(function(){
+  const toggle = document.getElementById('nav-toggle');
+  const closeBtn = document.getElementById('nav-close');
+  const overlay = document.getElementById('nav-overlay');
 
-      if(!toggle || !overlay){
-        console.warn('[nav] Missing elements');
-        return;
-      }
+  function log(...a){ console.log('[NAV]', ...a); }
 
-      function open(){
-        console.log('[nav] opening');
-        overlay.hidden = false;
-        overlay.classList.add('open');
-        toggle.setAttribute('aria-expanded','true');
-        requestAnimationFrame(()=>{
-          const first = overlay.querySelector('a');
-          first && (first as HTMLElement).focus({preventScroll:true});
-        });
-        document.documentElement.style.overflow = 'hidden';
-      }
+  if(!toggle || !overlay){
+    log('Missing elements', { toggle: !!toggle, overlay: !!overlay });
+    return;
+  }
 
-      function close(){
-        console.log('[nav] closing');
-        overlay.classList.remove('open');
-        // Delay hiding until fade completes
-        setTimeout(()=> { overlay.hidden = true; }, 200);
-        toggle.setAttribute('aria-expanded','false');
-        toggle.focus();
-        document.documentElement.style.overflow = '';
-      }
+  // Ensure starting state
+  overlay.style.display = 'none';
+  overlay.style.opacity = '0';
+  overlay.style.transition = 'opacity .2s ease';
+  overlay.style.position = 'fixed';
+  overlay.style.inset = '0';
+  overlay.style.zIndex = '2000';
+  overlay.style.background = 'rgba(0,0,0,0.9)';
+  overlay.style.backdropFilter = 'blur(6px)';
 
-      toggle.addEventListener('click', () => {
-        const expanded = toggle.getAttribute('aria-expanded') === 'true';
-        expanded ? close() : open();
-      });
-      closeBtn?.addEventListener('click', close);
-      overlay.addEventListener('click', e => {
-        if (e.target === overlay) close();
-      });
-      overlay.addEventListener('click', e => {
-        const link = (e.target as HTMLElement).closest('[data-nav-close]');
-        if (link) close();
-      });
-      document.addEventListener('keydown', e => {
-        if (e.key === 'Escape') close();
-      });
-    })();
-  </script>
+  function open(){
+    log('open()');
+    overlay.hidden = false; // remove attribute if present
+    overlay.style.display = 'flex';
+    requestAnimationFrame(()=>{
+      overlay.style.opacity = '1';
+    });
+    toggle.setAttribute('aria-expanded','true');
+  }
+
+  function close(){
+    log('close()');
+    overlay.style.opacity = '0';
+    toggle.setAttribute('aria-expanded','false');
+    setTimeout(()=>{
+      overlay.style.display = 'none';
+      overlay.hidden = true;
+    },200);
+  }
+
+  toggle.addEventListener('click', () => {
+    const expanded = toggle.getAttribute('aria-expanded') === 'true';
+    expanded ? close() : open();
+  });
+
+  closeBtn?.addEventListener('click', close);
+  overlay.addEventListener('click', e => { if (e.target === overlay) close(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+
+  // Debug helper
+  (window as any).NAV_DEBUG = { open, close, toggle, overlay };
+  log('initialized');
+})();
+</script>
 </body>
 </html>
