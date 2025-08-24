@@ -34,12 +34,12 @@ const mainClass = [
 ].join(' ');
 
 const navLinks = [
-  { href: withBase('games/'), label: 'Games', key: 'games' },
-  { href: withBase('drinks/'), label: 'Drinks', key: 'drinks' },
-  { href: withBase('extras/'), label: 'Extras', key: 'extras' },
-  { href: withBase('blog/'), label: 'Blog', key: 'blog' },
-  { href: withBase('search'), label: 'Search', key: 'search' },
-  { href: withBase('contact'), label: 'Contact', key: 'contact' }
+  { href: withBase('games/'),   label: 'Games',   key: 'games' },
+  { href: withBase('drinks/'),  label: 'Drinks',  key: 'drinks' },
+  { href: withBase('extras/'),  label: 'Extras',  key: 'extras' },
+  { href: withBase('about'),    label: 'About',   key: 'about' },
+  { href: withBase('search'),   label: 'Search',  key: 'search' },
+  { href: withBase('contact'),  label: 'Contact', key: 'contact' }
 ];
 ---
 <!DOCTYPE html>
@@ -57,7 +57,7 @@ const navLinks = [
   </head>
   <body class="min-h-screen flex flex-col selection:bg-neon/40">
     <SkipLink />
-    <header class="border-b border-fg/20">
+    <header class="border-b border-fg/20 relative z-40">
       <div class="mx-auto max-w-7xl px-4 py-4 flex items-center justify-between">
         <a href={withBase()} class="font-display text-2xl tracking-tight hover:text-neon">
           BeerGoggleGames
@@ -77,24 +77,37 @@ const navLinks = [
         {/* Mobile Toggle */}
         <button
           id="nav-toggle"
-            class="lg:hidden inline-flex items-center gap-2 border border-fg/30 px-3 py-2 text-sm rounded hover:border-neon hover:text-neon"
-          aria-controls="mobile-nav"
+          class="lg:hidden inline-flex items-center gap-2 border border-fg/30 px-3 py-2 text-sm rounded hover:border-neon hover:text-neon"
+          aria-controls="nav-overlay"
           aria-expanded="false"
         >
-          <span class="sr-only">Toggle menu</span>
+          <span class="sr-only">Open menu</span>
           <svg width="22" height="18" viewBox="0 0 22 18" fill="none" xmlns="http://www.w3.org/2000/svg" class="stroke-current">
             <path d="M1 1H21M1 9H21M1 17H21" stroke-width="2" stroke-linecap="round"/>
           </svg>
           Menu
         </button>
       </div>
-      {/* Mobile Nav Panel */}
-      <div
-        id="mobile-nav"
-        class="lg:hidden max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out border-t border-fg/15"
-        aria-hidden="true"
-      >
-        <nav class="px-4 py-4 flex flex-col gap-4 text-sm" aria-label="Mobile Primary">
+    </header>
+
+    {/* Overlay Menu */}
+    <div
+      id="nav-overlay"
+      class="fixed inset-0 bg-bg/90 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-200 z-30"
+      aria-hidden="true"
+    >
+      <div class="flex flex-col h-full">
+        <div class="flex items-center justify-between px-5 py-4 border-b border-fg/25">
+          <span class="font-display text-xl">Menu</span>
+          <button
+            id="nav-close"
+            class="inline-flex items-center gap-2 border border-fg/30 px-3 py-2 text-sm rounded hover:border-neon hover:text-neon"
+            aria-label="Close menu"
+          >
+            ✕
+          </button>
+        </div>
+        <nav class="px-6 py-8 grow flex flex-col gap-5 text-lg" aria-label="Mobile Primary">
           {navLinks.map(link => (
             <a
               href={link.href}
@@ -108,9 +121,18 @@ const navLinks = [
               {link.label}
             </a>
           ))}
+          <div class="mt-8 pt-6 border-t border-fg/20 text-sm text-muted leading-relaxed max-w-prose">
+            <p class="mb-3">
+              Explore hundreds of drinking games, cocktails, shots, activities & extras.
+            </p>
+            <p>
+              Visit the <a class="hover:text-neon underline underline-offset-4" href={withBase('blog/')}>Blog</a> for guides & ideas.
+            </p>
+          </div>
         </nav>
       </div>
-    </header>
+    </div>
+
     <main id="main" class={mainClass}>
       <slot />
     </main>
@@ -122,50 +144,47 @@ const navLinks = [
     </footer>
     <Analytics />
     <script is:inline>
-      // Accessible mobile nav toggle
       (function(){
-        const btn = document.getElementById('nav-toggle');
-        const panel = document.getElementById('mobile-nav');
-        if(!btn || !panel) return;
+        const toggle = document.getElementById('nav-toggle');
+        const closeBtn = document.getElementById('nav-close');
+        const overlay = document.getElementById('nav-overlay');
+        if(!toggle || !overlay) return;
 
-        function close(){
-          panel.style.maxHeight = '0px';
-          panel.setAttribute('aria-hidden', 'true');
-          btn.setAttribute('aria-expanded', 'false');
-        }
         function open(){
-          panel.style.maxHeight = panel.scrollHeight + 'px';
-          panel.setAttribute('aria-hidden', 'false');
-          btn.setAttribute('aria-expanded', 'true');
+          overlay.classList.remove('pointer-events-none');
+          overlay.setAttribute('aria-hidden','false');
+          toggle.setAttribute('aria-expanded','true');
+          requestAnimationFrame(()=> {
+            overlay.classList.add('opacity-100');
+            overlay.classList.remove('opacity-0');
+          });
+          // Focus first link
+          const first = overlay.querySelector('a');
+            first && (first as HTMLElement).focus({ preventScroll: true });
         }
-        btn.addEventListener('click', () => {
-          const expanded = btn.getAttribute('aria-expanded') === 'true';
+        function close(){
+          overlay.classList.add('opacity-0');
+          overlay.classList.remove('opacity-100');
+          overlay.setAttribute('aria-hidden','true');
+          toggle.setAttribute('aria-expanded','false');
+          setTimeout(()=>overlay.classList.add('pointer-events-none'), 200);
+          toggle.focus();
+        }
+
+        toggle.addEventListener('click', () => {
+          const expanded = toggle.getAttribute('aria-expanded') === 'true';
           expanded ? close() : open();
         });
-        // Close on any nav link click
-        panel.addEventListener('click', e => {
-          const a = (e.target as HTMLElement).closest('[data-nav-close]');
-          if (a) close();
+        closeBtn?.addEventListener('click', close);
+        overlay.addEventListener('click', e => {
+          if (e.target === overlay) close();
         });
-        // Close on Escape
+        overlay.addEventListener('click', e => {
+          const link = (e.target as HTMLElement).closest('[data-nav-close]');
+          if (link) close();
+        });
         document.addEventListener('keydown', e => {
           if (e.key === 'Escape') close();
-        });
-        // Resize guard
-        window.addEventListener('resize', () => {
-          if (window.innerWidth >= 1024) {
-            // Ensure open height sync if user enlarges screen mid-open
-            if (btn.getAttribute('aria-expanded') === 'true') {
-              panel.style.maxHeight = 'none';
-            } else {
-              panel.style.maxHeight = '0px';
-            }
-          } else {
-            // Recalculate height if open on mobile
-            if (btn.getAttribute('aria-expanded') === 'true') {
-              panel.style.maxHeight = panel.scrollHeight + 'px';
-            }
-          }
         });
       })();
     </script>
