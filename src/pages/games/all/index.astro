@@ -3,35 +3,32 @@ import Layout from '../../../components/Layout.astro';
 import { getCollection } from 'astro:content';
 import { canonical } from '../../../lib/urls';
 import { withBase } from '../../../lib/paths';
+import { playerModeClass, playerModeLabel } from '../../../lib/playerMode';
 
 const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 
 const games = (await getCollection('games'))
-  .sort((a,b)=> a.data.title.localeCompare(b.data.title));
+  .sort((a,b)=> (a.data.title||'').localeCompare(b.data.title||''));
 
-function labelPlayers(raw?: string) {
-  if (!raw) return 'Unknown';
-  const v = raw.toLowerCase();
-  if (v.includes('team')) return 'Team';
-  if (v.includes('pair') || v.includes('2')) return 'Pairs';
-  if (v.includes('solo') || v.includes('single')) return 'Solo';
-  return raw;
-}
 ---
-<Layout title="All Games A–Z" description="Complete alphabetical list of drinking games." canonical={pageCanonical}>
+<Layout title="All Games A–Z" description="Complete alphabetical list of drinking games." canonical={pageCanonical} wide={true}>
   <h1 class="font-display text-4xl mb-6">All Games A–Z</h1>
-  <p class="text-sm text-muted mb-6">Alphabetical list of every game. For categories visit <a class="hover:text-neon underline underline-offset-4" href={withBase('games/')}>Game Types</a>.</p>
+  <p class="text-sm text-muted mb-6">
+    Alphabetical list of every game. For categories visit
+    <a class="hover:text-neon underline underline-offset-4" href={withBase('games/')}>Game Types</a>.
+  </p>
 
   {games.length === 0 ? (
     <p class="text-muted">No games found.</p>
   ) : (
-    <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 list-none m-0 p-0">
+    <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 list-none m-0 p-0">
       {games.map(g => (
         <li class="border border-fg/15 hover:border-fg/40 transition-colors p-4">
-          <a class="font-semibold hover:text-neon" href={withBase(`games/${g.slug}/`)}>{g.data.title}</a>
-          <div class="text-xs text-muted mt-1 flex flex-wrap gap-2">
-            {g.data.type && <span class="uppercase tracking-wide">{g.data.type}</span>}
-            {g.data.players && <span class="opacity-80">{labelPlayers(g.data.players)}</span>}
+          <a class="font-semibold hover:text-neon block" href={withBase(`games/${g.slug}/`)}>{g.data.title}</a>
+          <div class="mt-2 flex flex-wrap gap-2">
+            {g.data.players && <span class={playerModeClass(g.data.players)}>{playerModeLabel(g.data.players)}</span>}
+            {g.data.type && <span class="mode-pill">{g.data.type}</span>}
+            {Array.isArray(g.data.tags) && g.data.tags.slice(0,2).map((t:any) => <span class="mode-pill">{t}</span>)}
           </div>
         </li>
       ))}
