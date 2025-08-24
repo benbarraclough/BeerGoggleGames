@@ -2,6 +2,8 @@
 import Layout from '../../../components/Layout.astro';
 import { getCollection } from 'astro:content';
 import { excludeLegacyNoise } from '../../../lib/filters';
+import { playerModeClass, playerModeLabel } from '../../../lib/playerMode';
+import { canonical } from '../../../lib/urls'; // If this helper exists; remove if not.
 
 export async function getStaticPaths() {
   const items = excludeLegacyNoise(await getCollection('games'));
@@ -14,21 +16,83 @@ export async function getStaticPaths() {
 
 const { item } = Astro.props;
 const d = item.data;
-const base = import.meta.env.BASE_URL || '/';
 const { Content } = await item.render();
+const base = import.meta.env.BASE_URL || '/';
+
+const description =
+  d.excerpt ||
+  (Array.isArray(d.tags) && d.tags.length ? `${d.title} – ${d.tags.slice(0,3).join(', ')}` : `Rules for ${d.title} drinking game.`);
+
+const pageCanonical = typeof canonical === 'function'
+  ? canonical(Astro.url.pathname, Astro.site)
+  : undefined;
 ---
-<Layout title={d.title}>
+<Layout
+  title={d.title}
+  description={description}
+  canonical={pageCanonical}
+  wide={true}
+>
   <article class="prose prose-invert max-w-none">
-    <h1 class="font-display text-3xl">{d.title}</h1>
-    {d.cover && <img class="my-4 max-w-full border border-fg/20" src={`${base}${d.cover}`} alt={d.title} />}
-    {d.players && <div class="text-sm text-muted mb-2">Players: {d.players}</div>}
-    {d.equipment?.length ? (
-      <>
-        <h2 class="font-semibold">Equipment</h2>
-        <ul class="list-disc pl-5 mb-4">{d.equipment.map(x => <li>{x}</li>)}</ul>
-      </>
-    ) : null}
-    {d.tags?.length ? <div class="text-xs text-muted mb-4">{d.tags.join(' • ')}</div> : null}
+    <h1 class="font-display text-4xl mb-2">{d.title}</h1>
+
+    <div class="flex flex-wrap gap-2 mb-4">
+      {d.players && (
+        <span class={playerModeClass(d.players)}>{playerModeLabel(d.players)}</span>
+      )}
+      {d.type && <span class="mode-pill">{d.type}</span>}
+      {Array.isArray(d.tags) &&
+        d.tags.map((t: any) => <span class="mode-pill">{t}</span>)}
+    </div>
+
+    {d.cover && (
+      <img
+        class="my-6 max-w-full border border-fg/20 rounded"
+        src={`${base}${d.cover}`}
+        alt={d.title}
+        loading="lazy"
+        decoding="async"
+      />
+    )}
+
+    {d.equipment?.length && (
+      <section class="mb-6">
+        <h2 class="font-semibold text-2xl mt-0">Equipment</h2>
+        <ul class="list-disc pl-5">
+          {d.equipment.map((x: any) => <li>{x}</li>)}
+        </ul>
+      </section>
+    )}
+
+    {d.excerpt && (
+      <p class="text-sm text-muted italic -mt-2 mb-6">{d.excerpt}</p>
+    )}
+
     <Content />
+
+    {d.notes && (
+      <section class="mt-8">
+        <h2 class="font-semibold text-2xl">Notes</h2>
+        <div class="mt-2 text-sm">{d.notes}</div>
+      </section>
+    )}
   </article>
+
+  <!-- Optional JSON-LD (uncomment & adapt if desired)
+  <script type="application/ld+json">
+  {JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name: d.title,
+    description,
+    totalTime: d.duration || undefined,
+    step: (d.steps || []).map((s: any, i: number) => ({
+      '@type': 'HowToStep',
+      position: i + 1,
+      name: s.title || `Step ${i + 1}`,
+      text: s.text || ''
+    }))
+  })}
+  </script>
+  -->
 </Layout>
