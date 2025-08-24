@@ -1,11 +1,12 @@
 ---
 import Layout from '../../../../components/Layout.astro';
 import { getCollection } from 'astro:content';
+import { playerModeClass, playerModeLabel } from '../../../../lib/playerMode';
 import { canonical } from '../../../../lib/urls';
 import { withBase } from '../../../../lib/paths';
-import { playerModeClass, playerModeLabel } from '../../../../lib/playerMode';
 
-const PAGE_SIZE = 36; // <- Added constant
+// IMPORTANT: PAGE_SIZE must be defined inside this frontmatter block.
+const PAGE_SIZE: number = 36;
 
 export async function getStaticPaths() {
   const games = await getCollection('games').catch(()=>[]);
@@ -14,7 +15,7 @@ export async function getStaticPaths() {
     const t = g.data.type || 'misc';
     counts.set(t, (counts.get(t) || 0) + 1);
   }
-  const paths: any[] = [];
+  const paths: { params: { type: string; page: string } }[] = [];
   for (const [type, count] of counts.entries()) {
     const pages = Math.ceil(count / PAGE_SIZE);
     for (let p = 2; p <= pages; p++) {
@@ -32,13 +33,23 @@ const all = (await getCollection('games'))
   .sort((a,b)=> (a.data.title||'').localeCompare(b.data.title||''));
 
 const totalPages = Math.ceil(all.length / PAGE_SIZE);
+
+// Defensive guard: if somehow PAGE_SIZE vanished or totalPages < 1
+if (!Number.isFinite(totalPages) || totalPages < 1) {
+  throw new Error('Pagination config error: totalPages invalid; check PAGE_SIZE constant.');
+}
+
 if (currentPage > totalPages) {
-  throw new Error('Page out of range');
+  throw new Error(`Page out of range (requested ${currentPage}, max ${totalPages})`);
 }
 
 const start = (currentPage - 1) * PAGE_SIZE;
 const pageItems = all.slice(start, start + PAGE_SIZE);
-const pageCanonical = canonical ? canonical(Astro.url.pathname, Astro.site) : undefined;
+
+const pageCanonical = typeof canonical === 'function'
+  ? canonical(Astro.url.pathname, Astro.site)
+  : undefined;
+
 const title = `${type} Games – Page ${currentPage}`;
 const description = `All ${type} games. Page ${currentPage} of ${totalPages}.`;
 ---
