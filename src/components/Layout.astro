@@ -9,8 +9,8 @@ interface Props {
   description?: string;
   ogImage?: string;
   canonical?: string;
-  wide?: boolean;      // max-w-7xl
-  fullBleed?: boolean; // no max width constraint
+  wide?: boolean;
+  fullBleed?: boolean;
 }
 
 const {
@@ -32,6 +32,15 @@ const mainClass = [
   'grow mx-auto w-full px-4 py-8',
   fullBleed ? '' : (wide ? 'max-w-7xl' : 'max-w-6xl')
 ].join(' ');
+
+const navLinks = [
+  { href: withBase('games/'), label: 'Games', key: 'games' },
+  { href: withBase('drinks/'), label: 'Drinks', key: 'drinks' },
+  { href: withBase('extras/'), label: 'Extras', key: 'extras' },
+  { href: withBase('blog/'), label: 'Blog', key: 'blog' },
+  { href: withBase('search'), label: 'Search', key: 'search' },
+  { href: withBase('contact'), label: 'Contact', key: 'contact' }
+];
 ---
 <!DOCTYPE html>
 <html lang="en" class="bg-bg text-fg font-body antialiased" data-base={base}>
@@ -53,13 +62,52 @@ const mainClass = [
         <a href={withBase()} class="font-display text-2xl tracking-tight hover:text-neon">
           BeerGoggleGames
         </a>
-        <nav class="flex flex-wrap gap-4 text-sm">
-          <a href={withBase('games/')} class:list={['hover:text-neon', isActive('games') && 'text-neon font-semibold']} aria-current={isActive('games') ? 'page' : undefined}>Games</a>
-            <a href={withBase('drinks/')} class:list={['hover:text-neon', isActive('drinks') && 'text-neon font-semibold']} aria-current={isActive('drinks') ? 'page' : undefined}>Drinks</a>
-          <a href={withBase('activities/')} class:list={['hover:text-neon', isActive('activities') && 'text-neon font-semibold']} aria-current={isActive('activities') ? 'page' : undefined}>Activities</a>
-          <a href={withBase('blog/')} class:list={['hover:text-neon', isActive('blog') && 'text-neon font-semibold']} aria-current={isActive('blog') ? 'page' : undefined}>Blog</a>
-          <a href={withBase('search')} class:list={['hover:text-neon', isActive('search') && 'text-neon font-semibold']} aria-current={isActive('search') ? 'page' : undefined}>Search</a>
-          <a href={withBase('contact')} class:list={['hover:text-neon', isActive('contact') && 'text-neon font-semibold']} aria-current={isActive('contact') ? 'page' : undefined}>Contact</a>
+        {/* Desktop Nav */}
+        <nav class="hidden lg:flex flex-wrap gap-6 text-sm" aria-label="Primary">
+          {navLinks.map(link => (
+            <a
+              href={link.href}
+              class:list={['hover:text-neon', isActive(link.key) && 'text-neon font-semibold']}
+              aria-current={isActive(link.key) ? 'page' : undefined}
+            >
+              {link.label}
+            </a>
+          ))}
+        </nav>
+        {/* Mobile Toggle */}
+        <button
+          id="nav-toggle"
+            class="lg:hidden inline-flex items-center gap-2 border border-fg/30 px-3 py-2 text-sm rounded hover:border-neon hover:text-neon"
+          aria-controls="mobile-nav"
+          aria-expanded="false"
+        >
+          <span class="sr-only">Toggle menu</span>
+          <svg width="22" height="18" viewBox="0 0 22 18" fill="none" xmlns="http://www.w3.org/2000/svg" class="stroke-current">
+            <path d="M1 1H21M1 9H21M1 17H21" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          Menu
+        </button>
+      </div>
+      {/* Mobile Nav Panel */}
+      <div
+        id="mobile-nav"
+        class="lg:hidden max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out border-t border-fg/15"
+        aria-hidden="true"
+      >
+        <nav class="px-4 py-4 flex flex-col gap-4 text-sm" aria-label="Mobile Primary">
+          {navLinks.map(link => (
+            <a
+              href={link.href}
+              class:list={[
+                'hover:text-neon',
+                isActive(link.key) && 'text-neon font-semibold'
+              ]}
+              aria-current={isActive(link.key) ? 'page' : undefined}
+              data-nav-close
+            >
+              {link.label}
+            </a>
+          ))}
         </nav>
       </div>
     </header>
@@ -73,5 +121,53 @@ const mainClass = [
       </div>
     </footer>
     <Analytics />
+    <script is:inline>
+      // Accessible mobile nav toggle
+      (function(){
+        const btn = document.getElementById('nav-toggle');
+        const panel = document.getElementById('mobile-nav');
+        if(!btn || !panel) return;
+
+        function close(){
+          panel.style.maxHeight = '0px';
+          panel.setAttribute('aria-hidden', 'true');
+          btn.setAttribute('aria-expanded', 'false');
+        }
+        function open(){
+          panel.style.maxHeight = panel.scrollHeight + 'px';
+          panel.setAttribute('aria-hidden', 'false');
+          btn.setAttribute('aria-expanded', 'true');
+        }
+        btn.addEventListener('click', () => {
+          const expanded = btn.getAttribute('aria-expanded') === 'true';
+          expanded ? close() : open();
+        });
+        // Close on any nav link click
+        panel.addEventListener('click', e => {
+          const a = (e.target as HTMLElement).closest('[data-nav-close]');
+          if (a) close();
+        });
+        // Close on Escape
+        document.addEventListener('keydown', e => {
+          if (e.key === 'Escape') close();
+        });
+        // Resize guard
+        window.addEventListener('resize', () => {
+          if (window.innerWidth >= 1024) {
+            // Ensure open height sync if user enlarges screen mid-open
+            if (btn.getAttribute('aria-expanded') === 'true') {
+              panel.style.maxHeight = 'none';
+            } else {
+              panel.style.maxHeight = '0px';
+            }
+          } else {
+            // Recalculate height if open on mobile
+            if (btn.getAttribute('aria-expanded') === 'true') {
+              panel.style.maxHeight = panel.scrollHeight + 'px';
+            }
+          }
+        });
+      })();
+    </script>
   </body>
 </html>
