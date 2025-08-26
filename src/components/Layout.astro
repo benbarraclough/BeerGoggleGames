@@ -52,73 +52,18 @@ const mainClass = [
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     {ogImage && <meta property="og:image" content={withBase(ogImage.replace(/^\/+/, ''))} />}
-    <style>
-      /* LAYOUT V5 MOBILE DROPDOWN NAV */
-      #mobile-nav-wrapper {
-        display: none;
-      }
-      @media (max-width:1023.98px) {
-        #mobile-nav-wrapper {
-          display:block;
-        }
-        #mobile-nav-panel {
-          display: none;
-          background: rgba(var(--bg-rgb,0,0,0), 0.97);
-          border-bottom: 1px solid rgba(var(--fg-rgb,255,255,255),0.15);
-        }
-        #mobile-nav-panel[data-open="true"] {
-          display: block;
-          animation: navDrop .25s ease;
-        }
-        @keyframes navDrop {
-          from { opacity:0; transform:translateY(-6px); }
-          to { opacity:1; transform:translateY(0); }
-        }
-        #mobile-nav-panel a {
-          padding: 0.75rem 1.25rem;
-          display: block;
-          border-top: 1px solid rgba(var(--fg-rgb,255,255,255),0.08);
-        }
-        #mobile-nav-panel a:first-of-type {
-          border-top: none;
-        }
-        #mobile-nav-panel a:hover,
-        #mobile-nav-panel a:focus {
-          background: rgba(var(--fg-rgb,255,255,255),0.08);
-          outline: none;
-        }
-        .nav-mobile-meta {
-          padding: 1rem 1.25rem 1.5rem;
-          font-size: 0.75rem;
-          line-height: 1.35;
-          color: var(--muted);
-          border-top: 1px solid rgba(var(--fg-rgb,255,255,255),0.08);
-        }
-      }
-      /* Utility for the V5 marker */
-      #layout-version-badge {
-        position: fixed;
-        top: 0; left: 0;
-        z-index: 4000;
-        background: #39ffb6;
-        color: #000;
-        font: 700 11px/1 monospace;
-        padding: 2px 6px;
-        border-bottom-right-radius: 6px;
-        letter-spacing: .5px;
-      }
-    </style>
   </head>
   <body class="min-h-screen flex flex-col selection:bg-neon/40">
-    <div id="layout-version-badge">LAYOUT V5</div>
+    <!-- LAYOUT V4 PURE CSS -->
+    <div style="position:fixed;top:0;left:0;z-index:3200;background:#39ffb6;color:#000;font:bold 11px/1 monospace;padding:2px 6px;border-bottom-right-radius:6px;">
+      LAYOUT V4
+    </div>
 
-    <header class="border-b border-fg/20 relative">
+    <header class="border-b border-fg/20 relative z-30">
       <div class="mx-auto max-w-7xl px-4 py-4 flex items-center justify-between">
         <a href={withBase()} class="font-display text-2xl tracking-tight hover:text-neon">
           BeerGoggleGames
         </a>
-
-        <!-- Desktop nav -->
         <nav class="hidden lg:flex flex-wrap gap-6 text-sm" aria-label="Primary">
           {navLinks.map(l => (
             <a
@@ -128,33 +73,36 @@ const mainClass = [
             >{l.label}</a>
           ))}
         </nav>
-
-        <!-- Mobile toggle -->
-        <div id="mobile-nav-wrapper" class="lg:hidden">
-          <button
-            id="mobile-nav-toggle"
-            type="button"
-            aria-controls="mobile-nav-panel"
-            aria-expanded="false"
-            class="inline-flex items-center gap-2 border border-fg/30 px-3 py-2 text-sm rounded hover:border-neon hover:text-neon"
-          >
-            <span class="sr-only">Toggle menu</span>
-            <svg width="22" height="18" viewBox="0 0 22 18" fill="none" xmlns="http://www.w3.org/2000/svg" class="stroke-current">
-              <path d="M1 1H21M1 9H21M1 17H21" stroke-width="2" stroke-linecap="round" />
-            </svg>
-            Menu
-          </button>
-        </div>
+        <!-- Burger uses hash target -->
+        <a
+          id="nav-toggle"
+          href="#site-menu"
+          class="lg:hidden inline-flex items-center gap-2 border border-fg/30 px-3 py-2 text-sm rounded hover:border-neon hover:text-neon"
+          aria-controls="site-menu"
+          aria-expanded="false"
+        >
+          <span class="sr-only">Open menu</span>
+          <svg width="22" height="18" viewBox="0 0 22 18" fill="none" xmlns="http://www.w3.org/2000/svg" class="stroke-current">
+            <path d="M1 1H21M1 9H21M1 17H21" stroke-width="2" stroke-linecap="round" />
+          </svg>
+          Menu
+        </a>
       </div>
+    </header>
 
-      <!-- Mobile dropdown panel (appears below header) -->
-      <div
-        id="mobile-nav-panel"
-        data-open="false"
-        aria-label="Mobile navigation"
-        aria-hidden="true"
-      >
-        <nav aria-label="Mobile Primary">
+    <!-- Pure CSS target overlay -->
+    <div id="site-menu" class="site-menu-overlay" aria-label="Mobile navigation">
+      <div class="site-menu-panel">
+        <div class="flex items-center justify-between px-5 py-4 border-b border-fg/25">
+          <span class="font-display text-xl">Menu</span>
+          <a
+            href="#"
+            id="nav-close"
+            class="inline-flex items-center gap-2 border border-fg/30 px-3 py-2 text-sm rounded hover:border-neon hover:text-neon"
+            aria-label="Close menu"
+          >✕</a>
+        </div>
+        <nav class="px-6 py-8 grow flex flex-col gap-5 text-lg overflow-y-auto" aria-label="Mobile Primary">
           {navLinks.map(l => (
             <a
               href={l.href}
@@ -163,16 +111,18 @@ const mainClass = [
                 isActive(l.key) && 'text-neon font-semibold'
               ]}
               aria-current={isActive(l.key) ? 'page' : undefined}
-              data-nav-link
+              data-close
             >{l.label}</a>
           ))}
+          <div class="mt-8 pt-6 border-t border-fg/20 text-sm text-muted leading-relaxed max-w-prose">
+            <p class="mb-3">
+              Explore hundreds of drinking games, cocktails, shots, activities & extras.
+            </p>
+            <p>Visit the <a class="hover:text-neon underline underline-offset-4" href={withBase('blog/')}>Blog</a> for guides & ideas.</p>
+          </div>
         </nav>
-        <div class="nav-mobile-meta">
-          Explore drinking games, cocktails, shots & extras. Visit the
-          <a class="hover:text-neon underline underline-offset-4" href={withBase('blog/')}>Blog</a>.
-        </div>
       </div>
-    </header>
+    </div>
 
     <main id="main" class={mainClass}>
       <slot />
@@ -185,42 +135,17 @@ const mainClass = [
       </div>
     </footer>
 
-    <script is:inline>
+    <!-- OPTIONAL tiny enhancement script (adds aria-expanded sync) -->
+    <script is:inline data-nav-test>
       (function(){
-        const toggle = document.getElementById('mobile-nav-toggle');
-        const panel  = document.getElementById('mobile-nav-panel');
-        if(!toggle || !panel){
-          console.error('[MOBNAV] Missing elements');
-          return;
+        const toggle = document.getElementById('nav-toggle');
+        if(!toggle) return;
+        function sync(){
+          const expanded = location.hash === '#site-menu';
+          toggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
         }
-        console.log('[MOBNAV] init v5');
-
-        function open(){
-          panel.dataset.open = 'true';
-          panel.setAttribute('aria-hidden','false');
-          toggle.setAttribute('aria-expanded','true');
-        }
-        function close(){
-          panel.dataset.open = 'false';
-          panel.setAttribute('aria-hidden','true');
-          toggle.setAttribute('aria-expanded','false');
-        }
-        function toggleMenu(){
-          (panel.dataset.open === 'true') ? close() : open();
-        }
-        toggle.addEventListener('click', toggleMenu);
-        panel.addEventListener('click', e => {
-          const link = (e.target as HTMLElement).closest('[data-nav-link]');
-          if (link) close();
-        });
-        document.addEventListener('keydown', e => {
-          if (e.key === 'Escape' && panel.dataset.open === 'true') {
-            close();
-            toggle.focus();
-          }
-        });
-        // Expose for debugging
-        (window as any).__MOBNAV = { open, close, panel, toggle };
+        window.addEventListener('hashchange', sync);
+        sync();
       })();
     </script>
   </body>
