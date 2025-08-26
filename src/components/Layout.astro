@@ -54,6 +54,11 @@ const mainClass = [
     {ogImage && <meta property="og:image" content={withBase(ogImage.replace(/^\/+/, ''))} />}
   </head>
   <body class="min-h-screen flex flex-col selection:bg-neon/40">
+    <!-- TEST-LAYOUT-V3 marker -->
+    <div style="position:fixed;top:0;left:0;z-index:3000;background:#39ffb6;color:#000;font:bold 11px/1 monospace;padding:2px 6px;border-bottom-right-radius:6px;">
+      LAYOUT V3
+    </div>
+
     <header class="border-b border-fg/20 relative z-40">
       <div class="mx-auto max-w-7xl px-4 py-4 flex items-center justify-between">
         <a href={withBase()} class="font-display text-2xl tracking-tight hover:text-neon">
@@ -84,7 +89,6 @@ const mainClass = [
       </div>
     </header>
 
-    <!-- CLOSE THE BUTTON ABOVE BEFORE STARTING OVERLAY -->
     <div id="nav-overlay" hidden>
       <div class="nav-ov-panel">
         <div class="flex items-center justify-between px-5 py-4 border-b border-fg/25">
@@ -140,12 +144,11 @@ const mainClass = [
           console.error('[NAV] Elements missing',{toggle:!!toggle,overlay:!!overlay});
           return;
         }
-        console.log('[NAV] init ok');
+        console.log('[NAV] init v3');
 
-        // Inline fallback styles (even if CSS fails)
         Object.assign(overlay.style,{
           position:'fixed',
-          inset:'0',
+            inset:'0',
           display:'none',
           flexDirection:'column',
           background:'rgba(0,0,0,0.9)',
@@ -162,12 +165,10 @@ const mainClass = [
           requestAnimationFrame(()=> overlay.style.opacity='1');
           toggle.setAttribute('aria-expanded','true');
           document.documentElement.style.overflow='hidden';
-          const first = overlay.querySelector('a');
-          first && (first as HTMLElement).focus({preventScroll:true});
         }
         function close(){
           console.log('[NAV] close()');
-            overlay.style.opacity='0';
+          overlay.style.opacity='0';
           toggle.setAttribute('aria-expanded','false');
           document.documentElement.style.overflow='';
           setTimeout(()=>{
@@ -175,6 +176,7 @@ const mainClass = [
             overlay.hidden = true;
           },180);
         }
+
         toggle.addEventListener('click', () => {
           const expanded = toggle.getAttribute('aria-expanded')==='true';
           expanded ? close() : open();
@@ -188,8 +190,13 @@ const mainClass = [
         document.addEventListener('keydown', e=>{
           if(e.key==='Escape') close();
         });
-        // Expose for manual debug
+
+        // Manual test helpers
         (window as any).__NAV = {open,close,overlay,toggle};
+        // Auto-open once for debug (remove after confirming)
+        setTimeout(()=> {
+          if (window.innerWidth < 1024) open();
+        }, 300);
       })();
     </script>
   </body>
