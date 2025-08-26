@@ -54,12 +54,12 @@ const mainClass = [
     {ogImage && <meta property="og:image" content={withBase(ogImage.replace(/^\/+/, ''))} />}
   </head>
   <body class="min-h-screen flex flex-col selection:bg-neon/40">
-    <!-- TEST-LAYOUT-V3 marker -->
-    <div style="position:fixed;top:0;left:0;z-index:3000;background:#39ffb6;color:#000;font:bold 11px/1 monospace;padding:2px 6px;border-bottom-right-radius:6px;">
-      LAYOUT V3
+    <!-- LAYOUT V4 PURE CSS -->
+    <div style="position:fixed;top:0;left:0;z-index:3200;background:#39ffb6;color:#000;font:bold 11px/1 monospace;padding:2px 6px;border-bottom-right-radius:6px;">
+      LAYOUT V4
     </div>
 
-    <header class="border-b border-fg/20 relative z-40">
+    <header class="border-b border-fg/20 relative z-30">
       <div class="mx-auto max-w-7xl px-4 py-4 flex items-center justify-between">
         <a href={withBase()} class="font-display text-2xl tracking-tight hover:text-neon">
           BeerGoggleGames
@@ -73,32 +73,34 @@ const mainClass = [
             >{l.label}</a>
           ))}
         </nav>
-        <button
+        <!-- Burger uses hash target -->
+        <a
           id="nav-toggle"
+          href="#site-menu"
           class="lg:hidden inline-flex items-center gap-2 border border-fg/30 px-3 py-2 text-sm rounded hover:border-neon hover:text-neon"
-          aria-controls="nav-overlay"
+          aria-controls="site-menu"
           aria-expanded="false"
-          type="button"
         >
           <span class="sr-only">Open menu</span>
           <svg width="22" height="18" viewBox="0 0 22 18" fill="none" xmlns="http://www.w3.org/2000/svg" class="stroke-current">
             <path d="M1 1H21M1 9H21M1 17H21" stroke-width="2" stroke-linecap="round" />
           </svg>
           Menu
-        </button>
+        </a>
       </div>
     </header>
 
-    <div id="nav-overlay" hidden>
-      <div class="nav-ov-panel">
+    <!-- Pure CSS target overlay -->
+    <div id="site-menu" class="site-menu-overlay" aria-label="Mobile navigation">
+      <div class="site-menu-panel">
         <div class="flex items-center justify-between px-5 py-4 border-b border-fg/25">
           <span class="font-display text-xl">Menu</span>
-          <button
+          <a
+            href="#"
             id="nav-close"
             class="inline-flex items-center gap-2 border border-fg/30 px-3 py-2 text-sm rounded hover:border-neon hover:text-neon"
             aria-label="Close menu"
-            type="button"
-          >✕</button>
+          >✕</a>
         </div>
         <nav class="px-6 py-8 grow flex flex-col gap-5 text-lg overflow-y-auto" aria-label="Mobile Primary">
           {navLinks.map(l => (
@@ -109,16 +111,14 @@ const mainClass = [
                 isActive(l.key) && 'text-neon font-semibold'
               ]}
               aria-current={isActive(l.key) ? 'page' : undefined}
-              data-nav-close
+              data-close
             >{l.label}</a>
           ))}
           <div class="mt-8 pt-6 border-t border-fg/20 text-sm text-muted leading-relaxed max-w-prose">
             <p class="mb-3">
               Explore hundreds of drinking games, cocktails, shots, activities & extras.
             </p>
-            <p>
-              Visit the <a class="hover:text-neon underline underline-offset-4" href={withBase('blog/')}>Blog</a> for guides & ideas.
-            </p>
+            <p>Visit the <a class="hover:text-neon underline underline-offset-4" href={withBase('blog/')}>Blog</a> for guides & ideas.</p>
           </div>
         </nav>
       </div>
@@ -135,68 +135,17 @@ const mainClass = [
       </div>
     </footer>
 
-    <script is:inline>
+    <!-- OPTIONAL tiny enhancement script (adds aria-expanded sync) -->
+    <script is:inline data-nav-test>
       (function(){
         const toggle = document.getElementById('nav-toggle');
-        const closeBtn = document.getElementById('nav-close');
-        const overlay = document.getElementById('nav-overlay');
-        if(!toggle || !overlay){
-          console.error('[NAV] Elements missing',{toggle:!!toggle,overlay:!!overlay});
-          return;
+        if(!toggle) return;
+        function sync(){
+          const expanded = location.hash === '#site-menu';
+          toggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
         }
-        console.log('[NAV] init v3');
-
-        Object.assign(overlay.style,{
-          position:'fixed',
-            inset:'0',
-          display:'none',
-          flexDirection:'column',
-          background:'rgba(0,0,0,0.9)',
-          backdropFilter:'blur(6px)',
-          opacity:'0',
-          transition:'opacity .2s ease',
-          zIndex:'2000'
-        });
-
-        function open(){
-          console.log('[NAV] open()');
-          overlay.hidden = false;
-          overlay.style.display='flex';
-          requestAnimationFrame(()=> overlay.style.opacity='1');
-          toggle.setAttribute('aria-expanded','true');
-          document.documentElement.style.overflow='hidden';
-        }
-        function close(){
-          console.log('[NAV] close()');
-          overlay.style.opacity='0';
-          toggle.setAttribute('aria-expanded','false');
-          document.documentElement.style.overflow='';
-          setTimeout(()=>{
-            overlay.style.display='none';
-            overlay.hidden = true;
-          },180);
-        }
-
-        toggle.addEventListener('click', () => {
-          const expanded = toggle.getAttribute('aria-expanded')==='true';
-          expanded ? close() : open();
-        });
-        closeBtn?.addEventListener('click', close);
-        overlay.addEventListener('click', e=>{
-          if(e.target === overlay) close();
-          const link = (e.target as HTMLElement).closest('[data-nav-close]');
-          if (link) close();
-        });
-        document.addEventListener('keydown', e=>{
-          if(e.key==='Escape') close();
-        });
-
-        // Manual test helpers
-        (window as any).__NAV = {open,close,overlay,toggle};
-        // Auto-open once for debug (remove after confirming)
-        setTimeout(()=> {
-          if (window.innerWidth < 1024) open();
-        }, 300);
+        window.addEventListener('hashchange', sync);
+        sync();
       })();
     </script>
   </body>
