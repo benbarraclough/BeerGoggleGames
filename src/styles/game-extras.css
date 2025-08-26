@@ -1,0 +1,31 @@
+.prose .game-hero {
+  margin: 0 0 1.5rem;
+  text-align: center;
+}
+.prose .game-hero img {
+  border: 1px solid var(--color-fg, #444);
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+}
+.prose .game-hero figcaption {
+  font-size: 0.75rem;
+  letter-spacing: 0.03em;
+  color: var(--color-muted, #888);
+  margin-top: 0.5rem;
+}
+.prose .icon {
+  vertical-align: middle;
+  margin-left: 0.4rem;
+  transform: translateY(-2px);
+  opacity: 0.85;
+}
+@media (prefers-reduced-motion:no-preference) {
+  .prose .icon {
+    transition: opacity .2s;
+  }
+  .prose h3:hover .icon,
+  .prose h4:hover .icon {
+    opacity: 1;
+  }
+}
