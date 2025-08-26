@@ -7,13 +7,6 @@ players: team
 tags: [classic, fast]
 ---
 
-# Arrogance
-
-1.  [Home](/)
-2.  [Categories](GameCategories)
-3.  [Coin Games](GameCategories/CoinGames)
-4.  Arrogance
-
 ![](/BeerGoggleGames/images/arrogance.webp)
 
 ### Equipment ![target](/BeerGoggleGames/images/liquor.webp)
@@ -22,17 +15,17 @@ tags: [classic, fast]
 -   1 chug cup
 -   A drink each
 
-### Setup ![target](/BeerGoggleGames/images/settings.webp)
+### Setup <img class="icon" src="/BeerGoggleGames/images/settings.webp" alt="target" width="40" height="40"></img>
 
 Gather all players with filled drinks around a table or surface where a coin can be flipped. Place the chug cup and coin in the centre and create a circle of players that the coin will circulate between.
 
 * * *
 
-### Aim of the Game ![target](/BeerGoggleGames/images/target.webp)
+### Aim of the Game <img class="icon" src="/BeerGoggleGames/public/images/target.webp" alt="target" width="40" height="40"></img>
 
 Guess the coin flip correctly to avoid drinking the centre chug cup.
 
-### How to Play ![target](/BeerGoggleGames/images/question.webp)
+### How to Play <img class="icon" src="/BeerGoggleGames/images/question.webp" alt="target" width="40" height="40"></img>
 
 Starting with the owner of the coin, they must place as much drink in the centre cup as they wish, call either heads or tails and then flip the coin
 
