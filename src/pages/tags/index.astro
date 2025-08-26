@@ -1,47 +1,58 @@
 ---
 import Layout from '../../components/Layout.astro';
 import { getCollection } from 'astro:content';
-import { canonical } from '../../lib/urls';
 import { withBase } from '../../lib/paths';
+import { uniqueTagSlugs, tagSlug } from '../../lib/tags';
 
-const pageCanonical = canonical(Astro.url.pathname, Astro.site);
+const games = await getCollection('games');
+const cocktails = await getCollection('cocktails').catch(()=>[]);
+const shots = await getCollection('shots').catch(()=>[]);
+const posts = await getCollection('posts').catch(()=>[]);
+const activities = await getCollection('activities').catch(()=>[]);
 
-const collections = await Promise.all([
-  getCollection('games').catch(()=>[]),
-  getCollection('posts').catch(()=>[]),
-  getCollection('cocktails').catch(()=>[]),
-  getCollection('shots').catch(()=>[]),
-  getCollection('activities').catch(()=>[])
+const allTagObjs = uniqueTagSlugs([
+  ...games.map(g => g.data.tags),
+  ...cocktails.map(c => c.data.tags),
+  ...shots.map(s => s.data.tags),
+  ...posts.map(p => p.data.tags),
+  ...activities.map(a => a.data.tags),
 ]);
 
-const tagMap = new Map<string, number>();
-for (const group of collections) {
-  for (const entry of group) {
-    const tags = entry.data.tags;
-    if (Array.isArray(tags)) {
-      for (const t of tags) {
-        const key = String(t).trim();
-        if (!key) continue;
-        tagMap.set(key, (tagMap.get(key) || 0) + 1);
-      }
+// Count occurrences
+const counts = new Map<string, number>();
+function add(arr:any[], type:string) {
+  for (const item of arr) {
+    const tags = item.data.tags || [];
+    for (const t of tags) {
+      const slug = tagSlug(t);
+      counts.set(slug, (counts.get(slug) || 0) + 1);
     }
   }
 }
-const tags = Array.from(tagMap.entries()).sort((a,b)=> a[0].localeCompare(b[0]));
+add(games,'game');
+add(cocktails,'cocktail');
+add(shots,'shot');
+add(posts,'post');
+add(activities,'activity');
+
+const sorted = allTagObjs
+  .map(t => ({ ...t, count: counts.get(t.slug) || 0 }))
+  .sort((a,b) => a.label.localeCompare(b.label));
+
+const title = 'All Tags';
+const description = 'Browse tags across games, drinks, posts & activities.';
 ---
-<Layout title="Tags" description="Browse content by tag." canonical={pageCanonical} wide={true}>
-  <h1 class="font-display text-3xl mb-6">Tags</h1>
-  {tags.length === 0 ? (
+<Layout title={title} description={description} canonical={Astro.site && new URL(withBase('tags/'), Astro.site).href}>
+  <h1 class="font-display text-4xl mb-6">Tags</h1>
+  <p class="text-sm text-muted mb-8">{sorted.length} tag{sorted.length!==1 && 's'} total.</p>
+  {sorted.length === 0 ? (
     <p class="text-muted">No tags yet.</p>
   ) : (
-    <ul class="flex flex-wrap gap-3 list-none p-0 m-0">
-      {tags.map(([tag, count]) => (
+    <ul class="flex flex-wrap gap-3 p-0 list-none">
+      {sorted.map(t => (
         <li>
-          <a
-            href={withBase(`tags/${encodeURIComponent(tag)}/`)}
-            class="inline-block px-3 py-1 border border-fg/25 rounded hover:border-neon hover:text-neon text-sm"
-          >
-            {tag} <span class="text-muted">({count})</span>
+          <a href={withBase(`tags/${t.slug}/`)} class="tag-pill" aria-label={`Tag ${t.label} (${t.count})`}>
+            {t.label} <span class="opacity-70">({t.count})</span>
           </a>
         </li>
       ))}
