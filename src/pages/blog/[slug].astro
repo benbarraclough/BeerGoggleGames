@@ -5,7 +5,7 @@ import { withBase } from '../../lib/paths';
 import { tagSlug } from '../../lib/tags';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('posts'); // If collection name differs (e.g. 'blog'), change here.
+  const posts = await getCollection('posts'); // Change to 'blog' if your collection key differs
   return posts.map(entry => ({
     params: { slug: entry.slug.split('/').pop() },
     props: { entry }
