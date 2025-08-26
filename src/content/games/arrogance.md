@@ -14,25 +14,25 @@ tags: [classic, fast]
 3.  [Coin Games](GameCategories/CoinGames)
 4.  Arrogance
 
-![](/images/arrogance.webp)
+![](/BeerGoggleGames/images/arrogance.webp)
 
-### Equipment ![target](/images/liquor.webp)
+### Equipment ![target](/BeerGoggleGames/images/liquor.webp)
 
 -   1 coin
 -   1 chug cup
 -   A drink each
 
-### Setup ![target](/images/settings.webp)
+### Setup ![target](/BeerGoggleGames/images/settings.webp)
 
 Gather all players with filled drinks around a table or surface where a coin can be flipped. Place the chug cup and coin in the centre and create a circle of players that the coin will circulate between.
 
 * * *
 
-### Aim of the Game ![target](/images/target.webp)
+### Aim of the Game ![target](/BeerGoggleGames/images/target.webp)
 
 Guess the coin flip correctly to avoid drinking the centre chug cup.
 
-### How to Play ![target](/images/question.webp)
+### How to Play ![target](/BeerGoggleGames/images/question.webp)
 
 Starting with the owner of the coin, they must place as much drink in the centre cup as they wish, call either heads or tails and then flip the coin
 
@@ -44,7 +44,7 @@ If the player guesses incorrectly a second time, they must finish the drink and 
 
 If the cup fills to the top, no further drink can be added which means players do not have the choice to double down. From then on until the chug cup is emptied, players flipping the coin get no second chances, meaning the next time someone guesses a flip incorrectly, the drink must be drank. This is played until everyone is good and drunk.
 
-### Rules ![target](/images/rules.webp)
+### Rules ![target](/BeerGoggleGames/images/rules.webp)
 
 -   A minimum of 1 finger of drink is allowed when filling
 -   No rigged flipping
@@ -52,7 +52,7 @@ If the cup fills to the top, no further drink can be added which means players d
 -   A player can only double down once
 -   To agree when the drink reaches the top of the cup, a vote must be taken
 
-### Special Edition ![target](/images/special.webp)
+### Special Edition ![target](/BeerGoggleGames/images/special.webp)
 
 Add an extra layer of excitement to your game by playing:
 
