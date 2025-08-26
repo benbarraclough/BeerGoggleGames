@@ -7,63 +7,75 @@ players: team
 tags: [classic, fast]
 ---
 
-![](/BeerGoggleGames/images/arrogance.webp)
+<figure class="game-hero">
+  <img src="/BeerGoggleGames/images/arrogance.webp" alt="Players about to flip a coin over a centre chug cup" width="640" />
+  <figcaption>The tension builds with every flip.</figcaption>
+</figure>
 
-### Equipment ![target](/BeerGoggleGames/images/liquor.webp)
+### Overview <img class="icon" src="/BeerGoggleGames/images/target.webp" alt="" width="32" height="32" />
 
--   1 coin
--   1 chug cup
--   A drink each
+Arrogance is a fast coin‑flip drinking game. Build the chug cup—or end up drinking it. How confident (arrogant) are you?
 
-### Setup <img class="icon" src="/BeerGoggleGames/images/settings.webp" alt="target" width="40" height="40"></img>
+### Equipment <img class="icon" src="/BeerGoggleGames/images/liquor.webp" alt="" width="32" height="32" />
 
-Gather all players with filled drinks around a table or surface where a coin can be flipped. Place the chug cup and coin in the centre and create a circle of players that the coin will circulate between.
+- 1 coin  
+- 1 central (chug) cup  
+- Each player’s own drink
 
-* * *
+### Setup <img class="icon" src="/BeerGoggleGames/images/settings.webp" alt="" width="32" height="32" />
 
-### Aim of the Game <img class="icon" src="/BeerGoggleGames/public/images/target.webp" alt="target" width="40" height="40"></img>
+Sit or stand in a circle with the chug cup and coin in the middle.
 
-Guess the coin flip correctly to avoid drinking the centre chug cup.
+---
 
-### How to Play <img class="icon" src="/BeerGoggleGames/images/question.webp" alt="target" width="40" height="40"></img>
+### Aim
 
-Starting with the owner of the coin, they must place as much drink in the centre cup as they wish, call either heads or tails and then flip the coin
+Avoid being the player forced to drink the centre chug cup.
 
-If the player guesses correctly, the coin and cup are passed to the next player who repeats the steps above.
+---
 
-If the player guesses incorrectly once, they can choose to either drink whats in the cup OR double down by putting the same amount of drink in again and repeating the steps above.
+### How to Play <img class="icon" src="/BeerGoggleGames/images/question.webp" alt="" width="32" height="32" />
 
-If the player guesses incorrectly a second time, they must finish the drink and pass it onto the next player to take their turn.
+1. First player pours any amount of their drink into the centre cup, loudly calls “heads” or “tails”, then flips the coin.
+2. If the call is CORRECT: pass coin + cup to the next player; they repeat.
+3. If the call is WRONG (first miss): that player chooses:  
+   a. Drink what’s in the cup (end turn) OR  
+   b. “Double Down” – add the SAME amount again and flip a second time (must call again before flip).
+4. If the Double Down flip is also WRONG: they must drink the whole cup.
+5. After any drink, play continues clockwise with an empty (or partially refilled) cup.
+6. If the cup reaches the agreed “full” line: no more liquid may be added—Double Downs are no longer allowed until it’s emptied.
 
-If the cup fills to the top, no further drink can be added which means players do not have the choice to double down. From then on until the chug cup is emptied, players flipping the coin get no second chances, meaning the next time someone guesses a flip incorrectly, the drink must be drank. This is played until everyone is good and drunk.
+#### Special Situations
 
-### Rules ![target](/BeerGoggleGames/images/rules.webp)
+- Double Down allowed only once per turn.  
+- No late calls (must call before the coin visibly leaves the flipper’s hand).  
+- Any dispute = quick majority vote.  
+- Reaching “full” converts all turns to sudden death (one guess only).
 
--   A minimum of 1 finger of drink is allowed when filling
--   No rigged flipping
--   No late coin calling
--   A player can only double down once
--   To agree when the drink reaches the top of the cup, a vote must be taken
+### Quick Variant <img class="icon" src="/BeerGoggleGames/images/special.webp" alt="" width="32" height="32" />
 
-### Special Edition ![target](/BeerGoggleGames/images/special.webp)
+> **Quick Fire:** The moment the cup hits “full”, every miss instantly drinks (no Double Down) until someone empties it—then normal play resumes.
 
-Add an extra layer of excitement to your game by playing:
+### Rules Summary <img class="icon" src="/BeerGoggleGames/images/rules.webp" alt="" width="32" height="32" />
 
-#### **Quick Fire**
+- Minimum pour each time: at least a “finger”.
+- No rigged or unsafe flips.
+- Call must be clear & on time.
+- One Double Down max per original attempt.
+- “Full” threshold decided by vote at start (or on first argument).
 
-If the drink fills to the top, this starts a quick fire round meaning that each player only gets one chance to guess the coin flip correctly. If not then they must finish it and the game continues on as normal.
+---
 
-####     Share This Page
+### Share
 
-[](https://www.facebook.com/sharer/sharer.php?u=beergogglegames.co.uk/GameCategories/CoinGames/Arrogance)[](https://www.instagram.com/direct/new/)[](https://twitter.com/intent/tweet?url=beergogglegames.co.uk/GameCategories/CoinGames/Arrogance)
+Share the game with friends:
 
-* * *
+- [Facebook](https://www.facebook.com/sharer/sharer.php?u=https://benbarraclough.github.io/BeerGoggleGames/games/coin/arrogance/)
+- [X (Twitter)](https://twitter.com/intent/tweet?url=https://benbarraclough.github.io/BeerGoggleGames/games/coin/arrogance/&text=Try%20Arrogance%20coin%20drinking%20game!)
+- [Copy Link](https://benbarraclough.github.io/BeerGoggleGames/games/coin/arrogance/)
 
-#### Feedback
+### Feedback
 
-If you think we've missed certain details out of the game or you have something to add, please feel free to contact us.
+Have a house rule or tweak? Let us know.
 
-  
-  
-  
-[Contact Us](contact)
+[Contact Us](/BeerGoggleGames/contact/)
