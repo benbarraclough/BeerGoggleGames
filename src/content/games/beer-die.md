@@ -3,8 +3,8 @@ title: Beer Die
 cover: BGGBW.webp
 excerpt: Score points for your team by throwing the die across the table into a players cup or other ways to win the game.
 type: outdoor
-tags: [pairs,dice]
-players: "4"
+tags: [dice,active]
+players: pairs
 ---
 
 # Beer Die
@@ -14,7 +14,7 @@ players: "4"
 3.  [Dice Games](GameCategories/DiceGames)
 4.  Beer Die
 
-![](/images/beerdie.webp)
+![](public/images/beerdie.webp)
 
 ### Equipment ![target](/images/liquor.webp)
 
