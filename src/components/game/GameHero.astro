@@ -1,0 +1,13 @@
+---
+const { cover, alt = '' } = Astro.props;
+---
+<figure class="relative mb-8 aspect-[16/7] overflow-hidden rounded-xl border border-fg/20">
+  <img
+    src={cover}
+    alt={alt}
+    class="w-full h-full object-cover brightness-90 saturate-110 transition-transform duration-700 hover:scale-105"
+    loading="lazy"
+    decoding="async"
+  />
+  <div class="absolute inset-0 bg-gradient-to-tr from-bg/80 via-bg/20 to-transparent pointer-events-none"></div>
+</figure>
