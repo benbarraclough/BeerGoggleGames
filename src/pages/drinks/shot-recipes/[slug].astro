@@ -4,6 +4,25 @@ import { getCollection } from 'astro:content';
 import RelatedCocktails from '../../../components/RelatedCocktails.astro';
 import StructuredData from '../../../components/StructuredData.astro';
 
+---
+import { tagSlug } from '../../../lib/tags'; // adjust relative path
+// Assume you already have "entry" or "game" or similar variable holding the content data.
+// Suppose it's named 'entry' here; change entry.data.tags accordingly.
+const tags = Array.isArray(entry.data.tags) ? entry.data.tags : [];
+---
+{tags.length > 0 && (
+  <div class="mt-6 flex flex-wrap gap-2">
+    {tags.map(t => {
+      const slug = tagSlug(t);
+      return (
+        <a href={withBase(`tags/${slug}/`)} class="tag-pill" aria-label={`Tag: ${t}`}>
+          {t}
+        </a>
+      );
+    })}
+  </div>
+)}
+
 export async function getStaticPaths() {
   const shots = await getCollection('shots').catch(()=>[]);
   return shots.map(s => ({ params: { slug: s.slug }, props: { entry: s } }));
