@@ -1,72 +1,150 @@
 ---
 import Layout from '../../components/Layout.astro';
 import { getCollection } from 'astro:content';
-import { canonical } from '../../lib/urls';
 import { withBase } from '../../lib/paths';
+import { tagSlug } from '../../lib/tags';
 
 export async function getStaticPaths() {
   const collections = await Promise.all([
     getCollection('games').catch(()=>[]),
-    getCollection('posts').catch(()=>[]),
     getCollection('cocktails').catch(()=>[]),
     getCollection('shots').catch(()=>[]),
-    getCollection('activities').catch(()=>[])
+    getCollection('posts').catch(()=>[]),
+    getCollection('activities').catch(()=>[]),
   ]);
   const tagSet = new Set<string>();
-  for (const group of collections) {
-    for (const entry of group) {
-      const tags = entry.data.tags;
-      if (Array.isArray(tags)) tags.forEach(t => t && tagSet.add(String(t)));
+  for (const col of collections) {
+    for (const item of col) {
+      const tags = item.data.tags || [];
+      for (const t of tags) tagSet.add(tagSlug(t));
     }
   }
-  return Array.from(tagSet).map(tag => ({ params: { tag } }));
+  return Array.from(tagSet).map(slug => ({ params: { tag: slug }}));
 }
 
 const { tag } = Astro.params;
-const pageCanonical = canonical(Astro.url.pathname, Astro.site);
+const tagLower = String(tag);
 
-function tagged(entry: any, t: string) {
-  return Array.isArray(entry.data.tags) && entry.data.tags.map(String).includes(t);
+const games = (await getCollection('games')).filter(g => (g.data.tags||[]).some(t => tagSlug(t) === tagLower));
+const cocktails = (await getCollection('cocktails').catch(()=>[])).filter(c => (c.data.tags||[]).some(t => tagSlug(t) === tagLower));
+const shots = (await getCollection('shots').catch(()=>[])).filter(s => (s.data.tags||[]).some(t => tagSlug(t) === tagLower));
+const posts = (await getCollection('posts').catch(()=>[])).filter(p => (p.data.tags||[]).some(t => tagSlug(t) === tagLower));
+const activities = (await getCollection('activities').catch(()=>[])).filter(a => (a.data.tags||[]).some(t => tagSlug(t) === tagLower));
+
+function sortByTitle(a:any,b:any){
+  return (a.data.title||'').localeCompare(b.data.title||'');
 }
 
-const [games, posts, cocktails, shots, activities] = await Promise.all([
-  getCollection('games').catch(()=>[]),
-  getCollection('posts').catch(()=>[]),
-  getCollection('cocktails').catch(()=>[]),
-  getCollection('shots').catch(()=>[]),
-  getCollection('activities').catch(()=>[])
-]);
+games.sort(sortByTitle);
+cocktails.sort(sortByTitle);
+shots.sort(sortByTitle);
+posts.sort((a,b)=> (a.data.title||'').localeCompare(b.data.title||''));
+activities.sort(sortByTitle);
 
-const matched = [
-  ...games.filter(e => tagged(e, tag)),
-  ...posts.filter(e => tagged(e, tag)),
-  ...cocktails.filter(e => tagged(e, tag)),
-  ...shots.filter(e => tagged(e, tag)),
-  ...activities.filter(e => tagged(e, tag))
-].sort((a,b)=> (a.data.title||'').localeCompare(b.data.title||''));
+const total = games.length + cocktails.length + shots.length + posts.length + activities.length;
+
+const prettyLabel = tagLower.replace(/-/g,' ');
+const title = `Tag: ${prettyLabel}`;
+const description = `Content tagged with "${prettyLabel}".`;
+
 ---
-<Layout title={`Tag: ${tag}`} description={`Items tagged ${tag}.`} canonical={pageCanonical} wide={true}>
-  <h1 class="font-display text-3xl mb-6">Tag: {tag}</h1>
-  {matched.length === 0 ? (
-    <p class="text-muted">No items with this tag.</p>
-  ) : (
-    <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 list-none p-0 m-0">
-      {matched.map(item => (
-        <li class="border border-fg/20 p-4">
-          <a class="font-semibold hover:text-neon" href={withBase(`${item.collection}/${item.slug}/`)}>{item.data.title}</a>
-          {item.data.type && <div class="text-xs text-muted mt-1">{item.data.type}</div>}
-          {Array.isArray(item.data.tags) && (
-            <div class="mt-2 flex flex-wrap gap-2">
-              {item.data.tags.slice(0,5).map((t: any) => (
-                <span class="mode-pill">{t}</span>
-              ))}
-            </div>
-          )}
-        </li>
-      ))}
-    </ul>
-  )}
-  <p class="mt-8 text-sm">
-    <a class="hover:text-neon underline underline-offset-4" href={withBase('tags/')}>← All Tags</a>
+<Layout title={title} description={description} canonical={Astro.site && new URL(withBase(`tags/${tagLower}/`), Astro.site).href}>
+  <h1 class="font-display text-4xl mb-4">{title}</h1>
+  <p class="text-sm text-muted mb-8">
+    {total} item{total!==1 && 's'} with this tag.
+    <a class="hover:text-neon underline underline-offset-4 ml-4" href={withBase('tags/')}>All tags</a>
   </p>
+
+  {total === 0 ? (
+    <p class="text-muted">Nothing found for this tag.</p>
+  ) : (
+    <div class="space-y-10">
+      {games.length > 0 && (
+        <section>
+          <h2 class="font-display text-2xl mb-3">Games ({games.length})</h2>
+          <ul class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 m-0 p-0 list-none">
+            {games.map(g => {
+              const parts = g.slug.split('/');
+              const short = parts[parts.length-1];
+              const typeDir = g.data.type || parts[0];
+              return (
+                <li class="border border-fg/20 p-4">
+                  <a class="font-semibold hover:text-neon" href={withBase(`games/${typeDir}/${short}/`)}>{g.data.title}</a>
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      )}
+
+      {cocktails.length > 0 && (
+        <section>
+          <h2 class="font-display text-2xl mb-3">Cocktails ({cocktails.length})</h2>
+          <ul class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 m-0 p-0 list-none">
+            {cocktails.map(c => {
+              const parts = c.slug.split('/');
+              const short = parts[parts.length-1];
+              return (
+                <li class="border border-fg/20 p-4">
+                  <a class="font-semibold hover:text-neon" href={withBase(`drinks/cocktail-recipes/${short}/`)}>{c.data.title}</a>
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      )}
+
+      {shots.length > 0 && (
+        <section>
+          <h2 class="font-display text-2xl mb-3">Shots ({shots.length})</h2>
+          <ul class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 m-0 p-0 list-none">
+            {shots.map(s => {
+              const parts = s.slug.split('/');
+              const short = parts[parts.length-1];
+              return (
+                <li class="border border-fg/20 p-4">
+                  <a class="font-semibold hover:text-neon" href={withBase(`drinks/shot-recipes/${short}/`)}>{s.data.title}</a>
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      )}
+
+      {posts.length > 0 && (
+        <section>
+          <h2 class="font-display text-2xl mb-3">Blog Posts ({posts.length})</h2>
+          <ul class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 m-0 p-0 list-none">
+            {posts.map(p => {
+              const parts = p.slug.split('/');
+              const short = parts[parts.length-1];
+              return (
+                <li class="border border-fg/20 p-4">
+                  <a class="font-semibold hover:text-neon" href={withBase(`blog/${short}/`)}>{p.data.title}</a>
+                  {p.data.excerpt && <p class="text-xs text-muted mt-2">{p.data.excerpt}</p>}
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      )}
+
+      {activities.length > 0 && (
+        <section>
+          <h2 class="font-display text-2xl mb-3">Activities ({activities.length})</h2>
+          <ul class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 m-0 p-0 list-none">
+            {activities.map(a => {
+              const parts = a.slug.split('/');
+              const short = parts[parts.length-1];
+              return (
+                <li class="border border-fg/20 p-4">
+                  <a class="font-semibold hover:text-neon" href={withBase(`activities/${short}/`)}>{a.data.title}</a>
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      )}
+    </div>
+  )}
 </Layout>
