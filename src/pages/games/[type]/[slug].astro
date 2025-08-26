@@ -4,18 +4,20 @@ import { getCollection } from 'astro:content';
 import { withBase } from '../../../lib/paths';
 import { tagSlug } from '../../../lib/tags';
 
-// Each game entry slug assumed like "<type>/<game-slug>"
 export async function getStaticPaths() {
   const games = await getCollection('games');
-  return games.map(entry => {
-    const parts = entry.slug.split('/');
-    const type = parts[0];
-    const leaf = parts[parts.length - 1];
-    return {
-      params: { type, slug: leaf },
-      props: { entry }
-    };
-  });
+  // Expect slug like "coin/arrogance"
+  return games
+    .filter(g => g.slug.includes('/')) // only those with type folder
+    .map(g => {
+      const parts = g.slug.split('/').filter(Boolean);
+      const type = parts[0];
+      const leaf = parts[parts.length - 1];
+      return {
+        params: { type, slug: leaf },
+        props: { entry: g }
+      };
+    });
 }
 
 const { entry } = Astro.props;
@@ -32,26 +34,16 @@ const tags: string[] = Array.isArray(entry.data.tags) ? entry.data.tags : [];
     <h1 class="font-display text-4xl mb-2">{title}</h1>
 
     <div class="flex flex-wrap gap-2 mb-4">
-      {players && (
-        <span class:list={['mode-pill', `mode-pill-${players}`]}>
-          {players}
-        </span>
-      )}
+      {players && <span class:list={['mode-pill', `mode-pill-${players}`]}>{players}</span>}
       {type && <span class="mode-pill">{type}</span>}
       {tags.map(t => {
         const slug = tagSlug(t);
         return (
-          <a
-            href={withBase(`tags/${slug}/`)}
-            class="tag-pill"
-            aria-label={`Tag: ${t}`}
-          >{t}</a>
+          <a href={withBase(`tags/${slug}/`)} class="tag-pill" aria-label={`Tag: ${t}`}>{t}</a>
         );
       })}
       {tags.length > 0 && (
-        <a href={withBase('tags/')} class="tag-pill" aria-label="Browse all tags">
-          All Tags
-        </a>
+        <a href={withBase('tags/')} class="tag-pill" aria-label="Browse all tags">All Tags</a>
       )}
     </div>
 
