@@ -5,6 +5,25 @@ import { excludeLegacyNoise } from '../../../lib/filters';
 import { playerModeClass, playerModeLabel } from '../../../lib/playerMode';
 import { canonical } from '../../../lib/urls'; // If this helper exists; remove if not.
 
+---
+import { tagSlug } from '../../../lib/tags'; // adjust relative path
+// Assume you already have "entry" or "game" or similar variable holding the content data.
+// Suppose it's named 'entry' here; change entry.data.tags accordingly.
+const tags = Array.isArray(entry.data.tags) ? entry.data.tags : [];
+---
+{tags.length > 0 && (
+  <div class="mt-6 flex flex-wrap gap-2">
+    {tags.map(t => {
+      const slug = tagSlug(t);
+      return (
+        <a href={withBase(`tags/${slug}/`)} class="tag-pill" aria-label={`Tag: ${t}`}>
+          {t}
+        </a>
+      );
+    })}
+  </div>
+)}
+
 export async function getStaticPaths() {
   const items = excludeLegacyNoise(await getCollection('games'));
   return items.map(item => {
