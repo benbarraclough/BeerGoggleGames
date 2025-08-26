@@ -1,0 +1,10 @@
+---
+const { players, type, tags = [] } = Astro.props;
+---
+<div class="mb-8 flex flex-wrap gap-2 text-xs">
+  {players && <span class="px-3 py-1 rounded-full border border-fg/25 bg-fg/5 uppercase tracking-wide">{players}</span>}
+  {type && <span class="px-3 py-1 rounded-full border border-fg/25 bg-fg/5">{type}</span>}
+  {Array.isArray(tags) && tags.map((t:string) => (
+    <span class="px-3 py-1 rounded-full bg-neon/15 text-neon border border-neon/30">{t}</span>
+  ))}
+</div>
