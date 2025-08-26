@@ -6,6 +6,25 @@ import { withBase } from '../../lib/paths';
 import { canonical } from '../../lib/urls';
 import { activityLD } from '../../lib/schema';
 
+---
+import { tagSlug } from '../../../lib/tags'; // adjust relative path
+// Assume you already have "entry" or "game" or similar variable holding the content data.
+// Suppose it's named 'entry' here; change entry.data.tags accordingly.
+const tags = Array.isArray(entry.data.tags) ? entry.data.tags : [];
+---
+{tags.length > 0 && (
+  <div class="mt-6 flex flex-wrap gap-2">
+    {tags.map(t => {
+      const slug = tagSlug(t);
+      return (
+        <a href={withBase(`tags/${slug}/`)} class="tag-pill" aria-label={`Tag: ${t}`}>
+          {t}
+        </a>
+      );
+    })}
+  </div>
+)}
+
 export async function getStaticPaths() {
   const activities = await getCollection('activities');
   return activities.map(a => ({ params: { slug: a.slug }, props: { entry: a } }));
