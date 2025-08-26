@@ -358,6 +358,21 @@ mark {
   overflow: hidden;
 }
 
+/* Tag pill variant */
+.tag-pill {
+  @apply inline-block px-2 py-0.5 rounded text-xs font-medium bg-fg/10 border border-fg/15;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  line-height: 1.1;
+  transition: color .15s ease, border-color .15s ease, background .15s ease;
+}
+.tag-pill:hover {
+  color: var(--neon);
+  border-color: var(--neon);
+  background: rgba(var(--fg-rgb),0.15);
+}
+
 /* ------------------------------------------------------------------
    Dark mode preference hook (if you later add light mode)
    ------------------------------------------------------------------ */
