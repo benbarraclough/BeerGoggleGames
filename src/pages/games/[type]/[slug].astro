@@ -4,8 +4,7 @@ import { getCollection } from 'astro:content';
 import { withBase } from '../../../lib/paths';
 import { tagSlug } from '../../../lib/tags';
 
-// Provide paths for every game entry.
-// Assumes each games collection entry.slug looks like "<type>/<slug>".
+// Each game entry slug assumed like "<type>/<game-slug>"
 export async function getStaticPaths() {
   const games = await getCollection('games');
   return games.map(entry => {
@@ -24,7 +23,7 @@ const { Content } = await entry.render();
 
 const title = entry.data.title;
 const description = entry.data.excerpt || `Game: ${title}.`;
-const players = entry.data.players;  // e.g. 'team', 'solo', 'pairs'
+const players = entry.data.players;
 const type = entry.data.type || entry.slug.split('/')[0];
 const tags: string[] = Array.isArray(entry.data.tags) ? entry.data.tags : [];
 ---
