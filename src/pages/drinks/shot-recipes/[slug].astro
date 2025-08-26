@@ -1,91 +1,48 @@
 ---
-import Layout from '../../../components/Layout.astro';
+import Layout from '../../../../components/Layout.astro';
 import { getCollection } from 'astro:content';
-import RelatedCocktails from '../../../components/RelatedCocktails.astro';
-import StructuredData from '../../../components/StructuredData.astro';
-
----
-import { tagSlug } from '../../../lib/tags'; // adjust relative path
-// Assume you already have "entry" or "game" or similar variable holding the content data.
-// Suppose it's named 'entry' here; change entry.data.tags accordingly.
-const tags = Array.isArray(entry.data.tags) ? entry.data.tags : [];
----
-{tags.length > 0 && (
-  <div class="mt-6 flex flex-wrap gap-2">
-    {tags.map(t => {
-      const slug = tagSlug(t);
-      return (
-        <a href={withBase(`tags/${slug}/`)} class="tag-pill" aria-label={`Tag: ${t}`}>
-          {t}
-        </a>
-      );
-    })}
-  </div>
-)}
+import { withBase } from '../../../../lib/paths';
+import { tagSlug } from '../../../../lib/tags';
 
 export async function getStaticPaths() {
-  const shots = await getCollection('shots').catch(()=>[]);
-  return shots.map(s => ({ params: { slug: s.slug }, props: { entry: s } }));
+  const shots = await getCollection('shots');
+  return shots.map(entry => ({
+    params: { slug: entry.slug.split('/').pop() },
+    props: { entry }
+  }));
 }
 
-const rawBase = import.meta.env.BASE_URL || '/';
-const base = (() => {
-  const t = rawBase.replace(/^\/+|\/+$/g,'');
-  return t ? `/${t}/` : '/';
-})();
-
 const { entry } = Astro.props;
-if (!entry) throw new Error('Shot not found');
 const { Content } = await entry.render();
 
-const title = entry.data.title || 'Shot';
-const ingredientsRaw = entry.data.ingredients || [];
-const ingredients = ingredientsRaw.map(i => typeof i === 'string' ? i : (i.name || i.ingredient || JSON.stringify(i)));
-const method = entry.data.method || entry.data.instructions || entry.data.directions || '';
-const description = entry.data.excerpt || `Shot recipe: ${title}.`;
-const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://benbarraclough.github.io/BeerGoggleGames').toString();
-const image = entry.data.image || entry.data.images?.[0] || null;
-
-const recipeLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Recipe',
-  name: title,
-  description,
-  recipeCategory: 'Shot',
-  recipeCuisine: 'International',
-  recipeIngredient: ingredients,
-  recipeInstructions: method ? [{ '@type': 'HowToStep', text: method }] : undefined,
-  image: image ? [image.startsWith('http') ? image : `${base}images/${image.replace(/^\/+/, '')}`] : undefined,
-  url: canonical,
-  inLanguage: 'en'
-};
+const title = entry.data.title;
+const description = entry.data.excerpt || `Shot: ${title}.`;
+const tags: string[] = Array.isArray(entry.data.tags) ? entry.data.tags : [];
 ---
 <Layout title={title} description={description}>
-  <article class="prose max-w-none">
-    {ingredients.length > 0 && (
-      <>
-        <h2>Ingredients</h2>
-        <ul>
-          {ingredients.map(i => <li>{i}</li>)}
-        </ul>
-      </>
+  <article class="prose prose-invert max-w-none">
+    <h1 class="font-display text-4xl mb-2">{title}</h1>
+
+    {tags.length > 0 && (
+      <div class="flex flex-wrap gap-2 mb-4">
+        {tags.map(t => {
+          const slug = tagSlug(t);
+          return (
+            <a
+              href={withBase(`tags/${slug}/`)}
+              class="tag-pill"
+              aria-label={`Tag: ${t}`}
+            >{t}</a>
+          );
+        })}
+        <a href={withBase('tags/')} class="tag-pill" aria-label="Browse all tags">All Tags</a>
+      </div>
     )}
-    {method && (
-      <>
-        <h2>Method</h2>
-        <p>{method}</p>
-      </>
-    )}
+
     <Content />
   </article>
 
-  <div class="mt-10">
-    <RelatedCocktails currentSlug={entry.slug} ingredients={ingredients} />
-  </div>
-
-  <p class="mt-8">
-    <a class="text-blue-600 hover:underline" href={`${base}drinks/shot-recipes/`}>← All Shots</a>
+  <p class="mt-10 text-sm">
+    <a class="hover:text-neon underline underline-offset-4" href={withBase('drinks/shot-recipes/')}>← All Shots</a>
   </p>
-
-  <StructuredData data={recipeLd} />
 </Layout>
