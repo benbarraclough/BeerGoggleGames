@@ -14,9 +14,9 @@ players: pairs
 3.  [Dice Games](GameCategories/DiceGames)
 4.  Beer Die
 
-![](public/images/beerdie.webp)
+![](/public/images/beerdie.webp)
 
-### Equipment ![target](/images/liquor.webp)
+### Equipment ![target](/public/images/liquor.webp)
 
 -   4 solo cups
 -   1 table
