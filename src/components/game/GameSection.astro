@@ -1,0 +1,16 @@
+---
+const { title, icon } = Astro.props;
+---
+<section class="mb-10">
+  <h3 class="group flex items-center gap-3 text-xl font-semibold mb-4 tracking-tight">
+    {icon && (
+      <span class="inline-flex w-10 h-10 items-center justify-center rounded-lg bg-fg/5 border border-fg/15 ring-1 ring-fg/10 group-hover:ring-neon/40 transition">
+        <img src={icon} alt="" class="w-6 h-6 object-contain opacity-90" loading="lazy" />
+      </span>
+    )}
+    <span>{title}</span>
+  </h3>
+  <div class="space-y-4 leading-relaxed">
+    <slot />
+  </div>
+</section>
