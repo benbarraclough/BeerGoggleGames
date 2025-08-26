@@ -328,6 +328,36 @@ mark {
   height: 100%;
 }
 
+/* PURE CSS HASH TARGET MENU */
+.site-menu-overlay {
+  position: fixed;
+  inset: 0;
+  display: none;
+  flex-direction: column;
+  background: rgba(var(--bg-rgb,0,0,0),0.90);
+  backdrop-filter: blur(6px);
+  z-index: 2500;
+  opacity: 0;
+  transition: opacity .25s ease;
+}
+.site-menu-overlay:target {
+  display: flex;
+  opacity: 1;
+}
+.site-menu-panel {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+@media (min-width:1024px) {
+  .site-menu-overlay { display: none !important; }
+}
+/* Prevent body scroll when menu open (CSS-only hack) */
+.site-menu-overlay:target body {
+  overflow: hidden;
+}
+
 /* ------------------------------------------------------------------
    Dark mode preference hook (if you later add light mode)
    ------------------------------------------------------------------ */
