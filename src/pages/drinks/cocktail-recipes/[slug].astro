@@ -1,88 +1,48 @@
 ---
-import Layout from '../../../components/Layout.astro';
+import Layout from '../../../../components/Layout.astro';
 import { getCollection } from 'astro:content';
-import RelatedCocktails from '../../../components/RelatedCocktails.astro';
-import StructuredData from '../../../components/StructuredData.astro';
-import { withBase } from '../../../lib/paths';
-import { canonical, imageUrl } from '../../../lib/urls';
-import { recipeLD } from '../../../lib/schema';
-
----
-import { tagSlug } from '../../../lib/tags'; // adjust relative path
-// Assume you already have "entry" or "game" or similar variable holding the content data.
-// Suppose it's named 'entry' here; change entry.data.tags accordingly.
-const tags = Array.isArray(entry.data.tags) ? entry.data.tags : [];
----
-{tags.length > 0 && (
-  <div class="mt-6 flex flex-wrap gap-2">
-    {tags.map(t => {
-      const slug = tagSlug(t);
-      return (
-        <a href={withBase(`tags/${slug}/`)} class="tag-pill" aria-label={`Tag: ${t}`}>
-          {t}
-        </a>
-      );
-    })}
-  </div>
-)}
+import { withBase } from '../../../../lib/paths';
+import { tagSlug } from '../../../../lib/tags';
 
 export async function getStaticPaths() {
   const cocktails = await getCollection('cocktails');
-  return cocktails.map(c => ({ params: { slug: c.slug }, props: { entry: c } }));
+  return cocktails.map(entry => ({
+    params: { slug: entry.slug.split('/').pop() },
+    props: { entry }
+  }));
 }
 
 const { entry } = Astro.props;
 const { Content } = await entry.render();
 
 const title = entry.data.title;
-const ingredients = (entry.data.ingredients || []).map((i: any) => String(i));
-const methodArray = Array.isArray(entry.data.method)
-  ? entry.data.method.map((m: any) => String(m))
-  : entry.data.method
-    ? [String(entry.data.method)]
-    : [];
-const description = entry.data.excerpt || `Cocktail recipe: ${title}.`;
-const pageCanonical = canonical(Astro.url.pathname, Astro.site);
-const img = entry.data.image ? imageUrl(entry.data.image) : undefined;
-
-const ld = recipeLD({
-  title,
-  description,
-  ingredients,
-  method: methodArray.join(' '),
-  url: pageCanonical,
-  image: img
-});
+const description = entry.data.excerpt || `Cocktail: ${title}.`;
+const tags: string[] = Array.isArray(entry.data.tags) ? entry.data.tags : [];
 ---
-<Layout title={title} description={description} canonical={pageCanonical}>
+<Layout title={title} description={description}>
   <article class="prose prose-invert max-w-none">
-    <h1 class="!mb-4 !leading-tight !text-fg font-display text-3xl md:text-4xl">{title}</h1>
-    {ingredients.length > 0 && (
-      <>
-        <h2>Ingredients</h2>
-        <ul>
-          {ingredients.map(i => <li>{i}</li>)}
-        </ul>
-      </>
+    <h1 class="font-display text-4xl mb-2">{title}</h1>
+
+    {tags.length > 0 && (
+      <div class="flex flex-wrap gap-2 mb-4">
+        {tags.map(t => {
+          const slug = tagSlug(t);
+          return (
+            <a
+              href={withBase(`tags/${slug}/`)}
+              class="tag-pill"
+              aria-label={`Tag: ${t}`}
+            >{t}</a>
+          );
+        })}
+        <a href={withBase('tags/')} class="tag-pill" aria-label="Browse all tags">All Tags</a>
+      </div>
     )}
-    {methodArray.length > 0 && (
-      <>
-        <h2>Method</h2>
-        <ol>
-          {methodArray.map(step => <li>{step}</li>)}
-        </ol>
-      </>
-    )}
+
     <Content />
   </article>
 
-  <div class="mt-10">
-    <RelatedCocktails currentSlug={entry.slug} ingredients={ingredients} />
-  </div>
-
-  <p class="mt-10">
+  <p class="mt-10 text-sm">
     <a class="hover:text-neon underline underline-offset-4" href={withBase('drinks/cocktail-recipes/')}>← All Cocktails</a>
   </p>
-
-  <StructuredData data={ld} />
 </Layout>
