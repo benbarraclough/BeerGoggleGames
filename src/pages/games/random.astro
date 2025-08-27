@@ -8,7 +8,6 @@ const description = 'Redirecting you to a random drinking game.';
 
 const games = await getCollection('games');
 
-// Build relative slug-based paths and prefix with base for final hrefs
 const rawPaths = games.map(g => {
   const parts = g.slug.split('/');
   const type = g.data.type || parts[0] || 'misc';
@@ -63,36 +62,21 @@ const fallback = fullPaths.length
         </div>
       </noscript>
 
-      <!-- Data blob Astro will serialize correctly -->
-      <script type="application/json" id="random-game-data">
-        {JSON.stringify(fullPaths)}
-      </script>
-
-      <!-- Inline redirect script (NO template braces inside) -->
-      <script is:inline>
-        (function() {
-          var el = document.getElementById('random-game-data');
-            if(!el) return;
-          try {
-            var paths = JSON.parse(el.textContent || '[]');
-            if(!paths.length) return;
-            // Avoid repeating last pick in this session (optional small enhancement)
-            try {
-              var last = sessionStorage.getItem('lastRandomGame');
-            } catch(_) {}
-            var pick = paths[Math.floor(Math.random() * paths.length)];
-            if (paths.length > 1 && last === pick) {
-              // Try one more time to reduce repeat chance
-              pick = paths[Math.floor(Math.random() * paths.length)];
-            }
-            try { sessionStorage.setItem('lastRandomGame', pick); } catch(_) {}
-            window.location.replace(pick);
-          } catch(e) {
-            // Silently fail; user still sees fallback text
-            // console.error('Random redirect failed', e);
+      <!-- Single guaranteed-working inline script -->
+      <script
+        is:inline
+        set:html={`(function(){try{
+          var paths = ${JSON.stringify(fullPaths)};
+          if(!paths.length) return;
+          var last; try{ last = sessionStorage.getItem('lastRandomGame'); }catch(_){}
+          var pick = paths[Math.floor(Math.random()*paths.length)];
+          if(paths.length>1 && pick===last){
+            pick = paths[Math.floor(Math.random()*paths.length)];
           }
-        })();
-      </script>
+          try{ sessionStorage.setItem('lastRandomGame', pick); }catch(_){}
+          window.location.replace(pick);
+        }catch(e){ console.error('Random redirect failed', e); }} )();`}
+      ></script>
     </>
   )}
 </Layout>
