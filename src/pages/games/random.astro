@@ -8,6 +8,7 @@ const description = 'Redirecting you to a random drinking game.';
 
 const games = await getCollection('games');
 
+// Build relative slug-based paths and prefix with base for final hrefs
 const rawPaths = games.map(g => {
   const parts = g.slug.split('/');
   const type = g.data.type || parts[0] || 'misc';
@@ -15,10 +16,7 @@ const rawPaths = games.map(g => {
   return `games/${type}/${shortSlug}/`;
 });
 
-// De‑dupe
 const uniq = Array.from(new Set(rawPaths));
-
-// Build base-prefixed hrefs now (so client script is trivial)
 const fullPaths = uniq.map(p => withBase(p));
 
 const fallback = fullPaths.length
@@ -65,12 +63,34 @@ const fallback = fullPaths.length
         </div>
       </noscript>
 
+      <!-- Data blob Astro will serialize correctly -->
+      <script type="application/json" id="random-game-data">
+        {JSON.stringify(fullPaths)}
+      </script>
+
+      <!-- Inline redirect script (NO template braces inside) -->
       <script is:inline>
         (function() {
-          var paths = {JSON.stringify(fullPaths)};
-          if (!paths.length) return;
-          var pick = paths[Math.floor(Math.random() * paths.length)];
-          window.location.replace(pick);
+          var el = document.getElementById('random-game-data');
+            if(!el) return;
+          try {
+            var paths = JSON.parse(el.textContent || '[]');
+            if(!paths.length) return;
+            // Avoid repeating last pick in this session (optional small enhancement)
+            try {
+              var last = sessionStorage.getItem('lastRandomGame');
+            } catch(_) {}
+            var pick = paths[Math.floor(Math.random() * paths.length)];
+            if (paths.length > 1 && last === pick) {
+              // Try one more time to reduce repeat chance
+              pick = paths[Math.floor(Math.random() * paths.length)];
+            }
+            try { sessionStorage.setItem('lastRandomGame', pick); } catch(_) {}
+            window.location.replace(pick);
+          } catch(e) {
+            // Silently fail; user still sees fallback text
+            // console.error('Random redirect failed', e);
+          }
         })();
       </script>
     </>
