@@ -8,7 +8,6 @@ const description = 'Redirecting you to a random drinking game.';
 
 const games = await getCollection('games');
 
-// Build relative paths like "games/coin/arrogance/"
 const paths = games.map(g => {
   const parts = g.slug.split('/');
   const type = g.data.type || parts[0] || 'misc';
@@ -23,9 +22,6 @@ const fallback = uniq.length
 ---
 
 <Layout title={pageTitle} description={description} noindex={true}>
-  <!-- Extra safeguard if Layout ignores noindex -->
-  <meta name="robots" content="noindex, nofollow" />
-
   <h1 class="font-display text-3xl mb-4">{pageTitle}</h1>
 
   {uniq.length === 0 ? (
@@ -64,18 +60,16 @@ const fallback = uniq.length
         </div>
       </noscript>
 
+      <!-- Embed data + redirect script -->
       <script is:inline>
-        {`
-          (function() {
-            var base = document.documentElement.getAttribute('data-base') || '/';
-            var paths = ${JSON.stringify(uniq)};
-            if(!paths.length) return;
-            var pick = paths[Math.floor(Math.random() * paths.length)];
-            var full = base.replace(/\\/+$/, '/') + pick.replace(/^\\/+/, '');
-            // Prevent adding multiple history entries
-            window.location.replace(full);
-          })();
-        `}
+        (function() {
+          var base = document.documentElement.getAttribute('data-base') || '/';
+          var paths = {JSON.stringify(uniq)};
+          if (!paths.length) return;
+          var pick = paths[Math.floor(Math.random() * paths.length)];
+          var full = base.replace(/\/+$/, '/') + pick.replace(/^\/+/, '');
+          window.location.replace(full);
+        })();
       </script>
     </>
   )}
