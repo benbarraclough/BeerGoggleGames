@@ -13,13 +13,26 @@ export async function getStaticPaths() {
 
 const { type } = Astro.params;
 
+// Title‑case helper (handles hyphens, underscores, spaces)
+function titleCase(slug: string) {
+  if (!slug) return '';
+  return slug
+    .split(/[-_\s]+/)
+    .filter(Boolean)
+    .map(w => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(' ');
+}
+
+const prettyType = titleCase(type);
+
+// Collect games of this type
 const all = (await getCollection('games'))
   .filter(g => (g.data.type || 'misc') === type)
   .sort((a,b)=> (a.data.title||'').localeCompare(b.data.title||''));
 
 const pageCanonical = canonical ? canonical(Astro.url.pathname, Astro.site) : undefined;
-const title = `${type} Games`;
-const description = `All ${type} drinking games.`;
+const title = `${prettyType} Games`;
+const description = `All ${prettyType} drinking games.`;
 ---
 <Layout title={title} description={description} canonical={pageCanonical} wide={true}>
   <h1 class="font-display text-4xl mb-4">{title}</h1>
