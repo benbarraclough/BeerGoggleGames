@@ -1,8 +1,14 @@
 ---
 const { title } = Astro.props;
 const site = Astro.site ?? 'https://example.com';
-const pageUrl = new URL(Astro.url.pathname, site).toString();
-const encoded = encodeURIComponent(pageUrl);
+/**
+ * Build-time canonical URL (used for share service links).
+ * We strip a trailing index.html if present (defensive).
+ */
+const builtPath = Astro.url.pathname.replace(/index\.html?$/,'');
+const sharePageUrl = new URL(builtPath, site).toString();
+
+const encoded = encodeURIComponent(sharePageUrl);
 const encodedTitle = encodeURIComponent(title ?? '');
 
 interface ShareLink {
@@ -38,7 +44,7 @@ function svg(name: string) {
         href={link.url}
         target="_blank"
         rel="noopener noreferrer"
-        class="group inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-fg/15 bg-bg/60 hover:border-neon/50 hover:bg-fg/10 text-xs font-medium transition"
+        class="group inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-fg/15 bg-bg/60 hover:border-neon/50 hover:bg-fg/10 hover:text-neon text-xs font-medium transition"
         aria-label={link.name}
       >
         <span class="w-4 h-4 block" set:html={`<svg viewBox='0 0 24 24' fill='currentColor' class='w-4 h-4'>${svg(link.icon)}</svg>`}></span>
@@ -46,10 +52,9 @@ function svg(name: string) {
       </a>
     ))}
 
-    <!-- Copy button (no anchor, so no hash navigation) -->
     <button
       type="button"
-      class="group inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-fg/15 bg-bg/60 hover:border-neon/50 hover:bg-fg/10 text-xs font-medium transition relative"
+      class="group inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-fg/15 bg-bg/60 hover:border-neon/50 hover:bg-fg/10 hover:text-neon text-xs font-medium transition relative"
       data-copy-button
       aria-label="Copy page URL to clipboard"
     >
@@ -65,23 +70,25 @@ function svg(name: string) {
 
 <script is:inline>
 (function(){
-  // Remove legacy #copy hash if it slipped in from an older link
+  // Remove stray #copy hash if present
   if (location.hash === '#copy') {
     history.replaceState(null,'',location.pathname + location.search);
   }
 
-  const PAGE_URL = ${JSON.stringify(pageUrl)};
+  // Runtime canonical (ignore hash)
+  const PAGE_URL = window.location.href.split('#')[0];
+
   const btn = document.querySelector('[data-copy-button]');
   if(!btn){
     console.warn('[ShareButtons] Copy button not found.');
     return;
   }
 
-  function legacyCopy(text){
+  function fallbackCopy(text){
     const ta = document.createElement('textarea');
     ta.value = text;
     ta.style.position='fixed';
-    ta.style.top='-1000px';
+    ta.style.top='-2000px';
     document.body.appendChild(ta);
     ta.select();
     try { document.execCommand('copy'); } catch(_) {}
@@ -90,14 +97,14 @@ function svg(name: string) {
 
   function copy(text){
     if (navigator.clipboard && navigator.clipboard.writeText) {
-      return navigator.clipboard.writeText(text).catch(()=>legacyCopy(text));
+      return navigator.clipboard.writeText(text).catch(()=>fallbackCopy(text));
     }
-    legacyCopy(text);
+    fallbackCopy(text);
     return Promise.resolve();
   }
 
   let timer;
-  btn.addEventListener('click', (e)=>{
+  btn.addEventListener('click', e => {
     e.preventDefault();
     copy(PAGE_URL).then(()=>{
       btn.dataset.copied = 'true';
@@ -105,8 +112,5 @@ function svg(name: string) {
       timer = setTimeout(()=>{ delete btn.dataset.copied; }, 1500);
     });
   });
-
-  // Self-test (visible only in dev console)
-  // console.log('[ShareButtons] Copy handler attached for', PAGE_URL);
 })();
 </script>
