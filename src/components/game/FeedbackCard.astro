@@ -1,12 +1,33 @@
 ---
+/* (Optional) If you have a withBase helper, uncomment and use it:
+import { withBase } from '../../lib/paths';
+const contactHref = withBase('contact/');
+*/
+const contactHref = '/BeerGoggleGames/contact/'; // Adjust if you switch to withBase
 ---
-<div class="mt-14 border border-fg/15 rounded-xl p-6 bg-gradient-to-br from-fg/5 to-fg/10">
+<section class="mt-10">
   <h4 class="font-semibold mb-3 text-sm tracking-wide uppercase text-muted">Feedback</h4>
   <div class="space-y-4 text-sm leading-relaxed">
     <slot />
-    <p><a class="inline-flex items-center gap-1 text-neon hover:underline" href="/BeerGoggleGames/contact/">
-      <span>Contact Us</span>
-      <svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-    </a></p>
+    <p>
+      <a
+        class="inline-flex items-center gap-1 text-neon hover:underline"
+        href={contactHref}
+      >
+        <span>Contact Us</span>
+        <svg
+          viewBox="0 0 24 24"
+          class="w-4 h-4"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M5 12h14" />
+          <path d="m12 5 7 7-7 7" />
+        </svg>
+      </a>
+    </p>
   </div>
-</div>
+</section>
