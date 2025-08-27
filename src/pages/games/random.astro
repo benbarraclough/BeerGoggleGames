@@ -8,23 +8,28 @@ const description = 'Redirecting you to a random drinking game.';
 
 const games = await getCollection('games');
 
-const paths = games.map(g => {
+const rawPaths = games.map(g => {
   const parts = g.slug.split('/');
   const type = g.data.type || parts[0] || 'misc';
   const shortSlug = parts[parts.length - 1];
   return `games/${type}/${shortSlug}/`;
 });
 
-const uniq = Array.from(new Set(paths));
-const fallback = uniq.length
-  ? uniq[Math.floor(Math.random() * uniq.length)]
+// De‑dupe
+const uniq = Array.from(new Set(rawPaths));
+
+// Build base-prefixed hrefs now (so client script is trivial)
+const fullPaths = uniq.map(p => withBase(p));
+
+const fallback = fullPaths.length
+  ? fullPaths[Math.floor(Math.random() * fullPaths.length)]
   : null;
 ---
 
 <Layout title={pageTitle} description={description} noindex={true}>
   <h1 class="font-display text-3xl mb-4">{pageTitle}</h1>
 
-  {uniq.length === 0 ? (
+  {fullPaths.length === 0 ? (
     <p class="text-muted">No games available.</p>
   ) : (
     <>
@@ -40,19 +45,19 @@ const fallback = uniq.length
         <div class="mt-5">
           {fallback && (
             <p class="mb-4">
-              <a class="underline hover:text-neon" href={withBase(fallback)}>
+              <a class="underline hover:text-neon" href={fallback}>
                 Go to a random game
               </a>
             </p>
           )}
           <ul class="columns-2 gap-6 text-xs list-none p-0 m-0">
-            {uniq.slice(0, 40).map(p => (
+            {fullPaths.slice(0, 40).map(p => (
               <li class="mb-1">
                 <a
                   class="hover:text-neon underline underline-offset-4"
-                  href={withBase(p)}
+                  href={p}
                 >
-                  {p.replace(/^games\//, '')}
+                  {p.replace(/.*games\//, '').replace(/\/$/, '')}
                 </a>
               </li>
             ))}
@@ -60,15 +65,12 @@ const fallback = uniq.length
         </div>
       </noscript>
 
-      <!-- Embed data + redirect script -->
       <script is:inline>
         (function() {
-          var base = document.documentElement.getAttribute('data-base') || '/';
-          var paths = {JSON.stringify(uniq)};
+          var paths = {JSON.stringify(fullPaths)};
           if (!paths.length) return;
           var pick = paths[Math.floor(Math.random() * paths.length)];
-          var full = base.replace(/\/+$/, '/') + pick.replace(/^\/+/, '');
-          window.location.replace(full);
+          window.location.replace(pick);
         })();
       </script>
     </>
