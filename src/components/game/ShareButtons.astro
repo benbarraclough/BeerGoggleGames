@@ -9,14 +9,12 @@ interface ShareLink {
   name: string;
   url: string;
   icon: string;
-  copy?: boolean;
 }
 
-const links: ShareLink[] = [
+const shareLinks: ShareLink[] = [
   { name: 'Facebook',    url: `https://www.facebook.com/sharer/sharer.php?u=${encoded}`, icon: 'facebook' },
   { name: 'Twitter / X', url: `https://twitter.com/intent/tweet?url=${encoded}&text=${encodedTitle}`, icon: 'twitter' },
-  { name: 'Reddit',      url: `https://www.reddit.com/submit?url=${encoded}&title=${encodedTitle}`, icon: 'reddit' },
-  { name: 'Copy',        url: '#copy', icon: 'link', copy: true }
+  { name: 'Reddit',      url: `https://www.reddit.com/submit?url=${encoded}&title=${encodedTitle}`, icon: 'reddit' }
 ];
 
 function svg(name: string) {
@@ -33,44 +31,50 @@ function svg(name: string) {
   <h4 class="font-semibold mb-3 mt-0 text-sm tracking-wide uppercase text-muted">
     Share This Page
   </h4>
+
   <div class="flex flex-wrap gap-3">
-    {links.map(link => (
+    {shareLinks.map(link => (
       <a
         href={link.url}
-        target={link.copy ? '_self' : '_blank'}
+        target="_blank"
         rel="noopener noreferrer"
-        class="group inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-fg/15 bg-bg/60 hover:border-neon/50 hover:bg-fg/10 text-xs font-medium transition relative"
-        data-copy-link={link.copy ? 'true' : undefined}
-        aria-label={link.copy ? 'Copy page URL to clipboard' : link.name}
+        class="group inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-fg/15 bg-bg/60 hover:border-neon/50 hover:bg-fg/10 text-xs font-medium transition"
+        aria-label={link.name}
       >
         <span class="w-4 h-4 block" set:html={`<svg viewBox='0 0 24 24' fill='currentColor' class='w-4 h-4'>${svg(link.icon)}</svg>`}></span>
         <span>{link.name}</span>
-        {link.copy && (
-          <span
-            class="absolute -bottom-5 left-1/2 -translate-x-1/2 text-[10px] opacity-0 group-[data-copied='true']:opacity-100 transition text-neon"
-            aria-live="polite"
-          >
-            Copied!
-          </span>
-        )}
       </a>
     ))}
+
+    <!-- Copy button (no anchor, so no hash navigation) -->
+    <button
+      type="button"
+      class="group inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-fg/15 bg-bg/60 hover:border-neon/50 hover:bg-fg/10 text-xs font-medium transition relative"
+      data-copy-button
+      aria-label="Copy page URL to clipboard"
+    >
+      <span class="w-4 h-4 block" set:html={`<svg viewBox='0 0 24 24' fill='currentColor' class='w-4 h-4'>${svg('link')}</svg>`}></span>
+      <span>Copy</span>
+      <span
+        class="absolute -bottom-5 left-1/2 -translate-x-1/2 text-[10px] opacity-0 group-[data-copied='true']:opacity-100 transition text-neon"
+        aria-live="polite"
+      >Copied!</span>
+    </button>
   </div>
 </div>
 
 <script is:inline>
 (function(){
-  const PAGE_URL = ${JSON.stringify(pageUrl)};
-  let timeoutId = null;
+  // Remove legacy #copy hash if it slipped in from an older link
+  if (location.hash === '#copy') {
+    history.replaceState(null,'',location.pathname + location.search);
+  }
 
-  function doCopy(text){
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      return navigator.clipboard.writeText(text).catch(()=>{
-        // fallback if writeText rejects
-        legacyCopy(text);
-      });
-    }
-    return Promise.resolve(legacyCopy(text));
+  const PAGE_URL = ${JSON.stringify(pageUrl)};
+  const btn = document.querySelector('[data-copy-button]');
+  if(!btn){
+    console.warn('[ShareButtons] Copy button not found.');
+    return;
   }
 
   function legacyCopy(text){
@@ -84,17 +88,25 @@ function svg(name: string) {
     document.body.removeChild(ta);
   }
 
-  document.addEventListener('click', function(e){
-    const btn = e.target.closest('[data-copy-link]');
-    if(!btn) return;
+  function copy(text){
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      return navigator.clipboard.writeText(text).catch(()=>legacyCopy(text));
+    }
+    legacyCopy(text);
+    return Promise.resolve();
+  }
+
+  let timer;
+  btn.addEventListener('click', (e)=>{
     e.preventDefault();
-    doCopy(PAGE_URL).then(()=>{
+    copy(PAGE_URL).then(()=>{
       btn.dataset.copied = 'true';
-      if (timeoutId) clearTimeout(timeoutId);
-      timeoutId = setTimeout(()=>{
-        delete btn.dataset.copied;
-      }, 1500);
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(()=>{ delete btn.dataset.copied; }, 1500);
     });
   });
+
+  // Self-test (visible only in dev console)
+  // console.log('[ShareButtons] Copy handler attached for', PAGE_URL);
 })();
 </script>
