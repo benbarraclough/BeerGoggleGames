@@ -1,54 +1,100 @@
 ---
-import { withBase } from '../../lib/paths';
 const { title } = Astro.props;
-const pageUrl = new URL(Astro.url.pathname, Astro.site ?? 'https://example.com').toString();
+const site = Astro.site ?? 'https://example.com';
+const pageUrl = new URL(Astro.url.pathname, site).toString();
 const encoded = encodeURIComponent(pageUrl);
-const encodedTitle = encodeURIComponent(title);
-const links = [
-  { name: 'Facebook', url: `https://www.facebook.com/sharer/sharer.php?u=${encoded}`, icon: 'facebook' },
+const encodedTitle = encodeURIComponent(title ?? '');
+
+interface ShareLink {
+  name: string;
+  url: string;
+  icon: string;
+  copy?: boolean;
+}
+
+const links: ShareLink[] = [
+  { name: 'Facebook',    url: `https://www.facebook.com/sharer/sharer.php?u=${encoded}`, icon: 'facebook' },
   { name: 'Twitter / X', url: `https://twitter.com/intent/tweet?url=${encoded}&text=${encodedTitle}`, icon: 'twitter' },
-  { name: 'Reddit', url: `https://www.reddit.com/submit?url=${encoded}&title=${encodedTitle}`, icon: 'reddit' },
-  { name: 'Copy', url: '#copy', icon: 'link' }
+  { name: 'Reddit',      url: `https://www.reddit.com/submit?url=${encoded}&title=${encodedTitle}`, icon: 'reddit' },
+  { name: 'Copy',        url: '#copy', icon: 'link', copy: true }
 ];
-function svg(name:string){
-  switch(name){
+
+function svg(name: string) {
+  switch (name) {
     case 'facebook': return '<path d="M13 3h3V0h-3c-3.31 0-6 2.69-6 6v3H4v3h3v7h3v-7h3l1-3h-4V6c0-1.103.897-2 2-2Z"/>';
-    case 'twitter': return '<path d="M19.633 5.897c.013.176.013.353.013.53 0 5.384-4.097 11.59-11.59 11.59-2.303 0-4.443-.676-6.242-1.843.324.037.636.05.973.05a8.18 8.18 0 0 0 5.075-1.745 4.093 4.093 0 0 1-3.822-2.84c.249.037.498.062.76.062.361 0 .724-.05 1.061-.137A4.082 4.082 0 0 1 2.87 7.45v-.05c.549.299 1.18.486 1.853.511A4.074 4.074 0 0 1 2.78 5.12c0-.761.199-1.456.548-2.064a11.61 11.61 0 0 0 8.425 4.273 4.61 4.61 0 0 1-.101-.935 4.09 4.09 0 0 1 7.079-2.796 8.07 8.07 0 0 0 2.594-.987 4.08 4.08 0 0 1-1.797 2.256 8.17 8.17 0 0 0 2.356-.636 8.78 8.78 0 0 1-2.251 2.326Z"/>';
-    case 'reddit': return '<path d="M22 11.5c0-1.652-1.348-3-3-3a2.99 2.99 0 0 0-2.273 1.027c-1.281-.59-2.847-.967-4.527-1.027l1.457-4.563 3.156.75a2.501 2.501 0 1 0 .156-1.004l-3.781-.898a.501.501 0 0 0-.598.34l-1.664 5.211c-1.711.047-3.289.426-4.594 1.023A2.99 2.99 0 0 0 5 8.5c-1.652 0-3 1.348-3 3 0 1.089.594 2.041 1.477 2.562-.02.184-.031.371-.031.562 0 3.033 3.582 5.5 8 5.5s8-2.467 8-5.5c0-.191-.011-.379-.031-.562A2.994 2.994 0 0 0 22 11.5ZM4 11.5c0-1.103.897-2 2-2 .672 0 1.27.336 1.636.848C6.875 10.949 6.18 11.28 5.605 11.7c-.49.36-.882.78-1.164 1.207A1.98 1.98 0 0 1 4 11.5Zm10.5 5.25c-.912.912-2.727.977-2.977.977-.25 0-2.065-.065-2.977-.977a.501.501 0 1 1 .707-.707c.42.42 1.43.684 2.27.684.84 0 1.85-.264 2.27-.684a.501.501 0 0 1 .707.707ZM16 13a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm-8-1a1 1 0 1 1-2 0 1 1 0 0 1 2 0Zm12 0c0 .739-.405 1.424-1.109 1.941a.5.5 0 0 0-.203.438c.008.089.012.179.012.271 0 2.38-3.065 4.5-7 4.5s-7-2.12-7-4.5c0-.092.004-.182.012-.271a.5.5 0 0 0-.203-.438C4.405 13.924 4 13.239 4 12.5a2 2 0 0 1 2-2c.581 0 1.135.255 1.51.699a.5.5 0 0 0 .561.146c1.281-.59 2.922-.922 4.679-.922 1.757 0 3.398.332 4.679.922a.5.5 0 0 0 .561-.146A1.997 1.997 0 0 1 20 10.5a2 2 0 0 1 2 2Z"/>';
-    case 'link': return '<path d="M9.172 14.828a4 4 0 0 1 0-5.656l2-2a4 4 0 0 1 5.656 0 1 1 0 0 0 1.414-1.414 6 6 0 0 0-8.484 0l-2 2a6 6 0 1 0 8.484 8.484l1.293-1.293a1 1 0 0 0-1.414-1.414l-1.293 1.293a4 4 0 0 1-5.656 0Z"/><path d="M14.828 9.172a4 4 0 0 1 0 5.656l-2 2a4 4 0 0 1-5.656 0 1 1 0 1 0-1.414 1.414 6 6 0 0 0 8.484 0l2-2a6 6 0 1 0-8.484-8.484L6.465 8.05A1 1 0 0 0 7.88 9.465l1.293-1.293a4 4 0 0 1 5.656 0Z"/>';
+    case 'twitter':  return '<path d="M19.633 5.897c.013.176.013.353.013.53 0 5.384-4.097 11.59-11.59 11.59-2.303 0-4.443-.676-6.242-1.843.324.037.636.05.973.05a8.18 8.18 0 0 0 5.075-1.745 4.093 4.093 0 0 1-3.822-2.84c.249.037.498.062.76.062.361 0 .724-.05 1.061-.137A4.082 4.082 0 0 1 2.87 7.45v-.05c.549.299 1.18.486 1.853.511A4.074 4.074 0 0 1 2.78 5.12c0-.761.199-1.456.548-2.064a11.61 11.61 0 0 0 8.425 4.273 4.61 4.61 0 0 1-.101-.935 4.09 4.09 0 0 1 7.079-2.796 8.07 8.07 0 0 0 2.594-.987 4.08 4.08 0 0 1-1.797 2.256 8.17 8.17 0 0 0 2.356-.636 8.78 8.78 0 0 1-2.251 2.326Z"/>';
+    case 'reddit':   return '<path d="M22 11.5c0-1.652-1.348-3-3-3a2.99 2.99 0 0 0-2.273 1.027c-1.281-.59-2.847-.967-4.527-1.027l1.457-4.563 3.156.75a2.501 2.501 0 1 0 .156-1.004l-3.781-.898a.501.501 0 0 0-.598.34l-1.664 5.211c-1.711.047-3.289.426-4.594 1.023A2.99 2.99 0 0 0 5 8.5c-1.652 0-3 1.348-3 3 0 1.089.594 2.041 1.477 2.562-.02.184-.031.371-.031.562 0 3.033 3.582 5.5 8 5.5s8-2.467 8-5.5c0-.191-.011-.379-.031-.562A2.994 2.994 0 0 0 22 11.5ZM4 11.5c0-1.103.897-2 2-2 .672 0 1.27.336 1.636.848C6.875 10.949 6.18 11.28 5.605 11.7c-.49.36-.882.78-1.164 1.207A1.98 1.98 0 0 1 4 11.5Zm10.5 5.25c-.912.912-2.727.977-2.977.977-.25 0-2.065-.065-2.977-.977a.501.501 0 1 1 .707-.707c.42.42 1.43.684 2.27.684.84 0 1.85-.264 2.27-.684a.501.501 0 0 1 .707.707ZM16 13a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm-8-1a1 1 0 1 1-2 0 1 1 0 0 1 2 0Zm12 0c0 .739-.405 1.424-1.109 1.941a.5.5 0 0 0-.203.438c.008.089.012.179.012.271 0 2.38-3.065 4.5-7 4.5s-7-2.12-7-4.5c0-.092.004-.182.012-.271a.5.5 0 0 0-.203-.438C4.405 13.924 4 13.239 4 12.5a2 2 0 0 1 2-2c.581 0 1.135.255 1.51.699a.5.5 0 0 0 .561.146c1.281-.59 2.922-.922 4.679-.922 1.757 0 3.398.332 4.679.922a.5.5 0 0 0 .561-.146A1.997 1.997 0 0 1 20 10.5a2 2 0 0 1 2 2Z"/>';
+    case 'link':     return '<path d="M9.172 14.828a4 4 0 0 1 0-5.656l2-2a4 4 0 0 1 5.656 0 1 1 0 0 0 1.414-1.414 6 6 0 0 0-8.484 0l-2 2a6 6 0 1 0 8.484 8.484l1.293-1.293a1 1 0 0 0-1.414-1.414l-1.293 1.293a4 4 0 0 1-5.656 0Z"/><path d="M14.828 9.172a4 4 0 0 1 0 5.656l-2 2a4 4 0 0 1-5.656 0 1 1 0 1 0-1.414 1.414 6 6 0 0 0 8.484 0l2-2a6 6 0 1 0-8.484-8.484L6.465 8.05A1 1 0 0 0 7.88 9.465l1.293-1.293a4 4 0 0 1 5.656 0Z"/>';
   }
   return '';
 }
-function clickScript(){
-return `(function(){
-document.addEventListener('click', e=>{
-  const a = e.target.closest('[data-copy-link]');
-  if(!a) return;
-  e.preventDefault();
-  navigator.clipboard.writeText('${pageUrl}').then(()=>{
-    a.dataset.copied='true';
-    setTimeout(()=>{delete a.dataset.copied},1500);
-  });
-});
-})();`
-}
 ---
-<div class="mt-14 border border-fg/15 rounded-xl p-5 bg-fg/5">
-  <h4 class="font-semibold mb-3 text-sm tracking-wide uppercase text-muted">Share This Page</h4>
+<div class="mt-8 border border-fg/15 rounded-xl p-5 bg-fg/5">
+  <h4 class="font-semibold mb-3 mt-0 text-sm tracking-wide uppercase text-muted">
+    Share This Page
+  </h4>
   <div class="flex flex-wrap gap-3">
-    {links.map(l => (
+    {links.map(link => (
       <a
-        href={l.url}
-        target={l.icon === 'link' ? '_self' : '_blank'}
+        href={link.url}
+        target={link.copy ? '_self' : '_blank'}
         rel="noopener noreferrer"
         class="group inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-fg/15 bg-bg/60 hover:border-neon/50 hover:bg-fg/10 text-xs font-medium transition relative"
-        data-copy-link={l.icon === 'link' ? 'true': undefined}
+        data-copy-link={link.copy ? 'true' : undefined}
+        aria-label={link.copy ? 'Copy page URL to clipboard' : link.name}
       >
-        <span class="w-4 h-4 block" set:html={`<svg viewBox='0 0 24 24' fill='currentColor' class='w-4 h-4'>${svg(l.icon)}</svg>`}></span>
-        <span>{l.name}</span>
-        {l.icon === 'link' && <span class="absolute -bottom-5 left-1/2 -translate-x-1/2 text-[10px] opacity-0 group-[data-copied='true']:opacity-100 transition text-neon">Copied!</span>}
+        <span class="w-4 h-4 block" set:html={`<svg viewBox='0 0 24 24' fill='currentColor' class='w-4 h-4'>${svg(link.icon)}</svg>`}></span>
+        <span>{link.name}</span>
+        {link.copy && (
+          <span
+            class="absolute -bottom-5 left-1/2 -translate-x-1/2 text-[10px] opacity-0 group-[data-copied='true']:opacity-100 transition text-neon"
+            aria-live="polite"
+          >
+            Copied!
+          </span>
+        )}
       </a>
     ))}
   </div>
 </div>
-<script is:inline>{clickScript()}</script>
+
+<script is:inline>
+(function(){
+  const PAGE_URL = ${JSON.stringify(pageUrl)};
+  let timeoutId = null;
+
+  function doCopy(text){
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      return navigator.clipboard.writeText(text).catch(()=>{
+        // fallback if writeText rejects
+        legacyCopy(text);
+      });
+    }
+    return Promise.resolve(legacyCopy(text));
+  }
+
+  function legacyCopy(text){
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position='fixed';
+    ta.style.top='-1000px';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); } catch(_) {}
+    document.body.removeChild(ta);
+  }
+
+  document.addEventListener('click', function(e){
+    const btn = e.target.closest('[data-copy-link]');
+    if(!btn) return;
+    e.preventDefault();
+    doCopy(PAGE_URL).then(()=>{
+      btn.dataset.copied = 'true';
+      if (timeoutId) clearTimeout(timeoutId);
+      timeoutId = setTimeout(()=>{
+        delete btn.dataset.copied;
+      }, 1500);
+    });
+  });
+})();
+</script>
