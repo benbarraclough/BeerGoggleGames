@@ -1,0 +1,115 @@
+---
+import '../styles.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  noIndex?: boolean;
+}
+const {
+  title = 'Beer Goggle Games',
+  description = '',
+  noIndex = false
+} = Astro.props;
+
+// Simple helper for active nav (client-side highlight also possible)
+const currentPath = Astro.url.pathname.replace(/\/+$/,'');
+function isActive(href: string) {
+  const clean = href.replace(/\/+$/,'');
+  return clean === currentPath;
+}
+
+const base = '/BeerGoggleGames';
+---
+<!DOCTYPE html>
+<html lang="en" class="bg-bg text-fg font-body" data-base={base + '/'}>
+  <head>
+    <meta charset="utf-8" />
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+    {noIndex && <meta name="robots" content="noindex" />}
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta property="og:title" content={title} />
+    {description && <meta property="og:description" content={description} />}
+    <meta property="og:type" content="website" />
+  </head>
+  <body class="min-h-screen flex flex-col selection:bg-neon/40">
+    <header class="border-b border-fg/20 relative z-30">
+      <div class="mx-auto max-w-7xl px-4 py-4 flex items-center justify-between">
+        <a href={`${base}/`} class="font-display text-2xl tracking-tight hover:text-neon">
+          BeerGoggleGames
+        </a>
+        <nav class="hidden lg:flex flex-wrap gap-6 text-sm" aria-label="Primary">
+          <a href={`${base}/search`} class={`hover:text-neon ${isActive(base + '/search') ? 'text-neon font-semibold' : ''}`}>Search</a>
+          <a href={`${base}/games/`} class={`hover:text-neon ${currentPath.startsWith(base + '/games') ? 'text-neon font-semibold' : ''}`}>Games</a>
+          <a href={`${base}/drinks/`} class={`hover:text-neon ${currentPath.startsWith(base + '/drinks') ? 'text-neon font-semibold' : ''}`}>Drinks</a>
+            <a href={`${base}/extras/`} class={`hover:text-neon ${currentPath.startsWith(base + '/extras') ? 'text-neon font-semibold' : ''}`}>Extras</a>
+          <a href={`${base}/about`} class={`hover:text-neon ${isActive(base + '/about') ? 'text-neon font-semibold' : ''}`}>About</a>
+          <a href={`${base}/contact`} class={`hover:text-neon ${isActive(base + '/contact') ? 'text-neon font-semibold' : ''}`}>Contact</a>
+        </nav>
+        <a
+          id="nav-toggle"
+          href="#site-menu"
+          class="lg:hidden inline-flex items-center gap-2 border border-fg/30 px-3 py-2 text-sm rounded hover:border-neon hover:text-neon"
+          aria-controls="site-menu"
+          aria-expanded="false"
+        >
+          <span class="sr-only">Open menu</span>
+          <svg width="22" height="18" viewBox="0 0 22 18" fill="none" xmlns="http://www.w3.org/2000/svg" class="stroke-current">
+            <path d="M1 1H21M1 9H21M1 17H21" stroke-width="2" stroke-linecap="round"></path>
+          </svg>
+          Menu
+        </a>
+      </div>
+    </header>
+
+    <div id="site-menu" class="site-menu-overlay" aria-label="Mobile navigation">
+      <div class="site-menu-panel">
+        <div class="flex items-center justify-between px-5 py-4 border-b border-fg/25">
+          <span class="font-display text-xl">Menu</span>
+          <a href="#" id="nav-close" class="inline-flex items-center gap-2 border border-fg/30 px-3 py-2 text-sm rounded hover:border-neon hover:text-neon" aria-label="Close menu">✕</a>
+        </div>
+        <nav class="px-6 py-8 grow flex flex-col gap-5 text-lg overflow-y-auto" aria-label="Mobile Primary">
+          <a href={`${base}/search`} class="hover:text-neon" data-close>Search</a>
+          <a href={`${base}/games/`} class="hover:text-neon" data-close>Games</a>
+          <a href={`${base}/drinks/`} class="hover:text-neon" data-close>Drinks</a>
+          <a href={`${base}/extras/`} class="hover:text-neon" data-close>Extras</a>
+          <a href={`${base}/about`} class="hover:text-neon" data-close>About</a>
+          <a href={`${base}/contact`} class="hover:text-neon" data-close>Contact</a>
+          <div class="mt-8 pt-6 border-t border-fg/20 text-sm text-muted leading-relaxed max-w-prose">
+            <p class="mb-3">
+              Explore hundreds of drinking games, cocktails, shots, activities & extras.
+            </p>
+            <p>Visit the <a class="hover:text-neon underline underline-offset-4" href={`${base}/blog/`}>Blog</a> for guides & ideas.</p>
+          </div>
+        </nav>
+      </div>
+    </div>
+
+    <main id="main" class="grow mx-auto w-full px-4 py-8 max-w-6xl">
+      <article class="prose prose-invert max-w-none">
+        <slot />
+      </article>
+    </main>
+
+    <footer class="border-t border-fg/20">
+      <div class="mx-auto max-w-7xl px-4 py-6 text-sm text-muted flex items-center justify-between">
+        <span>© {new Date().getFullYear()} Beer Goggle Games</span>
+        <a class="hover:text-neon" href={`${base}/rss.xml`}>RSS</a>
+      </div>
+    </footer>
+
+    <script is:inline data-nav-test>
+      (function(){
+        const toggle = document.getElementById('nav-toggle');
+        if(!toggle) return;
+        function sync(){
+          const expanded = location.hash === '#site-menu';
+          toggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+        }
+        window.addEventListener('hashchange', sync);
+        sync();
+      })();
+    </script>
+  </body>
+</html>
