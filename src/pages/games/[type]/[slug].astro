@@ -1,61 +1,28 @@
 ---
-import Layout from '../../../components/Layout.astro';
-import { getCollection } from 'astro:content';
-import { withBase } from '../../../lib/paths';
-import { tagSlug } from '../../../lib/tags';
+import Layout from '../../../layouts/BaseLayout.astro'; // adjust if different
+const { slug } = Astro.params;
 
-export async function getStaticPaths() {
-  const games = await getCollection('games');
-  return games.map(g => {
-    // Canonical type taken from frontmatter (fallback misc)
-    // Normalize to URL-friendly lowercase-hyphen
-    const rawType = (g.data.type || 'misc').toString().trim();
-    const type = rawType
-      .toLowerCase()
-      .replace(/\s+/g, '-')
-      .replace(/[^a-z0-9\-]/g, '');
-
-    // Leaf slug comes from the file slug (last path part)
-    const parts = g.slug.split('/').filter(Boolean);
-    const leaf = parts[parts.length - 1];
-
-    return {
-      params: { type, slug: leaf },
-      props: { entry: g, type }
-    };
-  });
+function norm(v:string) {
+  return v.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
 }
 
-const { entry, type } = Astro.props;
-const { Content } = await entry.render();
+const games = await Astro.glob('../../../content/games/*.mdx');
+const filtered = games.filter(g => norm(g.frontmatter.type || '') === slug);
 
-const title = entry.data.title;
-const description = entry.data.excerpt || `Game: ${title}.`;
-const players = entry.data.players;
-const tags: string[] = Array.isArray(entry.data.tags) ? entry.data.tags : [];
+const humanLabel = slug.replace(/-/g,' ');
+const pageTitle = `Game Type: ${humanLabel}`;
 ---
-<Layout title={title} description={description}>
-  <article class="prose prose-invert max-w-none">
-    <h1 class="font-display text-4xl mb-2">{title}</h1>
-
-    <div class="flex flex-wrap gap-2 mb-4">
-      {players && <span class:list={['mode-pill', `mode-pill-${players}`]}>{players}</span>}
-      {type && <span class="mode-pill">{type}</span>}
-      {tags.map(t => {
-        const slug = tagSlug(t);
-        return (
-          <a href={withBase(`tags/${slug}/`)} class="tag-pill" aria-label={`Tag: ${t}`}>{t}</a>
-        );
-      })}
-      {tags.length > 0 && (
-        <a href={withBase('tags/')} class="tag-pill" aria-label="Browse all tags">All Tags</a>
-      )}
-    </div>
-
-    <Content />
-  </article>
-
-  <p class="mt-10 text-sm">
-    <a class="hover:text-neon underline underline-offset-4" href={withBase(`games/${type}/`)}>← More {type} games</a>
-  </p>
+<Layout title={pageTitle} description={`All games of type ${humanLabel}.`}>
+  <main class="mx-auto max-w-6xl px-4 py-10">
+    <h1 class="font-display text-3xl mb-6">Type: {humanLabel}</h1>
+    {filtered.length === 0 && <p class="text-muted">No games found for this type.</p>}
+    <ul class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {filtered.map(g => (
+        <li class="card">
+          <a href={g.url} class="hover:text-neon font-semibold">{g.frontmatter.title}</a>
+          {g.frontmatter.excerpt && <p class="mt-2 text-xs text-muted leading-snug">{g.frontmatter.excerpt}</p>}
+        </li>
+      ))}
+    </ul>
+  </main>
 </Layout>
