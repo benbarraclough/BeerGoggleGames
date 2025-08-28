@@ -39,6 +39,270 @@
 .border-fg\/40 { border-color: rgba(var(--fg-rgb),0.40) !important; }
 
 /* ------------------------------------------------------------------
+   Typography helpers
+   ------------------------------------------------------------------ */
+.font-display {
+  font-family: var(--font-display, 'Poppins', 'Inter', system-ui, sans-serif);
+}
+.font-body {
+  font-family: var(--font-body, 'Inter', system-ui, sans-serif);
+}
+
+/* ------------------------------------------------------------------
+   Global tweaks
+   ------------------------------------------------------------------ */
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--fg); }
+::selection { background: rgba(57,255,182,0.4); color: #000; }
+
+:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+a {
+  transition: color .15s ease, border-color .15s ease;
+  text-decoration-thickness: 1px;
+}
+a:hover { text-decoration-color: currentColor; }
+
+.text-muted { color: var(--muted); }
+
+.prose hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg,transparent,var(--border),transparent);
+  margin: 3rem 0;
+}
+
+.prose ul li::marker,
+.prose ol li::marker {
+  color: var(--neon);
+}
+
+pre, code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
+}
+pre {
+  background: #14181d;
+  border: 1px solid #1f252c;
+  padding: 1rem 1.25rem;
+  border-radius: var(--radius-md);
+  overflow-x: auto;
+}
+
+.prose table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+.prose table th,
+.prose table td {
+  border: 1px solid rgba(var(--fg-rgb),0.15);
+  padding: 0.5rem 0.65rem;
+}
+.prose table th {
+  background: #161b21;
+  font-weight: 600;
+}
+
+.prose blockquote {
+  border-left: 3px solid var(--neon);
+  background: #141a1f;
+  padding: 0.75rem 1rem;
+  color: var(--muted);
+  font-style: italic;
+}
+
+.prose img {
+  border-radius: var(--radius-md);
+  box-shadow: 0 2px 14px -4px rgba(0,0,0,0.6);
+}
+
+.prose h1, .prose h2 {
+  background: var(--gradient-neon);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+/* ------------------------------------------------------------------
+   Pills (legacy mode & tag)
+   ------------------------------------------------------------------ */
+.mode-pill {
+  @apply inline-block px-2 py-0.5 rounded text-xs font-medium bg-fg/10 border border-fg/15 tracking-wide uppercase;
+  letter-spacing: 0.05em;
+  background: rgba(var(--fg-rgb),0.10);
+  border-color: rgba(var(--fg-rgb),0.15);
+  color: var(--fg);
+  line-height: 1.1;
+}
+.mode-pill-team  { color: var(--accent); }
+.mode-pill-pairs { color: var(--neon); }
+.mode-pill-solo  { color: var(--fg); }
+.mode-pill:hover {
+  border-color: var(--neon);
+  color: var(--neon);
+}
+.mode-pill {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+}
+
+.tag-pill {
+  @apply inline-block px-2 py-0.5 rounded text-xs font-medium bg-fg/10 border border-fg/15;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  line-height: 1.1;
+  transition: color .15s ease, border-color .15s ease, background .15s ease;
+}
+.tag-pill:hover {
+  color: var(--neon);
+  border-color: var(--neon);
+  background: rgba(var(--fg-rgb),0.15);
+}
+
+/* ------------------------------------------------------------------
+   New taxonomy pill styles (Type & Format + reorganized tags)
+   ------------------------------------------------------------------ */
+.game-meta { /* container utility if needed */ }
+
+.pill-link {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  padding: 0.4rem 0.75rem;
+  font-size: 0.62rem;
+  line-height: 1.05;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  border: 1px solid rgba(var(--fg-rgb),0.18);
+  border-radius: var(--radius-sm);
+  background: rgba(var(--fg-rgb),0.07);
+  color: var(--fg);
+  position: relative;
+  transition: color .18s ease, border-color .18s ease, background .18s ease, box-shadow .2s;
+}
+
+.pill-link:hover {
+  background: rgba(var(--fg-rgb),0.12);
+}
+
+.pill-link:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.pill-link .pill-dot {
+  width: .55rem;
+  height: .55rem;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: .65;
+  transition: opacity .18s ease;
+}
+.pill-link:hover .pill-dot {
+  opacity: 1;
+}
+
+.pill-type {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(255,179,71,0.10);
+}
+.pill-type:hover {
+  border-color: var(--neon);
+  color: var(--neon);
+  background: rgba(57,255,182,0.15);
+}
+
+.pill-format {
+  border-color: var(--neon);
+  color: var(--neon);
+  background: rgba(57,255,182,0.10);
+}
+.pill-format:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(255,179,71,0.15);
+}
+
+/* Optional grouping spacing overrides */
+.meta-primary-row {}
+.meta-tags-row {}
+
+@media (max-width: 480px) {
+  .pill-link, .tag-pill {
+    font-size: 0.58rem;
+    padding: 0.35rem 0.6rem;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Navigation overlay, buttons, cards, forms... (existing content retained)
+   ------------------------------------------------------------------ */
+#nav-overlay {
+  background: rgba(var(--bg-rgb,0,0,0),0.90);
+}
+#nav-overlay .nav-ov-panel {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+/* ... (rest of previously existing styles unchanged) ... */
+
+/* ------------------------------------------------------------------
+   Dark mode preference hook (if you later add light mode)
+   ------------------------------------------------------------------ */
+/*
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: #ffffff;
+    --bg-rgb: 255,255,255;
+    --fg: #0d1117;
+    --fg-rgb: 13,17,23;
+    --muted: #5e6570;
+    --border: rgba(0,0,0,0.12);
+  }
+}
+*/
+
+/* ------------------------------------------------------------------
+   End of custom styles
+   ------------------------------------------------------------------ */
+
+/* ------------------------------------------------------------------
+   CSS Variables (fallbacks in case Tailwind theme tokens not present)
+   Adjust / remove if you already set these in tailwind.config.cjs
+   ------------------------------------------------------------------ */
+:root {
+  --bg: #0b0c0f;
+  --bg-rgb: 11,12,15;
+  --fg: #f2f5f7;
+  --fg-rgb: 242,245,247;
+  --muted: #98a2ad;
+  --border: rgba(255,255,255,0.15);
+  --neon: #39ffb6;
+  --accent: #ffb347;
+  --danger: #ff4d4d;
+  --focus-ring: #39ffb6;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+  --gradient-neon: linear-gradient(90deg,#39ffb6,#2fb3ff);
+}
+
+/* Basic color helpers if Tailwind custom colors missing */
+.bg-bg { background: var(--bg) !important; }
+.text-fg { color: var(--fg) !important; }
+.text-muted { color: var(--muted) !important; }
+.text-neon { color: var(--neon) !important; }
+.text-accent { color: var(--accent) !important; }
+.border-fg\/20 { border-color: rgba(var(--fg-rgb),0.2) !important; }
+.border-fg\/25 { border-color: rgba(var(--fg-rgb),0.25) !important; }
+.border-fg\/15 { border-color: rgba(var(--fg-rgb),0.15) !important; }
+.border-fg\/30 { border-color: rgba(var(--fg-rgb),0.30) !important; }
+.border-fg\/40 { border-color: rgba(var(--fg-rgb),0.40) !important; }
+
+/* ------------------------------------------------------------------
    Typography helpers (if fonts defined via Tailwind config they win)
    ------------------------------------------------------------------ */
 .font-display {
@@ -372,6 +636,7 @@ mark {
   border-color: var(--neon);
   background: rgba(var(--fg-rgb),0.15);
 }
+
 
 /* ------------------------------------------------------------------
    Dark mode preference hook (if you later add light mode)
