@@ -12,32 +12,31 @@ interface GameEntry {
   url: string;
 }
 
-function slugify(v: string) {
-  return v.toLowerCase()
-    .replace(/[^a-z0-9]+/g,'-')
-    .replace(/^-|-$/g,'');
+function toSlug(v: string) {
+  return v
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
 }
 
 export async function getStaticPaths() {
   const games: GameEntry[] = await Astro.glob('../../../content/games/*.mdx');
-  const tagSet = new Set<string>();
+  const tags = new Set<string>();
   for (const g of games) {
-    const tags = Array.isArray(g.frontmatter.tags) ? g.frontmatter.tags : [];
-    for (const t of tags) {
-      tagSet.add(slugify(t));
-    }
+    const list = Array.isArray(g.frontmatter.tags) ? g.frontmatter.tags : [];
+    for (const t of list) tags.add(toSlug(t));
   }
-  return [...tagSet].map(slug => ({ params: { slug } }));
+  return [...tags].map(slug => ({ params: { slug } }));
 }
 
 const { slug } = Astro.params;
 const games: GameEntry[] = await Astro.glob('../../../content/games/*.mdx');
 const filtered = games.filter(g => {
-  const tags = Array.isArray(g.frontmatter.tags) ? g.frontmatter.tags : [];
-  return tags.some(t => slugify(t) === slug);
+  const tagList = Array.isArray(g.frontmatter.tags) ? g.frontmatter.tags : [];
+  return tagList.some(t => toSlug(t) === slug);
 });
 
-const humanLabel = slug.replace(/-/g,' ');
+const humanLabel = slug.replace(/-/g, ' ');
 const pageTitle = `Tag: ${humanLabel}`;
 ---
 <BaseLayout title={pageTitle} description={`All games tagged ${humanLabel}.`}>
@@ -45,7 +44,7 @@ const pageTitle = `Tag: ${humanLabel}`;
   {filtered.length === 0 && <p class="text-muted">No games found with this tag.</p>}
   <ul class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
     {filtered
-      .sort((a,b)=>a.frontmatter.title.localeCompare(b.frontmatter.title))
+      .sort((a, b) => a.frontmatter.title.localeCompare(b.frontmatter.title))
       .map(g => (
         <li class="card">
           <a href={g.url} class="hover:text-neon font-semibold">{g.frontmatter.title}</a>
