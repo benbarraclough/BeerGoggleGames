@@ -1,9 +1,9 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 
-/* Build all distinct player format slugs */
+/* Build all distinct player format slugs (players field) from .md and .mdx */
 export const getStaticPaths = async () => {
-  const games = await Astro.glob('../../../content/games/*.mdx');
+  const games = await Astro.glob('../../../content/games/*.{md,mdx}');
   const set = new Set<string>();
   for (const g of games) {
     const raw = (g.frontmatter.players || '').trim();
@@ -24,7 +24,7 @@ function norm(v: string = '') {
 }
 
 const { slug } = Astro.params;
-const games = await Astro.glob('../../../content/games/*.mdx');
+const games = await Astro.glob('../../../content/games/*.{md,mdx}');
 const filtered = games.filter(g => norm(g.frontmatter.players || '') === slug);
 
 const humanLabel = slug.replace(/-/g,' ');
