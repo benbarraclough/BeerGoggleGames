@@ -1,0 +1,62 @@
+---
+interface Props {
+  type?: string;
+  players?: string;
+  tags?: string[];
+  base?: string; // optional base prefix, default '/BeerGoggleGames'
+}
+const {
+  type,
+  players,
+  tags = [],
+  base = '/BeerGoggleGames'
+} = Astro.props;
+
+function slug(v?: string) {
+  return (v || '').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+}
+
+const typeSlug = type ? slug(type) : null;
+const playerSlug = players ? slug(players) : null;
+---
+<div class="game-meta space-y-2 mb-6">
+  <div class="flex flex-wrap items-center gap-2">
+    {typeSlug && (
+      <a
+        href={`${base}/games/type/${typeSlug}/`}
+        class="pill-link pill-type"
+        aria-label={`View all ${type} games`}
+      >
+        <span class="pill-dot" aria-hidden="true"></span>
+        <span>{type}</span>
+      </a>
+    )}
+    {playerSlug && (
+      <a
+        href={`${base}/games/players/${playerSlug}/`}
+        class="pill-link pill-players"
+        aria-label={`View all ${players} format games`}
+      >
+        <span class="pill-dot" aria-hidden="true"></span>
+        <span>{players}</span>
+      </a>
+    )}
+  </div>
+
+  {tags.length > 0 && (
+    <div class="flex flex-wrap items-center gap-2">
+      {tags.map(tag => (
+        <a
+          href={`${base}/tags/${slug(tag)}/`}
+            class="tag-pill"
+            aria-label={`Tag: ${tag}`}
+        >{tag}</a>
+      ))}
+      <a
+        href={`${base}/tags/`}
+        class="tag-pill"
+        aria-label="Browse all tags"
+      >All Tags</a>
+    </div>
+  )}
+</div>
