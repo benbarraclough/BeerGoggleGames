@@ -1,0 +1,64 @@
+---
+/**
+ * Backward-compatibility redirect for old taxonomy URLs like /games/card/
+ * Redirects to:
+ *   /games/type/<slug>/   if slug matches a type
+ *   /games/format/<slug>/ if slug matches a player format
+ *   /games/tags/<slug>/   if slug matches a tag
+ * Otherwise renders a 404-style message.
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+function norm(v = '') {
+  return v.toLowerCase()
+    .replace(/[^a-z0-9]+/g,'-')
+    .replace(/^-|-$/g,'');
+}
+
+const { slug } = Astro.params;
+
+// Gather data (same source as taxonomy pages)
+const games = await Astro.glob('../../content/games/*.mdx');
+
+const typeSet = new Set<string>();
+const formatSet = new Set<string>();
+const tagSet = new Set<string>();
+
+for (const g of games) {
+  if (g.frontmatter.type) typeSet.add(norm(g.frontmatter.type));
+  if (g.frontmatter.players) formatSet.add(norm(g.frontmatter.players));
+  const tags = Array.isArray(g.frontmatter.tags) ? g.frontmatter.tags : [];
+  for (const t of tags) tagSet.add(norm(t));
+}
+
+let target: string | null = null;
+
+if (typeSet.has(slug)) {
+  target = `/BeerGoggleGames/games/type/${slug}/`;
+} else if (formatSet.has(slug)) {
+  target = `/BeerGoggleGames/games/format/${slug}/`;
+} else if (tagSet.has(slug)) {
+  target = `/BeerGoggleGames/games/tags/${slug}/`;
+}
+
+// If found, issue a meta refresh (GitHub Pages has no server redirect)
+if (target) {
+  Astro.response.headers.set('Refresh', `0; url=${target}`);
+}
+---
+{target ? (
+  <BaseLayout title="Redirecting...">
+    <p>Redirecting to <a class="text-neon underline" href={target}>{target}</a>...</p>
+    <noscript>
+      <p>No JavaScript? Click the link above.</p>
+    </noscript>
+  </BaseLayout>
+) : (
+  <BaseLayout title="Not Found" description="Page not found">
+    <h1 class="font-display text-4xl mb-4">Not Found</h1>
+    <p class="text-muted">This path does not correspond to a game type, format, or tag.</p>
+    <p class="mt-4">
+      Try the <a class="text-neon underline" href="/BeerGoggleGames/games/all/">All Games</a> page.
+    </p>
+  </BaseLayout>
+)}
