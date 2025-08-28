@@ -1,9 +1,9 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 
-/* Build all distinct tag slugs */
+/* Build all distinct tag slugs from .md and .mdx */
 export const getStaticPaths = async () => {
-  const games = await Astro.glob('../../../content/games/*.mdx');
+  const games = await Astro.glob('../../../content/games/*.{md,mdx}');
   const set = new Set<string>();
   for (const g of games) {
     const tags = Array.isArray(g.frontmatter.tags) ? g.frontmatter.tags : [];
@@ -27,7 +27,7 @@ function norm(v: string = '') {
 }
 
 const { slug } = Astro.params;
-const games = await Astro.glob('../../../content/games/*.mdx');
+const games = await Astro.glob('../../../content/games/*.{md,mdx}');
 const filtered = games.filter(g => {
   const tags = Array.isArray(g.frontmatter.tags) ? g.frontmatter.tags : [];
   return tags.some(t => norm(t) === slug);
