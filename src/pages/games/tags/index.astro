@@ -1,0 +1,47 @@
+---
+import Layout from '../../../layouts/BaseLayout.astro';
+
+function norm(v:string) {
+  return v.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+}
+
+const games = await Astro.glob('../../../content/games/*.mdx');
+
+// Collect unique tags
+const tagMap = new Map<string, { slug: string; count: number }>();
+for (const g of games) {
+  const tags = Array.isArray(g.frontmatter.tags) ? g.frontmatter.tags : [];
+  tags.forEach((t:string) => {
+    const s = norm(t);
+    if (!tagMap.has(s)) tagMap.set(s, { slug: s, count: 0 });
+    tagMap.get(s)!.count++;
+  });
+}
+const tagEntries = [...tagMap.entries()].map(([slug, data]) => ({
+  slug,
+  label: slug.replace(/-/g,' '),
+  count: data.count
+})).sort((a,b)=> a.label.localeCompare(b.label));
+
+const pageTitle = 'All Game Tags';
+---
+<Layout title={pageTitle} description="Browse all game tags.">
+  <main class="mx-auto max-w-6xl px-4 py-10">
+    <h1 class="font-display text-3xl mb-6">{pageTitle}</h1>
+    {tagEntries.length === 0 && <p class="text-muted">No tags available.</p>}
+    <ul class="flex flex-wrap gap-2">
+      {tagEntries.map(t => (
+        <li>
+          <a
+            href={`/BeerGoggleGames/games/tags/${t.slug}/`}
+            class="tag-pill inline-flex items-center gap-1"
+            aria-label={`Tag: ${t.label} (${t.count} games)`}
+          >
+            <span>{t.label}</span>
+            <span class="opacity-70">({t.count})</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </main>
+</Layout>
