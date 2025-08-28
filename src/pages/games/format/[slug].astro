@@ -1,39 +1,33 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 
-interface GameEntry {
-  frontmatter: {
-    title: string;
-    excerpt?: string;
-    type?: string;
-    players?: string;
-    tags?: string[];
-  };
-  url: string;
-}
-
-function toSlug(v: string) {
-  return v
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-|-$/g, '');
-}
-
-export async function getStaticPaths() {
-  const games: GameEntry[] = await Astro.glob('../../../content/games/*.mdx');
-  const formats = new Set<string>();
+/* Build all distinct player format slugs */
+export const getStaticPaths = async () => {
+  const games = await Astro.glob('../../../content/games/*.mdx');
+  const set = new Set<string>();
   for (const g of games) {
-    const mode = g.frontmatter.players;
-    if (mode) formats.add(toSlug(mode));
+    const raw = (g.frontmatter.players || '').trim();
+    if (!raw) continue;
+    const slug = raw
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g,'-')
+      .replace(/^-|-$/g,'');
+    if (slug) set.add(slug);
   }
-  return [...formats].map(slug => ({ params: { slug } }));
+  return [...set].map(slug => ({ params: { slug } }));
+};
+
+function norm(v: string = '') {
+  return v.toLowerCase()
+    .replace(/[^a-z0-9]+/g,'-')
+    .replace(/^-|-$/g,'');
 }
 
 const { slug } = Astro.params;
-const games: GameEntry[] = await Astro.glob('../../../content/games/*.mdx');
-const filtered = games.filter(g => toSlug(g.frontmatter.players || '') === slug);
+const games = await Astro.glob('../../../content/games/*.mdx');
+const filtered = games.filter(g => norm(g.frontmatter.players || '') === slug);
 
-const humanLabel = slug.replace(/-/g, ' ');
+const humanLabel = slug.replace(/-/g,' ');
 const pageTitle = `Player Format: ${humanLabel}`;
 ---
 <BaseLayout title={pageTitle} description={`All games with player format ${humanLabel}.`}>
@@ -41,14 +35,12 @@ const pageTitle = `Player Format: ${humanLabel}`;
   {filtered.length === 0 && <p class="text-muted">No games found for this player format.</p>}
   <ul class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
     {filtered
-      .sort((a, b) => a.frontmatter.title.localeCompare(b.frontmatter.title))
+      .sort((a,b)=>a.frontmatter.title.localeCompare(b.frontmatter.title))
       .map(g => (
         <li class="card">
           <a href={g.url} class="hover:text-neon font-semibold">{g.frontmatter.title}</a>
           {g.frontmatter.excerpt && (
-            <p class="mt-2 text-xs text-muted leading-snug">
-              {g.frontmatter.excerpt}
-            </p>
+            <p class="mt-2 text-xs text-muted leading-snug">{g.frontmatter.excerpt}</p>
           )}
         </li>
       ))}
