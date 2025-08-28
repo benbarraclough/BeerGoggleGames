@@ -3,7 +3,7 @@ interface Props {
   type?: string;
   players?: string;
   tags?: string[];
-  base?: string; // optional base prefix, default '/BeerGoggleGames'
+  base?: string; // site base path
 }
 const {
   type,
@@ -13,14 +13,18 @@ const {
 } = Astro.props;
 
 function slug(v?: string) {
-  return (v || '').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+  return (v || '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g,'-')
+    .replace(/^-|-$/g,'');
 }
 
 const typeSlug = type ? slug(type) : null;
-const playerSlug = players ? slug(players) : null;
+const formatSlug = players ? slug(players) : null;
+const tagList = Array.isArray(tags) ? tags : [];
 ---
-<div class="game-meta space-y-2 mb-6">
-  <div class="flex flex-wrap items-center gap-2">
+<nav class="game-meta mb-6" aria-label="Game metadata">
+  <div class="flex flex-wrap items-center gap-2 meta-primary-row">
     {typeSlug && (
       <a
         href={`${base}/games/type/${typeSlug}/`}
@@ -28,35 +32,38 @@ const playerSlug = players ? slug(players) : null;
         aria-label={`View all ${type} games`}
       >
         <span class="pill-dot" aria-hidden="true"></span>
-        <span>{type}</span>
+        <span class="pill-text">{type}</span>
       </a>
     )}
-    {playerSlug && (
+    {formatSlug && (
       <a
-        href={`${base}/games/players/${playerSlug}/`}
-        class="pill-link pill-players"
+        href={`${base}/games/format/${formatSlug}/`}
+        class="pill-link pill-format"
         aria-label={`View all ${players} format games`}
       >
         <span class="pill-dot" aria-hidden="true"></span>
-        <span>{players}</span>
+        <span class="pill-text">{players}</span>
       </a>
     )}
   </div>
 
-  {tags.length > 0 && (
-    <div class="flex flex-wrap items-center gap-2">
-      {tags.map(tag => (
-        <a
-          href={`${base}/tags/${slug(tag)}/`}
+  {tagList.length > 0 && (
+    <div class="flex flex-wrap items-center gap-2 mt-2 meta-tags-row">
+      {tagList.map(tag => {
+        const tg = slug(tag);
+        return (
+          <a
+            href={`${base}/games/tags/${tg}/`}
             class="tag-pill"
             aria-label={`Tag: ${tag}`}
-        >{tag}</a>
-      ))}
+          >{tag}</a>
+        );
+      })}
       <a
-        href={`${base}/tags/`}
+        href={`${base}/games/tags/`}
         class="tag-pill"
         aria-label="Browse all tags"
       >All Tags</a>
     </div>
   )}
-</div>
+</nav>
