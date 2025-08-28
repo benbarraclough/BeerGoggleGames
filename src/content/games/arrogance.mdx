@@ -7,10 +7,20 @@ players: team
 tags: [classic, fast]
 ---
 
+import GameMeta from '../../components/game/GameMeta.astro';
 import GameHero from '../../components/game/GameHero.astro';
 import GameSection from '../../components/game/GameSection.astro';
 import ShareButtons from '../../components/game/ShareButtons.astro';
 import FeedbackCard from '../../components/game/FeedbackCard.astro';
+
+/* 
+  NOTE:
+  - Ensure any legacy pill/meta rendering in the layout is removed.
+  - We place GameMeta directly after the H1 (layout places H1 from frontmatter),
+    so this component should appear before GameHero’s figure.
+*/
+
+<GameMeta type="coin" players="team" tags={['classic','fast']} />
 
 <GameHero
   cover="/BeerGoggleGames/images/arrogance.webp"
