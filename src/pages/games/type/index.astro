@@ -1,16 +1,15 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 
-function slugify(v='') {
-  return v.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
-}
+function slugify(v=''){return v.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');}
 
-const games = await Astro.glob('../../../content/games/*.mdx');
-const counts = new Map<string, { label: string; count: number }>();
+const games = await Astro.glob('../../../content/games/*.{md,mdx}');
+const counts = new Map<string,{label:string;count:number}>();
 
 for (const g of games) {
-  if (!g.frontmatter.type) continue;
-  const label = g.frontmatter.type.trim();
+  const raw = g.frontmatter.type;
+  if (!raw) continue;
+  const label = raw.trim();
   const slug = slugify(label);
   const entry = counts.get(slug) || { label, count: 0 };
   entry.count++;
@@ -18,8 +17,8 @@ for (const g of games) {
 }
 
 const list = [...counts.entries()]
-  .map(([slug, data]) => ({ slug, label: data.label, count: data.count }))
-  .sort((a,b) => a.label.localeCompare(b.label));
+  .map(([slug,data]) => ({ slug, label: data.label, count: data.count }))
+  .sort((a,b)=>a.label.localeCompare(b.label));
 
 const pageTitle = 'Game Types';
 ---
