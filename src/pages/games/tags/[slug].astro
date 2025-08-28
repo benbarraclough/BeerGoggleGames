@@ -1,16 +1,40 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 
-const { slug } = Astro.params;
-
-function norm(v:string) {
-  return v.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+interface GameEntry {
+  frontmatter: {
+    title: string;
+    excerpt?: string;
+    type?: string;
+    players?: string;
+    tags?: string[];
+  };
+  url: string;
 }
 
-const games = await Astro.glob('../../../content/games/*.mdx');
+function slugify(v: string) {
+  return v.toLowerCase()
+    .replace(/[^a-z0-9]+/g,'-')
+    .replace(/^-|-$/g,'');
+}
+
+export async function getStaticPaths() {
+  const games: GameEntry[] = await Astro.glob('../../../content/games/*.mdx');
+  const tagSet = new Set<string>();
+  for (const g of games) {
+    const tags = Array.isArray(g.frontmatter.tags) ? g.frontmatter.tags : [];
+    for (const t of tags) {
+      tagSet.add(slugify(t));
+    }
+  }
+  return [...tagSet].map(slug => ({ params: { slug } }));
+}
+
+const { slug } = Astro.params;
+const games: GameEntry[] = await Astro.glob('../../../content/games/*.mdx');
 const filtered = games.filter(g => {
-  const tags = g.frontmatter.tags || [];
-  return Array.isArray(tags) && tags.some((t:string) => norm(t) === slug);
+  const tags = Array.isArray(g.frontmatter.tags) ? g.frontmatter.tags : [];
+  return tags.some(t => slugify(t) === slug);
 });
 
 const humanLabel = slug.replace(/-/g,' ');
@@ -20,11 +44,17 @@ const pageTitle = `Tag: ${humanLabel}`;
   <h1 class="font-display text-4xl mb-6">{pageTitle}</h1>
   {filtered.length === 0 && <p class="text-muted">No games found with this tag.</p>}
   <ul class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-    {filtered.map(g => (
-      <li class="card">
-        <a href={g.url} class="hover:text-neon font-semibold">{g.frontmatter.title}</a>
-        {g.frontmatter.excerpt && <p class="mt-2 text-xs text-muted leading-snug">{g.frontmatter.excerpt}</p>}
-      </li>
-    ))}
+    {filtered
+      .sort((a,b)=>a.frontmatter.title.localeCompare(b.frontmatter.title))
+      .map(g => (
+        <li class="card">
+          <a href={g.url} class="hover:text-neon font-semibold">{g.frontmatter.title}</a>
+          {g.frontmatter.excerpt && (
+            <p class="mt-2 text-xs text-muted leading-snug">
+              {g.frontmatter.excerpt}
+            </p>
+          )}
+        </li>
+      ))}
   </ul>
 </BaseLayout>
