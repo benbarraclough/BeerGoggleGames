@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+function slugify(v='') {
+  return v.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+}
+
+const games = await Astro.glob('../../../content/games/*.mdx');
+const counts = new Map<string, { label: string; count: number }>();
+
+for (const g of games) {
+  if (!g.frontmatter.type) continue;
+  const label = g.frontmatter.type.trim();
+  const slug = slugify(label);
+  const entry = counts.get(slug) || { label, count: 0 };
+  entry.count++;
+  counts.set(slug, entry);
+}
+
+const list = [...counts.entries()]
+  .map(([slug, data]) => ({ slug, label: data.label, count: data.count }))
+  .sort((a,b) => a.label.localeCompare(b.label));
+
+const pageTitle = 'Game Types';
+---
+<BaseLayout title={pageTitle} description="Browse all game types.">
+  <h1 class="font-display text-4xl mb-6">{pageTitle}</h1>
+  {list.length === 0 && <p class="text-muted">No types yet.</p>}
+  <ul class="flex flex-wrap gap-2">
+    {list.map(t => (
+      <li>
+        <a class="tag-pill inline-flex items-center gap-1"
+           href={`/BeerGoggleGames/games/type/${t.slug}/`}>
+          <span>{t.label}</span><span class="opacity-70">({t.count})</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+</BaseLayout>
