@@ -29,11 +29,9 @@ const typeEntries = Array.from(byType.entries()).sort((a,b)=> a[0].localeCompare
 // Display label helper: Capitalize + " Games"
 function displayTypeLabel(slug: string) {
   if(!slug) return 'Games';
-  // Basic capitalization
   const cap = slug.charAt(0).toUpperCase() + slug.slice(1);
-  // Avoid accidental double if someone later names a type already ending with "games" (case-insensitive)
   if (/(?:\s|^)games$/i.test(cap)) return cap;
-  if (/games$/i.test(cap)) return cap; // already ends with games
+  if (/games$/i.test(cap)) return cap;
   return `${cap} Games`;
 }
 ---
@@ -76,6 +74,7 @@ function displayTypeLabel(slug: string) {
   <div class="mt-10 text-sm flex flex-wrap gap-6">
     <a class="hover:text-neon underline underline-offset-4" href={withBase('games/all/')}>All Games (A–Z)</a>
     <a class="hover:text-neon underline underline-offset-4" href={withBase('games/random')}>Random Game</a>
+    <a class="hover:text-neon underline underline-offset-4" href={withBase('games/players/')}>Player Formats</a>
     <a class="hover:text-neon underline underline-offset-4" href={withBase('tags/')}>Tags</a>
     <a class="hover:text-neon underline underline-offset-4" href={withBase('search')}>Search</a>
   </div>
