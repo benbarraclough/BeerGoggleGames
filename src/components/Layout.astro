@@ -27,7 +27,7 @@ function isActive(segment: string) {
   return current.startsWith(withBase(norm));
 }
 
-// Order required:
+// Ordered nav:
 // home icon, games, drinks, extras, about, contact, search icon
 const navLinks: {
   href: string;
@@ -64,7 +64,8 @@ const mainClass = [
   </head>
   <body class="min-h-screen flex flex-col selection:bg-neon/40">
 
-    <header class="border-b border-fg/20 relative z-30">
+    <!-- Sticky header -->
+    <header class="sticky top-0 z-40 border-b border-fg/20 bg-bg/95 backdrop-blur-sm supports-[backdrop-filter]:bg-bg/75">
       <div class="mx-auto max-w-7xl px-4 py-4 flex items-center justify-between gap-6">
         <a href={withBase()} class="font-display text-2xl tracking-tight hover:text-neon whitespace-nowrap">
           BeerGoggleGames
@@ -92,7 +93,6 @@ const mainClass = [
                     <path d="m21 21-4.35-4.35" />
                   </svg>
                 )}
-                {/* Show text for non-icon links; for icon links we visually hide text but keep for a11y fallback if JS/CSS off */}
                 {l.icon
                   ? <span class="sr-only">{l.label}</span>
                   : <span>{l.label}</span>}
@@ -104,14 +104,14 @@ const mainClass = [
         <a
           id="nav-toggle"
           href="#site-menu"
-          class="lg:hidden inline-flex items-center gap-2 border border-fg/30 px-3 py-2 text-sm rounded hover:border-neon hover:text-neon"
+          class="lg:hidden inline-flex items-center gap-2 border border-fg/30 px-3 py-2 text-sm rounded hover:border-neon hover:text-neon bg-bg/70 backdrop-blur-sm"
           aria-controls="site-menu"
           aria-expanded="false"
         >
           <span class="sr-only">Open menu</span>
-          <svg width="22" height="18" viewBox="0 0 22 18" fill="none" xmlns="http://www.w3.org/2000/svg" class="stroke-current">
-            <path d="M1 1H21M1 9H21M1 17H21" stroke-width="2" stroke-linecap="round" />
-          </svg>
+            <svg width="22" height="18" viewBox="0 0 22 18" fill="none" xmlns="http://www.w3.org/2000/svg" class="stroke-current">
+              <path d="M1 1H21M1 9H21M1 17H21" stroke-width="2" stroke-linecap="round" />
+            </svg>
           Menu
         </a>
       </div>
