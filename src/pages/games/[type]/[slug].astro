@@ -3,6 +3,7 @@ import Layout from '../../../components/Layout.astro';
 import { getCollection } from 'astro:content';
 import { withBase } from '../../../lib/paths';
 import { tagSlug } from '../../../lib/tags';
+import { playerModeSlug, playerModeLabel, playerModeClass } from '../../../lib/playerMode';
 
 export async function getStaticPaths() {
   const games = await getCollection('games');
@@ -39,12 +40,24 @@ const tags: string[] = Array.isArray(entry.data.tags) ? entry.data.tags : [];
     <h1 class="font-display text-4xl mb-2">{title}</h1>
 
     <div class="flex flex-wrap gap-2 mb-4">
-      {players && <span class:list={['mode-pill', `mode-pill-${players}`]}>{players}</span>}
+      {players && (
+        <a
+          class={playerModeClass(players)}
+            href={withBase(`games/players/${playerModeSlug(players)}/`)}
+            aria-label={`Player format: ${playerModeLabel(players)}`}
+        >
+          {playerModeLabel(players)}
+        </a>
+      )}
       {type && <span class="mode-pill">{type}</span>}
       {tags.map(t => {
         const slug = tagSlug(t);
         return (
-          <a href={withBase(`tags/${slug}/`)} class="tag-pill" aria-label={`Tag: ${t}`}>{t}</a>
+          <a
+            href={withBase(`tags/${slug}/`)}
+            class="tag-pill"
+            aria-label={`Tag: ${t}`}
+          >{t}</a>
         );
       })}
       {tags.length > 0 && (
