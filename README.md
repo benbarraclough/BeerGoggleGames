@@ -52,7 +52,3 @@ GitHub Pages doesn't support server redirects. We provide client-side normalizat
 A workflow deploys when pushing to the site-revamp branch. Once ready:
 - Change the workflow trigger to main, or
 - Merge site-revamp → main and enable GitHub Pages (Build and deployment: GitHub Actions).
-
-## Copyright and License
-
-Copyright 2013-2020 Start Bootstrap LLC. Code released under the [MIT](https://github.com/StartBootstrap/startbootstrap-modern-business/blob/gh-pages/LICENSE) license.
