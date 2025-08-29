@@ -3,7 +3,7 @@ import Layout from '../../../components/Layout.astro';
 import { getCollection } from 'astro:content';
 import { canonical } from '../../../lib/urls';
 import { withBase } from '../../../lib/paths';
-import { playerModeClass, playerModeLabel } from '../../../lib/playerMode';
+import { playerModeClass, playerModeLabel, playerModeSlug } from '../../../lib/playerMode';
 
 const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 
@@ -29,7 +29,15 @@ const games = (await getCollection('games'))
           <li class="border border-fg/15 hover:border-fg/40 transition-colors p-4">
             <a class="font-semibold hover:text-neon block" href={withBase(`games/${type}/${shortSlug}/`)}>{g.data.title}</a>
             <div class="mt-2 flex flex-wrap gap-2">
-              {g.data.players && <span class={playerModeClass(g.data.players)}>{playerModeLabel(g.data.players)}</span>}
+              {g.data.players && (
+                <a
+                  href={withBase(`games/players/${playerModeSlug(g.data.players)}/`)}
+                  class={playerModeClass(g.data.players)}
+                  aria-label={`Player format: ${playerModeLabel(g.data.players)}`}
+                >
+                  {playerModeLabel(g.data.players)}
+                </a>
+              )}
               {type && <span class="mode-pill">{type}</span>}
               {Array.isArray(g.data.tags) && g.data.tags.slice(0,2).map((t:any) => <span class="mode-pill">{t}</span>)}
             </div>
