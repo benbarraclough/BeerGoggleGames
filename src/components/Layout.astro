@@ -22,17 +22,26 @@ const {
 
 const current = Astro.url.pathname;
 function isActive(segment: string) {
+  // segment '' (home) becomes '/'
   const norm = segment.endsWith('/') ? segment : segment + '/';
   return current.startsWith(withBase(norm));
 }
 
-const navLinks = [
-  { href: withBase('search'),   label: 'Search',  key: 'search' },
-  { href: withBase('games/'),   label: 'Games',   key: 'games' },
-  { href: withBase('drinks/'),  label: 'Drinks',  key: 'drinks' },
-  { href: withBase('extras/'),  label: 'Extras',  key: 'extras' },
-  { href: withBase('about'),    label: 'About',   key: 'about' },
-  { href: withBase('contact'),  label: 'Contact', key: 'contact' }
+// Order required:
+// home icon, games, drinks, extras, about, contact, search icon
+const navLinks: {
+  href: string;
+  label: string;
+  key: string;        // path segment ('' for home)
+  icon?: 'home' | 'search';
+}[] = [
+  { href: withBase(''),        label: 'Home',    key: '',        icon: 'home' },
+  { href: withBase('games/'),  label: 'Games',   key: 'games' },
+  { href: withBase('drinks/'), label: 'Drinks',  key: 'drinks' },
+  { href: withBase('extras/'), label: 'Extras',  key: 'extras' },
+  { href: withBase('about'),   label: 'About',   key: 'about' },
+  { href: withBase('contact'), label: 'Contact', key: 'contact' },
+  { href: withBase('search'),  label: 'Search',  key: 'search', icon: 'search' }
 ];
 
 const mainClass = [
@@ -56,18 +65,40 @@ const mainClass = [
   <body class="min-h-screen flex flex-col selection:bg-neon/40">
 
     <header class="border-b border-fg/20 relative z-30">
-      <div class="mx-auto max-w-7xl px-4 py-4 flex items-center justify-between">
-        <a href={withBase()} class="font-display text-2xl tracking-tight hover:text-neon">
+      <div class="mx-auto max-w-7xl px-4 py-4 flex items-center justify-between gap-6">
+        <a href={withBase()} class="font-display text-2xl tracking-tight hover:text-neon whitespace-nowrap">
           BeerGoggleGames
         </a>
-        <nav class="hidden lg:flex flex-wrap gap-6 text-sm" aria-label="Primary">
-          {navLinks.map(l => (
-            <a
-              href={l.href}
-              class:list={['hover:text-neon', isActive(l.key) && 'text-neon font-semibold']}
-              aria-current={isActive(l.key) ? 'page' : undefined}
-            >{l.label}</a>
-          ))}
+        <nav class="hidden lg:flex flex-wrap items-center gap-6 text-sm" aria-label="Primary">
+          {navLinks.map(l => {
+            const active = isActive(l.key);
+            const baseClasses = 'hover:text-neon flex items-center gap-2';
+            return (
+              <a
+                href={l.href}
+                class:list={[baseClasses, active && 'text-neon font-semibold']}
+                aria-current={active ? 'page' : undefined}
+                aria-label={l.icon ? l.label : undefined}
+                title={l.icon ? l.label : undefined}
+              >
+                {l.icon === 'home' && (
+                  <svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18" class="stroke-current" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 11.5 12 3l9 8.5M5 10v10h14V10" />
+                  </svg>
+                )}
+                {l.icon === 'search' && (
+                  <svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18" class="stroke-current" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="7" />
+                    <path d="m21 21-4.35-4.35" />
+                  </svg>
+                )}
+                {/* Show text for non-icon links; for icon links we visually hide text but keep for a11y fallback if JS/CSS off */}
+                {l.icon
+                  ? <span class="sr-only">{l.label}</span>
+                  : <span>{l.label}</span>}
+              </a>
+            );
+          })}
         </nav>
         <!-- Burger uses hash target -->
         <a
@@ -99,17 +130,33 @@ const mainClass = [
           >✕</a>
         </div>
         <nav class="px-6 py-8 grow flex flex-col gap-5 text-lg overflow-y-auto" aria-label="Mobile Primary">
-          {navLinks.map(l => (
-            <a
-              href={l.href}
-              class:list={[
-                'hover:text-neon',
-                isActive(l.key) && 'text-neon font-semibold'
-              ]}
-              aria-current={isActive(l.key) ? 'page' : undefined}
-              data-close
-            >{l.label}</a>
-          ))}
+          {navLinks.map(l => {
+            const active = isActive(l.key);
+            return (
+              <a
+                href={l.href}
+                class:list={[
+                  'hover:text-neon flex items-center gap-3',
+                  active && 'text-neon font-semibold'
+                ]}
+                aria-current={active ? 'page' : undefined}
+                data-close
+              >
+                {l.icon === 'home' && (
+                  <svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" class="stroke-current" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 11.5 12 3l9 8.5M5 10v10h14V10" />
+                  </svg>
+                )}
+                {l.icon === 'search' && (
+                  <svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" class="stroke-current" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="7" />
+                    <path d="m21 21-4.35-4.35" />
+                  </svg>
+                )}
+                <span>{l.label}</span>
+              </a>
+            );
+          })}
           <div class="mt-8 pt-6 border-t border-fg/20 text-sm text-muted leading-relaxed max-w-prose">
             <p class="mb-3">
               Explore hundreds of drinking games, cocktails, shots, activities & extras.
