@@ -10,25 +10,32 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 const games = (await getCollection('games'))
   .sort((a,b)=> (a.data.title||'').localeCompare(b.data.title||''));
 ---
-<Layout title="All Games A–Z" description="Complete alphabetical list of drinking games." canonical={pageCanonical} wide={true}>
+<Layout
+  title="All Games A–Z"
+  description="Complete alphabetical list of drinking games."
+  canonical={pageCanonical}
+  wide={true}
+>
   <h1 class="font-display text-4xl mb-6">All Games A–Z</h1>
   <p class="text-sm text-muted mb-6">
-    Alphabetical list of every game. For categories visit
-    <a class="hover:text-neon underline underline-offset-4 mx-1" href={withBase('games/')}>Game Types</a>.
-    <a class="hover:text-neon underline underline-offset-4 ml-2" href={withBase('games/formats/')}>Formats</a>
+    Alphabetical list of every game available. Browse by
+    <a class="hover:text-neon underline underline-offset-4 mx-1" href={withBase('games/')}>Type</a>,
+    view by <a class="hover:text-neon underline underline-offset-4 mx-1" href={withBase('games/formats/')}>Format</a>,
+    or jump to a <a class="hover:text-neon underline underline-offset-4 mx-1" href={withBase('games/random')}>Random Game</a>.
   </p>
+
   {games.length === 0 ? (
     <p class="text-muted">No games found.</p>
   ) : (
-    <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 list-none m-0 p-0">
+    <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 list-none m-0 p-0">
       {games.map(g => {
         const type = g.data.type || g.slug.split('/')[0];
         const parts = g.slug.split('/');
         const shortSlug = parts[parts.length -1];
         const format = g.data.format || g.data.players;
         return (
-          <li class="border border-fg/15 hover:border-fg/40 transition-colors p-4">
-            <a class="font-semibold hover:text-neon block" href={withBase(`games/${type}/${shortSlug}/`)}>{g.data.title}</a>
+          <li class="border border-fg/20 p-4 flex flex-col rounded-sm hover:border-neon/40 transition-colors">
+            <a class="font-semibold hover:text-neon leading-snug" href={withBase(`games/${type}/${shortSlug}/`)}>{g.data.title}</a>
             <div class="mt-2 flex flex-wrap gap-2">
               {format && (
                 <a
@@ -40,13 +47,29 @@ const games = (await getCollection('games'))
                 </a>
               )}
               {type && (
-                <a class="mode-pill" href={withBase(`games/${type}/`)} aria-label={`Game type: ${type}`}>{type}</a>
+                <a
+                  class="mode-pill"
+                  href={withBase(`games/${type}/`)}
+                  aria-label={`Game type: ${type}`}
+                >
+                  {type}
+                </a>
               )}
-              {Array.isArray(g.data.tags) && g.data.tags.slice(0,2).map((t:any) => <span class="mode-pill">{t}</span>)}
+              {Array.isArray(g.data.tags) && g.data.tags.slice(0, 2).map((t:any) => (
+                <span class="mode-pill">{t}</span>
+              ))}
             </div>
           </li>
         );
       })}
     </ul>
   )}
+
+  <div class="mt-10 text-sm flex flex-wrap gap-6">
+    <a class="hover:text-neon underline underline-offset-4" href={withBase('games/')}>Game Types</a>
+    <a class="hover:text-neon underline underline-offset-4" href={withBase('games/formats/')}>Formats</a>
+    <a class="hover:text-neon underline underline-offset-4" href={withBase('games/random')}>Random Game</a>
+    <a class="hover:text-neon underline underline-offset-4" href={withBase('tags/')}>Tags</a>
+    <a class="hover:text-neon underline underline-offset-4" href={withBase('search')}>Search</a>
+  </div>
 </Layout>
