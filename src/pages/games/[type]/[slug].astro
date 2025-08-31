@@ -13,14 +13,9 @@ export async function getStaticPaths() {
       .toLowerCase()
       .replace(/\s+/g, '-')
       .replace(/[^a-z0-9\-]/g, '');
-
     const parts = g.slug.split('/').filter(Boolean);
     const leaf = parts[parts.length - 1];
-
-    return {
-      params: { type, slug: leaf },
-      props: { entry: g, type }
-    };
+    return { params: { type, slug: leaf }, props: { entry: g, type } };
   });
 }
 
@@ -29,7 +24,7 @@ const { Content } = await entry.render();
 
 const title = entry.data.title;
 const description = entry.data.excerpt || `Game: ${title}.`;
-const format = entry.data.format || entry.data.players; // fallback
+const format = entry.data.format || entry.data.players;
 const tags: string[] = Array.isArray(entry.data.tags) ? entry.data.tags : [];
 const excerpt = entry.data.excerpt;
 ---
@@ -37,12 +32,11 @@ const excerpt = entry.data.excerpt;
   <article class="prose prose-invert max-w-none">
     <h1 class="font-display text-4xl mb-2">{title}</h1>
     {excerpt && <p class="text-lg text-muted mb-4 leading-relaxed max-w-prose">{excerpt}</p>}
-
     <div class="flex flex-wrap gap-2 mb-6">
       {format && (
         <a
           class={playerModeClass(format)}
-          href={withBase(`games/players/${playerModeSlug(format)}/`)}
+          href={withBase(`games/formats/${playerModeSlug(format)}/`)}
           aria-label={`Format: ${playerModeLabel(format)}`}
         >
           {playerModeLabel(format)}
@@ -71,10 +65,8 @@ const excerpt = entry.data.excerpt;
         <a href={withBase('tags/')} class="tag-pill" aria-label="Browse all tags">All Tags</a>
       )}
     </div>
-
     <Content />
   </article>
-
   <p class="mt-10 text-sm">
     <a class="hover:text-neon underline underline-offset-4" href={withBase(`games/${type}/`)}>← More {type} games</a>
   </p>
