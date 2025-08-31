@@ -8,18 +8,22 @@ export async function getStaticPaths() {
   const games = await getCollection('games').catch(()=>[]);
   const set = new Set<string>();
   for (const g of games) {
-    if (g.data.players) set.add(playerModeSlug(g.data.players));
+    const format = g.data.format || g.data.players;
+    if (format) set.add(playerModeSlug(format));
   }
   return Array.from(set).map(mode => ({ params: { mode } }));
 }
 
 const { mode } = Astro.params;
 const games = (await getCollection('games'))
-  .filter(g => g.data.players && playerModeSlug(g.data.players) === mode)
+  .filter(g => {
+    const format = g.data.format || g.data.players;
+    return format && playerModeSlug(format) === mode;
+  })
   .sort((a,b)=> (a.data.title||'').localeCompare(b.data.title||''));
 
-const sample = games[0]?.data.players;
-const label = playerModeLabel(sample || mode);
+const sampleFormat = games[0]?.data.format || games[0]?.data.players;
+const label = playerModeLabel(sampleFormat || mode);
 const title = `${label} Games`;
 const description = `Drinking games suited for ${label.toLowerCase()} play.`;
 ---
@@ -40,20 +44,23 @@ const description = `Drinking games suited for ${label.toLowerCase()} play.`;
         const type = g.data.type || g.slug.split('/')[0];
         const parts = g.slug.split('/');
         const leaf = parts[parts.length - 1];
+        const format = g.data.format || g.data.players;
         return (
           <li class="border border-fg/15 hover:border-fg/40 transition-colors p-4">
             <a class="font-semibold hover:text-neon block" href={withBase(`games/${type}/${leaf}/`)}>{g.data.title}</a>
             <div class="mt-2 flex flex-wrap gap-2">
-              {g.data.players && (
+              {format && (
                 <a
-                  href={withBase(`games/players/${playerModeSlug(g.data.players)}/`)}
-                  class={playerModeClass(g.data.players)}
-                  aria-label={`Player format: ${playerModeLabel(g.data.players)}`}
+                  href={withBase(`games/players/${playerModeSlug(format)}/`)}
+                  class={playerModeClass(format)}
+                  aria-label={`Format: ${playerModeLabel(format)}`}
                 >
-                  {playerModeLabel(g.data.players)}
+                  {playerModeLabel(format)}
                 </a>
               )}
-              {type && <span class="mode-pill">{type}</span>}
+              {type && (
+                <a class="mode-pill" href={withBase(`games/${type}/`)} aria-label={`Game type: ${type}`}>{type}</a>
+              )}
               {Array.isArray(g.data.tags) && g.data.tags.slice(0,2).map((t:any) => <span class="mode-pill">{t}</span>)}
             </div>
           </li>
