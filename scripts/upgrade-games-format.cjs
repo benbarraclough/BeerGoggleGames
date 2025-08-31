@@ -1,8 +1,13 @@
 /**
- * Bulk upgrade legacy game markdown files to the MDX component layout.
- * JavaScript (CommonJS) version for GitHub Actions / Node.
+ * Recursive bulk upgrade of game markdown (*.md / *.mdx) files so they match
+ * the component layout used by arrogance.mdx.
  *
- * See original TypeScript comments for detailed behavior.
+ * Enhancements over prior version:
+ *  - Recurses through all nested directories under src/content/games.
+ *  - FORCE flag to re-wrap even if <GameSection> already present.
+ *  - Logs detailed per-file status & final summary.
+ *  - Option to auto-derive hero cover path from title slug if missing.
+ *  - Keeps original wording; only restructures.
  */
 
 const fs = require('fs/promises');
@@ -12,10 +17,13 @@ const matter = require('gray-matter');
 const ROOT = process.cwd();
 const GAMES_DIR = path.join(ROOT, 'src', 'content', 'games');
 
-const DRY_RUN = false;               // Set true if you edit & re-run for a safe preview (no writes)
+const DRY_RUN = false;            // true → do not write, just report
+const FORCE = false;              // true → rebuild even if file already has <GameSection>
 const RENAME_MD_TO_MDX = true;
+const CREATE_BAK = true;          // set false once confident
 const DEFAULT_COVER = 'BGGBW.webp';
 const IMAGE_PREFIX = '/BeerGoggleGames/images';
+const AUTO_HERO_FROM_TITLE = true; // derive e.g. "Arrogance" → "arrogance.webp" if cover missing
 
 const ICON_MAP = {
   'equipment': 'liquor.webp',
@@ -46,13 +54,19 @@ function normHeading(h) {
     .replace(/\s+/g, ' ');
 }
 
+function slugifyTitle(t) {
+  return (t || '')
+    .toLowerCase()
+    .trim()
+    .replace(/['"]/g,'')
+    .replace(/&/g, 'and')
+    .replace(/[^a-z0-9]+/g,'-')
+    .replace(/^-+|-+$/g,'') || 'game';
+}
+
 function extractSections(raw) {
   let content = raw.trim();
-
-  // Breadcrumb numeric list at very top
   content = content.replace(/^(?:\d+\.\s+\[[^\]]+\]\([^)]+\)\s*\n){2,5}/, '');
-
-  // Remove top-level H1
   content = content.replace(/^#\s+.+?\n+/, '');
 
   const headingRegex = /^(#{2,4})\s+(.+?)\s*$/gm;
@@ -96,8 +110,16 @@ function extractSections(raw) {
 
 function buildMDX(front, sections) {
   const fm = { ...front };
-  if (!fm.cover) fm.cover = DEFAULT_COVER;
+  if (!fm.cover) {
+    if (AUTO_HERO_FROM_TITLE && fm.title) {
+      const slug = slugifyTitle(fm.title);
+      fm.cover = `${slug}.webp`; // just filename; hero builder adds path
+    } else {
+      fm.cover = DEFAULT_COVER;
+    }
+  }
 
+  const title = (fm.title || '').replace(/"/g,'&quot;');
   const frontmatter = matter.stringify('', fm).trimEnd();
 
   const imports = [
@@ -107,17 +129,15 @@ function buildMDX(front, sections) {
     "import FeedbackCard from '../../components/game/FeedbackCard.astro';"
   ].join('\n');
 
-  const title = (fm.title || '').replace(/"/g, '&quot;');
-
-  const heroCover = typeof fm.cover === 'string'
-    ? fm.cover.match(/\.webp|\.png|\.jpe?g|\.gif$/i)
-      ? fm.cover
-      : `${fm.cover}`
-    : 'BGGBW.webp';
+  let coverVal = fm.cover;
+  // If user gave just "arrogance.webp" add images path
+  if (!coverVal.startsWith('/')) {
+    coverVal = `${IMAGE_PREFIX}/${coverVal}`;
+  }
 
   const hero = `
 <GameHero
-  cover="${heroCover.startsWith('/') ? heroCover : `/BeerGoggleGames/images/${heroCover}`}"
+  cover="${coverVal}"
   alt="${title}"
 />`.trim();
 
@@ -130,7 +150,7 @@ function buildMDX(front, sections) {
       !/\n\n/.test(body);
     if (needsParagraphWrap) body = `<p>${body}</p>`;
     return `
-<GameSection title="${sec.heading.replace(/"/g, '&quot;')}" icon="${IMAGE_PREFIX}/${sec.icon}">
+<GameSection title="${sec.heading.replace(/"/g,'&quot;')}" icon="${IMAGE_PREFIX}/${sec.icon}">
 ${body}
 </GameSection>`.trim();
   }).join('\n\n');
@@ -154,10 +174,30 @@ ${tail}
 `.replace(/\r\n/g, '\n');
 }
 
-async function processFile(filePath) {
+async function collectFiles(dir) {
+  const out = [];
+  const entries = await fs.readdir(dir, { withFileTypes: true });
+  for (const e of entries) {
+    const full = path.join(dir, e.name);
+    if (e.isDirectory()) {
+      // Skip hidden/system
+      if (e.name.startsWith('.')) continue;
+      out.push(...await collectFiles(full));
+    } else if (/\.(md|mdx)$/i.test(e.name)) {
+      out.push(full);
+    }
+  }
+  return out;
+}
+
+async function processFile(filePath, stats) {
+  const rel = path.relative(GAMES_DIR, filePath);
   const orig = await fs.readFile(filePath, 'utf8');
-  if (/<GameSection\b/.test(orig)) {
-    console.log(`SKIP (already migrated): ${path.basename(filePath)}`);
+
+  const alreadyHasSections = /<GameSection\b/.test(orig);
+  if (alreadyHasSections && !FORCE) {
+    stats.skippedAlready++;
+    console.log(`SKIP (already structured): ${rel}`);
     return;
   }
 
@@ -173,9 +213,14 @@ async function processFile(filePath) {
   const sections = extractSections(body);
   const mdx = buildMDX(front, sections);
 
-  const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-  const backupName = `${filePath}.bak-${timestamp}`;
-  if (!DRY_RUN) {
+  if (DRY_RUN) {
+    stats.dry++;
+    console.log(`DRY → ${rel}`);
+    return;
+  }
+
+  if (CREATE_BAK) {
+    const backupName = `${filePath}.bak-${Date.now()}`;
     await fs.writeFile(backupName, orig, 'utf8');
   }
 
@@ -184,47 +229,45 @@ async function processFile(filePath) {
     targetPath = filePath.replace(/\.md$/, '.mdx');
   }
 
-  if (!DRY_RUN) {
-    await fs.writeFile(targetPath, mdx, 'utf8');
-    if (targetPath !== filePath) {
-      await fs.unlink(filePath).catch(()=>{});
-    }
+  await fs.writeFile(targetPath, mdx, 'utf8');
+  if (targetPath !== filePath) {
+    // remove original .md if renamed
+    await fs.unlink(filePath).catch(()=>{});
   }
 
-  console.log(`${DRY_RUN ? 'DRY' : 'OK '} → ${path.basename(targetPath)} (from ${path.basename(filePath)})`);
+  stats.converted++;
+  console.log(`OK  → ${rel}${targetPath !== filePath ? ' (renamed .mdx)' : ''}`);
 }
 
 async function run() {
-  let entries = [];
-  try {
-    entries = await fs.readdir(GAMES_DIR);
-  } catch (e) {
-    console.error('Cannot read games directory:', GAMES_DIR, e);
-    process.exit(1);
-  }
-
-  const gameFiles = entries
-    .filter(f => /\.(md|mdx)$/i.test(f))
-    .map(f => path.join(GAMES_DIR, f));
-
-  if (gameFiles.length === 0) {
-    console.log('No markdown game files found.');
+  const stats = {
+    total: 0,
+    converted: 0,
+    skippedAlready: 0,
+    dry: 0
+  };
+  console.log('Scanning game content recursively...');
+  const files = await collectFiles(GAMES_DIR);
+  stats.total = files.length;
+  if (!files.length) {
+    console.log('No markdown / mdx files found under games.');
     return;
   }
-
-  console.log(`Found ${gameFiles.length} game files.`);
-  for (const fp of gameFiles) {
+  console.log(`Found ${files.length} candidate files.\n`);
+  for (const f of files) {
     try {
-      await processFile(fp);
+      await processFile(f, stats);
     } catch (e) {
-      console.error('ERROR processing', fp, e);
+      console.error('ERROR processing', path.relative(GAMES_DIR, f), e);
     }
   }
-
-  console.log('Done.');
-  if (DRY_RUN) {
-    console.log('Dry run only. Set DRY_RUN = false to write changes.');
-  }
+  console.log('\nSummary:');
+  console.log(`  Total files:          ${stats.total}`);
+  console.log(`  Converted/Rebuilt:    ${stats.converted}`);
+  console.log(`  Skipped (already had):${stats.skippedAlready}`);
+  if (DRY_RUN) console.log(`  Dry-run only:         ${stats.dry}`);
+  console.log('\nDONE.');
+  if (DRY_RUN) console.log('Re-run with DRY_RUN=false to apply changes.');
 }
 
 run().catch(e => {
