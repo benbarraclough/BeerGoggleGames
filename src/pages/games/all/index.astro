@@ -15,8 +15,8 @@ const games = (await getCollection('games'))
   <p class="text-sm text-muted mb-6">
     Alphabetical list of every game. For categories visit
     <a class="hover:text-neon underline underline-offset-4 mx-1" href={withBase('games/')}>Game Types</a>.
+    <a class="hover:text-neon underline underline-offset-4 ml-2" href={withBase('games/formats/')}>Formats</a>
   </p>
-
   {games.length === 0 ? (
     <p class="text-muted">No games found.</p>
   ) : (
@@ -32,7 +32,7 @@ const games = (await getCollection('games'))
             <div class="mt-2 flex flex-wrap gap-2">
               {format && (
                 <a
-                  href={withBase(`games/players/${playerModeSlug(format)}/`)}
+                  href={withBase(`games/formats/${playerModeSlug(format)}/`)}
                   class={playerModeClass(format)}
                   aria-label={`Format: ${playerModeLabel(format)}`}
                 >
