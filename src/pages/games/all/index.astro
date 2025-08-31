@@ -25,20 +25,23 @@ const games = (await getCollection('games'))
         const type = g.data.type || g.slug.split('/')[0];
         const parts = g.slug.split('/');
         const shortSlug = parts[parts.length -1];
+        const format = g.data.format || g.data.players;
         return (
           <li class="border border-fg/15 hover:border-fg/40 transition-colors p-4">
             <a class="font-semibold hover:text-neon block" href={withBase(`games/${type}/${shortSlug}/`)}>{g.data.title}</a>
             <div class="mt-2 flex flex-wrap gap-2">
-              {g.data.players && (
+              {format && (
                 <a
-                  href={withBase(`games/players/${playerModeSlug(g.data.players)}/`)}
-                  class={playerModeClass(g.data.players)}
-                  aria-label={`Player format: ${playerModeLabel(g.data.players)}`}
+                  href={withBase(`games/players/${playerModeSlug(format)}/`)}
+                  class={playerModeClass(format)}
+                  aria-label={`Format: ${playerModeLabel(format)}`}
                 >
-                  {playerModeLabel(g.data.players)}
+                  {playerModeLabel(format)}
                 </a>
               )}
-              {type && <span class="mode-pill">{type}</span>}
+              {type && (
+                <a class="mode-pill" href={withBase(`games/${type}/`)} aria-label={`Game type: ${type}`}>{type}</a>
+              )}
               {Array.isArray(g.data.tags) && g.data.tags.slice(0,2).map((t:any) => <span class="mode-pill">{t}</span>)}
             </div>
           </li>
