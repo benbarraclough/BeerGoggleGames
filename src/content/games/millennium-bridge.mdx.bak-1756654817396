@@ -1,0 +1,84 @@
+---
+title: Millennium Bridge
+cover: BGGBW.webp
+excerpt: >-
+  Balance coins on the piece of card one by one delicately so that the bridge
+  does not collapse.
+type: coin
+---
+
+import GameHero from '../../components/game/GameHero.astro';
+import GameSection from '../../components/game/GameSection.astro';
+import ShareButtons from '../../components/game/ShareButtons.astro';
+import FeedbackCard from '../../components/game/FeedbackCard.astro';
+
+<GameHero
+  cover="/BeerGoggleGames/images/BGGBW.webp"
+  alt="Millennium Bridge"
+/>
+
+<GameSection title="Equipment" icon="/BeerGoggleGames/images/liquor.webp">
+-   2 solo cups
+-   1 sheet of card
+-   Multiple coins
+-   A table
+</GameSection>
+
+<GameSection title="Setup" icon="/BeerGoggleGames/images/settings.webp">
+Place 2 cups upside down on a table with a sheet of card bridging between them. Ensure that everyone has a drink in their hand and that there are a good amount of coins avaialble.
+
+* * *
+</GameSection>
+
+<GameSection title="Aim of the Game" icon="/BeerGoggleGames/images/target.webp">
+<p>Balance coins on the piece of card one by one delicately so that the bridge does not collapse.</p>
+</GameSection>
+
+<GameSection title="How to Play" icon="/BeerGoggleGames/images/question.webp">
+Starting with the player who owns the coins, one by one each player must place a coin on top of the piece of card.
+
+If the card stands and doesn't touch the table, the game continues.
+
+If the coin falls, you must take a sip and replace the coin
+
+If the card collapses and all of the coins rested on it fall. You lose
+
+Keep playing until the weight of the coins is too much for the card and it falls.
+</GameSection>
+
+<GameSection title="Rules" icon="/BeerGoggleGames/images/rules.webp">
+-   Each coin must be placed on the bridge, not above the cups
+-   Coins don't have to be the same size, pick whichever coin you wish
+-   No distractions allowed
+</GameSection>
+
+<GameSection title="Special Edition" icon="/BeerGoggleGames/images/special.webp">
+<p>Add an extra layer of excitement to your game by using:</p>
+</GameSection>
+
+<GameSection title="**Extreme Rules**" icon="/BeerGoggleGames/images/question.webp">
+-   Left hand coin placement
+-   The loser of the game takes as many sips as coins fell
+-   Verbal abuse is allowed
+</GameSection>
+
+<GameSection title="Share This Page" icon="/BeerGoggleGames/images/question.webp">
+[](https://www.facebook.com/sharer/sharer.php?u=beergogglegames.co.uk/GameCategories/CoinGames/millenniumbridge)[](https://www.instagram.com/direct/new/)[](https://twitter.com/intent/tweet?url=beergogglegames.co.uk/GameCategories/CoinGames/millenniumbridge)
+
+* * *
+</GameSection>
+
+<GameSection title="Feedback" icon="/BeerGoggleGames/images/question.webp">
+If you think we've missed certain details out of the game or you have something to add, please feel free to contact us.
+
+  
+  
+  
+[Contact Us](contact)
+</GameSection>
+
+<ShareButtons title="Millennium Bridge" />
+
+<FeedbackCard>
+<p>If you think we've missed certain details out of the game or you have something to add, please feel free to contact us.</p>
+</FeedbackCard>

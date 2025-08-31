@@ -1,0 +1,74 @@
+---
+title: Detonator
+cover: BGGBW.webp
+excerpt: Destroy the can using your head.
+type: outdoor
+---
+
+import GameHero from '../../components/game/GameHero.astro';
+import GameSection from '../../components/game/GameSection.astro';
+import ShareButtons from '../../components/game/ShareButtons.astro';
+import FeedbackCard from '../../components/game/FeedbackCard.astro';
+
+<GameHero
+  cover="/BeerGoggleGames/images/BGGBW.webp"
+  alt="Detonator"
+/>
+
+<GameSection title="Equipment" icon="/BeerGoggleGames/images/liquor.webp">
+-   Cans of alcohol
+</GameSection>
+
+<GameSection title="Setup" icon="/BeerGoggleGames/images/settings.webp">
+A group of players typically gather together in an outdoor setting with a can of beer at the ready.
+
+* * *
+</GameSection>
+
+<GameSection title="Aim of the Game" icon="/BeerGoggleGames/images/target.webp">
+<p>Destroy the can using your head.</p>
+</GameSection>
+
+<GameSection title="How to Play" icon="/BeerGoggleGames/images/question.webp">
+Game play starts with one can, which is still in its unopened state. Players take turns smashing the beer on their foreheads, yelling "Detonator!" as they do so.
+
+If the beer does not burst, the can is then passed to the next player, who repeats the smashing and yelling.
+
+Play continues until the structural integrity of the can is compromised. At this point, one player ends up covered in whatever alcohol is chosen. This player is declared the winner, and all losers are required to chug a full drink.
+
+The game can then be repeated.
+</GameSection>
+
+<GameSection title="Rules" icon="/BeerGoggleGames/images/rules.webp">
+-   Your can use any part of the head to impact the can.
+-   A player can withdraw from the game if they either obtain an injury.
+</GameSection>
+
+<GameSection title="Special Edition" icon="/BeerGoggleGames/images/special.webp">
+<p>Add an extra layer of excitement to your game by using:</p>
+</GameSection>
+
+<GameSection title="**Timer**" icon="/BeerGoggleGames/images/question.webp">
+<p>Add a timer to the game so that there is more urgency to crack the can. If the can doesn't crack within that time, everyone loses.</p>
+</GameSection>
+
+<GameSection title="Share This Page" icon="/BeerGoggleGames/images/question.webp">
+[](https://www.facebook.com/sharer/sharer.php?u=beergogglegames.co.uk/GameCategories/OutdoorGames/detonator)[](https://www.instagram.com/direct/new/)[](https://twitter.com/intent/tweet?url=beergogglegames.co.uk/GameCategories/OutdoorGames/detonator)
+
+* * *
+</GameSection>
+
+<GameSection title="Feedback" icon="/BeerGoggleGames/images/question.webp">
+If you think we've missed certain details out of the game or you have something to add, please feel free to contact us.
+
+  
+  
+  
+[Contact Us](contact)
+</GameSection>
+
+<ShareButtons title="Detonator" />
+
+<FeedbackCard>
+<p>If you think we've missed certain details out of the game or you have something to add, please feel free to contact us.</p>
+</FeedbackCard>

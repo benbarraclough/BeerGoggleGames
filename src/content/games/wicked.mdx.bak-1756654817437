@@ -1,0 +1,87 @@
+---
+title: Wicked
+cover: BGGBW.webp
+excerpt: >-
+  Light your candle to drink your drink and finish it before your opponent to
+  win.
+type: misc
+---
+
+import GameHero from '../../components/game/GameHero.astro';
+import GameSection from '../../components/game/GameSection.astro';
+import ShareButtons from '../../components/game/ShareButtons.astro';
+import FeedbackCard from '../../components/game/FeedbackCard.astro';
+
+<GameHero
+  cover="/BeerGoggleGames/images/BGGBW.webp"
+  alt="Wicked"
+/>
+
+<GameSection title="Equipment" icon="/BeerGoggleGames/images/liquor.webp">
+-   2 Candles
+-   2 Lighters/matches
+-   A drink each
+</GameSection>
+
+<GameSection title="Setup" icon="/BeerGoggleGames/images/settings.webp">
+Find two players willing to compete and provide each participant with a full drink, a candle and method of lighting the candle (lighter, matches). Ensure that each player is within blowing distance of eachothers candles before beginning.
+
+* * *
+</GameSection>
+
+<GameSection title="Aim of the Game" icon="/BeerGoggleGames/images/target.webp">
+<p>Light your candle to drink your drink and finish it before your opponent to win.</p>
+</GameSection>
+
+<GameSection title="How to Play" icon="/BeerGoggleGames/images/question.webp">
+On the countdown, the game begins by each player simultaneously attempting to light their own candle with their lighter or matches. As soon as the player lights their candle they can drink their drink
+
+Once both players have their candle lit, either one of them can blow the others candle out which prevents them from drinking any further. The player who had their candle blown out must then relight their candle to continue the game.
+
+As soon as one player finishes their drink, they win.
+
+The loser of the game finishes their drink and refills their drink to finish as a punishment.
+</GameSection>
+
+<GameSection title="Rules" icon="/BeerGoggleGames/images/rules.webp">
+-   A player cannot blow out another players candle if theirs is not lit.
+-   A player cannot drink unless their candle is lit.
+-   If either of the above rules are broken, a forced pause of play must be taken.
+-   A player cannot interfere with another player candle-lighting.
+</GameSection>
+
+<GameSection title="Special Edition" icon="/BeerGoggleGames/images/special.webp">
+<p>Add an extra layer of excitement to your game by using:</p>
+</GameSection>
+
+<GameSection title="**Line of light**" icon="/BeerGoggleGames/images/question.webp">
+<p>Play in teams and replace drinks for 10-15 shots of soft alcohol (beer,cider,wine,prosecco)</p>
+</GameSection>
+
+<GameSection title="Additional rules:" icon="/BeerGoggleGames/images/question.webp">
+-   10-15 shots per person
+-   1 candle & 1 lighter/match-set per team
+-   Only one teammate at a time can play, once one player in the team finishes their shots, the candle is passed and the game continues.
+-   Once all shots have been drank by a team, they win. The losers must then finish their shots and refill them as a punishment drink.
+</GameSection>
+
+<GameSection title="Share This Page" icon="/BeerGoggleGames/images/question.webp">
+[](https://www.facebook.com/sharer/sharer.php?u=beergogglegames.co.uk/GameCategories/MiscGames/wicked)[](https://www.instagram.com/direct/new/)[](https://twitter.com/intent/tweet?url=beergogglegames.co.uk/GameCategories/MiscGames/wicked)
+
+* * *
+</GameSection>
+
+<GameSection title="Feedback" icon="/BeerGoggleGames/images/question.webp">
+If you think we've missed certain details out of the game or you have something to add, please feel free to contact us.
+
+  
+  
+  
+[Contact Us](contact)
+</GameSection>
+
+<ShareButtons title="Wicked" />
+
+<FeedbackCard>
+<p>If you think we've missed certain details out of the game or you have something to add, please feel free to contact us.</p>
+</FeedbackCard>

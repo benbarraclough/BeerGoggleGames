@@ -1,0 +1,88 @@
+---
+title: Quiz Tipple
+cover: BGGBW.webp
+excerpt: Respond to the questions as quickly as possible and answer correctly to win.
+type: vocal
+players: '2'
+---
+
+import GameHero from '../../components/game/GameHero.astro';
+import GameSection from '../../components/game/GameSection.astro';
+import ShareButtons from '../../components/game/ShareButtons.astro';
+import FeedbackCard from '../../components/game/FeedbackCard.astro';
+
+<GameHero
+  cover="/BeerGoggleGames/images/BGGBW.webp"
+  alt="Quiz Tipple"
+/>
+
+<GameSection title="Equipment" icon="/BeerGoggleGames/images/liquor.webp">
+-   A table
+-   A drink each
+</GameSection>
+
+<GameSection title="Setup" icon="/BeerGoggleGames/images/settings.webp">
+Gather all players in a circle arounf a table with a full drink ready to play.
+
+* * *
+</GameSection>
+
+<GameSection title="Aim of the Game" icon="/BeerGoggleGames/images/target.webp">
+<p>Respond to the questions as quickly as possible and answer correctly to win.</p>
+</GameSection>
+
+<GameSection title="How to Play" icon="/BeerGoggleGames/images/question.webp">
+Each round starts with a reaping which is done to gather two players who will duel it out in the quiz as the quizzers.
+
+Reaping - To reap the quizzers, the group must gather around holding their fists in front up them for all to see. Together everyone begins slamming fists repeatedly on the table as a drumroll. Once everyone is joining in, one player chants “ooo”, “ooo”, “ooo” as a sort of 3,2,1. On the third “ooo” all players slam their hands on the table bringing them to a halt in one of the 3 variations; 2 fists, 2 open hands or 1 fist and 1 open hand mixed. If any player in the group is unique with their choice of hand shapes, they are then reaped for the quiz. This continues until you have 2 players.
+
+Quiz masters - The rest of the players who were not reaped are now the quizmasters and must consolidate between themselves to create a quiz. Each player should have a quiz question or two each depending on how long you want the quiz to go on for. Once decided, these can be written down with answers on paper or notes on a phone. The quiz masters then take it in turns to ask their questions to the two quizzers.
+
+When a question is asked, the first player to take a sip of their drink gets to answer it, the drink acting as a buzzer.
+
+If a player answers correctly they get a point and the other player takes 1 sip.
+
+If a players answers incorrectly, they take 3 large sips.
+
+Once all questions have been answered, points are counted and the loser is decided.
+
+Loser - The loser is then punished with half a cup of drink but has a choice of either drinking what they are due or doubling down. Doubling down allows them to play again, but if a player loses after doubling down, they must finish a full drink in addition to the half.
+
+The reaping then begins again to select the next quizzers.
+</GameSection>
+
+<GameSection title="Rules" icon="/BeerGoggleGames/images/rules.webp">
+-   If a question asked is biased and tailored to a certain player, it can be appealed and revoked.
+-   The quizzers cups must stay on the table as questions are asked, touching cups is not allowed.
+-   The quizzer who is first to put liquid to their mouth gets first chance to answer.
+-   Once a question is answered wrong, the other player has a chance to answer correctly or pass with no consequences.
+</GameSection>
+
+<GameSection title="Special Edition" icon="/BeerGoggleGames/images/special.webp">
+<p>Add an extra layer of excitement to your game by using:</p>
+</GameSection>
+
+<GameSection title="**Multi-quizzers**" icon="/BeerGoggleGames/images/question.webp">
+<p>Instead of reaping the quizzers, 1 quizmaster is reaped and all other players are the quizzers, the quizmaster must then create the whole quiz by themselves or find something online to help.</p>
+</GameSection>
+
+<GameSection title="Share This Page" icon="/BeerGoggleGames/images/question.webp">
+[](https://www.facebook.com/sharer/sharer.php?u=beergogglegames.co.uk/QuizTipple)[](https://www.instagram.com/direct/new/)[](https://twitter.com/intent/tweet?url=beergogglegames.co.uk/QuizTipple)
+
+* * *
+</GameSection>
+
+<GameSection title="Feedback" icon="/BeerGoggleGames/images/question.webp">
+If you think we've missed certain details out of the game or you have something to add, please feel free to contact us.
+
+  
+  
+  
+[Contact Us](contact)
+</GameSection>
+
+<ShareButtons title="Quiz Tipple" />
+
+<FeedbackCard>
+<p>If you think we've missed certain details out of the game or you have something to add, please feel free to contact us.</p>
+</FeedbackCard>

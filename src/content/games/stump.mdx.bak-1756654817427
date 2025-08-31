@@ -1,0 +1,96 @@
+---
+title: Stump
+cover: BGGBW.webp
+excerpt: Knock other players nails into the stump to make them drink.
+type: outdoor
+---
+
+import GameHero from '../../components/game/GameHero.astro';
+import GameSection from '../../components/game/GameSection.astro';
+import ShareButtons from '../../components/game/ShareButtons.astro';
+import FeedbackCard from '../../components/game/FeedbackCard.astro';
+
+<GameHero
+  cover="/BeerGoggleGames/images/BGGBW.webp"
+  alt="Stump"
+/>
+
+<GameSection title="Equipment" icon="/BeerGoggleGames/images/liquor.webp">
+-   1 Hammer
+-   A tree stump
+-   Nails
+-   A drink each
+</GameSection>
+
+<GameSection title="Setup" icon="/BeerGoggleGames/images/settings.webp">
+Players must gather evenly around the tree stump with a nail slightly knocked into the stump in front of each of them. Drinks should be prepped and players can either sit or stand. The owner of the hammer holds the hammer to begin with.
+
+* * *
+</GameSection>
+
+<GameSection title="Aim of the Game" icon="/BeerGoggleGames/images/target.webp">
+<p>Knock other players nails into the stump to make them drink.</p>
+</GameSection>
+
+<GameSection title="How to Play" icon="/BeerGoggleGames/images/question.webp">
+The player with the hammer must throw the hammer up into the air making it do a 360 degree spin, catch it and hit another players nail into the the stump
+
+If a players nail is knocked straight into the stump entirely, they must take 3 sips of their drink and place another nail into the stump for themself.
+
+If a players nail is only slightly knocked into the stump, that player must take only 1 sip of their drink
+
+If a player knocks a nail sideways so that it bends, this nail must be fixed
+
+If a player misses a nail entirely
+
+If sparks fly, everyone must take a sip
+
+If the hammer is dropped, the dropper must take a sip
+
+Each player takes only 1 turn to do this each time they have the hammer. After a players attempt, they must pass to the next player around the circle.
+
+The game continues until somebody gets injured or players have run out of drink/nails.
+
+Watch this video for a simple walkthrough: [Video](https://www.youtube.com/watch?v=xNAagrjILAwtarget)
+</GameSection>
+
+<GameSection title="Rules" icon="/BeerGoggleGames/images/rules.webp">
+-   A hammer spin and hit must be done quickly in one clean motion
+-   If you knock your own nail in by accident, double the amount of drinks required
+-   A player must always have a nail stuck in the stump assigned to them
+-   A nail is knocked in entirely when the head of the nail touches the wood
+</GameSection>
+
+<GameSection title="Special Edition" icon="/BeerGoggleGames/images/special.webp">
+<p>Add an extra layer of excitement to your game by using:</p>
+</GameSection>
+
+<GameSection title="**Knockout**" icon="/BeerGoggleGames/images/question.webp">
+Simple, the last player remaining in the game wins
+
+-   A player has only 1 nail in the stump at a time
+-   If a player loses all 3 lives, they are out of the game
+-   Each player gets 3 nails each which count as a life each
+-   The winner of the game can issue another player with a forfeit
+</GameSection>
+
+<GameSection title="Share This Page" icon="/BeerGoggleGames/images/question.webp">
+[](https://www.facebook.com/sharer/sharer.php?u=beergogglegames.co.uk/GameCategories/OutdoorGames/stump)[](https://www.instagram.com/direct/new/)[](https://twitter.com/intent/tweet?url=beergogglegames.co.uk/GameCategories/OutdoorGames/stump)
+
+* * *
+</GameSection>
+
+<GameSection title="Feedback" icon="/BeerGoggleGames/images/question.webp">
+If you think we've missed certain details out of the game or you have something to add, please feel free to contact us.
+
+  
+  
+  
+[Contact Us](contact)
+</GameSection>
+
+<ShareButtons title="Stump" />
+
+<FeedbackCard>
+<p>If you think we've missed certain details out of the game or you have something to add, please feel free to contact us.</p>
+</FeedbackCard>

@@ -1,0 +1,96 @@
+---
+title: Doom
+cover: BGGBW.webp
+excerpt: >-
+  Drink the least by strategically playing your cards and winning the rounds of
+  doom.
+type: coin
+---
+
+import GameHero from '../../components/game/GameHero.astro';
+import GameSection from '../../components/game/GameSection.astro';
+import ShareButtons from '../../components/game/ShareButtons.astro';
+import FeedbackCard from '../../components/game/FeedbackCard.astro';
+
+<GameHero
+  cover="/BeerGoggleGames/images/BGGBW.webp"
+  alt="Doom"
+/>
+
+<GameSection title="Equipment" icon="/BeerGoggleGames/images/liquor.webp">
+-   1 centre cup
+-   1 Coin
+-   Deck of Cards
+-   1 drink each
+-   A table
+</GameSection>
+
+<GameSection title="Setup" icon="/BeerGoggleGames/images/settings.webp">
+Fill your drinks with a beverage of your choice then gather at a table that everyone can reach, placing the coin and the empty cup in the middle.
+
+* * *
+</GameSection>
+
+<GameSection title="Aim of the Game" icon="/BeerGoggleGames/images/target.webp">
+<p>Drink the least by strategically playing your cards and winning the rounds of doom.</p>
+</GameSection>
+
+<GameSection title="How to Play" icon="/BeerGoggleGames/images/question.webp">
+Each player gets 6 cards which they keep to themselves. Every round a player must play one of their cards (the higher the better, this is where strategy comes in). Once everyone has chosen a card to play, they are all flipped over at once.
+
+If you have a higher card than someone else, you are safe. But if you have the lowest card, then you must add 2 fingers of drink to the centre cup and Enter doom round 1
+
+DOOM ROUND 1: Flip the coin and call the side you think it will land on.
+
+If you are correct - you can choose another to take a sip of their drink, the round ends and everyone plays their next card.
+
+If you are incorrect - you can either drink it OR double down by adding two more fingers to the centre cup and proceeding to doom round 2 for another chance to escape doom
+
+DOOM ROUND 2: Another player must spin the coin for you on the table and you must stop it whilst its spinning with one finger so it stands up vertically
+
+If you pass - every other player takes a sip of their drink, the round ends and everyone plays their next card.
+
+If you fail - you must drink the contents of the centre drink and top it up with 2 fingers for the start of next round
+
+Keep playing your cards until you have none left. From here, you can either pick up another six to repeat the game or pick one last card to decide who finishes the drink off
+</GameSection>
+
+<GameSection title="Rules" icon="/BeerGoggleGames/images/rules.webp">
+-   The coin spin on DOOM ROUND 2 should be fair (whether a spin was fair is voted on by everyone playing)
+-   Keep your cards to yourself
+-   Cards cannot be swapped, you play with what you're dealt
+-   If you can't add any more drinks to chug cup, a second cup should be used
+</GameSection>
+
+<GameSection title="Special Edition" icon="/BeerGoggleGames/images/special.webp">
+<p>Add an extra layer of excitement to your game by using:</p>
+</GameSection>
+
+<GameSection title="**Magic cards**" icon="/BeerGoggleGames/images/question.webp">
+Give certain numbers within the deck a special ability to spice the game up
+
+-   Number 8: An invisible card that cannot lose
+-   Number 2: A burn card that takes yours and one other players card out of the game
+-   Jack: Reducing the card numbers either side of that player by 3
+</GameSection>
+
+<GameSection title="Share This Page" icon="/BeerGoggleGames/images/question.webp">
+[](https://www.facebook.com/sharer/sharer.php?u=beergogglegames.co.uk/GameCategories/CoinGames/doom)[](https://www.instagram.com/direct/new/)[](https://twitter.com/intent/tweet?url=beergogglegames.co.uk/GameCategories/CoinGames/doom)
+
+* * *
+</GameSection>
+
+<GameSection title="Feedback" icon="/BeerGoggleGames/images/question.webp">
+If you think we've missed certain details out of the game or you have something to add, please feel free to contact us.
+
+  
+  
+  
+[Contact Us](contact)
+</GameSection>
+
+<ShareButtons title="Doom" />
+
+<FeedbackCard>
+<p>If you think we've missed certain details out of the game or you have something to add, please feel free to contact us.</p>
+</FeedbackCard>
