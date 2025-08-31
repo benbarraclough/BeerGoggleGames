@@ -46,12 +46,17 @@ const description = 'Browse drinking games by format (Team, Pairs, Solo…).';
 <Layout title={title} description={description} canonical={Astro.site && new URL(withBase('games/formats/'), Astro.site).href}>
   <h1 class="font-display text-3xl mb-6">{title}</h1>
   <p class="text-sm text-muted mb-6">
+    Select a format of play to view its games, or continue browsing via
+    <a class="hover:text-neon underline underline-offset-4 ml-4" href={withBase('games/')}>All Games (A-Z)</a>
+    <a class="hover:text-neon underline underline-offset-4 ml-4" href={withBase('games/')}>Game Types</a>
+    <a class="hover:text-neon underline underline-offset-4 ml-4" href={withBase('games/random')}>Random Game</a>
+    <a class="hover:text-neon underline underline-offset-4 ml-4" href={withBase('tags/')}>Tags</a>
+    <a class="hover:text-neon underline underline-offset-4 ml-4" href={withBase('search')}>Search</a>
+</p>
+  <p class="text-sm text-muted mb-6">
     {entries.length === 0
       ? 'No formats found.'
       : `${entries.length} format${entries.length !== 1 ? 's' : ''} covering ${total} game${total !== 1 ? 's' : ''}.`}
-    <a class="hover:text-neon underline underline-offset-4 ml-4" href={withBase('games/')}>Game Types</a>
-    <a class="hover:text-neon underline underline-offset-4 ml-4" href={withBase('games/all/')}>All Games</a>
-    <a class="hover:text-neon underline underline-offset-4 ml-4" href={withBase('tags/')}>Tags</a>
   </p>
 
   {entries.length === 0 ? (
@@ -79,4 +84,11 @@ const description = 'Browse drinking games by format (Team, Pairs, Solo…).';
       ))}
     </ul>
   )}
+  <div class="mt-10 text-sm flex flex-wrap gap-6">
+    <a class="hover:text-neon underline underline-offset-4" href={withBase('games/all/')}>All Games (A–Z)</a>
+    <a class="hover:text-neon underline underline-offset-4" href={withBase('games/')}>Game Types</a>
+    <a class="hover:text-neon underline underline-offset-4" href={withBase('games/random')}>Random Game</a>
+    <a class="hover:text-neon underline underline-offset-4" href={withBase('tags/')}>Tags</a>
+    <a class="hover:text-neon underline underline-offset-4" href={withBase('search')}>Search</a>
+  </div>
 </Layout>
