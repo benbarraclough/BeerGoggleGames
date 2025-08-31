@@ -1,0 +1,71 @@
+---
+import Layout from '../../../components/Layout.astro';
+import { getCollection } from 'astro:content';
+import { withBase } from '../../../lib/paths';
+import { playerModeLabel, playerModeSlug, playerModeClass } from '../../../lib/playerMode';
+
+export async function getStaticPaths() {
+  const games = await getCollection('games').catch(()=>[]);
+  const set = new Set<string>();
+  for (const g of games) {
+    const format = g.data.format || g.data.players;
+    if (format) set.add(playerModeSlug(format));
+  }
+  return Array.from(set).map(mode => ({ params: { mode } }));
+}
+
+const { mode } = Astro.params;
+const games = (await getCollection('games'))
+  .filter(g => {
+    const format = g.data.format || g.data.players;
+    return format && playerModeSlug(format) === mode;
+  })
+  .sort((a,b)=> (a.data.title||'').localeCompare(b.data.title||''));
+
+const sampleFormat = games[0]?.data.format || games[0]?.data.players;
+const label = playerModeLabel(sampleFormat || mode);
+const title = `${label} Format`;
+const description = `Drinking games suited for ${label.toLowerCase()} play.`;
+---
+<Layout title={title} description={description} canonical={Astro.site && new URL(withBase(`games/formats/${mode}/`), Astro.site).href} wide={true}>
+  <h1 class="font-display text-4xl mb-4">{label} Games</h1>
+  <p class="text-sm text-muted mb-6">
+    {games.length} game{games.length!==1 && 's'} listed.
+    <a class="hover:text-neon underline underline-offset-4 ml-4" href={withBase('games/formats/')}>All Formats</a>
+    <a class="hover:text-neon underline underline-offset-4 ml-4" href={withBase('games/')}>Types</a>
+    <a class="hover:text-neon underline underline-offset-4 ml-4" href={withBase('games/all/')}>A–Z</a>
+  </p>
+
+  {games.length === 0 ? (
+    <p class="text-muted">No games for this format.</p>
+  ) : (
+    <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 list-none m-0 p-0">
+      {games.map(g => {
+        const type = g.data.type || g.slug.split('/')[0];
+        const parts = g.slug.split('/');
+        const leaf = parts[parts.length - 1];
+        const format = g.data.format || g.data.players;
+        return (
+          <li class="border border-fg/15 hover:border-fg/40 transition-colors p-4">
+            <a class="font-semibold hover:text-neon block" href={withBase(`games/${type}/${leaf}/`)}>{g.data.title}</a>
+            <div class="mt-2 flex flex-wrap gap-2">
+              {format && (
+                <a
+                  href={withBase(`games/formats/${playerModeSlug(format)}/`)}
+                  class={playerModeClass(format)}
+                  aria-label={`Format: ${playerModeLabel(format)}`}
+                >
+                  {playerModeLabel(format)}
+                </a>
+              )}
+              {type && (
+                <a class="mode-pill" href={withBase(`games/${type}/`)} aria-label={`Game type: ${type}`}>{type}</a>
+              )}
+              {Array.isArray(g.data.tags) && g.data.tags.slice(0,2).map((t:any) => <span class="mode-pill">{t}</span>)}
+            </div>
+          </li>
+        );
+      })}
+    </ul>
+  )}
+</Layout>
