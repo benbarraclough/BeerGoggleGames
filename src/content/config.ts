@@ -8,13 +8,27 @@ const baseFields = {
   excerpt: z.string().optional()
 };
 
+/**
+ * Games collection
+ * - format is the new field (replacing players)
+ * - players kept for backward compatibility
+ * - transform adds format if only players was provided
+ */
 const games = defineCollection({
   type: 'content',
   schema: z.object({
     ...baseFields,
     type: z.string().default('misc'),
+    // New canonical field
+    format: z.string().optional(),
+    // Deprecated (kept so old files or backlog content still work)
     players: z.string().optional(),
     equipment: z.array(z.string()).optional()
+  }).transform(data => {
+    if (!data.format && data.players) {
+      data.format = data.players;
+    }
+    return data;
   })
 });
 
