@@ -32,9 +32,15 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 >
   <h1 class="font-display text-3xl mb-6">Game Types</h1>
   <p class="text-sm text-muted mb-6">
-    Browse all categories. Click a type to view its games. Or view
-    <a class="hover:text-neon underline underline-offset-4 mx-1" href={withBase('games/all/')}>the full A–Z list</a>.
+    Select a category to view its games, or browse using the following links.
   </p>
+  <div class="mt-6 text-sm flex flex-wrap gap-6">
+    <a class="hover:text-neon underline underline-offset-4" href={withBase('games/all/')}>All Games (A–Z)</a>
+    <a class="hover:text-neon underline underline-offset-4" href={withBase('games/formats/')}>Player Formats</a>
+    <a class="hover:text-neon underline underline-offset-4" href={withBase('games/random')}>Random Game</a>
+    <a class="hover:text-neon underline underline-offset-4" href={withBase('tags/')}>Tags</a>
+    <a class="hover:text-neon underline underline-offset-4" href={withBase('search')}>Search</a>
+  </div>
 
   {typeEntries.length === 0 ? (
     <p class="text-muted">No games found.</p>
@@ -63,7 +69,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 
   <div class="mt-10 text-sm flex flex-wrap gap-6">
     <a class="hover:text-neon underline underline-offset-4" href={withBase('games/all/')}>All Games (A–Z)</a>
-    <a class="hover:text-neon underline underline-offset-4" href={withBase('games/formats/')}>Formats</a>
+    <a class="hover:text-neon underline underline-offset-4" href={withBase('games/formats/')}>Player Formats</a>
     <a class="hover:text-neon underline underline-offset-4" href={withBase('games/random')}>Random Game</a>
     <a class="hover:text-neon underline underline-offset-4" href={withBase('tags/')}>Tags</a>
     <a class="hover:text-neon underline underline-offset-4" href={withBase('search')}>Search</a>
