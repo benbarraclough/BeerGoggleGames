@@ -13,7 +13,6 @@ export async function getStaticPaths() {
 
 const { type } = Astro.params;
 
-// Title‑case helper (handles hyphens, underscores, spaces)
 function titleCase(slug: string) {
   if (!slug) return '';
   return slug
@@ -25,7 +24,6 @@ function titleCase(slug: string) {
 
 const prettyType = titleCase(type);
 
-// Collect games of this type
 const all = (await getCollection('games'))
   .filter(g => (g.data.type || 'misc') === type)
   .sort((a,b)=> (a.data.title||'').localeCompare(b.data.title||''));
@@ -51,12 +49,15 @@ const description = `All ${prettyType} drinking games.`;
         const parts = g.slug.split('/');
         const shortSlug = parts[parts.length -1];
         const typeDir = g.data.type || parts[0];
+        const format = g.data.format || g.data.players;
         return (
           <li class="border border-fg/15 hover:border-fg/40 transition-colors p-4">
             <a class="font-semibold hover:text-neon block" href={withBase(`games/${typeDir}/${shortSlug}/`)}>{g.data.title}</a>
             <div class="mt-2 flex flex-wrap gap-2">
-              {g.data.players && <span class={playerModeClass(g.data.players)}>{playerModeLabel(g.data.players)}</span>}
-              {g.data.type && <span class="mode-pill">{g.data.type}</span>}
+              {format && <span class={playerModeClass(format)}>{playerModeLabel(format)}</span>}
+              {g.data.type && (
+                <a class="mode-pill" href={withBase(`games/${typeDir}/`)} aria-label={`Game type: ${typeDir}`}>{typeDir}</a>
+              )}
               {Array.isArray(g.data.tags) && g.data.tags.slice(0,2).map((t:any) => <span class="mode-pill">{t}</span>)}
             </div>
           </li>
