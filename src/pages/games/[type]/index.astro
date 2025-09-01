@@ -36,12 +36,6 @@ const description = `All ${prettyType} drinking games.`;
   <h1 class="font-display text-4xl mb-4">{title}</h1>
   <p class="text-sm text-muted mb-6">
     {all.length} game{all.length !== 1 && 's'} in this category.
-    <a class="hover:text-neon underline underline-offset-4 ml-4" href={withBase('games/')}>Game Types</a>
-    <a class="hover:text-neon underline underline-offset-4" href={withBase('games/all/')}>All Games (A–Z)</a>
-    <a class="hover:text-neon underline underline-offset-4" href={withBase('games/formats/')}>Player Formats</a>
-    <a class="hover:text-neon underline underline-offset-4" href={withBase('games/random')}>Random Game</a>
-    <a class="hover:text-neon underline underline-offset-4" href={withBase('tags/')}>Tags</a>
-    <a class="hover:text-neon underline underline-offset-4" href={withBase('search')}>Search</a>
   </p>
 
   {all.length === 0 ? (
@@ -68,4 +62,12 @@ const description = `All ${prettyType} drinking games.`;
       })}
     </ul>
   )}
+  <div class="mt-10 text-sm flex flex-wrap gap-6">
+    <a class="hover:text-neon underline underline-offset-4" href={withBase('games/all/')}>All Games (A–Z)</a>
+    <a class="hover:text-neon underline underline-offset-4" href={withBase('games/formats/')}>Player Formats</a>
+    <a class="hover:text-neon underline underline-offset-4" href={withBase('games/random')}>Random Game</a>
+    <a class="hover:text-neon underline underline-offset-4" href={withBase('tags/')}>Tags</a>
+    <a class="hover:text-neon underline underline-offset-4" href={withBase('search')}>Search</a>
+  </div>
+  <p class="mt-10 text-sm"> <a class="hover:text-neon underline underline-offset-4" href="/BeerGoggleGames/games/">← Back to Categories</a> </p>
 </Layout>
