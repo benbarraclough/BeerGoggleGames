@@ -27,11 +27,11 @@ const label = playerModeLabel(sampleFormat || mode);
 const title = `${label} Format`;
 const description = `Drinking games suited for ${label.toLowerCase()} play.`;
 ---
-<Layout title={title} description={description} canonical={Astro.site && new URL(withBase(`games/formats/${mode}/`), Astro.site).href} wide={true}>
+<Layout title={title} description={description} canonical={Astro.site && new URL(withBase(`games/modes/${mode}/`), Astro.site).href} wide={true}>
   <h1 class="font-display text-4xl mb-4">{label} Games</h1>
   <p class="text-sm text-muted mb-6">
     {games.length} game{games.length!==1 && 's'} listed.
-    <a class="hover:text-neon underline underline-offset-4 ml-4" href={withBase('games/formats/')}>All Formats</a>
+    <a class="hover:text-neon underline underline-offset-4 ml-4" href={withBase('games/modes/')}>All Modes</a>
     <a class="hover:text-neon underline underline-offset-4 ml-4" href={withBase('games/')}>Types</a>
     <a class="hover:text-neon underline underline-offset-4 ml-4" href={withBase('games/all/')}>A–Z</a>
   </p>
@@ -51,7 +51,7 @@ const description = `Drinking games suited for ${label.toLowerCase()} play.`;
             <div class="mt-2 flex flex-wrap gap-2">
               {format && (
                 <a
-                  href={withBase(`games/formats/${playerModeSlug(format)}/`)}
+                  href={withBase(`games/modes/${playerModeSlug(format)}/`)}
                   class={playerModeClass(format)}
                   aria-label={`Format: ${playerModeLabel(format)}`}
                 >
