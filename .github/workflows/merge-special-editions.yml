@@ -1,0 +1,53 @@
+name: Merge Special Edition Sections
+on:
+  workflow_dispatch:
+    inputs:
+      apply:
+        description: "Set to true to write changes (otherwise dry run)"
+        required: false
+        default: "false"
+
+jobs:
+  transform:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Run transform
+        run: |
+          echo "Running with DRY_RUN=${{ github.event.inputs.apply != 'true' }}"
+          DRY_RUN=${{ github.event.inputs.apply != 'true' && 'true' || 'false' }} node scripts/merge-special-editions.cjs
+
+      - name: Commit changes
+        if: ${{ github.event.inputs.apply == 'true' }}
+        run: |
+          if git diff --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+          BRANCH="chore/merge-special-editions-$(date +%Y%m%d%H%M%S)"
+          git checkout -b "$BRANCH"
+          git add .
+          git commit -m "feat: merge Special Edition sections & clear feedback paragraphs"
+          git push origin "$BRANCH"
+          echo "::notice title=Branch Created::$BRANCH"
+
+      - name: Open PR
+        if: ${{ github.event.inputs.apply == 'true' }}
+        uses: peter-evans/create-pull-request@v6
+        with:
+          branch: ${{ steps.commit.outputs.branch || '' }}
+          title: "Merge Special Edition sections & clear FeedbackCard paragraphs"
+          body: |
+            Automated transform:
+            - Merged adjacent Special Edition + **title** GameSection pairs.
+            - Removed FeedbackCard paragraph content.
+          commit-message: "feat: merge Special Edition sections & clear feedback paragraphs"
