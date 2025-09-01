@@ -1,15 +1,17 @@
 /**
  * Bulk transform:
  * 1. Merge adjacent Special Edition + **Title** GameSection pairs into one section with <h4>Title</h4>.
- * 2. Remove the exact intro paragraph: <p>Add an extra layer of excitement to your game by playing:</p>
+ * 2. Remove any Special Edition intro paragraph that starts with:
+ *      "Add an extra layer of excitement to your game"
+ *    (regardless of the rest of the wording up to </p>).
  * 3. Remove the paragraph inside <FeedbackCard>...</FeedbackCard> (empties it).
  *
- * Env flags:
- *   DRY_RUN   (default true)  -> set DRY_RUN=false to write changes
- *   CREATE_BAK (default true) -> set CREATE_BAK=false to skip backups (CI usually false)
- *   VERBOSE   (default true)
+ * Environment variables:
+ *   DRY_RUN    (default true)  -> set DRY_RUN=false to write changes
+ *   CREATE_BAK (default true)  -> set CREATE_BAK=false to skip backups (CI usually false)
+ *   VERBOSE    (default true)
  *
- * Idempotent: safe to re-run.
+ * Idempotent: safe to rerun multiple times.
  */
 
 const fs = require('fs/promises');
@@ -25,17 +27,18 @@ const GAMES_DIR = path.join(ROOT, 'src', 'content', 'games');
 console.log(`[config] DRY_RUN=${DRY_RUN} CREATE_BAK=${CREATE_BAK} VERBOSE=${VERBOSE}`);
 console.log(`[config] Target directory: ${GAMES_DIR}`);
 
-// 1. Merge regex
+// Merge adjacent Special Edition + **Title** sections
 const specialMergeRegex = new RegExp(
   String.raw`<GameSection\s+title="Special Edition"([^>]*)>([\s\S]*?)</GameSection>\s*` +
   String.raw`<GameSection\s+title="(\*\*[^"]+\*\*)"([^>]*)>([\s\S]*?)</GameSection>`,
   'gi'
 );
 
-// 2. Exact intro paragraph removal (only "playing:")
-const specialEditionExactIntroRegex = /<p>\s*Add an extra layer of excitement to your game by playing:\s*<\/p>\s*/gi;
+// Broad intro paragraph removal: any paragraph starting with that phrase
+// This catches playing:, using:, with:, typos after the phrase, etc.
+const specialEditionIntroRegex = /<p>\s*Add an extra layer of excitement to your game[^<]*<\/p>\s*/gi;
 
-// 3. FeedbackCard paragraph removal
+// FeedbackCard paragraph removal
 const feedbackParagraphRegex = /<FeedbackCard>\s*<p>[\s\S]*?<\/p>\s*<\/FeedbackCard>/gi;
 
 async function collectFiles(dir) {
@@ -80,7 +83,7 @@ ${part2.startsWith('\n') ? part2 : '\n' + part2}
 
 function removeIntro(content) {
   let removed = 0;
-  const replaced = content.replace(specialEditionExactIntroRegex, () => {
+  const replaced = content.replace(specialEditionIntroRegex, () => {
     removed++;
     return '';
   });
@@ -119,7 +122,9 @@ async function processFile(file) {
     }
   }
 
-  if (!changed || DRY_RUN) return { changed: !DRY_RUN && changed, merges, introsRemoved, feedbackStripped };
+  if (!changed || DRY_RUN) {
+    return { changed: !DRY_RUN && changed, merges, introsRemoved, feedbackStripped };
+  }
 
   if (CREATE_BAK) {
     const bak = `${file}.bak-${Date.now()}`;
