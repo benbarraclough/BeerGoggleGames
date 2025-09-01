@@ -1,20 +1,26 @@
 ---
 import Layout from '../components/Layout.astro';
-import { withBase } from '../lib/paths';
 const title = 'About';
 ---
+
 <Layout title={title} description="About BeerGoggleGames: mission, description & responsible use.">
   <article class="prose prose-invert max-w-none">
     <h1 class="font-display text-4xl mb-6">{title}</h1>
-    <section class="prose prose-invert max-w-prose">
-      <p>Welcome to BeerGoggleGames, a non-profit site providing a full library of games, recipes, party activities, and more. The goal is to build a complete collection of party info, serving as a resource to make social gatherings and parties more fun. We've got blog posts, a glossary of terms, forfeits and helpful tools to keep the party going. Whether you’re at a casual get-together or a big event, BeerGoggleGames can help.</p>
-      
-      <hr />
-  
-      <h3>Responsible Enjoyment</h3>
-      <p class="text-sm text-muted">
-        Know your limits, look after your friends, and adapt games where possible so that everyone can enjoy.
-      </p>
-    </section>
+
+    <!-- Intro / Mission -->
+    <p>
+      Welcome to BeerGoggleGames, a non-profit site providing a full library of games, recipes, party activities, and more. Our goal is to build a complete collection of party information, making social gatherings more fun. You’ll find blog posts, a glossary, forfeits, tools, and curated variations to keep things fresh whether you’re at a small get-together or a bigger event.
+    </p>
+
+    <p>
+      The collection keeps growing. Contributions, corrections, and suggestions are always welcome. Reach out if you spot something missing or want to share something of your own.
+    </p>
+
+    <hr />
+
+    <h2>Responsible Enjoyment</h2>
+    <p class="text-sm text-muted">
+      Know your limits, stay hydrated, look after your friends, and adapt games where possible so everyone can take part.
+    </p>
   </article>
 </Layout>
