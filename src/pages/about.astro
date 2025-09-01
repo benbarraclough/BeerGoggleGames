@@ -4,15 +4,17 @@ import { withBase } from '../lib/paths';
 const title = 'About';
 ---
 <Layout title={title} description="About BeerGoggleGames: mission, description & responsible use.">
-  <h1 class="font-display text-4xl mb-2">{title}</h1>
-  <section class="prose prose-invert max-w-prose">
-    <p>Welcome to BeerGoggleGames, a non-profit site providing a full library of games, recipes, party activities, and more. The goal is to build a complete collection of party info, serving as a resource to make social gatherings and parties more fun. We've got blog posts, a glossary of terms, forfeits and helpful tools to keep the party going. Whether you’re at a casual get-together or a big event, BeerGoggleGames can help.</p>
-    
-    <hr />
-
-    <h3>Responsible Enjoyment</h3>
-    <p class="text-sm text-muted">
-      Know your limits, look after your friends, and adapt games where possible so that everyone can enjoy.
-    </p>
-  </section>
+  <article class="prose prose-invert max-w-none">
+    <h1 class="font-display text-4xl mb-6">{title}</h1>
+    <section class="prose prose-invert max-w-prose">
+      <p>Welcome to BeerGoggleGames, a non-profit site providing a full library of games, recipes, party activities, and more. The goal is to build a complete collection of party info, serving as a resource to make social gatherings and parties more fun. We've got blog posts, a glossary of terms, forfeits and helpful tools to keep the party going. Whether you’re at a casual get-together or a big event, BeerGoggleGames can help.</p>
+      
+      <hr />
+  
+      <h3>Responsible Enjoyment</h3>
+      <p class="text-sm text-muted">
+        Know your limits, look after your friends, and adapt games where possible so that everyone can enjoy.
+      </p>
+    </section>
+  </article>
 </Layout>
