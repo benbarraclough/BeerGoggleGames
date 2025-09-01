@@ -44,6 +44,7 @@ const description = 'Browse tags across games, drinks, posts & activities.';
 ---
 <Layout title={title} description={description} canonical={Astro.site && new URL(withBase('tags/'), Astro.site).href}>
   <h1 class="font-display text-4xl mb-6">Tags</h1>
+  <p class="text-sm text-muted mb-8">Browse through tags to filter for the exact page you're looking for.</p>
   <p class="text-sm text-muted mb-8">{sorted.length} tag{sorted.length!==1 && 's'} total.</p>
   {sorted.length === 0 ? (
     <p class="text-muted">No tags yet.</p>
@@ -65,4 +66,5 @@ const description = 'Browse tags across games, drinks, posts & activities.';
     <a class="hover:text-neon underline underline-offset-4" href={withBase('games/random')}>Random Game</a>
     <a class="hover:text-neon underline underline-offset-4" href={withBase('search')}>Search</a>
   </div>
+  <p class="mt-10 text-sm"> <a class="hover:text-neon underline underline-offset-4" href="/BeerGoggleGames/">← Back to Home</a> </p>
 </Layout>
