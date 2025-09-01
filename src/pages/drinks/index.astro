@@ -4,7 +4,9 @@ const base = import.meta.env.BASE_URL || '/';
 ---
 <Layout title="Drinks">
   <h1 class="font-display text-3xl mb-6">Drinks</h1>
-  <p>Browse our ready to mix recipes of the most popular shots & cocktails.</p>
+  <p class="text-sm text-muted mb-6">
+    Browse our ready to mix collection of cocktail and shot recipes.
+  </p>
   <ul class="grid gap-4 sm:grid-cols-2">
     <li class="border border-fg/20 p-4">
       <a class="font-semibold hover:text-neon" href={`${base}drinks/cocktail-recipes`}>Cocktail Recipes</a>
