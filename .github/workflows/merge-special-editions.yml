@@ -1,4 +1,5 @@
 name: Merge Special Edition Sections
+
 on:
   workflow_dispatch:
     inputs:
@@ -7,47 +8,51 @@ on:
         required: false
         default: "false"
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   transform:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          ref: ${{ github.ref }}
 
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
 
+      # Install only if you have dependencies (not required for this pure script)
+      - name: Install (optional)
+        if: ${{ hashFiles('package-lock.json') != '' }}
+        run: npm ci --ignore-scripts
+
       - name: Run transform
+        env:
+          DRY_RUN: ${{ github.event.inputs.apply != 'true' && 'true' || 'false' }}
+          CREATE_BAK: 'false'   # Backups not needed inside ephemeral CI environment
+          VERBOSE: 'true'
         run: |
-          echo "Running with DRY_RUN=${{ github.event.inputs.apply != 'true' }}"
-          DRY_RUN=${{ github.event.inputs.apply != 'true' && 'true' || 'false' }} node scripts/merge-special-editions.cjs
+            echo "Running with DRY_RUN=$DRY_RUN"
+            node scripts/merge-special-editions.cjs
+            echo "Diff summary:"
+            git diff --name-only || true
 
-      - name: Commit changes
-        if: ${{ github.event.inputs.apply == 'true' }}
-        run: |
-          if git diff --quiet; then
-            echo "No changes to commit."
-            exit 0
-          fi
-          BRANCH="chore/merge-special-editions-$(date +%Y%m%d%H%M%S)"
-          git checkout -b "$BRANCH"
-          git add .
-          git commit -m "feat: merge Special Edition sections & clear feedback paragraphs"
-          git push origin "$BRANCH"
-          echo "::notice title=Branch Created::$BRANCH"
-
-      - name: Open PR
+      - name: Create Pull Request
         if: ${{ github.event.inputs.apply == 'true' }}
         uses: peter-evans/create-pull-request@v6
         with:
-          branch: ${{ steps.commit.outputs.branch || '' }}
+          commit-message: "feat: merge Special Edition sections & clear FeedbackCard paragraphs"
           title: "Merge Special Edition sections & clear FeedbackCard paragraphs"
           body: |
             Automated transform:
-            - Merged adjacent Special Edition + **title** GameSection pairs.
-            - Removed FeedbackCard paragraph content.
-          commit-message: "feat: merge Special Edition sections & clear feedback paragraphs"
+            - Merged adjacent Special Edition + **title** sections into one.
+            - Emptied FeedbackCard paragraphs.
+            Please review.
+          branch: chore/merge-special-editions
+          delete-branch: false
+          labels: |
+            chore
+            automated
