@@ -1,45 +1,49 @@
 /**
- * Bulk transform:
- * 1. Merge "Special Edition" section followed immediately by a section whose title is wrapped in **...**.
- * 2. Strip the single <p> inside <FeedbackCard> blocks, leaving them empty.
+ * Bulk transform script:
+ * 1. Merge adjacent <GameSection title="Special Edition"> ... </GameSection>
+ *    + a following <GameSection title="**Something**"> into a single section
+ *    inserting <h4>Something</h4>.
+ * 2. Remove inner <p> ... </p> content from <FeedbackCard> blocks (empties them).
  *
- * DRY_RUN=true -> shows intended changes without writing.
+ * Environment variables:
+ *   DRY_RUN   (default: "true")  -> set to "false" to actually write.
+ *   CREATE_BAK (default: "true") -> set to "false" to skip .bak creation.
+ *   VERBOSE    (default: "true") -> set to "false" for quieter logs.
  *
- * Safety:
- * - Creates timestamped .bak backups of any modified file (can disable via CREATE_BAK).
- * - Only processes .md / .mdx under src/content/games.
+ * Usage examples:
+ *   DRY_RUN=true node scripts/merge-special-editions.cjs   # dry
+ *   DRY_RUN=false node scripts/merge-special-editions.cjs  # apply
  */
 
 const fs = require('fs/promises');
 const path = require('path');
 
+const DRY_RUN = process.env.DRY_RUN !== 'false';       // default true
+const CREATE_BAK = process.env.CREATE_BAK !== 'false'; // default true
+const VERBOSE = process.env.VERBOSE !== 'false';       // default true
+
 const ROOT = process.cwd();
 const GAMES_DIR = path.join(ROOT, 'src', 'content', 'games');
 
-const DRY_RUN = true;        // Set to false to apply changes
-const CREATE_BAK = true;     // Set to false to skip backups
-const VERBOSE = true;
+if (VERBOSE) {
+  console.log(`[config] DRY_RUN=${DRY_RUN} CREATE_BAK=${CREATE_BAK} VERBOSE=${VERBOSE}`);
+}
 
 /**
- * Regex approach:
- * We look for a Special Edition GameSection followed by another GameSection
- * whose title="**...**".
+ * Regex to find pattern:
+ * <GameSection title="Special Edition"...>...</GameSection>
+ * (optional whitespace/newlines)
+ * <GameSection title="**Something**"...>...</GameSection>
  *
- * Capture groups:
- *  1: attributes of first (for completeness if needed)
- *  2: inner HTML/MD of the Special Edition section
- *  3: raw asterisk title (e.g. **Bonus Rules**)
- *  4: inner HTML/MD of the second (bonus) section
- *
- * We use a tempered pattern for the second title to avoid greedy issues.
+ * We keep attrs of both (only need attrs of first) and merge content.
  */
 const specialMergeRegex = new RegExp(
   String.raw`<GameSection\s+title="Special Edition"([^>]*)>([\s\S]*?)</GameSection>\s*` +
-  String.raw`<GameSection\s+title="(\*\*[^"]+\*\*)"[^>]*>([\s\S]*?)</GameSection>`,
+  String.raw`<GameSection\s+title="(\*\*[^"]+\*\*)"([^>]*)>([\s\S]*?)</GameSection>`,
   'gi'
 );
 
-// FeedbackCard paragraph removal (single paragraph variant)
+// Remove paragraph inside FeedbackCard
 const feedbackParagraphRegex = /<FeedbackCard>\s*<p>[\s\S]*?<\/p>\s*<\/FeedbackCard>/gi;
 
 async function collectFiles(dir) {
@@ -59,63 +63,60 @@ async function collectFiles(dir) {
 
 function mergeSpecialSections(content) {
   let changed = false;
+  let mergeCount = 0;
 
-  const replaced = content.replace(specialMergeRegex, (match, attrs, inner1, rawAsteriskTitle, inner2) => {
+  const replaced = content.replace(specialMergeRegex, (match, attrs1, inner1, rawAsteriskTitle, attrs2, inner2) => {
     changed = true;
+    mergeCount++;
 
-    // Clean up the heading text by stripping ** and surrounding whitespace
-    const heading = rawAsteriskTitle.replace(/^\*\*\s*/, '').replace(/\s*\*\*$/, '').trim();
+    const heading = rawAsteriskTitle
+      .replace(/^\*\*\s*/, '')
+      .replace(/\s*\*\*$/, '')
+      .trim();
 
-    // Normalize inner blocks (avoid extra blank lines stacking)
     const cleanedInner1 = inner1.trimEnd();
     const cleanedInner2 = inner2.trim();
-
-    // Ensure there is at least one blank line before the new <h4> if inner1 has content
     const spacer = /\n\s*$/.test(cleanedInner1) ? '' : '\n\n';
 
-    // Build merged section
-    const merged =
-`<GameSection title="Special Edition"${attrs}>
+    return `<GameSection title="Special Edition"${attrs1}>
 ${cleanedInner1}${spacer}<h4>${heading}</h4>
 ${cleanedInner2.startsWith('\n') ? cleanedInner2 : '\n' + cleanedInner2}
 </GameSection>`;
-
-    return merged;
   });
 
-  return { replaced, changed };
+  return { replaced, changed, mergeCount };
 }
 
 function stripFeedbackParagraph(content) {
   let changed = false;
+  let stripCount = 0;
   const replaced = content.replace(feedbackParagraphRegex, () => {
     changed = true;
+    stripCount++;
     return `<FeedbackCard>\n</FeedbackCard>`;
   });
-  return { replaced, changed };
+  return { replaced, changed, stripCount };
 }
 
 async function processFile(file) {
   const orig = await fs.readFile(file, 'utf8');
   let current = orig;
 
-  const { replaced: afterMerge, changed: merged } = mergeSpecialSections(current);
+  const { replaced: afterMerge, changed: merged, mergeCount } = mergeSpecialSections(current);
   current = afterMerge;
 
-  const { replaced: afterFeedback, changed: feedbackChanged } = stripFeedbackParagraph(current);
+  const { replaced: afterFeedback, changed: feedbackChanged, stripCount } = stripFeedbackParagraph(current);
   current = afterFeedback;
 
   if (!merged && !feedbackChanged) {
     if (VERBOSE) console.log('UNCHANGED', path.relative(GAMES_DIR, file));
-    return { changed: false };
+    return { changed: false, mergeCount: 0, stripCount: 0 };
   }
 
   if (DRY_RUN) {
-    console.log('WOULD UPDATE', path.relative(GAMES_DIR, file), [
-      merged && '[merged sections]',
-      feedbackChanged && '[cleared feedback paragraph]'
-    ].filter(Boolean).join(' '));
-    return { changed: false, dry: true };
+    console.log('WOULD UPDATE', path.relative(GAMES_DIR, file),
+      `[merges=${mergeCount}] [feedbackStripped=${stripCount}]`);
+    return { changed: false, mergeCount, stripCount };
   }
 
   if (CREATE_BAK) {
@@ -124,40 +125,41 @@ async function processFile(file) {
   }
 
   await fs.writeFile(file, current, 'utf8');
-  console.log('UPDATED', path.relative(GAMES_DIR, file), [
-    merged && '[merged sections]',
-    feedbackChanged && '[cleared feedback paragraph]'
-  ].filter(Boolean).join(' '));
-  return { changed: true };
+  console.log('UPDATED', path.relative(GAMES_DIR, file),
+    `[merges=${mergeCount}] [feedbackStripped=${stripCount}]`);
+
+  return { changed: true, mergeCount, stripCount };
 }
 
 async function run() {
-  console.log('Scanning for game content files...');
+  console.log('Scanning game content...');
   const files = await collectFiles(GAMES_DIR);
-  console.log(`Found ${files.length} candidate file(s).\n`);
+  console.log(`Found ${files.length} candidate file(s).`);
 
-  let changed = 0;
-  let dryHits = 0;
+  let totalMerges = 0;
+  let totalStrips = 0;
+  let changedFiles = 0;
 
   for (const f of files) {
     try {
       const res = await processFile(f);
-      if (res.changed) changed++;
-      if (res.dry) dryHits++;
+      totalMerges += res.mergeCount;
+      totalStrips += res.stripCount;
+      if (res.changed) changedFiles++;
     } catch (e) {
-      console.error('ERROR processing', f, e);
+      console.error('ERROR', f, e.message);
     }
   }
 
   console.log('\nSummary:');
-  console.log('  Files total:     ', files.length);
-  console.log('  Files changed:   ', changed);
-  if (DRY_RUN) console.log('  Files (would):   ', dryHits);
-  console.log('Mode:', DRY_RUN ? 'DRY RUN (no writes)' : 'APPLIED');
-  console.log('Done.');
+  console.log('  Files processed:', files.length);
+  console.log('  Files changed:  ', changedFiles);
+  console.log('  Special merges: ', totalMerges);
+  console.log('  Feedback strips:', totalStrips);
+  console.log('Mode:', DRY_RUN ? 'DRY RUN' : 'APPLIED');
 }
 
-run().catch(e => {
-  console.error(e);
+run().catch(err => {
+  console.error(err);
   process.exit(1);
 });
