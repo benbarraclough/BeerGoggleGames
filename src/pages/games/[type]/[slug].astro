@@ -36,7 +36,7 @@ const excerpt = entry.data.excerpt;
       {format && (
         <a
           class={playerModeClass(format)}
-          href={withBase(`games/formats/${playerModeSlug(format)}/`)}
+          href={withBase(`games/modes/${playerModeSlug(format)}/`)}
           aria-label={`Format: ${playerModeLabel(format)}`}
         >
           {playerModeLabel(format)}
