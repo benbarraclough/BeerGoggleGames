@@ -12,7 +12,7 @@ const games = (await getCollection('games'))
 ---
 <Layout
   title="All Games A–Z"
-  description="Complete alphabetical list of drinking games."
+  description="Full alphabetical list of drinking games."
   canonical={pageCanonical}
   wide={false}
 >
@@ -32,8 +32,10 @@ const games = (await getCollection('games'))
         const format = g.data.format || g.data.players;
         const gameHref = withBase(`games/${type}/${shortSlug}/`);
         return (
-          <li class="relative border border-fg/20 p-4 flex flex-col rounded-sm hover:border-neon/40 transition-colors focus-within:border-neon/60">
-            <span class="font-semibold leading-snug mb-2">{g.data.title}</span>
+          <li class="relative group border border-fg/20 p-4 flex flex-col rounded-sm hover:border-neon/40 transition-colors focus-within:border-neon/60">
+            <span class="font-semibold leading-snug mb-2 transition-colors group-hover:text-neon group-focus-within:text-neon">
+              {g.data.title}
+            </span>
 
             <div class="mt-0 flex flex-wrap gap-2 z-20 relative">
               {format && (
