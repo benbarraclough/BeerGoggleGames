@@ -18,12 +18,7 @@ const games = (await getCollection('games'))
 >
   <h1 class="font-display text-4xl mb-6">All Games A–Z</h1>
   <p class="text-sm text-muted mb-6">
-    Alphabetical list of every game available. Continue browsing via
-    <a class="hover:text-neon underline underline-offset-4 ml-4" href={withBase('games/')}>Game Types</a>
-    <a class="hover:text-neon underline underline-offset-4 ml-4" href={withBase('games/formats/')}>Player Formats</a>
-    <a class="hover:text-neon underline underline-offset-4 ml-4" href={withBase('games/random')}>Random Game</a>
-    <a class="hover:text-neon underline underline-offset-4 ml-4" href={withBase('tags/')}>Tags</a>
-    <a class="hover:text-neon underline underline-offset-4 ml-4" href={withBase('search')}>Search</a>
+    An alphabetical list of every game available.
 </p>
 
   {games.length === 0 ? (
@@ -74,4 +69,5 @@ const games = (await getCollection('games'))
     <a class="hover:text-neon underline underline-offset-4" href={withBase('tags/')}>Tags</a>
     <a class="hover:text-neon underline underline-offset-4" href={withBase('search')}>Search</a>
   </div>
+  <p class="mt-10 text-sm"> <a class="hover:text-neon underline underline-offset-4" href="/BeerGoggleGames/">← Back to Home</a> </p>
 </Layout>
