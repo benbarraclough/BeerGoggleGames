@@ -32,7 +32,7 @@ const allGames = raw
       modeSlug,
       tags,
       leaf,
-      image: withBase(`images/games/${leaf}.webp`), // Adjust if your images live elsewhere
+      image: withBase(`images/${leaf}.webp`), // Adjust if your images live elsewhere
       href: withBase(`games/${type}/${leaf}/`)
     };
   })
