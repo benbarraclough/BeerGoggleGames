@@ -1,34 +1,455 @@
 ---
 import Layout from '../../components/Layout.astro';
+import { getCollection } from 'astro:content';
 import { withBase } from '../../lib/paths';
-import CardLink from '../../components/CardLink.astro';
+import { canonical } from '../../lib/urls';
+import { excludeLegacyNoise } from '../../lib/filters';
 
-const title = 'Drinks';
-const description = 'Browse cocktail and shot recipes.';
+/*
+  Unified Drinks Page
+  Combines cocktails + shots (and is future‑proof for more drink collections if added).
+  Filters (same UI/logic pattern as Games page):
+    - Drink Type (orange)      -> derived from collection name (cocktail / shot)
+    - Alcohol Base (blue)      -> from frontmatter keys (base, alcoholBase, baseAlcohol, spirit(s), alcohol, etc.)
+    - Difficulty (pink)        -> frontmatter "difficulty" (easy / medium / hard)
+  Logic:
+    - Default (non-exclusive): OR union across ALL selected filters (any match in any group shows the drink)
+    - Exclusive: AND across groups (within a group still OR; all selected difficulties considered OR; bases OR).
+      Empty group = ignored.
+
+  Image path convention: /images/{leaf}.webp
+    (leaf is last segment of slug; adjust if needed)
+
+  Notes:
+    - Alcohol base field normalization tries several possible key names and supports string or array.
+    - Difficulty is lower-cased; only non-empty ones are included as selectable filters.
+    - To add more drink collections later (e.g., 'mocktails'), duplicate the pattern below.
+    - If you want popover tag counts like games page, you can adapt similarly (not requested here).
+*/
+
+interface DrinkMeta {
+  title: string;
+  drinkType: string;      // cocktail | shot | etc.
+  bases: string[];        // normalized (display form)
+  basesLC: string[];      // lowercase for matching
+  difficulty: string;     // normalized lower-case ('easy','medium','hard','')
+  href: string;
+  image: string;
+}
+
+function normalizeBases(data: any): string[] {
+  let raw: any =
+    data.alcoholBase ??
+    data.baseAlcohol ??
+    data.base ??
+    data.bases ??
+    data.spirits ??
+    data.spirit ??
+    data.alcohol ??
+    [];
+  if (!raw) return [];
+  if (typeof raw === 'string') {
+    // split on commas or slashes
+    raw = raw.split(/[\/,]/);
+  }
+  if (!Array.isArray(raw)) raw = [raw];
+  return raw
+    .map((v: any) => (v ?? '').toString().trim())
+    .filter(Boolean);
+}
+
+const cocktailEntries = excludeLegacyNoise(await getCollection('cocktails'));
+const shotEntries = excludeLegacyNoise(await getCollection('shots'));
+
+function mapEntry(entry: any, drinkType: string): DrinkMeta {
+  const slug = (entry.slug ?? entry.id).split('/').pop();
+  const bases = normalizeBases(entry.data);
+  const difficulty = (entry.data.difficulty || '').toString().trim().toLowerCase();
+  return {
+    title: entry.data.title,
+    drinkType,
+    bases,
+    basesLC: bases.map(b => b.toLowerCase()),
+    difficulty,
+    href: withBase(`drinks/${drinkType === 'cocktail' ? 'cocktail-recipes' : 'shot-recipes'}/${slug}/`),
+    image: withBase(`images/${slug}.webp`)
+  };
+}
+
+const drinks: DrinkMeta[] = [
+  ...cocktailEntries.map(e => mapEntry(e, 'cocktail')),
+  ...shotEntries.map(e => mapEntry(e, 'shot')),
+].sort((a,b)=> (a.title||'').localeCompare(b.title||''));
+
+// Build filter collections
+const drinkTypeCounts = new Map<string, number>();
+const baseCounts = new Map<string, number>();       // base (display) -> count
+const difficultyCounts = new Map<string, number>();
+
+for (const d of drinks) {
+  drinkTypeCounts.set(d.drinkType, (drinkTypeCounts.get(d.drinkType) || 0) + 1);
+  d.bases.forEach(b => {
+    baseCounts.set(b, (baseCounts.get(b) || 0) + 1);
+  });
+  if (d.difficulty) {
+    difficultyCounts.set(d.difficulty, (difficultyCounts.get(d.difficulty) || 0) + 1);
+  }
+}
+
+const drinkTypes = Array.from(drinkTypeCounts.entries()).sort((a,b)=> a[0].localeCompare(b[0]));
+const bases = Array.from(baseCounts.entries()).sort((a,b)=> a[0].localeCompare(b[0]));
+const difficultiesOrder = ['easy','medium','hard'];
+const difficulties = Array.from(difficultyCounts.entries())
+  .sort((a,b)=>{
+    const ai = difficultiesOrder.indexOf(a[0]);
+    const bi = difficultiesOrder.indexOf(b[0]);
+    if (ai === -1 || bi === -1) return a[0].localeCompare(b[0]);
+    return ai - bi;
+  });
+
+const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 ---
-<Layout title={title} description={description}>
-  <h1 class="font-display text-3xl mb-6">{title}</h1>
-  <p class="text-sm text-muted mb-6">
-    Browse our ready to mix collection of cocktail and shot recipes.
+<Layout
+  title="Drinks"
+  description="All drink recipes (cocktails & shots). Filter by type, alcohol base, and difficulty."
+  canonical={pageCanonical}
+  wide={true}
+>
+  <h1 class="font-display text-4xl mb-4">Drinks</h1>
+  <p class="text-sm text-muted mb-5">
+    Unified list of cocktails & shots. Use the dropdown filters (Drink Type / Alcohol Base / Difficulty).
+    Default = any match. Exclusive = must match each selected group.
   </p>
-  <ul class="grid gap-4 sm:grid-cols-2 list-none p-0 m-0">
-    <CardLink
-      href={withBase('drinks/cocktail-recipes/')}
-      ariaLabel="Cocktail Recipes"
-    >
-      <span class="font-semibold leading-snug transition-colors group-hover:text-neon">
-        Cocktail Recipes
-      </span>
-      <span class="text-sm text-muted mt-1">Classic & party cocktails.</span>
-    </CardLink>
-    <CardLink
-      href={withBase('drinks/shot-recipes/')}
-      ariaLabel="Shot Recipes"
-    >
-      <span class="font-semibold leading-snug transition-colors group-hover:text-neon">
-        Shot Recipes
-      </span>
-      <span class="text-sm text-muted mt-1">Quick hitters & crowd pleasers.</span>
-    </CardLink>
-  </ul>
+
+  <!-- Filter Bar -->
+  <div id="filter-bar" class="mb-6 space-y-3">
+    <div class="flex flex-wrap gap-2 items-center">
+      <span class="text-[11px] uppercase tracking-wide text-muted/70">Filters</span>
+
+      <!-- Drink Type -->
+      <div class="relative" data-filter-wrapper>
+        <button type="button" class="filter-toggle pill pill-type-tint" data-panel="types" aria-expanded="false">
+          Drink Type
+        </button>
+        <div class="filter-panel hidden" id="panel-types" role="group" aria-label="Drink Type">
+          <div class="panel-inner">
+            {drinkTypes.map(([t,count]) => (
+              <button
+                type="button"
+                class="filter-item pill pill-type"
+                data-filter-type="type"
+                data-value={t}
+                aria-pressed="false"
+              >
+                <span>{t}</span>
+                <span class="count">{count}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <!-- Alcohol Base -->
+      <div class="relative" data-filter-wrapper>
+        <button type="button" class="filter-toggle pill pill-base-tint" data-panel="bases" aria-expanded="false">
+          Alcohol Base
+        </button>
+        <div class="filter-panel hidden" id="panel-bases" role="group" aria-label="Alcohol Base">
+          <div class="panel-inner max-h-72">
+            {bases.map(([b,count]) => (
+              <button
+                type="button"
+                class="filter-item pill pill-base"
+                data-filter-type="base"
+                data-value={b.toLowerCase()}
+                data-display={b}
+                aria-pressed="false"
+              >
+                <span>{b}</span>
+                <span class="count">{count}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <!-- Difficulty -->
+      <div class="relative" data-filter-wrapper>
+        <button type="button" class="filter-toggle pill pill-diff-tint" data-panel="difficulty" aria-expanded="false">
+          Difficulty
+        </button>
+        <div class="filter-panel hidden" id="panel-difficulty" role="group" aria-label="Difficulty">
+          <div class="panel-inner">
+            {difficulties.map(([d,count]) => (
+              <button
+                type="button"
+                class="filter-item pill pill-diff"
+                data-filter-type="difficulty"
+                data-value={d}
+                aria-pressed="false"
+              >
+                <span>{d}</span>
+                <span class="count">{count}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <!-- Exclusive & Clear -->
+      <button id="exclusive-toggle" type="button" class="pill pill-neutral" aria-pressed="false"
+        title="Exclusive: must match each selected group (AND logic within groups OR).">
+        Exclusive
+      </button>
+      <button id="clear-filters" type="button" class="pill pill-neutral disabled:opacity-40 disabled:cursor-not-allowed" disabled>
+        Clear
+      </button>
+
+      <span id="result-count" class="text-xs text-muted ml-auto"></span>
+    </div>
+  </div>
+
+  <!-- Drinks Grid -->
+  {drinks.length === 0 ? (
+    <p class="text-muted">No drinks found.</p>
+  ) : (
+    <ul id="drinks-grid" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 list-none p-0 m-0">
+      {drinks.map(d => (
+        <li
+          class="relative group"
+          data-type={d.drinkType}
+          data-bases={d.basesLC.join(',')}
+          data-difficulty={d.difficulty}
+        >
+          <div class="card-body flex flex-col h-full border border-fg/20 rounded-sm p-4 transition-colors pointer-events-none group-hover:border-neon/40">
+            <picture class="mb-2 w-full allow-pointer">
+              <img
+                src={d.image}
+                alt={d.title}
+                loading="lazy"
+                decoding="async"
+                class="w-full aspect-video object-cover rounded-sm border border-fg/15 bg-fg/5"
+                onerror="this.style.display='none'"
+              />
+            </picture>
+            <span class="font-semibold leading-snug mb-2 transition-colors allow-pointer group-hover:text-neon">
+              {d.title}
+            </span>
+            <div class="flex flex-wrap gap-2 text-[10px] uppercase tracking-wide font-semibold relative z-10">
+              <span class="pill pill-type allow-pointer">{d.drinkType}</span>
+              {d.bases.slice(0,3).map(b => (
+                <span class="pill pill-base allow-pointer">{b}</span>
+              ))}
+              {d.bases.length > 3 && (
+                <span class="pill pill-base allow-pointer">
+                  +{d.bases.length - 3}
+                </span>
+              )}
+              {d.difficulty && <span class="pill pill-diff allow-pointer">{d.difficulty}</span>}
+            </div>
+          </div>
+          <a
+            href={d.href}
+            aria-label={`View drink: ${d.title}`}
+            class="absolute inset-0 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/60"
+          >
+            <span class="sr-only">{d.title}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  )}
+
+  <style>
+    .pill {
+      @apply inline-flex items-center gap-1 px-2 py-1 rounded-full text-[10px] font-semibold tracking-wide whitespace-nowrap transition-colors select-none border;
+      line-height:1.1;
+    }
+
+    /* Tinted filter toggles (same palette pattern as games page: orange, blue, pink) */
+    .pill-type-tint { @apply bg-orange-500/15 text-orange-300 border-orange-400/30 hover:bg-orange-500/25; }
+    .pill-base-tint { @apply bg-blue-500/15 text-blue-300 border-blue-400/30 hover:bg-blue-500/25; }
+    .pill-diff-tint { @apply bg-pink-500/15 text-pink-300 border-pink-400/30 hover:bg-pink-500/25; }
+    .pill-neutral { @apply bg-fg/10 text-fg/80 border-fg/25 hover:border-neon/50 hover:text-neon; }
+
+    /* Actual pills inside cards / panels */
+    .pill-type { @apply bg-orange-500/10 text-orange-300 border-orange-400/30; }
+    .pill-base { @apply bg-blue-500/10 text-blue-300 border-blue-400/30; }
+    .pill-diff { @apply bg-pink-500/10 text-pink-300 border-pink-400/30; }
+
+    .filter-toggle[aria-expanded="true"] { @apply ring-2 ring-neon/60; }
+    #exclusive-toggle[aria-pressed="true"] { @apply bg-neon/20 text-neon ring-2 ring-neon/50; }
+    .filter-item { @apply cursor-pointer; }
+    .filter-item[aria-pressed="true"] { @apply ring-2 ring-neon/60; }
+
+    .filter-panel { @apply absolute z-50 mt-2 min-w-[14rem] max-w-xs bg-bg/95 backdrop-blur border border-fg/25 rounded-md shadow-lg p-2; }
+    .filter-panel.hidden { display:none; }
+    .panel-inner { @apply flex flex-wrap gap-2 overflow-y-auto; max-height: 18rem; }
+    .panel-inner::-webkit-scrollbar { width:6px; }
+    .panel-inner::-webkit-scrollbar-thumb { @apply bg-fg/30 rounded; }
+
+    #result-count { @apply text-muted; }
+
+    /* Card click behavior */
+    .card-body { pointer-events: none; }
+    .card-body .allow-pointer,
+    .card-body button { pointer-events: auto; }
+  </style>
+
+  <script type="module">
+    /* ========= Filter State ========= */
+    const selected = {
+      type: new Set(),
+      base: new Set(),        // values stored lowercase
+      difficulty: new Set()
+    };
+    let exclusive = false;
+
+    const qs = s => document.querySelector(s);
+    const qsa = s => Array.from(document.querySelectorAll(s));
+
+    const grid = qs('#drinks-grid');
+    const clearBtn = qs('#clear-filters');
+    const exclusiveBtn = qs('#exclusive-toggle');
+    const resultCount = qs('#result-count');
+
+    const filterItems = qsa('.filter-item');
+    const panelToggles = qsa('.filter-toggle');
+
+    function updateClearBtn() {
+      const any = selected.type.size || selected.base.size || selected.difficulty.size;
+      if (clearBtn) clearBtn.disabled = !any;
+    }
+
+    function matchDrink(li) {
+      const drinkType = li.getAttribute('data-type') || '';
+      const bases = (li.getAttribute('data-bases') || '').split(',').filter(Boolean);
+      const diff = li.getAttribute('data-difficulty') || '';
+
+      const anySel = selected.type.size || selected.base.size || selected.difficulty.size;
+      if (!anySel) return true;
+
+      if (!exclusive) {
+        if (selected.type.has(drinkType)) return true;
+        if (selected.difficulty.has(diff)) return true;
+        if (selected.base.size) {
+          for (const b of selected.base) if (bases.includes(b)) return true;
+        }
+        return false;
+      }
+
+      // Exclusive: each non-empty group must match at least one item (OR inside group)
+      if (selected.type.size && !selected.type.has(drinkType)) return false;
+      if (selected.difficulty.size && !selected.difficulty.has(diff)) return false;
+      if (selected.base.size) {
+        let matchedBase = false;
+        for (const b of selected.base) { if (bases.includes(b)) { matchedBase = true; break; } }
+        if (!matchedBase) return false;
+      }
+      return true;
+    }
+
+    function applyFilters() {
+      if (!grid) return;
+      const cards = qsa('#drinks-grid > li');
+      let visible = 0;
+      cards.forEach(li => {
+        if (matchDrink(li)) {
+          li.classList.remove('hidden');
+          visible++;
+        } else {
+          li.classList.add('hidden');
+        }
+      });
+      if (resultCount) {
+        resultCount.textContent = `Showing ${visible} of ${cards.length} drinks${exclusive ? ' (exclusive)' : ''}`;
+      }
+    }
+
+    function toggleFilter(btn) {
+      const type = btn.getAttribute('data-filter-type'); // 'type' | 'base' | 'difficulty'
+      if (!type) return;
+      let value = btn.getAttribute('data-value');
+      if (!value) return;
+      // base values already lowercase; type & difficulty store as original (already lowercase for diff)
+      if (type === 'base') value = value.toLowerCase();
+
+      const set = selected[type];
+      const pressed = btn.getAttribute('aria-pressed') === 'true';
+      if (pressed) {
+        set.delete(value);
+        btn.setAttribute('aria-pressed','false');
+      } else {
+        set.add(value);
+        btn.setAttribute('aria-pressed','true');
+      }
+      updateClearBtn();
+      applyFilters();
+    }
+
+    filterItems.forEach(btn => {
+      btn.addEventListener('click', () => toggleFilter(btn));
+      btn.addEventListener('keydown', e => {
+        if (e.key === ' ' || e.key === 'Enter') {
+          e.preventDefault();
+          toggleFilter(btn);
+        }
+      });
+    });
+
+    clearBtn?.addEventListener('click', () => {
+      ['type','base','difficulty'].forEach(k => selected[k].clear());
+      filterItems.forEach(f => f.setAttribute('aria-pressed','false'));
+      updateClearBtn();
+      applyFilters();
+    });
+
+    exclusiveBtn?.addEventListener('click', () => {
+      exclusive = !exclusive;
+      exclusiveBtn.setAttribute('aria-pressed', exclusive ? 'true' : 'false');
+      applyFilters();
+    });
+
+    /* ========= Dropdown (Panel) Behavior ========= */
+    function closeAllPanels(exceptId) {
+      panelToggles.forEach(t => {
+        const id = t.getAttribute('data-panel');
+        const panel = document.getElementById('panel-' + id);
+        if (!panel) return;
+        if (id === exceptId) return;
+        panel.classList.add('hidden');
+        t.setAttribute('aria-expanded','false');
+      });
+    }
+
+    panelToggles.forEach(toggle => {
+      toggle.addEventListener('click', () => {
+        const id = toggle.getAttribute('data-panel');
+        const panel = document.getElementById('panel-' + id);
+        if (!panel) return;
+        const open = !panel.classList.contains('hidden');
+        if (open) {
+          panel.classList.add('hidden');
+          toggle.setAttribute('aria-expanded','false');
+        } else {
+          closeAllPanels(id);
+          panel.classList.remove('hidden');
+          toggle.setAttribute('aria-expanded','true');
+        }
+      });
+    });
+
+    document.addEventListener('click', e => {
+      const target = e.target;
+      if (!target.closest('[data-filter-wrapper]')) closeAllPanels();
+    });
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeAllPanels();
+    });
+
+    // Init
+    updateClearBtn();
+    applyFilters();
+  </script>
 </Layout>
