@@ -1,0 +1,83 @@
+---
+/**
+ * Reusable clickable card component.
+ *
+ * Props:
+ *  - href: string (required)
+ *  - ariaLabel?: string (accessible label; if provided we'll add sr-only text)
+ *  - overlay?: boolean (default false). If true, uses stretched-link pattern
+ *    so that additional interactive elements (other links) inside the card remain valid.
+ *  - as?: string (outer wrapper tag, default 'li')
+ *  - class?: string (extra classes for outer wrapper)
+ *  - anchorClass?: string (extra classes for anchor element)
+ *  - noPadding?: boolean (remove default p-4 padding)
+ *
+ * Full-wrap mode (overlay = false):
+ *  <CardLink href="/path">
+ *    <span class="font-semibold group-hover:text-neon">Title</span>
+ *  </CardLink>
+ *
+ * Overlay mode (overlay = true) for cards containing other <a> elements:
+ *  <CardLink href="/path" overlay ariaLabel="View Foo">
+ *    <span class="font-semibold group-hover:text-neon group-focus-within:text-neon">Foo</span>
+ *    <a href="/other" class="pill">Other link</a>
+ *  </CardLink>
+ */
+interface Props {
+  href: string;
+  ariaLabel?: string;
+  overlay?: boolean;
+  as?: string;
+  class?: string;
+  anchorClass?: string;
+  noPadding?: boolean;
+}
+
+const {
+  href,
+  ariaLabel,
+  overlay = false,
+  as = 'li',
+  class: outerExtra = '',
+  anchorClass = '',
+  noPadding = false
+} = Astro.props as Props;
+
+const Tag = as as keyof HTMLElementTagNameMap;
+
+const baseOuter = 'group relative list-none p-0 m-0';
+const baseCard =
+  'flex flex-col h-full border border-fg/20 rounded-sm transition-colors ' +
+  (noPadding ? '' : 'p-4 ') +
+  'hover:border-neon/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/60 focus-visible:border-neon/60';
+const baseOverlayWrapper =
+  'flex flex-col h-full border border-fg/20 rounded-sm transition-colors ' +
+  (noPadding ? '' : 'p-4 ') +
+  'hover:border-neon/40 focus-within:border-neon/60';
+const overlayAnchorBase =
+  'absolute inset-0 z-10 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/60';
+---
+<Tag class={`${baseOuter} ${outerExtra}`.trim()}>
+  {overlay ? (
+    <>
+      <div class={`${baseOverlayWrapper} relative z-20`}>
+        <slot />
+      </div>
+      <a
+        href={href}
+        class={`${overlayAnchorBase} ${anchorClass}`.trim()}
+        aria-label={ariaLabel}
+      >
+        {ariaLabel && <span class="sr-only">{ariaLabel}</span>}
+      </a>
+    </>
+  ) : (
+    <a
+      href={href}
+      class={`${baseCard} ${anchorClass}`.trim()}
+      aria-label={ariaLabel}
+    >
+      <slot />
+    </a>
+  )}
+</Tag>
