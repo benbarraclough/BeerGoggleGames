@@ -8,13 +8,11 @@ import { playerModeSlug, playerModeLabel } from '../../lib/playerMode';
 import CardLink from '../../components/CardLink.astro';
 
 /*
-  Games Page (Tag count + expandable tags)
-  Changes:
-  - Cards use overlay mode so we can include a button inside (tag count toggle).
-  - Tag pills are not shown initially; instead a pill button shows "X tag(s)".
-  - Clicking the tag count expands/collapses a tag list inside the card.
-  - Filtering unchanged (data-tags lives on <li>).
-  - Pink coloring retained for tags.
+  Games Page (Tag toggle refinement + improved image fallback)
+  - Tag pills hidden by default; show a small inline button: "Show N tags"
+  - On expand: renders tag pills, button changes to "Hide N tags"
+  - Collapse hides pills again (removes them from DOM for consistent height)
+  - Image path tries: g.data.image || /images/games/{leaf}.webp
 */
 
 const raw = excludeLegacyNoise(await getCollection('games'));
@@ -26,6 +24,10 @@ const allGames = raw
     const rawMode = g.data.format || g.data.players;
     const modeSlug = rawMode ? playerModeSlug(rawMode) : '';
     const tags = Array.isArray(g.data.tags) ? g.data.tags : [];
+    const providedImage = g.data.image ? withBase(g.data.image.replace(/^\//,''))
+      : withBase(`images/games/${leaf}.webp`);
+    // Optional extra fallback (uncomment if needed):
+    // const image = providedImage; // or try another path if first 404: e.g. /img/games/{leaf}.webp
     return {
       title: g.data.title,
       type,
@@ -33,7 +35,7 @@ const allGames = raw
       modeSlug,
       tags,
       leaf,
-      image: withBase(`images/games/${leaf}.webp`),
+      image: providedImage,
       href: withBase(`games/${type}/${leaf}/`)
     };
   })
@@ -59,7 +61,6 @@ for (const g of allGames) {
 const categories = Array.from(categoryCounts.entries()).sort((a,b)=> a[0].localeCompare(b[0]));
 const modes = Array.from(modeCounts.entries()).sort((a,b)=> a[1].label.localeCompare(b[1].label));
 const tags = Array.from(tagCounts.entries()).sort((a,b)=> a[0].localeCompare(b[0]));
-
 const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 ---
 <Layout
@@ -70,8 +71,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 >
   <h1 class="font-display text-4xl mb-4">Games</h1>
   <p class="text-sm text-muted mb-5">
-    Use the dropdown filters (Category / Player Mode / Tags). Default = any match. Exclusive mode = must match each group (all selected tags).
-    Click the tag count on a game to view its tags.
+    Filter by category, player mode or tags. Default = any match. Exclusive = must satisfy each selected group (and all selected tags). Click “Show tags” on a game to reveal its tags.
   </p>
 
   <!-- Filter Bar -->
@@ -81,29 +81,12 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 
       <!-- Category Dropdown -->
       <div class="relative" data-filter-wrapper>
-        <button
-          type="button"
-          class="filter-toggle pill pill-cat-tint"
-          data-panel="categories"
-          aria-expanded="false"
-        >Categories</button>
-        <div
-          class="filter-panel hidden"
-          id="panel-categories"
-          role="group"
-          aria-label="Categories"
-        >
+        <button type="button" class="filter-toggle pill pill-cat-tint" data-panel="categories" aria-expanded="false">Categories</button>
+        <div class="filter-panel hidden" id="panel-categories" role="group" aria-label="Categories">
           <div class="panel-inner">
             {categories.map(([cat, count]) => (
-              <button
-                type="button"
-                class="filter-item pill pill-cat"
-                data-filter-type="category"
-                data-value={cat}
-                aria-pressed="false"
-              >
-                <span>{cat}</span>
-                <span class="count">{count}</span>
+              <button type="button" class="filter-item pill pill-cat" data-filter-type="category" data-value={cat} aria-pressed="false">
+                <span>{cat}</span><span class="count">{count}</span>
               </button>
             ))}
           </div>
@@ -112,29 +95,12 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 
       <!-- Modes Dropdown -->
       <div class="relative" data-filter-wrapper>
-        <button
-          type="button"
-          class="filter-toggle pill pill-mode-tint"
-          data-panel="modes"
-          aria-expanded="false"
-        >Player Modes</button>
-        <div
-          class="filter-panel hidden"
-          id="panel-modes"
-          role="group"
-          aria-label="Player Modes"
-        >
+        <button type="button" class="filter-toggle pill pill-mode-tint" data-panel="modes" aria-expanded="false">Player Modes</button>
+        <div class="filter-panel hidden" id="panel-modes" role="group" aria-label="Player Modes">
           <div class="panel-inner">
             {modes.map(([slug, info]) => (
-              <button
-                type="button"
-                class="filter-item pill pill-mode"
-                data-filter-type="mode"
-                data-value={slug}
-                aria-pressed="false"
-              >
-                <span>{info.label}</span>
-                <span class="count">{info.count}</span>
+              <button type="button" class="filter-item pill pill-mode" data-filter-type="mode" data-value={slug} aria-pressed="false">
+                <span>{info.label}</span><span class="count">{info.count}</span>
               </button>
             ))}
           </div>
@@ -143,29 +109,12 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 
       <!-- Tags Dropdown -->
       <div class="relative" data-filter-wrapper>
-        <button
-          type="button"
-          class="filter-toggle pill pill-tag-tint"
-          data-panel="tags"
-          aria-expanded="false"
-        >Tags</button>
-        <div
-          class="filter-panel hidden"
-          id="panel-tags"
-          role="group"
-          aria-label="Tags"
-        >
+        <button type="button" class="filter-toggle pill pill-tag-tint" data-panel="tags" aria-expanded="false">Tags</button>
+        <div class="filter-panel hidden" id="panel-tags" role="group" aria-label="Tags">
           <div class="panel-inner max-h-72">
             {tags.map(([t, count]) => (
-              <button
-                type="button"
-                class="filter-item pill pill-tag"
-                data-filter-type="tag"
-                data-value={t}
-                aria-pressed="false"
-              >
-                <span>{t}</span>
-                <span class="count">{count}</span>
+              <button type="button" class="filter-item pill pill-tag" data-filter-type="tag" data-value={t} aria-pressed="false">
+                <span>{t}</span><span class="count">{count}</span>
               </button>
             ))}
           </div>
@@ -173,21 +122,8 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       </div>
 
       <!-- Exclusive & Clear -->
-      <button
-        id="exclusive-toggle"
-        type="button"
-        class="pill pill-neutral"
-        aria-pressed="false"
-        title="Exclusive: must match each selected group (AND logic across groups; all selected tags)."
-      >Exclusive</button>
-
-      <button
-        id="clear-filters"
-        type="button"
-        class="pill pill-neutral disabled:opacity-40 disabled:cursor-not-allowed"
-        disabled
-      >Clear</button>
-
+      <button id="exclusive-toggle" type="button" class="pill pill-neutral" aria-pressed="false" title="Exclusive: must match each selected group (AND logic across groups; all selected tags).">Exclusive</button>
+      <button id="clear-filters" type="button" class="pill pill-neutral disabled:opacity-40 disabled:cursor-not-allowed" disabled>Clear</button>
       <span id="result-count" class="text-xs text-muted ml-auto"></span>
     </div>
   </div>
@@ -196,10 +132,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
   {allGames.length === 0 ? (
     <p class="text-muted">No games found.</p>
   ) : (
-    <ul
-      id="game-grid"
-      class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 list-none p-0 m-0"
-    >
+    <ul id="game-grid" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 list-none p-0 m-0">
       {allGames.map(g => (
         <li
           class="list-none p-0 m-0"
@@ -207,13 +140,8 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
           data-mode={g.modeSlug || ''}
           data-tags={g.tags.join(',')}
         >
-          <CardLink
-            href={g.href}
-            overlay
-            ariaLabel={`View game: ${g.title}`}
-            as="div"
-          >
-            <picture class="mb-2 w-full">
+          <CardLink href={g.href} overlay ariaLabel={`View game: ${g.title}`} as="div">
+            <picture class="mb-2 w-full block">
               <img
                 src={g.image}
                 alt={g.title}
@@ -229,20 +157,21 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
             <div class="flex flex-wrap gap-2 text-[10px] uppercase tracking-wide font-semibold relative z-20">
               <span class="pill pill-cat">{g.type}</span>
               {g.modeSlug && <span class="pill pill-mode">{playerModeLabel(g.rawMode!)}</span>}
-              {g.tags.length > 0 && (
+            </div>
+            {g.tags.length > 0 && (
+              <div class="mt-2 relative z-30">
                 <button
                   type="button"
-                  class="pill pill-tag-count"
-                  data-tag-count={g.tags.length}
+                  class="tag-toggle text-[10px] font-medium text-pink-300 hover:text-pink-200 underline underline-offset-2"
                   data-all-tags={g.tags.join(',')}
+                  data-count={g.tags.length}
                   aria-expanded="false"
-                  title={`Show tags: ${g.tags.join(', ')}`}
                 >
-                  {g.tags.length} tag{g.tags.length !== 1 && 's'}
+                  Show {g.tags.length} tag{g.tags.length !== 1 && 's'}
                 </button>
-              )}
-            </div>
-            <div class="tags-expand mt-2 hidden flex-wrap gap-2" aria-hidden="true"></div>
+                <div class="tags-expand hidden mt-2 flex-wrap gap-2" aria-hidden="true"></div>
+              </div>
+            )}
           </CardLink>
         </li>
       ))}
@@ -264,8 +193,6 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
     .pill-cat { @apply bg-orange-500/10 text-orange-300 border-orange-400/30; }
     .pill-mode { @apply bg-blue-500/10 text-blue-300 border-blue-400/30; }
     .pill-tag { @apply bg-pink-500/10 text-pink-300 border-pink-400/30; }
-    .pill-tag-count { @apply bg-pink-500/15 text-pink-300 border-pink-400/30 hover:bg-pink-500/25 cursor-pointer; }
-    .pill-tag-count[aria-expanded="true"] { @apply ring-2 ring-neon/60; }
 
     .filter-toggle[aria-expanded="true"] { @apply ring-2 ring-neon/60; }
     #exclusive-toggle[aria-pressed="true"] { @apply bg-neon/20 text-neon ring-2 ring-neon/50; }
@@ -281,6 +208,9 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
     .panel-inner::-webkit-scrollbar-thumb { @apply bg-fg/30 rounded; }
 
     .tags-expand .pill-tag { @apply cursor-default; }
+
+    .tag-toggle { @apply relative; }
+    .tag-toggle[aria-expanded="true"] { @apply text-pink-200; }
 
     #result-count { @apply text-muted; }
   </style>
@@ -302,14 +232,13 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 
     function updateClearBtn() {
       const any = selected.category.size || selected.mode.size || selected.tag.size;
-      clearBtn.disabled = !any;
+      if (clearBtn) clearBtn.disabled = !any;
     }
 
     function matchGame(li) {
       const type = li.getAttribute('data-type') || '';
       const mode = li.getAttribute('data-mode') || '';
       const tags = (li.getAttribute('data-tags') || '').split(',').filter(Boolean);
-
       const hasFilters = selected.category.size || selected.mode.size || selected.tag.size;
       if (!hasFilters) return true;
 
@@ -342,7 +271,9 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
           li.classList.add('hidden');
         }
       });
-      resultCount.textContent = `Showing ${visible} of ${cards.length} games${exclusive ? ' (exclusive)' : ''}`;
+      if (resultCount) {
+        resultCount.textContent = `Showing ${visible} of ${cards.length} games${exclusive ? ' (exclusive)' : ''}`;
+      }
     }
 
     function toggleFilterItem(btn) {
@@ -385,7 +316,6 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       applyFilters();
     });
 
-    // Panels
     function closeAllPanels(exceptId) {
       panelToggles.forEach(t => {
         const id = t.getAttribute('data-panel');
@@ -422,45 +352,49 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       if (e.key === 'Escape') closeAllPanels();
     });
 
-    // Tag expansion logic
-    function buildTagPill(tag) {
+    // Tag expansion
+    function buildTag(tag) {
       const span = document.createElement('span');
       span.className = 'pill pill-tag';
       span.textContent = tag;
       return span;
     }
 
-    function toggleTagExpansion(btn) {
+    function toggleTags(btn) {
       const expanded = btn.getAttribute('aria-expanded') === 'true';
-      const rootCard = btn.closest('.group');
-      if (!rootCard) return;
-      const container = rootCard.querySelector('.tags-expand');
+      const container = btn.parentElement.querySelector('.tags-expand');
       if (!container) return;
       if (expanded) {
+        // Hide
         btn.setAttribute('aria-expanded','false');
         container.classList.add('hidden');
         container.setAttribute('aria-hidden','true');
-        return;
+        container.textContent = '';
+        const count = btn.getAttribute('data-count');
+        btn.textContent = `Show ${count} tag${count === '1' ? '' : 's'}`;
+      } else {
+        // Show
+        const all = (btn.getAttribute('data-all-tags') || '').split(',').filter(Boolean);
+        container.textContent = '';
+        all.forEach(t => container.appendChild(buildTag(t)));
+        btn.setAttribute('aria-expanded','true');
+        container.classList.remove('hidden');
+        container.setAttribute('aria-hidden','false');
+        const count = btn.getAttribute('data-count');
+        btn.textContent = `Hide ${count} tag${count === '1' ? '' : 's'}`;
       }
-      // Populate if empty
-      if (!container.hasChildNodes()) {
-        const allTags = (btn.getAttribute('data-all-tags') || '').split(',').filter(Boolean);
-        allTags.forEach(t => container.appendChild(buildTagPill(t)));
-      }
-      btn.setAttribute('aria-expanded','true');
-      container.classList.remove('hidden');
-      container.setAttribute('aria-hidden','false');
     }
 
-    qsa('.pill-tag-count').forEach(btn => {
+    qsa('.tag-toggle').forEach(btn => {
       btn.addEventListener('click', e => {
-        e.stopPropagation(); // ensure overlay anchor not triggered (shouldn't anyway due to z-layer)
-        toggleTagExpansion(btn);
+        e.stopPropagation();
+        e.preventDefault(); // Prevent overlay anchor navigation
+        toggleTags(btn);
       });
       btn.addEventListener('keydown', e => {
         if (e.key === ' ' || e.key === 'Enter') {
           e.preventDefault();
-          toggleTagExpansion(btn);
+          toggleTags(btn);
         }
       });
     });
