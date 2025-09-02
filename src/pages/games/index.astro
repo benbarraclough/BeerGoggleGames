@@ -7,7 +7,15 @@ import { excludeLegacyNoise } from '../../lib/filters';
 import { playerModeSlug, playerModeLabel } from '../../lib/playerMode';
 import CardLink from '../../components/CardLink.astro';
 
-// Gather & normalize games
+/*
+  Games Page (Clickable fix + pink tags + images)
+  Changes from previous version:
+  - Switched cards to NON-overlay CardLink (full-wrap anchor) so entire card is clickable.
+  - Retained <li> wrapper (data-* attributes for filtering) and placed CardLink (as="div") inside.
+  - Added game image (assumes image exists at /images/games/{leaf}.webp). Adjust path if different.
+  - Changed tag tint from green to pink.
+*/
+
 const raw = excludeLegacyNoise(await getCollection('games'));
 const allGames = raw
   .map(g => {
@@ -23,6 +31,8 @@ const allGames = raw
       rawMode,
       modeSlug,
       tags,
+      leaf,
+      image: withBase(`images/games/${leaf}.webp`), // Adjust if your images live elsewhere
       href: withBase(`games/${type}/${leaf}/`)
     };
   })
@@ -191,20 +201,29 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       {allGames.map(g => (
         <li
           class="list-none p-0 m-0"
-          data-type={g.type}
+            data-type={g.type}
           data-mode={g.modeSlug || ''}
           data-tags={g.tags.join(',')}
         >
           <CardLink
             href={g.href}
-            overlay
             ariaLabel={`View game: ${g.title}`}
             as="div"
           >
+            <picture class="mb-2 w-full">
+              <img
+                src={g.image}
+                alt={g.title}
+                loading="lazy"
+                decoding="async"
+                class="w-full aspect-video object-cover rounded-sm border border-fg/15 bg-fg/5"
+                onerror="this.style.display='none'"
+              />
+            </picture>
             <span class="font-semibold leading-snug mb-2 transition-colors group-hover:text-neon group-focus-within:text-neon">
               {g.title}
             </span>
-            <div class="flex flex-wrap gap-2 relative z-20 text-[10px] uppercase tracking-wide font-semibold">
+            <div class="flex flex-wrap gap-2 text-[10px] uppercase tracking-wide font-semibold">
               <span class="pill pill-cat">{g.type}</span>
               {g.modeSlug && <span class="pill pill-mode">{playerModeLabel(g.rawMode!)}</span>}
               {g.tags.slice(0,4).map(t => <span class="pill pill-tag">{t}</span>)}
@@ -216,49 +235,41 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
   )}
 
   <style>
-    /* Pills (filters & inline meta) */
     .pill {
       @apply inline-flex items-center gap-1 px-2 py-1 rounded-full text-[10px] font-semibold tracking-wide whitespace-nowrap transition-colors select-none border;
       line-height:1.1;
     }
-    /* Tinted toggles (smaller & distinct from cards) */
+    /* Tinted toggles */
     .pill-cat-tint { @apply bg-orange-500/15 text-orange-300 border-orange-400/30 hover:bg-orange-500/25; }
     .pill-mode-tint { @apply bg-blue-500/15 text-blue-300 border-blue-400/30 hover:bg-blue-500/25; }
-    .pill-tag-tint { @apply bg-green-500/15 text-green-300 border-green-400/30 hover:bg-green-500/25; }
+    .pill-tag-tint { @apply bg-pink-500/15 text-pink-300 border-pink-400/30 hover:bg-pink-500/25; }
     .pill-neutral { @apply bg-fg/10 text-fg/80 border-fg/25 hover:border-neon/50 hover:text-neon; }
-
-    /* Active toggle / panel focus */
-    .filter-toggle[aria-expanded="true"] { @apply ring-2 ring-neon/60; }
-    #exclusive-toggle[aria-pressed="true"] { @apply bg-neon/20 text-neon ring-2 ring-neon/50; }
 
     /* Items inside dropdown panel */
     .pill-cat { @apply bg-orange-500/10 text-orange-300 border-orange-400/30; }
     .pill-mode { @apply bg-blue-500/10 text-blue-300 border-blue-400/30; }
-    .pill-tag { @apply bg-green-500/10 text-green-300 border-green-400/30; }
+    .pill-tag { @apply bg-pink-500/10 text-pink-300 border-pink-400/30; }
+
+    .filter-toggle[aria-expanded="true"] { @apply ring-2 ring-neon/60; }
+    #exclusive-toggle[aria-pressed="true"] { @apply bg-neon/20 text-neon ring-2 ring-neon/50; }
     .filter-item { @apply cursor-pointer; }
     .filter-item[aria-pressed="true"] { @apply ring-2 ring-neon/60; }
 
     .filter-panel {
       @apply absolute z-50 mt-2 min-w-[14rem] max-w-xs bg-bg/95 backdrop-blur border border-fg/25 rounded-md shadow-lg p-2;
     }
-    .filter-panel.hidden { display: none; }
-    .panel-inner {
-      @apply flex flex-wrap gap-2 overflow-y-auto;
-    }
-    .panel-inner.max-h-72 { max-height: 18rem; }
+    .filter-panel.hidden { display:none; }
+    .panel-inner { @apply flex flex-wrap gap-2 overflow-y-auto max-h-72; }
     .panel-inner::-webkit-scrollbar { width:6px; }
     .panel-inner::-webkit-scrollbar-thumb { @apply bg-fg/30 rounded; }
 
-    /* Result count */
     #result-count { @apply text-muted; }
   </style>
 
   <script type="module">
-    // Utility selectors
-    const qs = (sel) => document.querySelector(sel);
-    const qsa = (sel) => Array.from(document.querySelectorAll(sel));
+    const qs = (s) => document.querySelector(s);
+    const qsa = (s) => Array.from(document.querySelectorAll(s));
 
-    // State
     const selected = {
       category: new Set(),
       mode: new Set(),
@@ -266,7 +277,6 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
     };
     let exclusive = false;
 
-    // Elements
     const gameGrid = qs('#game-grid');
     const clearBtn = qs('#clear-filters');
     const exclusiveBtn = qs('#exclusive-toggle');
@@ -279,10 +289,10 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       clearBtn.disabled = !any;
     }
 
-    function matchGame(el) {
-      const type = el.getAttribute('data-type') || '';
-      const mode = el.getAttribute('data-mode') || '';
-      const tags = (el.getAttribute('data-tags') || '').split(',').filter(Boolean);
+    function matchGame(li) {
+      const type = li.getAttribute('data-type') || '';
+      const mode = li.getAttribute('data-mode') || '';
+      const tags = (li.getAttribute('data-tags') || '').split(',').filter(Boolean);
 
       const hasFilters =
         selected.category.size || selected.mode.size || selected.tag.size;
@@ -290,7 +300,6 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       if (!hasFilters) return true;
 
       if (!exclusive) {
-        // OR logic across all
         if (selected.category.has(type)) return true;
         if (selected.mode.has(mode)) return true;
         if (selected.tag.size) {
@@ -301,12 +310,8 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         return false;
       }
 
-      // Exclusive logic:
-      // A. If categories selected -> type must be in selected.category
       if (selected.category.size && !selected.category.has(type)) return false;
-      // B. If modes selected -> mode must be in selected.mode
       if (selected.mode.size && !selected.mode.has(mode)) return false;
-      // C. If tags selected -> ALL selected tags must be present
       if (selected.tag.size) {
         for (const t of selected.tag) {
           if (!tags.includes(t)) return false;
@@ -335,8 +340,8 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       const value = btn.getAttribute('data-value');
       if (!type || !value) return;
       const set = selected[type];
-      const active = btn.getAttribute('aria-pressed') === 'true';
-      if (active) {
+      const pressed = btn.getAttribute('aria-pressed') === 'true';
+      if (pressed) {
         set.delete(value);
         btn.setAttribute('aria-pressed','false');
       } else {
@@ -370,7 +375,6 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       applyFilters();
     });
 
-    // Dropdown panels
     function closeAllPanels(exceptId) {
       panelToggles.forEach(t => {
         const id = t.getAttribute('data-panel');
@@ -409,7 +413,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       if (e.key === 'Escape') closeAllPanels();
     });
 
-    // Initial
+    // Init
     updateClearBtn();
     applyFilters();
   </script>
