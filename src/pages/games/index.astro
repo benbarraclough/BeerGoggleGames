@@ -3,280 +3,479 @@ import Layout from '../../components/Layout.astro';
 import { getCollection } from 'astro:content';
 import { withBase } from '../../lib/paths';
 import { canonical } from '../../lib/urls';
-import { playerModeClass, playerModeLabel, playerModeSlug } from '../../lib/playerMode';
-import CardLink from '../../components/CardLink.astro';
 import { excludeLegacyNoise } from '../../lib/filters';
+import { playerModeSlug, playerModeLabel } from '../../lib/playerMode';
+import CardLink from '../../components/CardLink.astro';
 
-// Load all games (exclude legacy if helper available)
-const games = excludeLegacyNoise(await getCollection('games'))
+/*
+  Unified Games Page
+  - Displays ALL games
+  - Three dropdown filter popovers (Categories, Player Modes, Tags)
+  - Filters are multi-select
+  - Default logic: UNION / OR across every selected token in any group
+  - Exclusive mode (toggle): AND across groups (and ALL selected tags must be present).
+    NOTE: Selecting multiple categories or multiple modes in exclusive mode
+          still uses OR within that group (otherwise impossible to match two categories).
+          Tags are treated strictly (all selected tags must be present).
+*/
+
+const allGames = excludeLegacyNoise(await getCollection('games'))
   .sort((a,b)=> (a.data.title||'').localeCompare(b.data.title||''));
 
-// Collect distinct categories (types), modes, and tags.
-const categorySet = new Set<string>();
-const modeSlugToRaw = new Map<string,string>(); // Keep one raw sample for label
-const tagSet = new Set<string>();
-
-for (const g of games) {
-  const type = (g.data.type || 'misc').toString();
-  categorySet.add(type);
-
-  const rawMode = g.data.format || g.data.players;
-  if (rawMode) {
-    const slug = playerModeSlug(rawMode);
-    if (!modeSlugToRaw.has(slug)) modeSlugToRaw.set(slug, rawMode);
-  }
-
-  const tags = Array.isArray(g.data.tags) ? g.data.tags : [];
-  tags.forEach(t => tagSet.add(t));
+interface GameMeta {
+  id: string;
+  title: string;
+  type: string;
+  rawMode?: string;
+  modeSlug?: string;
+  tags: string[];
+  href: string;
 }
 
-const categories = Array.from(categorySet).sort((a,b)=> a.localeCompare(b));
-const modes = Array.from(modeSlugToRaw.entries())
-  .map(([slug, raw]) => ({ slug, raw, label: playerModeLabel(raw) }))
-  .sort((a,b)=> a.label.localeCompare(b.label));
-const tags = Array.from(tagSet).sort((a,b)=> a.localeCompare(b));
+const games: GameMeta[] = allGames.map(g => {
+  const type = (g.data.type || 'misc').toString();
+  const slugParts = g.slug.split('/');
+  const leaf = slugParts[slugParts.length - 1];
+  const rawMode = g.data.format || g.data.players;
+  const modeSlug = rawMode ? playerModeSlug(rawMode) : undefined;
+  const tags = Array.isArray(g.data.tags) ? g.data.tags : [];
+  return {
+    id: g.id,
+    title: g.data.title,
+    type,
+    rawMode,
+    modeSlug,
+    tags,
+    href: withBase(`games/${type}/${leaf}/`)
+  };
+});
+
+// Distinct sets + counts
+const categoryCounts = new Map<string, number>();
+const modeCounts = new Map<string, { count: number, label: string }>();
+const tagCounts = new Map<string, number>();
+
+for (const g of games) {
+  categoryCounts.set(g.type, (categoryCounts.get(g.type) || 0) + 1);
+  if (g.modeSlug && g.rawMode) {
+    const current = modeCounts.get(g.modeSlug);
+    if (current) {
+      current.count += 1;
+    } else {
+      modeCounts.set(g.modeSlug, { count: 1, label: playerModeLabel(g.rawMode) });
+    }
+  }
+  for (const t of g.tags) {
+    tagCounts.set(t, (tagCounts.get(t) || 0) + 1);
+  }
+}
+
+const categories = Array.from(categoryCounts.entries()).sort((a,b)=> a[0].localeCompare(b[0]));
+const modes = Array.from(modeCounts.entries()).sort((a,b)=> a[1].label.localeCompare(b[1].label));
+const tags = Array.from(tagCounts.entries()).sort((a,b)=> a[0].localeCompare(b[0]));
 
 const pageCanonical = canonical(Astro.url.pathname, Astro.site);
-const totalCount = games.length;
 ---
 <Layout
   title="Games"
-  description="Browse all drinking games. Filter by category, player mode, or tags."
+  description="All drinking games. Filter by category, player mode, or tags."
   canonical={pageCanonical}
   wide={true}
 >
   <h1 class="font-display text-4xl mb-4">Games</h1>
-  <p class="text-sm text-muted mb-6">
-    Browse all games. Use filters (OR logic: any selected filter shows matching games).
+  <p class="text-sm text-muted mb-4">
+    Filter by category (orange), player mode (blue), or tag (green). Default logic: any match.
+    Enable Exclusive for stricter intersection.
   </p>
 
-  <section class="mb-8 space-y-4" id="filters">
-    <div class="flex flex-wrap gap-4 items-center">
-      <strong class="text-xs tracking-wide uppercase text-muted">Filters</strong>
-      <button id="clear-filters" class="text-xs px-3 py-1 border border-fg/30 rounded-sm hover:border-neon/50 hover:text-neon transition-colors disabled:opacity-40 disabled:cursor-not-allowed" disabled>
-        Clear Filters
-      </button>
-      <span id="result-count" class="text-xs text-muted"></span>
+  <!-- Filter Bar -->
+  <div class="relative mb-6" id="filter-bar">
+    <div class="flex flex-wrap gap-2 items-center">
+      <span class="text-[11px] uppercase tracking-wide text-muted/80 mr-2">Filters:</span>
+
+      <div class="relative" data-filter-wrapper>
+        <button
+          class="filter-toggle pill-base pill-category-tint"
+          data-panel="categories"
+          aria-expanded="false"
+          aria-controls="panel-categories"
+          type="button"
+        >Categories</button>
+        <div
+          id="panel-categories"
+          class="filter-panel hidden"
+          role="group"
+          aria-label="Categories"
+          data-panel
+        >
+          <div class="panel-content">
+            <div class="panel-grid">
+              {categories.map(([cat, count]) => (
+                <button
+                  type="button"
+                  class="filter-item pill-base pill-category"
+                  data-filter-type="category"
+                  data-value={cat}
+                  aria-pressed="false"
+                >
+                  <span>{cat}</span>
+                  <span class="count">{count}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="relative" data-filter-wrapper>
+        <button
+          class="filter-toggle pill-base pill-mode-tint"
+          data-panel="modes"
+          aria-expanded="false"
+          aria-controls="panel-modes"
+          type="button"
+        >Player Modes</button>
+        <div
+          id="panel-modes"
+          class="filter-panel hidden"
+          role="group"
+          aria-label="Player Modes"
+          data-panel
+        >
+          <div class="panel-content">
+            <div class="panel-grid">
+              {modes.map(([slug, info]) => (
+                <button
+                  type="button"
+                  class="filter-item pill-base pill-mode"
+                  data-filter-type="mode"
+                  data-value={slug}
+                  aria-pressed="false"
+                >
+                  <span>{info.label}</span>
+                  <span class="count">{info.count}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="relative" data-filter-wrapper>
+        <button
+          class="filter-toggle pill-base pill-tag-tint"
+            data-panel="tags"
+          aria-expanded="false"
+          aria-controls="panel-tags"
+          type="button"
+        >Tags</button>
+        <div
+          id="panel-tags"
+          class="filter-panel hidden max-h-80"
+          role="group"
+          aria-label="Tags"
+          data-panel
+        >
+          <div class="panel-content">
+            <div class="panel-grid">
+              {tags.map(([t, count]) => (
+                <button
+                  type="button"
+                  class="filter-item pill-base pill-tag"
+                  data-filter-type="tag"
+                  data-value={t}
+                  aria-pressed="false"
+                >
+                  <span>{t}</span>
+                  <span class="count">{count}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button
+        id="exclusive-toggle"
+        type="button"
+        aria-pressed="false"
+        class="pill-base text-xs bg-fg/10 border border-fg/30 hover:border-neon/50 hover:text-neon transition-colors"
+        title="Exclusive mode: game must satisfy each selected group (tags all required)"
+      >Exclusive</button>
+
+      <button
+        id="clear-filters"
+        class="pill-base text-xs bg-fg/10 border border-fg/30 hover:border-neon/50 hover:text-neon transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+        type="button"
+        disabled
+      >Clear</button>
+
+      <span id="result-count" class="ml-auto text-xs text-muted"></span>
     </div>
+  </div>
 
-    <div class="grid gap-4 md:grid-cols-3">
-      <!-- Categories -->
-      <details class="border border-fg/20 rounded-sm p-4" open>
-        <summary class="cursor-pointer font-semibold text-sm mb-2 hover:text-neon outline-none focus-visible:ring-2 focus-visible:ring-neon/60 rounded-sm">Categories</summary>
-        <div class="flex flex-wrap gap-2 mt-2" id="filter-categories">
-          {categories.map(cat => (
-            <button
-              type="button"
-              class="filter-btn pill pill-category"
-              data-filter-type="category"
-              data-filter-value={cat}
-              aria-pressed="false"
-            >{cat}</button>
-          ))}
-        </div>
-      </details>
-
-      <!-- Player Modes -->
-      <details class="border border-fg/20 rounded-sm p-4" open>
-        <summary class="cursor-pointer font-semibold text-sm mb-2 hover:text-neon outline-none focus-visible:ring-2 focus-visible:ring-neon/60 rounded-sm">Player Modes</summary>
-        <div class="flex flex-wrap gap-2 mt-2" id="filter-modes">
-          {modes.map(m => (
-            <button
-              type="button"
-              class="filter-btn pill pill-mode"
-              data-filter-type="mode"
-              data-filter-value={m.slug}
-              aria-pressed="false"
-            >{m.label}</button>
-          ))}
-        </div>
-      </details>
-
-      <!-- Tags -->
-      <details class="border border-fg/20 rounded-sm p-4" open>
-        <summary class="cursor-pointer font-semibold text-sm mb-2 hover:text-neon outline-none focus-visible:ring-2 focus-visible:ring-neon/60 rounded-sm">Tags</summary>
-        <div class="flex flex-wrap gap-2 mt-2 max-h-48 overflow-y-auto pr-1" id="filter-tags">
-          {tags.map(t => (
-            <button
-              type="button"
-              class="filter-btn pill pill-tag"
-              data-filter-type="tag"
-              data-filter-value={t}
-              aria-pressed="false"
-            >{t}</button>
-          ))}
-        </div>
-      </details>
-    </div>
-
-    <p class="text-xs text-muted">
-      Logic: A game is shown if it matches any selected category OR any selected player mode OR any selected tag.
-      (No filters selected = all games.)
-    </p>
-  </section>
-
+  <!-- Game Grid -->
   {games.length === 0 ? (
     <p class="text-muted">No games found.</p>
   ) : (
-    <ul id="game-grid" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 list-none p-0 m-0">
-      {games.map(g => {
-        const type = (g.data.type || 'misc').toString();
-        const parts = g.slug.split('/');
-        const shortSlug = parts[parts.length -1];
-        const rawMode = g.data.format || g.data.players;
-        const modeSlug = rawMode ? playerModeSlug(rawMode) : '';
-        const tagsList: string[] = Array.isArray(g.data.tags) ? g.data.tags : [];
-        const href = withBase(`games/${type}/${shortSlug}/`);
-        return (
-          <li
-            class="relative group"
-            data-type={type}
-            data-mode={modeSlug}
-            data-tags={tagsList.join(',')}
+    <ul
+      id="game-grid"
+      class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 list-none p-0 m-0"
+    >
+      {games.map(g => (
+        <CardLink
+          href={g.href}
+          overlay
+          ariaLabel={`View game: ${g.title}`}
+        >
+          <span class="font-semibold leading-snug mb-2 transition-colors group-hover:text-neon group-focus-within:text-neon">
+            {g.title}
+          </span>
+          <div
+            class="flex flex-wrap gap-2 relative z-20 text-[10px] uppercase tracking-wide font-semibold"
+            data-type={g.type}
+            data-mode={g.modeSlug || ''}
+            data-tags={g.tags.join(',')}
           >
-            <CardLink
-              href={href}
-              overlay
-              ariaLabel={`View game: ${g.data.title}`}
-              as="div"
-            >
-              <span class="font-semibold leading-snug mb-2 transition-colors group-hover:text-neon group-focus-within:text-neon">
-                {g.data.title}
-              </span>
-              <div class="flex flex-wrap gap-2 relative z-20">
-                <span class="pill pill-category">{type}</span>
-                {rawMode && (
-                  <span class={`pill pill-mode ${playerModeClass(rawMode)}`}>
-                    {playerModeLabel(rawMode)}
-                  </span>
-                )}
-                {tagsList.slice(0,3).map(t => <span class="pill pill-tag">{t}</span>)}
-              </div>
-            </CardLink>
-          </li>
-        );
-      })}
+            <span class="pill-base pill-category">{g.type}</span>
+            {g.modeSlug && <span class="pill-base pill-mode">{playerModeLabel(g.rawMode!)}</span>}
+            {g.tags.slice(0, 4).map(t => <span class="pill-base pill-tag">{t}</span>)}
+          </div>
+        </CardLink>
+      ))}
     </ul>
   )}
 
   <style>
-    /* Pill base */
-    .pill {
-      @apply text-[10px] uppercase tracking-wide font-semibold px-2 py-1 rounded-sm border border-fg/30 bg-fg/5;
+    /* Base pill styling */
+    .pill-base {
+      @apply inline-flex items-center gap-1 px-2 py-1 rounded-full text-[10px] font-semibold tracking-wide whitespace-nowrap transition-colors select-none;
       line-height: 1.1;
     }
-    /* Filter pills (buttons) default + active states */
-    .filter-btn {
-      @apply cursor-pointer select-none transition-colors;
-    }
-    .filter-btn[aria-pressed="true"] {
+    /* Filter toggle (the button that opens panels) coloring */
+    .pill-category-tint { @apply bg-orange-400/15 text-orange-300 border border-orange-400/40 hover:bg-orange-400/25; }
+    .pill-mode-tint { @apply bg-blue-400/15 text-blue-300 border border-blue-400/40 hover:bg-blue-400/25; }
+    .pill-tag-tint { @apply bg-green-400/15 text-green-300 border border-green-400/40 hover:bg-green-400/25; }
+
+    /* Actual selected filter items inside panel */
+    .pill-category { @apply text-orange-300 border border-orange-400/40 bg-orange-400/10; }
+    .pill-mode { @apply text-blue-300 border border-blue-400/40 bg-blue-400/10; }
+    .pill-tag { @apply text-green-300 border border-green-400/40 bg-green-400/10; }
+
+    /* Active (pressed) state */
+    .filter-item[aria-pressed="true"] {
       @apply ring-2 ring-neon/60;
     }
-    /* Color variants */
-    .pill-category { @apply text-orange-400 border-orange-400/40 bg-orange-400/10; }
-    .pill-mode { @apply text-blue-400 border-blue-400/40 bg-blue-400/10; }
-    .pill-tag { @apply text-green-400 border-green-400/40 bg-green-400/10; }
+    .filter-toggle[aria-expanded="true"] {
+      @apply ring-2 ring-neon/60;
+    }
+    #exclusive-toggle[aria-pressed="true"] {
+      @apply ring-2 ring-neon/60 bg-neon/20 text-neon;
+    }
 
-    .filter-btn.pill-category[aria-pressed="true"] { @apply bg-orange-400/20 border-orange-400 text-orange-300; }
-    .filter-btn.pill-mode[aria-pressed="true"] { @apply bg-blue-400/20 border-blue-400 text-blue-300; }
-    .filter-btn.pill-tag[aria-pressed="true"] { @apply bg-green-400/20 border-green-400 text-green-300; }
+    /* Panels */
+    .filter-panel {
+      @apply absolute z-40 mt-2 min-w-[14rem] bg-bg/95 backdrop-blur border border-fg/25 rounded-md shadow-lg overflow-hidden;
+    }
+    .panel-content { @apply max-h-72 overflow-y-auto p-3; }
+    .panel-grid {
+      @apply flex flex-wrap gap-2;
+    }
+
+    /* Filter items in panel */
+    .filter-item {
+      @apply cursor-pointer;
+    }
+
+    /* Scrollbar subtle */
+    .panel-content::-webkit-scrollbar {
+      width: 6px;
+    }
+    .panel-content::-webkit-scrollbar-track {
+      @apply bg-transparent;
+    }
+    .panel-content::-webkit-scrollbar-thumb {
+      @apply bg-fg/30 rounded;
+    }
+
+    /* Result count subtle */
+    #result-count { @apply text-muted; }
   </style>
 
   <script type="module">
-    const gameGrid = document.getElementById('game-grid');
-    const clearBtn = document.getElementById('clear-filters');
-    const resultCount = document.getElementById('result-count');
-
+    // State
     const selected = {
       category: new Set(),
       mode: new Set(),
       tag: new Set()
     };
+    let exclusive = false;
 
-    const filterButtons = Array.from(document.querySelectorAll('.filter-btn'));
+    // Elements
+    const gameGrid = document.getElementById('game-grid');
+    const clearBtn = document.getElementById('clear-filters');
+    const resultCount = document.getElementById('result-count');
+    const exclusiveBtn = document.getElementById('exclusive-toggle');
 
-    function updateClearState() {
-      const any = Object.values(selected).some(s => s.size > 0);
+    const panelToggles = Array.from(document.querySelectorAll('.filter-toggle'));
+    const panels = new Map(panelToggles.map(btn => {
+      const id = btn.getAttribute('data-panel');
+      const panel = document.getElementById('panel-' + id);
+      return [id, panel];
+    }));
+
+    // Setup filter items
+    const filterItems = Array.from(document.querySelectorAll('.filter-item'));
+
+    function updateClearButton() {
+      const any = selected.category.size || selected.mode.size || selected.tag.size;
       clearBtn.disabled = !any;
     }
 
-    function countAndShow() {
+    function applyFilter() {
       if (!gameGrid) return;
-      const cards = Array.from(gameGrid.children);
-      const activeTokens = new Set([
-        ...selected.category,
-        ...selected.mode,
-        ...selected.tag
-      ].filter(Boolean));
+      const cards = Array.from(gameGrid.querySelectorAll('[data-type]'));
+      const anySelected = selected.category.size || selected.mode.size || selected.tag.size;
 
       let visible = 0;
-      if (activeTokens.size === 0) {
-        cards.forEach(li => {
-          (li as HTMLElement).style.display = '';
-          visible++;
-        });
-      } else {
-        cards.forEach(li => {
-          const el = li as HTMLElement;
-          const type = (el.dataset.type || '').toLowerCase();
-            const mode = (el.dataset.mode || '').toLowerCase();
-          const tags = (el.dataset.tags || '').toLowerCase().split(',').filter(Boolean);
-          // OR logic: show if any token matches type OR mode OR one of tags.
-          let match = false;
-          for (const token of activeTokens) {
-            const tk = token.toLowerCase();
-            if (tk === type || tk === mode || tags.includes(tk)) {
-              match = true;
-              break;
+      cards.forEach(card => {
+        const el = card as HTMLElement;
+        const type = el.dataset.type || '';
+        const mode = el.dataset.mode || '';
+        const tags = (el.dataset.tags || '').split(',').filter(Boolean);
+
+        let show = true;
+
+        if (anySelected) {
+          if (exclusive) {
+            // EXCLUSIVE / INTERSECTION logic:
+            // - Categories: if selected, game type must be in selected.category
+            if (selected.category.size && !selected.category.has(type)) show = false;
+            // - Modes: if selected, game mode must be in selected.mode
+            if (show && selected.mode.size && !selected.mode.has(mode)) show = false;
+            // - Tags: ALL selected tags must be present
+            if (show && selected.tag.size) {
+              for (const t of selected.tag) {
+                if (!tags.includes(t)) { show = false; break; }
+              }
             }
-          }
-          if (match) {
-            el.style.display = '';
-            visible++;
           } else {
-            el.style.display = 'none';
+            // UNION / OR logic: show if matches ANY token in ANY group
+            let match = false;
+            if (selected.category.has(type)) match = true;
+            if (!match && selected.mode.has(mode)) match = true;
+            if (!match && selected.tag.size) {
+              for (const t of selected.tag) {
+                if (tags.includes(t)) { match = true; break; }
+              }
+            }
+            show = match;
           }
-        });
-      }
-      resultCount.textContent = `Showing ${visible} of ${cards.length} games`;
+        }
+
+        el.parentElement?.parentElement?.classList; // (no-op to avoid TS removal)
+
+        if (show) {
+          (el.closest('.group') || el.parentElement)?.classList.remove('hidden');
+          visible++;
+        } else {
+          (el.closest('.group') || el.parentElement)?.classList.add('hidden');
+        }
+      });
+
+      resultCount.textContent = `Showing ${visible} of ${cards.length} games${exclusive ? ' (exclusive)' : ''}`;
     }
 
-    function toggleFilter(btn: HTMLElement) {
+    function toggleFilterItem(btn: HTMLElement) {
       const type = btn.getAttribute('data-filter-type');
-      const val = btn.getAttribute('data-filter-value');
-      if (!type || !val) return;
+      const value = btn.getAttribute('data-value');
+      if (!type || !value) return;
       const set = (selected as any)[type] as Set<string>;
-      if (btn.getAttribute('aria-pressed') === 'true') {
-        set.delete(val);
+      const pressed = btn.getAttribute('aria-pressed') === 'true';
+      if (pressed) {
+        set.delete(value);
         btn.setAttribute('aria-pressed', 'false');
       } else {
-        set.add(val);
+        set.add(value);
         btn.setAttribute('aria-pressed', 'true');
       }
-      updateClearState();
-      countAndShow();
+      updateClearButton();
+      applyFilter();
     }
 
-    filterButtons.forEach(btn => {
-      btn.addEventListener('click', () => toggleFilter(btn as HTMLElement));
-      btn.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
+    filterItems.forEach(btn => {
+      btn.addEventListener('click', () => toggleFilterItem(btn as HTMLElement));
+      btn.addEventListener('keydown', e => {
+        if (e.key === ' ' || e.key === 'Enter') {
           e.preventDefault();
-          toggleFilter(btn as HTMLElement);
+          toggleFilterItem(btn as HTMLElement);
         }
       });
     });
 
     clearBtn?.addEventListener('click', () => {
-      filterButtons.forEach(btn => btn.setAttribute('aria-pressed','false'));
-      selected.category.clear();
-      selected.mode.clear();
-      selected.tag.clear();
-      updateClearState();
-      countAndShow();
+      ['category','mode','tag'].forEach(k => (selected as any)[k].clear());
+      filterItems.forEach(b => b.setAttribute('aria-pressed','false'));
+      updateClearButton();
+      applyFilter();
+    });
+
+    exclusiveBtn?.addEventListener('click', () => {
+      exclusive = !exclusive;
+      exclusiveBtn.setAttribute('aria-pressed', exclusive ? 'true' : 'false');
+      applyFilter();
+    });
+
+    // Panel toggle handling
+    function closeAllPanels(except?: HTMLElement|null) {
+      panelToggles.forEach(t => {
+        const pid = t.getAttribute('data-panel');
+        if (!pid) return;
+        const panel = panels.get(pid);
+        if (!panel) return;
+        if (panel === except) return;
+        panel.classList.add('hidden');
+        t.setAttribute('aria-expanded', 'false');
+      });
+    }
+
+    panelToggles.forEach(toggle => {
+      toggle.addEventListener('click', e => {
+        const pid = toggle.getAttribute('data-panel');
+        if (!pid) return;
+        const panel = panels.get(pid);
+        if (!panel) return;
+        const isOpen = !panel.classList.contains('hidden');
+        if (isOpen) {
+          panel.classList.add('hidden');
+          toggle.setAttribute('aria-expanded','false');
+        } else {
+          closeAllPanels(panel);
+          panel.classList.remove('hidden');
+          toggle.setAttribute('aria-expanded','true');
+          // Focus first item if any
+          const first = panel.querySelector('.filter-item') as HTMLElement | null;
+          if (first) {
+            setTimeout(()=>first.focus({ preventScroll: true }), 0);
+          }
+        }
+      });
+    });
+
+    // Click outside / escape to close
+    document.addEventListener('click', e => {
+      const target = e.target as HTMLElement;
+      if (target.closest('[data-filter-wrapper]')) return;
+      closeAllPanels();
+    });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        closeAllPanels();
+      }
     });
 
     // Initial
-    countAndShow();
+    updateClearButton();
+    applyFilter();
   </script>
 </Layout>
