@@ -8,11 +8,14 @@ import { playerModeSlug, playerModeLabel } from '../../lib/playerMode';
 import CardLink from '../../components/CardLink.astro';
 
 /*
-  Games Page (Tag toggle refinement + improved image fallback)
-  - Tag pills hidden by default; show a small inline button: "Show N tags"
-  - On expand: renders tag pills, button changes to "Hide N tags"
-  - Collapse hides pills again (removes them from DOM for consistent height)
-  - Image path tries: g.data.image || /images/games/{leaf}.webp
+  Games Page
+  - Tag display updated: show a pink "{N} tag(s)" pill.
+  - Desktop: hover (or keyboard focus) over the count pill reveals a floating popover
+             with all tag pills (no card height change).
+  - Mobile / touch: tap the count pill to toggle popover (tap outside closes).
+  - Accessible: button has aria-expanded + aria-controls; popover is role="group".
+  - Still uses overlay CardLink so whole card is clickable EXCEPT interactive elements
+    (the tag count pill & its popover), which are above the overlay via z-index.
 */
 
 const raw = excludeLegacyNoise(await getCollection('games'));
@@ -24,10 +27,6 @@ const allGames = raw
     const rawMode = g.data.format || g.data.players;
     const modeSlug = rawMode ? playerModeSlug(rawMode) : '';
     const tags = Array.isArray(g.data.tags) ? g.data.tags : [];
-    const providedImage = g.data.image ? withBase(g.data.image.replace(/^\//,''))
-      : withBase(`images/games/${leaf}.webp`);
-    // Optional extra fallback (uncomment if needed):
-    // const image = providedImage; // or try another path if first 404: e.g. /img/games/{leaf}.webp
     return {
       title: g.data.title,
       type,
@@ -35,13 +34,13 @@ const allGames = raw
       modeSlug,
       tags,
       leaf,
-      image: providedImage,
+      image: withBase(`images/games/${leaf}.webp`),
       href: withBase(`games/${type}/${leaf}/`)
     };
   })
   .sort((a,b)=> (a.title||'').localeCompare(b.title||''));
 
-// Distinct sets + counts
+// Build filter metadata
 const categoryCounts = new Map<string, number>();
 const modeCounts = new Map<string, { count: number; label: string }>();
 const tagCounts = new Map<string, number>();
@@ -61,6 +60,7 @@ for (const g of allGames) {
 const categories = Array.from(categoryCounts.entries()).sort((a,b)=> a[0].localeCompare(b[0]));
 const modes = Array.from(modeCounts.entries()).sort((a,b)=> a[1].label.localeCompare(b[1].label));
 const tags = Array.from(tagCounts.entries()).sort((a,b)=> a[0].localeCompare(b[0]));
+
 const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 ---
 <Layout
@@ -71,7 +71,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 >
   <h1 class="font-display text-4xl mb-4">Games</h1>
   <p class="text-sm text-muted mb-5">
-    Filter by category, player mode or tags. Default = any match. Exclusive = must satisfy each selected group (and all selected tags). Click “Show tags” on a game to reveal its tags.
+    Use the dropdown filters. Default = any match. Exclusive = must match each selected group (all tags). Hover or tap the tag count pill to view a game’s tags.
   </p>
 
   <!-- Filter Bar -->
@@ -86,7 +86,8 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
           <div class="panel-inner">
             {categories.map(([cat, count]) => (
               <button type="button" class="filter-item pill pill-cat" data-filter-type="category" data-value={cat} aria-pressed="false">
-                <span>{cat}</span><span class="count">{count}</span>
+                <span>{cat}</span>
+                <span class="count">{count}</span>
               </button>
             ))}
           </div>
@@ -100,7 +101,8 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
           <div class="panel-inner">
             {modes.map(([slug, info]) => (
               <button type="button" class="filter-item pill pill-mode" data-filter-type="mode" data-value={slug} aria-pressed="false">
-                <span>{info.label}</span><span class="count">{info.count}</span>
+                <span>{info.label}</span>
+                <span class="count">{info.count}</span>
               </button>
             ))}
           </div>
@@ -114,7 +116,8 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
           <div class="panel-inner max-h-72">
             {tags.map(([t, count]) => (
               <button type="button" class="filter-item pill pill-tag" data-filter-type="tag" data-value={t} aria-pressed="false">
-                <span>{t}</span><span class="count">{count}</span>
+                <span>{t}</span>
+                <span class="count">{count}</span>
               </button>
             ))}
           </div>
@@ -122,8 +125,9 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       </div>
 
       <!-- Exclusive & Clear -->
-      <button id="exclusive-toggle" type="button" class="pill pill-neutral" aria-pressed="false" title="Exclusive: must match each selected group (AND logic across groups; all selected tags).">Exclusive</button>
+      <button id="exclusive-toggle" type="button" class="pill pill-neutral" aria-pressed="false" title="Exclusive: must match each selected group (AND logic); all selected tags must be present.">Exclusive</button>
       <button id="clear-filters" type="button" class="pill pill-neutral disabled:opacity-40 disabled:cursor-not-allowed" disabled>Clear</button>
+
       <span id="result-count" class="text-xs text-muted ml-auto"></span>
     </div>
   </div>
@@ -133,48 +137,62 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
     <p class="text-muted">No games found.</p>
   ) : (
     <ul id="game-grid" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 list-none p-0 m-0">
-      {allGames.map(g => (
-        <li
-          class="list-none p-0 m-0"
-          data-type={g.type}
-          data-mode={g.modeSlug || ''}
-          data-tags={g.tags.join(',')}
-        >
-          <CardLink href={g.href} overlay ariaLabel={`View game: ${g.title}`} as="div">
-            <picture class="mb-2 w-full block">
-              <img
-                src={g.image}
-                alt={g.title}
-                loading="lazy"
-                decoding="async"
-                class="w-full aspect-video object-cover rounded-sm border border-fg/15 bg-fg/5"
-                onerror="this.style.display='none'"
-              />
-            </picture>
-            <span class="font-semibold leading-snug mb-2 transition-colors group-hover:text-neon group-focus-within:text-neon">
-              {g.title}
-            </span>
-            <div class="flex flex-wrap gap-2 text-[10px] uppercase tracking-wide font-semibold relative z-20">
-              <span class="pill pill-cat">{g.type}</span>
-              {g.modeSlug && <span class="pill pill-mode">{playerModeLabel(g.rawMode!)}</span>}
-            </div>
-            {g.tags.length > 0 && (
-              <div class="mt-2 relative z-30">
-                <button
-                  type="button"
-                  class="tag-toggle text-[10px] font-medium text-pink-300 hover:text-pink-200 underline underline-offset-2"
-                  data-all-tags={g.tags.join(',')}
-                  data-count={g.tags.length}
-                  aria-expanded="false"
-                >
-                  Show {g.tags.length} tag{g.tags.length !== 1 && 's'}
-                </button>
-                <div class="tags-expand hidden mt-2 flex-wrap gap-2" aria-hidden="true"></div>
+      {allGames.map(g => {
+        const tagPopoverId = `tags-${g.leaf}`;
+        return (
+          <li
+            class="list-none p-0 m-0"
+            data-type={g.type}
+            data-mode={g.modeSlug || ''}
+            data-tags={g.tags.join(',')}
+          >
+            <CardLink href={g.href} overlay ariaLabel={`View game: ${g.title}`} as="div">
+              <picture class="mb-2 w-full">
+                <img
+                  src={g.image}
+                  alt={g.title}
+                  loading="lazy"
+                  decoding="async"
+                  class="w-full aspect-video object-cover rounded-sm border border-fg/15 bg-fg/5"
+                  onerror="this.style.display='none'"
+                />
+              </picture>
+              <span class="font-semibold leading-snug mb-2 transition-colors group-hover:text-neon group-focus-within:text-neon">
+                {g.title}
+              </span>
+              <div class="flex flex-wrap gap-2 text-[10px] uppercase tracking-wide font-semibold relative z-20">
+                <span class="pill pill-cat">{g.type}</span>
+                {g.modeSlug && <span class="pill pill-mode">{playerModeLabel(g.rawMode!)}</span>}
+
+                {g.tags.length > 0 && (
+                  <div class="relative group/tag inline-block">
+                    <button
+                      type="button"
+                      class="pill pill-tag-count"
+                      data-tag-trigger
+                      data-open="false"
+                      aria-expanded="false"
+                      aria-controls={tagPopoverId}
+                      title={`View tags (${g.tags.join(', ')})`}
+                    >
+                      {g.tags.length} tag{g.tags.length !== 1 && 's'}
+                    </button>
+                    <div
+                      id={tagPopoverId}
+                      class="tags-popover hidden absolute left-0 top-full mt-1 z-50 p-2 rounded-md border border-pink-400/30 bg-bg/95 backdrop-blur shadow-lg flex flex-wrap gap-2 min-w-[6rem]"
+                      role="group"
+                      aria-label={`${g.title} tags`}
+                      data-tags-popover
+                    >
+                      {g.tags.map(t => <span class="pill pill-tag">{t}</span>)}
+                    </div>
+                  </div>
+                )}
               </div>
-            )}
-          </CardLink>
-        </li>
-      ))}
+            </CardLink>
+          </li>
+        );
+      })}
     </ul>
   )}
 
@@ -183,43 +201,49 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       @apply inline-flex items-center gap-1 px-2 py-1 rounded-full text-[10px] font-semibold tracking-wide whitespace-nowrap transition-colors select-none border;
       line-height:1.1;
     }
-    /* Tinted toggles */
+    /* Tinted filter toggles */
     .pill-cat-tint { @apply bg-orange-500/15 text-orange-300 border-orange-400/30 hover:bg-orange-500/25; }
     .pill-mode-tint { @apply bg-blue-500/15 text-blue-300 border-blue-400/30 hover:bg-blue-500/25; }
     .pill-tag-tint { @apply bg-pink-500/15 text-pink-300 border-pink-400/30 hover:bg-pink-500/25; }
     .pill-neutral { @apply bg-fg/10 text-fg/80 border-fg/25 hover:border-neon/50 hover:text-neon; }
 
-    /* Items inside dropdown panel */
+    /* Filter panel pills */
     .pill-cat { @apply bg-orange-500/10 text-orange-300 border-orange-400/30; }
     .pill-mode { @apply bg-blue-500/10 text-blue-300 border-blue-400/30; }
     .pill-tag { @apply bg-pink-500/10 text-pink-300 border-pink-400/30; }
+
+    .pill-tag-count { @apply bg-pink-500/15 text-pink-300 border-pink-400/30 hover:bg-pink-500/25 cursor-pointer; }
+    .pill-tag-count[data-open="true"] { @apply ring-2 ring-neon/60; }
 
     .filter-toggle[aria-expanded="true"] { @apply ring-2 ring-neon/60; }
     #exclusive-toggle[aria-pressed="true"] { @apply bg-neon/20 text-neon ring-2 ring-neon/50; }
     .filter-item { @apply cursor-pointer; }
     .filter-item[aria-pressed="true"] { @apply ring-2 ring-neon/60; }
 
-    .filter-panel {
-      @apply absolute z-50 mt-2 min-w-[14rem] max-w-xs bg-bg/95 backdrop-blur border border-fg/25 rounded-md shadow-lg p-2;
-    }
+    .filter-panel { @apply absolute z-50 mt-2 min-w-[14rem] max-w-xs bg-bg/95 backdrop-blur border border-fg/25 rounded-md shadow-lg p-2; }
     .filter-panel.hidden { display:none; }
     .panel-inner { @apply flex flex-wrap gap-2 overflow-y-auto max-h-72; }
     .panel-inner::-webkit-scrollbar { width:6px; }
     .panel-inner::-webkit-scrollbar-thumb { @apply bg-fg/30 rounded; }
 
-    .tags-expand .pill-tag { @apply cursor-default; }
-
-    .tag-toggle { @apply relative; }
-    .tag-toggle[aria-expanded="true"] { @apply text-pink-200; }
-
     #result-count { @apply text-muted; }
+
+    /* Tag popover visibility (desktop hover / focus) */
+    .group\/tag:hover > .tags-popover,
+    .group\/tag:focus-within > .tags-popover {
+      display: flex;
+    }
+    /* Attribute-based show (for touch toggle) */
+    .pill-tag-count[data-open="true"] + .tags-popover {
+      display: flex;
+    }
   </style>
 
   <script type="module">
     const qs = s => document.querySelector(s);
     const qsa = s => Array.from(document.querySelectorAll(s));
 
-    // Filtering State
+    // Filter logic (unchanged from previous version except not re-rendering tags)
     const selected = { category: new Set(), mode: new Set(), tag: new Set() };
     let exclusive = false;
 
@@ -316,6 +340,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       applyFilters();
     });
 
+    // Dropdown panels
     function closeAllPanels(exceptId) {
       panelToggles.forEach(t => {
         const id = t.getAttribute('data-panel');
@@ -352,51 +377,38 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       if (e.key === 'Escape') closeAllPanels();
     });
 
-    // Tag expansion
-    function buildTag(tag) {
-      const span = document.createElement('span');
-      span.className = 'pill pill-tag';
-      span.textContent = tag;
-      return span;
-    }
-
-    function toggleTags(btn) {
-      const expanded = btn.getAttribute('aria-expanded') === 'true';
-      const container = btn.parentElement.querySelector('.tags-expand');
-      if (!container) return;
-      if (expanded) {
-        // Hide
-        btn.setAttribute('aria-expanded','false');
-        container.classList.add('hidden');
-        container.setAttribute('aria-hidden','true');
-        container.textContent = '';
-        const count = btn.getAttribute('data-count');
-        btn.textContent = `Show ${count} tag${count === '1' ? '' : 's'}`;
-      } else {
-        // Show
-        const all = (btn.getAttribute('data-all-tags') || '').split(',').filter(Boolean);
-        container.textContent = '';
-        all.forEach(t => container.appendChild(buildTag(t)));
-        btn.setAttribute('aria-expanded','true');
-        container.classList.remove('hidden');
-        container.setAttribute('aria-hidden','false');
-        const count = btn.getAttribute('data-count');
-        btn.textContent = `Hide ${count} tag${count === '1' ? '' : 's'}`;
-      }
-    }
-
-    qsa('.tag-toggle').forEach(btn => {
-      btn.addEventListener('click', e => {
-        e.stopPropagation();
-        e.preventDefault(); // Prevent overlay anchor navigation
-        toggleTags(btn);
+    // Tag popover (hover already handled by CSS; add tap/click toggle for touch)
+    const tagTriggers = qsa('[data-tag-trigger]');
+    function closeAllTagPopovers(except) {
+      tagTriggers.forEach(tr => {
+        if (tr === except) return;
+        tr.setAttribute('data-open','false');
+        tr.setAttribute('aria-expanded','false');
       });
-      btn.addEventListener('keydown', e => {
-        if (e.key === ' ' || e.key === 'Enter') {
-          e.preventDefault();
-          toggleTags(btn);
+    }
+    tagTriggers.forEach(tr => {
+      tr.addEventListener('click', e => {
+        e.stopPropagation();
+        // Toggle open attribute (for touch)
+        const isOpen = tr.getAttribute('data-open') === 'true';
+        if (isOpen) {
+          tr.setAttribute('data-open','false');
+          tr.setAttribute('aria-expanded','false');
+        } else {
+          closeAllTagPopovers(tr);
+          tr.setAttribute('data-open','true');
+          tr.setAttribute('aria-expanded','true');
         }
       });
+      // Prevent overlay anchor navigation on mousedown
+      tr.addEventListener('mousedown', e => e.stopPropagation());
+    });
+
+    document.addEventListener('click', e => {
+      const t = e.target;
+      if (!t.closest('.group\\/tag')) {
+        closeAllTagPopovers(null);
+      }
     });
 
     // Init
