@@ -5,18 +5,18 @@ import { withBase } from '../../lib/paths';
 import { canonical } from '../../lib/urls';
 import { excludeLegacyNoise } from '../../lib/filters';
 import { playerModeSlug, playerModeLabel } from '../../lib/playerMode';
-import CardLink from '../../components/CardLink.astro';
 
 /*
   Games Page
-  Update: Make whole card clickable again while keeping internal tag popover button usable.
-  Approach:
-    - Keep CardLink overlay (so anchor can cover full card).
-    - Disable pointer events on the content wrapper (first child inside CardLink outer wrapper).
-    - Re-enable pointer events only on specifically interactive elements (tag count button + its popover) via .allow-pointer.
-    - This avoids changing CardLink globally and prevents breaking other pages.
+  Fix: Cards were not clickable due to overlay stacking/pointer-events.
+  Solution: Custom card markup (not using CardLink) with:
+    - Anchor placed BEHIND the visible card content (absolute inset-0).
+    - Card content has pointer-events:none so clicks pass through to anchor.
+    - Interactive elements (tag count pill + popover) get pointer-events:auto.
+  This guarantees whole card clickability + interactive controls.
 
-  Tag logic: Hover (desktop) or tap (mobile) the "{N} tag(s)" pill to show popover.
+  Tag handling: "{N} tag(s)" pill (pink). Hover (desktop) or tap (mobile) opens a floating popover with tag pills.
+  Filtering logic unchanged.
 */
 
 const raw = excludeLegacyNoise(await getCollection('games'));
@@ -35,13 +35,13 @@ const allGames = raw
       modeSlug,
       tags,
       leaf,
-      image: withBase(`images/${leaf}.webp`),
+      image: withBase(`images/${leaf}.webp`),   // Updated path per your request
       href: withBase(`games/${type}/${leaf}/`)
     };
   })
   .sort((a,b)=> (a.title||'').localeCompare(b.title||''));
 
-// Filter metadata
+// Build filter metadata
 const categoryCounts = new Map<string, number>();
 const modeCounts = new Map<string, { count: number; label: string }>();
 const tagCounts = new Map<string, number>();
@@ -142,18 +142,12 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         const tagPopoverId = `tags-${g.leaf}`;
         return (
           <li
-            class="list-none p-0 m-0"
+            class="relative group"
             data-type={g.type}
             data-mode={g.modeSlug || ''}
             data-tags={g.tags.join(',')}
           >
-            <CardLink
-              class="card-click"
-              href={g.href}
-              overlay
-              ariaLabel={`View game: ${g.title}`}
-              as="div"
-            >
+            <div class="card-body flex flex-col h-full border border-fg/20 rounded-sm p-4 transition-colors pointer-events-none group-hover:border-neon/40">
               <picture class="mb-2 w-full allow-pointer">
                 <img
                   src={g.image}
@@ -164,13 +158,12 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
                   onerror="this.style.display='none'"
                 />
               </picture>
-              <span class="font-semibold leading-snug mb-2 transition-colors group-hover:text-neon group-focus-within:text-neon allow-pointer">
+              <span class="font-semibold leading-snug mb-2 transition-colors allow-pointer group-hover:text-neon">
                 {g.title}
               </span>
-              <div class="flex flex-wrap gap-2 text-[10px] uppercase tracking-wide font-semibold relative z-20">
+              <div class="flex flex-wrap gap-2 text-[10px] uppercase tracking-wide font-semibold relative z-10">
                 <span class="pill pill-cat allow-pointer">{g.type}</span>
                 {g.modeSlug && <span class="pill pill-mode allow-pointer">{playerModeLabel(g.rawMode!)}</span>}
-
                 {g.tags.length > 0 && (
                   <div class="relative group/tag inline-block allow-pointer">
                     <button
@@ -196,7 +189,14 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
                   </div>
                 )}
               </div>
-            </CardLink>
+            </div>
+            <a
+              href={g.href}
+              aria-label={`View game: ${g.title}`}
+              class="absolute inset-0 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/60 focus-visible:border-neon/60"
+            >
+              <span class="sr-only">{g.title}</span>
+            </a>
           </li>
         );
       })}
@@ -235,7 +235,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 
     #result-count { @apply text-muted; }
 
-    /* Tag popover show on hover or focus */
+    /* Tag popover show on hover or focus (desktop) */
     .group\/tag:hover > .tags-popover,
     .group\/tag:focus-within > .tags-popover {
       display: flex;
@@ -245,16 +245,14 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       display: flex;
     }
 
-    /* Make the card body ignore pointer events so the underlying anchor (overlay) gets clicks */
-    .card-click > div:first-child {
-      pointer-events: none;
-    }
-    /* Re-enable for interactive / needed elements */
-    .card-click > div:first-child .allow-pointer,
-    .card-click > div:first-child button,
-    .card-click > div:first-child .tags-popover {
-      pointer-events: auto;
-    }
+    /* Pointer-events management:
+       - card-body ignores pointer events so click passes to anchor
+       - allow-pointer re-enables on interactive/needed elements
+    */
+    .card-body { pointer-events: none; }
+    .card-body .allow-pointer,
+    .card-body button,
+    .card-body .tags-popover { pointer-events: auto; }
   </style>
 
   <script type="module">
@@ -381,7 +379,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
           toggle.setAttribute('aria-expanded','false');
         } else {
           closeAllPanels(id);
-            panel.classList.remove('hidden');
+          panel.classList.remove('hidden');
           toggle.setAttribute('aria-expanded','true');
         }
       });
@@ -395,7 +393,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       if (e.key === 'Escape') closeAllPanels();
     });
 
-    // Tag popover: hover handled by CSS; implement tap toggle
+    // Tag popover tap toggle (hover handled by CSS)
     const tagTriggers = qsa('[data-tag-trigger]');
     function closeAllTagPopovers(except) {
       tagTriggers.forEach(tr => {
@@ -417,10 +415,9 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
           tr.setAttribute('aria-expanded','true');
         }
       });
-      // Prevent the overlay link from triggering on mousedown
+      // Prevent text selection / anchor interference
       tr.addEventListener('mousedown', e => e.stopPropagation());
     });
-
     document.addEventListener('click', e => {
       const t = e.target;
       if (!t.closest('.group\\/tag')) {
