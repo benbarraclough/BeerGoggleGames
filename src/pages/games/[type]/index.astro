@@ -47,16 +47,41 @@ const description = `All ${prettyType} drinking games.`;
         const shortSlug = parts[parts.length -1];
         const typeDir = g.data.type || parts[0];
         const format = g.data.format || g.data.players;
+        const gameHref = withBase(`games/${typeDir}/${shortSlug}/`);
         return (
-          <li class="border border-fg/15 hover:border-fg/40 transition-colors p-4">
-            <a class="font-semibold hover:text-neon block" href={withBase(`games/${typeDir}/${shortSlug}/`)}>{g.data.title}</a>
-            <div class="mt-2 flex flex-wrap gap-2">
-              {format && <span class={playerModeClass(format)}>{playerModeLabel(format)}</span>}
-              {g.data.type && (
-                <a class="mode-pill" href={withBase(`games/${typeDir}/`)} aria-label={`Game type: ${typeDir}`}>{typeDir}</a>
+          <li class="relative group border border-fg/15 rounded-sm p-4 flex flex-col transition-colors hover:border-neon/40 focus-within:border-neon/60">
+            <span class="font-semibold leading-snug mb-2 transition-colors group-hover:text-neon group-focus-within:text-neon">
+              {g.data.title}
+            </span>
+
+            <div class="mt-0 flex flex-wrap gap-2 z-20 relative">
+              {format && (
+                <span class={playerModeClass(format)}>
+                  {playerModeLabel(format)}
+                </span>
               )}
-              {Array.isArray(g.data.tags) && g.data.tags.slice(0,2).map((t:any) => <span class="mode-pill">{t}</span>)}
+              {g.data.type && (
+                <a
+                  class="mode-pill"
+                  href={withBase(`games/${typeDir}/`)}
+                  aria-label={`Game type: ${typeDir}`}
+                >
+                  {typeDir}
+                </a>
+              )}
+              {Array.isArray(g.data.tags) && g.data.tags.slice(0,2).map((t:any) => (
+                <span class="mode-pill">{t}</span>
+              ))}
             </div>
+
+            {/* Stretched link overlay */}
+            <a
+              href={gameHref}
+              class="absolute inset-0 z-10 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/60"
+              aria-label={`View game: ${g.data.title}`}
+            >
+              <span class="sr-only">{g.data.title}</span>
+            </a>
           </li>
         );
       })}
@@ -69,5 +94,7 @@ const description = `All ${prettyType} drinking games.`;
     <a class="hover:text-neon underline underline-offset-4" href={withBase('tags/')}>Tags</a>
     <a class="hover:text-neon underline underline-offset-4" href={withBase('search')}>Search</a>
   </div>
-  <p class="mt-10 text-sm"> <a class="hover:text-neon underline underline-offset-4" href="/BeerGoggleGames/games/">← Back to Categories</a> </p>
+  <p class="mt-10 text-sm">
+    <a class="hover:text-neon underline underline-offset-4" href="/BeerGoggleGames/games/">← Back to Categories</a>
+  </p>
 </Layout>
