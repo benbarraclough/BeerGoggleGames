@@ -6,19 +6,6 @@ import { canonical } from '../../lib/urls';
 import { excludeLegacyNoise } from '../../lib/filters';
 import { playerModeSlug, playerModeLabel } from '../../lib/playerMode';
 
-/*
-  Games Page
-  Fix: Cards were not clickable due to overlay stacking/pointer-events.
-  Solution: Custom card markup (not using CardLink) with:
-    - Anchor placed BEHIND the visible card content (absolute inset-0).
-    - Card content has pointer-events:none so clicks pass through to anchor.
-    - Interactive elements (tag count pill + popover) get pointer-events:auto.
-  This guarantees whole card clickability + interactive controls.
-
-  Tag handling: "{N} tag(s)" pill (pink). Hover (desktop) or tap (mobile) opens a floating popover with tag pills.
-  Filtering logic unchanged.
-*/
-
 const raw = excludeLegacyNoise(await getCollection('games'));
 const allGames = raw
   .map(g => {
@@ -35,7 +22,7 @@ const allGames = raw
       modeSlug,
       tags,
       leaf,
-      image: withBase(`images/${leaf}.webp`),   // Updated path per your request
+      image: withBase(`images/${leaf}.webp`),
       href: withBase(`games/${type}/${leaf}/`)
     };
   })
@@ -72,7 +59,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 >
   <h1 class="font-display text-4xl mb-4">Games</h1>
   <p class="text-sm text-muted mb-5">
-    Use the dropdown filters. Default = any match. Exclusive = must match each selected group (all tags). Hover or tap the tag count pill to view a game’s tags.
+    A complete collection of all games A-Z. Use the filters to find the perfect game or let fate decide using the<a class="hover:text-neon underline underline-offset-4" href={withBase('games/random')}>Random Game</a>feature
   </p>
 
   <!-- Filter Bar -->
@@ -429,4 +416,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
     updateClearBtn();
     applyFilters();
   </script>
+  <p class="mt-10 text-sm">
+    <a class="hover:text-neon underline underline-offset-4" href={withBase('/')}>← Back to Home</a>
+  </p>
 </Layout>
