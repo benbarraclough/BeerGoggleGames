@@ -1,72 +1,282 @@
 ---
 import Layout from '../../components/Layout.astro';
 import { getCollection } from 'astro:content';
-import { excludeLegacyNoise } from '../../lib/filters';
 import { withBase } from '../../lib/paths';
 import { canonical } from '../../lib/urls';
+import { playerModeClass, playerModeLabel, playerModeSlug } from '../../lib/playerMode';
 import CardLink from '../../components/CardLink.astro';
+import { excludeLegacyNoise } from '../../lib/filters';
 
-const games = excludeLegacyNoise(await getCollection('games'));
-const byType = new Map<string, { count: number; examples: string[] }>();
+// Load all games (exclude legacy if helper available)
+const games = excludeLegacyNoise(await getCollection('games'))
+  .sort((a,b)=> (a.data.title||'').localeCompare(b.data.title||''));
+
+// Collect distinct categories (types), modes, and tags.
+const categorySet = new Set<string>();
+const modeSlugToRaw = new Map<string,string>(); // Keep one raw sample for label
+const tagSet = new Set<string>();
+
 for (const g of games) {
-  const rawType = g.data.type || 'misc';
-  if (!byType.has(rawType)) byType.set(rawType, { count: 0, examples: [] });
-  const bucket = byType.get(rawType)!;
-  bucket.count++;
-  if (bucket.examples.length < 3) bucket.examples.push(g.data.title);
-}
-const typeEntries = Array.from(byType.entries()).sort((a,b)=> a[0].localeCompare(b[0]));
+  const type = (g.data.type || 'misc').toString();
+  categorySet.add(type);
 
-function displayTypeLabel(slug: string) {
-  if(!slug) return 'Games';
-  const cap = slug.charAt(0).toUpperCase() + slug.slice(1);
-  if (/games$/i.test(cap)) return cap;
-  return `${cap} Games`;
+  const rawMode = g.data.format || g.data.players;
+  if (rawMode) {
+    const slug = playerModeSlug(rawMode);
+    if (!modeSlugToRaw.has(slug)) modeSlugToRaw.set(slug, rawMode);
+  }
+
+  const tags = Array.isArray(g.data.tags) ? g.data.tags : [];
+  tags.forEach(t => tagSet.add(t));
 }
+
+const categories = Array.from(categorySet).sort((a,b)=> a.localeCompare(b));
+const modes = Array.from(modeSlugToRaw.entries())
+  .map(([slug, raw]) => ({ slug, raw, label: playerModeLabel(raw) }))
+  .sort((a,b)=> a.label.localeCompare(b.label));
+const tags = Array.from(tagSet).sort((a,b)=> a.localeCompare(b));
 
 const pageCanonical = canonical(Astro.url.pathname, Astro.site);
+const totalCount = games.length;
 ---
 <Layout
-  title="Game Types"
-  description="Browse drinking games by category."
+  title="Games"
+  description="Browse all drinking games. Filter by category, player mode, or tags."
   canonical={pageCanonical}
+  wide={true}
 >
-  <article class="prose prose-invert max-w-none">
-    <h1 class="font-display text-3xl mb-6">Game Types</h1>
-  </article>
+  <h1 class="font-display text-4xl mb-4">Games</h1>
   <p class="text-sm text-muted mb-6">
-    Select a category to view a list of games.
+    Browse all games. Use filters (OR logic: any selected filter shows matching games).
   </p>
 
-  {typeEntries.length === 0 ? (
+  <section class="mb-8 space-y-4" id="filters">
+    <div class="flex flex-wrap gap-4 items-center">
+      <strong class="text-xs tracking-wide uppercase text-muted">Filters</strong>
+      <button id="clear-filters" class="text-xs px-3 py-1 border border-fg/30 rounded-sm hover:border-neon/50 hover:text-neon transition-colors disabled:opacity-40 disabled:cursor-not-allowed" disabled>
+        Clear Filters
+      </button>
+      <span id="result-count" class="text-xs text-muted"></span>
+    </div>
+
+    <div class="grid gap-4 md:grid-cols-3">
+      <!-- Categories -->
+      <details class="border border-fg/20 rounded-sm p-4" open>
+        <summary class="cursor-pointer font-semibold text-sm mb-2 hover:text-neon outline-none focus-visible:ring-2 focus-visible:ring-neon/60 rounded-sm">Categories</summary>
+        <div class="flex flex-wrap gap-2 mt-2" id="filter-categories">
+          {categories.map(cat => (
+            <button
+              type="button"
+              class="filter-btn pill pill-category"
+              data-filter-type="category"
+              data-filter-value={cat}
+              aria-pressed="false"
+            >{cat}</button>
+          ))}
+        </div>
+      </details>
+
+      <!-- Player Modes -->
+      <details class="border border-fg/20 rounded-sm p-4" open>
+        <summary class="cursor-pointer font-semibold text-sm mb-2 hover:text-neon outline-none focus-visible:ring-2 focus-visible:ring-neon/60 rounded-sm">Player Modes</summary>
+        <div class="flex flex-wrap gap-2 mt-2" id="filter-modes">
+          {modes.map(m => (
+            <button
+              type="button"
+              class="filter-btn pill pill-mode"
+              data-filter-type="mode"
+              data-filter-value={m.slug}
+              aria-pressed="false"
+            >{m.label}</button>
+          ))}
+        </div>
+      </details>
+
+      <!-- Tags -->
+      <details class="border border-fg/20 rounded-sm p-4" open>
+        <summary class="cursor-pointer font-semibold text-sm mb-2 hover:text-neon outline-none focus-visible:ring-2 focus-visible:ring-neon/60 rounded-sm">Tags</summary>
+        <div class="flex flex-wrap gap-2 mt-2 max-h-48 overflow-y-auto pr-1" id="filter-tags">
+          {tags.map(t => (
+            <button
+              type="button"
+              class="filter-btn pill pill-tag"
+              data-filter-type="tag"
+              data-filter-value={t}
+              aria-pressed="false"
+            >{t}</button>
+          ))}
+        </div>
+      </details>
+    </div>
+
+    <p class="text-xs text-muted">
+      Logic: A game is shown if it matches any selected category OR any selected player mode OR any selected tag.
+      (No filters selected = all games.)
+    </p>
+  </section>
+
+  {games.length === 0 ? (
     <p class="text-muted">No games found.</p>
   ) : (
-    <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 list-none p-0 m-0">
-      {typeEntries.map(([type, info]) => (
-        <CardLink
-          href={withBase(`games/${type}/`)}
-          ariaLabel={`View ${displayTypeLabel(type)} (${info.count} game${info.count !== 1 ? 's' : ''})`}
-        >
-          <span class="font-semibold leading-snug transition-colors group-hover:text-neon">
-            {displayTypeLabel(type)}
-          </span>
-          <span class="text-xs text-muted mt-1 tracking-tight">
-            {info.count} game{info.count !== 1 && 's'}
-          </span>
-          {info.examples.length > 0 && (
-            <ul class="mt-3 text-sm space-y-1 text-muted list-disc list-inside">
-              {info.examples.map(ex => <li>{ex}</li>)}
-            </ul>
-          )}
-        </CardLink>
-      ))}
+    <ul id="game-grid" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 list-none p-0 m-0">
+      {games.map(g => {
+        const type = (g.data.type || 'misc').toString();
+        const parts = g.slug.split('/');
+        const shortSlug = parts[parts.length -1];
+        const rawMode = g.data.format || g.data.players;
+        const modeSlug = rawMode ? playerModeSlug(rawMode) : '';
+        const tagsList: string[] = Array.isArray(g.data.tags) ? g.data.tags : [];
+        const href = withBase(`games/${type}/${shortSlug}/`);
+        return (
+          <li
+            class="relative group"
+            data-type={type}
+            data-mode={modeSlug}
+            data-tags={tagsList.join(',')}
+          >
+            <CardLink
+              href={href}
+              overlay
+              ariaLabel={`View game: ${g.data.title}`}
+              as="div"
+            >
+              <span class="font-semibold leading-snug mb-2 transition-colors group-hover:text-neon group-focus-within:text-neon">
+                {g.data.title}
+              </span>
+              <div class="flex flex-wrap gap-2 relative z-20">
+                <span class="pill pill-category">{type}</span>
+                {rawMode && (
+                  <span class={`pill pill-mode ${playerModeClass(rawMode)}`}>
+                    {playerModeLabel(rawMode)}
+                  </span>
+                )}
+                {tagsList.slice(0,3).map(t => <span class="pill pill-tag">{t}</span>)}
+              </div>
+            </CardLink>
+          </li>
+        );
+      })}
     </ul>
   )}
 
-  <div class="mt-10 text-sm flex flex-wrap gap-6">
-    <a class="hover:text-neon underline underline-offset-4" href={withBase('games/all/')}>All Games (A–Z)</a>
-    <a class="hover:text-neon underline underline-offset-4" href={withBase('games/modes/')}>Player Modes</a>
-    <a class="hover:text-neon underline underline-offset-4" href={withBase('games/random')}>Random Game</a>
-    <a class="hover:text-neon underline underline-offset-4" href={withBase('tags/')}>Tags</a>
-  </div>
+  <style>
+    /* Pill base */
+    .pill {
+      @apply text-[10px] uppercase tracking-wide font-semibold px-2 py-1 rounded-sm border border-fg/30 bg-fg/5;
+      line-height: 1.1;
+    }
+    /* Filter pills (buttons) default + active states */
+    .filter-btn {
+      @apply cursor-pointer select-none transition-colors;
+    }
+    .filter-btn[aria-pressed="true"] {
+      @apply ring-2 ring-neon/60;
+    }
+    /* Color variants */
+    .pill-category { @apply text-orange-400 border-orange-400/40 bg-orange-400/10; }
+    .pill-mode { @apply text-blue-400 border-blue-400/40 bg-blue-400/10; }
+    .pill-tag { @apply text-green-400 border-green-400/40 bg-green-400/10; }
+
+    .filter-btn.pill-category[aria-pressed="true"] { @apply bg-orange-400/20 border-orange-400 text-orange-300; }
+    .filter-btn.pill-mode[aria-pressed="true"] { @apply bg-blue-400/20 border-blue-400 text-blue-300; }
+    .filter-btn.pill-tag[aria-pressed="true"] { @apply bg-green-400/20 border-green-400 text-green-300; }
+  </style>
+
+  <script type="module">
+    const gameGrid = document.getElementById('game-grid');
+    const clearBtn = document.getElementById('clear-filters');
+    const resultCount = document.getElementById('result-count');
+
+    const selected = {
+      category: new Set(),
+      mode: new Set(),
+      tag: new Set()
+    };
+
+    const filterButtons = Array.from(document.querySelectorAll('.filter-btn'));
+
+    function updateClearState() {
+      const any = Object.values(selected).some(s => s.size > 0);
+      clearBtn.disabled = !any;
+    }
+
+    function countAndShow() {
+      if (!gameGrid) return;
+      const cards = Array.from(gameGrid.children);
+      const activeTokens = new Set([
+        ...selected.category,
+        ...selected.mode,
+        ...selected.tag
+      ].filter(Boolean));
+
+      let visible = 0;
+      if (activeTokens.size === 0) {
+        cards.forEach(li => {
+          (li as HTMLElement).style.display = '';
+          visible++;
+        });
+      } else {
+        cards.forEach(li => {
+          const el = li as HTMLElement;
+          const type = (el.dataset.type || '').toLowerCase();
+            const mode = (el.dataset.mode || '').toLowerCase();
+          const tags = (el.dataset.tags || '').toLowerCase().split(',').filter(Boolean);
+          // OR logic: show if any token matches type OR mode OR one of tags.
+          let match = false;
+          for (const token of activeTokens) {
+            const tk = token.toLowerCase();
+            if (tk === type || tk === mode || tags.includes(tk)) {
+              match = true;
+              break;
+            }
+          }
+          if (match) {
+            el.style.display = '';
+            visible++;
+          } else {
+            el.style.display = 'none';
+          }
+        });
+      }
+      resultCount.textContent = `Showing ${visible} of ${cards.length} games`;
+    }
+
+    function toggleFilter(btn: HTMLElement) {
+      const type = btn.getAttribute('data-filter-type');
+      const val = btn.getAttribute('data-filter-value');
+      if (!type || !val) return;
+      const set = (selected as any)[type] as Set<string>;
+      if (btn.getAttribute('aria-pressed') === 'true') {
+        set.delete(val);
+        btn.setAttribute('aria-pressed', 'false');
+      } else {
+        set.add(val);
+        btn.setAttribute('aria-pressed', 'true');
+      }
+      updateClearState();
+      countAndShow();
+    }
+
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', () => toggleFilter(btn as HTMLElement));
+      btn.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          toggleFilter(btn as HTMLElement);
+        }
+      });
+    });
+
+    clearBtn?.addEventListener('click', () => {
+      filterButtons.forEach(btn => btn.setAttribute('aria-pressed','false'));
+      selected.category.clear();
+      selected.mode.clear();
+      selected.tag.clear();
+      updateClearState();
+      countAndShow();
+    });
+
+    // Initial
+    countAndShow();
+  </script>
 </Layout>
