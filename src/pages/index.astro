@@ -4,6 +4,7 @@ import { getCollection } from 'astro:content';
 import { excludeLegacyNoise } from '../lib/filters';
 import { withBase } from '../lib/paths';
 import { canonical } from '../lib/urls';
+import CardLink from '../components/CardLink.astro';
 
 const allGames = excludeLegacyNoise(await getCollection('games'));
 const recentGames = allGames.slice(0, 6);
@@ -28,71 +29,79 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       {recentGames.map(g => {
         const slug = (g.slug ?? g.id).split('/').pop();
         const type = g.data.type || 'misc';
+        const href = withBase(`games/${type}/${slug}/`);
         return (
-          <li class="list-none p-0 m-0">
-            <a
-              href={withBase(`games/${type}/${slug}/`)}
-              class="group flex flex-col h-full border border-fg/20 rounded-sm p-4 transition-colors hover:border-neon/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/60 focus-visible:border-neon/60"
-              aria-label={`View game: ${g.data.title}`}
-            >
-              <span class="font-semibold leading-snug group-hover:text-neon transition-colors">
-                {g.data.title}
+          <CardLink
+            href={href}
+            ariaLabel={`View game: ${g.data.title}`}
+          >
+            <span class="font-semibold leading-snug transition-colors group-hover:text-neon">
+              {g.data.title}
+            </span>
+            {g.data.excerpt && (
+              <span class="mt-2 text-xs text-muted line-clamp-2">
+                {g.data.excerpt}
               </span>
-              {g.data.excerpt && (
-                <span class="mt-2 text-xs text-muted line-clamp-2">
-                  {g.data.excerpt}
-                </span>
-              )}
-            </a>
-          </li>
+            )}
+          </CardLink>
         );
       })}
     </ul>
-    <p class="mt-4 text-sm"><a class="hover:text-neon" href={withBase('games/')}>Browse all game types →</a></p>
+    <p class="mt-4 text-sm">
+      <a class="hover:text-neon underline underline-offset-4" href={withBase('games/')}>Browse all game types →</a>
+    </p>
   </section>
 
   <section class="mb-12">
     <h2 class="font-display text-2xl mb-4">Drinks</h2>
     <div class="grid gap-6 lg:grid-cols-2">
       <div>
-        <h3 class="font-semibold mb-2">Cocktails</h3>
-        <ul class="grid gap-2 list-none p-0 m-0">
+        <h3 class="font-semibold mb-3">Cocktails</h3>
+        <ul class="grid gap-3 list-none p-0 m-0">
           {cocktails.map(c => {
             const slug = (c.slug ?? c.id).split('/').pop();
             return (
-              <li class="list-none p-0 m-0">
-                <a
-                  class="block rounded-sm px-3 py-2 border border-fg/15 hover:border-neon/40 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/60"
-                  href={withBase(`drinks/cocktail-recipes/${slug}/`)}
-                  aria-label={`View cocktail: ${c.data.title}`}
-                >
-                  <span class="font-medium">{c.data.title}</span>
-                </a>
-              </li>
+              <CardLink
+                href={withBase(`drinks/cocktail-recipes/${slug}/`)}
+                ariaLabel={`View cocktail: ${c.data.title}`}
+                as="li"
+                noPadding
+                anchorClass="p-3"
+              >
+                <span class="font-medium transition-colors group-hover:text-neon">
+                  {c.data.title}
+                </span>
+              </CardLink>
             );
           })}
         </ul>
-        <p class="mt-2 text-xs"><a class="hover:text-neon underline underline-offset-4" href={withBase('drinks/cocktail-recipes/')}>All cocktails →</a></p>
+        <p class="mt-3 text-xs">
+          <a class="hover:text-neon underline underline-offset-4" href={withBase('drinks/cocktail-recipes/')}>All cocktails →</a>
+        </p>
       </div>
       <div>
-        <h3 class="font-semibold mb-2">Shots</h3>
-        <ul class="grid gap-2 list-none p-0 m-0">
+        <h3 class="font-semibold mb-3">Shots</h3>
+        <ul class="grid gap-3 list-none p-0 m-0">
           {shots.map(s => {
             const slug = (s.slug ?? s.id).split('/').pop();
             return (
-              <li class="list-none p-0 m-0">
-                <a
-                  class="block rounded-sm px-3 py-2 border border-fg/15 hover:border-neon/40 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/60"
-                  href={withBase(`drinks/shot-recipes/${slug}/`)}
-                  aria-label={`View shot: ${s.data.title}`}
-                >
-                  <span class="font-medium">{s.data.title}</span>
-                </a>
-              </li>
+              <CardLink
+                href={withBase(`drinks/shot-recipes/${slug}/`)}
+                ariaLabel={`View shot: ${s.data.title}`}
+                as="li"
+                noPadding
+                anchorClass="p-3"
+              >
+                <span class="font-medium transition-colors group-hover:text-neon">
+                  {s.data.title}
+                </span>
+              </CardLink>
             );
           })}
         </ul>
-        <p class="mt-2 text-xs"><a class="hover:text-neon underline underline-offset-4" href={withBase('drinks/shot-recipes/')}>All shots →</a></p>
+        <p class="mt-3 text-xs">
+          <a class="hover:text-neon underline underline-offset-4" href={withBase('drinks/shot-recipes/')}>All shots →</a>
+        </p>
       </div>
     </div>
   </section>
@@ -104,22 +113,19 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         {posts.map(p => {
           const slug = (p.slug ?? p.id).split('/').pop();
           return (
-            <li class="list-none p-0 m-0">
-              <a
-                href={withBase(`blog/${slug}/`)}
-                class="group flex flex-col h-full border border-fg/20 rounded-sm p-4 transition-colors hover:border-neon/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/60 focus-visible:border-neon/60"
-                aria-label={`Read post: ${p.data.title}`}
-              >
-                <span class="font-semibold leading-snug group-hover:text-neon transition-colors">
-                  {p.data.title}
+            <CardLink
+              href={withBase(`blog/${slug}/`)}
+              ariaLabel={`Read post: ${p.data.title}`}
+            >
+              <span class="font-semibold leading-snug transition-colors group-hover:text-neon">
+                {p.data.title}
+              </span>
+              {p.data.excerpt && (
+                <span class="mt-2 text-xs text-muted line-clamp-2">
+                  {p.data.excerpt}
                 </span>
-                {p.data.excerpt && (
-                  <span class="mt-2 text-xs text-muted line-clamp-2">
-                    {p.data.excerpt}
-                  </span>
-                )}
-              </a>
-            </li>
+              )}
+            </CardLink>
           );
         })}
       </ul>
