@@ -4,6 +4,7 @@ import { getCollection } from 'astro:content';
 import { excludeLegacyNoise } from '../../lib/filters';
 import { withBase } from '../../lib/paths';
 import { canonical } from '../../lib/urls';
+import CardLink from '../../components/CardLink.astro';
 
 const games = excludeLegacyNoise(await getCollection('games'));
 const byType = new Map<string, { count: number; examples: string[] }>();
@@ -42,25 +43,22 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
   ) : (
     <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 list-none p-0 m-0">
       {typeEntries.map(([type, info]) => (
-        <li class="p-0 m-0 list-none">
-          <a
-            href={withBase(`games/${type}/`)}
-            class="group flex flex-col h-full border border-fg/20 rounded-sm p-4 transition-colors hover:border-neon/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/60 focus-visible:border-neon/60"
-            aria-label={`View ${displayTypeLabel(type)} (${info.count} game${info.count !== 1 ? 's' : ''})`}
-          >
-            <span class="font-semibold leading-snug group-hover:text-neon transition-colors">
-              {displayTypeLabel(type)}
-            </span>
-            <span class="text-xs text-muted mt-1 tracking-tight">
-              {info.count} game{info.count !== 1 && 's'}
-            </span>
-            {info.examples.length > 0 && (
-              <ul class="mt-3 text-sm space-y-1 text-muted list-disc list-inside">
-                {info.examples.map(ex => <li>{ex}</li>)}
-              </ul>
-            )}
-          </a>
-        </li>
+        <CardLink
+          href={withBase(`games/${type}/`)}
+          ariaLabel={`View ${displayTypeLabel(type)} (${info.count} game${info.count !== 1 ? 's' : ''})`}
+        >
+          <span class="font-semibold leading-snug transition-colors group-hover:text-neon">
+            {displayTypeLabel(type)}
+          </span>
+          <span class="text-xs text-muted mt-1 tracking-tight">
+            {info.count} game{info.count !== 1 && 's'}
+          </span>
+          {info.examples.length > 0 && (
+            <ul class="mt-3 text-sm space-y-1 text-muted list-disc list-inside">
+              {info.examples.map(ex => <li>{ex}</li>)}
+            </ul>
+          )}
+        </CardLink>
       ))}
     </ul>
   )}
