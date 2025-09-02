@@ -8,12 +8,13 @@ import { playerModeSlug, playerModeLabel } from '../../lib/playerMode';
 import CardLink from '../../components/CardLink.astro';
 
 /*
-  Games Page (Clickable fix + pink tags + images)
-  Changes from previous version:
-  - Switched cards to NON-overlay CardLink (full-wrap anchor) so entire card is clickable.
-  - Retained <li> wrapper (data-* attributes for filtering) and placed CardLink (as="div") inside.
-  - Added game image (assumes image exists at /images/games/{leaf}.webp). Adjust path if different.
-  - Changed tag tint from green to pink.
+  Games Page (Tag count + expandable tags)
+  Changes:
+  - Cards use overlay mode so we can include a button inside (tag count toggle).
+  - Tag pills are not shown initially; instead a pill button shows "X tag(s)".
+  - Clicking the tag count expands/collapses a tag list inside the card.
+  - Filtering unchanged (data-tags lives on <li>).
+  - Pink coloring retained for tags.
 */
 
 const raw = excludeLegacyNoise(await getCollection('games'));
@@ -32,7 +33,7 @@ const allGames = raw
       modeSlug,
       tags,
       leaf,
-      image: withBase(`images/${leaf}.webp`), // Adjust if your images live elsewhere
+      image: withBase(`images/games/${leaf}.webp`),
       href: withBase(`games/${type}/${leaf}/`)
     };
   })
@@ -70,6 +71,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
   <h1 class="font-display text-4xl mb-4">Games</h1>
   <p class="text-sm text-muted mb-5">
     Use the dropdown filters (Category / Player Mode / Tags). Default = any match. Exclusive mode = must match each group (all selected tags).
+    Click the tag count on a game to view its tags.
   </p>
 
   <!-- Filter Bar -->
@@ -201,12 +203,13 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       {allGames.map(g => (
         <li
           class="list-none p-0 m-0"
-            data-type={g.type}
+          data-type={g.type}
           data-mode={g.modeSlug || ''}
           data-tags={g.tags.join(',')}
         >
           <CardLink
             href={g.href}
+            overlay
             ariaLabel={`View game: ${g.title}`}
             as="div"
           >
@@ -223,11 +226,23 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
             <span class="font-semibold leading-snug mb-2 transition-colors group-hover:text-neon group-focus-within:text-neon">
               {g.title}
             </span>
-            <div class="flex flex-wrap gap-2 text-[10px] uppercase tracking-wide font-semibold">
+            <div class="flex flex-wrap gap-2 text-[10px] uppercase tracking-wide font-semibold relative z-20">
               <span class="pill pill-cat">{g.type}</span>
               {g.modeSlug && <span class="pill pill-mode">{playerModeLabel(g.rawMode!)}</span>}
-              {g.tags.slice(0,4).map(t => <span class="pill pill-tag">{t}</span>)}
+              {g.tags.length > 0 && (
+                <button
+                  type="button"
+                  class="pill pill-tag-count"
+                  data-tag-count={g.tags.length}
+                  data-all-tags={g.tags.join(',')}
+                  aria-expanded="false"
+                  title={`Show tags: ${g.tags.join(', ')}`}
+                >
+                  {g.tags.length} tag{g.tags.length !== 1 && 's'}
+                </button>
+              )}
             </div>
+            <div class="tags-expand mt-2 hidden flex-wrap gap-2" aria-hidden="true"></div>
           </CardLink>
         </li>
       ))}
@@ -249,6 +264,8 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
     .pill-cat { @apply bg-orange-500/10 text-orange-300 border-orange-400/30; }
     .pill-mode { @apply bg-blue-500/10 text-blue-300 border-blue-400/30; }
     .pill-tag { @apply bg-pink-500/10 text-pink-300 border-pink-400/30; }
+    .pill-tag-count { @apply bg-pink-500/15 text-pink-300 border-pink-400/30 hover:bg-pink-500/25 cursor-pointer; }
+    .pill-tag-count[aria-expanded="true"] { @apply ring-2 ring-neon/60; }
 
     .filter-toggle[aria-expanded="true"] { @apply ring-2 ring-neon/60; }
     #exclusive-toggle[aria-pressed="true"] { @apply bg-neon/20 text-neon ring-2 ring-neon/50; }
@@ -263,18 +280,17 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
     .panel-inner::-webkit-scrollbar { width:6px; }
     .panel-inner::-webkit-scrollbar-thumb { @apply bg-fg/30 rounded; }
 
+    .tags-expand .pill-tag { @apply cursor-default; }
+
     #result-count { @apply text-muted; }
   </style>
 
   <script type="module">
-    const qs = (s) => document.querySelector(s);
-    const qsa = (s) => Array.from(document.querySelectorAll(s));
+    const qs = s => document.querySelector(s);
+    const qsa = s => Array.from(document.querySelectorAll(s));
 
-    const selected = {
-      category: new Set(),
-      mode: new Set(),
-      tag: new Set()
-    };
+    // Filtering State
+    const selected = { category: new Set(), mode: new Set(), tag: new Set() };
     let exclusive = false;
 
     const gameGrid = qs('#game-grid');
@@ -294,18 +310,14 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       const mode = li.getAttribute('data-mode') || '';
       const tags = (li.getAttribute('data-tags') || '').split(',').filter(Boolean);
 
-      const hasFilters =
-        selected.category.size || selected.mode.size || selected.tag.size;
-
+      const hasFilters = selected.category.size || selected.mode.size || selected.tag.size;
       if (!hasFilters) return true;
 
       if (!exclusive) {
         if (selected.category.has(type)) return true;
         if (selected.mode.has(mode)) return true;
         if (selected.tag.size) {
-          for (const t of selected.tag) {
-            if (tags.includes(t)) return true;
-          }
+          for (const t of selected.tag) if (tags.includes(t)) return true;
         }
         return false;
       }
@@ -313,9 +325,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       if (selected.category.size && !selected.category.has(type)) return false;
       if (selected.mode.size && !selected.mode.has(mode)) return false;
       if (selected.tag.size) {
-        for (const t of selected.tag) {
-          if (!tags.includes(t)) return false;
-        }
+        for (const t of selected.tag) if (!tags.includes(t)) return false;
       }
       return true;
     }
@@ -362,19 +372,20 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       });
     });
 
-    clearBtn.addEventListener('click', () => {
+    clearBtn?.addEventListener('click', () => {
       ['category','mode','tag'].forEach(k => selected[k].clear());
       filterItems.forEach(f => f.setAttribute('aria-pressed','false'));
       updateClearBtn();
       applyFilters();
     });
 
-    exclusiveBtn.addEventListener('click', () => {
+    exclusiveBtn?.addEventListener('click', () => {
       exclusive = !exclusive;
       exclusiveBtn.setAttribute('aria-pressed', exclusive ? 'true' : 'false');
       applyFilters();
     });
 
+    // Panels
     function closeAllPanels(exceptId) {
       panelToggles.forEach(t => {
         const id = t.getAttribute('data-panel');
@@ -405,12 +416,53 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 
     document.addEventListener('click', e => {
       const target = e.target;
-      if (!target.closest('[data-filter-wrapper]')) {
-        closeAllPanels();
-      }
+      if (!target.closest('[data-filter-wrapper]')) closeAllPanels();
     });
     document.addEventListener('keydown', e => {
       if (e.key === 'Escape') closeAllPanels();
+    });
+
+    // Tag expansion logic
+    function buildTagPill(tag) {
+      const span = document.createElement('span');
+      span.className = 'pill pill-tag';
+      span.textContent = tag;
+      return span;
+    }
+
+    function toggleTagExpansion(btn) {
+      const expanded = btn.getAttribute('aria-expanded') === 'true';
+      const rootCard = btn.closest('.group');
+      if (!rootCard) return;
+      const container = rootCard.querySelector('.tags-expand');
+      if (!container) return;
+      if (expanded) {
+        btn.setAttribute('aria-expanded','false');
+        container.classList.add('hidden');
+        container.setAttribute('aria-hidden','true');
+        return;
+      }
+      // Populate if empty
+      if (!container.hasChildNodes()) {
+        const allTags = (btn.getAttribute('data-all-tags') || '').split(',').filter(Boolean);
+        allTags.forEach(t => container.appendChild(buildTagPill(t)));
+      }
+      btn.setAttribute('aria-expanded','true');
+      container.classList.remove('hidden');
+      container.setAttribute('aria-hidden','false');
+    }
+
+    qsa('.pill-tag-count').forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.stopPropagation(); // ensure overlay anchor not triggered (shouldn't anyway due to z-layer)
+        toggleTagExpansion(btn);
+      });
+      btn.addEventListener('keydown', e => {
+        if (e.key === ' ' || e.key === 'Enter') {
+          e.preventDefault();
+          toggleTagExpansion(btn);
+        }
+      });
     });
 
     // Init
