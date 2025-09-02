@@ -9,13 +9,14 @@ import CardLink from '../../components/CardLink.astro';
 
 /*
   Games Page
-  - Tag display updated: show a pink "{N} tag(s)" pill.
-  - Desktop: hover (or keyboard focus) over the count pill reveals a floating popover
-             with all tag pills (no card height change).
-  - Mobile / touch: tap the count pill to toggle popover (tap outside closes).
-  - Accessible: button has aria-expanded + aria-controls; popover is role="group".
-  - Still uses overlay CardLink so whole card is clickable EXCEPT interactive elements
-    (the tag count pill & its popover), which are above the overlay via z-index.
+  Update: Make whole card clickable again while keeping internal tag popover button usable.
+  Approach:
+    - Keep CardLink overlay (so anchor can cover full card).
+    - Disable pointer events on the content wrapper (first child inside CardLink outer wrapper).
+    - Re-enable pointer events only on specifically interactive elements (tag count button + its popover) via .allow-pointer.
+    - This avoids changing CardLink globally and prevents breaking other pages.
+
+  Tag logic: Hover (desktop) or tap (mobile) the "{N} tag(s)" pill to show popover.
 */
 
 const raw = excludeLegacyNoise(await getCollection('games'));
@@ -40,7 +41,7 @@ const allGames = raw
   })
   .sort((a,b)=> (a.title||'').localeCompare(b.title||''));
 
-// Build filter metadata
+// Filter metadata
 const categoryCounts = new Map<string, number>();
 const modeCounts = new Map<string, { count: number; label: string }>();
 const tagCounts = new Map<string, number>();
@@ -146,8 +147,14 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
             data-mode={g.modeSlug || ''}
             data-tags={g.tags.join(',')}
           >
-            <CardLink href={g.href} overlay ariaLabel={`View game: ${g.title}`} as="div">
-              <picture class="mb-2 w-full">
+            <CardLink
+              class="card-click"
+              href={g.href}
+              overlay
+              ariaLabel={`View game: ${g.title}`}
+              as="div"
+            >
+              <picture class="mb-2 w-full allow-pointer">
                 <img
                   src={g.image}
                   alt={g.title}
@@ -157,18 +164,18 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
                   onerror="this.style.display='none'"
                 />
               </picture>
-              <span class="font-semibold leading-snug mb-2 transition-colors group-hover:text-neon group-focus-within:text-neon">
+              <span class="font-semibold leading-snug mb-2 transition-colors group-hover:text-neon group-focus-within:text-neon allow-pointer">
                 {g.title}
               </span>
               <div class="flex flex-wrap gap-2 text-[10px] uppercase tracking-wide font-semibold relative z-20">
-                <span class="pill pill-cat">{g.type}</span>
-                {g.modeSlug && <span class="pill pill-mode">{playerModeLabel(g.rawMode!)}</span>}
+                <span class="pill pill-cat allow-pointer">{g.type}</span>
+                {g.modeSlug && <span class="pill pill-mode allow-pointer">{playerModeLabel(g.rawMode!)}</span>}
 
                 {g.tags.length > 0 && (
-                  <div class="relative group/tag inline-block">
+                  <div class="relative group/tag inline-block allow-pointer">
                     <button
                       type="button"
-                      class="pill pill-tag-count"
+                      class="pill pill-tag-count allow-pointer"
                       data-tag-trigger
                       data-open="false"
                       aria-expanded="false"
@@ -179,12 +186,12 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
                     </button>
                     <div
                       id={tagPopoverId}
-                      class="tags-popover hidden absolute left-0 top-full mt-1 z-50 p-2 rounded-md border border-pink-400/30 bg-bg/95 backdrop-blur shadow-lg flex flex-wrap gap-2 min-w-[6rem]"
+                      class="tags-popover hidden absolute left-0 top-full mt-1 z-50 p-2 rounded-md border border-pink-400/30 bg-bg/95 backdrop-blur shadow-lg flex flex-wrap gap-2 min-w-[6rem] allow-pointer"
                       role="group"
                       aria-label={`${g.title} tags`}
                       data-tags-popover
                     >
-                      {g.tags.map(t => <span class="pill pill-tag">{t}</span>)}
+                      {g.tags.map(t => <span class="pill pill-tag allow-pointer">{t}</span>)}
                     </div>
                   </div>
                 )}
@@ -228,14 +235,25 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 
     #result-count { @apply text-muted; }
 
-    /* Tag popover visibility (desktop hover / focus) */
+    /* Tag popover show on hover or focus */
     .group\/tag:hover > .tags-popover,
     .group\/tag:focus-within > .tags-popover {
       display: flex;
     }
-    /* Attribute-based show (for touch toggle) */
+    /* Touch toggle attribute */
     .pill-tag-count[data-open="true"] + .tags-popover {
       display: flex;
+    }
+
+    /* Make the card body ignore pointer events so the underlying anchor (overlay) gets clicks */
+    .card-click > div:first-child {
+      pointer-events: none;
+    }
+    /* Re-enable for interactive / needed elements */
+    .card-click > div:first-child .allow-pointer,
+    .card-click > div:first-child button,
+    .card-click > div:first-child .tags-popover {
+      pointer-events: auto;
     }
   </style>
 
@@ -243,7 +261,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
     const qs = s => document.querySelector(s);
     const qsa = s => Array.from(document.querySelectorAll(s));
 
-    // Filter logic (unchanged from previous version except not re-rendering tags)
+    // Filter state
     const selected = { category: new Set(), mode: new Set(), tag: new Set() };
     let exclusive = false;
 
@@ -363,7 +381,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
           toggle.setAttribute('aria-expanded','false');
         } else {
           closeAllPanels(id);
-          panel.classList.remove('hidden');
+            panel.classList.remove('hidden');
           toggle.setAttribute('aria-expanded','true');
         }
       });
@@ -377,7 +395,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       if (e.key === 'Escape') closeAllPanels();
     });
 
-    // Tag popover (hover already handled by CSS; add tap/click toggle for touch)
+    // Tag popover: hover handled by CSS; implement tap toggle
     const tagTriggers = qsa('[data-tag-trigger]');
     function closeAllTagPopovers(except) {
       tagTriggers.forEach(tr => {
@@ -389,7 +407,6 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
     tagTriggers.forEach(tr => {
       tr.addEventListener('click', e => {
         e.stopPropagation();
-        // Toggle open attribute (for touch)
         const isOpen = tr.getAttribute('data-open') === 'true';
         if (isOpen) {
           tr.setAttribute('data-open','false');
@@ -400,7 +417,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
           tr.setAttribute('aria-expanded','true');
         }
       });
-      // Prevent overlay anchor navigation on mousedown
+      // Prevent the overlay link from triggering on mousedown
       tr.addEventListener('mousedown', e => e.stopPropagation());
     });
 
