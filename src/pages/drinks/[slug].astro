@@ -4,11 +4,6 @@ import { getCollection } from 'astro:content';
 import { canonical } from '../../lib/urls';
 import { withBase } from '../../lib/paths';
 
-/*
-  Flat drinks route: /drinks/<slug>/
-  We assume each drink file's slug final segment is unique.
-*/
-
 export async function getStaticPaths() {
   const entries = await getCollection('drinks');
   const leafMap = new Map<string, any>();
@@ -56,6 +51,12 @@ const tags: string[] = Array.isArray(data.tags) ? data.tags : [];
 
 const coverFile = data.cover || `${leaf}.webp`;
 const cover = withBase(`images/${coverFile}`);
+
+/* Frontmatter override (optional):
+   If you set hero: false in a drink file, we won't render the figure.
+*/
+const heroDisabled = data.hero === false;
+
 const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 
 const jsonLd = {
@@ -92,7 +93,21 @@ const jsonLd = {
       </div>
     </header>
 
-    <!-- MDX content (contains hero figure & sections) -->
+    {!heroDisabled && (
+      <figure class="relative mb-8 aspect-[16/7] overflow-hidden rounded-xl border border-fg/20">
+        <img
+          src={cover}
+          alt={title}
+          class="w-full h-full object-cover brightness-90 saturate-110 transition-transform duration-700 hover:scale-105"
+          loading="lazy"
+          decoding="async"
+          onerror="this.style.display='none'"
+        />
+        <div class="absolute inset-0 bg-gradient-to-tr from-bg/80 via-bg/20 to-transparent pointer-events-none"></div>
+      </figure>
+    )}
+
+    <!-- MDX drink content (sections, lists, etc.) -->
     <Content />
 
     <p class="mt-10 text-xs text-muted">
@@ -110,8 +125,10 @@ const jsonLd = {
     .tag-pill {
       @apply inline-flex items-center rounded-full border border-fg/15 bg-fg/10 px-2 py-1 text-[10px] font-medium;
     }
+  </style>
 
-    /* Generic list restoration for any plain markdown lists */
+  <!-- GLOBAL list fallback (covers any plain MDX lists not wrapped by DrinkSection) -->
+  <style is:global>
     article.prose-invert ul,
     article.prose-invert ol {
       list-style: revert;
@@ -120,8 +137,6 @@ const jsonLd = {
     }
     article.prose-invert li { margin: 0.25rem 0; }
     article.prose-invert li::marker { color: var(--fg-muted, currentColor); }
-
-    /* DrinkSection already adds its own list styles; this ensures fallback consistency */
   </style>
 
   <script type="application/ld+json">
