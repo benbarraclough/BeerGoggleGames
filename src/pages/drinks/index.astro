@@ -60,11 +60,11 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 >
   <h1 class="font-display text-4xl mb-4">Drinks</h1>
   <p class="text-sm text-muted mb-5">
-    Use dropdown filters. Exclusive = must match every selected group.
+    Use the filters below. Exclusive = must match all selected groups.
   </p>
 
   <!-- Filter Bar -->
-  <div id="filter-bar" class="mb-6 space-y-3" data-filters-init>
+  <div id="filter-bar" class="mb-6 space-y-3">
     <div class="flex flex-wrap gap-2 items-center">
       <span class="text-[11px] uppercase tracking-wide text-muted/70">Filters</span>
 
@@ -135,9 +135,8 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       </div>
 
       <!-- Exclusive / Clear -->
-      <button id="exclusive-toggle" type="button" class="pill pill-neutral" aria-pressed="false">
-        Exclusive
-      </button>
+      <button id="exclusive-toggle" type="button" class="pill pill-neutral" aria-pressed="false"
+        title="Exclusive: must match each selected group (AND logic)">Exclusive</button>
       <button id="clear-filters" type="button" class="pill pill-neutral disabled:opacity-40 disabled:cursor-not-allowed" disabled>
         Clear
       </button>
@@ -158,8 +157,8 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
           data-bases={d.basesLC.join(',')}
           data-difficulty={d.difficulty}
         >
-          <div class="card-body flex flex-col h-full border border-fg/20 rounded-sm p-4 transition-colors group-hover:border-neon/40">
-            <picture class="mb-2 w-full">
+          <div class="card-body flex flex-col h-full border border-fg/20 rounded-sm p-4 transition-colors pointer-events-none group-hover:border-neon/40">
+            <picture class="mb-2 w-full allow-pointer">
               <img
                 src={d.image}
                 alt={d.title}
@@ -169,28 +168,33 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
                 onerror="this.style.display='none'"
               />
             </picture>
-            <span class="font-semibold leading-snug mb-2 transition-colors group-hover:text-neon">
+            <span class="font-semibold leading-snug mb-2 transition-colors allow-pointer group-hover:text-neon">
               {d.title}
             </span>
             <div class="flex flex-wrap gap-2 text-[10px] uppercase tracking-wide font-semibold relative z-10">
-              <span class="pill pill-type">{d.drinkType}</span>
-              {d.bases.slice(0,3).map(b=> <span class="pill pill-base">{b}</span>)}
-              {d.bases.length > 3 && <span class="pill pill-base">+{d.bases.length - 3}</span>}
-              {d.difficulty && <span class="pill pill-diff">{d.difficulty}</span>}
+              <span class="pill pill-type allow-pointer">{d.drinkType}</span>
+              {d.bases.slice(0,3).map(b=> <span class="pill pill-base allow-pointer">{b}</span>)}
+              {d.bases.length > 3 && <span class="pill pill-base allow-pointer">+{d.bases.length - 3}</span>}
+              {d.difficulty && <span class="pill pill-diff allow-pointer">{d.difficulty}</span>}
             </div>
           </div>
           <a
             href={d.href}
             aria-label={`View drink: ${d.title}`}
             class="absolute inset-0 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/60"
-          />
+          >
+            <span class="sr-only">{d.title}</span>
+          </a>
         </li>
       ))}
     </ul>
   )}
 
   <style>
-    .pill { @apply inline-flex items-center gap-1 px-2 py-1 rounded-full text-[10px] font-semibold tracking-wide whitespace-nowrap transition-colors select-none border cursor-pointer; line-height:1.1; }
+    .pill {
+      @apply inline-flex items-center gap-1 px-2 py-1 rounded-full text-[10px] font-semibold tracking-wide whitespace-nowrap transition-colors select-none border cursor-pointer;
+      line-height:1.1;
+    }
     .pill-type-tint { @apply bg-orange-500/15 text-orange-300 border-orange-400/30 hover:bg-orange-500/25; }
     .pill-base-tint { @apply bg-blue-500/15 text-blue-300 border-blue-400/30 hover:bg-blue-500/25; }
     .pill-diff-tint { @apply bg-pink-500/15 text-pink-300 border-pink-400/30 hover:bg-pink-500/25; }
@@ -201,160 +205,173 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
     .filter-toggle[aria-expanded="true"] { @apply ring-2 ring-neon/60; }
     #exclusive-toggle[aria-pressed="true"] { @apply bg-neon/20 text-neon ring-2 ring-neon/50; }
     .filter-item[aria-pressed="true"] { @apply ring-2 ring-neon/60; }
+
     .filter-panel { @apply absolute z-50 mt-2 min-w-[14rem] max-w-xs bg-bg/95 backdrop-blur border border-fg/25 rounded-md shadow-lg p-2; }
     .filter-panel.hidden { display:none; }
     .panel-inner { @apply flex flex-wrap gap-2 overflow-y-auto; max-height:18rem; }
     .panel-inner::-webkit-scrollbar { width:6px; }
     .panel-inner::-webkit-scrollbar-thumb { @apply bg-fg/30 rounded; }
+
     #result-count { @apply text-muted; }
+
+    .card-body { pointer-events:none; }
+    .card-body .allow-pointer { pointer-events:auto; }
   </style>
 
   <script type="module">
-    (function(){
-      const log = (...a)=>console.debug('[drinks-filters]', ...a);
+    // Mirror games filter logic
+    const qs = s => document.querySelector(s);
+    const qsa = s => Array.from(document.querySelectorAll(s));
 
-      const state = {
-        type: new Set(),
-        base: new Set(),
-        difficulty: new Set(),
-        exclusive: false
-      };
+    const selected = {
+      type: new Set(),
+      base: new Set(),
+      difficulty: new Set()
+    };
+    let exclusive = false;
 
-      const qs = s => document.querySelector(s);
-      const qsa = s => Array.from(document.querySelectorAll(s));
+    const filterItems = qsa('.filter-item');
+    const panelToggles = qsa('.filter-toggle');
+    const clearBtn = qs('#clear-filters');
+    const exclusiveBtn = qs('#exclusive-toggle');
+    const resultCount = qs('#result-count');
+    const grid = qs('#drinks-grid');
 
-      const grid = qs('#drinks-grid');
-      const resultCount = qs('#result-count');
-      const clearBtn = qs('#clear-filters');
-      const exclusiveBtn = qs('#exclusive-toggle');
-      const panelToggles = qsa('.filter-toggle');
+    function anySelected() {
+      return selected.type.size || selected.base.size || selected.difficulty.size;
+    }
 
-      function anySelected(){
-        return state.type.size || state.base.size || state.difficulty.size;
-      }
+    function updateClearBtn() {
+      if (clearBtn) clearBtn.disabled = !anySelected();
+    }
 
-      function updateClearBtn(){
-        if (clearBtn) clearBtn.disabled = !anySelected();
-      }
+    function matchCard(li) {
+      const t = li.getAttribute('data-type') || '';
+      const bases = (li.getAttribute('data-bases') || '').split(',').filter(Boolean);
+      const diff = li.getAttribute('data-difficulty') || '';
+      if (!anySelected()) return true;
 
-      function cardMatches(li){
-        const dt = li.getAttribute('data-type') || '';
-        const bases = (li.getAttribute('data-bases')||'').split(',').filter(Boolean);
-        const diff = li.getAttribute('data-difficulty') || '';
-        if(!anySelected()) return true;
-
-        if(!state.exclusive){
-          if(state.type.has(dt)) return true;
-          if(state.difficulty.has(diff)) return true;
-            if(state.base.size){
-            for(const b of state.base) if(bases.includes(b)) return true;
-          }
-          return false;
+      if (!exclusive) {
+        if (selected.type.has(t)) return true;
+        if (selected.difficulty.has(diff)) return true;
+        if (selected.base.size) {
+          for (const b of selected.base) if (bases.includes(b)) return true;
         }
-        if(state.type.size && !state.type.has(dt)) return false;
-        if(state.difficulty.size && !state.difficulty.has(diff)) return false;
-        if(state.base.size){
-          let ok=false;
-          for(const b of state.base) if(bases.includes(b)){ ok=true; break; }
-          if(!ok) return false;
-        }
-        return true;
+        return false;
       }
 
-      function applyFilters(){
-        if(!grid) return;
-        const cards = qsa('#drinks-grid > li');
-        let visible = 0;
-        cards.forEach(li=>{
-          if(cardMatches(li)){ li.classList.remove('hidden'); visible++; }
-          else li.classList.add('hidden');
-        });
-        if(resultCount){
-          resultCount.textContent = \`Showing \${visible} of \${cards.length} drinks\${state.exclusive ? ' (exclusive)' : ''}\`;
-        }
-        log('Applied filters', {
-          type:[...state.type],
-          base:[...state.base],
-          difficulty:[...state.difficulty],
-          exclusive: state.exclusive,
-          visible
-        });
+      if (selected.type.size && !selected.type.has(t)) return false;
+      if (selected.difficulty.size && !selected.difficulty.has(diff)) return false;
+      if (selected.base.size) {
+        let ok = false;
+        for (const b of selected.base) if (bases.includes(b)) { ok = true; break; }
+        if (!ok) return false;
       }
+      return true;
+    }
 
-      function toggleSet(setName, value){
-        const set = state[setName];
-        if(set.has(value)) set.delete(value); else set.add(value);
-      }
-
-      document.addEventListener('click', e => {
-        const btn = e.target.closest('.filter-item');
-        if(btn){
-          const type = btn.getAttribute('data-filter-type');
-          let val = btn.getAttribute('data-value');
-          if(!type || !val) return;
-          if(type === 'base') val = val.toLowerCase();
-          toggleSet(type,val);
-          const newPressed = btn.getAttribute('aria-pressed') === 'true' ? 'false':'true';
-          btn.setAttribute('aria-pressed', newPressed);
-          updateClearBtn();
-          applyFilters();
-          return;
-        }
-        // Panel close (click outside)
-        if(!e.target.closest('[data-filter-wrapper]')){
-          closePanels();
+    function applyFilters() {
+      if (!grid) return;
+      const cards = qsa('#drinks-grid > li');
+      let visible = 0;
+      cards.forEach(li => {
+        if (matchCard(li)) {
+          li.classList.remove('hidden');
+          visible++;
+        } else {
+          li.classList.add('hidden');
         }
       });
-
-      exclusiveBtn?.addEventListener('click', ()=>{
-        state.exclusive = !state.exclusive;
-        exclusiveBtn.setAttribute('aria-pressed', state.exclusive ? 'true':'false');
-        applyFilters();
-      });
-
-      clearBtn?.addEventListener('click', ()=>{
-        state.type.clear(); state.base.clear(); state.difficulty.clear();
-        qsa('.filter-item[aria-pressed="true"]').forEach(b=>b.setAttribute('aria-pressed','false'));
-        updateClearBtn();
-        applyFilters();
-      });
-
-      function closePanels(except){
-        panelToggles.forEach(btn=>{
-          const id = btn.getAttribute('data-panel');
-          const panel = document.getElementById('panel-'+id);
-          if(!panel) return;
-          if(except && id===except) return;
-          panel.classList.add('hidden');
-          btn.setAttribute('aria-expanded','false');
-        });
+      if (resultCount) {
+        resultCount.textContent = \`Showing \${visible} of \${cards.length} drinks\${exclusive ? ' (exclusive)' : ''}\`;
       }
+    }
 
-      panelToggles.forEach(btn=>{
-        btn.addEventListener('click', ()=>{
-          const id = btn.getAttribute('data-panel');
-          const panel = document.getElementById('panel-'+id);
-          if(!panel) return;
-          const open = !panel.classList.contains('hidden');
-          if(open){
-            panel.classList.add('hidden');
-            btn.setAttribute('aria-expanded','false');
-          } else {
-            closePanels(id);
-            panel.classList.remove('hidden');
-            btn.setAttribute('aria-expanded','true');
-          }
-        });
-      });
-
-      document.addEventListener('keydown', e=>{
-        if(e.key === 'Escape') closePanels();
-      });
-
-      // Init
+    function toggleFilter(btn) {
+      const type = btn.getAttribute('data-filter-type');
+      let value = btn.getAttribute('data-value');
+      if (!type || !value) return;
+      if (type === 'base') value = value.toLowerCase();
+      const set = selected[type];
+      const isPressed = btn.getAttribute('aria-pressed') === 'true';
+      if (isPressed) {
+        set.delete(value);
+        btn.setAttribute('aria-pressed','false');
+      } else {
+        set.add(value);
+        btn.setAttribute('aria-pressed','true');
+      }
+      console.debug('[drinks] toggled', type, value, 'pressed?', !isPressed);
       updateClearBtn();
       applyFilters();
-      log('Filter script initialized');
-    })();
+    }
+
+    filterItems.forEach(btn => {
+      btn.addEventListener('click', () => toggleFilter(btn));
+      btn.addEventListener('keydown', e => {
+        if (e.key === ' ' || e.key === 'Enter') {
+          e.preventDefault();
+          toggleFilter(btn);
+        }
+      });
+    });
+
+    clearBtn?.addEventListener('click', () => {
+      selected.type.clear();
+      selected.base.clear();
+      selected.difficulty.clear();
+      filterItems.forEach(f => f.setAttribute('aria-pressed','false'));
+      updateClearBtn();
+      applyFilters();
+    });
+
+    exclusiveBtn?.addEventListener('click', () => {
+      exclusive = !exclusive;
+      exclusiveBtn.setAttribute('aria-pressed', exclusive ? 'true':'false');
+      applyFilters();
+    });
+
+    // Dropdowns
+    function closeAllPanels(exceptId) {
+      panelToggles.forEach(t => {
+        const id = t.getAttribute('data-panel');
+        const panel = document.getElementById('panel-' + id);
+        if (!panel) return;
+        if (id === exceptId) return;
+        panel.classList.add('hidden');
+        t.setAttribute('aria-expanded','false');
+      });
+    }
+
+    panelToggles.forEach(t => {
+      t.addEventListener('click', () => {
+        const id = t.getAttribute('data-panel');
+        const panel = document.getElementById('panel-' + id);
+        if (!panel) return;
+        const open = !panel.classList.contains('hidden');
+        if (open) {
+          panel.classList.add('hidden');
+          t.setAttribute('aria-expanded','false');
+        } else {
+          closeAllPanels(id);
+          panel.classList.remove('hidden');
+          t.setAttribute('aria-expanded','true');
+        }
+      });
+    });
+
+    document.addEventListener('click', e => {
+      if (!e.target.closest('[data-filter-wrapper]')) {
+        closeAllPanels();
+      }
+    });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeAllPanels();
+    });
+
+    // Init
+    updateClearBtn();
+    applyFilters();
+    console.debug('[drinks] filter script initialized');
   </script>
 </Layout>
