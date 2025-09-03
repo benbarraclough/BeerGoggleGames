@@ -7,11 +7,19 @@ import { excludeLegacyNoise } from '../../lib/filters';
 import { playerModeSlug, playerModeLabel } from '../../lib/playerMode';
 
 const raw = excludeLegacyNoise(await getCollection('games'));
+
+/*
+  Flattened URL model:
+    Detail pages: /games/<leaf>/
+    We only use the final segment (leaf) of each entry slug.
+    All leaves must be globally unique or the detail page may collide.
+*/
+
 const allGames = raw
   .map(g => {
-    const fullSlug = g.slug ?? g.id;
-    const slugParts = fullSlug.split('/');
-    const leaf = slugParts[slugParts.length - 1]; // new flat leaf
+    const full = g.slug ?? g.id;
+    const parts = full.split('/');
+    const leaf = parts[parts.length - 1];
     const type = (g.data.type || 'misc').toString();
     const rawMode = g.data.format || g.data.players;
     const modeSlug = rawMode ? playerModeSlug(rawMode) : '';
@@ -24,8 +32,7 @@ const allGames = raw
       tags,
       leaf,
       image: withBase(`images/${leaf}.webp`),
-      // FLAT URL (removed type segment)
-      href: withBase(`games/${leaf}/`)
+      href: withBase(`games/${leaf}/`)   // FLAT (no type)
     };
   })
   .sort((a,b)=> (a.title||'').localeCompare(b.title||''));
@@ -69,7 +76,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
     <div class="flex flex-wrap gap-2 items-center">
       <span class="text-[11px] uppercase tracking-wide text-muted/70">Filters</span>
 
-      <!-- Category -->
+      <!-- Category Dropdown -->
       <div class="relative" data-filter-wrapper>
         <button type="button" class="filter-toggle pill pill-cat-tint" data-panel="categories" aria-expanded="false">
           Categories
@@ -91,7 +98,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         </div>
       </div>
 
-      <!-- Modes -->
+      <!-- Modes Dropdown -->
       <div class="relative" data-filter-wrapper>
         <button type="button" class="filter-toggle pill pill-mode-tint" data-panel="modes" aria-expanded="false">
           Player Modes
@@ -113,7 +120,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         </div>
       </div>
 
-      <!-- Tags -->
+      <!-- Tags Dropdown -->
       <div class="relative" data-filter-wrapper>
         <button type="button" class="filter-toggle pill pill-tag-tint" data-panel="tags" aria-expanded="false">
           Tags
