@@ -63,12 +63,10 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
     Use the filters below. Exclusive = must match all selected groups.
   </p>
 
-  <!-- Filter Bar -->
   <div id="filter-bar" class="mb-6 space-y-3">
     <div class="flex flex-wrap gap-2 items-center">
       <span class="text-[11px] uppercase tracking-wide text-muted/70">Filters</span>
 
-      <!-- Drink Type -->
       <div class="relative" data-filter-wrapper>
         <button type="button" class="filter-toggle pill pill-type-tint" data-panel="types" aria-expanded="false">
           Drink Type
@@ -76,13 +74,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         <div class="filter-panel hidden" id="panel-types" role="group">
           <div class="panel-inner">
             {drinkTypes.map(([t,c]) => (
-              <button
-                type="button"
-                class="filter-item pill pill-type"
-                data-filter-type="type"
-                data-value={t}
-                aria-pressed="false"
-              >
+              <button type="button" class="filter-item pill pill-type" data-filter-type="type" data-value={t} aria-pressed="false">
                 <span>{t}</span><span class="count">{c}</span>
               </button>
             ))}
@@ -90,7 +82,6 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         </div>
       </div>
 
-      <!-- Base -->
       <div class="relative" data-filter-wrapper>
         <button type="button" class="filter-toggle pill pill-base-tint" data-panel="bases" aria-expanded="false">
           Alcohol Base
@@ -98,13 +89,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         <div class="filter-panel hidden" id="panel-bases" role="group">
           <div class="panel-inner max-h-72">
             {bases.map(([b,c]) => (
-              <button
-                type="button"
-                class="filter-item pill pill-base"
-                data-filter-type="base"
-                data-value={b.toLowerCase()}
-                aria-pressed="false"
-              >
+              <button type="button" class="filter-item pill pill-base" data-filter-type="base" data-value={b.toLowerCase()} aria-pressed="false">
                 <span>{b}</span><span class="count">{c}</span>
               </button>
             ))}
@@ -112,7 +97,6 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         </div>
       </div>
 
-      <!-- Difficulty -->
       <div class="relative" data-filter-wrapper>
         <button type="button" class="filter-toggle pill pill-diff-tint" data-panel="difficulty" aria-expanded="false">
           Difficulty
@@ -120,13 +104,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         <div class="filter-panel hidden" id="panel-difficulty" role="group">
           <div class="panel-inner">
             {difficulties.map(([d,c]) => (
-              <button
-                type="button"
-                class="filter-item pill pill-diff"
-                data-filter-type="difficulty"
-                data-value={d}
-                aria-pressed="false"
-              >
+              <button type="button" class="filter-item pill pill-diff" data-filter-type="difficulty" data-value={d} aria-pressed="false">
                 <span>{d}</span><span class="count">{c}</span>
               </button>
             ))}
@@ -134,9 +112,9 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         </div>
       </div>
 
-      <!-- Exclusive / Clear -->
-      <button id="exclusive-toggle" type="button" class="pill pill-neutral" aria-pressed="false"
-        title="Exclusive: must match each selected group (AND logic)">Exclusive</button>
+      <button id="exclusive-toggle" type="button" class="pill pill-neutral" aria-pressed="false">
+        Exclusive
+      </button>
       <button id="clear-filters" type="button" class="pill pill-neutral disabled:opacity-40 disabled:cursor-not-allowed" disabled>
         Clear
       </button>
@@ -145,7 +123,6 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
     </div>
   </div>
 
-  <!-- Grid -->
   {drinks.length === 0 ? (
     <p class="text-muted">No drinks found.</p>
   ) : (
@@ -171,7 +148,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
             <span class="font-semibold leading-snug mb-2 transition-colors allow-pointer group-hover:text-neon">
               {d.title}
             </span>
-            <div class="flex flex-wrap gap-2 text-[10px] uppercase tracking-wide font-semibold relative z-10">
+            <div class="flex flex-wrap gap-2 text-[10px] uppercase tracking-wide font-semibold relative z-10 allow-pointer">
               <span class="pill pill-type allow-pointer">{d.drinkType}</span>
               {d.bases.slice(0,3).map(b=> <span class="pill pill-base allow-pointer">{b}</span>)}
               {d.bases.length > 3 && <span class="pill pill-base allow-pointer">+{d.bases.length - 3}</span>}
@@ -191,10 +168,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
   )}
 
   <style>
-    .pill {
-      @apply inline-flex items-center gap-1 px-2 py-1 rounded-full text-[10px] font-semibold tracking-wide whitespace-nowrap transition-colors select-none border cursor-pointer;
-      line-height:1.1;
-    }
+    .pill { @apply inline-flex items-center gap-1 px-2 py-1 rounded-full text-[10px] font-semibold tracking-wide whitespace-nowrap transition-colors select-none border cursor-pointer; line-height:1.1; }
     .pill-type-tint { @apply bg-orange-500/15 text-orange-300 border-orange-400/30 hover:bg-orange-500/25; }
     .pill-base-tint { @apply bg-blue-500/15 text-blue-300 border-blue-400/30 hover:bg-blue-500/25; }
     .pill-diff-tint { @apply bg-pink-500/15 text-pink-300 border-pink-400/30 hover:bg-pink-500/25; }
@@ -205,173 +179,16 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
     .filter-toggle[aria-expanded="true"] { @apply ring-2 ring-neon/60; }
     #exclusive-toggle[aria-pressed="true"] { @apply bg-neon/20 text-neon ring-2 ring-neon/50; }
     .filter-item[aria-pressed="true"] { @apply ring-2 ring-neon/60; }
-
     .filter-panel { @apply absolute z-50 mt-2 min-w-[14rem] max-w-xs bg-bg/95 backdrop-blur border border-fg/25 rounded-md shadow-lg p-2; }
     .filter-panel.hidden { display:none; }
     .panel-inner { @apply flex flex-wrap gap-2 overflow-y-auto; max-height:18rem; }
     .panel-inner::-webkit-scrollbar { width:6px; }
     .panel-inner::-webkit-scrollbar-thumb { @apply bg-fg/30 rounded; }
-
     #result-count { @apply text-muted; }
-
     .card-body { pointer-events:none; }
     .card-body .allow-pointer { pointer-events:auto; }
   </style>
 
-  <script type="module">
-    // Mirror games filter logic
-    const qs = s => document.querySelector(s);
-    const qsa = s => Array.from(document.querySelectorAll(s));
-
-    const selected = {
-      type: new Set(),
-      base: new Set(),
-      difficulty: new Set()
-    };
-    let exclusive = false;
-
-    const filterItems = qsa('.filter-item');
-    const panelToggles = qsa('.filter-toggle');
-    const clearBtn = qs('#clear-filters');
-    const exclusiveBtn = qs('#exclusive-toggle');
-    const resultCount = qs('#result-count');
-    const grid = qs('#drinks-grid');
-
-    function anySelected() {
-      return selected.type.size || selected.base.size || selected.difficulty.size;
-    }
-
-    function updateClearBtn() {
-      if (clearBtn) clearBtn.disabled = !anySelected();
-    }
-
-    function matchCard(li) {
-      const t = li.getAttribute('data-type') || '';
-      const bases = (li.getAttribute('data-bases') || '').split(',').filter(Boolean);
-      const diff = li.getAttribute('data-difficulty') || '';
-      if (!anySelected()) return true;
-
-      if (!exclusive) {
-        if (selected.type.has(t)) return true;
-        if (selected.difficulty.has(diff)) return true;
-        if (selected.base.size) {
-          for (const b of selected.base) if (bases.includes(b)) return true;
-        }
-        return false;
-      }
-
-      if (selected.type.size && !selected.type.has(t)) return false;
-      if (selected.difficulty.size && !selected.difficulty.has(diff)) return false;
-      if (selected.base.size) {
-        let ok = false;
-        for (const b of selected.base) if (bases.includes(b)) { ok = true; break; }
-        if (!ok) return false;
-      }
-      return true;
-    }
-
-    function applyFilters() {
-      if (!grid) return;
-      const cards = qsa('#drinks-grid > li');
-      let visible = 0;
-      cards.forEach(li => {
-        if (matchCard(li)) {
-          li.classList.remove('hidden');
-          visible++;
-        } else {
-          li.classList.add('hidden');
-        }
-      });
-      if (resultCount) {
-        resultCount.textContent = \`Showing \${visible} of \${cards.length} drinks\${exclusive ? ' (exclusive)' : ''}\`;
-      }
-    }
-
-    function toggleFilter(btn) {
-      const type = btn.getAttribute('data-filter-type');
-      let value = btn.getAttribute('data-value');
-      if (!type || !value) return;
-      if (type === 'base') value = value.toLowerCase();
-      const set = selected[type];
-      const isPressed = btn.getAttribute('aria-pressed') === 'true';
-      if (isPressed) {
-        set.delete(value);
-        btn.setAttribute('aria-pressed','false');
-      } else {
-        set.add(value);
-        btn.setAttribute('aria-pressed','true');
-      }
-      console.debug('[drinks] toggled', type, value, 'pressed?', !isPressed);
-      updateClearBtn();
-      applyFilters();
-    }
-
-    filterItems.forEach(btn => {
-      btn.addEventListener('click', () => toggleFilter(btn));
-      btn.addEventListener('keydown', e => {
-        if (e.key === ' ' || e.key === 'Enter') {
-          e.preventDefault();
-          toggleFilter(btn);
-        }
-      });
-    });
-
-    clearBtn?.addEventListener('click', () => {
-      selected.type.clear();
-      selected.base.clear();
-      selected.difficulty.clear();
-      filterItems.forEach(f => f.setAttribute('aria-pressed','false'));
-      updateClearBtn();
-      applyFilters();
-    });
-
-    exclusiveBtn?.addEventListener('click', () => {
-      exclusive = !exclusive;
-      exclusiveBtn.setAttribute('aria-pressed', exclusive ? 'true':'false');
-      applyFilters();
-    });
-
-    // Dropdowns
-    function closeAllPanels(exceptId) {
-      panelToggles.forEach(t => {
-        const id = t.getAttribute('data-panel');
-        const panel = document.getElementById('panel-' + id);
-        if (!panel) return;
-        if (id === exceptId) return;
-        panel.classList.add('hidden');
-        t.setAttribute('aria-expanded','false');
-      });
-    }
-
-    panelToggles.forEach(t => {
-      t.addEventListener('click', () => {
-        const id = t.getAttribute('data-panel');
-        const panel = document.getElementById('panel-' + id);
-        if (!panel) return;
-        const open = !panel.classList.contains('hidden');
-        if (open) {
-          panel.classList.add('hidden');
-          t.setAttribute('aria-expanded','false');
-        } else {
-          closeAllPanels(id);
-          panel.classList.remove('hidden');
-          t.setAttribute('aria-expanded','true');
-        }
-      });
-    });
-
-    document.addEventListener('click', e => {
-      if (!e.target.closest('[data-filter-wrapper]')) {
-        closeAllPanels();
-      }
-    });
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape') closeAllPanels();
-    });
-
-    // Init
-    updateClearBtn();
-    applyFilters();
-    console.debug('[drinks] filter script initialized');
-  </script>
+  <!-- External script (prevents inline SyntaxError issues) -->
+  <script type="module" src={withBase('scripts/drinks-filters.js')}></script>
 </Layout>
