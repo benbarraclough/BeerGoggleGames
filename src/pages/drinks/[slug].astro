@@ -1,8 +1,8 @@
 ---
 import Layout from '../../components/Layout.astro';
 import { getCollection, getEntry } from 'astro:content';
-import { withBase } from '../../lib/paths';
 import { canonical } from '../../lib/urls';
+import { withBase } from '../../lib/paths';
 
 export async function getStaticPaths() {
   const entries = await getCollection('drinks');
@@ -14,24 +14,17 @@ export async function getStaticPaths() {
 
 const { id } = Astro.props;
 const entry = await getEntry('drinks', id);
-if (!entry) throw new Error(`Drink entry not found: ${id}`);
-
+if (!entry) throw new Error(`Drink not found: ${id}`);
 const slug = (entry.slug ?? entry.id).split('/').pop();
 const { Content } = await entry.render();
-
 const cover = entry.data.cover
   ? withBase(`images/${entry.data.cover}`)
   : withBase(`images/${slug}.webp`);
-
 const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 const pageTitle = entry.data.title;
 const description = entry.data.excerpt || `Drink recipe: ${pageTitle}`;
 ---
-<Layout
-  title={pageTitle}
-  description={description}
-  canonical={pageCanonical}
->
+<Layout title={pageTitle} description={description} canonical={pageCanonical}>
   <article class="prose-invert max-w-none">
     <Content />
   </article>
