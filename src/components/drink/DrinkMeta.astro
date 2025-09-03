@@ -1,17 +1,14 @@
 ---
 /**
- * DrinkMeta
- * Mirrors the style of the game meta header (title, excerpt, pills).
- * Expects:
+ * DrinkMeta: header block for drink pages (title, excerpt, pills).
+ * Props:
  *  title: string
  *  excerpt?: string
  *  drinkType: string
  *  difficulty?: string
- *  bases: string[]
+ *  bases?: string[]
  *  tags?: string[]
- *  basePath helpers already handled at call site.
  */
-
 interface Props {
   title: string;
   excerpt?: string;
@@ -20,7 +17,6 @@ interface Props {
   bases?: string[];
   tags?: string[];
 }
-
 const {
   title,
   excerpt,
@@ -34,23 +30,17 @@ const prettyDiff = difficulty
   ? difficulty.charAt(0).toUpperCase() + difficulty.slice(1)
   : '';
 ---
-<header class="mb-6">
-  <h1 class="font-display text-4xl mb-2">{{ title }}</h1>
+<header class="drink-meta mb-6">
+  <h1 class="font-display text-4xl mb-2">{title}</h1>
   {excerpt && (
-    <p class="text-lg text-muted mb-4 leading-relaxed max-w-prose">
-      {excerpt}
-    </p>
+    <p class="text-lg text-muted mb-4 leading-relaxed max-w-prose">{excerpt}</p>
   )}
-  <div class="flex flex-wrap gap-2 mb-2">
+  <div class="flex flex-wrap gap-2 meta-pills">
     {drinkType && (
-      <span class="mode-pill" aria-label={`Drink type: ${drinkType}`}>
-        {drinkType}
-      </span>
+      <span class="mode-pill" aria-label={`Drink type: ${drinkType}`}>{drinkType}</span>
     )}
     {bases.map(b => (
-      <span class="mode-pill mode-pill-base" aria-label={`Base: ${b}`}>
-        {b}
-      </span>
+      <span class="mode-pill mode-pill-base" aria-label={`Base: ${b}`}>{b}</span>
     ))}
     {prettyDiff && (
       <span class="mode-pill mode-pill-diff" aria-label={`Difficulty: ${prettyDiff}`}>
@@ -61,21 +51,22 @@ const prettyDiff = difficulty
       <span class="tag-pill" aria-label={`Tag: ${t}`}>{t}</span>
     ))}
     {tags.length > 0 && (
-      <a href="/tags/" class="tag-pill" aria-label="Browse all tags">
-        All Tags
-      </a>
+      <a href="/tags/" class="tag-pill" aria-label="Browse all tags">All Tags</a>
     )}
   </div>
 </header>
 
 <style>
-  /* Reuse existing pill styling patterns (adjust to your design tokens) */
   .mode-pill {
-    @apply inline-flex items-center gap-1 px-3 py-1 rounded-lg border border-fg/20 text-xs font-semibold bg-fg/10 tracking-wide uppercase;
+    @apply inline-flex items-center gap-1 px-3 py-1 rounded-md border border-fg/20 bg-fg/10 text-[11px] font-semibold tracking-wide uppercase leading-none;
   }
-  .mode-pill-base { @apply bg-blue-500/15 text-blue-200 border-blue-400/30; }
-  .mode-pill-diff { @apply bg-pink-500/15 text-pink-200 border-pink-400/30; }
+  .mode-pill-base {
+    @apply bg-blue-500/15 text-blue-200 border-blue-400/30;
+  }
+  .mode-pill-diff {
+    @apply bg-pink-500/15 text-pink-200 border-pink-400/30;
+  }
   .tag-pill {
-    @apply inline-flex items-center px-2 py-1 rounded-full bg-fg/10 text-[11px] font-medium border border-fg/15 hover:border-neon/50 transition;
+    @apply inline-flex items-center px-2 py-1 rounded-full bg-fg/10 text-[10px] font-medium border border-fg/15 hover:border-neon/50 transition;
   }
 </style>
