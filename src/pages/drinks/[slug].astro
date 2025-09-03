@@ -4,19 +4,44 @@ import { getCollection, getEntry } from 'astro:content';
 import { canonical } from '../../lib/urls';
 import { withBase } from '../../lib/paths';
 
+/**
+ * We generate static paths using the collection's slug (no file extension).
+ * IMPORTANT: This assumes all drink content files live flat in src/content/drinks
+ * (no nested directories). If you ever nest folders, convert this to a catch-all
+ * route: /drinks/[...slug].astro and adjust logic accordingly.
+ */
 export async function getStaticPaths() {
   const entries = await getCollection('drinks');
-  return entries.map(e => ({
-    params: { slug: (e.slug ?? e.id).split('/').pop() },
-    props: { id: e.id }
-  }));
+  return entries.map(e => {
+    // e.slug (Astro v3/v4) is the path segment without extension; e.id is similar for 'content' type
+    const slug = (e.slug ?? e.id);
+    return {
+      params: { slug },
+    };
+  });
 }
 
-const { id } = Astro.props;
-const entry = await getEntry('drinks', id);
-if (!entry) throw new Error(`Drink not found: ${id}`);
-const slug = (entry.slug ?? entry.id).split('/').pop();
+const rawSlug = Astro.params.slug;
+
+/**
+ * Safety: if a build artifact or link used slug with ".mdx" accidentally,
+ * strip the extension and retry.
+ */
+const normalizedSlug = rawSlug.replace(/\.mdx$/i, '');
+
+let entry = await getEntry('drinks', normalizedSlug);
+
+if (!entry) {
+  // Provide clear debugging info
+  const all = await getCollection('drinks');
+  const available = all.map(e => e.slug ?? e.id);
+  throw new Error(
+    `Drink not found for slug "${rawSlug}". Tried normalized "${normalizedSlug}". Available: ${available.join(', ')}`
+  );
+}
+
 const { Content } = await entry.render();
+const slug = normalizedSlug;
 const cover = entry.data.cover
   ? withBase(`images/${entry.data.cover}`)
   : withBase(`images/${slug}.webp`);
