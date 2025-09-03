@@ -6,30 +6,48 @@ import { canonical } from '../../lib/urls';
 import { withBase } from '../../lib/paths';
 import { playerModeLabel, playerModeSlug } from '../../lib/playerMode';
 
-const allEntries = await getCollection('games');
-
-// Build leaf map (detect duplicates)
-const leafMap = new Map<string, any>();
-for (const e of allEntries) {
-  const leaf = (e.slug ?? e.id).split('/').pop();
-  if (leafMap.has(leaf)) {
-    console.warn(`[games] Duplicate leaf slug detected: ${leaf}`);
-  } else {
-    leafMap.set(leaf, e);
-  }
+interface GameLeafEntry {
+  leaf: string;
+  entry: any;
 }
 
 export async function getStaticPaths() {
-  const seen = new Set<string>();
-  return allEntries.map(e => {
-    const leaf = (e.slug ?? e.id).split('/').pop();
-    if (seen.has(leaf)) return null;
-    seen.add(leaf);
-    return { params: { slug: leaf } };
-  }).filter(Boolean);
+  const entries = await getCollection('games');
+
+  const leafMap = new Map<string, any>();
+  const duplicates: string[] = [];
+
+  for (const e of entries) {
+    const leaf = (e.slug ?? e.id).split('/').pop()!;
+    if (leafMap.has(leaf)) {
+      duplicates.push(leaf);
+    } else {
+      leafMap.set(leaf, e);
+    }
+  }
+
+  if (duplicates.length) {
+    throw new Error(
+      `[games] Duplicate leaf slug(s) detected after flattening: ${duplicates.join(', ')}. ` +
+      `All game leaf slugs must be unique when using /games/<slug>/ routes.`
+    );
+  }
+
+  return Array.from(leafMap.keys()).map(leaf => ({
+    params: { slug: leaf }
+  }));
 }
 
 const leaf = Astro.params.slug;
+
+// Rebuild map for runtime lookup (no sharing required between build phases)
+const allEntries = await getCollection('games');
+const leafMap = new Map<string, any>();
+for (const e of allEntries) {
+  const l = (e.slug ?? e.id).split('/').pop()!;
+  if (!leafMap.has(l)) leafMap.set(l, e);
+}
+
 const entry = leafMap.get(leaf);
 if (!entry) {
   throw new Error(`Game not found for leaf "${leaf}"`);
@@ -38,26 +56,32 @@ if (!entry) {
 const { Content } = await entry.render();
 
 const title = entry.data.title;
-const description = entry.data.excerpt || entry.data.description || `Drinking game: ${title}`;
+const description =
+  entry.data.excerpt ||
+  entry.data.description ||
+  `Drinking game: ${title}`;
+
 const type = (entry.data.type || '').toString();
 const rawMode = entry.data.format || entry.data.players;
 const modeSlug = rawMode ? playerModeSlug(rawMode) : '';
 const tags: string[] = Array.isArray(entry.data.tags) ? entry.data.tags : [];
+
 const coverFile = entry.data.cover || `${leaf}.webp`;
 const cover = withBase(`images/${coverFile}`);
+
 const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 
-// Prev/Next
-const sortedGames = allEntries
+// Build prev/next list (alphabetical by title)
+const sorted = allEntries
   .map(e => ({
-    leaf: (e.slug ?? e.id).split('/').pop(),
+    leaf: (e.slug ?? e.id).split('/').pop()!,
     title: e.data.title || (e.slug ?? e.id)
   }))
-  .sort((a,b)=> (a.title||'').localeCompare(b.title||''));
+  .sort((a, b) => (a.title || '').localeCompare(b.title || ''));
 
-const idx = sortedGames.findIndex(g => g.leaf === leaf);
-const prev = idx > 0 ? sortedGames[idx - 1] : null;
-const next = idx >= 0 && idx < sortedGames.length - 1 ? sortedGames[idx + 1] : null;
+const idx = sorted.findIndex(g => g.leaf === leaf);
+const prev = idx > 0 ? sorted[idx - 1] : null;
+const next = idx >= 0 && idx < sorted.length - 1 ? sorted[idx + 1] : null;
 
 const jsonLd = {
   '@context': 'https://schema.org',
