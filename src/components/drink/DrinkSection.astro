@@ -3,5 +3,23 @@ import GameSection from '../game/GameSection.astro';
 const { title, icon } = Astro.props;
 ---
 <GameSection title={title} icon={icon}>
-  <slot />
+  <div class="drink-section-content">
+    <slot />
+  </div>
 </GameSection>
+
+<style>
+  .drink-section-content ol {
+    list-style: decimal;
+    padding-left: 1.25rem;
+    margin: 0;
+  }
+  .drink-section-content ul {
+    list-style: disc;
+    padding-left: 1.25rem;
+    margin: 0;
+  }
+  .drink-section-content li {
+    margin: 0.25rem 0;
+  }
+</style>
