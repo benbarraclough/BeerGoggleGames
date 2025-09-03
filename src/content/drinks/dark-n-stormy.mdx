@@ -8,15 +8,9 @@ cover: "dark-n-stormy.webp"
 tags: []
 ---
 
-import DrinkHero from '../../components/drink/DrinkHero.astro';
 import DrinkSection from '../../components/drink/DrinkSection.astro';
 import ShareButtons from '../../components/game/ShareButtons.astro';
 import FeedbackCard from '../../components/game/FeedbackCard.astro';
-
-<DrinkHero
-  cover={'/BeerGoggleGames/images/dark-n-stormy.webp'}
-  alt={"Dark 'n' Stormy"}
-/>
 
 <DrinkSection title="Overview" icon="/BeerGoggleGames/images/info.webp">
   <p><strong>Description:</strong> A sweet yet spiced cocktail for those who like their dark rum in a long drink.</p>
@@ -45,8 +39,6 @@ import FeedbackCard from '../../components/game/FeedbackCard.astro';
   <li>Further garnish of rosemary or mint leaf can be used for extra pizzazz alongside a small amount of grated cinnamon stick.</li>
 </ol>
 </DrinkSection>
-
-
 
 <ShareButtons title={"Dark 'n' Stormy"} />
 <FeedbackCard></FeedbackCard>

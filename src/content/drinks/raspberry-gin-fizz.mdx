@@ -8,15 +8,9 @@ cover: "raspberry-gin-fizz.webp"
 tags: []
 ---
 
-import DrinkHero from '../../components/drink/DrinkHero.astro';
 import DrinkSection from '../../components/drink/DrinkSection.astro';
 import ShareButtons from '../../components/game/ShareButtons.astro';
 import FeedbackCard from '../../components/game/FeedbackCard.astro';
-
-<DrinkHero
-  cover={'/BeerGoggleGames/images/raspberry-gin-fizz.webp'}
-  alt={"Raspberry Gin Fizz"}
-/>
 
 <DrinkSection title="Overview" icon="/BeerGoggleGames/images/info.webp">
   <p><strong>Description:</strong> A sweet cocktail with fresh fruit and mint, simple and very easy to drink.</p>
@@ -50,8 +44,6 @@ import FeedbackCard from '../../components/game/FeedbackCard.astro';
   <li>Frozen fruit can keep your drink cooler for longer.</li>
 </ol>
 </DrinkSection>
-
-
 
 <ShareButtons title={"Raspberry Gin Fizz"} />
 <FeedbackCard></FeedbackCard>

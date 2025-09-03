@@ -8,15 +8,9 @@ cover: "pina-colada.webp"
 tags: []
 ---
 
-import DrinkHero from '../../components/drink/DrinkHero.astro';
 import DrinkSection from '../../components/drink/DrinkSection.astro';
 import ShareButtons from '../../components/game/ShareButtons.astro';
 import FeedbackCard from '../../components/game/FeedbackCard.astro';
-
-<DrinkHero
-  cover={'/BeerGoggleGames/images/pina-colada.webp'}
-  alt={"Piña Colada"}
-/>
 
 <DrinkSection title="Overview" icon="/BeerGoggleGames/images/info.webp">
   <p><strong>Description:</strong> A smooth & fresh tropical drink with pineapple, one of the best cocktails for a summers day.</p>
@@ -46,8 +40,6 @@ import FeedbackCard from '../../components/game/FeedbackCard.astro';
   <li>Coconut cream and cream of coconut are used to make the best piña coladas, however coconut milk can be used as well. Coconut milk is a little less rich in flavour and unsweetened, keep this in mind.</li>
 </ol>
 </DrinkSection>
-
-
 
 <ShareButtons title={"Piña Colada"} />
 <FeedbackCard></FeedbackCard>

@@ -8,15 +8,9 @@ cover: "mojito.webp"
 tags: []
 ---
 
-import DrinkHero from '../../components/drink/DrinkHero.astro';
 import DrinkSection from '../../components/drink/DrinkSection.astro';
 import ShareButtons from '../../components/game/ShareButtons.astro';
 import FeedbackCard from '../../components/game/FeedbackCard.astro';
-
-<DrinkHero
-  cover={'/BeerGoggleGames/images/mojito.webp'}
-  alt={"Mojito"}
-/>
 
 <DrinkSection title="Overview" icon="/BeerGoggleGames/images/info.webp">
   <p><strong>Description:</strong> The Cuban crowd-pleaser, a sweet & refreshing drink with a hint of mint.</p>
@@ -47,8 +41,6 @@ import FeedbackCard from '../../components/game/FeedbackCard.astro';
   <li>Add different fresh fruits and syrups to easily create flavoured mojitos (strawberry, pineapple etc.)</li>
 </ol>
 </DrinkSection>
-
-
 
 <ShareButtons title={"Mojito"} />
 <FeedbackCard></FeedbackCard>
