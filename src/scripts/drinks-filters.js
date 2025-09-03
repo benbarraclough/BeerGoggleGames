@@ -1,9 +1,8 @@
-// Drinks Filters (extracted from inline script)
-// Minimal ES module: no TypeScript, no fancy syntax.
+// Drinks Filters (externalized)
 
 (function init() {
-  const qs = (s) => document.querySelector(s);
-  const qsa = (s) => Array.from(document.querySelectorAll(s));
+  const qs = s => document.querySelector(s);
+  const qsa = s => Array.from(document.querySelectorAll(s));
 
   const selected = {
     type: new Set(),
@@ -20,7 +19,10 @@
   const filterItems = qsa('.filter-item');
 
   function updateClearBtn() {
-    const any = selected.type.size || selected.base.size || selected.difficulty.size;
+    const any =
+      selected.type.size ||
+      selected.base.size ||
+      selected.difficulty.size;
     if (clearBtn) clearBtn.disabled = !any;
   }
 
@@ -29,7 +31,11 @@
     const bases = (li.getAttribute('data-bases') || '').split(',').filter(Boolean);
     const diff = li.getAttribute('data-difficulty') || '';
 
-    const anySel = selected.type.size || selected.base.size || selected.difficulty.size;
+    const anySel =
+      selected.type.size ||
+      selected.base.size ||
+      selected.difficulty.size;
+
     if (!anySel) return true;
 
     if (!exclusive) {
