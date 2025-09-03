@@ -14,16 +14,16 @@ export async function getStaticPaths() {
 
 const { id } = Astro.props;
 const entry = await getEntry('drinks', id);
-if (!entry) {
-  throw new Error(`Drink entry not found: ${id}`);
-}
+if (!entry) throw new Error(`Drink entry not found: ${id}`);
 
 const slug = (entry.slug ?? entry.id).split('/').pop();
 const { Content } = await entry.render();
 
-const cover = entry.data.cover ? withBase(`images/${entry.data.cover}`) : withBase(`images/${slug}.webp`);
-const pageCanonical = canonical(Astro.url.pathname, Astro.site);
+const cover = entry.data.cover
+  ? withBase(`images/${entry.data.cover}`)
+  : withBase(`images/${slug}.webp`);
 
+const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 const pageTitle = entry.data.title;
 const description = entry.data.excerpt || `Drink recipe: ${pageTitle}`;
 ---
