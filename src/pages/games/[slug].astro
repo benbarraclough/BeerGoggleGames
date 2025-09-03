@@ -69,7 +69,7 @@ const jsonLd = {
       </div>
     </header>
 
-    <!-- MDX content (may include its own figure) -->
+    <!-- MDX content (may include its own hero/figure) -->
     <Content />
 
     <p class="mt-10 text-xs text-muted">
@@ -85,8 +85,10 @@ const jsonLd = {
     .pill-cat { @apply bg-orange-500/10 text-orange-300 border-orange-400/30; }
     .pill-mode { @apply bg-blue-500/10 text-blue-300 border-blue-400/30; }
     .pill-tag { @apply bg-pink-500/10 text-pink-300 border-pink-400/30; }
+  </style>
 
-    /* Restore list styles inside generic MDX content */
+  <!-- GLOBAL list fix so MDX lists show bullets/numbers even with reset styles -->
+  <style is:global>
     article.prose-invert ul,
     article.prose-invert ol {
       list-style: revert;
