@@ -2,22 +2,21 @@
 import Layout from '../../components/Layout.astro';
 import { getCollection, getEntry } from 'astro:content';
 import DrinkMeta from '../../components/drink/DrinkMeta.astro';
-import GameHero from '../../components/game/GameHero.astro'; // Re-using existing hero component
+import GameHero from '../../components/game/GameHero.astro';
 import { canonical } from '../../lib/urls';
 import { withBase } from '../../lib/paths';
 
 export async function getStaticPaths() {
   const entries = await getCollection('drinks');
-  return entries.map(e => {
-    const slug = (e.slug ?? e.id);
-    return { params: { slug } };
-  });
+  return entries.map(e => ({
+    params: { slug: (e.slug ?? e.id) }
+  }));
 }
 
 const rawSlug = Astro.params.slug;
 const slug = rawSlug.replace(/\.mdx$/i, '');
 
-let entry = await getEntry('drinks', slug);
+const entry = await getEntry('drinks', slug);
 if (!entry) {
   const all = await getCollection('drinks');
   const available = all.map(e => e.slug ?? e.id).join(', ');
@@ -25,31 +24,57 @@ if (!entry) {
 }
 
 const { Content } = await entry.render();
-const cover = entry.data.cover
-  ? withBase(`images/${entry.data.cover}`)
-  : withBase(`images/${slug}.webp`);
-const pageCanonical = canonical(Astro.url.pathname, Astro.site);
+
 const title = entry.data.title;
 const description = entry.data.excerpt || `Drink recipe: ${title}`;
-
+const drinkType = (entry.data.drinkType || '').toString();
+const difficulty = (entry.data.difficulty || '').toString();
 const bases = (entry.data.bases && entry.data.bases.length)
   ? entry.data.bases
   : (entry.data.base ? [entry.data.base] : []);
+const tags = Array.isArray(entry.data.tags) ? entry.data.tags : [];
 
-const drinkType = entry.data.drinkType;
-const difficulty = entry.data.difficulty;
-const tags = entry.data.tags || [];
+const coverFile = entry.data.cover || `${slug}.webp`;
+const cover = withBase(`images/${coverFile}`);
 
-/**
- * If MDX files still contain a <DrinkHero>, we do NOT want a double hero.
- * Quick heuristic: do a cheap string check on the original source (entry.body).
- * (entry.body is available in content entry; fallback showHero=true if not.)
- */
-const originalSource: string = (entry as any).body || '';
-const mdxHasDrinkHero = /<DrinkHero\b/i.test(originalSource) || /<GameHero\b/i.test(originalSource);
-const showHero = !mdxHasDrinkHero;
+const pageCanonical = canonical(Astro.url.pathname, Astro.site);
+
+// Determine if we should inject a hero here. Default: don't duplicate if MDX already includes <DrinkHero>
+// Simple heuristic: look for "<DrinkHero" in the raw source if available; fallback to frontmatter override hero: false
+const rawSource: string | undefined = (entry as any).body;
+const mdxHasHero = rawSource ? /<DrinkHero\b/i.test(rawSource) || /<GameHero\b/i.test(rawSource) : true;
+const frontmatterShowHero = entry.data.showHero;
+const showOuterHero = frontmatterShowHero === false ? false : !mdxHasHero;
+
+// Build prev/next navigation (alphabetical by title)
+const allEntries = (await getCollection('drinks'))
+  .map(e => ({
+    slug: (e.slug ?? e.id),
+    title: e.data.title || (e.slug ?? e.id)
+  }))
+  .sort((a,b)=> (a.title||'').localeCompare(b.title||''));
+
+const idx = allEntries.findIndex(e => e.slug === slug);
+const prev = idx > 0 ? allEntries[idx - 1] : null;
+const next = idx >= 0 && idx < allEntries.length - 1 ? allEntries[idx + 1] : null;
+
+function cap(word: string) {
+  if (!word) return '';
+  return word.charAt(0).toUpperCase() + word.slice(1);
+}
+
+// Basic JSON-LD (enhance later if you add full ingredient arrays to frontmatter)
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Recipe',
+  'name': title,
+  'description': description,
+  'recipeCategory': cap(drinkType || 'Drink'),
+  'image': cover.startsWith('http') ? cover : new URL(cover, Astro.site).href,
+  'keywords': [...bases, ...tags].join(', ')
+};
 ---
-<Layout title={title} description={description} canonical={pageCanonical}>
+<Layout title={title} description={description} canonical={pageCanonical} image={cover}>
   <article class="prose-invert max-w-none">
     <DrinkMeta
       title={title}
@@ -60,10 +85,27 @@ const showHero = !mdxHasDrinkHero;
       tags={tags}
     />
 
-    {showHero && (
-      <GameHero cover={cover} alt={title} />
-    )}
+    {showOuterHero && <GameHero cover={cover} alt={title} />}
 
     <Content />
+
+    <hr class="my-10 border-fg/20" />
+
+    <nav class="flex flex-col sm:flex-row justify-between gap-4 text-sm">
+      {prev
+        ? <a class="hover:text-neon underline underline-offset-4" href={withBase(`drinks/${prev.slug}/`)}>← {prev.title}</a>
+        : <span class="opacity-40 select-none">Start</span>}
+      {next
+        ? <a class="hover:text-neon underline underline-offset-4 ml-auto" href={withBase(`drinks/${next.slug}/`)}>{next.title} →</a>
+        : <span class="opacity-40 select-none ml-auto">End</span>}
+    </nav>
+
+    <p class="mt-10 text-xs text-muted">
+      <a class="hover:text-neon underline underline-offset-4" href={withBase('drinks/')}>Back to Drinks Index</a>
+    </p>
   </article>
+
+  <script type="application/ld+json">
+    {JSON.stringify(jsonLd, null, 2)}
+  </script>
 </Layout>
