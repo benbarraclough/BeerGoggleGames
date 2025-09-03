@@ -2,7 +2,7 @@
 import Layout from '../../components/Layout.astro';
 import { getCollection, getEntry } from 'astro:content';
 import DrinkMeta from '../../components/drink/DrinkMeta.astro';
-import GameHero from '../../components/game/GameHero.astro'; // reuse styling
+import GameHero from '../../components/game/GameHero.astro'; // Re-using existing hero component
 import { canonical } from '../../lib/urls';
 import { withBase } from '../../lib/paths';
 
@@ -25,16 +25,13 @@ if (!entry) {
 }
 
 const { Content } = await entry.render();
-
 const cover = entry.data.cover
   ? withBase(`images/${entry.data.cover}`)
   : withBase(`images/${slug}.webp`);
-
 const pageCanonical = canonical(Astro.url.pathname, Astro.site);
-const pageTitle = entry.data.title;
-const description = entry.data.excerpt || `Drink recipe: ${pageTitle}`;
+const title = entry.data.title;
+const description = entry.data.excerpt || `Drink recipe: ${title}`;
 
-// derive bases (singular base merged in transform -> bases[]; but in case you created base only manually):
 const bases = (entry.data.bases && entry.data.bases.length)
   ? entry.data.bases
   : (entry.data.base ? [entry.data.base] : []);
@@ -44,21 +41,18 @@ const difficulty = entry.data.difficulty;
 const tags = entry.data.tags || [];
 
 /**
- * Detect whether the MDX already includes a <DrinkHero> to prevent double hero.
- * We only have the rendered html if we inspect Content beforehand, which is not ideal.
- * Easiest: user manually removes <DrinkHero> from MDX over time.
- * For now we always show hero here; if you still have MDX heroes, remove them.
+ * If MDX files still contain a <DrinkHero>, we do NOT want a double hero.
+ * Quick heuristic: do a cheap string check on the original source (entry.body).
+ * (entry.body is available in content entry; fallback showHero=true if not.)
  */
-const showHero = true;
+const originalSource: string = (entry as any).body || '';
+const mdxHasDrinkHero = /<DrinkHero\b/i.test(originalSource) || /<GameHero\b/i.test(originalSource);
+const showHero = !mdxHasDrinkHero;
 ---
-<Layout
-  title={pageTitle}
-  description={description}
-  canonical={pageCanonical}
->
+<Layout title={title} description={description} canonical={pageCanonical}>
   <article class="prose-invert max-w-none">
     <DrinkMeta
-      title={pageTitle}
+      title={title}
       excerpt={description}
       drinkType={drinkType}
       difficulty={difficulty}
@@ -67,9 +61,7 @@ const showHero = true;
     />
 
     {showHero && (
-      <figure class="relative mb-8 aspect-[16/7] overflow-hidden rounded-xl border border-fg/20">
-        <GameHero cover={cover} alt={pageTitle} />
-      </figure>
+      <GameHero cover={cover} alt={title} />
     )}
 
     <Content />
