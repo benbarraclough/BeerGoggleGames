@@ -1,15 +1,5 @@
 ---
-/**
- * DrinkHero
- * Reuses existing GameHero component styling (swap later if desired).
- */
 import GameHero from '../game/GameHero.astro';
-
-interface Props {
-  cover: string;
-  alt?: string;
-}
-
-const { cover, alt } = Astro.props as Props;
+const { cover, alt } = Astro.props;
 ---
 <GameHero cover={cover} alt={alt || 'Drink cover image'} />
