@@ -1,0 +1,65 @@
+---
+title: Frozen Daiquiri
+cover: BGGBW.webp
+excerpt: "Description: A frosty favourite with fruit and ice, perfect for a warm day drink in the summer sun."
+---
+
+# Frozen Daiquiri
+
+1.  [Home](/)
+2.  [Drinks](drinks)
+3.  [Cocktail Recipes](drinks/cocktailrecipes)
+4.  Frozen Daiquiri
+
+![](/images/frozen-daiquiri.webp)
+
+#### Overview
+
+**Description:** A frosty favourite with fruit and ice, perfect for a warm day drink in the summer sun.
+
+  **Time:** 10 mins
+
+  **Difficulty:** Medium
+
+  **Glass type:** Margarita glass
+
+  **Dietary Notes:** None
+
+  **Origin:** Cuba
+
+* * *
+
+### Ingredients ![target](/images/liquor.webp)
+
+1.  White rum - 50ml
+2.  Fruit of choice - 250g
+3.  Ice - 100g
+4.  Lime - 15ml
+5.  Simple syrup - 15ml
+
+### Recipe ![target](/images/rules.webp)
+
+1.  Blend your chosen fruit into a puree (strawberries in this instance) and sieve out the unwanted bits.
+2.  Blend again the fruit puree with the ice, the rum, lime and sugar syrup.
+3.  Pour the contents into a glass, garnish with a few pieces of fruit and add a straw.
+
+### Top Tips ![target](/images/lightbulb.webp)
+
+-   You can use frozen fruit to give your drinks a thicker texture.
+-   Don't blend for too long, or else your misture will become too watery.
+-   Blending your mixture with crushed ice is better than big chunks.
+
+####     Share This Page
+
+[](https://www.facebook.com/sharer/sharer.php?u=beergogglegames.co.uk/Drinks/CocktailRecipes/frozen-daiquiri)[](https://www.instagram.com/direct/new/)[](https://twitter.com/intent/tweet?url=beergogglegames.co.uk/Drinks/CocktailRecipes/frozen-daiquiri)
+
+* * *
+
+#### Feedback
+
+If you think we've missed certain details out of the game or you have something to add, please feel free to contact us.
+
+  
+  
+  
+[Contact Us](contact)

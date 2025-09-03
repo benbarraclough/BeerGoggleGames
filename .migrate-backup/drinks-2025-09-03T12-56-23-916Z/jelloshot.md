@@ -1,0 +1,67 @@
+---
+title: Jelloshot
+cover: BGGBW.webp
+excerpt: "Description: A classic party favourite, easy to make in big batches with your flavour of choice, they go down very easily."
+---
+
+# Jelloshot
+
+1.  [Home](/)
+2.  [Drinks](drinks)
+3.  [Shot Recipes](drinks/shotrecipes)
+4.  Jelloshot
+
+![](/images/jelloshot.webp)
+
+#### Overview
+
+**Description:** A classic party favourite, easy to make in big batches with your flavour of choice, they go down very easily.
+
+  **Time:** 2 hours
+
+  **Difficulty:** Medium
+
+  **Glass type:** Shot glass
+
+  **Dietary Notes:** Gelatine
+
+  **Origin:** USA
+
+* * *
+
+### Ingredients ![target](/images/liquor.webp)
+
+-   Vodka - 120ml
+-   Jelly mixture - 1 packet
+-   Water - 360ml
+
+### Recipe ![target](/images/rules.webp)
+
+The following recipe makes enough for 12 jello shots.
+
+1.  Boil 240ml of water in a kettle.
+2.  Add the jelly mixture into a jug and pour the boiling water on top.
+3.  Mix the jelly mixture and water until dissolved.
+4.  Once dissolved pour in the vodka and remaining 120ml of cold water then mix.
+5.  Pour the mixture into shot glasses or tubs.
+6.  Place these containers on a tray and refridgerate for a minimum of 2 hours.
+
+### Top Tips ![target](/images/lightbulb.webp)
+
+-   The recipe may vary dependent on the mixture used, see the back of whtever packet you use.
+-   In this recipe, a quarter of the liquid used is alcohol. Increase the amount for a stronger shot.
+
+####     Share This Page
+
+[](https://www.facebook.com/sharer/sharer.php?u=beergogglegames.co.uk/Drinks/ShotRecipes/jelloshot)[](https://www.instagram.com/direct/new/)[](https://twitter.com/intent/tweet?url=beergogglegames.co.uk/Drinks/ShotRecipes/jelloshot)
+
+* * *
+
+#### Feedback
+
+If you think we've missed certain details out of the drink recipe or you have something to add, please feel free to contact us.
+
+  
+  
+  
+[Contact Us](contact)

@@ -1,0 +1,42 @@
+---
+title: "Test Shot"
+drinkType: "shot"
+bases: []
+cover: "test-shot.webp"
+tags: []
+ingredients:
+  - 50ml Vodka
+  - Splash of Lime
+method:
+  - Mix and drink
+---
+
+import DrinkHero from '../../components/drink/DrinkHero.astro';
+import DrinkSection from '../../components/drink/DrinkSection.astro';
+import ShareButtons from '../../components/game/ShareButtons.astro';
+import FeedbackCard from '../../components/game/FeedbackCard.astro';
+
+<DrinkHero
+  cover={'/BeerGoggleGames/images/test-shot.webp'}
+  alt={"Test Shot"}
+/>
+
+
+
+<DrinkSection title="Ingredients" icon="/BeerGoggleGames/images/liquor.webp">
+<ul>
+<li>50ml Vodka</li>
+<li>Splash of Lime</li>
+</ul>
+</DrinkSection>
+
+<DrinkSection title="Method" icon="/BeerGoggleGames/images/question.webp">
+<ol>
+<li>Mix and drink</li>
+</ol>
+</DrinkSection>
+
+
+
+<ShareButtons title={"Test Shot"} />
+<FeedbackCard></FeedbackCard>

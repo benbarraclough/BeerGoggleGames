@@ -1,0 +1,66 @@
+---
+title: Amaretto Sour
+cover: BGGBW.webp
+excerpt: "Description: A sweet and sour cocktail with a rich taste and nutty essence."
+---
+
+# Amaretto Sour
+
+1.  [Home](/)
+2.  [Drinks](drinks)
+3.  [Cocktail Recipes](drinks/cocktailrecipes)
+4.  Amaretto Sour
+
+![](/images/amaretto-sour.webp)
+
+#### Overview
+
+**Description:** A sweet and sour cocktail with a rich taste and nutty essence.
+
+  **Time:** 5 mins
+
+  **Difficulty:** Medium
+
+  **Glass type:** Rocks glass
+
+  **Dietary Notes:** Egg & nuts
+
+  **Origin:** Italy
+
+* * *
+
+### Ingredients ![target](/images/liquor.webp)
+
+1.  Amaretto - 50ml
+2.  Lemon juice - 25ml
+3.  Egg - 1
+4.  Cherry syrup - 10ml
+5.  Cherry - 1
+6.  Ice - 1 handful
+
+### Recipe ![target](/images/rules.webp)
+
+1.  Put the amaretto, lemon juice, syrup and a tablespoon of egg white into a mixer and shake.
+2.  Add ice and shake again until well chilled.
+3.  Pour into a glass with ice.
+4.  Garnish with a cherry to finish.
+
+### Top Tips ![target](/images/lightbulb.webp)
+
+-   Use angostura syrup instead of cherry syrup for a slightly different taste.
+-   Use brandied cherries for an added element to the drink. Skewer and garnish the drink with them.
+
+####     Share This Page
+
+[](https://www.facebook.com/sharer/sharer.php?u=beergogglegames.co.uk/Drinks/CocktailRecipes/amaretto-sour)[](https://www.instagram.com/direct/new/)[](https://twitter.com/intent/tweet?url=beergogglegames.co.uk/Drinks/CocktailRecipes/amaretto-sour)
+
+* * *
+
+#### Feedback
+
+If you think we've missed certain details out of the game or you have something to add, please feel free to contact us.
+
+  
+  
+  
+[Contact Us](contact)
