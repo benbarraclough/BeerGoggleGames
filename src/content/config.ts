@@ -10,8 +10,7 @@ const baseFields = {
 
 /**
  * Games collection
- * - format is the new field (replacing players)
- * - players kept for backward compatibility
+ * - format replaces players (players kept for legacy)
  * - transform adds format if only players was provided
  */
 const games = defineCollection({
@@ -19,9 +18,7 @@ const games = defineCollection({
   schema: z.object({
     ...baseFields,
     type: z.string().default('misc'),
-    // New canonical field
     format: z.string().optional(),
-    // Deprecated (kept so old files or backlog content still work)
     players: z.string().optional(),
     equipment: z.array(z.string()).optional()
   }).transform(data => {
@@ -40,21 +37,30 @@ const activities = defineCollection({
   })
 });
 
-const cocktails = defineCollection({
+/**
+ * Unified drinks collection (replaces cocktails + shots)
+ * drinkType: 'cocktail' | 'shot' | future types
+ * bases: alcohol base(s)
+ * difficulty: easy | medium | hard (optional)
+ * ingredients & method arrays allow more structured MDX-driven display if you wish
+ */
+const drinks = defineCollection({
   type: 'content',
   schema: z.object({
     ...baseFields,
+    drinkType: z.string(),
+    bases: z.array(z.string()).default([]),
+    difficulty: z.string().optional(),
     ingredients: z.array(z.string()).optional(),
     method: z.array(z.string()).optional()
-  })
-});
-
-const shots = defineCollection({
-  type: 'content',
-  schema: z.object({
-    ...baseFields,
-    ingredients: z.array(z.string()).optional(),
-    method: z.array(z.string()).optional()
+  }).transform(data => {
+    if (data.difficulty) {
+      data.difficulty = data.difficulty.toLowerCase();
+    }
+    if (data.drinkType) {
+      data.drinkType = data.drinkType.toLowerCase();
+    }
+    return data;
   })
 });
 
@@ -66,4 +72,9 @@ const posts = defineCollection({
   })
 });
 
-export const collections = { games, activities, cocktails, shots, posts };
+/**
+ * Removed: cocktails, shots (now migrated into drinks).
+ * If you still have legacy references, keep the old definitions until migration completes.
+ */
+
+export const collections = { games, activities, drinks, posts };
