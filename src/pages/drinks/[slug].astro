@@ -1,109 +1,128 @@
 ---
 import Layout from '../../components/Layout.astro';
-import { getCollection, getEntry } from 'astro:content';
-import DrinkMeta from '../../components/drink/DrinkMeta.astro';
-import GameHero from '../../components/game/GameHero.astro';
+import { getCollection } from 'astro:content';
 import { canonical } from '../../lib/urls';
 import { withBase } from '../../lib/paths';
 
+/*
+  Flat drinks route: /drinks/<slug>/
+  We assume each drink file's slug final segment is unique.
+*/
+
 export async function getStaticPaths() {
   const entries = await getCollection('drinks');
-  return entries.map(e => ({
-    params: { slug: (e.slug ?? e.id) }
-  }));
+  const leafMap = new Map<string, any>();
+  const duplicates: string[] = [];
+  for (const e of entries) {
+    const leaf = (e.slug ?? e.id).split('/').pop()!;
+    if (leafMap.has(leaf)) duplicates.push(leaf);
+    else leafMap.set(leaf, e);
+  }
+  if (duplicates.length) {
+    throw new Error(
+      `[drinks] Duplicate leaf slug(s) detected: ${duplicates.join(', ')}. Leaves must be unique.`
+    );
+  }
+  return Array.from(leafMap.keys()).map(leaf => ({ params: { slug: leaf } }));
 }
 
-const rawSlug = Astro.params.slug;
-const slug = rawSlug.replace(/\.mdx$/i, '');
-
-const entry = await getEntry('drinks', slug);
-if (!entry) {
-  const all = await getCollection('drinks');
-  const available = all.map(e => e.slug ?? e.id).join(', ');
-  throw new Error(`Drink not found for slug "${slug}". Available: ${available}`);
+const leaf = Astro.params.slug;
+const allEntries = await getCollection('drinks');
+const leafMap = new Map<string, any>();
+for (const e of allEntries) {
+  const l = (e.slug ?? e.id).split('/').pop()!;
+  if (!leafMap.has(l)) leafMap.set(l, e);
 }
+const entry = leafMap.get(leaf);
+if (!entry) throw new Error(`Drink not found for leaf "${leaf}"`);
 
 const { Content } = await entry.render();
 
-const title = entry.data.title;
-const description = entry.data.excerpt || `Drink recipe: ${title}`;
-const drinkType = (entry.data.drinkType || '').toString();
-const difficulty = (entry.data.difficulty || '').toString();
-const bases = (entry.data.bases && entry.data.bases.length)
-  ? entry.data.bases
-  : (entry.data.base ? [entry.data.base] : []);
-const tags = Array.isArray(entry.data.tags) ? entry.data.tags : [];
+const data = entry.data;
+const title = data.title;
+const description =
+  data.excerpt ||
+  data.description ||
+  `Drink recipe: ${title}`;
 
-const coverFile = entry.data.cover || `${slug}.webp`;
+const drinkType = (data.drinkType || '').toString();
+const difficulty = (data.difficulty || '').toString();
+const baseList: string[] = Array.isArray(data.bases)
+  ? data.bases
+  : data.base
+    ? [data.base]
+    : [];
+const tags: string[] = Array.isArray(data.tags) ? data.tags : [];
+
+const coverFile = data.cover || `${leaf}.webp`;
 const cover = withBase(`images/${coverFile}`);
-
 const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 
-// Determine if we should inject a hero here. Default: don't duplicate if MDX already includes <DrinkHero>
-// Simple heuristic: look for "<DrinkHero" in the raw source if available; fallback to frontmatter override hero: false
-const rawSource: string | undefined = (entry as any).body;
-const mdxHasHero = rawSource ? /<DrinkHero\b/i.test(rawSource) || /<GameHero\b/i.test(rawSource) : true;
-const frontmatterShowHero = entry.data.showHero;
-const showOuterHero = frontmatterShowHero === false ? false : !mdxHasHero;
-
-// Build prev/next navigation (alphabetical by title)
-const allEntries = (await getCollection('drinks'))
-  .map(e => ({
-    slug: (e.slug ?? e.id),
-    title: e.data.title || (e.slug ?? e.id)
-  }))
-  .sort((a,b)=> (a.title||'').localeCompare(b.title||''));
-
-const idx = allEntries.findIndex(e => e.slug === slug);
-const prev = idx > 0 ? allEntries[idx - 1] : null;
-const next = idx >= 0 && idx < allEntries.length - 1 ? allEntries[idx + 1] : null;
-
-function cap(word: string) {
-  if (!word) return '';
-  return word.charAt(0).toUpperCase() + word.slice(1);
-}
-
-// Basic JSON-LD (enhance later if you add full ingredient arrays to frontmatter)
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Recipe',
-  'name': title,
-  'description': description,
-  'recipeCategory': cap(drinkType || 'Drink'),
-  'image': cover.startsWith('http') ? cover : new URL(cover, Astro.site).href,
-  'keywords': [...bases, ...tags].join(', ')
+  name: title,
+  description,
+  recipeCategory: drinkType || 'drink',
+  keywords: [...tags, drinkType, difficulty, ...baseList].filter(Boolean).join(', ')
 };
 ---
 <Layout title={title} description={description} canonical={pageCanonical} image={cover}>
   <article class="prose-invert max-w-none">
-    <DrinkMeta
-      title={title}
-      excerpt={description}
-      drinkType={drinkType}
-      difficulty={difficulty}
-      bases={bases}
-      tags={tags}
-    />
+    <header class="drink-meta mb-6">
+      <h1 class="font-display text-4xl mb-2">{title}</h1>
+      {description && (
+        <p class="text-lg text-muted mb-4 leading-relaxed max-w-prose">
+          {description}
+        </p>
+      )}
+      <div class="flex flex-wrap gap-2 meta-pills">
+        {drinkType && <span class="mode-pill" aria-label={`Drink type: ${drinkType}`}>{drinkType}</span>}
+        {baseList.map(b => (
+          <span class="mode-pill mode-pill-base" aria-label={`Base: ${b}`}>{b}</span>
+        ))}
+        {difficulty && (
+          <span class="mode-pill mode-pill-diff" aria-label={`Difficulty: ${difficulty}`}>
+            {difficulty.charAt(0).toUpperCase() + difficulty.slice(1)}
+          </span>
+        )}
+        {tags.map(t => (
+          <span class="tag-pill" aria-label={`Tag: ${t}`}>{t}</span>
+        ))}
+      </div>
+    </header>
 
-    {showOuterHero && <GameHero cover={cover} alt={title} />}
-
+    <!-- MDX content (contains hero figure & sections) -->
     <Content />
-
-    <hr class="my-10 border-fg/20" />
-
-    <nav class="flex flex-col sm:flex-row justify-between gap-4 text-sm">
-      {prev
-        ? <a class="hover:text-neon underline underline-offset-4" href={withBase(`drinks/${prev.slug}/`)}>← {prev.title}</a>
-        : <span class="opacity-40 select-none">Start</span>}
-      {next
-        ? <a class="hover:text-neon underline underline-offset-4 ml-auto" href={withBase(`drinks/${next.slug}/`)}>{next.title} →</a>
-        : <span class="opacity-40 select-none ml-auto">End</span>}
-    </nav>
 
     <p class="mt-10 text-xs text-muted">
       <a class="hover:text-neon underline underline-offset-4" href={withBase('drinks/')}>Back to Drinks Index</a>
     </p>
   </article>
+
+  <style>
+    .mode-pill {
+      @apply inline-flex items-center gap-1 rounded-md border border-fg/20 bg-fg/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide;
+      line-height:1;
+    }
+    .mode-pill-base { @apply border-blue-400/30 bg-blue-500/15 text-blue-100; }
+    .mode-pill-diff { @apply border-pink-400/30 bg-pink-500/15 text-pink-200; }
+    .tag-pill {
+      @apply inline-flex items-center rounded-full border border-fg/15 bg-fg/10 px-2 py-1 text-[10px] font-medium;
+    }
+
+    /* Generic list restoration for any plain markdown lists */
+    article.prose-invert ul,
+    article.prose-invert ol {
+      list-style: revert;
+      padding-left: 1.25rem;
+      margin: 0 0 1rem;
+    }
+    article.prose-invert li { margin: 0.25rem 0; }
+    article.prose-invert li::marker { color: var(--fg-muted, currentColor); }
+
+    /* DrinkSection already adds its own list styles; this ensures fallback consistency */
+  </style>
 
   <script type="application/ld+json">
     {JSON.stringify(jsonLd, null, 2)}
