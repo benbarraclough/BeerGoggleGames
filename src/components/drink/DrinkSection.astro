@@ -1,16 +1,6 @@
 ---
-/**
- * DrinkSection
- * Wrapper around GameSection; lets you diverge design for drinks in future.
- */
 import GameSection from '../game/GameSection.astro';
-
-interface Props {
-  title: string;
-  icon?: string;
-}
-
-const { title, icon } = Astro.props as Props;
+const { title, icon } = Astro.props;
 ---
 <GameSection title={title} icon={icon}>
   <slot />
