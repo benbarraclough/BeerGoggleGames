@@ -1,0 +1,60 @@
+---
+title: "Zombie"
+drinkType: "cocktail"
+excerpt: "A tiki cocktail combining fruit juices, liqueurs, and various rums, founded in Hollywood in the 1930's."
+base: "rum"
+difficulty: "medium"
+cover: "zombie.webp"
+tags: []
+---
+
+import DrinkHero from '../../components/drink/DrinkHero.astro';
+import DrinkSection from '../../components/drink/DrinkSection.astro';
+import ShareButtons from '../../components/game/ShareButtons.astro';
+import FeedbackCard from '../../components/game/FeedbackCard.astro';
+
+<DrinkHero
+  cover={'/BeerGoggleGames/images/zombie.webp'}
+  alt={"Zombie"}
+/>
+
+<DrinkSection title="Overview" icon="/BeerGoggleGames/images/info.webp">
+  <p><strong>Description:</strong> A tiki cocktail combining fruit juices, liqueurs, and various rums, founded in Hollywood in the 1930's.</p>
+  <p><strong>Time:</strong> 5 mins</p>
+  <p><strong>Difficulty:</strong> Medium</p>
+  <p><strong>Glass type:</strong> Zombie glass</p>
+  <p><strong>Dietary Notes:</strong> None</p>
+  <p><strong>Origin:</strong> California, USA</p>
+</DrinkSection>
+
+<DrinkSection title="Ingredients" icon="/BeerGoggleGames/images/liquor.webp">
+  <ol>
+  <li>Dark rum</li>
+  <li>White rum</li>
+  <li>Lime juice</li>
+  <li>Pineapple juice</li>
+  <li>Grenadine</li>
+  <li>Ice</li>
+  <li>Orange (optional)</li>
+  <li>Cherry (optional)</li>
+  <li>Mint (optional)</li>
+</ol>
+</DrinkSection>
+
+<DrinkSection title="Recipe" icon="/BeerGoggleGames/images/rules.webp">
+  <ol>
+  <li>Pour the rums and fruit juices into a cocktail shaker filled with ice and shake hard until the outside of the shaker feels really cold.</li>
+  <li>Strain the mixture into a tall glass or hurricane glass filled with ice, then pour in the grenadine to colour the drink.</li>
+  <li>Add the orange, cherry and mint to garnish</li>
+</ol>
+</DrinkSection>
+
+<DrinkSection title="Tips" icon="/BeerGoggleGames/images/lightbulb.webp">
+  <ul>
+    <li>Skewer the fruit garnish for a more elegant garnish</li>
+    <li>Slowly pour the grenadine onto a spoon to gently add it to the drink so that the drink has a colour gradient.</li>
+  </ul>
+</DrinkSection>
+
+<ShareButtons title={"Zombie"} />
+<FeedbackCard></FeedbackCard>

@@ -1,0 +1,58 @@
+---
+title: "Jelloshot"
+drinkType: "shot"
+excerpt: "A classic party favourite, easy to make in big batches with your flavour of choice, they go down very easily."
+base: "vodka"
+difficulty: "medium"
+cover: "jelloshot.webp"
+tags: []
+---
+
+import DrinkHero from '../../components/drink/DrinkHero.astro';
+import DrinkSection from '../../components/drink/DrinkSection.astro';
+import ShareButtons from '../../components/game/ShareButtons.astro';
+import FeedbackCard from '../../components/game/FeedbackCard.astro';
+
+<DrinkHero
+  cover={'/BeerGoggleGames/images/jelloshot.webp'}
+  alt={"Jelloshot"}
+/>
+
+<DrinkSection title="Overview" icon="/BeerGoggleGames/images/info.webp">
+  <p><strong>Description:</strong> A classic party favourite, easy to make in big batches with your flavour of choice, they go down very easily.</p>
+  <p><strong>Time:</strong> 2 hours</p>
+  <p><strong>Difficulty:</strong> Medium</p>
+  <p><strong>Glass type:</strong> Shot glass</p>
+  <p><strong>Dietary Notes:</strong> Gelatine</p>
+  <p><strong>Origin:</strong> USA</p>
+</DrinkSection>
+
+<DrinkSection title="Ingredients" icon="/BeerGoggleGames/images/liquor.webp">
+  <ol>
+  <li>Vodka - 120ml</li>
+  <li>Jelly mixture - 1 packet</li>
+  <li>Water - 360ml</li>
+</ol>
+</DrinkSection>
+
+<DrinkSection title="Recipe" icon="/BeerGoggleGames/images/rules.webp">
+  <ol>
+  <li>The following recipe makes enough for 12 jello shots.</li>
+  <li>Boil 240ml of water in a kettle.</li>
+  <li>Add the jelly mixture into a jug and pour the boiling water on top.</li>
+  <li>Mix the jelly mixture and water until dissolved.</li>
+  <li>Once dissolved pour in the vodka and remaining 120ml of cold water then mix.</li>
+  <li>Pour the mixture into shot glasses or tubs.</li>
+  <li>Place these containers on a tray and refridgerate for a minimum of 2 hours.</li>
+</ol>
+</DrinkSection>
+
+<DrinkSection title="Tips" icon="/BeerGoggleGames/images/lightbulb.webp">
+  <ul>
+    <li>The recipe may vary dependent on the mixture used, see the back of whtever packet you use.</li>
+    <li>In this recipe, a quarter of the liquid used is alcohol. Increase the amount for a stronger shot.</li>
+  </ul>
+</DrinkSection>
+
+<ShareButtons title={"Jelloshot"} />
+<FeedbackCard></FeedbackCard>

@@ -1,0 +1,58 @@
+---
+title: "Bushwacker"
+drinkType: "cocktail"
+excerpt: "A sweet and creamy concoction which is basically a boozy milkshake, with tastes of chocolate, coconut and coffee."
+base: "rum"
+difficulty: 
+cover: "bushwacker.webp"
+tags: []
+---
+
+import DrinkHero from '../../components/drink/DrinkHero.astro';
+import DrinkSection from '../../components/drink/DrinkSection.astro';
+import ShareButtons from '../../components/game/ShareButtons.astro';
+import FeedbackCard from '../../components/game/FeedbackCard.astro';
+
+<DrinkHero
+  cover={'/BeerGoggleGames/images/bushwacker.webp'}
+  alt={"Bushwacker"}
+/>
+
+<DrinkSection title="Overview" icon="/BeerGoggleGames/images/info.webp">
+  <p><strong>Description:</strong> A sweet and creamy concoction which is basically a boozy milkshake, with tastes of chocolate, coconut and coffee.</p>
+  <p><strong>Time:</strong> 5 mins</p>
+  <p><strong>Glass type:</strong> Highball glass</p>
+  <p><strong>Dietary Notes:</strong> Coffee</p>
+  <p><strong>Origin:</strong> U.S. Virgin Islands</p>
+</DrinkSection>
+
+<DrinkSection title="Ingredients" icon="/BeerGoggleGames/images/liquor.webp">
+  <ol>
+  <li>Dark rum - 60ml</li>
+  <li>Coffee liqueur - 30ml</li>
+  <li>Creme de cacao - 30ml</li>
+  <li>Milk - 60ml</li>
+  <li>Cream of coconut - 30ml</li>
+  <li>Ice - 1 handful</li>
+  <li>Nutmeg (optional)</li>
+</ol>
+</DrinkSection>
+
+<DrinkSection title="Recipe" icon="/BeerGoggleGames/images/rules.webp">
+  <ol>
+  <li>Add the dark rum, coffee liqueur, creme de cacao, milk, cream of coconut and a handful of ice into a blender.</li>
+  <li>Blend until combined and frothy.</li>
+  <li>Pour mixture into the glass and garnish with a sprinkle of nutmeg.</li>
+</ol>
+</DrinkSection>
+
+<DrinkSection title="Tips" icon="/BeerGoggleGames/images/lightbulb.webp">
+  <ul>
+    <li>The higher fat content of the milk used, the thicker and richer the drink.</li>
+    <li>Chocolate bitters can be used in place of the chocolate liqueur but the drink may need to be sweetened with a little simple syrup.</li>
+    <li>A hurricane glass is often used for this drink and can be decorated with a little chocolate sauce on the walls of the glass.</li>
+  </ul>
+</DrinkSection>
+
+<ShareButtons title={"Bushwacker"} />
+<FeedbackCard></FeedbackCard>

@@ -1,0 +1,56 @@
+---
+title: "Negroni"
+drinkType: "cocktail"
+excerpt: "A bitter cocktail served neat with a citrusy yet sharp taste, you will either love it or hate it."
+base: "gin"
+difficulty: "medium"
+cover: "negroni.webp"
+tags: []
+---
+
+import DrinkHero from '../../components/drink/DrinkHero.astro';
+import DrinkSection from '../../components/drink/DrinkSection.astro';
+import ShareButtons from '../../components/game/ShareButtons.astro';
+import FeedbackCard from '../../components/game/FeedbackCard.astro';
+
+<DrinkHero
+  cover={'/BeerGoggleGames/images/negroni.webp'}
+  alt={"Negroni"}
+/>
+
+<DrinkSection title="Overview" icon="/BeerGoggleGames/images/info.webp">
+  <p><strong>Description:</strong> A bitter cocktail served neat with a citrusy yet sharp taste, you will either love it or hate it.</p>
+  <p><strong>Time:</strong> 5 mins</p>
+  <p><strong>Difficulty:</strong> Medium</p>
+  <p><strong>Glass type:</strong> Rocks glass</p>
+  <p><strong>Dietary Notes:</strong> None</p>
+  <p><strong>Origin:</strong> Italy</p>
+</DrinkSection>
+
+<DrinkSection title="Ingredients" icon="/BeerGoggleGames/images/liquor.webp">
+  <ol>
+  <li>Gin - 25ml</li>
+  <li>Vermouth - 25ml</li>
+  <li>Campari - 25ml</li>
+  <li>Ice - 1 Handful</li>
+  <li>Orange - 1 Slice</li>
+</ol>
+</DrinkSection>
+
+<DrinkSection title="Recipe" icon="/BeerGoggleGames/images/rules.webp">
+  <ol>
+  <li>Pour the gin, vermouth and Campari into a shaker with some ice and shake well until the outside of the shaker feels cold.</li>
+  <li>Strain the contents into a glass with ice</li>
+  <li>Garnish with a slice of orange and serve</li>
+</ol>
+</DrinkSection>
+
+<DrinkSection title="Tips" icon="/BeerGoggleGames/images/lightbulb.webp">
+  <ul>
+    <li>Add simple syrup or a flavoured citrus gin to make the drink less bitter and more sweet</li>
+    <li>Use one large ice cube in the glass to make the drink complete</li>
+  </ul>
+</DrinkSection>
+
+<ShareButtons title={"Negroni"} />
+<FeedbackCard></FeedbackCard>

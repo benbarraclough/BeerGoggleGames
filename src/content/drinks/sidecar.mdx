@@ -1,0 +1,56 @@
+---
+title: "Sidecar"
+drinkType: "cocktail"
+excerpt: "An old but popular classic dating back to the early 1900s, a deep yet sweet orange flavour."
+base: "brandy"
+difficulty: "medium"
+cover: "sidecar.webp"
+tags: []
+---
+
+import DrinkHero from '../../components/drink/DrinkHero.astro';
+import DrinkSection from '../../components/drink/DrinkSection.astro';
+import ShareButtons from '../../components/game/ShareButtons.astro';
+import FeedbackCard from '../../components/game/FeedbackCard.astro';
+
+<DrinkHero
+  cover={'/BeerGoggleGames/images/sidecar.webp'}
+  alt={"Sidecar"}
+/>
+
+<DrinkSection title="Overview" icon="/BeerGoggleGames/images/info.webp">
+  <p><strong>Description:</strong> An old but popular classic dating back to the early 1900s, a deep yet sweet orange flavour.</p>
+  <p><strong>Time:</strong> 5 mins</p>
+  <p><strong>Difficulty:</strong> Medium</p>
+  <p><strong>Glass type:</strong> Coupe glass</p>
+  <p><strong>Dietary Notes:</strong> None</p>
+  <p><strong>Origin:</strong> England</p>
+</DrinkSection>
+
+<DrinkSection title="Ingredients" icon="/BeerGoggleGames/images/liquor.webp">
+  <ol>
+  <li>Brandy - 60ml</li>
+  <li>Orange liqueur (Triple Sec) - 30ml</li>
+  <li>Lemon juice - 30ml</li>
+  <li>Ice - 1 handful</li>
+</ol>
+</DrinkSection>
+
+<DrinkSection title="Recipe" icon="/BeerGoggleGames/images/rules.webp">
+  <ol>
+  <li>Add the brandy, orange liqueur, lemon juice and ice to a mixer</li>
+  <li>Shake the mixture until the shaker becomes ice cold</li>
+  <li>Strain the mixture into the glass</li>
+</ol>
+</DrinkSection>
+
+<DrinkSection title="Tips" icon="/BeerGoggleGames/images/lightbulb.webp">
+  <ul>
+    <li>If brandy isn't available, it can be replaced with a bourbon or a smooth blended whisky alonside a little simple syrup</li>
+    <li>Garnish with an orange twist</li>
+    <li>Freshly squeezed lemon juice is always preferred</li>
+  </ul>
+</DrinkSection>
+
+<ShareButtons title={"Sidecar"} />
+<FeedbackCard></FeedbackCard>

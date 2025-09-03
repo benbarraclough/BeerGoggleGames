@@ -1,0 +1,58 @@
+---
+title: "Sex On The Beach"
+drinkType: "cocktail"
+excerpt: "A fruity cocktail that goes down very easily, combining peach, cranberry and orange."
+base: "vodka"
+difficulty: "medium"
+cover: "sex-on-the-beach.webp"
+tags: []
+---
+
+import DrinkHero from '../../components/drink/DrinkHero.astro';
+import DrinkSection from '../../components/drink/DrinkSection.astro';
+import ShareButtons from '../../components/game/ShareButtons.astro';
+import FeedbackCard from '../../components/game/FeedbackCard.astro';
+
+<DrinkHero
+  cover={'/BeerGoggleGames/images/sex-on-the-beach.webp'}
+  alt={"Sex On The Beach"}
+/>
+
+<DrinkSection title="Overview" icon="/BeerGoggleGames/images/info.webp">
+  <p><strong>Description:</strong> A fruity cocktail that goes down very easily, combining peach, cranberry and orange.</p>
+  <p><strong>Time:</strong> 5 mins</p>
+  <p><strong>Difficulty:</strong> Medium</p>
+  <p><strong>Glass type:</strong> Highball glass</p>
+  <p><strong>Dietary Notes:</strong> None</p>
+  <p><strong>Origin:</strong> Florida, USA</p>
+</DrinkSection>
+
+<DrinkSection title="Ingredients" icon="/BeerGoggleGames/images/liquor.webp">
+  <ol>
+  <li>Vodka - 50ml</li>
+  <li>Peach Schnapps - 25ml</li>
+  <li>Cranberry juice - 50ml</li>
+  <li>Orange juice - 50ml</li>
+  <li>Orange - 1 Slice</li>
+  <li>Ice</li>
+</ol>
+</DrinkSection>
+
+<DrinkSection title="Recipe" icon="/BeerGoggleGames/images/rules.webp">
+  <ol>
+  <li>Fill a glass with ice</li>
+  <li>Put ice, vodka and peach schnapps and the juices to a shaker</li>
+  <li>Shake until very cold and strain into the glass</li>
+  <li>Add a slice of orange to the glass as garnish</li>
+</ol>
+</DrinkSection>
+
+<DrinkSection title="Tips" icon="/BeerGoggleGames/images/lightbulb.webp">
+  <ul>
+    <li>Add Chambord as an additional ingredient to spice up the drink.</li>
+    <li>Gently pour the juices in one after the other to create a colour gradient in the drink.</li>
+  </ul>
+</DrinkSection>
+
+<ShareButtons title={"Sex On The Beach"} />
+<FeedbackCard></FeedbackCard>

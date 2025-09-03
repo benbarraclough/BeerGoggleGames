@@ -1,0 +1,54 @@
+---
+title: "Mojito"
+drinkType: "cocktail"
+excerpt: "The Cuban crowd-pleaser, a sweet & refreshing drink with a hint of mint."
+base: "rum"
+difficulty: "medium"
+cover: "mojito.webp"
+tags: []
+---
+
+import DrinkHero from '../../components/drink/DrinkHero.astro';
+import DrinkSection from '../../components/drink/DrinkSection.astro';
+import ShareButtons from '../../components/game/ShareButtons.astro';
+import FeedbackCard from '../../components/game/FeedbackCard.astro';
+
+<DrinkHero
+  cover={'/BeerGoggleGames/images/mojito.webp'}
+  alt={"Mojito"}
+/>
+
+<DrinkSection title="Overview" icon="/BeerGoggleGames/images/info.webp">
+  <p><strong>Description:</strong> The Cuban crowd-pleaser, a sweet & refreshing drink with a hint of mint.</p>
+  <p><strong>Time:</strong> 5 mins</p>
+  <p><strong>Difficulty:</strong> Medium</p>
+  <p><strong>Glass type:</strong> Highball glass</p>
+  <p><strong>Dietary Notes:</strong> None</p>
+  <p><strong>Origin:</strong> Cuba</p>
+</DrinkSection>
+
+<DrinkSection title="Ingredients" icon="/BeerGoggleGames/images/liquor.webp">
+  <ol>
+  <li>White rum - 25ml</li>
+  <li>Soda water - 100ml</li>
+  <li>Lime - 10ml</li>
+  <li>Granulated sugar - 1tsp</li>
+  <li>Mint - 2 handfuls</li>
+</ol>
+</DrinkSection>
+
+<DrinkSection title="Recipe" icon="/BeerGoggleGames/images/rules.webp">
+  <ol>
+  <li>Muddle the lime juice, sugar and 1 handful of mint leaves together in a shaker using a cocktail muddler, the aim is to bash and grind the sugar into the mint.</li>
+  <li>Add the shot of rum and a couple cubes of ice, then shake until the shaker is ice cold.</li>
+  <li>Strain the mixture into an ice filled glass along with the other handful of mint leaves (unbashed), then fill to the top with soda water.</li>
+  <li>Stir and garnish with mint leaf and a slice of lime on top to serve.</li>
+  <li>Add more of whatever ingredient you need to suit your own taste.</li>
+  <li>Add different fresh fruits and syrups to easily create flavoured mojitos (strawberry, pineapple etc.)</li>
+</ol>
+</DrinkSection>
+
+
+
+<ShareButtons title={"Mojito"} />
+<FeedbackCard></FeedbackCard>

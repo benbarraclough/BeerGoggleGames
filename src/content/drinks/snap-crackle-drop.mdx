@@ -1,0 +1,57 @@
+---
+title: "Snap, Crackle, Drop"
+drinkType: "shot"
+excerpt: "A twist on the traditional tequila shot, flavouring the wedge of lime instead of the shot itself."
+base: "tequila"
+difficulty: "medium"
+cover: "snap-crackle-drop.webp"
+tags: []
+---
+
+import DrinkHero from '../../components/drink/DrinkHero.astro';
+import DrinkSection from '../../components/drink/DrinkSection.astro';
+import ShareButtons from '../../components/game/ShareButtons.astro';
+import FeedbackCard from '../../components/game/FeedbackCard.astro';
+
+<DrinkHero
+  cover={'/BeerGoggleGames/images/snap-crackle-drop.webp'}
+  alt={"Snap, Crackle, Drop"}
+/>
+
+<DrinkSection title="Overview" icon="/BeerGoggleGames/images/info.webp">
+  <p><strong>Description:</strong> A twist on the traditional tequila shot, flavouring the wedge of lime instead of the shot itself.</p>
+  <p><strong>Time:</strong> 3 mins</p>
+  <p><strong>Difficulty:</strong> Medium</p>
+  <p><strong>Glass type:</strong> Shot glass</p>
+  <p><strong>Dietary Notes:</strong> None</p>
+  <p><strong>Origin:</strong> USA</p>
+</DrinkSection>
+
+<DrinkSection title="Ingredients" icon="/BeerGoggleGames/images/liquor.webp">
+  <ol>
+  <li>Tequila - 50ml</li>
+  <li>Bitters - 10ml</li>
+  <li>Black pepper - 1 sprinkle</li>
+  <li>Lime - 1</li>
+</ol>
+</DrinkSection>
+
+<DrinkSection title="Recipe" icon="/BeerGoggleGames/images/rules.webp">
+  <ol>
+  <li>Pour out the tequila in the shot glass.</li>
+  <li>Mix together the bitters and black pepper on a plate.</li>
+  <li>Cut a wedge out of the lime and soak the flesh in the bitters and black pepper mixture.</li>
+  <li>Balance the lime on the top of the shot glass for presentation.</li>
+</ol>
+</DrinkSection>
+
+<DrinkSection title="Tips" icon="/BeerGoggleGames/images/lightbulb.webp">
+  <ul>
+    <li>For a weeter taste, add sugar to the bitters and black pepper mixture.</li>
+    <li>An alternative flavour for the lime would be to use tajin</li>
+    <li>Aged tequila will go down smoother (Reposado or Anejo)</li>
+  </ul>
+</DrinkSection>
+
+<ShareButtons title={"Snap, Crackle, Drop"} />
+<FeedbackCard></FeedbackCard>

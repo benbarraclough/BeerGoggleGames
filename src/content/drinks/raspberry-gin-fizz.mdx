@@ -1,0 +1,57 @@
+---
+title: "Raspberry Gin Fizz"
+drinkType: "cocktail"
+excerpt: "A sweet cocktail with fresh fruit and mint, simple and very easy to drink."
+base: "gin"
+difficulty: "medium"
+cover: "raspberry-gin-fizz.webp"
+tags: []
+---
+
+import DrinkHero from '../../components/drink/DrinkHero.astro';
+import DrinkSection from '../../components/drink/DrinkSection.astro';
+import ShareButtons from '../../components/game/ShareButtons.astro';
+import FeedbackCard from '../../components/game/FeedbackCard.astro';
+
+<DrinkHero
+  cover={'/BeerGoggleGames/images/raspberry-gin-fizz.webp'}
+  alt={"Raspberry Gin Fizz"}
+/>
+
+<DrinkSection title="Overview" icon="/BeerGoggleGames/images/info.webp">
+  <p><strong>Description:</strong> A sweet cocktail with fresh fruit and mint, simple and very easy to drink.</p>
+  <p><strong>Time:</strong> 5 mins</p>
+  <p><strong>Difficulty:</strong> Medium</p>
+  <p><strong>Glass type:</strong> Rocks glass</p>
+  <p><strong>Dietary Notes:</strong> None</p>
+  <p><strong>Origin:</strong> United Kingdom</p>
+</DrinkSection>
+
+<DrinkSection title="Ingredients" icon="/BeerGoggleGames/images/liquor.webp">
+  <ol>
+  <li>Gin - 25ml</li>
+  <li>Raspberry Syrup - 10ml</li>
+  <li>Soda water - 100ml</li>
+  <li>Raspberries - 1 handful</li>
+  <li>Mint leaves - 1 handful</li>
+  <li>Ice - 1 handful</li>
+</ol>
+</DrinkSection>
+
+<DrinkSection title="Recipe" icon="/BeerGoggleGames/images/rules.webp">
+  <ol>
+  <li>Add a few cubes of ice to the empty glass.</li>
+  <li>Add as many shots of gin as you would like.</li>
+  <li>Rip a few leaves of mint and drop them in along with a few berries.</li>
+  <li>Fill the glass to the top with soda water.</li>
+  <li>Evenly Drizzle the raspberry syrup over the top of the drink, measuring to taste.</li>
+  <li>Mix and garnish with a sprig of mint.</li>
+  <li>Use basil leaves instead of mint to get a different essence of the same drink.</li>
+  <li>Frozen fruit can keep your drink cooler for longer.</li>
+</ol>
+</DrinkSection>
+
+
+
+<ShareButtons title={"Raspberry Gin Fizz"} />
+<FeedbackCard></FeedbackCard>

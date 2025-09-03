@@ -1,0 +1,58 @@
+---
+title: "Amaretto Sour"
+drinkType: "cocktail"
+excerpt: "A sweet and sour cocktail with a rich taste and nutty essence."
+base: "liqueur"
+difficulty: "medium"
+cover: "amaretto-sour.webp"
+tags: []
+---
+
+import DrinkHero from '../../components/drink/DrinkHero.astro';
+import DrinkSection from '../../components/drink/DrinkSection.astro';
+import ShareButtons from '../../components/game/ShareButtons.astro';
+import FeedbackCard from '../../components/game/FeedbackCard.astro';
+
+<DrinkHero
+  cover={'/BeerGoggleGames/images/amaretto-sour.webp'}
+  alt={"Amaretto Sour"}
+/>
+
+<DrinkSection title="Overview" icon="/BeerGoggleGames/images/info.webp">
+  <p><strong>Description:</strong> A sweet and sour cocktail with a rich taste and nutty essence.</p>
+  <p><strong>Time:</strong> 5 mins</p>
+  <p><strong>Difficulty:</strong> Medium</p>
+  <p><strong>Glass type:</strong> Rocks glass</p>
+  <p><strong>Dietary Notes:</strong> Egg & nuts</p>
+  <p><strong>Origin:</strong> Italy</p>
+</DrinkSection>
+
+<DrinkSection title="Ingredients" icon="/BeerGoggleGames/images/liquor.webp">
+  <ol>
+  <li>Amaretto - 50ml</li>
+  <li>Lemon juice - 25ml</li>
+  <li>Egg - 1</li>
+  <li>Cherry syrup - 10ml</li>
+  <li>Cherry - 1</li>
+  <li>Ice - 1 handful</li>
+</ol>
+</DrinkSection>
+
+<DrinkSection title="Recipe" icon="/BeerGoggleGames/images/rules.webp">
+  <ol>
+  <li>Put the amaretto, lemon juice, syrup and a tablespoon of egg white into a mixer and shake.</li>
+  <li>Add ice and shake again until well chilled.</li>
+  <li>Pour into a glass with ice.</li>
+  <li>Garnish with a cherry to finish.</li>
+</ol>
+</DrinkSection>
+
+<DrinkSection title="Tips" icon="/BeerGoggleGames/images/lightbulb.webp">
+  <ul>
+    <li>Use angostura syrup instead of cherry syrup for a slightly different taste.</li>
+    <li>Use brandied cherries for an added element to the drink. Skewer and garnish the drink with them.</li>
+  </ul>
+</DrinkSection>
+
+<ShareButtons title={"Amaretto Sour"} />
+<FeedbackCard></FeedbackCard>

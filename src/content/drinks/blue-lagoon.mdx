@@ -1,0 +1,59 @@
+---
+title: "Blue Lagoon"
+drinkType: "cocktail"
+excerpt: "Similar to a sweet blue lemonade but with more alcohol and a hint of cherry."
+base: "vodka"
+difficulty: "medium"
+cover: "blue-lagoon.webp"
+tags: []
+---
+
+import DrinkHero from '../../components/drink/DrinkHero.astro';
+import DrinkSection from '../../components/drink/DrinkSection.astro';
+import ShareButtons from '../../components/game/ShareButtons.astro';
+import FeedbackCard from '../../components/game/FeedbackCard.astro';
+
+<DrinkHero
+  cover={'/BeerGoggleGames/images/blue-lagoon.webp'}
+  alt={"Blue Lagoon"}
+/>
+
+<DrinkSection title="Overview" icon="/BeerGoggleGames/images/info.webp">
+  <p><strong>Description:</strong> Similar to a sweet blue lemonade but with more alcohol and a hint of cherry.</p>
+  <p><strong>Time:</strong> 5 mins</p>
+  <p><strong>Difficulty:</strong> Medium</p>
+  <p><strong>Glass type:</strong> Hurricane glass</p>
+  <p><strong>Dietary Notes:</strong> None</p>
+  <p><strong>Origin:</strong> Paris, France</p>
+</DrinkSection>
+
+<DrinkSection title="Ingredients" icon="/BeerGoggleGames/images/liquor.webp">
+  <ol>
+  <li>Vodka - 50ml</li>
+  <li>Lemonade - 200ml</li>
+  <li>Blue Curaçao - 50ml</li>
+  <li>Cherry syrup - 1 tsp</li>
+  <li>Cherries - 1 Cherry</li>
+  <li>Lemons - 1 Slice</li>
+  <li>Ice</li>
+</ol>
+</DrinkSection>
+
+<DrinkSection title="Recipe" icon="/BeerGoggleGames/images/rules.webp">
+  <ol>
+  <li>Add vodka, blue Curaçao and ice to a shaker.</li>
+  <li>Shake the shaker until it turns very cold</li>
+  <li>Strain the shaker contents into a glass with ice and top up with lemonade</li>
+  <li>Pour the cherry syrup on top of the drink, then garnish with cherry and lemon.</li>
+</ol>
+</DrinkSection>
+
+<DrinkSection title="Tips" icon="/BeerGoggleGames/images/lightbulb.webp">
+  <ul>
+    <li>Use fresh lemon, lime and orange juice along with soda water instead of lemonade</li>
+    <li>If possible, use maraschino cherries and the syrup from them insetad of regular cherries</li>
+  </ul>
+</DrinkSection>
+
+<ShareButtons title={"Blue Lagoon"} />
+<FeedbackCard></FeedbackCard>

@@ -1,0 +1,58 @@
+---
+title: "Pimms"
+drinkType: "cocktail"
+excerpt: "A refreshing fruit filled punch drink that epitomises summer time drinking in the UK."
+base: ""
+difficulty: "easy"
+cover: "pimms.webp"
+tags: []
+---
+
+import DrinkHero from '../../components/drink/DrinkHero.astro';
+import DrinkSection from '../../components/drink/DrinkSection.astro';
+import ShareButtons from '../../components/game/ShareButtons.astro';
+import FeedbackCard from '../../components/game/FeedbackCard.astro';
+
+<DrinkHero
+  cover={'/BeerGoggleGames/images/pimms.webp'}
+  alt={"Pimms"}
+/>
+
+<DrinkSection title="Overview" icon="/BeerGoggleGames/images/info.webp">
+  <p><strong>Description:</strong> A refreshing fruit filled punch drink that epitomises summer time drinking in the UK.</p>
+  <p><strong>Time:</strong> 5 mins</p>
+  <p><strong>Difficulty:</strong> Easy</p>
+  <p><strong>Glass type:</strong> Highball glass</p>
+  <p><strong>Dietary Notes:</strong> None</p>
+  <p><strong>Origin:</strong> England</p>
+</DrinkSection>
+
+<DrinkSection title="Ingredients" icon="/BeerGoggleGames/images/liquor.webp">
+  <ol>
+  <li>Pimms - 50ml</li>
+  <li>Lemonade - 100ml</li>
+  <li>Mixed fruits - 1 handful</li>
+  <li>Cucumber - 1 slice</li>
+  <li>Ice - 1 handful</li>
+  <li>Mint - a few leaves</li>
+</ol>
+</DrinkSection>
+
+<DrinkSection title="Recipe" icon="/BeerGoggleGames/images/rules.webp">
+  <ol>
+  <li>Chop up the mixed fruits (strawberry, orange, apple, lemon) and slice a cucumber strip so that its all prepared.</li>
+  <li>Get your tall glass and fill it with ice.</li>
+  <li>Add the Pimms and lemonade along with the fruit & cucumber.</li>
+  <li>Give it a mix, add the mint and pop a straw in to top it off</li>
+</ol>
+</DrinkSection>
+
+<DrinkSection title="Tips" icon="/BeerGoggleGames/images/lightbulb.webp">
+  <ul>
+    <li>Keep the fruit chunks big so they don't get stuck in straws.</li>
+    <li>Make enough for all using a punch bowl or a dispenser, just multiply the recipe by however many drinks you want it to make.</li>
+  </ul>
+</DrinkSection>
+
+<ShareButtons title={"Pimms"} />
+<FeedbackCard></FeedbackCard>

@@ -1,0 +1,57 @@
+---
+title: "Shamrock Shot"
+drinkType: "shot"
+excerpt: "A very Irish looking shot with a bold mint green colour and flavour, its refreshing, creamy and rich with a kick."
+base: "vodka"
+difficulty: "medium"
+cover: "shamrock-shot.webp"
+tags: []
+---
+
+import DrinkHero from '../../components/drink/DrinkHero.astro';
+import DrinkSection from '../../components/drink/DrinkSection.astro';
+import ShareButtons from '../../components/game/ShareButtons.astro';
+import FeedbackCard from '../../components/game/FeedbackCard.astro';
+
+<DrinkHero
+  cover={'/BeerGoggleGames/images/shamrock-shot.webp'}
+  alt={"Shamrock Shot"}
+/>
+
+<DrinkSection title="Overview" icon="/BeerGoggleGames/images/info.webp">
+  <p><strong>Description:</strong> A very Irish looking shot with a bold mint green colour and flavour, its refreshing, creamy and rich with a kick.</p>
+  <p><strong>Time:</strong> 4 mins</p>
+  <p><strong>Difficulty:</strong> Medium</p>
+  <p><strong>Glass type:</strong> Shot glass</p>
+  <p><strong>Dietary Notes:</strong> Dairy</p>
+  <p><strong>Origin:</strong> Ireland</p>
+</DrinkSection>
+
+<DrinkSection title="Ingredients" icon="/BeerGoggleGames/images/liquor.webp">
+  <ol>
+  <li>Vodka - 20ml</li>
+  <li>Creme de Menthe - 20ml</li>
+  <li>Cream - 30ml</li>
+  <li>Chocolate bitters - 2 dashes</li>
+  <li>Whipped cream - 1 squirt (optional)</li>
+</ol>
+</DrinkSection>
+
+<DrinkSection title="Recipe" icon="/BeerGoggleGames/images/rules.webp">
+  <ol>
+  <li>Add the creme de menthe, vodka, cream and chocolate bitters into a shaker with ice.</li>
+  <li>Shake until the shaker turns ice cold.</li>
+  <li>Strain into a shot glass.</li>
+  <li>Top with whipped cream.</li>
+</ol>
+</DrinkSection>
+
+<DrinkSection title="Tips" icon="/BeerGoggleGames/images/lightbulb.webp">
+  <ul>
+    <li>If available, an AfterEight chocolate works well as a side snack.</li>
+    <li>The best cream to use for this drink would be heavy cream, but any should do.</li>
+  </ul>
+</DrinkSection>
+
+<ShareButtons title={"Shamrock Shot"} />
+<FeedbackCard></FeedbackCard>

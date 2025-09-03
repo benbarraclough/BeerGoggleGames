@@ -1,0 +1,62 @@
+---
+title: "Sangria"
+drinkType: "cocktail"
+excerpt: "A sweet and fruity wine drink with the slightly tart taste of red wine giving it a rich flavour."
+base: "brandy"
+difficulty: "medium"
+cover: "sangria.webp"
+tags: []
+---
+
+import DrinkHero from '../../components/drink/DrinkHero.astro';
+import DrinkSection from '../../components/drink/DrinkSection.astro';
+import ShareButtons from '../../components/game/ShareButtons.astro';
+import FeedbackCard from '../../components/game/FeedbackCard.astro';
+
+<DrinkHero
+  cover={'/BeerGoggleGames/images/sangria.webp'}
+  alt={"Sangria"}
+/>
+
+<DrinkSection title="Overview" icon="/BeerGoggleGames/images/info.webp">
+  <p><strong>Description:</strong> A sweet and fruity wine drink with the slightly tart taste of red wine giving it a rich flavour.</p>
+  <p><strong>Time:</strong> 10 mins</p>
+  <p><strong>Difficulty:</strong> Medium</p>
+  <p><strong>Glass type:</strong> Wine glass</p>
+  <p><strong>Dietary Notes:</strong> None</p>
+  <p><strong>Origin:</strong> Spain</p>
+</DrinkSection>
+
+<DrinkSection title="Ingredients" icon="/BeerGoggleGames/images/liquor.webp">
+  <ol>
+  <li>Red wine - 150ml</li>
+  <li>Brandy - 20ml</li>
+  <li>Orange juice - 40ml</li>
+  <li>Orange bitters - 3 dashes</li>
+  <li>Brown sugar - 1 Tsp</li>
+  <li>Apple - Half</li>
+  <li>Orange - Half</li>
+  <li>Ice - 1 handful</li>
+</ol>
+</DrinkSection>
+
+<DrinkSection title="Recipe" icon="/BeerGoggleGames/images/rules.webp">
+  <ol>
+  <li>Chop fruit into slices and add to a shaker with the brown sugar.</li>
+  <li>Muddle the fruit and sugar so that the fruit juice combines with the sugar.</li>
+  <li>Add orange bitters and brandy then muddle again lightly.</li>
+  <li>Put a handful of ice in your glass then pour in the muddled mixture</li>
+  <li>Add the wine and orange juice and then mix</li>
+</ol>
+</DrinkSection>
+
+<DrinkSection title="Tips" icon="/BeerGoggleGames/images/lightbulb.webp">
+  <ul>
+    <li>Use a light red wine (preferably spanish) as some full bodied wines can be too strong in flavour.</li>
+    <li>Garnish with slices of apple and orange after making the drink as the fruit muddled is usually not very presentable.</li>
+    <li>If you don't have the specific ingtredients listed, you can make it with simialr ingredients (e.g. you can use bourbon or cognac instead of brandy).</li>
+  </ul>
+</DrinkSection>
+
+<ShareButtons title={"Sangria"} />
+<FeedbackCard></FeedbackCard>

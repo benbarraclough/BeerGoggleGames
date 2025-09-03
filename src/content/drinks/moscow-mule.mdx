@@ -1,0 +1,56 @@
+---
+title: "Moscow Mule"
+drinkType: "cocktail"
+excerpt: "A spiced vodka based drink with a hint of lime commonly served ice cold in a copper mug."
+base: "vodka"
+difficulty: "medium"
+cover: "moscow-mule.webp"
+tags: []
+---
+
+import DrinkHero from '../../components/drink/DrinkHero.astro';
+import DrinkSection from '../../components/drink/DrinkSection.astro';
+import ShareButtons from '../../components/game/ShareButtons.astro';
+import FeedbackCard from '../../components/game/FeedbackCard.astro';
+
+<DrinkHero
+  cover={'/BeerGoggleGames/images/moscow-mule.webp'}
+  alt={"Moscow Mule"}
+/>
+
+<DrinkSection title="Overview" icon="/BeerGoggleGames/images/info.webp">
+  <p><strong>Description:</strong> A spiced vodka based drink with a hint of lime commonly served ice cold in a copper mug.</p>
+  <p><strong>Time:</strong> 5 mins</p>
+  <p><strong>Difficulty:</strong> Medium</p>
+  <p><strong>Glass type:</strong> Copper Mug</p>
+  <p><strong>Dietary Notes:</strong> None</p>
+  <p><strong>Origin:</strong> Russia</p>
+</DrinkSection>
+
+<DrinkSection title="Ingredients" icon="/BeerGoggleGames/images/liquor.webp">
+  <ol>
+  <li>Vodka - 50ml</li>
+  <li>Ginger Beer - 150ml</li>
+  <li>Lime Juice - 25ml</li>
+  <li>Ice - 1 handful</li>
+  <li>Mint - 1 sprig (optional)</li>
+</ol>
+</DrinkSection>
+
+<DrinkSection title="Recipe" icon="/BeerGoggleGames/images/rules.webp">
+  <ol>
+  <li>1\. Add a handful of crushed ice to the mug</li>
+  <li>2\. Pour in the vodka & lime then mix</li>
+  <li>3\. Fill to the top with ginger beer and top with mint as garnish</li>
+</ol>
+</DrinkSection>
+
+<DrinkSection title="Tips" icon="/BeerGoggleGames/images/lightbulb.webp">
+  <ul>
+    <li>Use ginger bitters to increase the spiced flavours in the drink</li>
+    <li>Ginger ale can be an easy replacement for ginger beer</li>
+  </ul>
+</DrinkSection>
+
+<ShareButtons title={"Moscow Mule"} />
+<FeedbackCard></FeedbackCard>

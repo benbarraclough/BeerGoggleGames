@@ -1,0 +1,58 @@
+---
+title: "Woo Woo"
+drinkType: "cocktail"
+excerpt: "A very sweet and fruity drink, with strong flavours of cranberry and peach giving it a refreshing taste."
+base: "vodka"
+difficulty: "easy"
+cover: "woowoo.webp"
+tags: []
+---
+
+import DrinkHero from '../../components/drink/DrinkHero.astro';
+import DrinkSection from '../../components/drink/DrinkSection.astro';
+import ShareButtons from '../../components/game/ShareButtons.astro';
+import FeedbackCard from '../../components/game/FeedbackCard.astro';
+
+<DrinkHero
+  cover={'/BeerGoggleGames/images/woowoo.webp'}
+  alt={"Woo Woo"}
+/>
+
+<DrinkSection title="Overview" icon="/BeerGoggleGames/images/info.webp">
+  <p><strong>Description:</strong> A very sweet and fruity drink, with strong flavours of cranberry and peach giving it a refreshing taste.</p>
+  <p><strong>Time:</strong> 5 mins</p>
+  <p><strong>Difficulty:</strong> Easy</p>
+  <p><strong>Glass type:</strong> Collins glass</p>
+  <p><strong>Dietary Notes:</strong> None</p>
+  <p><strong>Origin:</strong> USA</p>
+</DrinkSection>
+
+<DrinkSection title="Ingredients" icon="/BeerGoggleGames/images/liquor.webp">
+  <ol>
+  <li>Vodka - 50ml</li>
+  <li>Peach Schnapps - 25ml</li>
+  <li>Peach syrup - 20ml</li>
+  <li>Cranberry juice - 100ml</li>
+  <li>Lime juice - 20ml</li>
+  <li>Lime - 1 wedge</li>
+  <li>Ice - 1 handful</li>
+</ol>
+</DrinkSection>
+
+<DrinkSection title="Recipe" icon="/BeerGoggleGames/images/rules.webp">
+  <ol>
+  <li>Add the vodka, peach schnapps, peach syrup, cranberry juice and lime juice to a shaker with ice.</li>
+  <li>Shake the shaker until ice cold.</li>
+  <li>Pour the drink into a glass with the ice.</li>
+  <li>Garnish with a wedge of lime and serve.</li>
+</ol>
+</DrinkSection>
+
+<DrinkSection title="Tips" icon="/BeerGoggleGames/images/lightbulb.webp">
+  <ul>
+    <li>Peach purée can also be added to give the drink more of a fruity taste.</li>
+  </ul>
+</DrinkSection>
+
+<ShareButtons title={"Woo Woo"} />
+<FeedbackCard></FeedbackCard>

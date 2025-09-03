@@ -1,0 +1,59 @@
+---
+title: "English Garden"
+drinkType: "cocktail"
+excerpt: "A fresh daytime gin based cocktail that can be sweetened to your liking."
+base: "gin"
+difficulty: "medium"
+cover: "english-garden.webp"
+tags: []
+---
+
+import DrinkHero from '../../components/drink/DrinkHero.astro';
+import DrinkSection from '../../components/drink/DrinkSection.astro';
+import ShareButtons from '../../components/game/ShareButtons.astro';
+import FeedbackCard from '../../components/game/FeedbackCard.astro';
+
+<DrinkHero
+  cover={'/BeerGoggleGames/images/english-garden.webp'}
+  alt={"English Garden"}
+/>
+
+<DrinkSection title="Overview" icon="/BeerGoggleGames/images/info.webp">
+  <p><strong>Description:</strong> A fresh daytime gin based cocktail that can be sweetened to your liking.</p>
+  <p><strong>Time:</strong> 5 mins</p>
+  <p><strong>Difficulty:</strong> Medium</p>
+  <p><strong>Glass type:</strong> Highball glass</p>
+  <p><strong>Dietary Notes:</strong> None</p>
+  <p><strong>Origin:</strong> England</p>
+</DrinkSection>
+
+<DrinkSection title="Ingredients" icon="/BeerGoggleGames/images/liquor.webp">
+  <ol>
+  <li>Gin - 30ml</li>
+  <li>Elderflower cordial - 2tsp</li>
+  <li>Lemon juice - 2 tsp</li>
+  <li>Apple juice - 200ml</li>
+  <li>Mint - 5 leaves</li>
+  <li>Cucumber - 1 long peeled strip</li>
+  <li>Ice - 1 handful</li>
+</ol>
+</DrinkSection>
+
+<DrinkSection title="Recipe" icon="/BeerGoggleGames/images/rules.webp">
+  <ol>
+  <li>Add the mint leaves, gin, elderflower, lemon juice and ice to a glass.</li>
+  <li>Slice a cucumber length ways with a peeler so that you get a long strip with the flesh showing on either side.</li>
+  <li>Add the cucumber slice to the glass so that it swirls within the drink.</li>
+  <li>Top the drink up with apple juice and stir well to finish before serving.</li>
+</ol>
+</DrinkSection>
+
+<DrinkSection title="Tips" icon="/BeerGoggleGames/images/lightbulb.webp">
+  <ul>
+    <li>Add more elderflower cordial or syrup to the drink for a sweeter taste.</li>
+    <li>Add a slice of cucumber or apple to the edge of the glass or even a flower.</li>
+  </ul>
+</DrinkSection>
+
+<ShareButtons title={"English Garden"} />
+<FeedbackCard></FeedbackCard>

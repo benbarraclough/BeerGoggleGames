@@ -1,0 +1,55 @@
+---
+title: "Manhattan"
+drinkType: "cocktail"
+excerpt: "A classic whisky based cocktail offering a rich and balanced flavour thats not too sweet."
+base: "whisky"
+difficulty: "easy"
+cover: "manhattan.webp"
+tags: []
+---
+
+import DrinkHero from '../../components/drink/DrinkHero.astro';
+import DrinkSection from '../../components/drink/DrinkSection.astro';
+import ShareButtons from '../../components/game/ShareButtons.astro';
+import FeedbackCard from '../../components/game/FeedbackCard.astro';
+
+<DrinkHero
+  cover={'/BeerGoggleGames/images/manhattan.webp'}
+  alt={"Manhattan"}
+/>
+
+<DrinkSection title="Overview" icon="/BeerGoggleGames/images/info.webp">
+  <p><strong>Description:</strong> A classic whisky based cocktail offering a rich and balanced flavour thats not too sweet.</p>
+  <p><strong>Time:</strong> 3 mins</p>
+  <p><strong>Difficulty:</strong> Easy</p>
+  <p><strong>Glass type:</strong> Martini glass</p>
+  <p><strong>Dietary Notes:</strong> None</p>
+  <p><strong>Origin:</strong> USA</p>
+</DrinkSection>
+
+<DrinkSection title="Ingredients" icon="/BeerGoggleGames/images/liquor.webp">
+  <ol>
+  <li>Whisky (rye) - 60ml</li>
+  <li>Vermouth rosso - 30ml</li>
+  <li>Angostura bitters - 2 dashes</li>
+  <li>Ice - 1 handful</li>
+</ol>
+</DrinkSection>
+
+<DrinkSection title="Recipe" icon="/BeerGoggleGames/images/rules.webp">
+  <ol>
+  <li>Add the whisky, vermouth and bitters into a shaker woth ice.</li>
+  <li>Shake until ice cold and serve into a martini glass.</li>
+  <li>Garnish with a skewered cherry.</li>
+</ol>
+</DrinkSection>
+
+<DrinkSection title="Tips" icon="/BeerGoggleGames/images/lightbulb.webp">
+  <ul>
+    <li>Other vermouths can work in this drink, but a sweet vermouth is preferred.</li>
+    <li>The maraschino cherry is the best for this cocktail.</li>
+  </ul>
+</DrinkSection>
+
+<ShareButtons title={"Manhattan"} />
+<FeedbackCard></FeedbackCard>

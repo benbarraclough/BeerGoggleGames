@@ -1,0 +1,55 @@
+---
+title: "Cuba Libre"
+drinkType: "cocktail"
+excerpt: "One of the simplest cocktails to make, no equipment required. This drink combines just three ready-made ingredients."
+base: "vodka"
+difficulty: "easy"
+cover: "cuba-libre.webp"
+tags: []
+---
+
+import DrinkHero from '../../components/drink/DrinkHero.astro';
+import DrinkSection from '../../components/drink/DrinkSection.astro';
+import ShareButtons from '../../components/game/ShareButtons.astro';
+import FeedbackCard from '../../components/game/FeedbackCard.astro';
+
+<DrinkHero
+  cover={'/BeerGoggleGames/images/cuba-libre.webp'}
+  alt={"Cuba Libre"}
+/>
+
+<DrinkSection title="Overview" icon="/BeerGoggleGames/images/info.webp">
+  <p><strong>Description:</strong> One of the simplest cocktails to make, no equipment required. This drink combines just three ready-made ingredients.</p>
+  <p><strong>Time:</strong> 2 mins</p>
+  <p><strong>Difficulty:</strong> Easy</p>
+  <p><strong>Glass type:</strong> Highball glass</p>
+  <p><strong>Dietary Notes:</strong> None</p>
+  <p><strong>Origin:</strong> Cuba</p>
+</DrinkSection>
+
+<DrinkSection title="Ingredients" icon="/BeerGoggleGames/images/liquor.webp">
+  <ol>
+  <li>Rum - 50ml</li>
+  <li>Lime juice - 15ml</li>
+  <li>Cola - 150ml</li>
+  <li>Ice - 1 handful</li>
+  <li>Lime - 1 (optional)</li>
+</ol>
+</DrinkSection>
+
+<DrinkSection title="Recipe" icon="/BeerGoggleGames/images/rules.webp">
+  <ol>
+  <li>Add ice, vodka and lime juice to a glass</li>
+  <li>Top up with a fizzy cola drink.</li>
+  <li>Garnish with a few slices or a wedge of lime and stir.</li>
+</ol>
+</DrinkSection>
+
+<DrinkSection title="Tips" icon="/BeerGoggleGames/images/lightbulb.webp">
+  <ul>
+    <li>Vary the type of rum to change the taste of the drink (e.g. spiced, flavoured, dark, light)</li>
+  </ul>
+</DrinkSection>
+
+<ShareButtons title={"Cuba Libre"} />
+<FeedbackCard></FeedbackCard>

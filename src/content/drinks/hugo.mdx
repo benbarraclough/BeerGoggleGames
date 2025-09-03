@@ -1,0 +1,59 @@
+---
+title: "Hugo"
+drinkType: "cocktail"
+excerpt: "A simple yet refreshing gin spritz, the perfect drink for summer evenings."
+base: "gin"
+difficulty: "medium"
+cover: "hugo.webp"
+tags: []
+---
+
+import DrinkHero from '../../components/drink/DrinkHero.astro';
+import DrinkSection from '../../components/drink/DrinkSection.astro';
+import ShareButtons from '../../components/game/ShareButtons.astro';
+import FeedbackCard from '../../components/game/FeedbackCard.astro';
+
+<DrinkHero
+  cover={'/BeerGoggleGames/images/hugo.webp'}
+  alt={"Hugo"}
+/>
+
+<DrinkSection title="Overview" icon="/BeerGoggleGames/images/info.webp">
+  <p><strong>Description:</strong> A simple yet refreshing gin spritz, the perfect drink for summer evenings.</p>
+  <p><strong>Time:</strong> 5 mins</p>
+  <p><strong>Difficulty:</strong> Medium</p>
+  <p><strong>Glass type:</strong> Wine glass</p>
+  <p><strong>Dietary Notes:</strong> None</p>
+  <p><strong>Origin:</strong> Italy</p>
+</DrinkSection>
+
+<DrinkSection title="Ingredients" icon="/BeerGoggleGames/images/liquor.webp">
+  <ol>
+  <li>Gin - 25ml</li>
+  <li>Elderflower cordial - 25ml</li>
+  <li>Soda - 25ml</li>
+  <li>Prosecco - 125ml</li>
+  <li>Ice - 1 handful</li>
+  <li>Mint - 1 sprig</li>
+  <li>Lime - 1 wedge</li>
+</ol>
+</DrinkSection>
+
+<DrinkSection title="Recipe" icon="/BeerGoggleGames/images/rules.webp">
+  <ol>
+  <li>Start by slightly bruising the mint and placing it at the bottom of glass</li>
+  <li>Pour the cordial and gin in the glass and leave it to infuse for 1-2 minutes</li>
+  <li>Fill the glass with ice, then add the soda and prosecco</li>
+  <li>Stir and add the lime wedge to finish</li>
+</ol>
+</DrinkSection>
+
+<DrinkSection title="Tips" icon="/BeerGoggleGames/images/lightbulb.webp">
+  <ul>
+    <li>For a stronger taste, replace the soda with more cordial and gin</li>
+    <li>Prosecco can just be used to fill the drink to the top, the exact measurement is not needed</li>
+  </ul>
+</DrinkSection>
+
+<ShareButtons title={"Hugo"} />
+<FeedbackCard></FeedbackCard>

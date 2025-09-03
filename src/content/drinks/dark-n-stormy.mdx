@@ -1,0 +1,52 @@
+---
+title: "Dark 'n' Stormy"
+drinkType: "cocktail"
+excerpt: "A sweet yet spiced cocktail for those who like their dark rum in a long drink."
+base: "rum"
+difficulty: "medium"
+cover: "dark-n-stormy.webp"
+tags: []
+---
+
+import DrinkHero from '../../components/drink/DrinkHero.astro';
+import DrinkSection from '../../components/drink/DrinkSection.astro';
+import ShareButtons from '../../components/game/ShareButtons.astro';
+import FeedbackCard from '../../components/game/FeedbackCard.astro';
+
+<DrinkHero
+  cover={'/BeerGoggleGames/images/dark-n-stormy.webp'}
+  alt={"Dark 'n' Stormy"}
+/>
+
+<DrinkSection title="Overview" icon="/BeerGoggleGames/images/info.webp">
+  <p><strong>Description:</strong> A sweet yet spiced cocktail for those who like their dark rum in a long drink.</p>
+  <p><strong>Time:</strong> 5 mins</p>
+  <p><strong>Difficulty:</strong> Medium</p>
+  <p><strong>Glass type:</strong> Highball glass</p>
+  <p><strong>Dietary Notes:</strong> None</p>
+  <p><strong>Origin:</strong> United Kingdom</p>
+</DrinkSection>
+
+<DrinkSection title="Ingredients" icon="/BeerGoggleGames/images/liquor.webp">
+  <ol>
+  <li>Dark rum - 25ml</li>
+  <li>Ginger Ale - 100ml</li>
+  <li>Lime - 10ml</li>
+  <li>Ice - 1 handful</li>
+</ol>
+</DrinkSection>
+
+<DrinkSection title="Recipe" icon="/BeerGoggleGames/images/rules.webp">
+  <ol>
+  <li>Add a few cubes ice to a glass along with a squeeze off lime juice</li>
+  <li>Pour as many shots of dark rum as you'd like</li>
+  <li>Fill to the top with ginger ale mixer</li>
+  <li>Mix with a stirer and garnish with a wedge of lime</li>
+  <li>Further garnish of rosemary or mint leaf can be used for extra pizzazz alongside a small amount of grated cinnamon stick.</li>
+</ol>
+</DrinkSection>
+
+
+
+<ShareButtons title={"Dark 'n' Stormy"} />
+<FeedbackCard></FeedbackCard>

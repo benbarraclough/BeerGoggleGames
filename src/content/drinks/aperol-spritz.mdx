@@ -1,0 +1,56 @@
+---
+title: "Aperol Spritz"
+drinkType: "cocktail"
+excerpt: "A Venetian wine-based cocktail with a light, refreshing and unique bittersweet taste."
+base: ""
+difficulty: "medium"
+cover: "aperol-spritz.webp"
+tags: []
+---
+
+import DrinkHero from '../../components/drink/DrinkHero.astro';
+import DrinkSection from '../../components/drink/DrinkSection.astro';
+import ShareButtons from '../../components/game/ShareButtons.astro';
+import FeedbackCard from '../../components/game/FeedbackCard.astro';
+
+<DrinkHero
+  cover={'/BeerGoggleGames/images/aperol-spritz.webp'}
+  alt={"Aperol Spritz"}
+/>
+
+<DrinkSection title="Overview" icon="/BeerGoggleGames/images/info.webp">
+  <p><strong>Description:</strong> A Venetian wine-based cocktail with a light, refreshing and unique bittersweet taste.</p>
+  <p><strong>Time:</strong> 5 mins</p>
+  <p><strong>Difficulty:</strong> Medium</p>
+  <p><strong>Glass type:</strong> Large wine glass</p>
+  <p><strong>Dietary Notes:</strong> None</p>
+  <p><strong>Origin:</strong> Italy</p>
+</DrinkSection>
+
+<DrinkSection title="Ingredients" icon="/BeerGoggleGames/images/liquor.webp">
+  <ol>
+  <li>Aperol - 100ml</li>
+  <li>Prosecco - 150ml</li>
+  <li>Soda water - 50ml</li>
+  <li>Orange - 1 Slice</li>
+  <li>Ice</li>
+</ol>
+</DrinkSection>
+
+<DrinkSection title="Recipe" icon="/BeerGoggleGames/images/rules.webp">
+  <ol>
+  <li>Add a handful of ice to a glass</li>
+  <li>Pour the aperol and prosecco into the glass and top up with soda</li>
+  <li>Cut a slice of orange and add to the drink to finish</li>
+</ol>
+</DrinkSection>
+
+<DrinkSection title="Tips" icon="/BeerGoggleGames/images/lightbulb.webp">
+  <ul>
+    <li>Use aperol glasses to make the drink fully authentic.</li>
+    <li>Use orange bitters to add another element to the drink</li>
+  </ul>
+</DrinkSection>
+
+<ShareButtons title={"Aperol Spritz"} />
+<FeedbackCard></FeedbackCard>

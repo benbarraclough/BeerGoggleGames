@@ -1,0 +1,55 @@
+---
+title: "Pineapple Upside Down"
+drinkType: "shot"
+excerpt: "A drink using the same flavours as the famous cake, giving you a sweet and friendly shot that goes down easy."
+base: "vodka"
+difficulty: "medium"
+cover: "pineappleupsidedown.webp"
+tags: []
+---
+
+import DrinkHero from '../../components/drink/DrinkHero.astro';
+import DrinkSection from '../../components/drink/DrinkSection.astro';
+import ShareButtons from '../../components/game/ShareButtons.astro';
+import FeedbackCard from '../../components/game/FeedbackCard.astro';
+
+<DrinkHero
+  cover={'/BeerGoggleGames/images/pineappleupsidedown.webp'}
+  alt={"Pineapple Upside Down"}
+/>
+
+<DrinkSection title="Overview" icon="/BeerGoggleGames/images/info.webp">
+  <p><strong>Description:</strong> A drink using the same flavours as the famous cake, giving you a sweet and friendly shot that goes down easy.</p>
+  <p><strong>Time:</strong> 3 mins</p>
+  <p><strong>Difficulty:</strong> Medium</p>
+  <p><strong>Glass type:</strong> Shot glass</p>
+  <p><strong>Dietary Notes:</strong> None</p>
+  <p><strong>Origin:</strong> ...</p>
+</DrinkSection>
+
+<DrinkSection title="Ingredients" icon="/BeerGoggleGames/images/liquor.webp">
+  <ol>
+  <li>Vodka - 30ml</li>
+  <li>Grenadine - 10ml</li>
+  <li>Pineapple juice - 30ml</li>
+  <li>Cherry - 1 (optional)</li>
+</ol>
+</DrinkSection>
+
+<DrinkSection title="Recipe" icon="/BeerGoggleGames/images/rules.webp">
+  <ol>
+  <li>Add the vodka and pineapple juice into a shaker with ice.</li>
+  <li>Shake until ice cold and strain into a shot glass.</li>
+  <li>Pour the grenadine over and serve with a cherry on top.</li>
+</ol>
+</DrinkSection>
+
+<DrinkSection title="Tips" icon="/BeerGoggleGames/images/lightbulb.webp">
+  <ul>
+    <li>A maraschino cherry is the type to use for this drink.</li>
+    <li>Vanilla vodka is preferred in this drink to give it a little more flavour.</li>
+  </ul>
+</DrinkSection>
+
+<ShareButtons title={"Pineapple Upside Down"} />
+<FeedbackCard></FeedbackCard>

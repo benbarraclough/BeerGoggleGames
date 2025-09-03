@@ -1,0 +1,56 @@
+---
+title: "Limoncello Spritz"
+drinkType: "cocktail"
+excerpt: "A refreshing cocktail that combines the zesty flavour of lemon and the bubbly vibrance of prosecco."
+base: "liqueur"
+difficulty: "medium"
+cover: "limoncello-spritz.webp"
+tags: []
+---
+
+import DrinkHero from '../../components/drink/DrinkHero.astro';
+import DrinkSection from '../../components/drink/DrinkSection.astro';
+import ShareButtons from '../../components/game/ShareButtons.astro';
+import FeedbackCard from '../../components/game/FeedbackCard.astro';
+
+<DrinkHero
+  cover={'/BeerGoggleGames/images/limoncello-spritz.webp'}
+  alt={"Limoncello Spritz"}
+/>
+
+<DrinkSection title="Overview" icon="/BeerGoggleGames/images/info.webp">
+  <p><strong>Description:</strong> A refreshing cocktail that combines the zesty flavour of lemon and the bubbly vibrance of prosecco.</p>
+  <p><strong>Time:</strong> 3 mins</p>
+  <p><strong>Difficulty:</strong> Medium</p>
+  <p><strong>Glass type:</strong> Wine glass</p>
+  <p><strong>Dietary Notes:</strong> None</p>
+  <p><strong>Origin:</strong> Italy</p>
+</DrinkSection>
+
+<DrinkSection title="Ingredients" icon="/BeerGoggleGames/images/liquor.webp">
+  <ol>
+  <li>Limoncello - 40ml</li>
+  <li>Prosecco - 100ml</li>
+  <li>Soda water - 50ml</li>
+  <li>Lemon - 1</li>
+  <li>Ice - 1 handful</li>
+</ol>
+</DrinkSection>
+
+<DrinkSection title="Recipe" icon="/BeerGoggleGames/images/rules.webp">
+  <ol>
+  <li>Add the ice to a glass, then pour in the prosecco and limoncello.</li>
+  <li>Fill to the top with soda water and mix.</li>
+  <li>Garnish with a slice of lemon.</li>
+</ol>
+</DrinkSection>
+
+<DrinkSection title="Tips" icon="/BeerGoggleGames/images/lightbulb.webp">
+  <ul>
+    <li>To make for a stronger flavour, add less soda water or replace the soda with lemonade.</li>
+    <li>If the limoncello is weak in alcohol percentage, give the drink an extra kick by adding some vodka.</li>
+  </ul>
+</DrinkSection>
+
+<ShareButtons title={"Limoncello Spritz"} />
+<FeedbackCard></FeedbackCard>

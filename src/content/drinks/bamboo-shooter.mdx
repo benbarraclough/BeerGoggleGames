@@ -1,0 +1,59 @@
+---
+title: "Bamboo Shooter"
+drinkType: "shot"
+excerpt: "A drink origniating from a German bartender in Japan, combining sweet and low strength wine based ingredients."
+base: "vermouth"
+difficulty: "medium"
+cover: "bamboo-shooter.webp"
+tags: []
+---
+
+import DrinkHero from '../../components/drink/DrinkHero.astro';
+import DrinkSection from '../../components/drink/DrinkSection.astro';
+import ShareButtons from '../../components/game/ShareButtons.astro';
+import FeedbackCard from '../../components/game/FeedbackCard.astro';
+
+<DrinkHero
+  cover={'/BeerGoggleGames/images/bamboo-shooter.webp'}
+  alt={"Bamboo Shooter"}
+/>
+
+<DrinkSection title="Overview" icon="/BeerGoggleGames/images/info.webp">
+  <p><strong>Description:</strong> A drink origniating from a German bartender in Japan, combining sweet and low strength wine based ingredients.</p>
+  <p><strong>Time:</strong> 3 mins</p>
+  <p><strong>Difficulty:</strong> Medium</p>
+  <p><strong>Glass type:</strong> Shot glass</p>
+  <p><strong>Dietary Notes:</strong> None</p>
+  <p><strong>Origin:</strong> Japan</p>
+</DrinkSection>
+
+<DrinkSection title="Ingredients" icon="/BeerGoggleGames/images/liquor.webp">
+  <ol>
+  <li>Sherry - 30ml</li>
+  <li>Bianco vermouth - 30ml</li>
+  <li>Angostura bitters - 2 dashes</li>
+  <li>Orange bitters - 2 dashes</li>
+  <li>Lemon juice - 2 dashes</li>
+  <li>Salt - 1 pinch</li>
+  <li>Ice - 1 handful</li>
+</ol>
+</DrinkSection>
+
+<DrinkSection title="Recipe" icon="/BeerGoggleGames/images/rules.webp">
+  <ol>
+  <li>Add the sherry, vermouth, lemon juice and bitters into a shaker with ice.</li>
+  <li>Shake until the shaker turns ice cold.</li>
+  <li>Strain into a shot glass and garnish with a sprinkle of salt</li>
+</ol>
+</DrinkSection>
+
+<DrinkSection title="Tips" icon="/BeerGoggleGames/images/lightbulb.webp">
+  <ul>
+    <li>Dry or bianco vrmouth should be used, not sweet or rosso.</li>
+    <li>Fino or manzanilla sherry should be used for this drink.</li>
+    <li>The oils of lemon and lime rind can be used in addition to the ingredients.</li>
+  </ul>
+</DrinkSection>
+
+<ShareButtons title={"Bamboo Shooter"} />
+<FeedbackCard></FeedbackCard>

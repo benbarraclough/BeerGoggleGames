@@ -1,0 +1,36 @@
+---
+title: "Test Shot"
+drinkType: "shot"
+excerpt: ""
+base: ""
+difficulty: 
+cover: "test-shot.webp"
+tags: []
+---
+
+import DrinkHero from '../../components/drink/DrinkHero.astro';
+import DrinkSection from '../../components/drink/DrinkSection.astro';
+import ShareButtons from '../../components/game/ShareButtons.astro';
+import FeedbackCard from '../../components/game/FeedbackCard.astro';
+
+<DrinkHero
+  cover={'/BeerGoggleGames/images/test-shot.webp'}
+  alt={"Test Shot"}
+/>
+
+<DrinkSection title="Overview" icon="/BeerGoggleGames/images/info.webp">
+  <!-- Add overview details -->
+</DrinkSection>
+
+<DrinkSection title="Ingredients" icon="/BeerGoggleGames/images/liquor.webp">
+  <!-- Add ingredients -->
+</DrinkSection>
+
+<DrinkSection title="Recipe" icon="/BeerGoggleGames/images/rules.webp">
+  <!-- Add steps -->
+</DrinkSection>
+
+
+
+<ShareButtons title={"Test Shot"} />
+<FeedbackCard></FeedbackCard>

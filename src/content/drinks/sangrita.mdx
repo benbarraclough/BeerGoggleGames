@@ -1,0 +1,62 @@
+---
+title: "Sangrita"
+drinkType: "shot"
+excerpt: "A traditional Mexican shot served as a chaser alongside tequila, intending to cleanse and brighten the palate."
+base: "tequila"
+difficulty: "hard"
+cover: "sangrita.webp"
+tags: []
+---
+
+import DrinkHero from '../../components/drink/DrinkHero.astro';
+import DrinkSection from '../../components/drink/DrinkSection.astro';
+import ShareButtons from '../../components/game/ShareButtons.astro';
+import FeedbackCard from '../../components/game/FeedbackCard.astro';
+
+<DrinkHero
+  cover={'/BeerGoggleGames/images/sangrita.webp'}
+  alt={"Sangrita"}
+/>
+
+<DrinkSection title="Overview" icon="/BeerGoggleGames/images/info.webp">
+  <p><strong>Description:</strong> A traditional Mexican shot served as a chaser alongside tequila, intending to cleanse and brighten the palate.</p>
+  <p><strong>Time:</strong> 5 mins</p>
+  <p><strong>Difficulty:</strong> Hard</p>
+  <p><strong>Glass type:</strong> Shot glass</p>
+  <p><strong>Dietary Notes:</strong> None</p>
+  <p><strong>Origin:</strong> Mexico</p>
+</DrinkSection>
+
+<DrinkSection title="Ingredients" icon="/BeerGoggleGames/images/liquor.webp">
+  <ol>
+  <li>Tequila - 50ml</li>
+  <li>Tomato juice - 25ml</li>
+  <li>Orange juice - 10ml</li>
+  <li>Lime juice - 10ml</li>
+  <li>Tabasco - 2 dashes</li>
+  <li>Ground black pepper - 2 pinches</li>
+  <li>Salt - 1 pinch</li>
+  <li>Ice - 1 handful</li>
+</ol>
+</DrinkSection>
+
+<DrinkSection title="Recipe" icon="/BeerGoggleGames/images/rules.webp">
+  <ol>
+  <li>Fill one shot glass to the brim with the tequila</li>
+  <li>Fill a shaker with the tomato juice, orange juice, lime juice, tabasco, pepper, salt and ice.</li>
+  <li>Shake until the shaker turns ice cold</li>
+  <li>Pour into a second shot glass</li>
+</ol>
+</DrinkSection>
+
+<DrinkSection title="Tips" icon="/BeerGoggleGames/images/lightbulb.webp">
+  <ul>
+    <li>A shaker is not explicitly needed, however makes sure all ingredients are well mixed as this is tricky to do in a shot glass.</li>
+    <li>The tequila should be drank before the sangrita shot which acts as the chaser.</li>
+    <li>Grenadine can be added to make the sangrita more sweet</li>
+    <li>Grapefruit can be added to make the sangrita more tart</li>
+  </ul>
+</DrinkSection>
+
+<ShareButtons title={"Sangrita"} />
+<FeedbackCard></FeedbackCard>

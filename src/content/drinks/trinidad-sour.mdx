@@ -1,0 +1,55 @@
+---
+title: "Trinidad Sour"
+drinkType: "cocktail"
+excerpt: "A rich whisky based delight, its dark and aromatic flavours make it a very satisying drink."
+base: "whisky"
+difficulty: "medium"
+cover: "trinidad-sour.webp"
+tags: []
+---
+
+import DrinkHero from '../../components/drink/DrinkHero.astro';
+import DrinkSection from '../../components/drink/DrinkSection.astro';
+import ShareButtons from '../../components/game/ShareButtons.astro';
+import FeedbackCard from '../../components/game/FeedbackCard.astro';
+
+<DrinkHero
+  cover={'/BeerGoggleGames/images/trinidad-sour.webp'}
+  alt={"Trinidad Sour"}
+/>
+
+<DrinkSection title="Overview" icon="/BeerGoggleGames/images/info.webp">
+  <p><strong>Description:</strong> A rich whisky based delight, its dark and aromatic flavours make it a very satisying drink.</p>
+  <p><strong>Time:</strong> 5 mins</p>
+  <p><strong>Difficulty:</strong> Medium</p>
+  <p><strong>Glass type:</strong> Coupe glass</p>
+  <p><strong>Dietary Notes:</strong> None</p>
+  <p><strong>Origin:</strong> Trinidad & Tobago</p>
+</DrinkSection>
+
+<DrinkSection title="Ingredients" icon="/BeerGoggleGames/images/liquor.webp">
+  <ol>
+  <li>Whisky - 15ml</li>
+  <li>Angostura bitters - 45ml</li>
+  <li>Almond liqueur - 30ml</li>
+  <li>Lemon juice - 25ml</li>
+  <li>Ice - 1 handful</li>
+</ol>
+</DrinkSection>
+
+<DrinkSection title="Recipe" icon="/BeerGoggleGames/images/rules.webp">
+  <ol>
+  <li>Add the bitters, whisky, almond liqueur, lemon juice and ice to a shaker</li>
+  <li>Shake the mixture until the shaker turns ice cold</li>
+  <li>Strain into the glass</li>
+</ol>
+</DrinkSection>
+
+<DrinkSection title="Tips" icon="/BeerGoggleGames/images/lightbulb.webp">
+  <ul>
+    <li>Garnish with a lemon twist</li>
+  </ul>
+</DrinkSection>
+
+<ShareButtons title={"Trinidad Sour"} />
+<FeedbackCard></FeedbackCard>
