@@ -1,56 +1,77 @@
 ---
 import Layout from '../../components/Layout.astro';
 import { getCollection, getEntry } from 'astro:content';
+import DrinkMeta from '../../components/drink/DrinkMeta.astro';
+import GameHero from '../../components/game/GameHero.astro'; // reuse styling
 import { canonical } from '../../lib/urls';
 import { withBase } from '../../lib/paths';
 
-/**
- * We generate static paths using the collection's slug (no file extension).
- * IMPORTANT: This assumes all drink content files live flat in src/content/drinks
- * (no nested directories). If you ever nest folders, convert this to a catch-all
- * route: /drinks/[...slug].astro and adjust logic accordingly.
- */
 export async function getStaticPaths() {
   const entries = await getCollection('drinks');
   return entries.map(e => {
-    // e.slug (Astro v3/v4) is the path segment without extension; e.id is similar for 'content' type
     const slug = (e.slug ?? e.id);
-    return {
-      params: { slug },
-    };
+    return { params: { slug } };
   });
 }
 
 const rawSlug = Astro.params.slug;
+const slug = rawSlug.replace(/\.mdx$/i, '');
 
-/**
- * Safety: if a build artifact or link used slug with ".mdx" accidentally,
- * strip the extension and retry.
- */
-const normalizedSlug = rawSlug.replace(/\.mdx$/i, '');
-
-let entry = await getEntry('drinks', normalizedSlug);
-
+let entry = await getEntry('drinks', slug);
 if (!entry) {
-  // Provide clear debugging info
   const all = await getCollection('drinks');
-  const available = all.map(e => e.slug ?? e.id);
-  throw new Error(
-    `Drink not found for slug "${rawSlug}". Tried normalized "${normalizedSlug}". Available: ${available.join(', ')}`
-  );
+  const available = all.map(e => e.slug ?? e.id).join(', ');
+  throw new Error(`Drink not found for slug "${slug}". Available: ${available}`);
 }
 
 const { Content } = await entry.render();
-const slug = normalizedSlug;
+
 const cover = entry.data.cover
   ? withBase(`images/${entry.data.cover}`)
   : withBase(`images/${slug}.webp`);
+
 const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 const pageTitle = entry.data.title;
 const description = entry.data.excerpt || `Drink recipe: ${pageTitle}`;
+
+// derive bases (singular base merged in transform -> bases[]; but in case you created base only manually):
+const bases = (entry.data.bases && entry.data.bases.length)
+  ? entry.data.bases
+  : (entry.data.base ? [entry.data.base] : []);
+
+const drinkType = entry.data.drinkType;
+const difficulty = entry.data.difficulty;
+const tags = entry.data.tags || [];
+
+/**
+ * Detect whether the MDX already includes a <DrinkHero> to prevent double hero.
+ * We only have the rendered html if we inspect Content beforehand, which is not ideal.
+ * Easiest: user manually removes <DrinkHero> from MDX over time.
+ * For now we always show hero here; if you still have MDX heroes, remove them.
+ */
+const showHero = true;
 ---
-<Layout title={pageTitle} description={description} canonical={pageCanonical}>
+<Layout
+  title={pageTitle}
+  description={description}
+  canonical={pageCanonical}
+>
   <article class="prose-invert max-w-none">
+    <DrinkMeta
+      title={pageTitle}
+      excerpt={description}
+      drinkType={drinkType}
+      difficulty={difficulty}
+      bases={bases}
+      tags={tags}
+    />
+
+    {showHero && (
+      <figure class="relative mb-8 aspect-[16/7] overflow-hidden rounded-xl border border-fg/20">
+        <GameHero cover={cover} alt={pageTitle} />
+      </figure>
+    )}
+
     <Content />
   </article>
 </Layout>
