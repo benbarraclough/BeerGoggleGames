@@ -6,23 +6,22 @@ import { withBase } from '../../lib/paths';
 const pageTitle = 'Random Game';
 const description = 'Redirecting you to a random drinking game.';
 
+// Collect flat leaves
 const games = await getCollection('games');
+const leaves = Array.from(
+  new Set(
+    games.map(g => {
+      const slug = g.slug ?? g.id;
+      return slug.split('/').pop();
+    })
+  )
+);
 
-const rawPaths = games.map(g => {
-  const parts = g.slug.split('/');
-  const type = g.data.type || parts[0] || 'misc';
-  const shortSlug = parts[parts.length - 1];
-  return `games/${type}/${shortSlug}/`;
-});
-
-const uniq = Array.from(new Set(rawPaths));
-const fullPaths = uniq.map(p => withBase(p));
-
+const fullPaths = leaves.map(l => withBase(`games/${l}/`));
 const fallback = fullPaths.length
   ? fullPaths[Math.floor(Math.random() * fullPaths.length)]
   : null;
 ---
-
 <Layout title={pageTitle} description={description} noindex={true}>
   <h1 class="font-display text-3xl mb-4">{pageTitle}</h1>
 
@@ -50,10 +49,7 @@ const fallback = fullPaths.length
           <ul class="columns-2 gap-6 text-xs list-none p-0 m-0">
             {fullPaths.slice(0, 40).map(p => (
               <li class="mb-1">
-                <a
-                  class="hover:text-neon underline underline-offset-4"
-                  href={p}
-                >
+                <a class="hover:text-neon underline underline-offset-4" href={p}>
                   {p.replace(/.*games\//, '').replace(/\/$/, '')}
                 </a>
               </li>
@@ -62,7 +58,6 @@ const fallback = fullPaths.length
         </div>
       </noscript>
 
-      <!-- Single guaranteed-working inline script -->
       <script
         is:inline
         set:html={`(function(){try{
