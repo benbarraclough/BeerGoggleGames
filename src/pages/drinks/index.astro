@@ -6,20 +6,12 @@ import { canonical } from '../../lib/urls';
 import { excludeLegacyNoise } from '../../lib/filters';
 
 /*
-  Unified Drinks Page
-  Now powered by the single 'drinks' content collection (merged cocktails + shots).
-
-  Filters (same UI/logic pattern as Games page):
-    - Drink Type (orange)      -> frontmatter drinkType ('cocktail','shot', etc.)
-    - Alcohol Base (blue)      -> bases[] in frontmatter (falls back to legacy base fields if not normalized)
-    - Difficulty (pink)        -> difficulty (easy / medium / hard)
-
-  Logic:
-    - Default (non-exclusive): OR union across ALL selected filters
-    - Exclusive: AND across groups (OR within each group). Empty group ignored.
-
-  Image path convention: /images/{slug}.webp
-  Links use unified route: /drinks/{slug}/ (dynamic [slug].astro page).
+  Unified Drinks Page (using single 'drinks' collection)
+  Filters:
+    - Drink Type (orange)
+    - Alcohol Base (blue)
+    - Difficulty (pink)
+  Exclusive mode = AND across groups (OR inside each group).
 */
 
 interface DrinkMeta {
@@ -33,7 +25,6 @@ interface DrinkMeta {
 }
 
 function normalizeBases(data: any): string[] {
-  // Prefer canonical 'bases' if present
   let raw: any =
     data.bases ??
     data.alcoholBase ??
@@ -44,13 +35,9 @@ function normalizeBases(data: any): string[] {
     data.alcohol ??
     [];
   if (!raw) return [];
-  if (typeof raw === 'string') {
-    raw = raw.split(/[\/,]/);
-  }
+  if (typeof raw === 'string') raw = raw.split(/[\/,]/);
   if (!Array.isArray(raw)) raw = [raw];
-  return raw
-    .map((v: any) => (v ?? '').toString().trim())
-    .filter(Boolean);
+  return raw.map((v:any)=> (v ?? '').toString().trim()).filter(Boolean);
 }
 
 const drinkEntries = excludeLegacyNoise(await getCollection('drinks'));
@@ -64,7 +51,7 @@ function mapEntry(entry: any): DrinkMeta {
     title: entry.data.title,
     drinkType,
     bases,
-    basesLC: bases.map(b => b.toLowerCase()),
+    basesLC: bases.map(b=>b.toLowerCase()),
     difficulty,
     href: withBase(`drinks/${slug}/`),
     image: withBase(`images/${slug}.webp`)
@@ -74,14 +61,13 @@ function mapEntry(entry: any): DrinkMeta {
 const drinks: DrinkMeta[] = drinkEntries.map(mapEntry)
   .sort((a,b)=> (a.title||'').localeCompare(b.title||''));
 
-// Build filter collections
 const drinkTypeCounts = new Map<string, number>();
-const baseCounts = new Map<string, number>();       // base (display) -> count
+const baseCounts = new Map<string, number>();
 const difficultyCounts = new Map<string, number>();
 
 for (const d of drinks) {
   drinkTypeCounts.set(d.drinkType, (drinkTypeCounts.get(d.drinkType) || 0) + 1);
-  d.bases.forEach(b => {
+  d.bases.forEach(b=>{
     baseCounts.set(b, (baseCounts.get(b) || 0) + 1);
   });
   if (d.difficulty) {
@@ -258,38 +244,29 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       @apply inline-flex items-center gap-1 px-2 py-1 rounded-full text-[10px] font-semibold tracking-wide whitespace-nowrap transition-colors select-none border;
       line-height:1.1;
     }
-
-    /* Tinted filter toggles */
     .pill-type-tint { @apply bg-orange-500/15 text-orange-300 border-orange-400/30 hover:bg-orange-500/25; }
     .pill-base-tint { @apply bg-blue-500/15 text-blue-300 border-blue-400/30 hover:bg-blue-500/25; }
     .pill-diff-tint { @apply bg-pink-500/15 text-pink-300 border-pink-400/30 hover:bg-pink-500/25; }
     .pill-neutral { @apply bg-fg/10 text-fg/80 border-fg/25 hover:border-neon/50 hover:text-neon; }
-
-    /* Pills inside panels/cards */
     .pill-type { @apply bg-orange-500/10 text-orange-300 border-orange-400/30; }
     .pill-base { @apply bg-blue-500/10 text-blue-300 border-blue-400/30; }
     .pill-diff { @apply bg-pink-500/10 text-pink-300 border-pink-400/30; }
-
     .filter-toggle[aria-expanded="true"] { @apply ring-2 ring-neon/60; }
     #exclusive-toggle[aria-pressed="true"] { @apply bg-neon/20 text-neon ring-2 ring-neon/50; }
     .filter-item { @apply cursor-pointer; }
     .filter-item[aria-pressed="true"] { @apply ring-2 ring-neon/60; }
-
     .filter-panel { @apply absolute z-50 mt-2 min-w-[14rem] max-w-xs bg-bg/95 backdrop-blur border border-fg/25 rounded-md shadow-lg p-2; }
     .filter-panel.hidden { display:none; }
     .panel-inner { @apply flex flex-wrap gap-2 overflow-y-auto; max-height: 18rem; }
     .panel-inner::-webkit-scrollbar { width:6px; }
     .panel-inner::-webkit-scrollbar-thumb { @apply bg-fg/30 rounded; }
-
     #result-count { @apply text-muted; }
-
     .card-body { pointer-events: none; }
     .card-body .allow-pointer,
     .card-body button { pointer-events: auto; }
   </style>
 
   <script type="module">
-    /* ========= Filter State ========= */
     const selected = {
       type: new Set(),
       base: new Set(),
@@ -299,12 +276,10 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 
     const qs = s => document.querySelector(s);
     const qsa = s => Array.from(document.querySelectorAll(s));
-
     const grid = qs('#drinks-grid');
     const clearBtn = qs('#clear-filters');
     const exclusiveBtn = qs('#exclusive-toggle');
     const resultCount = qs('#result-count');
-
     const filterItems = qsa('.filter-item');
     const panelToggles = qsa('.filter-toggle');
 
@@ -317,7 +292,6 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       const drinkType = li.getAttribute('data-type') || '';
       const bases = (li.getAttribute('data-bases') || '').split(',').filter(Boolean);
       const diff = li.getAttribute('data-difficulty') || '';
-
       const anySel = selected.type.size || selected.base.size || selected.difficulty.size;
       if (!anySel) return true;
 
@@ -345,12 +319,8 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       const cards = qsa('#drinks-grid > li');
       let visible = 0;
       cards.forEach(li => {
-        if (matchDrink(li)) {
-          li.classList.remove('hidden');
-          visible++;
-        } else {
-          li.classList.add('hidden');
-        }
+        if (matchDrink(li)) { li.classList.remove('hidden'); visible++; }
+        else li.classList.add('hidden');
       });
       if (resultCount) {
         resultCount.textContent = \`Showing \${visible} of \${cards.length} drinks\${exclusive ? ' (exclusive)' : ''}\`;
@@ -363,7 +333,6 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       let value = btn.getAttribute('data-value');
       if (!value) return;
       if (type === 'base') value = value.toLowerCase();
-
       const set = selected[type];
       const pressed = btn.getAttribute('aria-pressed') === 'true';
       if (pressed) {
@@ -400,7 +369,6 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       applyFilters();
     });
 
-    /* ========= Dropdown (Panel) Behavior ========= */
     function closeAllPanels(exceptId) {
       panelToggles.forEach(t => {
         const id = t.getAttribute('data-panel');
@@ -438,7 +406,6 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       if (e.key === 'Escape') closeAllPanels();
     });
 
-    // Init
     updateClearBtn();
     applyFilters();
   </script>
