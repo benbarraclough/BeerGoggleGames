@@ -1,0 +1,46 @@
+name: Migrate Drinks Content
+
+on:
+  workflow_dispatch:
+    inputs:
+      write:
+        description: "Run with --write to apply changes"
+        required: true
+        default: "false"
+
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install deps
+        run: npm install
+
+      - name: Run migration (dry or write)
+        run: |
+          if [ "${{ github.event.inputs.write }}" = "true" ]; then
+            node scripts/migrate-drinks.js --write
+          else
+            node scripts/migrate-drinks.js
+          fi
+
+      - name: Commit changes (only if write)
+        if: ${{ github.event.inputs.write == 'true' }}
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            git config user.name "github-actions"
+            git config user.email "actions@github.com"
+            git add .
+            git commit -m "chore: migrate cocktails+shots into unified drinks collection"
+            git push
+          else
+            echo "No changes to commit."
+          fi
