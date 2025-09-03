@@ -10,8 +10,6 @@ const baseFields = {
 
 /**
  * Games collection
- * - format replaces players (players kept for legacy)
- * - transform adds format if only players was provided
  */
 const games = defineCollection({
   type: 'content',
@@ -19,7 +17,7 @@ const games = defineCollection({
     ...baseFields,
     type: z.string().default('misc'),
     format: z.string().optional(),
-    players: z.string().optional(),
+    players: z.string().optional(),      // legacy
     equipment: z.array(z.string()).optional()
   }).transform(data => {
     if (!data.format && data.players) {
@@ -38,28 +36,27 @@ const activities = defineCollection({
 });
 
 /**
- * Unified drinks collection (replaces cocktails + shots)
- * drinkType: 'cocktail' | 'shot' | future types
- * bases: alcohol base(s)
- * difficulty: easy | medium | hard (optional)
- * ingredients & method arrays allow more structured MDX-driven display if you wish
+ * Unified drinks collection
+ * Extra optional fields (time, glassType, dietary, origin, tips) give you parity
+ * with the legacy "Overview" section if you want to auto-render those later.
  */
 const drinks = defineCollection({
   type: 'content',
   schema: z.object({
     ...baseFields,
-    drinkType: z.string(),
+    drinkType: z.string(),                 // 'cocktail' | 'shot' | etc.
     bases: z.array(z.string()).default([]),
-    difficulty: z.string().optional(),
+    difficulty: z.string().optional(),     // easy | medium | hard
     ingredients: z.array(z.string()).optional(),
-    method: z.array(z.string()).optional()
+    method: z.array(z.string()).optional(),
+    time: z.string().optional(),
+    glassType: z.string().optional(),
+    dietary: z.string().optional(),
+    origin: z.string().optional(),
+    tips: z.array(z.string()).optional()
   }).transform(data => {
-    if (data.difficulty) {
-      data.difficulty = data.difficulty.toLowerCase();
-    }
-    if (data.drinkType) {
-      data.drinkType = data.drinkType.toLowerCase();
-    }
+    if (data.difficulty) data.difficulty = data.difficulty.toLowerCase();
+    if (data.drinkType) data.drinkType = data.drinkType.toLowerCase();
     return data;
   })
 });
@@ -71,10 +68,5 @@ const posts = defineCollection({
     draft: z.boolean().optional()
   })
 });
-
-/**
- * Removed: cocktails, shots (now migrated into drinks).
- * If you still have legacy references, keep the old definitions until migration completes.
- */
 
 export const collections = { games, activities, drinks, posts };
