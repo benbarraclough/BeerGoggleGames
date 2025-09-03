@@ -1,14 +1,10 @@
-// Drinks Filters (externalized)
-
+// Drinks Filters (public version)
+// NOTE: This must live under public/ to load via <script src="...">
 (function init() {
   const qs = s => document.querySelector(s);
   const qsa = s => Array.from(document.querySelectorAll(s));
 
-  const selected = {
-    type: new Set(),
-    base: new Set(),
-    difficulty: new Set()
-  };
+  const selected = { type: new Set(), base: new Set(), difficulty: new Set() };
   let exclusive = false;
 
   const grid = qs('#drinks-grid');
@@ -19,10 +15,7 @@
   const filterItems = qsa('.filter-item');
 
   function updateClearBtn() {
-    const any =
-      selected.type.size ||
-      selected.base.size ||
-      selected.difficulty.size;
+    const any = selected.type.size || selected.base.size || selected.difficulty.size;
     if (clearBtn) clearBtn.disabled = !any;
   }
 
@@ -30,12 +23,7 @@
     const dt = li.getAttribute('data-type') || '';
     const bases = (li.getAttribute('data-bases') || '').split(',').filter(Boolean);
     const diff = li.getAttribute('data-difficulty') || '';
-
-    const anySel =
-      selected.type.size ||
-      selected.base.size ||
-      selected.difficulty.size;
-
+    const anySel = selected.type.size || selected.base.size || selected.difficulty.size;
     if (!anySel) return true;
 
     if (!exclusive) {
@@ -72,8 +60,7 @@
       }
     });
     if (resultCount) {
-      resultCount.textContent =
-        `Showing ${shown} of ${cards.length} drinks${exclusive ? ' (exclusive)' : ''}`;
+      resultCount.textContent = `Showing ${shown} of ${cards.length} drinks${exclusive ? ' (exclusive)' : ''}`;
     }
   }
 
@@ -157,7 +144,6 @@
     if (e.key === 'Escape') closeAllPanels();
   });
 
-  // Init
   updateClearBtn();
   applyFilters();
   console.log('Drinks filters loaded');
