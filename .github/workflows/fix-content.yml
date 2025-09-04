@@ -1,0 +1,58 @@
+name: Fix Image Paths & Ingredients Lists
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Run in dry mode (no commit)?"
+        type: boolean
+        default: false
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install (only if dependencies needed)
+        run: |
+          if [ -f package.json ]; then
+            npm ci --ignore-scripts
+          fi
+
+      - name: Run fix script
+        id: runscript
+        run: |
+          DRY=${{ github.event.inputs.dry_run == 'true' && echo '--dry' || echo '' }}
+          node scripts/fix-images-and-ingredients.mjs $DRY
+
+      - name: Commit changes
+        if: github.event.inputs.dry_run != 'true'
+        run: |
+            if git diff --quiet; then
+              echo "No changes to commit."
+              exit 0
+            fi
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add .
+            git commit -m "chore: fix image paths & ingredients lists"
+            git push
+
+      # Optional: create PR instead of direct push
+      # - name: Create Pull Request
+      #   if: github.event.inputs.dry_run != 'true'
+      #   uses: peter-evans/create-pull-request@v6
+      #   with:
+      #     commit-message: chore: fix image paths & ingredients lists
+      #     title: "Fix image paths & ingredients lists"
+      #     body: "Automated update converting /BeerGoggleGames/images/ → /images/ and Ingredients <ol> → <ul>."
+      #     branch: chore/fix-image-paths-ingredients
