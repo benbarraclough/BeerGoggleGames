@@ -11,6 +11,10 @@ on:
         description: "Fail if any old /BeerGoggleGames/images/ remain"
         type: boolean
         default: true
+      verbose:
+        description: "Verbose per-file logging"
+        type: boolean
+        default: false
 
 jobs:
   normalize:
@@ -26,34 +30,38 @@ jobs:
         with:
           node-version: 20
 
-      # If you don't need dependencies (pure scripts), you can remove this step.
-      - name: Install dependencies (optional)
-        if: hashFiles('package.json') != ''
-        run: npm ci --ignore-scripts
+      - name: BEFORE grep (diagnostic)
+        run: |
+          echo "Occurrences BEFORE normalization:"
+          grep -R "/BeerGoggleGames/images/" -n src/content || echo "(none)"
 
-      - name: Run normalization script
-        id: normalize
+      - name: Run normalization
         env:
           DRY: ${{ github.event.inputs.dry_run }}
+          VERBOSE: ${{ github.event.inputs.verbose }}
         run: |
-          if [ "$DRY" = "true" ]; then
-            echo "Running normalize-content.mjs in DRY mode"
-            node scripts/normalize-content.mjs --dry
-          else
-            node scripts/normalize-content.mjs
-          fi
+          FLAGS=""
+          [ "$DRY" = "true" ] && FLAGS="$FLAGS --dry"
+            [ "$VERBOSE" = "true" ] && FLAGS="$FLAGS --verbose"
+          echo "node scripts/normalize-content.mjs $FLAGS"
+          node scripts/normalize-content.mjs $FLAGS
 
-      - name: Show diff
+      - name: AFTER grep (diagnostic)
         run: |
-            echo "Changed files (if any):"
-            git --no-pager diff --name-only || true
+          echo "Occurrences AFTER normalization (should be none):"
+          grep -R "/BeerGoggleGames/images/" -n src/content || echo "(none)"
 
-      - name: Check for leftover deprecated paths
+      - name: Check for leftovers (strict)
         if: github.event.inputs.fail_if_leftovers == 'true'
         run: |
           node scripts/check-deprecated-paths.mjs
 
-      - name: Commit & push changes
+      - name: Show diff
+        run: |
+          echo "Changed files:"
+          git --no-pager diff --name-only || true
+
+      - name: Commit & push
         if: github.event.inputs.dry_run != 'true'
         run: |
           if git diff --quiet; then
@@ -63,5 +71,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add .
-          git commit -m "chore: normalize content (image paths & ingredients lists)"
+          git commit -m "chore: normalize content (image paths + ingredients)"
           git push
