@@ -1,8 +1,0 @@
-{
-  "legacy/Extras/WheelOfFortune.html": { "collection": "activities" },
-  "legacy/Extras/forfeits.html": { "collection": "activities" },
-  "legacy/Extras/glossary.html": { "collection": "posts" },
-  "legacy/Drinks/ShotRecipes/special-layered-shot.html": { "collection": "shots" },
-  "legacy/Drinks/CocktailRecipes/signature-party-punch.html": { "collection": "cocktails" },
-  "legacy/GameCategories/CardGames/speed-cards.html": { "collection": "games", "type": "card" }
-}
