@@ -3,9 +3,10 @@
  * fix-images-and-ingredients.mjs
  *
  * Tasks:
- * 1. Replace all occurrences of the OLD image prefix inside content with the new root prefix (/images/).
- * 2. Convert ONLY the Ingredients section in drink pages from <ol>…</ol> to <ul>…</ul>
- *    (keeps ordered lists elsewhere, e.g. Recipe steps).
+ * 1. Replace *every* occurrence of the OLD image prefix inside content with /images/
+ *    (scans ALL markdown / mdx in src/content recursively).
+ * 2. Convert ONLY Ingredients sections in DRINK pages from <ol> to <ul>.
+ * 3. Log detailed changes.
  *
  * Dry run: node scripts/fix-images-and-ingredients.mjs --dry
  */
@@ -16,23 +17,17 @@ import url from 'url';
 
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
 
-const CONTENT_DIRS = [
-  'src/content/games',
-  'src/content/drinks'
-];
-
-// Centralize prefixes
-const OLD_IMAGE_PREFIX = '/BeerGoggleGames/images/';
-const NEW_IMAGE_PREFIX = '/images/';
-
+const CONTENT_ROOT = path.join(process.cwd(), 'src', 'content');
+const OLD_PREFIX = '/BeerGoggleGames/images/';
+const NEW_PREFIX = '/images/';
 const DRY_RUN = process.argv.includes('--dry');
 
-let fileCountScanned = 0;
-let fileCountChanged = 0;
+let scanned = 0;
+let changed = 0;
 const changeLog = [];
 
 async function walk(dir) {
-  let entries = [];
+  let entries;
   try {
     entries = await fs.readdir(dir, { withFileTypes: true });
   } catch {
@@ -48,67 +43,66 @@ async function walk(dir) {
   }
 }
 
-function rewriteIngredientsSection(source, relPath) {
-  // Match DrinkSection with title="Ingredients"
-  return source.replace(
-    /<DrinkSection([^>]*?\btitle\s*=\s*["']Ingredients["'][^>]*)>([\s\S]*?)<\/DrinkSection>/gi,
-    (match, attrs, inner) => {
-      const originalInner = inner;
-      // Replace ONLY top-level <ol> tags (no nesting sensitivity needed here)
-      const replaced = originalInner
-        .replace(/<ol(\s[^>]*)?>/gi, '<ul$1>')
-        .replace(/<\/ol>/gi, '</ul>');
-      if (originalInner !== replaced) {
-        changeLog.push(`Converted Ingredients <ol>→<ul> in ${relPath}`);
-      }
-      return `<DrinkSection${attrs}>${replaced}</DrinkSection>`;
+function convertIngredientsOlToUl(content, rel) {
+  // Only target drink files (heuristic: path includes /drinks/)
+  if (!/\/drinks\//.test(rel)) return content;
+
+  const pattern = /<DrinkSection([^>]*?\btitle\s*=\s*["']Ingredients["'][^>]*)>([\s\S]*?)<\/DrinkSection>/gi;
+  return content.replace(pattern, (match, attrs, inner) => {
+    const replaced = inner
+      .replace(/<ol(\s[^>]*)?>/gi, '<ul$1>')
+      .replace(/<\/ol>/gi, '</ul>');
+    if (replaced !== inner) {
+      changeLog.push(`Converted Ingredients <ol>→<ul> in ${rel}`);
     }
-  );
+    return `<DrinkSection${attrs}>${replaced}</DrinkSection>`;
+  });
 }
 
-async function processFile(fullPath) {
-  fileCountScanned++;
-  const rel = path.relative(process.cwd(), fullPath);
-  let content = await fs.readFile(fullPath, 'utf8');
-  let updated = content;
-  let mutated = false;
+async function processFile(full) {
+  scanned++;
+  const rel = path.relative(process.cwd(), full);
+  let text = await fs.readFile(full, 'utf8');
+  let original = text;
+  let fileChanged = false;
 
-  // 1. Image path replacement
-  if (updated.includes(OLD_IMAGE_PREFIX)) {
-    updated = updated.split(OLD_IMAGE_PREFIX).join(NEW_IMAGE_PREFIX);
-    changeLog.push(`Replaced image paths in ${rel}`);
-    mutated = true;
+  if (text.includes(OLD_PREFIX)) {
+    text = text.split(OLD_PREFIX).join(NEW_PREFIX);
+    changeLog.push(`Replaced image prefix in ${rel}`);
+    fileChanged = true;
   }
 
-  // 2. Ingredients list conversion (only for drinks)
-  if (/\/drinks\//.test(rel)) {
-    const before = updated;
-    updated = rewriteIngredientsSection(updated, rel);
-    if (before !== updated) mutated = true;
+  // Ingredients section transformation (drinks only)
+  const afterIngredients = convertIngredientsOlToUl(text, rel);
+  if (afterIngredients !== text) {
+    text = afterIngredients;
+    fileChanged = true;
   }
 
-  if (mutated) {
-    fileCountChanged++;
+  if (fileChanged) {
+    changed++;
     if (!DRY_RUN) {
-      await fs.writeFile(fullPath, updated, 'utf8');
+      await fs.writeFile(full, text, 'utf8');
     }
   }
 }
 
 async function main() {
-  for (const dir of CONTENT_DIRS) {
-    await walk(path.join(process.cwd(), dir));
+  const exists = await fs.stat(CONTENT_ROOT).catch(() => null);
+  if (!exists) {
+    console.error('Content root not found:', CONTENT_ROOT);
+    process.exit(1);
   }
 
-  console.log(`Scanned ${fileCountScanned} content file(s).`);
-  if (fileCountChanged === 0) {
-    console.log('No changes needed.');
+  await walk(CONTENT_ROOT);
+
+  console.log(`Scanned ${scanned} content file(s).`);
+  if (changed === 0) {
+    console.log('No changes required.');
   } else {
-    console.log(`Changed ${fileCountChanged} file(s):`);
+    console.log(`Changed ${changed} file(s):`);
     for (const line of changeLog) console.log('  - ' + line);
-    if (DRY_RUN) {
-      console.log('Dry run: no files written. Re-run without --dry to apply.');
-    }
+    if (DRY_RUN) console.log('(Dry run: changes not written)');
   }
 }
 
