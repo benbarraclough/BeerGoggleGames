@@ -3,17 +3,11 @@
  * fix-images-and-ingredients.mjs
  *
  * Tasks:
- * 1. Replace all occurrences of "/BeerGoggleGames/images/" with "/images/" in
- *    game & drink content (Markdown / MDX).
- * 2. Convert ONLY the Ingredients section in drink pages from <ol>...</ol> to <ul>...</ul>
- *    (leaves other ordered lists like Recipe steps intact).
+ * 1. Replace all occurrences of the OLD image prefix inside content with the new root prefix (/images/).
+ * 2. Convert ONLY the Ingredients section in drink pages from <ol>…</ol> to <ul>…</ul>
+ *    (keeps ordered lists elsewhere, e.g. Recipe steps).
  *
  * Dry run: node scripts/fix-images-and-ingredients.mjs --dry
- *
- * Exits with:
- *   0 if no changes
- *   0 after applying changes (prints summary)
- *   >0 only on error
  */
 
 import { promises as fs } from 'fs';
@@ -26,6 +20,10 @@ const CONTENT_DIRS = [
   'src/content/games',
   'src/content/drinks'
 ];
+
+// Centralize prefixes
+const OLD_IMAGE_PREFIX = '/BeerGoggleGames/images/';
+const NEW_IMAGE_PREFIX = '/images/';
 
 const DRY_RUN = process.argv.includes('--dry');
 
@@ -51,18 +49,17 @@ async function walk(dir) {
 }
 
 function rewriteIngredientsSection(source, relPath) {
-  // Matches: <DrinkSection ... title="Ingredients" ...> ... </DrinkSection>
-  // Non-greedy inside, DOTALL via [\s\S]
+  // Match DrinkSection with title="Ingredients"
   return source.replace(
     /<DrinkSection([^>]*?\btitle\s*=\s*["']Ingredients["'][^>]*)>([\s\S]*?)<\/DrinkSection>/gi,
     (match, attrs, inner) => {
       const originalInner = inner;
-      // Only replace top-level <ol> ... </ol> in this inner block
+      // Replace ONLY top-level <ol> tags (no nesting sensitivity needed here)
       const replaced = originalInner
         .replace(/<ol(\s[^>]*)?>/gi, '<ul$1>')
         .replace(/<\/ol>/gi, '</ul>');
       if (originalInner !== replaced) {
-        changeLog.push(`Converted Ingredients <ol> to <ul> in ${relPath}`);
+        changeLog.push(`Converted Ingredients <ol>→<ul> in ${relPath}`);
       }
       return `<DrinkSection${attrs}>${replaced}</DrinkSection>`;
     }
@@ -74,23 +71,23 @@ async function processFile(fullPath) {
   const rel = path.relative(process.cwd(), fullPath);
   let content = await fs.readFile(fullPath, 'utf8');
   let updated = content;
+  let mutated = false;
 
   // 1. Image path replacement
-  if (updated.includes('/BeerGoggleGames/images/')) {
-    updated = updated.replace(/\/BeerGoggleGames\/images\//g, '/images/');
+  if (updated.includes(OLD_IMAGE_PREFIX)) {
+    updated = updated.split(OLD_IMAGE_PREFIX).join(NEW_IMAGE_PREFIX);
     changeLog.push(`Replaced image paths in ${rel}`);
+    mutated = true;
   }
 
   // 2. Ingredients list conversion (only for drinks)
   if (/\/drinks\//.test(rel)) {
     const before = updated;
     updated = rewriteIngredientsSection(updated, rel);
-    if (before !== updated && !changeLog.at(-1)?.includes(rel)) {
-      changeLog.push(`Modified Ingredients list in ${rel}`);
-    }
+    if (before !== updated) mutated = true;
   }
 
-  if (updated !== content) {
+  if (mutated) {
     fileCountChanged++;
     if (!DRY_RUN) {
       await fs.writeFile(fullPath, updated, 'utf8');
@@ -103,7 +100,7 @@ async function main() {
     await walk(path.join(process.cwd(), dir));
   }
 
-  console.log(`Scanned ${fileCountScanned} files.`);
+  console.log(`Scanned ${fileCountScanned} content file(s).`);
   if (fileCountChanged === 0) {
     console.log('No changes needed.');
   } else {
