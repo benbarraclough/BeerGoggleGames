@@ -4,8 +4,8 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://benbarraclough.github.io/BeerGoggleGames',
-  base: '/BeerGoggleGames/',   // keep trailing slash
-  trailingSlash: 'always',     // ensure directory-style URLs
+  site: 'https://beergogglegames.co.uk',
+  // base removed because the site now lives at the domain root
+  trailingSlash: 'always',
   integrations: [tailwind(), mdx(), sitemap()]
 });
