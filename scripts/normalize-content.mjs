@@ -3,43 +3,46 @@
  * normalize-content.mjs
  *
  * Actions:
- *  1. Replace all occurrences of /BeerGoggleGames/images/ with /images/ in any .md or .mdx under src/content.
- *  2. In drink pages (path includes /drinks/), convert ONLY the Ingredients section (<DrinkSection title="Ingredients"...>)
- *     from <ol>...</ol> to <ul>...</ul>. Other ordered lists (e.g. Recipe steps) remain untouched.
+ *  1. Replace all occurrences of /BeerGoggleGames/images/ with /images/ in any .md / .mdx under src/content.
+ *  2. In drink pages (path includes /drinks/), convert ONLY <DrinkSection title="Ingredients"...> inner <ol>...</ol> to <ul>...</ul>.
+ *  3. (Optional assist) If a line has cover="/BeerGoggleGames/images/xxx" or <GameHero cover="..."> it is covered by (1).
  *
- * Usage:
- *   node scripts/normalize-content.mjs          # apply changes
- *   node scripts/normalize-content.mjs --dry    # show what would change
+ * Flags:
+ *   --dry       : do not write changes, just report
+ *   --verbose   : list every scanned file and whether it changed
+ *
+ * Exit code:
+ *   0 success (even if no changes)
+ *   >0 on error
  */
 
 import { promises as fs } from 'fs';
 import path from 'path';
-import url from 'url';
 
-const DRY_RUN = process.argv.includes('--dry');
-const OLD_PREFIX = '/BeerGoggleGames/images/';
-const NEW_PREFIX = '/images/';
-const CONTENT_ROOT = path.join(process.cwd(), 'src', 'content');
+const DRY = process.argv.includes('--dry');
+const VERBOSE = process.argv.includes('--verbose');
+const ROOT = path.join(process.cwd(), 'src', 'content');
+const OLD = '/BeerGoggleGames/images/';
+const NEW = '/images/';
 
 let scanned = 0;
-let changed = 0;
+let mutatedFiles = 0;
 const changeLog = [];
 
-async function main() {
-  const rootStat = await fs.stat(CONTENT_ROOT).catch(() => null);
-  if (!rootStat) {
-    console.error(`Content root not found: ${CONTENT_ROOT}`);
+async function run() {
+  const ok = await fs.stat(ROOT).catch(()=>null);
+  if (!ok) {
+    console.error(`ERROR: Content root missing: ${ROOT}`);
     process.exit(1);
   }
-  await walk(CONTENT_ROOT);
-
+  await walk(ROOT);
   console.log(`Scanned ${scanned} file(s).`);
-  if (changed === 0) {
+  if (mutatedFiles === 0) {
     console.log('No changes needed.');
   } else {
-    console.log(`Changed ${changed} file(s):`);
+    console.log(`Changed ${mutatedFiles} file(s):`);
     for (const line of changeLog) console.log('  - ' + line);
-    if (DRY_RUN) console.log('(Dry run: no files written)');
+    if (DRY) console.log('(Dry run: no files written)');
   }
 }
 
@@ -55,52 +58,55 @@ async function walk(dir) {
   }
 }
 
-async function processFile(fullPath) {
-  scanned++;
-  let text = await fs.readFile(fullPath, 'utf8');
-  const rel = path.relative(process.cwd(), fullPath);
-  let original = text;
-  let mutated = false;
-
-  // 1. Global image prefix replacement
-  if (text.includes(OLD_PREFIX)) {
-    text = text.split(OLD_PREFIX).join(NEW_PREFIX);
-    changeLog.push(`Updated image paths in ${rel}`);
-    mutated = true;
-  }
-
-  // 2. Ingredients section transformation (drinks only)
-  if (rel.includes('/drinks/')) {
-    const before = text;
-    text = transformIngredientsSection(text, rel);
-    if (text !== before) mutated = true;
-  }
-
-  if (mutated) {
-    changed++;
-    if (!DRY_RUN) {
-      await fs.writeFile(fullPath, text, 'utf8');
-    }
-  }
-}
-
 function transformIngredientsSection(source, rel) {
-  // Regex to find <DrinkSection ... title="Ingredients" ...> ... </DrinkSection>
+  if (!rel.includes('/drinks/')) return source;
+  // Only touch DrinkSection titled Ingredients
   return source.replace(
     /<DrinkSection([^>]*?\btitle\s*=\s*["']Ingredients["'][^>]*)>([\s\S]*?)<\/DrinkSection>/gi,
-    (match, attrs, inner) => {
-      const newInner = inner
+    (whole, attrs, inner) => {
+      const replaced = inner
         .replace(/<ol(\s[^>]*)?>/gi, '<ul$1>')
         .replace(/<\/ol>/gi, '</ul>');
-      if (newInner !== inner) {
-        changeLog.push(`Converted Ingredients <ol>→<ul> in ${rel}`);
+      if (replaced !== inner) {
+        changeLog.push(`Ingredients <ol>→<ul> in ${rel}`);
       }
-      return `<DrinkSection${attrs}>${newInner}</DrinkSection>`;
+      return `<DrinkSection${attrs}>${replaced}</DrinkSection>`;
     }
   );
 }
 
-main().catch(err => {
+async function processFile(full) {
+  scanned++;
+  let text = await fs.readFile(full, 'utf8');
+  const rel = path.relative(process.cwd(), full);
+  const original = text;
+  let changed = false;
+
+  if (text.includes(OLD)) {
+    text = text.split(OLD).join(NEW);
+    changeLog.push(`Image paths fixed in ${rel}`);
+    changed = true;
+  }
+
+  const afterIngredients = transformIngredientsSection(text, rel);
+  if (afterIngredients !== text) {
+    text = afterIngredients;
+    changed = true;
+  }
+
+  if (VERBOSE) {
+    console.log(`${changed ? '[CHANGED]' : '[OK     ]'} ${rel}`);
+  }
+
+  if (changed) {
+    mutatedFiles++;
+    if (!DRY) {
+      await fs.writeFile(full, text, 'utf8');
+    }
+  }
+}
+
+run().catch(err => {
   console.error(err);
   process.exit(1);
 });
