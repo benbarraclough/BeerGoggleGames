@@ -8,7 +8,7 @@ on:
         type: boolean
         default: false
       fail_if_leftovers:
-        description: "Fail if any /BeerGoggleGames/images/ references remain after script"
+        description: "Fail if old image prefix still appears in site source"
         type: boolean
         default: true
 
@@ -26,7 +26,6 @@ jobs:
         with:
           node-version: 20
 
-      # Install only if you actually need dependencies. If not, you can remove this step.
       - name: Install deps (optional)
         if: hashFiles('package.json') != ''
         run: npm ci --ignore-scripts
@@ -45,21 +44,22 @@ jobs:
           node scripts/fix-images-and-ingredients.mjs $DRY
           echo "dry_mode=${USER_DRY_RUN}" >> "$GITHUB_OUTPUT"
 
-      - name: Show diff (informational)
+      - name: Show diff
         run: |
           git --no-pager diff --name-only || true
 
-      - name: Fail if leftovers remain
+      - name: Fail if leftovers remain (site source only)
         if: github.event.inputs.fail_if_leftovers == 'true'
         run: |
-          LEFT=$(grep -R "/BeerGoggleGames/images/" -n || true)
-          if [ -n "$LEFT" ]; then
-            echo "Leftover old image paths found:"
-            echo "$LEFT"
-            echo "::error::Found deprecated /BeerGoggleGames/images/ references."
+          # Limit to src/ and public/ (exclude maintenance scripts & workflow definitions)
+          MATCHES=$(grep -R "/BeerGoggleGames/images/" -n src/ public/ 2>/dev/null || true)
+          if [ -n "$MATCHES" ]; then
+            echo "Leftover deprecated image paths found in site source:"
+            echo "$MATCHES"
+            echo "::error::Found deprecated /BeerGoggleGames/images/ references in site output sources."
             exit 1
           else
-            echo "No deprecated image paths remain."
+            echo "No deprecated image paths in src/ or public/."
           fi
 
       - name: Commit & push changes
