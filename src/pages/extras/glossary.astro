@@ -1,35 +1,32 @@
 ---
 import Layout from '../../components/Layout.astro';
+import ShareButtons from '../../components/game/ShareButtons.astro';
+import FeedbackCard from '../../components/game/FeedbackCard.astro';
 
 const title = 'Drinking Glossary';
-const description = 'Searchable list of common & niche drinking terms. Expand any item for a quick definition.';
+const description = 'Searchable list of common & niche drinking terms. Expand for quick definitions.';
 
-interface Term {
-  id: string;
-  name: string;
-  def: string;
-  keywords: string;
-}
+interface Term { id: string; name: string; def: string; keywords: string; }
 
 const terms: Term[] = [
   { id:'beer-bong', name:'Beer Bong', def:'A funnel with a long tube used to rapidly consume whatever is poured in.', keywords:'beer bong funnel rapid chug' },
   { id:'beer-jacket', name:'Beer Jacket', def:'The “invisible coat” of warmth you feel after lots of drinking.', keywords:'beer jacket warmth invisible coat cold' },
   { id:'body-shot', name:'Body Shot', def:'Salt on a body part, lime in a partner’s mouth: lick salt, take shot, bite lime.', keywords:'body shot tequila salt lime partner' },
   { id:'chaser', name:'Chaser', def:'A softer drink taken immediately after a harsh shot.', keywords:'chaser follow shot soften juice soda' },
-  { id:'chug', name:'Chug', def:'To drink rapidly without pausing; often chanted by onlookers.', keywords:'chug chugging fast drink rapid' },
+  { id:'chug', name:'Chug', def:'To drink rapidly without pausing; often chanted.', keywords:'chug chugging fast drink rapid' },
   { id:'double-parked', name:'Double Parked', def:'Holding or drinking two different drinks at the same time.', keywords:'double parked two drinks hands' },
-  { id:'fingers', name:'Fingers (Measurement)', def:'Measuring spirits by stacking horizontal finger widths at the glass base.', keywords:'fingers measurement spirits pour' },
-  { id:'flaming-shot', name:'Flaming Shot', def:'High‑proof shot set alight then consumed (risky; not advised).', keywords:'flaming shot fire high proof risk' },
-  { id:'ice-luge', name:'Ice Luge', def:'Alcohol runs down a carved ice channel into a mouth at the end.', keywords:'ice luge sculpture cold drinking channel' },
-  { id:'inverted-bong', name:'Inverted Bong', def:'Beer bong consumed while the drinker is upside down.', keywords:'inverted bong upside down funnel' },
-  { id:'keg-stand', name:'Keg Stand', def:'Being held upside down on a keg while drinking from the tap.', keywords:'keg stand upside down tap hold' },
-  { id:'minesweeping', name:'Minesweeping', def:'Taking an unattended (often partially full) drink and claiming it.', keywords:'minesweeping stealing unattended drink' },
-  { id:'penguin-feed', name:'Penguin Feed', def:'Pouring alcohol mouth‑to‑mouth, sometimes removing the cup.', keywords:'penguin feed mouth to mouth pour' },
-  { id:'pre-drinking', name:'Pre‑Drinking / Pre‑Gaming', def:'Drinking before the main event to reach a buzz sooner and save money/time.', keywords:'pre drinking pre gaming pregaming warmup' },
-  { id:'shotgun', name:'Shotgun', def:'Pierce low side of can, mouth over hole, open top, and chug.', keywords:'shotgun can pierce chug fast' },
-  { id:'strawpedo', name:'Strawpedo', def:'Chugging a bottle with a straw to let in air and prevent vacuum.', keywords:'strawpedo straw chug bottle vacuum' },
-  { id:'suicide-shot', name:'Suicide Shot', def:'Snort salt, lime in eye, then shot. Extremely unsafe—avoid.', keywords:'suicide shot dangerous salt lime eye' },
-  { id:'yard', name:'Yard', def:'A yard‑long glass (bulb base) holding roughly 2–3 pints.', keywords:'yard glass long bulb pints' }
+  { id:'fingers', name:'Fingers (Measurement)', def:'Measuring spirits by horizontal finger widths.', keywords:'fingers measurement spirits pour' },
+  { id:'flaming-shot', name:'Flaming Shot', def:'High‑proof shot set alight then consumed (risky).', keywords:'flaming shot fire high proof risk' },
+  { id:'ice-luge', name:'Ice Luge', def:'Alcohol runs down a carved ice channel into a mouth.', keywords:'ice luge sculpture cold drinking channel' },
+  { id:'inverted-bong', name:'Inverted Bong', def:'Beer bong consumed while you are upside down.', keywords:'inverted bong upside down funnel' },
+  { id:'keg-stand', name:'Keg Stand', def:'Held upside down on a keg while drinking from the tap.', keywords:'keg stand upside down tap hold' },
+  { id:'minesweeping', name:'Minesweeping', def:'Taking an unattended (often partial) drink.', keywords:'minesweeping stealing unattended drink' },
+  { id:'penguin-feed', name:'Penguin Feed', def:'Pouring alcohol mouth‑to‑mouth.', keywords:'penguin feed mouth to mouth pour' },
+  { id:'pre-drinking', name:'Pre‑Drinking / Pre‑Gaming', def:'Drinking before the main event.', keywords:'pre drinking pre gaming pregaming warmup' },
+  { id:'shotgun', name:'Shotgun', def:'Pierce low side of can, mouth hole, open top, chug.', keywords:'shotgun can pierce chug fast' },
+  { id:'strawpedo', name:'Strawpedo', def:'Chug a bottle with a straw to vent air.', keywords:'strawpedo straw chug bottle vacuum' },
+  { id:'suicide-shot', name:'Suicide Shot', def:'Snort salt, lime in eye, then shot (unsafe).', keywords:'suicide shot dangerous salt lime eye' },
+  { id:'yard', name:'Yard', def:'Yard‑long glass (bulb base) ~2–3 pints.', keywords:'yard glass long bulb pints' }
 ];
 ---
 <Layout title={title} description={description}>
@@ -53,7 +50,7 @@ const terms: Term[] = [
       <button id="glossary-clear" class="hidden self-start text-[11px] underline underline-offset-4 hover:text-neon">Clear</button>
     </div>
     <p class="text-[11px] text-muted max-w-sm leading-relaxed">
-      Want a new term added? Suggest it via the Contact page.
+      Request new terms anytime.
     </p>
   </div>
 
@@ -75,21 +72,10 @@ const terms: Term[] = [
 
   <p id="glossary-empty" class="hidden italic text-muted mt-8">No terms match your search.</p>
 
-  <hr class="my-10 border-fg/15" />
-
-  <section class="space-y-4">
-    <h2 class="text-xl font-display">Share</h2>
-    <ul class="list-none p-0 m-0 text-sm space-y-1">
-      <li><a class="hover:text-neon underline underline-offset-4" href="https://www.facebook.com/sharer/sharer.php?u=https://beergogglegames.co.uk/extras/glossary/" rel="noopener" target="_blank">Facebook</a></li>
-      <li><a class="hover:text-neon underline underline-offset-4" href="https://twitter.com/intent/tweet?url=https://beergogglegames.co.uk/extras/glossary/" rel="noopener" target="_blank">X / Twitter</a></li>
-    </ul>
-  </section>
-
-  <section class="mt-10">
-    <h2 class="text-xl font-display mb-2">Feedback</h2>
-    <p class="text-sm text-muted mb-3">Missing a term or spot an error?</p>
-    <a class="text-xs tracking-wide font-medium uppercase text-neon/80 hover:text-neon underline underline-offset-4" href="/contact/">Contact Us →</a>
-  </section>
+  <ShareButtons title={title} />
+  <FeedbackCard>
+    <p>Suggest a new term or correct an existing definition.</p>
+  </FeedbackCard>
 
   <script is:inline>
     (() => {
@@ -98,7 +84,6 @@ const terms: Term[] = [
       const empty = document.getElementById('glossary-empty');
       const items = Array.from(document.querySelectorAll('#glossary-list details'));
       if (!input) return;
-
       function apply() {
         const q = input.value.trim().toLowerCase();
         let visible = 0;
@@ -111,14 +96,8 @@ const terms: Term[] = [
         empty.classList.toggle('hidden', visible !== 0);
         clear.classList.toggle('hidden', q.length === 0);
       }
-
       input.addEventListener('input', apply);
-      clear?.addEventListener('click', () => {
-        input.value = '';
-        apply();
-        input.focus();
-      });
-
+      clear?.addEventListener('click', () => { input.value=''; apply(); input.focus(); });
       apply();
     })();
   </script>
