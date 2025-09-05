@@ -5,6 +5,11 @@ import { withBase } from '../../lib/paths';
 import { canonical } from '../../lib/urls';
 import { excludeLegacyNoise } from '../../lib/filters';
 
+/*
+  Unified Drinks Index
+  Uses the single 'drinks' content collection (files in src/content/drinks/*.mdx).
+*/
+
 interface DrinkMeta {
   title: string;
   drinkType: string;
@@ -74,30 +79,31 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 >
   <h1 class="font-display text-4xl mb-4">Drinks</h1>
   <p class="text-sm text-muted mb-5">
-    Unified list A–Z. Use filters or search. Exclusive = AND across groups.
+    Unified list A–Z. Use search and filters. Exclusive = AND across groups.
   </p>
 
-  <!-- Search -->
-  <div class="mb-4 flex flex-wrap items-end gap-4">
-    <label class="text-xs uppercase tracking-wide text-muted font-medium flex flex-col gap-1">
-      Search
-      <input
-        id="drink-search"
-        type="search"
-        placeholder="Search drinks..."
-        class="w-72 max-w-[80vw] rounded border border-fg/30 bg-fg/5 px-3 py-2 text-sm focus:border-neon outline-none"
-        autocomplete="off"
-      />
-    </label>
-    <button id="drink-search-clear" class="hidden text-[11px] underline underline-offset-4 hover:text-neon">Clear</button>
-    <span id="drink-search-hits" class="text-[11px] text-muted ml-auto"></span>
-  </div>
+  <!-- Search + Filters on one row (wrap on small screens) -->
+  <div id="filter-bar" class="mb-6">
+    <div class="flex flex-wrap gap-3 items-end">
+      <!-- Search -->
+      <div class="flex items-end gap-2 mr-4">
+        <label class="text-xs uppercase tracking-wide text-muted font-medium flex flex-col gap-1">
+          Search
+          <input
+            id="drink-search"
+            type="search"
+            placeholder="Search drinks..."
+            class="w-64 sm:w-72 max-w-[80vw] rounded border border-fg/30 bg-fg/5 px-3 py-2 text-sm focus:border-neon outline-none"
+            autocomplete="off"
+          />
+        </label>
+        <button id="drink-search-clear" class="hidden text-[11px] underline underline-offset-4 hover:text-neon mb-1.5">Clear</button>
+        <span id="drink-search-hits" class="text-[11px] text-muted mb-2"></span>
+      </div>
 
-  <!-- Filter Bar (unchanged) -->
-  <div id="filter-bar" class="mb-6 space-y-3">
-    <div class="flex flex-wrap gap-2 items-center">
       <span class="text-[11px] uppercase tracking-wide text-muted/70">Filters</span>
 
+      <!-- Drink Type -->
       <div class="relative" data-filter-wrapper>
         <button type="button" class="filter-toggle pill pill-type-tint" data-panel="types" aria-expanded="false">
           Drink Type
@@ -119,6 +125,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         </div>
       </div>
 
+      <!-- Alcohol Base -->
       <div class="relative" data-filter-wrapper>
         <button type="button" class="filter-toggle pill pill-base-tint" data-panel="bases" aria-expanded="false">
           Alcohol Base
@@ -141,6 +148,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         </div>
       </div>
 
+      <!-- Difficulty -->
       <div class="relative" data-filter-wrapper>
         <button type="button" class="filter-toggle pill pill-diff-tint" data-panel="difficulty" aria-expanded="false">
           Difficulty
@@ -162,6 +170,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         </div>
       </div>
 
+      <!-- Exclusive & Clear -->
       <button
         id="exclusive-toggle"
         type="button"
@@ -184,6 +193,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
     </div>
   </div>
 
+  <!-- Drinks Grid -->
   {drinks.length === 0 ? (
     <p class="text-muted">No drinks found.</p>
   ) : (
@@ -269,8 +279,10 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
     .card-body .allow-pointer { pointer-events: auto; }
   </style>
 
+  <!-- External script (filters) -->
   <script type="module" src={withBase('scripts/drinks-filters.js')}></script>
 
+  <!-- Search logic layered with filters -->
   <script is:inline>
     (() => {
       const input = document.getElementById('drink-search');
