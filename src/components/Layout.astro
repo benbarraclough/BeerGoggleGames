@@ -163,9 +163,9 @@ const siteUrl = canonical || 'https://beergogglegames.co.uk';
           })}
           <div class="mt-8 pt-6 border-t border-fg/20 text-sm text-muted leading-relaxed max-w-prose">
             <p class="mb-3">
-              Explore hundreds of drinking games, cocktails, shots, activities & extras.
+              Explore drinking games, cocktails, shots, activities & tools.
             </p>
-            <p>Visit the <a class="hover:text-neon underline underline-offset-4" href={withBase('blog/')}>Blog</a> for guides & ideas.</p>
+            <p>Try the <a class="hover:text-neon underline underline-offset-4" href={withBase('games/random')}>Random Game</a> or the <a class="hover:text-neon underline underline-offset-4" href={withBase('extras/wheel-of-fortune')}>Wheel</a>.</p>
           </div>
         </nav>
       </div>
@@ -176,14 +176,16 @@ const siteUrl = canonical || 'https://beergogglegames.co.uk';
     </main>
 
     <footer class="border-t border-fg/20 mt-auto">
-      <div class="mx-auto max-w-7xl px-4 py-10 grid gap-10 sm:gap-12 sm:grid-cols-2 lg:grid-cols-4 text-sm">
+      <div class="mx-auto max-w-7xl px-4 py-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-4 text-sm">
         <div class="space-y-4">
           <h2 class="font-semibold text-fg/80 uppercase tracking-wide text-xs">Explore</h2>
-          <ul class="space-y-1">
+          <ul class="space-y-1 sm:space-y-0 sm:grid sm:grid-cols-2 sm:gap-x-4 sm:gap-y-1">
             <li><a class="hover:text-neon" href={withBase('games/')}>Games</a></li>
             <li><a class="hover:text-neon" href={withBase('drinks/')}>Drinks</a></li>
-            <li><a class="hover:text-neon" href={withBase('extras/')}>Extras</a></li>
-            <li><a class="hover:text-neon" href={withBase('blog/')}>Blog</a></li>
+            <li><a class="hover:text-neon" href={withBase('extras/forfeits')}>Forfeits</a></li>
+            <li><a class="hover:text-neon" href={withBase('extras/glossary')}>Glossary</a></li>
+            <li><a class="hover:text-neon" href={withBase('extras/wheel-of-fortune')}>Wheel</a></li>
+            <li><a class="hover:text-neon" href={withBase('search')}>Search</a></li>
             <li><a class="hover:text-neon" href={withBase('about')}>About</a></li>
             <li><a class="hover:text-neon" href={withBase('contact')}>Contact</a></li>
           </ul>
@@ -191,19 +193,19 @@ const siteUrl = canonical || 'https://beergogglegames.co.uk';
 
         <div class="space-y-4">
           <h2 class="font-semibold text-fg/80 uppercase tracking-wide text-xs">Resources</h2>
-          <ul class="space-y-1">
-            <li><a class="hover:text-neon" href={withBase('rss.xml')}>RSS Feed</a></li>
+          <ul class="space-y-1 sm:space-y-0 sm:grid sm:grid-cols-2 sm:gap-x-3 sm:gap-y-1">
+            <li><a class="hover:text-neon" href={withBase('rss.xml')}>RSS</a></li>
             <li><a class="hover:text-neon" href={withBase('sitemap.xml')}>Sitemap</a></li>
-            <li><a class="hover:text-neon" href={withBase('search')}>Search</a></li>
+            <li><a class="hover:text-neon" href={withBase('games/random')}>Random Game</a></li>
+            <li><a class="hover:text-neon" href={withBase('extras/wheel-of-fortune')}>Wheel Tool</a></li>
           </ul>
         </div>
 
         <div class="space-y-4">
           <h2 class="font-semibold text-fg/80 uppercase tracking-wide text-xs">Connect</h2>
-          <ul class="space-y-1">
+          <ul class="space-y-1 sm:space-y-0 sm:grid sm:grid-cols-2 sm:gap-x-3 sm:gap-y-1">
             <li><a class="hover:text-neon" href="https://github.com/benbarraclough/BeerGoggleGames" rel="noopener" target="_blank">GitHub</a></li>
           </ul>
-          <!-- Buttondown Embed -->
           <form
             action="https://buttondown.email/api/emails/embed-subscribe/YOUR_HANDLE"
             method="post"
@@ -212,7 +214,7 @@ const siteUrl = canonical || 'https://beergogglegames.co.uk';
             data-newsletter
           >
             <label class="block text-xs uppercase tracking-wide text-fg/70" for="nl-email">
-              Get occasional update emails
+              Updates
             </label>
             <div class="flex gap-2">
               <input
@@ -235,16 +237,15 @@ const siteUrl = canonical || 'https://beergogglegames.co.uk';
           </form>
         </div>
 
-        <div class="space-y-4">
-          <h2 class="font-semibold text-fg/80 uppercase tracking-wide text-xs">Legal</h2>
-          <p class="text-muted leading-relaxed">
-            © {year} Beer Goggle Games. All rights reserved.
-          </p>
-          <p class="text-[11px] leading-relaxed text-muted/80">
-            Drink responsibly. Only participate if you are of legal drinking age in your location.
-            Stay hydrated, know your limits, look after friends.
-          </p>
-        </div>
+      <div class="space-y-4">
+        <h2 class="font-semibold text-fg/80 uppercase tracking-wide text-xs">Legal</h2>
+        <p class="text-muted leading-relaxed">
+          © {year} Beer Goggle Games. All rights reserved.
+        </p>
+        <p class="text-[11px] leading-relaxed text-muted/80">
+          Drink responsibly. Only participate if you are of legal drinking age in your location. Stay hydrated & look after friends.
+        </p>
+      </div>
       </div>
 
       <div class="border-t border-fg/15">
