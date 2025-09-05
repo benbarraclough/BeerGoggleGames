@@ -1,8 +1,6 @@
 ---
 import Layout from '../../../components/Layout.astro';
 import { getCollection } from 'astro:content';
-import { withBase } from '../../../lib/paths';
-import { tagSlug } from '../../../lib/tags';
 
 export async function getStaticPaths() {
   const posts = await getCollection('posts');
@@ -18,33 +16,15 @@ const { Content } = await entry.render();
 const title = entry.data.title;
 const description = entry.data.excerpt || entry.data.description || `Post: ${title}.`;
 const date = entry.data.date;
-const tags: string[] = Array.isArray(entry.data.tags) ? entry.data.tags : [];
 ---
 <Layout title={title} description={description}>
   <article class="prose prose-invert max-w-none">
     <h1 class="font-display text-4xl mb-2">{title}</h1>
     {date && <p class="text-xs text-muted !mt-0 mb-4">{new Date(date).toISOString().slice(0,10)}</p>}
-
-    {tags.length > 0 && (
-      <div class="flex flex-wrap gap-2 mb-6">
-        {tags.map(t => {
-          const slug = tagSlug(t);
-          return (
-            <a
-              href={withBase(`tags/${slug}/`)}
-              class="tag-pill"
-              aria-label={`Tag: ${t}`}
-            >{t}</a>
-          );
-        })}
-        <a href={withBase('tags/')} class="tag-pill" aria-label="Browse all tags">All Tags</a>
-      </div>
-    )}
-
     <Content />
   </article>
 
   <p class="mt-10 text-sm">
-    <a class="hover:text-neon underline underline-offset-4" href={withBase('extras/blog/')}>← All Posts</a>
+    <a class="hover:text-neon underline underline-offset-4" href="/extras/blog/">← All Posts</a>
   </p>
 </Layout>
