@@ -1,262 +1,129 @@
 ---
-title: Forfeits
-layout: ../../components/Layout.astro
-description: Creative punishments & challenges to add spice to any drinking game – searchable & collapsible.
+import Layout from '../../components/Layout.astro';
+
+const title = 'Forfeits';
+const description = 'Creative punishments & challenges to add spice to any drinking game – searchable & collapsible.';
+
+interface Forfeit {
+  id: string;
+  name: string;
+  desc: string;
+  terms: string; // extra searchable keywords
+}
+
+const forfeits: Forfeit[] = [
+  { id:'all-fours', name:'All Fours', desc:'Travel everywhere on hands and knees for the agreed time.', terms:'all fours degrading movement crawl' },
+  { id:'beer-bong', name:'Beer Bong', desc:'Finish a full drink through a funnel & tube without stopping.', terms:'beer bong funnel chug' },
+  { id:'cheese-on-crackers', name:'Cheese On Crackers', desc:'Shave a thin slice of soap, place it on a cracker and eat it.', terms:'cheese on crackers soap eating gross' },
+  { id:'chug-cup', name:'Chug Cup', desc:'Everyone donates a little to a cup; you must drink the mystery mix.', terms:'chug cup mix everyone donate combined' },
+  { id:'dancing-monkey', name:'Dancing Monkey', desc:'Dance on command for the entire duration of the penalty.', terms:'dancing monkey dance anytime demanded' },
+  { id:'edward-ciderhands', name:'Edward Ciderhands', desc:'A bottle taped to each hand; remove only after both are empty.', terms:'edward ciderhands bottles taped hands' },
+  { id:'dice-of-doom', name:'Dice of Doom', desc:'Pick a number; roll until it appears 3 times. Every other roll = drink.', terms:'dice of doom luck rolling number drink' },
+  { id:'disabled', name:'Disabled', desc:'One limb taped/immobilised for the agreed time period.', terms:'disabled limb taped handicap' },
+  { id:'flirt', name:'Flirt', desc:'Flirt with a chosen target for the set duration (respect boundaries).', terms:'flirt social confidence challenge' },
+  { id:'flour-power', name:'Flour Power', desc:'Eat a spoonful of flour. No liquid additions. (Choking risk—caution.)', terms:'flour power eating spoon dry' },
+  { id:'concussion', name:'Concussion', desc:'Open a can only with your head, then finish it. (Not recommended.)', terms:'concussion head can open' },
+  { id:'dilemma', name:'Dilemma', desc:'Pick one from several “evil” drink options (bad shot, large drink, etc.).', terms:'dilemma choose evil options drink' },
+  { id:'flaming-shot', name:'Flaming Shot', desc:'Light a high‑proof shot then drink. High risk. Usually skip for safety.', terms:'flaming shot fire high proof risk' },
+  { id:'go-live', name:'Go Live', desc:'Go live on a social platform for 10 minutes with someone visible on screen.', terms:'go live social media broadcast' },
+  { id:'graffiti', name:'Graffiti', desc:'Someone draws on you with a marker anywhere they choose (avoid faces if needed).', terms:'graffiti marker draw body' },
+  { id:'ice-t', name:'Ice-T', desc:'Wear a pre‑frozen soaked t‑shirt until it fully thaws out.', terms:'ice-t frozen shirt cold wearable' },
+  { id:'leash', name:'Leash', desc:'Choose an “owner” who holds your leash/belt for the duration.', terms:'leash owned belt control' },
+  { id:'outcast', name:'Outcast', desc:'Everyone must ignore you (no eye contact or speech) for the period set.', terms:'outcast social ignore isolation' },
+  { id:'shit-shave', name:'Shit Shave', desc:'A chosen person shaves a body area of their choice (within agreed limits).', terms:'shit shave hair removal' },
+  { id:'shot-roulette', name:'Shot Roulette', desc:'Multiple mystery shots; blindfold or spin to pick one and drink it.', terms:'shot roulette mystery blind pick' },
+  { id:'sock-it', name:'Sock It', desc:'Drink a beverage through someone’s (reasonably clean) sock over the glass rim.', terms:'sock it drink through sock' },
+  { id:'spinning-mad', name:'Spinning Mad', desc:'Spin a coin & stop it once with a finger of each hand; keep trying until done.', terms:'spinning mad coin control precision' },
+  { id:'the-salon', name:'The Salon', desc:'Someone applies fake tan to a body part you expose (agree boundaries first).', terms:'the salon fake tan apply' },
+  { id:'toilet-troll', name:'Toilet Troll', desc:'Loiter in a bathroom “offering help” without using the facilities.', terms:'toilet troll bathroom awkward' },
+  { id:'tp', name:'TP', desc:'Eat one square of plain toilet paper. (Not recommended if scented/treated.)', terms:'tp toilet paper eat' },
+  { id:'winters-coming', name:'Winters Coming', desc:'Put on 3 extra clothing layers for the set duration (indoors gets hot!).', terms:'winters coming extra layers warmth' },
+  { id:'50-shades', name:'50 Shades', desc:'Seductively read a chosen passage of literature to a target listener.', terms:'50 shades seductive reading performance' }
+];
 ---
+<Layout title={title} description={description}>
+  <header class="mb-8">
+    <h1 class="font-display text-3xl md:text-4xl mb-3">{title}</h1>
+    <p class="text-muted max-w-prose">{description}</p>
+  </header>
 
-# Forfeits
-
-Use these forfeits to raise the stakes. Search or browse; expand any item for details.
-
-> Suggest a new one via the Contact page. Always play safely & responsibly.
-
-<div class="my-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-  <div class="flex flex-col gap-2">
-    <label class="text-xs uppercase tracking-wide text-muted font-medium">
-      Search
-      <input
-        id="forfeit-search"
-        type="search"
-        placeholder="Find a forfeit..."
-        class="mt-1 w-72 max-w-[80vw] rounded border border-fg/25 bg-fg/5 px-3 py-2 text-sm focus:border-neon outline-none"
-        autocomplete="off"
-      />
-    </label>
-    <button id="forfeit-clear" class="hidden self-start text-[11px] underline underline-offset-4 hover:text-neon">Clear</button>
+  <div class="my-6 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+    <div class="flex flex-col gap-2">
+      <label class="text-xs uppercase tracking-wide text-muted font-medium">
+        Search
+        <input
+          id="forfeit-search"
+          type="search"
+          placeholder="Find a forfeit..."
+          class="mt-1 w-72 max-w-[80vw] rounded border border-fg/25 bg-fg/5 px-3 py-2 text-sm focus:border-neon outline-none"
+          autocomplete="off"
+        />
+      </label>
+      <button id="forfeit-clear" class="hidden self-start text-[11px] underline underline-offset-4 hover:text-neon">Clear</button>
+    </div>
+    <p class="text-[11px] text-muted max-w-sm leading-relaxed">
+      Play responsibly. Swap or veto any forfeit that risks injury, non‑consent, or humiliation beyond the group’s comfort.
+    </p>
   </div>
-</div>
 
-<section id="forfeit-list" class="space-y-3">
+  <section id="forfeit-list" class="space-y-3">
+    {forfeits.map(f => (
+      <details
+        id={f.id}
+        class="group rounded border border-fg/15 p-4 open:border-neon transition-colors"
+        data-term={(f.name + ' ' + f.terms).toLowerCase()}
+      >
+        <summary class="cursor-pointer font-semibold flex justify-between items-center">
+          <span>{f.name}</span>
+          <span class="text-xs text-muted group-open:text-neon">View</span>
+        </summary>
+        <p class="mt-3 text-sm text-muted leading-relaxed">{f.desc}</p>
+      </details>
+    ))}
+  </section>
 
-  <details class="group rounded border border-fg/15 p-4 open:border-neon" data-term="all fours degrading movement crawl">
-    <summary class="cursor-pointer font-semibold flex justify-between items-center">
-      <span>All Fours</span><span class="text-xs text-muted group-open:text-neon">View</span>
-    </summary>
-    <p class="mt-3 text-sm text-muted">Travel everywhere on hands and knees for the agreed time.</p>
-  </details>
+  <p id="forfeit-empty" class="hidden italic text-muted mt-8">No forfeits match your search.</p>
 
-  <details class="group rounded border border-fg/15 p-4 open:border-neon" data-term="beer bong funnel chug">
-    <summary class="cursor-pointer font-semibold flex justify-between items-center">
-      <span>Beer Bong</span><span class="text-xs text-muted group-open:text-neon">View</span>
-    </summary>
-    <p class="mt-3 text-sm text-muted">Finish a full drink through a funnel & tube without stopping.</p>
-  </details>
+  <hr class="my-10 border-fg/15" />
 
-  <details class="group rounded border border-fg/15 p-4 open:border-neon" data-term="cheese on crackers soap eating gross">
-    <summary class="cursor-pointer font-semibold flex justify-between items-center">
-      <span>Cheese On Crackers</span><span class="text-xs text-muted group-open:text-neon">View</span>
-    </summary>
-    <p class="mt-3 text-sm text-muted">Shave a thin slice of soap, place it on a cracker and eat it.</p>
-  </details>
+  <section class="space-y-4">
+    <h2 class="text-xl font-display">Share</h2>
+    <ul class="list-none p-0 m-0 text-sm space-y-1">
+      <li><a class="hover:text-neon underline underline-offset-4" href="https://www.facebook.com/sharer/sharer.php?u=https://beergogglegames.co.uk/extras/forfeits/" rel="noopener" target="_blank">Facebook</a></li>
+      <li><a class="hover:text-neon underline underline-offset-4" href="https://twitter.com/intent/tweet?url=https://beergogglegames.co.uk/extras/forfeits/" rel="noopener" target="_blank">X / Twitter</a></li>
+    </ul>
+  </section>
 
-  <details class="group rounded border border-fg/15 p-4 open:border-neon" data-term="chug cup mix everyone donate combined">
-    <summary class="cursor-pointer font-semibold flex justify-between items-center">
-      <span>Chug Cup</span><span class="text-xs text-muted group-open:text-neon">View</span>
-    </summary>
-    <p class="mt-3 text-sm text-muted">Everyone donates a little to a cup; you must drink the mystery mix.</p>
-  </details>
+  <section class="mt-10">
+    <h2 class="text-xl font-display mb-2">Feedback</h2>
+    <p class="text-sm text-muted mb-3">Suggest a new forfeit, correction or safety improvement.</p>
+    <a class="text-xs tracking-wide font-medium uppercase text-neon/80 hover:text-neon underline underline-offset-4" href="/contact/">Contact Us →</a>
+  </section>
 
-  <details class="group rounded border border-fg/15 p-4 open:border-neon" data-term="dancing monkey dance anytime demanded">
-    <summary class="cursor-pointer font-semibold flex justify-between items-center">
-      <span>Dancing Monkey</span><span class="text-xs text-muted group-open:text-neon">View</span>
-    </summary>
-    <p class="mt-3 text-sm text-muted">Dance on command for the entire duration of the penalty.</p>
-  </details>
+  <script is:inline>
+    (() => {
+      const input = document.getElementById('forfeit-search');
+      const clear = document.getElementById('forfeit-clear');
+      const empty = document.getElementById('forfeit-empty');
+      const items = Array.from(document.querySelectorAll('#forfeit-list details'));
+      if (!input) return;
 
-  <details class="group rounded border border-fg/15 p-4 open:border-neon" data-term="edward ciderhands bottles taped hands">
-    <summary class="cursor-pointer font-semibold flex justify-between items-center">
-      <span>Edward Ciderhands</span><span class="text-xs text-muted group-open:text-neon">View</span>
-    </summary>
-    <p class="mt-3 text-sm text-muted">A bottle taped to each hand; remove only after both are empty.</p>
-  </details>
+      function apply() {
+        const q = input.value.trim().toLowerCase();
+        let visible = 0;
+        items.forEach(d => {
+          const term = d.getAttribute('data-term') || '';
+          const match = !q || term.includes(q);
+            d.classList.toggle('hidden', !match);
+          if (match) visible++;
+        });
+        empty.classList.toggle('hidden', visible !== 0);
+        clear.classList.toggle('hidden', q.length === 0);
+      }
 
-  <details class="group rounded border border-fg/15 p-4 open:border-neon" data-term="dice of doom luck rolling number drink">
-    <summary class="cursor-pointer font-semibold flex justify-between items-center">
-      <span>Dice of Doom</span><span class="text-xs text-muted group-open:text-neon">View</span>
-    </summary>
-    <p class="mt-3 text-sm text-muted">Pick a number; roll until it appears 3 times. Every other roll = drink.</p>
-  </details>
-
-  <details class="group rounded border border-fg/15 p-4 open:border-neon" data-term="disabled limb taped handicap">
-    <summary class="cursor-pointer font-semibold flex justify-between items-center">
-      <span>Disabled</span><span class="text-xs text-muted group-open:text-neon">View</span>
-    </summary>
-    <p class="mt-3 text-sm text-muted">One limb taped/immobilised for the agreed time period.</p>
-  </details>
-
-  <details class="group rounded border border-fg/15 p-4 open:border-neon" data-term="flirt social confidence challenge">
-    <summary class="cursor-pointer font-semibold flex justify-between items-center">
-      <span>Flirt</span><span class="text-xs text-muted group-open:text-neon">View</span>
-    </summary>
-    <p class="mt-3 text-sm text-muted">Flirt with a chosen target for the set duration (respect boundaries).</p>
-  </details>
-
-  <details class="group rounded border border-fg/15 p-4 open:border-neon" data-term="flour power eating spoon dry">
-    <summary class="cursor-pointer font-semibold flex justify-between items-center">
-      <span>Flour Power</span><span class="text-xs text-muted group-open:text-neon">View</span>
-    </summary>
-    <p class="mt-3 text-sm text-muted">Eat a spoonful of flour. No liquid additions. (Choking risk—caution.)</p>
-  </details>
-
-  <details class="group rounded border border-fg/15 p-4 open:border-neon" data-term="concussion head can open">
-    <summary class="cursor-pointer font-semibold flex justify-between items-center">
-      <span>Concussion</span><span class="text-xs text-muted group-open:text-neon">View</span>
-    </summary>
-    <p class="mt-3 text-sm text-muted">Open a can only with your head, then finish it. (Not recommended.)</p>
-  </details>
-
-  <details class="group rounded border border-fg/15 p-4 open:border-neon" data-term="dilemma choose evil options drink">
-    <summary class="cursor-pointer font-semibold flex justify-between items-center">
-      <span>Dilemma</span><span class="text-xs text-muted group-open:text-neon">View</span>
-    </summary>
-    <p class="mt-3 text-sm text-muted">Pick one from several “evil” drink options (bad shot, large drink, etc.).</p>
-  </details>
-
-  <details class="group rounded border border-fg/15 p-4 open:border-neon" data-term="flaming shot fire high proof risk">
-    <summary class="cursor-pointer font-semibold flex justify-between items-center">
-      <span>Flaming Shot</span><span class="text-xs text-muted group-open:text-neon">View</span>
-    </summary>
-    <p class="mt-3 text-sm text-muted">Light a high‑proof shot then drink. High risk. Usually skip for safety.</p>
-  </details>
-
-  <details class="group rounded border border-fg/15 p-4 open:border-neon" data-term="go live social media broadcast">
-    <summary class="cursor-pointer font-semibold flex justify-between items-center">
-      <span>Go Live</span><span class="text-xs text-muted group-open:text-neon">View</span>
-    </summary>
-    <p class="mt-3 text-sm text-muted">Go live on a social platform for 10 minutes with someone visible on screen.</p>
-  </details>
-
-  <details class="group rounded border border-fg/15 p-4 open:border-neon" data-term="graffiti marker draw body">
-    <summary class="cursor-pointer font-semibold flex justify-between items-center">
-      <span>Graffiti</span><span class="text-xs text-muted group-open:text-neon">View</span>
-    </summary>
-    <p class="mt-3 text-sm text-muted">Someone draws on you with a marker anywhere they choose (avoid faces if needed).</p>
-  </details>
-
-  <details class="group rounded border border-fg/15 p-4 open:border-neon" data-term="ice-t frozen shirt cold wearable">
-    <summary class="cursor-pointer font-semibold flex justify-between items-center">
-      <span>Ice-T</span><span class="text-xs text-muted group-open:text-neon">View</span>
-    </summary>
-    <p class="mt-3 text-sm text-muted">Wear a pre‑frozen soaked t‑shirt until it fully thaws out.</p>
-  </details>
-
-  <details class="group rounded border border-fg/15 p-4 open:border-neon" data-term="leash owned belt control">
-    <summary class="cursor-pointer font-semibold flex justify-between items-center">
-      <span>Leash</span><span class="text-xs text-muted group-open:text-neon">View</span>
-    </summary>
-    <p class="mt-3 text-sm text-muted">Choose an “owner” who holds your leash/belt for the duration.</p>
-  </details>
-
-  <details class="group rounded border border-fg/15 p-4 open:border-neon" data-term="outcast social ignore isolation">
-    <summary class="cursor-pointer font-semibold flex justify-between items-center">
-      <span>Outcast</span><span class="text-xs text-muted group-open:text-neon">View</span>
-    </summary>
-    <p class="mt-3 text-sm text-muted">Everyone must ignore you (no eye contact or speech) for the period set.</p>
-  </details>
-
-  <details class="group rounded border border-fg/15 p-4 open:border-neon" data-term="shit shave hair removal">
-    <summary class="cursor-pointer font-semibold flex justify-between items-center">
-      <span>Shit Shave</span><span class="text-xs text-muted group-open:text-neon">View</span>
-    </summary>
-    <p class="mt-3 text-sm text-muted">A chosen person shaves a body area of their choice (within agreed limits).</p>
-  </details>
-
-  <details class="group rounded border border-fg/15 p-4 open:border-neon" data-term="shot roulette mystery blind pick">
-    <summary class="cursor-pointer font-semibold flex justify-between items-center">
-      <span>Shot Roulette</span><span class="text-xs text-muted group-open:text-neon">View</span>
-    </summary>
-    <p class="mt-3 text-sm text-muted">Multiple mystery shots; blindfold or spin to pick one and drink it.</p>
-  </details>
-
-  <details class="group rounded border border-fg/15 p-4 open:border-neon" data-term="sock it drink through sock">
-    <summary class="cursor-pointer font-semibold flex justify-between items-center">
-      <span>Sock It</span><span class="text-xs text-muted group-open:text-neon">View</span>
-    </summary>
-    <p class="mt-3 text-sm text-muted">Drink a beverage through someone’s (reasonably clean) sock over the glass rim.</p>
-  </details>
-
-  <details class="group rounded border border-fg/15 p-4 open:border-neon" data-term="spinning mad coin control precision">
-    <summary class="cursor-pointer font-semibold flex justify-between items-center">
-      <span>Spinning Mad</span><span class="text-xs text-muted group-open:text-neon">View</span>
-    </summary>
-    <p class="mt-3 text-sm text-muted">Spin a coin & stop it once with a finger of each hand; keep trying until done.</p>
-  </details>
-
-  <details class="group rounded border border-fg/15 p-4 open:border-neon" data-term="the salon fake tan apply">
-    <summary class="cursor-pointer font-semibold flex justify-between items-center">
-      <span>The Salon</span><span class="text-xs text-muted group-open:text-neon">View</span>
-    </summary>
-    <p class="mt-3 text-sm text-muted">Someone applies fake tan to a body part you expose (agree boundaries first).</p>
-  </details>
-
-  <details class="group rounded border border-fg/15 p-4 open:border-neon" data-term="toilet troll bathroom awkward">
-    <summary class="cursor-pointer font-semibold flex justify-between items-center">
-      <span>Toilet Troll</span><span class="text-xs text-muted group-open:text-neon">View</span>
-    </summary>
-    <p class="mt-3 text-sm text-muted">Loiter in a bathroom “offering help” without actually using the facilities.</p>
-  </details>
-
-  <details class="group rounded border border-fg/15 p-4 open:border-neon" data-term="tp toilet paper eat">
-    <summary class="cursor-pointer font-semibold flex justify-between items-center">
-      <span>TP</span><span class="text-xs text-muted group-open:text-neon">View</span>
-    </summary>
-    <p class="mt-3 text-sm text-muted">Eat one square of plain toilet paper. (Not recommended if scented/treated.)</p>
-  </details>
-
-  <details class="group rounded border border-fg/15 p-4 open:border-neon" data-term="winters coming extra layers warmth">
-    <summary class="cursor-pointer font-semibold flex justify-between items-center">
-      <span>Winters Coming</span><span class="text-xs text-muted group-open:text-neon">View</span>
-    </summary>
-    <p class="mt-3 text-sm text-muted">Put on 3 extra clothing layers for the set duration (indoors gets hot!).</p>
-  </details>
-
-  <details class="group rounded border border-fg/15 p-4 open:border-neon" data-term="50 shades seductive reading performance">
-    <summary class="cursor-pointer font-semibold flex justify-between items-center">
-      <span>50 Shades</span><span class="text-xs text-muted group-open:text-neon">View</span>
-    </summary>
-    <p class="mt-3 text-sm text-muted">Seductively read a chosen passage of literature to a target listener.</p>
-  </details>
-
-</section>
-
-<p id="forfeit-empty" class="hidden italic text-muted mt-8">No forfeits match your search.</p>
-
----
-
-## Share
-- Facebook: https://www.facebook.com/sharer/sharer.php?u=https://beergogglegames.co.uk/extras/forfeits/
-- X / Twitter: https://twitter.com/intent/tweet?url=https://beergogglegames.co.uk/extras/forfeits/
-
----
-
-## Feedback
-[Contact Us](/contact/)
-
-<script is:inline>
-  (() => {
-    const input = document.getElementById('forfeit-search');
-    const clear = document.getElementById('forfeit-clear');
-    const empty = document.getElementById('forfeit-empty');
-    const blocks = Array.from(document.querySelectorAll('#forfeit-list details'));
-    if (!input) return;
-
-    function apply() {
-      const q = input.value.trim().toLowerCase();
-      let visible = 0;
-      blocks.forEach(d => {
-        const term = d.getAttribute('data-term') || '';
-        const match = !q || term.includes(q);
-        d.classList.toggle('hidden', !match);
-        if (match) visible++;
-      });
-      empty.classList.toggle('hidden', visible !== 0);
-      clear.classList.toggle('hidden', q.length === 0);
-    }
-
-    input.addEventListener('input', apply);
-    clear.addEventListener('click', () => { input.value=''; apply(); input.focus(); });
-
-    // Initial filter (no query)
-    apply();
-  })();
-</script>
+      input.addEventListener('input', apply);
+      clear?.addEventListener('click', () => { input.value=''; apply(); input.focus(); });
+      apply();
+    })();
+  </script>
+</Layout>
