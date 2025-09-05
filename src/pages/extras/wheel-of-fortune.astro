@@ -1,13 +1,12 @@
 ---
 import Layout from '../../components/Layout.astro';
+import ShareButtons from '../../components/game/ShareButtons.astro';
+import FeedbackCard from '../../components/game/FeedbackCard.astro';
 
 const title = 'Wheel Of Fortune';
 const description = 'Spin a random category or specific party/drinking game – fast decision helper with filtering.';
-interface GameCategory {
-  name: string;
-  blurb: string;
-  games: string[];
-}
+
+interface GameCategory { name: string; blurb: string; games: string[]; }
 
 const categories: GameCategory[] = [
   { name: 'Card Games', blurb: 'Deck‑based classics & twists.', games: ['Blow Me','Cross the Bridge','Curse','Dick Head','Kings'] },
@@ -26,31 +25,25 @@ const allGames = categories.flatMap(c => c.games);
   <header class="mb-10 space-y-3">
     <h1 class="font-display text-3xl md:text-4xl">{title}</h1>
     <p class="text-muted max-w-prose">{description}</p>
-    <p class="text-[11px] text-muted">Want animated wheels? Embed later or enhance with a canvas spinner.</p>
+    <p class="text-[11px] text-muted">Future enhancement: animated wheel + weighted categories.</p>
   </header>
 
   <div class="grid gap-8 md:grid-cols-2 mb-14">
-    <!-- Category Spinner -->
     <section class="rounded border border-fg/15 p-6 flex flex-col gap-4 bg-fg/5/10">
       <h2 class="font-display text-xl">Category Spin</h2>
-      <p class="text-sm text-muted leading-relaxed">
-        Click spin to get a random category. Reroll as much as you like.
-      </p>
+      <p class="text-sm text-muted leading-relaxed">Click spin to get a random category.</p>
       <button
         id="spin-category"
         type="button"
         class="px-4 py-2 rounded border border-fg/25 bg-fg/10 hover:border-neon hover:text-neon text-sm font-medium tracking-wide transition-colors"
-      >
-        Spin Category
-      </button>
+      >Spin Category</button>
       <div id="category-result" class="min-h-[2.75rem] flex items-center font-semibold text-lg text-neon"></div>
     </section>
 
-    <!-- Game Spinner -->
     <section class="rounded border border-fg/15 p-6 flex flex-col gap-4 bg-fg/5/10">
       <h2 class="font-display text-xl">Game Spin</h2>
       <p class="text-sm text-muted leading-relaxed">
-        Spin for a random game from all games or restrict by choosing a category first.
+        Pick a category to limit the pool or leave as all games.
       </p>
       <div class="flex flex-wrap gap-3 items-center">
         <label class="text-xs font-medium uppercase tracking-wide text-muted flex flex-col gap-1">
@@ -67,9 +60,7 @@ const allGames = categories.flatMap(c => c.games);
           id="spin-game"
           type="button"
           class="px-4 py-2 rounded border border-fg/25 bg-fg/10 hover:border-neon hover:text-neon text-sm font-medium tracking-wide transition-colors"
-        >
-          Spin Game
-        </button>
+        >Spin Game</button>
       </div>
       <div id="game-result" class="min-h-[2.75rem] flex items-center font-semibold text-lg text-neon"></div>
     </section>
@@ -79,19 +70,11 @@ const allGames = categories.flatMap(c => c.games);
     <header class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-6">
       <div>
         <h2 class="font-display text-2xl mb-1">Browse Categories</h2>
-        <p class="text-muted text-sm">Skim categories or expand to view suggestions.</p>
+        <p class="text-muted text-sm">Expand to see suggestions.</p>
       </div>
       <div class="flex gap-2">
-        <button
-          id="expand-all"
-          class="text-[11px] uppercase tracking-wide underline underline-offset-4 hover:text-neon"
-          type="button"
-        >Expand All</button>
-        <button
-          id="collapse-all"
-            class="text-[11px] uppercase tracking-wide underline underline-offset-4 hover:text-neon"
-            type="button"
-        >Collapse All</button>
+        <button id="expand-all" type="button" class="text-[11px] uppercase tracking-wide underline underline-offset-4 hover:text-neon">Expand All</button>
+        <button id="collapse-all" type="button" class="text-[11px] uppercase tracking-wide underline underline-offset-4 hover:text-neon">Collapse All</button>
       </div>
     </header>
 
@@ -102,7 +85,7 @@ const allGames = categories.flatMap(c => c.games);
             <span>{c.name}</span>
             <span class="text-[10px] uppercase tracking-wide text-muted group-open:text-neon">{c.games.length}</span>
           </summary>
-          <p class="text-xs text-muted leading-relaxed mb-3">{c.blurb}</p>
+            <p class="text-xs text-muted leading-relaxed mb-3">{c.blurb}</p>
           <ul class="list-disc pl-5 space-y-1 text-sm">
             {c.games.map(g => <li>{g}</li>)}
           </ul>
@@ -111,32 +94,28 @@ const allGames = categories.flatMap(c => c.games);
       <div class="rounded border border-dashed border-fg/15 p-5 flex flex-col justify-center text-center text-xs text-muted">
         <p class="mb-2 font-semibold text-fg/70">All Games Pool</p>
         <p>{allGames.length} total games across every category.</p>
-        <p class="mt-3"><button id="spin-all-inline" type="button" class="underline underline-offset-4 hover:text-neon">Spin Now →</button></p>
+        <p class="mt-3">
+          <button id="spin-all-inline" type="button" class="underline underline-offset-4 hover:text-neon">
+            Spin Now →
+          </button>
+        </p>
         <p id="inline-all-result" class="mt-3 font-semibold text-neon text-sm min-h-[1.25rem]"></p>
       </div>
     </div>
   </section>
 
-  <hr class="my-12 border-fg/15" />
+  <ShareButtons title={title} />
+  <FeedbackCard>
+    <p>Suggest missing games, categories or a feature like weighted spins.</p>
+  </FeedbackCard>
 
-  <section class="space-y-4">
-    <h2 class="text-xl font-display">Share</h2>
-    <ul class="list-none p-0 m-0 text-sm space-y-1">
-      <li><a class="hover:text-neon underline underline-offset-4" href="https://www.facebook.com/sharer/sharer.php?u=https://beergogglegames.co.uk/extras/wheel-of-fortune/" rel="noopener" target="_blank">Facebook</a></li>
-      <li><a class="hover:text-neon underline underline-offset-4" href="https://twitter.com/intent/tweet?url=https://beergogglegames.co.uk/extras/wheel-of-fortune/" rel="noopener" target="_blank">X / Twitter</a></li>
-    </ul>
-  </section>
-
-  <section class="mt-10">
-    <h2 class="text-xl font-display mb-2">Feedback</h2>
-    <p class="text-sm text-muted mb-3">Suggest a missing game or category, or request a feature (animated wheel, weighted spins, etc.).</p>
-    <a class="text-xs tracking-wide font-medium uppercase text-neon/80 hover:text-neon underline underline-offset-4" href="/contact/">Contact Us →</a>
-  </section>
+  <script id="__wof-data" type="application/json">{JSON.stringify(categories)}</script>
+  <script id="__wof-all" type="application/json">{JSON.stringify(allGames)}</script>
 
   <script is:inline>
     (() => {
-      const categories = JSON.parse(document.currentScript.dataset.cats || '[]');
-      const allGames = JSON.parse(document.currentScript.dataset.all || '[]');
+      const categories = JSON.parse(document.getElementById('__wof-data')?.textContent || '[]');
+      const allGames = JSON.parse(document.getElementById('__wof-all')?.textContent || '[]');
 
       const catBtn = document.getElementById('spin-category');
       const catResult = document.getElementById('category-result');
@@ -148,34 +127,29 @@ const allGames = categories.flatMap(c => c.games);
       const spinAllInline = document.getElementById('spin-all-inline');
       const inlineAllResult = document.getElementById('inline-all-result');
 
-      function animate(el, cls = 'animate-pulse', ms = 500) {
+      function animate(el, cls='animate-pulse', ms=500){
         el?.classList.add(cls);
-        setTimeout(() => el?.classList.remove(cls), ms);
+        setTimeout(()=>el?.classList.remove(cls), ms);
       }
-      function randomItem(arr) {
-        return arr[Math.floor(Math.random() * arr.length)];
-      }
+      function randomItem(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
 
       catBtn?.addEventListener('click', () => {
+        if(!categories.length) return;
         const picked = randomItem(categories).name;
         catResult.textContent = picked;
         animate(catResult);
       });
 
       gameBtn?.addEventListener('click', () => {
-        const chosen = filter?.value || '';
-        const pool = chosen
-          ? (categories.find(c => c.name === chosen)?.games || [])
-          : allGames;
-        if (pool.length === 0) {
-          gameResult.textContent = 'No games';
-          return;
-        }
+        const chosen = (filter?.value || '').trim();
+        const pool = chosen ? (categories.find(c => c.name === chosen)?.games || []) : allGames;
+        if(!pool.length){ gameResult.textContent = 'No games'; return; }
         gameResult.textContent = randomItem(pool);
         animate(gameResult);
       });
 
       spinAllInline?.addEventListener('click', () => {
+        if(!allGames.length) return;
         inlineAllResult.textContent = randomItem(allGames);
         animate(inlineAllResult);
       });
@@ -188,6 +162,4 @@ const allGames = categories.flatMap(c => c.games);
       });
     })();
   </script>
-  <!-- Provide serialised data for the inline script -->
-  <script is:inline data-cats={JSON.stringify(categories)} data-all={JSON.stringify(allGames)} />
 </Layout>
