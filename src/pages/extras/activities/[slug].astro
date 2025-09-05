@@ -1,11 +1,11 @@
 ---
-import Layout from '../../components/Layout.astro';
+import Layout from '../../../components/Layout.astro';
 import { getCollection } from 'astro:content';
-import StructuredData from '../../components/StructuredData.astro';
-import { withBase } from '../../lib/paths';
-import { canonical } from '../../lib/urls';
-import { activityLD } from '../../lib/schema';
-import { tagSlug } from '../../lib/tags';
+import StructuredData from '../../../components/StructuredData.astro';
+import { withBase } from '../../../lib/paths';
+import { canonical } from '../../../lib/urls';
+import { activityLD } from '../../../lib/schema';
+import { tagSlug } from '../../../lib/tags';
 
 export async function getStaticPaths() {
   const activities = await getCollection('activities');
@@ -45,7 +45,7 @@ const ld = activityLD({ title, description, url: pageCanonical });
   </article>
 
   <p class="mt-10">
-    <a class="hover:text-neon underline underline-offset-4" href={withBase('activities/')}>← All Activities</a>
+    <a class="hover:text-neon underline underline-offset-4" href={withBase('extras/activities/')}>← All Activities</a>
   </p>
 
   <StructuredData data={ld} />
