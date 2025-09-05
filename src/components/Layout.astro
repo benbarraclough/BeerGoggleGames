@@ -22,9 +22,7 @@ const {
 
 const current = Astro.url.pathname;
 
-// Active state logic:
-// - Home only active on exact root.
-// - Others active when current path starts with their segment.
+// Only mark Home active on exact root
 function isActive(segment: string) {
   if (segment === '') {
     const cur = current.endsWith('/') ? current : current + '/';
@@ -36,7 +34,6 @@ function isActive(segment: string) {
   return current.startsWith(withBase(norm));
 }
 
-// Icons used in top nav
 type IconName = 'home' | 'games' | 'drinks' | 'extras' | 'search';
 
 function icon(name: IconName, size = 18) {
@@ -56,19 +53,14 @@ function icon(name: IconName, size = 18) {
   }
 }
 
-interface NavLink {
-  href: string;
-  label: string;
-  key: string;
-  icon: IconName;
-}
+interface NavLink { href: string; label: string; key: string; icon: IconName; }
 
 const navLinks: NavLink[] = [
-  { href: withBase(''),        label: 'Home',    key: '',        icon: 'home' },
-  { href: withBase('games/'),  label: 'Games',   key: 'games',   icon: 'games' },
-  { href: withBase('drinks/'), label: 'Drinks',  key: 'drinks',  icon: 'drinks' },
-  { href: withBase('extras/'), label: 'Extras',  key: 'extras',  icon: 'extras' },
-  { href: withBase('search'),  label: 'Search',  key: 'search',  icon: 'search' }
+  { href: withBase(''),        label: 'Home',   key: '',       icon: 'home' },
+  { href: withBase('games/'),  label: 'Games',  key: 'games',  icon: 'games' },
+  { href: withBase('drinks/'), label: 'Drinks', key: 'drinks', icon: 'drinks' },
+  { href: withBase('extras/'), label: 'Extras', key: 'extras', icon: 'extras' },
+  { href: withBase('search'),  label: 'Search', key: 'search', icon: 'search' }
 ];
 
 const mainClass = [
@@ -77,7 +69,7 @@ const mainClass = [
 ].join(' ');
 
 const year = new Date().getFullYear();
-const siteUrl = canonical || 'https://benbarraclough.github.io/BeerGoggleGames';
+const siteUrl = canonical || 'https://beergogglegames.co.uk';
 ---
 <!DOCTYPE html>
 <html lang="en" class="bg-bg text-fg font-body" data-base={base}>
@@ -107,20 +99,16 @@ const siteUrl = canonical || 'https://benbarraclough.github.io/BeerGoggleGames';
       Skip to content
     </a>
 
-    <!-- Header -->
     <header class="sticky top-0 z-40 border-b border-fg/20 bg-bg/95 backdrop-blur-sm supports-[backdrop-filter]:bg-bg/75">
       <div class="mx-auto max-w-7xl px-4 py-4 flex items-center justify-between gap-6">
         <a href={withBase()} class="font-display text-2xl tracking-tight hover:text-neon whitespace-nowrap">
           BeerGoggleGames
         </a>
-
-        <!-- Desktop Nav -->
         <nav class="hidden lg:flex flex-wrap items-center gap-5 text-sm" aria-label="Primary">
           {navLinks.map(l => {
             const active = isActive(l.key);
             return (
-              <a
-                href={l.href}
+              <a href={l.href}
                 class:list={[
                   'flex items-center gap-2 px-2 py-1 rounded hover:text-neon hover:bg-fg/5 transition-colors',
                   active && 'text-neon font-semibold bg-fg/10'
@@ -133,8 +121,6 @@ const siteUrl = canonical || 'https://benbarraclough.github.io/BeerGoggleGames';
             );
           })}
         </nav>
-
-        <!-- Mobile toggle -->
         <a
           id="nav-toggle"
           href="#site-menu"
@@ -151,31 +137,25 @@ const siteUrl = canonical || 'https://benbarraclough.github.io/BeerGoggleGames';
       </div>
     </header>
 
-    <!-- Mobile Nav Overlay -->
     <div id="site-menu" class="site-menu-overlay" aria-label="Mobile navigation">
       <div class="site-menu-panel">
         <div class="flex items-center justify-between px-5 py-4 border-b border-fg/25">
           <span class="font-display text-xl">Menu</span>
-          <a
-            href="#"
-            id="nav-close"
-            class="inline-flex items-center gap-2 border border-fg/30 px-3 py-2 text-sm rounded hover:border-neon hover:text-neon"
-            aria-label="Close menu"
-          >✕</a>
+          <a href="#" id="nav-close"
+             class="inline-flex items-center gap-2 border border-fg/30 px-3 py-2 text-sm rounded hover:border-neon hover:text-neon"
+             aria-label="Close menu">✕</a>
         </div>
         <nav class="px-6 py-8 grow flex flex-col gap-4 text-lg overflow-y-auto" aria-label="Mobile Primary">
           {navLinks.map(l => {
             const active = isActive(l.key);
             return (
-              <a
-                href={l.href}
+              <a href={l.href}
                 class:list={[
                   'hover:text-neon flex items-center gap-3 px-2 py-2 rounded',
                   active && 'text-neon font-semibold bg-fg/10'
                 ]}
                 aria-current={active ? 'page' : undefined}
-                data-close
-              >
+                data-close>
                 <span aria-hidden="true" class="inline-block" set:html={icon(l.icon, 22)} />
                 <span>{l.label}</span>
               </a>
@@ -195,7 +175,6 @@ const siteUrl = canonical || 'https://benbarraclough.github.io/BeerGoggleGames';
       <slot />
     </main>
 
-    <!-- Unified Footer (all content always visible, responsive grid) -->
     <footer class="border-t border-fg/20 mt-auto">
       <div class="mx-auto max-w-7xl px-4 py-10 grid gap-10 sm:gap-12 sm:grid-cols-2 lg:grid-cols-4 text-sm">
         <div class="space-y-4">
@@ -223,17 +202,36 @@ const siteUrl = canonical || 'https://benbarraclough.github.io/BeerGoggleGames';
           <h2 class="font-semibold text-fg/80 uppercase tracking-wide text-xs">Connect</h2>
           <ul class="space-y-1">
             <li><a class="hover:text-neon" href="https://github.com/benbarraclough/BeerGoggleGames" rel="noopener" target="_blank">GitHub</a></li>
-            <!-- Add socials when available -->
           </ul>
-          <form class="mt-4 space-y-2" data-newsletter>
-            <label class="block text-xs uppercase tracking-wide text-fg/70" for="nl-email">Updates (coming soon)</label>
+          <!-- Buttondown Embed -->
+          <form
+            action="https://buttondown.email/api/emails/embed-subscribe/YOUR_HANDLE"
+            method="post"
+            target="_blank"
+            class="mt-4 space-y-2"
+            data-newsletter
+          >
+            <label class="block text-xs uppercase tracking-wide text-fg/70" for="nl-email">
+              Get occasional update emails
+            </label>
             <div class="flex gap-2">
-              <input id="nl-email" type="email" disabled placeholder="email@example.com"
-                class="w-full rounded bg-fg/5 border border-fg/20 px-3 py-2 text-xs focus:outline-none focus:border-neon disabled:opacity-50" />
-              <button disabled class="px-3 py-2 rounded bg-fg/10 border border-fg/20 text-xs hover:border-neon hover:text-neon disabled:opacity-40">
+              <input
+                id="nl-email"
+                name="email"
+                type="email"
+                required
+                placeholder="you@example.com"
+                class="w-full rounded bg-fg/5 border border-fg/20 px-3 py-2 text-xs focus:outline-none focus:border-neon"
+                autocomplete="email"
+              />
+              <button type="submit"
+                class="px-3 py-2 rounded bg-fg/10 border border-fg/20 text-xs hover:border-neon hover:text-neon">
                 Join
               </button>
             </div>
+            <p class="text-[10px] text-muted/70 leading-relaxed">
+              No spam. Unsubscribe anytime.
+            </p>
           </form>
         </div>
 
@@ -260,7 +258,6 @@ const siteUrl = canonical || 'https://benbarraclough.github.io/BeerGoggleGames';
       </div>
     </footer>
 
-    <!-- Scripts -->
     <script is:inline>
       (function(){
         const toggle = document.getElementById('nav-toggle');
