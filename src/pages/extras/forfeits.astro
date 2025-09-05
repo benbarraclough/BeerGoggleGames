@@ -63,6 +63,12 @@ const forfeits: Forfeit[] = [
     </p>
   </div>
 
+  <style>
+    .toggle-hide { display: none; }
+    details[open] .toggle-view { display: none; }
+    details[open] .toggle-hide { display: inline; }
+  </style>
+
   <section id="forfeit-list" class="space-y-3">
     {forfeits.map(f => (
       <details
@@ -72,7 +78,10 @@ const forfeits: Forfeit[] = [
       >
         <summary class="cursor-pointer font-semibold flex justify-between items-center">
           <span>{f.name}</span>
-          <span class="text-xs text-muted group-open:text-neon">View</span>
+          <span class="text-xs text-muted group-open:text-neon">
+            <span class="toggle-view">View</span>
+            <span class="toggle-hide">Hide</span>
+          </span>
         </summary>
         <p class="mt-3 text-sm text-muted leading-relaxed">{f.desc}</p>
       </details>
