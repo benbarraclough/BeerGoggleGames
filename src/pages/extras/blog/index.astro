@@ -2,34 +2,115 @@
 import Layout from '../../../components/Layout.astro';
 import { getCollection } from 'astro:content';
 
-const posts = await getCollection('posts').catch(() => []);
-const sorted = posts
+const posts = (await getCollection('posts').catch(() => []))
   .filter(p => p.data?.title)
   .sort((a,b) => new Date(b.data.date||0).getTime() - new Date(a.data.date||0).getTime());
 
+const groups: Record<string, typeof posts> = {};
+for (const p of posts) {
+  const year = p.data.date ? new Date(p.data.date).getFullYear().toString() : 'Other';
+  (groups[year] ||= []).push(p);
+}
+const years = Object.keys(groups).sort((a,b) => b.localeCompare(a));
 const title = 'Blog';
-const description = 'Guides, ideas & announcements.';
+const description = 'Guides, announcements & extra ideas.';
 ---
 <Layout title={title} description={description}>
-  <h1 class="font-display text-3xl mb-6">{title}</h1>
-  {sorted.length === 0 ? (
-    <p class="text-muted">No posts yet.</p>
-  ) : (
-    <ul class="space-y-6 p-0 m-0 list-none">
-      {sorted.map(p => {
-        const url = `/extras/blog/${p.slug}/`;
-        return (
-          <li class="border-b border-fg/15 pb-4 last:border-none last:pb-0">
-            <h2 class="text-xl font-semibold mb-1">
-              <a href={url} class="hover:text-neon">{p.data.title}</a>
-            </h2>
-            {p.data.date && (
-              <p class="text-xs text-muted mb-2">{new Date(p.data.date).toISOString().slice(0,10)}</p>
-            )}
-            {p.data.excerpt && <p class="text-sm text-muted leading-snug">{p.data.excerpt}</p>}
-          </li>
-        );
-      })}
-    </ul>
-  )}
+  <header class="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+    <div>
+      <h1 class="font-display text-3xl md:text-4xl mb-2">{title}</h1>
+      <p class="text-muted max-w-prose">{description}</p>
+    </div>
+    <div class="flex gap-3 items-center">
+      <label class="relative block">
+        <span class="sr-only">Search posts</span>
+        <input
+          id="blog-search"
+          type="search"
+          placeholder="Search posts..."
+          class="peer w-64 max-w-[70vw] rounded border border-fg/25 bg-fg/5 px-3 py-2 text-sm focus:border-neon outline-none transition"
+          autocomplete="off"
+        />
+        <span class="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-xs text-muted peer-focus:text-neon">⌕</span>
+      </label>
+      <button id="blog-clear" class="hidden text-xs underline underline-offset-4 hover:text-neon">Clear</button>
+    </div>
+  </header>
+
+  {posts.length === 0 && <p class="text-muted">No posts yet.</p>}
+
+  <div id="blog-results" class="space-y-12">
+    {years.map(y => (
+      <section data-year={y} class="year-group">
+        <h2 class="font-display text-xl md:text-2xl mb-4 tracking-tight flex items-center gap-2">
+          <span>{y}</span>
+          <span class="text-[11px] font-normal text-muted bg-fg/10 px-2 py-0.5 rounded">{groups[y].length}</span>
+        </h2>
+        <ul class="space-y-6 m-0 p-0 list-none">
+          {groups[y].map(p => {
+            const url = `/extras/blog/${p.slug}/`;
+            const d = p.data.date ? new Date(p.data.date).toISOString().slice(0,10) : '';
+            return (
+              <li
+                class="group border border-fg/15 rounded p-5 hover:border-neon transition-colors"
+                data-title={(p.data.title || '').toLowerCase()}
+                data-excerpt={(p.data.excerpt || '').toLowerCase()}
+              >
+                <h3 class="text-lg font-semibold mb-1 leading-snug">
+                  <a href={url} class="hover:text-neon focus:outline-none focus:ring-2 focus:ring-neon rounded">
+                    {p.data.title}
+                  </a>
+                </h3>
+                {d && <p class="text-[11px] tracking-wide uppercase text-muted mb-2">{d}</p>}
+                {p.data.excerpt && <p class="text-sm text-muted leading-relaxed">{p.data.excerpt}</p>}
+                <p class="mt-3">
+                  <a href={url} class="text-xs tracking-wide font-medium uppercase text-neon/80 hover:text-neon">Read →</a>
+                </p>
+              </li>
+            );
+          })}
+        </ul>
+      </section>
+    ))}
+  </div>
+
+  <p id="blog-empty" class="hidden text-muted italic mt-8">No posts match your search.</p>
+
+  <script is:inline>
+    (() => {
+      const input = document.getElementById('blog-search');
+      const clearBtn = document.getElementById('blog-clear');
+      const empty = document.getElementById('blog-empty');
+      const groups = Array.from(document.querySelectorAll('.year-group'));
+      if (!input) return;
+
+      function filter() {
+        const q = input.value.trim().toLowerCase();
+        clearBtn.classList.toggle('hidden', q.length === 0);
+        let visibleCount = 0;
+
+        groups.forEach(group => {
+          const items = group.querySelectorAll('li');
+            let anyVisible = false;
+            items.forEach(li => {
+              const t = li.getAttribute('data-title') || '';
+              const e = li.getAttribute('data-excerpt') || '';
+              const match = !q || t.includes(q) || e.includes(q);
+              li.classList.toggle('hidden', !match);
+              if (match) { anyVisible = true; visibleCount++; }
+            });
+          group.classList.toggle('hidden', !anyVisible);
+        });
+
+        empty.classList.toggle('hidden', visibleCount !== 0);
+      }
+
+      input.addEventListener('input', filter);
+      clearBtn?.addEventListener('click', () => {
+        input.value = '';
+        filter();
+        input.focus();
+      });
+    })();
+  </script>
 </Layout>
