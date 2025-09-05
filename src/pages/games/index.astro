@@ -8,13 +8,6 @@ import { playerModeSlug, playerModeLabel } from '../../lib/playerMode';
 
 const raw = excludeLegacyNoise(await getCollection('games'));
 
-/*
-  Flattened URL model:
-    Detail pages: /games/<leaf>/
-    We only use the final segment (leaf) of each entry slug.
-    All leaves must be globally unique or the detail page may collide.
-*/
-
 const allGames = raw
   .map(g => {
     const full = g.slug ?? g.id;
@@ -32,7 +25,7 @@ const allGames = raw
       tags,
       leaf,
       image: withBase(`images/${leaf}.webp`),
-      href: withBase(`games/${leaf}/`)   // FLAT (no type)
+      href: withBase(`games/${leaf}/`)
     };
   })
   .sort((a,b)=> (a.title||'').localeCompare(b.title||''));
@@ -61,22 +54,37 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 ---
 <Layout
   title="Games"
-  description="All drinking games. Filter by category, player mode, or tags."
+  description="All drinking games. Filter or search by category, player mode, or tags."
   canonical={pageCanonical}
   wide={true}
 >
   <h1 class="font-display text-4xl mb-4">Games</h1>
   <p class="text-sm text-muted mb-5">
-    A complete collection of all games A–Z. Use the filters to find exactly what you're looking for or pick a
-    <a class="hover:text-neon underline underline-offset-4" href={withBase('games/random')}>Random Game</a>
+    A complete collection A–Z. Use search or filters, or pick a
+    <a class="hover:text-neon underline underline-offset-4" href={withBase('games/random')}>Random Game</a>.
   </p>
 
-  <!-- Filter Bar -->
+  <!-- Search -->
+  <div class="mb-4 flex flex-wrap items-end gap-4">
+    <label class="text-xs uppercase tracking-wide text-muted font-medium flex flex-col gap-1">
+      Search
+      <input
+        id="game-search"
+        type="search"
+        placeholder="Search games..."
+        class="w-72 max-w-[80vw] rounded border border-fg/30 bg-fg/5 px-3 py-2 text-sm focus:border-neon outline-none"
+        autocomplete="off"
+      />
+    </label>
+    <button id="game-search-clear" class="hidden text-[11px] underline underline-offset-4 hover:text-neon">Clear</button>
+    <span id="search-hits" class="text-[11px] text-muted ml-auto"></span>
+  </div>
+
+  <!-- Filter Bar (unchanged) -->
   <div id="filter-bar" class="mb-6 space-y-3">
     <div class="flex flex-wrap gap-2 items-center">
       <span class="text-[11px] uppercase tracking-wide text-muted/70">Filters</span>
 
-      <!-- Category Dropdown -->
       <div class="relative" data-filter-wrapper>
         <button type="button" class="filter-toggle pill pill-cat-tint" data-panel="categories" aria-expanded="false">
           Categories
@@ -98,7 +106,6 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         </div>
       </div>
 
-      <!-- Modes Dropdown -->
       <div class="relative" data-filter-wrapper>
         <button type="button" class="filter-toggle pill pill-mode-tint" data-panel="modes" aria-expanded="false">
           Player Modes
@@ -120,7 +127,6 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         </div>
       </div>
 
-      <!-- Tags Dropdown -->
       <div class="relative" data-filter-wrapper>
         <button type="button" class="filter-toggle pill pill-tag-tint" data-panel="tags" aria-expanded="false">
           Tags
@@ -142,7 +148,6 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         </div>
       </div>
 
-      <!-- Exclusive & Clear -->
       <button id="exclusive-toggle" type="button" class="pill pill-neutral" aria-pressed="false"
         title="Exclusive: must match each selected group (AND logic); all selected tags must be present.">
         Exclusive
@@ -155,7 +160,6 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
     </div>
   </div>
 
-  <!-- Game Grid -->
   {allGames.length === 0 ? (
     <p class="text-muted">No games found.</p>
   ) : (
@@ -167,7 +171,9 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
             class="relative group"
             data-type={g.type}
             data-mode={g.modeSlug || ''}
-            data-tags={g.tags.join(',')}
+            data-tags={g.tags.join(',').toLowerCase()}
+            data-title={(g.title||'').toLowerCase()}
+            data-search-visible="true"
           >
             <div class="card-body flex flex-col h-full border border-fg/20 rounded-sm p-4 transition-colors pointer-events-none group-hover:border-neon/40">
               <picture class="mb-2 w-full allow-pointer">
@@ -262,6 +268,41 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
   </style>
 
   <script type="module" src={withBase('scripts/games-filters.js')}></script>
+
+  <script is:inline>
+    (() => {
+      const input = document.getElementById('game-search');
+      const clear = document.getElementById('game-search-clear');
+      const grid = document.getElementById('game-grid');
+      const hitsEl = document.getElementById('search-hits');
+      if(!input || !grid) return;
+      const items = Array.from(grid.children);
+
+      function applySearch() {
+        const q = input.value.trim().toLowerCase();
+        let hits = 0;
+        items.forEach(li => {
+          const title = li.getAttribute('data-title') || '';
+          const tags = li.getAttribute('data-tags') || '';
+          const type = li.getAttribute('data-type') || '';
+          const match = !q || title.includes(q) || tags.includes(q) || type.includes(q);
+          li.dataset.searchVisible = match ? 'true' : 'false';
+        });
+        items.forEach(li => {
+          const hiddenByFilters = li.classList.contains('hidden');
+          const visibleBySearch = li.dataset.searchVisible === 'true';
+          li.style.display = (hiddenByFilters || !visibleBySearch) ? 'none' : '';
+          if(!hiddenByFilters && visibleBySearch) hits++;
+        });
+        clear.classList.toggle('hidden', q.length === 0);
+        if (hitsEl) hitsEl.textContent = q ? `${hits} match${hits===1?'':'es'}` : '';
+      }
+
+      input.addEventListener('input', applySearch);
+      clear.addEventListener('click', () => { input.value=''; applySearch(); input.focus(); });
+      applySearch();
+    })();
+  </script>
 
   <p class="mt-10 text-sm">
     <a class="hover:text-neon underline underline-offset-4" href={withBase('/')}>← Back to Home</a>
