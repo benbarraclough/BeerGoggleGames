@@ -4,7 +4,7 @@ import ShareButtons from '../../components/game/ShareButtons.astro';
 import FeedbackCard from '../../components/game/FeedbackCard.astro';
 
 const title = 'Wheel Of Fortune';
-const description = 'Spin a random category or specific party/drinking game – fast decision helper with filtering.';
+const description = 'Spin an animated wheel to pick a random category or game. Filter the game wheel by category.';
 
 interface GameCategory { name: string; blurb: string; games: string[]; }
 
@@ -25,47 +25,53 @@ const allGames = categories.flatMap(c => c.games);
   <header class="mb-10 space-y-3">
     <h1 class="font-display text-3xl md:text-4xl">{title}</h1>
     <p class="text-muted max-w-prose">{description}</p>
-    <p class="text-[11px] text-muted">Future enhancement: animated wheel + weighted categories.</p>
   </header>
 
+  <!-- Dual Wheels -->
   <div class="grid gap-8 md:grid-cols-2 mb-14">
-    <section class="rounded border border-fg/15 p-6 flex flex-col gap-4 bg-fg/5/10">
-      <h2 class="font-display text-xl">Category Spin</h2>
-      <p class="text-sm text-muted leading-relaxed">Click spin to get a random category.</p>
-      <button
-        id="spin-category"
-        type="button"
-        class="px-4 py-2 rounded border border-fg/25 bg-fg/10 hover:border-neon hover:text-neon text-sm font-medium tracking-wide transition-colors"
-      >Spin Category</button>
-      <div id="category-result" class="min-h-[2.75rem] flex items-center font-semibold text-lg text-neon"></div>
+    <!-- Category Wheel -->
+    <section class="rounded border border-fg/15 p-6 bg-fg/5/10">
+      <h2 class="font-display text-xl mb-3">Category Wheel</h2>
+      <div class="relative mx-auto w-full max-w-sm aspect-square">
+        <canvas id="cat-wheel" class="w-full h-full"></canvas>
+        <div class="pointer-events-none absolute inset-0 flex items-center justify-center">
+          <div class="w-0 h-0 border-l-[10px] border-l-transparent border-r-[10px] border-r-transparent border-t-[16px] border-t-neon -mt-3"></div>
+        </div>
+      </div>
+      <div class="mt-4 flex gap-3 items-center">
+        <button id="spin-category" type="button" class="px-4 py-2 rounded border border-fg/25 bg-fg/10 hover:border-neon hover:text-neon text-sm font-medium">
+          Spin Category
+        </button>
+        <div id="category-result" class="min-h-[1.75rem] text-neon font-semibold"></div>
+      </div>
     </section>
 
-    <section class="rounded border border-fg/15 p-6 flex flex-col gap-4 bg-fg/5/10">
-      <h2 class="font-display text-xl">Game Spin</h2>
-      <p class="text-sm text-muted leading-relaxed">
-        Pick a category to limit the pool or leave as all games.
-      </p>
-      <div class="flex flex-wrap gap-3 items-center">
+    <!-- Game Wheel -->
+    <section class="rounded border border-fg/15 p-6 bg-fg/5/10">
+      <h2 class="font-display text-xl mb-3">Game Wheel</h2>
+      <div class="mb-3 flex flex-wrap gap-2 items-end">
         <label class="text-xs font-medium uppercase tracking-wide text-muted flex flex-col gap-1">
           Category
-          <select
-            id="game-category-filter"
-            class="w-48 rounded border border-fg/25 bg-fg/10 px-3 py-2 text-sm focus:border-neon outline-none transition-colors"
-          >
+          <select id="game-category-filter" class="w-48 rounded border border-fg/25 bg-fg/10 px-3 py-2 text-sm focus:border-neon outline-none">
             <option value="">All Categories</option>
             {categories.map(c => <option value={c.name}>{c.name}</option>)}
           </select>
         </label>
-        <button
-          id="spin-game"
-          type="button"
-          class="px-4 py-2 rounded border border-fg/25 bg-fg/10 hover:border-neon hover:text-neon text-sm font-medium tracking-wide transition-colors"
-        >Spin Game</button>
+        <button id="spin-game" type="button" class="px-4 py-2 rounded border border-fg/25 bg-fg/10 hover:border-neon hover:text-neon text-sm font-medium">
+          Spin Game
+        </button>
       </div>
-      <div id="game-result" class="min-h-[2.75rem] flex items-center font-semibold text-lg text-neon"></div>
+      <div class="relative mx-auto w-full max-w-sm aspect-square">
+        <canvas id="game-wheel" class="w-full h-full"></canvas>
+        <div class="pointer-events-none absolute inset-0 flex items-center justify-center">
+          <div class="w-0 h-0 border-l-[10px] border-l-transparent border-r-[10px] border-r-transparent border-t-[16px] border-t-neon -mt-3"></div>
+        </div>
+      </div>
+      <div class="mt-4 min-h-[1.75rem] text-neon font-semibold" id="game-result"></div>
     </section>
   </div>
 
+  <!-- Browse categories -->
   <section class="mb-12">
     <header class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-6">
       <div>
@@ -85,79 +91,181 @@ const allGames = categories.flatMap(c => c.games);
             <span>{c.name}</span>
             <span class="text-[10px] uppercase tracking-wide text-muted group-open:text-neon">{c.games.length}</span>
           </summary>
-            <p class="text-xs text-muted leading-relaxed mb-3">{c.blurb}</p>
+          <p class="text-xs text-muted leading-relaxed mb-3">{c.blurb}</p>
           <ul class="list-disc pl-5 space-y-1 text-sm">
             {c.games.map(g => <li>{g}</li>)}
           </ul>
         </details>
       ))}
-      <div class="rounded border border-dashed border-fg/15 p-5 flex flex-col justify-center text-center text-xs text-muted">
-        <p class="mb-2 font-semibold text-fg/70">All Games Pool</p>
-        <p>{allGames.length} total games across every category.</p>
-        <p class="mt-3">
-          <button id="spin-all-inline" type="button" class="underline underline-offset-4 hover:text-neon">
-            Spin Now →
-          </button>
-        </p>
-        <p id="inline-all-result" class="mt-3 font-semibold text-neon text-sm min-h-[1.25rem]"></p>
-      </div>
     </div>
   </section>
 
   <ShareButtons title={title} />
   <FeedbackCard>
-    <p>Suggest missing games, categories or a feature like weighted spins.</p>
+    <p>Suggest missing games, categories or features (e.g. weighted spins, sound).</p>
   </FeedbackCard>
 
+  <!-- Data payloads -->
   <script id="__wof-data" type="application/json">{JSON.stringify(categories)}</script>
   <script id="__wof-all" type="application/json">{JSON.stringify(allGames)}</script>
 
+  <!-- Wheel logic (animated canvas) -->
   <script is:inline>
     (() => {
-      const categories = JSON.parse(document.getElementById('__wof-data')?.textContent || '[]');
-      const allGames = JSON.parse(document.getElementById('__wof-all')?.textContent || '[]');
-
-      const catBtn = document.getElementById('spin-category');
-      const catResult = document.getElementById('category-result');
-      const gameBtn = document.getElementById('spin-game');
-      const gameResult = document.getElementById('game-result');
-      const filter = document.getElementById('game-category-filter');
-      const expandAll = document.getElementById('expand-all');
-      const collapseAll = document.getElementById('collapse-all');
-      const spinAllInline = document.getElementById('spin-all-inline');
-      const inlineAllResult = document.getElementById('inline-all-result');
-
-      function animate(el, cls='animate-pulse', ms=500){
-        el?.classList.add(cls);
-        setTimeout(()=>el?.classList.remove(cls), ms);
+      function readJSON(id, fallback = []) {
+        try { return JSON.parse(document.getElementById(id)?.textContent || '[]') || fallback; }
+        catch { return fallback; }
       }
-      function randomItem(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+
+      const cats = readJSON('__wof-data');
+      const allGames = readJSON('__wof-all');
+
+      // Generic wheel
+      function createWheel(canvas, items) {
+        const ctx = canvas.getContext('2d');
+        const DPR = Math.max(1, window.devicePixelRatio || 1);
+        function resize() {
+          const bb = canvas.getBoundingClientRect();
+          canvas.width = Math.floor(bb.width * DPR);
+          canvas.height = Math.floor(bb.height * DPR);
+          draw();
+        }
+        window.addEventListener('resize', resize, { passive: true });
+
+        let segments = items.slice();
+        let angle = -Math.PI / 2; // top center pointer
+        let spinning = false;
+
+        function draw() {
+          const w = canvas.width, h = canvas.height;
+          const r = Math.min(w, h) / 2 - 8 * DPR;
+          ctx.clearRect(0, 0, w, h);
+          ctx.save();
+          ctx.translate(w / 2, h / 2);
+          const n = Math.max(1, segments.length);
+          const arc = (Math.PI * 2) / n;
+
+          for (let i = 0; i < n; i++) {
+            const start = angle + i * arc;
+            const end = start + arc;
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            ctx.arc(0, 0, r, start, end);
+            // alternating colors
+            ctx.fillStyle = i % 2 ? 'rgba(255,255,255,0.08)' : 'rgba(255,0,128,0.12)';
+            ctx.fill();
+            ctx.strokeStyle = 'rgba(255,255,255,0.15)';
+            ctx.lineWidth = 2 * DPR;
+            ctx.stroke();
+
+            // Text
+            const mid = start + arc / 2;
+            ctx.save();
+            ctx.rotate(mid);
+            ctx.textAlign = 'right';
+            ctx.textBaseline = 'middle';
+            ctx.fillStyle = '#fff';
+            ctx.font = `${Math.max(10, Math.min(18, r/10)) * DPR}px system-ui, sans-serif`;
+            const label = (segments[i] ?? '').toString();
+            ctx.fillText(label, r - 10 * DPR, 0);
+            ctx.restore();
+          }
+
+          // Center hub
+          ctx.beginPath();
+          ctx.arc(0, 0, 16 * DPR, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(255,255,255,0.15)';
+          ctx.fill();
+
+          ctx.restore();
+        }
+
+        resize();
+
+        function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
+
+        function spinTo(targetIndex, onDone) {
+          if (spinning || segments.length === 0) return;
+          const n = segments.length;
+          const arc = (Math.PI * 2) / n;
+          const targetAngle = -Math.PI/2 - (targetIndex + 0.5) * arc; // center segment at pointer
+          const turns = 4 + Math.floor(Math.random() * 3); // 4..6 full spins
+          const startAngle = angle;
+          const endAngle = targetAngle - turns * Math.PI * 2;
+
+          const duration = 1600 + Math.random() * 600;
+          const startTime = performance.now();
+          spinning = true;
+
+          function frame(now) {
+            const t = Math.min(1, (now - startTime) / duration);
+            const eased = easeOutCubic(t);
+            angle = startAngle + (endAngle - startAngle) * eased;
+            draw();
+            if (t < 1) {
+              requestAnimationFrame(frame);
+            } else {
+              spinning = false;
+              onDone?.(segments[targetIndex], targetIndex);
+            }
+          }
+          requestAnimationFrame(frame);
+        }
+
+        return {
+          setItems(next) { segments = next.slice(); draw(); },
+          spinRandom(onDone) {
+            if (segments.length === 0) return;
+            const idx = Math.floor(Math.random() * segments.length);
+            spinTo(idx, onDone);
+          },
+          redraw: draw
+        };
+      }
+
+      // Build wheels
+      const catCanvas = document.getElementById('cat-wheel');
+      const gameCanvas = document.getElementById('game-wheel');
+      const catResult = document.getElementById('category-result');
+      const gameResult = document.getElementById('game-result');
+      const catBtn = document.getElementById('spin-category');
+      const gameBtn = document.getElementById('spin-game');
+      const filterSel = document.getElementById('game-category-filter');
+
+      const catWheel = createWheel(catCanvas, cats.map(c => c.name));
+      const gameWheel = createWheel(gameCanvas, allGames);
+
+      function setGamePool() {
+        const chosen = (filterSel?.value || '').trim();
+        const pool = chosen ? (cats.find(c => c.name === chosen)?.games || []) : allGames;
+        gameWheel.setItems(pool);
+        gameResult.textContent = '';
+      }
+      filterSel?.addEventListener('change', setGamePool);
+      setGamePool();
 
       catBtn?.addEventListener('click', () => {
-        if(!categories.length) return;
-        const picked = randomItem(categories).name;
-        catResult.textContent = picked;
-        animate(catResult);
+        catWheel.spinRandom((value) => {
+          catResult.textContent = value;
+          // after category pick, sync game filter
+          if (filterSel) {
+            filterSel.value = value;
+            setGamePool();
+          }
+        });
       });
 
       gameBtn?.addEventListener('click', () => {
-        const chosen = (filter?.value || '').trim();
-        const pool = chosen ? (categories.find(c => c.name === chosen)?.games || []) : allGames;
-        if(!pool.length){ gameResult.textContent = 'No games'; return; }
-        gameResult.textContent = randomItem(pool);
-        animate(gameResult);
+        gameWheel.spinRandom((value) => {
+          gameResult.textContent = value;
+        });
       });
 
-      spinAllInline?.addEventListener('click', () => {
-        if(!allGames.length) return;
-        inlineAllResult.textContent = randomItem(allGames);
-        animate(inlineAllResult);
-      });
-
-      expandAll?.addEventListener('click', () => {
+      // Expand/collapse helpers
+      document.getElementById('expand-all')?.addEventListener('click', () => {
         document.querySelectorAll('details').forEach(d => d.open = true);
       });
-      collapseAll?.addEventListener('click', () => {
+      document.getElementById('collapse-all')?.addEventListener('click', () => {
         document.querySelectorAll('details').forEach(d => d.open = false);
       });
     })();
