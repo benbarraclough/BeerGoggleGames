@@ -7,15 +7,15 @@ import { canonical } from '../lib/urls';
 import CardLink from '../components/CardLink.astro';
 
 const allGames = excludeLegacyNoise(await getCollection('games'));
-const recentGames = allGames.slice(0, 6);
+const recentGames = allGames.slice(0, 12); // more items for carousel
 
 const posts = excludeLegacyNoise(await getCollection('posts'))
   .filter(p => !p.data.draft)
   .sort((a,b) => (b.data.date || '').localeCompare(a.data.date || ''))
-  .slice(0, 3);
+  .slice(0, 6);
 
-const cocktails = excludeLegacyNoise(await getCollection('cocktails')).slice(0,3);
-const shots = excludeLegacyNoise(await getCollection('shots')).slice(0,3);
+const cocktails = excludeLegacyNoise(await getCollection('cocktails')).slice(0,8);
+const shots = excludeLegacyNoise(await getCollection('shots')).slice(0,8);
 
 const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 ---
@@ -27,7 +27,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       <div class="max-w-xl space-y-5">
         <h1 class="font-display text-4xl md:text-5xl leading-tight tracking-tight">Party Faster. Play Smarter.</h1>
         <p class="text-muted text-lg leading-relaxed">
-          Discover streamlined drinking games, curated cocktails, shot recipes, creative forfeits
+          Discover streamlined drinking games, curated cocktails & shots, creative forfeits
           and quick decision tools. Minimal fluff. Maximum fun.
         </p>
         <div class="flex flex-wrap gap-3">
@@ -39,25 +39,16 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
           </a>
         </div>
       </div>
-      <div class="w-full max-w-sm md:max-w-md">
-        <label class="text-xs uppercase tracking-wide text-muted font-medium block mb-2">
-          Quick Search
-          <input
-            id="home-search"
-            type="search"
-            placeholder="Search games & drinks..."
-            class="mt-2 w-full rounded-md border border-fg/30 bg-bg/70 backdrop-blur px-4 py-3 text-sm focus:border-neon outline-none"
-            autocomplete="off"
-          />
-        </label>
-        <div id="home-results" class="mt-3 space-y-2 text-sm max-h-72 overflow-y-auto hidden border border-fg/15 rounded-md p-3 bg-bg/80 backdrop-blur">
-          <p class="text-xs text-muted">Type to search...</p>
+      <!-- Image area (drop in an image later) -->
+      <div class="w-full max-w-md">
+        <div class="aspect-[4/3] rounded-md border border-fg/20 bg-gradient-to-br from-fg/10 to-fg/5 flex items-center justify-center text-muted">
+          <span class="text-xs">Add hero image here (4:3)</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- SHORTCUTS -->
+  <!-- QUICK ACCESS -->
   <section class="mb-14">
     <h2 class="font-display text-2xl mb-5">Quick Access</h2>
     <ul class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4 list-none p-0 m-0">
@@ -77,158 +68,100 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
     </ul>
   </section>
 
-  <!-- LATEST GAMES -->
+  <!-- CAROUSEL: Latest Games -->
   <section class="mb-14">
-    <header class="flex items-center justify-between mb-4">
+    <header class="flex items-center justify-between mb-3">
       <h2 class="font-display text-2xl">Latest Games</h2>
-      <a class="text-xs uppercase tracking-wide hover:text-neon underline underline-offset-4" href={withBase('games/')}>All Games</a>
+      <div class="flex gap-2">
+        <button class="carousel-btn" data-target="#games-carousel" data-dir="-1" aria-label="Previous">‹</button>
+        <button class="carousel-btn" data-target="#games-carousel" data-dir="1" aria-label="Next">›</button>
+      </div>
     </header>
-    <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 list-none p-0 m-0">
+    <div id="games-carousel" class="carousel">
       {recentGames.map(g => {
         const slug = (g.slug ?? g.id).split('/').pop();
         const href = withBase(`games/${slug}/`);
         return (
-          <CardLink href={href} ariaLabel={`View game: ${g.data.title}`}>
-            <span class="font-semibold leading-snug transition-colors group-hover:text-neon">
-              {g.data.title}
-            </span>
-            {g.data.excerpt && <span class="mt-2 text-[11px] text-muted line-clamp-3">{g.data.excerpt}</span>}
-          </CardLink>
+          <div class="carousel-item">
+            <div class="aspect-video rounded-md border border-fg/15 bg-fg/5 mb-2 flex items-center justify-center text-muted">
+              <span class="text-[10px]">Add image: images/{slug}.webp</span>
+            </div>
+            <CardLink href={href} ariaLabel={`View game: ${g.data.title}`} as="div">
+              <span class="font-semibold leading-snug transition-colors group-hover:text-neon">
+                {g.data.title}
+              </span>
+              {g.data.excerpt && <span class="mt-2 text-[11px] text-muted line-clamp-3">{g.data.excerpt}</span>}
+            </CardLink>
+          </div>
         );
       })}
-    </ul>
-  </section>
-
-  <!-- DRINKS -->
-  <section class="mb-14">
-    <h2 class="font-display text-2xl mb-5">Popular Drinks</h2>
-    <div class="grid gap-8 lg:grid-cols-2">
-      <div>
-        <h3 class="font-semibold mb-3">Cocktails</h3>
-        <ul class="grid gap-3 list-none p-0 m-0">
-          {cocktails.map(c => {
-            const slug = (c.slug ?? c.id).split('/').pop();
-            return (
-              <CardLink
-                href={withBase(`drinks/${slug}/`)}
-                ariaLabel={`View cocktail: ${c.data.title}`}
-                as="li"
-                noPadding
-                anchorClass="p-3"
-              >
-                <span class="font-medium transition-colors group-hover:text-neon">
-                  {c.data.title}
-                </span>
-              </CardLink>
-            );
-          })}
-        </ul>
-        <p class="mt-3 text-xs">
-          <a class="hover:text-neon underline underline-offset-4" href={withBase('drinks/')}>
-            All drinks →
-          </a>
-        </p>
-      </div>
-      <div>
-        <h3 class="font-semibold mb-3">Shots</h3>
-        <ul class="grid gap-3 list-none p-0 m-0">
-          {shots.map(s => {
-            const slug = (s.slug ?? s.id).split('/').pop();
-            return (
-              <CardLink
-                href={withBase(`drinks/${slug}/`)}
-                ariaLabel={`View shot: ${s.data.title}`}
-                as="li"
-                noPadding
-                anchorClass="p-3"
-              >
-                <span class="font-medium transition-colors group-hover:text-neon">
-                  {s.data.title}
-                </span>
-              </CardLink>
-            );
-          })}
-        </ul>
-      </div>
     </div>
+    <p class="mt-3 text-xs">
+      <a class="hover:text-neon underline underline-offset-4" href={withBase('games/')}>All Games →</a>
+    </p>
   </section>
 
-  <!-- BLOG (still accessible but no header/footer nav link) -->
+  <!-- CAROUSEL: Drinks -->
+  <section class="mb-14">
+    <header class="flex items-center justify-between mb-3">
+      <h2 class="font-display text-2xl">Popular Drinks</h2>
+      <div class="flex gap-2">
+        <button class="carousel-btn" data-target="#drinks-carousel" data-dir="-1" aria-label="Previous">‹</button>
+        <button class="carousel-btn" data-target="#drinks-carousel" data-dir="1" aria-label="Next">›</button>
+      </div>
+    </header>
+    <div id="drinks-carousel" class="carousel">
+      {[...cocktails, ...shots].map(d => {
+        const slug = (d.slug ?? d.id).split('/').pop();
+        const href = withBase(`drinks/${slug}/`);
+        return (
+          <div class="carousel-item">
+            <div class="aspect-video rounded-md border border-fg/15 bg-fg/5 mb-2 flex items-center justify-center text-muted">
+              <span class="text-[10px]">Add image: images/{slug}.webp</span>
+            </div>
+            <CardLink href={href} ariaLabel={`View drink: ${d.data.title}`} as="div">
+              <span class="font-medium transition-colors group-hover:text-neon">{d.data.title}</span>
+            </CardLink>
+          </div>
+        );
+      })}
+    </div>
+    <p class="mt-3 text-xs">
+      <a class="hover:text-neon underline underline-offset-4" href={withBase('drinks/')}>All Drinks →</a>
+    </p>
+  </section>
+
+  <!-- BLOG TEASERS -->
   {posts.length > 0 && (
     <section class="mb-16">
-      <header class="flex items-center justify-between mb-4">
+      <header class="flex items-center justify-between mb-3">
         <h2 class="font-display text-2xl">From the Blog</h2>
         <a class="text-xs uppercase tracking-wide hover:text-neon underline underline-offset-4" href={withBase('extras/blog/')}>All Posts</a>
       </header>
-      <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 list-none p-0 m-0">
+      <div id="blog-carousel" class="carousel">
         {posts.map(p => {
           const slug = (p.slug ?? p.id).split('/').pop();
           return (
-            <CardLink
-              href={withBase(`extras/blog/${slug}/`)}
-              ariaLabel={`Read post: ${p.data.title}`}
-            >
-              <span class="font-semibold leading-snug transition-colors group-hover:text-neon">
-                {p.data.title}
-              </span>
-              {p.data.excerpt && (
-                <span class="mt-2 text-xs text-muted line-clamp-3">
-                  {p.data.excerpt}
+            <div class="carousel-item">
+              <div class="aspect-[4/3] rounded-md border border-fg/15 bg-fg/5 mb-2 flex items-center justify-center text-muted">
+                <span class="text-[10px]">Add blog image (optional)</span>
+              </div>
+              <CardLink href={withBase(`extras/blog/${slug}/`)} ariaLabel={`Read post: ${p.data.title}`} as="div">
+                <span class="font-semibold leading-snug transition-colors group-hover:text-neon">
+                  {p.data.title}
                 </span>
-              )}
-            </CardLink>
+                {p.data.excerpt && (
+                  <span class="mt-2 text-xs text-muted line-clamp-3">
+                    {p.data.excerpt}
+                  </span>
+                )}
+              </CardLink>
+            </div>
           );
         })}
-      </ul>
+      </div>
     </section>
   )}
-
-  <script is:inline>
-    (() => {
-      const input = document.getElementById('home-search');
-      const results = document.getElementById('home-results');
-      if(!input || !results) return;
-
-      let dataset = [];
-
-      async function load() {
-        // Lightweight client-side list (could be pre-generated)
-        // For now we infer a minimal list from DOM (games + cocktails + shots)
-        const links = Array.from(document.querySelectorAll('a[href*="/games/"], a[href*="/drinks/"]'));
-        dataset = links.map(a => ({
-          title: a.textContent.trim(),
-          href: a.getAttribute('href'),
-          type: a.href.includes('/games/') ? 'game' : 'drink'
-        }));
-      }
-
-      function render(list) {
-        results.innerHTML = '';
-        if(!list.length) {
-          results.innerHTML = '<p class="text-xs text-muted">No matches.</p>';
-        } else {
-          const ul = document.createElement('ul');
-            ul.className = 'list-none m-0 p-0 space-y-1';
-          list.slice(0, 25).forEach(item => {
-            const li = document.createElement('li');
-            li.innerHTML = '<a class="block px-2 py-1 rounded hover:text-neon hover:bg-fg/5 text-sm" href="'+ item.href +'">'+ item.title +'</a>';
-            ul.appendChild(li);
-          });
-          results.appendChild(ul);
-        }
-        results.classList.toggle('hidden', false);
-      }
-
-      input.addEventListener('input', () => {
-        const q = input.value.trim().toLowerCase();
-        if(!q) { results.classList.add('hidden'); return; }
-        const filtered = dataset.filter(d => d.title.toLowerCase().includes(q));
-        render(filtered);
-      });
-
-      load();
-    })();
-  </script>
 
   <style>
     .radial-fade {
@@ -236,5 +169,37 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         radial-gradient(circle at 20% 30%, rgba(var(--neon-rgb,255,0,128),0.25), transparent 60%),
         radial-gradient(circle at 80% 70%, rgba(var(--neon-rgb,255,0,128),0.18), transparent 65%);
     }
+    .carousel {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: 80%;
+      gap: 12px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 4px;
+    }
+    @media (min-width: 640px) { .carousel { grid-auto-columns: 45%; } }
+    @media (min-width: 1024px) { .carousel { grid-auto-columns: 30%; } }
+    .carousel::-webkit-scrollbar { height: 8px; }
+    .carousel::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 6px; }
+    .carousel-item { scroll-snap-align: start; }
+    .carousel-btn {
+      @apply border border-fg/25 px-2 py-1 rounded text-sm hover:border-neon hover:text-neon;
+    }
   </style>
+
+  <script is:inline>
+    (() => {
+      function nudge(id, dir) {
+        const el = document.querySelector(id);
+        if (!el) return;
+        const amount = el.clientWidth * 0.8;
+        el.scrollBy({ left: amount * (dir || 1), behavior: 'smooth' });
+      }
+      document.querySelectorAll('.carousel-btn').forEach(btn => {
+        btn.addEventListener('click', () => nudge(btn.getAttribute('data-target'), Number(btn.getAttribute('data-dir'))));
+      });
+    })();
+  </script>
 </Layout>
