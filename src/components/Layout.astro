@@ -28,27 +28,23 @@ function isActive(segment: string) {
 
 type IconName = 'home' | 'games' | 'drinks' | 'extras' | 'about' | 'contact' | 'search';
 
-/**
- * Return an inline SVG string for the given icon.
- * All icons share the same stroke style for a consistent look.
- */
 function icon(name: IconName, size = 18) {
-  const base = `width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"`;
+  const baseSvg = `width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"`;
   switch (name) {
     case 'home':
-      return `<svg ${base}><path d="M3 11.5 12 3l9 8.5M5 10v10h14V10"/></svg>`;
-    case 'games': // dice
-      return `<svg ${base}><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="1.5"/><circle cx="15" cy="15" r="1.5"/></svg>`;
-    case 'drinks': // cocktail
-      return `<svg ${base}><path d="M3 4h18l-8.5 8.5v5.5l3 2H8l3-2v-5.5L3 4Z"/><path d="M10 4l4 4"/></svg>`;
-    case 'extras': // sparkle
-      return `<svg ${base}><path d="M12 3v4M12 17v4M7.05 7.05l2.83 2.83M14.12 14.12l2.83 2.83M3 12h4M17 12h4M7.05 16.95l2.83-2.83M14.12 9.88l2.83-2.83"/></svg>`;
-    case 'about': // info
-      return `<svg ${base}><circle cx="12" cy="12" r="9"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>`;
-    case 'contact': // mail
-      return `<svg ${base}><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>`;
-    case 'search': // magnifier
-      return `<svg ${base}><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg>`;
+      return `<svg ${baseSvg}><path d="M3 11.5 12 3l9 8.5M5 10v10h14V10"/></svg>`;
+    case 'games':
+      return `<svg ${baseSvg}><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="1.5"/><circle cx="15" cy="15" r="1.5"/></svg>`;
+    case 'drinks':
+      return `<svg ${baseSvg}><path d="M3 4h18l-8.5 8.5v5.5l3 2H8l3-2v-5.5L3 4Z"/><path d="M10 4l4 4"/></svg>`;
+    case 'extras':
+      return `<svg ${baseSvg}><path d="M12 3v4M12 17v4M7.05 7.05l2.83 2.83M14.12 14.12l2.83 2.83M3 12h4M17 12h4M7.05 16.95l2.83-2.83M14.12 9.88l2.83-2.83"/></svg>`;
+    case 'about':
+      return `<svg ${baseSvg}><circle cx="12" cy="12" r="9"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>`;
+    case 'contact':
+      return `<svg ${baseSvg}><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>`;
+    case 'search':
+      return `<svg ${baseSvg}><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg>`;
   }
 }
 
@@ -75,6 +71,7 @@ const mainClass = [
 ].join(' ');
 
 const year = new Date().getFullYear();
+const siteUrl = canonical || 'https://benbarraclough.github.io/BeerGoggleGames';
 ---
 <!DOCTYPE html>
 <html lang="en" class="bg-bg text-fg font-body" data-base={base}>
@@ -89,8 +86,22 @@ const year = new Date().getFullYear();
     <meta property="og:type" content="website" />
     {ogImage && <meta property="og:image" content={withBase(ogImage.replace(/^\/+/, ''))} />}
     <link rel="alternate" type="application/rss+xml" href={withBase('rss.xml')} title="Beer Goggle Games RSS" />
+    <script type="application/ld+json">
+      {JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'Organization',
+        name: 'Beer Goggle Games',
+        url: siteUrl,
+        sameAs: [
+          'https://github.com/benbarraclough/BeerGoggleGames'
+        ]
+      })}
+    </script>
   </head>
   <body class="min-h-screen flex flex-col selection:bg-neon/40">
+    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:bg-bg focus:text-neon focus:px-4 focus:py-2 focus:rounded focus:ring-2 focus:ring-neon">
+      Skip to content
+    </a>
 
     <!-- Header -->
     <header class="sticky top-0 z-40 border-b border-fg/20 bg-bg/95 backdrop-blur-sm supports-[backdrop-filter]:bg-bg/75">
@@ -112,12 +123,22 @@ const year = new Date().getFullYear();
                 ]}
                 aria-current={active ? 'page' : undefined}
               >
-                <span class="inline-block" aria-hidden="true" set:html={icon(l.icon, 18)} />
+                <span aria-hidden="true" class="inline-block" set:html={icon(l.icon, 18)} />
                 <span>{l.label}</span>
               </a>
             );
           })}
         </nav>
+
+        <!-- Theme toggle (optional) -->
+        <button id="theme-toggle" class="hidden md:inline-flex items-center gap-2 border border-fg/30 px-3 py-2 text-sm rounded hover:border-neon hover:text-neon bg-bg/70 backdrop-blur-sm"
+          aria-label="Toggle theme">
+          <span class="sr-only">Toggle theme</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="stroke-current">
+            <path d="M12 3v3M12 18v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M3 12h3M18 12h3M6.34 17.66l2.12-2.12M15.54 8.46l2.12-2.12"/>
+            <circle cx="12" cy="12" r="4" />
+          </svg>
+        </button>
 
         <!-- Mobile toggle -->
         <a
@@ -161,7 +182,7 @@ const year = new Date().getFullYear();
                 aria-current={active ? 'page' : undefined}
                 data-close
               >
-                <span class="inline-block" aria-hidden="true" set:html={icon(l.icon, 22)} />
+                <span aria-hidden="true" class="inline-block" set:html={icon(l.icon, 22)} />
                 <span>{l.label}</span>
               </a>
             );
@@ -180,17 +201,68 @@ const year = new Date().getFullYear();
       <slot />
     </main>
 
-    <footer class="border-t border-fg/20">
-      <div class="mx-auto max-w-7xl px-4 py-6 text-sm text-muted flex items-center justify-between">
-        <span>© {year} Beer Goggle Games</span>
-        <a class="hover:text-neon inline-flex items-center gap-2" href={withBase('rss.xml')}>
-          <span class="inline-block" aria-hidden="true" set:html={icon('search', 16)} />
-          RSS
-        </a>
+    <!-- Enhanced Footer -->
+    <footer class="border-t border-fg/20 mt-auto">
+      <div class="mx-auto max-w-7xl px-4 py-10 grid gap-10 md:grid-cols-4 text-sm">
+        <div class="space-y-4">
+          <h2 class="font-semibold text-fg/80 uppercase tracking-wide text-xs">Explore</h2>
+          <ul class="space-y-1">
+            <li><a class="hover:text-neon" href={withBase('games/')}>Games</a></li>
+            <li><a class="hover:text-neon" href={withBase('drinks/')}>Drinks</a></li>
+            <li><a class="hover:text-neon" href={withBase('extras/')}>Extras</a></li>
+            <li><a class="hover:text-neon" href={withBase('blog/')}>Blog</a></li>
+          </ul>
+        </div>
+
+        <div class="space-y-4">
+          <h2 class="font-semibold text-fg/80 uppercase tracking-wide text-xs">Resources</h2>
+          <ul class="space-y-1">
+            <li><a class="hover:text-neon" href={withBase('about')}>About</a></li>
+            <li><a class="hover:text-neon" href={withBase('contact')}>Contact</a></li>
+            <li><a class="hover:text-neon" href={withBase('rss.xml')}>RSS Feed</a></li>
+            <li><a class="hover:text-neon" href={withBase('sitemap.xml')}>Sitemap</a></li>
+          </ul>
+        </div>
+
+        <div class="space-y-4">
+          <h2 class="font-semibold text-fg/80 uppercase tracking-wide text-xs">Connect</h2>
+          <ul class="space-y-1">
+            <li><a class="hover:text-neon" href="https://github.com/benbarraclough/BeerGoggleGames" rel="noopener" target="_blank">GitHub</a></li>
+            <!-- Future socials -->
+          </ul>
+          <form class="mt-4 space-y-2" data-newsletter>
+            <label class="block text-xs uppercase tracking-wide text-fg/70" for="nl-email">Updates (coming soon)</label>
+            <div class="flex gap-2">
+              <input id="nl-email" type="email" disabled placeholder="email@example.com" class="w-full rounded bg-fg/5 border border-fg/20 px-3 py-2 text-xs focus:outline-none focus:border-neon disabled:opacity-50" />
+              <button disabled class="px-3 py-2 rounded bg-fg/10 border border-fg/20 text-xs hover:border-neon hover:text-neon disabled:opacity-40">Join</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="space-y-4">
+          <h2 class="font-semibold text-fg/80 uppercase tracking-wide text-xs">Legal</h2>
+          <p class="text-muted leading-relaxed">
+            © {year} Beer Goggle Games. All rights reserved.
+          </p>
+          <p class="text-[11px] leading-relaxed text-muted/80">
+            Drink responsibly. Only participate if you are of legal drinking age in your location.
+            Stay hydrated, know your limits, look after friends.
+          </p>
+        </div>
+      </div>
+
+      <div class="border-t border-fg/15">
+        <div class="mx-auto max-w-7xl px-4 py-4 text-[11px] flex flex-col sm:flex-row gap-3 items-center justify-between text-muted">
+          <div class="flex flex-wrap gap-4 items-center">
+            <span>© {year} Beer Goggle Games</span>
+            <a class="hover:text-neon" href={withBase('rss.xml')}>RSS</a>
+          </div>
+            <button id="back-to-top" class="hover:text-neon underline underline-offset-4">Back to top</button>
+        </div>
       </div>
     </footer>
 
-    <!-- Enhancement script: sync aria-expanded -->
+    <!-- Scripts -->
     <script is:inline>
       (function(){
         const toggle = document.getElementById('nav-toggle');
@@ -203,6 +275,26 @@ const year = new Date().getFullYear();
             sync();
           })
         );
+      })();
+    </script>
+    <script is:inline>
+      (function(){
+        const topBtn = document.getElementById('back-to-top');
+        if (topBtn) topBtn.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
+      })();
+    </script>
+    <script is:inline>
+      (function(){
+        const btn = document.getElementById('theme-toggle');
+        if(!btn) return;
+        const html = document.documentElement;
+        const saved = localStorage.getItem('bbg-theme');
+        if(saved) html.setAttribute('data-theme', saved);
+        btn.addEventListener('click', () => {
+          const next = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+          html.setAttribute('data-theme', next);
+          localStorage.setItem('bbg-theme', next);
+        });
       })();
     </script>
   </body>
