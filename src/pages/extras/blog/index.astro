@@ -1,24 +1,32 @@
 ---
-import Layout from '../../components/Layout.astro';
+import Layout from '../../../components/Layout.astro';
 import { getCollection } from 'astro:content';
-import { excludeLegacyNoise } from '../../lib/filters';
 
-const posts = excludeLegacyNoise(await getCollection('posts'))
-  .filter(p => !p.data.draft)
-  .sort((a,b) => (b.data.date || '').localeCompare(a.data.date || ''));
-const base = import.meta.env.BASE_URL || '/';
+const posts = await getCollection('posts').catch(() => []);
+const sorted = posts
+  .filter(p => p.data?.title)
+  .sort((a,b) => new Date(b.data.date||0).getTime() - new Date(a.data.date||0).getTime());
+
+const title = 'Blog';
+const description = 'Guides, ideas & announcements.';
 ---
-<Layout title="Blog">
-  <h1 class="font-display text-3xl mb-6">Blog</h1>
-  {posts.length === 0 ? <p class="text-muted">No posts yet.</p> : (
-    <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      {posts.map(p => {
-        const slug = (p.slug ?? p.id).split('/').pop();
+<Layout title={title} description={description}>
+  <h1 class="font-display text-3xl mb-6">{title}</h1>
+  {sorted.length === 0 ? (
+    <p class="text-muted">No posts yet.</p>
+  ) : (
+    <ul class="space-y-6 p-0 m-0 list-none">
+      {sorted.map(p => {
+        const url = `/extras/blog/${p.slug}/`;
         return (
-          <li class="border border-fg/20 p-4">
-            <a class="font-semibold hover:text-neon" href={`${base}blog/${slug}`}>{p.data.title}</a>
-            {p.data.date && <div class="text-xs text-muted mt-1">{p.data.date}</div>}
-            {p.data.excerpt && <p class="text-sm text-muted mt-2">{p.data.excerpt}</p>}
+          <li class="border-b border-fg/15 pb-4 last:border-none last:pb-0">
+            <h2 class="text-xl font-semibold mb-1">
+              <a href={url} class="hover:text-neon">{p.data.title}</a>
+            </h2>
+            {p.data.date && (
+              <p class="text-xs text-muted mb-2">{new Date(p.data.date).toISOString().slice(0,10)}</p>
+            )}
+            {p.data.excerpt && <p class="text-sm text-muted leading-snug">{p.data.excerpt}</p>}
           </li>
         );
       })}
