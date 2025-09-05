@@ -1,29 +1,30 @@
 ---
-import Layout from '../../components/Layout.astro';
+import Layout from '../../../components/Layout.astro';
 import { getCollection } from 'astro:content';
-import { withBase } from '../../lib/paths';
-import { canonical } from '../../lib/urls';
 
-const items = (await getCollection('activities'))
-  .sort((a,b)=>(a.data.title||'').localeCompare(b.data.title||''));
-const pageCanonical = canonical(Astro.url.pathname, Astro.site);
+const activities = await getCollection('activities').catch(() => []);
+const sorted = activities.sort((a,b) => {
+  const at = a.data.title?.toLowerCase() || '';
+  const bt = b.data.title?.toLowerCase() || '';
+  return at.localeCompare(bt);
+});
+const title = 'Activities';
+const description = 'Party & drinking related activities.';
 ---
-<Layout title="Activities" description="Party activities & minigames." canonical={pageCanonical}>
-  <h1 class="font-display text-3xl mb-6">Activities</h1>
-  {items.length === 0 ? (
-    <p class="text-muted">No activities yet.</p>
+<Layout title={title} description={description}>
+  <h1 class="font-display text-3xl mb-6">{title}</h1>
+  {sorted.length === 0 ? (
+    <p class="text-muted">No activities found.</p>
   ) : (
-    <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      {items.map(p => {
-        const slug = (p.slug ?? p.id).split('/').pop();
+    <ul class="grid gap-4 sm:grid-cols-2 md:grid-cols-3 p-0 m-0 list-none">
+      {sorted.map(a => {
+        const url = `/extras/activities/${a.slug}/`;
         return (
-          <li class="border border-fg/20 p-4">
-            <a class="font-semibold hover:text-neon" href={withBase(`activities/${slug}/`)}>{p.data.title}</a>
-            {p.data.difficulty && (
-              <div class="text-xs text-muted mt-2">
-                Difficulty: {p.data.difficulty}
-              </div>
-            )}
+          <li class="group border border-fg/15 rounded p-4 hover:border-neon transition-colors">
+            <a href={url} class="flex flex-col gap-2 h-full">
+              <span class="font-semibold group-hover:text-neon">{a.data.title}</span>
+              {a.data.excerpt && <span class="text-xs text-muted leading-snug">{a.data.excerpt}</span>}
+            </a>
           </li>
         );
       })}
