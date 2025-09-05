@@ -2,10 +2,8 @@
 import Layout from '../../../components/Layout.astro';
 import { getCollection } from 'astro:content';
 import StructuredData from '../../../components/StructuredData.astro';
-import { withBase } from '../../../lib/paths';
 import { canonical } from '../../../lib/urls';
 import { activityLD } from '../../../lib/schema';
-import { tagSlug } from '../../../lib/tags';
 
 export async function getStaticPaths() {
   const activities = await getCollection('activities');
@@ -18,7 +16,6 @@ const { Content } = await entry.render();
 const title = entry.data.title;
 const description = entry.data.excerpt || `Activity: ${title}.`;
 const difficulty = entry.data.difficulty;
-const tags: string[] = Array.isArray(entry.data.tags) ? entry.data.tags : [];
 const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 const ld = activityLD({ title, description, url: pageCanonical });
 ---
@@ -26,26 +23,11 @@ const ld = activityLD({ title, description, url: pageCanonical });
   <article class="prose prose-invert max-w-none">
     <h1 class="!mb-4 !leading-tight !text-fg font-display text-3xl md:text-4xl">{title}</h1>
     {difficulty && <p class="!mt-0"><strong>Difficulty:</strong> {difficulty}</p>}
-    {tags.length > 0 && (
-      <div class="flex flex-wrap gap-2 mb-6">
-        {tags.map(t => {
-          const slug = tagSlug(t);
-          return (
-            <a
-              href={withBase(`tags/${slug}/`)}
-              class="tag-pill"
-              aria-label={`Tag: ${t}`}
-            >{t}</a>
-          );
-        })}
-        <a href={withBase('tags/')} class="tag-pill" aria-label="Browse all tags">All Tags</a>
-      </div>
-    )}
     <Content />
   </article>
 
   <p class="mt-10">
-    <a class="hover:text-neon underline underline-offset-4" href={withBase('extras/activities/')}>← All Activities</a>
+    <a class="hover:text-neon underline underline-offset-4" href="/extras/activities/">← All Activities</a>
   </p>
 
   <StructuredData data={ld} />
