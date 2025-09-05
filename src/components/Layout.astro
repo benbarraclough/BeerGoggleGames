@@ -23,11 +23,10 @@ const {
 const current = Astro.url.pathname;
 
 // Active state logic:
-// - Home ('') is only active on the exact root path (not on every page).
-// - Others are active if the current path starts with their normalized segment.
+// - Home only active on exact root.
+// - Others active when current path starts with their segment.
 function isActive(segment: string) {
   if (segment === '') {
-    // Normalize both paths with a trailing slash for comparison.
     const cur = current.endsWith('/') ? current : current + '/';
     const root = withBase('');
     const rootNorm = root.endsWith('/') ? root : root + '/';
@@ -37,10 +36,12 @@ function isActive(segment: string) {
   return current.startsWith(withBase(norm));
 }
 
-type IconName = 'home' | 'games' | 'drinks' | 'extras' | 'about' | 'contact' | 'search';
+// Icons used in top nav
+type IconName = 'home' | 'games' | 'drinks' | 'extras' | 'search';
 
 function icon(name: IconName, size = 18) {
-  const baseSvg = `width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"`;
+  const baseSvg = `width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+    stroke-linecap="round" stroke-linejoin="round"`;
   switch (name) {
     case 'home':
       return `<svg ${baseSvg}><path d="M3 11.5 12 3l9 8.5M5 10v10h14V10"/></svg>`;
@@ -50,10 +51,6 @@ function icon(name: IconName, size = 18) {
       return `<svg ${baseSvg}><path d="M3 4h18l-8.5 8.5v5.5l3 2H8l3-2v-5.5L3 4Z"/><path d="M10 4l4 4"/></svg>`;
     case 'extras':
       return `<svg ${baseSvg}><path d="M12 3v4M12 17v4M7.05 7.05l2.83 2.83M14.12 14.12l2.83 2.83M3 12h4M17 12h4M7.05 16.95l2.83-2.83M14.12 9.88l2.83-2.83"/></svg>`;
-    case 'about':
-      return `<svg ${baseSvg}><circle cx="12" cy="12" r="9"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>`;
-    case 'contact':
-      return `<svg ${baseSvg}><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>`;
     case 'search':
       return `<svg ${baseSvg}><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg>`;
   }
@@ -71,8 +68,6 @@ const navLinks: NavLink[] = [
   { href: withBase('games/'),  label: 'Games',   key: 'games',   icon: 'games' },
   { href: withBase('drinks/'), label: 'Drinks',  key: 'drinks',  icon: 'drinks' },
   { href: withBase('extras/'), label: 'Extras',  key: 'extras',  icon: 'extras' },
-  { href: withBase('about'),   label: 'About',   key: 'about',   icon: 'about' },
-  { href: withBase('contact'), label: 'Contact', key: 'contact', icon: 'contact' },
   { href: withBase('search'),  label: 'Search',  key: 'search',  icon: 'search' }
 ];
 
@@ -103,9 +98,7 @@ const siteUrl = canonical || 'https://benbarraclough.github.io/BeerGoggleGames';
         '@type': 'Organization',
         name: 'Beer Goggle Games',
         url: siteUrl,
-        sameAs: [
-          'https://github.com/benbarraclough/BeerGoggleGames'
-        ]
+        sameAs: ['https://github.com/benbarraclough/BeerGoggleGames']
       })}
     </script>
   </head>
@@ -202,28 +195,9 @@ const siteUrl = canonical || 'https://benbarraclough.github.io/BeerGoggleGames';
       <slot />
     </main>
 
-    <!-- Enhanced Footer -->
+    <!-- Unified Footer (all content always visible, responsive grid) -->
     <footer class="border-t border-fg/20 mt-auto">
-      <!-- Mobile condensed footer -->
-      <div class="mx-auto max-w-7xl px-4 py-8 text-sm space-y-6 sm:hidden">
-        <div class="flex flex-wrap gap-4 text-xs uppercase tracking-wide text-fg/70">
-          <a href={withBase('games/')} class="hover:text-neon">Games</a>
-          <a href={withBase('drinks/')} class="hover:text-neon">Drinks</a>
-          <a href={withBase('extras/')} class="hover:text-neon">Extras</a>
-          <a href={withBase('blog/')} class="hover:text-neon">Blog</a>
-          <a href={withBase('about')} class="hover:text-neon">About</a>
-          <a href={withBase('contact')} class="hover:text-neon">Contact</a>
-        </div>
-        <p class="text-[11px] text-muted leading-relaxed">
-          © {year} Beer Goggle Games • Drink responsibly. Legal age only.
-        </p>
-        <p class="text-[11px] text-muted/80 leading-relaxed">
-          <a href={withBase('rss.xml')} class="hover:text-neon underline underline-offset-4">RSS</a>
-        </p>
-      </div>
-
-      <!-- Desktop / tablet full footer -->
-      <div class="hidden sm:grid mx-auto max-w-7xl px-4 py-10 gap-10 md:grid-cols-4 text-sm">
+      <div class="mx-auto max-w-7xl px-4 py-10 grid gap-10 sm:gap-12 sm:grid-cols-2 lg:grid-cols-4 text-sm">
         <div class="space-y-4">
           <h2 class="font-semibold text-fg/80 uppercase tracking-wide text-xs">Explore</h2>
           <ul class="space-y-1">
@@ -231,33 +205,34 @@ const siteUrl = canonical || 'https://benbarraclough.github.io/BeerGoggleGames';
             <li><a class="hover:text-neon" href={withBase('drinks/')}>Drinks</a></li>
             <li><a class="hover:text-neon" href={withBase('extras/')}>Extras</a></li>
             <li><a class="hover:text-neon" href={withBase('blog/')}>Blog</a></li>
+            <li><a class="hover:text-neon" href={withBase('about')}>About</a></li>
+            <li><a class="hover:text-neon" href={withBase('contact')}>Contact</a></li>
           </ul>
         </div>
 
         <div class="space-y-4">
           <h2 class="font-semibold text-fg/80 uppercase tracking-wide text-xs">Resources</h2>
           <ul class="space-y-1">
-            <li><a class="hover:text-neon" href={withBase('about')}>About</a></li>
-            <li><a class="hover:text-neon" href={withBase('contact')}>Contact</a></li>
             <li><a class="hover:text-neon" href={withBase('rss.xml')}>RSS Feed</a></li>
             <li><a class="hover:text-neon" href={withBase('sitemap.xml')}>Sitemap</a></li>
+            <li><a class="hover:text-neon" href={withBase('search')}>Search</a></li>
           </ul>
         </div>
 
         <div class="space-y-4">
           <h2 class="font-semibold text-fg/80 uppercase tracking-wide text-xs">Connect</h2>
           <ul class="space-y-1">
-            <li>
-              <a class="hover:text-neon" href="https://github.com/benbarraclough/BeerGoggleGames" rel="noopener" target="_blank">
-                GitHub
-              </a>
-            </li>
+            <li><a class="hover:text-neon" href="https://github.com/benbarraclough/BeerGoggleGames" rel="noopener" target="_blank">GitHub</a></li>
+            <!-- Add socials when available -->
           </ul>
           <form class="mt-4 space-y-2" data-newsletter>
             <label class="block text-xs uppercase tracking-wide text-fg/70" for="nl-email">Updates (coming soon)</label>
             <div class="flex gap-2">
-              <input id="nl-email" type="email" disabled placeholder="email@example.com" class="w-full rounded bg-fg/5 border border-fg/20 px-3 py-2 text-xs focus:outline-none focus:border-neon disabled:opacity-50" />
-              <button disabled class="px-3 py-2 rounded bg-fg/10 border border-fg/20 text-xs hover:border-neon hover:text-neon disabled:opacity-40">Join</button>
+              <input id="nl-email" type="email" disabled placeholder="email@example.com"
+                class="w-full rounded bg-fg/5 border border-fg/20 px-3 py-2 text-xs focus:outline-none focus:border-neon disabled:opacity-50" />
+              <button disabled class="px-3 py-2 rounded bg-fg/10 border border-fg/20 text-xs hover:border-neon hover:text-neon disabled:opacity-40">
+                Join
+              </button>
             </div>
           </form>
         </div>
@@ -274,7 +249,7 @@ const siteUrl = canonical || 'https://benbarraclough.github.io/BeerGoggleGames';
         </div>
       </div>
 
-      <div class="border-t border-fg/15 hidden sm:block">
+      <div class="border-t border-fg/15">
         <div class="mx-auto max-w-7xl px-4 py-4 text-[11px] flex flex-col sm:flex-row gap-3 items-center justify-between text-muted">
           <div class="flex flex-wrap gap-4 items-center">
             <span>© {year} Beer Goggle Games</span>
