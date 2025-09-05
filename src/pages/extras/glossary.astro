@@ -1,0 +1,125 @@
+---
+import Layout from '../../components/Layout.astro';
+
+const title = 'Drinking Glossary';
+const description = 'Searchable list of common & niche drinking terms. Expand any item for a quick definition.';
+
+interface Term {
+  id: string;
+  name: string;
+  def: string;
+  keywords: string;
+}
+
+const terms: Term[] = [
+  { id:'beer-bong', name:'Beer Bong', def:'A funnel with a long tube used to rapidly consume whatever is poured in.', keywords:'beer bong funnel rapid chug' },
+  { id:'beer-jacket', name:'Beer Jacket', def:'The “invisible coat” of warmth you feel after lots of drinking.', keywords:'beer jacket warmth invisible coat cold' },
+  { id:'body-shot', name:'Body Shot', def:'Salt on a body part, lime in a partner’s mouth: lick salt, take shot, bite lime.', keywords:'body shot tequila salt lime partner' },
+  { id:'chaser', name:'Chaser', def:'A softer drink taken immediately after a harsh shot.', keywords:'chaser follow shot soften juice soda' },
+  { id:'chug', name:'Chug', def:'To drink rapidly without pausing; often chanted by onlookers.', keywords:'chug chugging fast drink rapid' },
+  { id:'double-parked', name:'Double Parked', def:'Holding or drinking two different drinks at the same time.', keywords:'double parked two drinks hands' },
+  { id:'fingers', name:'Fingers (Measurement)', def:'Measuring spirits by stacking horizontal finger widths at the glass base.', keywords:'fingers measurement spirits pour' },
+  { id:'flaming-shot', name:'Flaming Shot', def:'High‑proof shot set alight then consumed (risky; not advised).', keywords:'flaming shot fire high proof risk' },
+  { id:'ice-luge', name:'Ice Luge', def:'Alcohol runs down a carved ice channel into a mouth at the end.', keywords:'ice luge sculpture cold drinking channel' },
+  { id:'inverted-bong', name:'Inverted Bong', def:'Beer bong consumed while the drinker is upside down.', keywords:'inverted bong upside down funnel' },
+  { id:'keg-stand', name:'Keg Stand', def:'Being held upside down on a keg while drinking from the tap.', keywords:'keg stand upside down tap hold' },
+  { id:'minesweeping', name:'Minesweeping', def:'Taking an unattended (often partially full) drink and claiming it.', keywords:'minesweeping stealing unattended drink' },
+  { id:'penguin-feed', name:'Penguin Feed', def:'Pouring alcohol mouth‑to‑mouth, sometimes removing the cup.', keywords:'penguin feed mouth to mouth pour' },
+  { id:'pre-drinking', name:'Pre‑Drinking / Pre‑Gaming', def:'Drinking before the main event to reach a buzz sooner and save money/time.', keywords:'pre drinking pre gaming pregaming warmup' },
+  { id:'shotgun', name:'Shotgun', def:'Pierce low side of can, mouth over hole, open top, and chug.', keywords:'shotgun can pierce chug fast' },
+  { id:'strawpedo', name:'Strawpedo', def:'Chugging a bottle with a straw to let in air and prevent vacuum.', keywords:'strawpedo straw chug bottle vacuum' },
+  { id:'suicide-shot', name:'Suicide Shot', def:'Snort salt, lime in eye, then shot. Extremely unsafe—avoid.', keywords:'suicide shot dangerous salt lime eye' },
+  { id:'yard', name:'Yard', def:'A yard‑long glass (bulb base) holding roughly 2–3 pints.', keywords:'yard glass long bulb pints' }
+];
+---
+<Layout title={title} description={description}>
+  <header class="mb-8">
+    <h1 class="font-display text-3xl md:text-4xl mb-3">{title}</h1>
+    <p class="text-muted max-w-prose">{description}</p>
+  </header>
+
+  <div class="my-6 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+    <div class="flex flex-col gap-2">
+      <label class="text-xs uppercase tracking-wide text-muted font-medium">
+        Search
+        <input
+          id="glossary-search"
+          type="search"
+          placeholder="Find a term..."
+          class="mt-1 w-72 max-w-[80vw] rounded border border-fg/25 bg-fg/5 px-3 py-2 text-sm focus:border-neon outline-none"
+          autocomplete="off"
+        />
+      </label>
+      <button id="glossary-clear" class="hidden self-start text-[11px] underline underline-offset-4 hover:text-neon">Clear</button>
+    </div>
+    <p class="text-[11px] text-muted max-w-sm leading-relaxed">
+      Want a new term added? Suggest it via the Contact page.
+    </p>
+  </div>
+
+  <section id="glossary-list" class="space-y-3">
+    {terms.map(t => (
+      <details
+        id={t.id}
+        class="group rounded border border-fg/15 p-4 open:border-neon transition-colors"
+        data-term={(t.name + ' ' + t.keywords).toLowerCase()}
+      >
+        <summary class="cursor-pointer font-semibold flex justify-between items-center">
+          <span>{t.name}</span>
+          <span class="text-xs text-muted group-open:text-neon">Definition</span>
+        </summary>
+        <p class="mt-3 text-sm text-muted leading-relaxed">{t.def}</p>
+      </details>
+    ))}
+  </section>
+
+  <p id="glossary-empty" class="hidden italic text-muted mt-8">No terms match your search.</p>
+
+  <hr class="my-10 border-fg/15" />
+
+  <section class="space-y-4">
+    <h2 class="text-xl font-display">Share</h2>
+    <ul class="list-none p-0 m-0 text-sm space-y-1">
+      <li><a class="hover:text-neon underline underline-offset-4" href="https://www.facebook.com/sharer/sharer.php?u=https://beergogglegames.co.uk/extras/glossary/" rel="noopener" target="_blank">Facebook</a></li>
+      <li><a class="hover:text-neon underline underline-offset-4" href="https://twitter.com/intent/tweet?url=https://beergogglegames.co.uk/extras/glossary/" rel="noopener" target="_blank">X / Twitter</a></li>
+    </ul>
+  </section>
+
+  <section class="mt-10">
+    <h2 class="text-xl font-display mb-2">Feedback</h2>
+    <p class="text-sm text-muted mb-3">Missing a term or spot an error?</p>
+    <a class="text-xs tracking-wide font-medium uppercase text-neon/80 hover:text-neon underline underline-offset-4" href="/contact/">Contact Us →</a>
+  </section>
+
+  <script is:inline>
+    (() => {
+      const input = document.getElementById('glossary-search');
+      const clear = document.getElementById('glossary-clear');
+      const empty = document.getElementById('glossary-empty');
+      const items = Array.from(document.querySelectorAll('#glossary-list details'));
+      if (!input) return;
+
+      function apply() {
+        const q = input.value.trim().toLowerCase();
+        let visible = 0;
+        items.forEach(d => {
+          const term = d.getAttribute('data-term') || '';
+          const match = !q || term.includes(q);
+          d.classList.toggle('hidden', !match);
+          if (match) visible++;
+        });
+        empty.classList.toggle('hidden', visible !== 0);
+        clear.classList.toggle('hidden', q.length === 0);
+      }
+
+      input.addEventListener('input', apply);
+      clear?.addEventListener('click', () => {
+        input.value = '';
+        apply();
+        input.focus();
+      });
+
+      apply();
+    })();
+  </script>
+</Layout>
