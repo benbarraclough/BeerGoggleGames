@@ -6,70 +6,94 @@ import { withBase } from '../lib/paths';
 import { canonical } from '../lib/urls';
 import CardLink from '../components/CardLink.astro';
 
-const allGames = excludeLegacyNoise(await getCollection('games'));
-const recentGames = allGames.slice(0, 12); // more items for carousel
+const games = excludeLegacyNoise(await getCollection('games'));
+const recentGames = games.slice(0, 12);
+
+// Use unified 'drinks' collection so the carousel actually has content
+const drinksEntries = excludeLegacyNoise(await getCollection('drinks'));
+const popularDrinks = drinksEntries.slice(0, 12);
 
 const posts = excludeLegacyNoise(await getCollection('posts'))
   .filter(p => !p.data.draft)
   .sort((a,b) => (b.data.date || '').localeCompare(a.data.date || ''))
   .slice(0, 6);
 
-const cocktails = excludeLegacyNoise(await getCollection('cocktails')).slice(0,8);
-const shots = excludeLegacyNoise(await getCollection('shots')).slice(0,8);
-
 const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 ---
 <Layout title="BeerGoggleGames" description="Drinking games, cocktails & shots, forfeits, glossary and wheel tools." canonical={pageCanonical} wide={true}>
-  <!-- HERO -->
-  <section class="relative overflow-hidden rounded-lg border border-fg/15 mb-12 bg-gradient-to-br from-fg/5 via-fg/0 to-neon/10">
+  <!-- SCROLLING BANNER just under nav -->
+  <section aria-label="Updates" class="border-b border-fg/15 mb-6 bg-fg/5/10">
+    <div class="marquee py-2 text-[12px] text-muted">
+      <div class="marquee-track">
+        <span class="mx-6">New: Animated Wheel of Fortune</span>
+        <span class="mx-6">Try a Random Game →</span>
+        <span class="mx-6">Extras: Dice Roll & Coin Flip</span>
+        <span class="mx-6">Browse all Drinks & Bases</span>
+        <span class="mx-6">Search across Games & Drinks</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- HERO: image left, text right on desktop; on mobile image sits on top, shorter height -->
+  <section class="relative overflow-hidden rounded-lg border border-fg/15 mb-10 bg-gradient-to-br from-fg/5 via-fg/0 to-neon/10">
     <div class="absolute inset-0 pointer-events-none opacity-40 mix-blend-overlay radial-fade"></div>
-    <div class="relative px-6 py-14 md:py-20 flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
-      <div class="max-w-xl space-y-5">
-        <h1 class="font-display text-4xl md:text-5xl leading-tight tracking-tight">Party Faster. Play Smarter.</h1>
-        <p class="text-muted text-lg leading-relaxed">
-          Discover streamlined drinking games, curated cocktails & shots, creative forfeits
-          and quick decision tools. Minimal fluff. Maximum fun.
+    <div class="relative px-4 sm:px-6 py-8 md:py-10 grid md:grid-cols-2 gap-6 md:gap-8 items-center">
+      <!-- Image area (on mobile it appears first/top) -->
+      <div>
+        <picture>
+          <img
+            src={withBase('images/hero.webp')}
+            alt="Party tools and games"
+            class="w-full rounded-md border border-fg/15 bg-fg/5 object-cover aspect-[4/3]"
+            onerror="this.closest('picture').outerHTML='<div class=&quot;aspect-[4/3] rounded-md border border-fg/15 bg-fg/5 flex items-center justify-center text-muted&quot;><span class=&quot;text-xs&quot;>Add hero image at images/hero.webp</span></div>'"
+            loading="lazy"
+            decoding="async"
+          />
+        </picture>
+      </div>
+      <div class="space-y-4">
+        <h1 class="font-display text-3xl md:text-4xl leading-tight tracking-tight">Party Faster. Play Smarter.</h1>
+        <p class="text-muted leading-relaxed">
+          Streamlined drinking games, curated cocktails & shots, creative forfeits and quick decision tools.
         </p>
         <div class="flex flex-wrap gap-3">
-          <a href={withBase('games/')} class="px-5 py-3 rounded border border-fg/25 bg-fg/10 hover:border-neon hover:text-neon text-sm font-medium tracking-wide">
+          <a href={withBase('games/')} class="px-5 py-2.5 rounded border border-fg/25 bg-fg/10 hover:border-neon hover:text-neon text-sm font-medium tracking-wide">
             Browse Games
           </a>
-          <a href={withBase('extras/wheel-of-fortune/')} class="px-5 py-3 rounded border border-neon/40 text-neon hover:bg-neon/10 text-sm font-medium tracking-wide">
+          <a href={withBase('extras/wheel-of-fortune/')} class="px-5 py-2.5 rounded border border-neon/40 text-neon hover:bg-neon/10 text-sm font-medium tracking-wide">
             Spin a Wheel →
           </a>
-        </div>
-      </div>
-      <!-- Image area (drop in an image later) -->
-      <div class="w-full max-w-md">
-        <div class="aspect-[4/3] rounded-md border border-fg/20 bg-gradient-to-br from-fg/10 to-fg/5 flex items-center justify-center text-muted">
-          <span class="text-xs">Add hero image here (4:3)</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- QUICK ACCESS -->
-  <section class="mb-14">
-    <h2 class="font-display text-2xl mb-5">Quick Access</h2>
-    <ul class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4 list-none p-0 m-0">
-      {[
-        { label: 'Random Game', href: withBase('games/random'), desc: 'Let fate decide your next play.' },
-        { label: 'Forfeits', href: withBase('extras/forfeits'), desc: 'Creative penalties & challenges.' },
-        { label: 'Glossary', href: withBase('extras/glossary'), desc: 'Decode the drinking jargon.' },
-        { label: 'Wheel Tool', href: withBase('extras/wheel-of-fortune'), desc: 'Spin categories & games.' }
-      ].map(i => (
-        <li class="group border border-fg/15 rounded-lg p-5 hover:border-neon transition-colors bg-fg/5/10">
-          <a href={i.href} class="flex flex-col gap-2 h-full focus:outline-none focus:ring-2 focus:ring-neon rounded">
-            <span class="font-semibold group-hover:text-neon">{i.label}</span>
-            <span class="text-xs text-muted leading-snug">{i.desc}</span>
-          </a>
-        </li>
-      ))}
-    </ul>
+  <!-- QUICK ACCESS + RANDOM BUTTONS -->
+  <section class="mb-10">
+    <div class="grid gap-5 md:grid-cols-3">
+      <div class="group border border-fg/15 rounded-lg p-5 hover:border-neon transition-colors bg-fg/5/10">
+        <a href={withBase('games/random')} class="flex flex-col gap-2 h-full focus:outline-none focus:ring-2 focus:ring-neon rounded">
+          <span class="font-semibold group-hover:text-neon">Random Game</span>
+          <span class="text-xs text-muted leading-snug">Let fate decide your next play.</span>
+        </a>
+      </div>
+      <div class="group border border-fg/15 rounded-lg p-5 hover:border-neon transition-colors bg-fg/5/10">
+        <a href={withBase('drinks/random')} class="flex flex-col gap-2 h-full focus:outline-none focus:ring-2 focus:ring-neon rounded">
+          <span class="font-semibold group-hover:text-neon">Random Drink</span>
+          <span class="text-xs text-muted leading-snug">Jump to a surprise drink recipe.</span>
+        </a>
+      </div>
+      <div class="group border border-fg/15 rounded-lg p-5 hover:border-neon transition-colors bg-fg/5/10">
+        <a href={withBase('extras/')} class="flex flex-col gap-2 h-full focus:outline-none focus:ring-2 focus:ring-neon rounded">
+          <span class="font-semibold group-hover:text-neon">All Extras</span>
+          <span class="text-xs text-muted leading-snug">Wheel tool, forfeits, glossary, dice & coin.</span>
+        </a>
+      </div>
+    </div>
   </section>
 
   <!-- CAROUSEL: Latest Games -->
-  <section class="mb-14">
+  <section class="mb-12">
     <header class="flex items-center justify-between mb-3">
       <h2 class="font-display text-2xl">Latest Games</h2>
       <div class="flex gap-2">
@@ -81,16 +105,24 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       {recentGames.map(g => {
         const slug = (g.slug ?? g.id).split('/').pop();
         const href = withBase(`games/${slug}/`);
+        const img = withBase(`images/${slug}.webp`);
         return (
-          <div class="carousel-item">
-            <div class="aspect-video rounded-md border border-fg/15 bg-fg/5 mb-2 flex items-center justify-center text-muted">
-              <span class="text-[10px]">Add image: images/{slug}.webp</span>
-            </div>
-            <CardLink href={href} ariaLabel={`View game: ${g.data.title}`} as="div">
+          <div class="carousel-item border border-fg/15 rounded-md p-3 bg-fg/5/10">
+            <picture>
+              <img
+                src={img}
+                alt={g.data.title}
+                class="w-full rounded border border-fg/15 bg-fg/5 object-cover aspect-video mb-2"
+                loading="lazy"
+                decoding="async"
+                onerror="this.style.display='none'"
+              />
+            </picture>
+            <CardLink href={href} ariaLabel={`View game: ${g.data.title}`} as="div" noPadding anchorClass="p-0">
               <span class="font-semibold leading-snug transition-colors group-hover:text-neon">
                 {g.data.title}
               </span>
-              {g.data.excerpt && <span class="mt-2 text-[11px] text-muted line-clamp-3">{g.data.excerpt}</span>}
+              {g.data.excerpt && <span class="mt-1 text-[11px] text-muted line-clamp-3">{g.data.excerpt}</span>}
             </CardLink>
           </div>
         );
@@ -101,8 +133,8 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
     </p>
   </section>
 
-  <!-- CAROUSEL: Drinks -->
-  <section class="mb-14">
+  <!-- CAROUSEL: Popular Drinks (now populated from unified 'drinks') -->
+  <section class="mb-12">
     <header class="flex items-center justify-between mb-3">
       <h2 class="font-display text-2xl">Popular Drinks</h2>
       <div class="flex gap-2">
@@ -111,16 +143,25 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       </div>
     </header>
     <div id="drinks-carousel" class="carousel">
-      {[...cocktails, ...shots].map(d => {
+      {popularDrinks.map(d => {
         const slug = (d.slug ?? d.id).split('/').pop();
         const href = withBase(`drinks/${slug}/`);
+        const img = withBase(`images/${slug}.webp`);
         return (
-          <div class="carousel-item">
-            <div class="aspect-video rounded-md border border-fg/15 bg-fg/5 mb-2 flex items-center justify-center text-muted">
-              <span class="text-[10px]">Add image: images/{slug}.webp</span>
-            </div>
-            <CardLink href={href} ariaLabel={`View drink: ${d.data.title}`} as="div">
+          <div class="carousel-item border border-fg/15 rounded-md p-3 bg-fg/5/10">
+            <picture>
+              <img
+                src={img}
+                alt={d.data.title}
+                class="w-full rounded border border-fg/15 bg-fg/5 object-cover aspect-video mb-2"
+                loading="lazy"
+                decoding="async"
+                onerror="this.style.display='none'"
+              />
+            </picture>
+            <CardLink href={href} ariaLabel={`View drink: ${d.data.title}`} as="div" noPadding anchorClass="p-0">
               <span class="font-medium transition-colors group-hover:text-neon">{d.data.title}</span>
+              {d.data.excerpt && <span class="mt-1 text-[11px] text-muted line-clamp-3">{d.data.excerpt}</span>}
             </CardLink>
           </div>
         );
@@ -141,20 +182,17 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       <div id="blog-carousel" class="carousel">
         {posts.map(p => {
           const slug = (p.slug ?? p.id).split('/').pop();
+          const href = withBase(`extras/blog/${slug}/`);
           return (
-            <div class="carousel-item">
+            <div class="carousel-item border border-fg/15 rounded-md p-3 bg-fg/5/10">
               <div class="aspect-[4/3] rounded-md border border-fg/15 bg-fg/5 mb-2 flex items-center justify-center text-muted">
                 <span class="text-[10px]">Add blog image (optional)</span>
               </div>
-              <CardLink href={withBase(`extras/blog/${slug}/`)} ariaLabel={`Read post: ${p.data.title}`} as="div">
+              <CardLink href={href} ariaLabel={`Read post: ${p.data.title}`} as="div" noPadding anchorClass="p-0">
                 <span class="font-semibold leading-snug transition-colors group-hover:text-neon">
                   {p.data.title}
                 </span>
-                {p.data.excerpt && (
-                  <span class="mt-2 text-xs text-muted line-clamp-3">
-                    {p.data.excerpt}
-                  </span>
-                )}
+                {p.data.excerpt && <span class="mt-1 text-xs text-muted line-clamp-3">{p.data.excerpt}</span>}
               </CardLink>
             </div>
           );
@@ -169,6 +207,16 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         radial-gradient(circle at 20% 30%, rgba(var(--neon-rgb,255,0,128),0.25), transparent 60%),
         radial-gradient(circle at 80% 70%, rgba(var(--neon-rgb,255,0,128),0.18), transparent 65%);
     }
+    /* marquee */
+    .marquee { overflow: hidden; position: relative; }
+    .marquee-track { display: inline-block; white-space: nowrap; will-change: transform; animation: marquee 20s linear infinite; }
+    .marquee:hover .marquee-track { animation-play-state: paused; }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* simple carousels */
     .carousel {
       display: grid;
       grid-auto-flow: column;
@@ -183,10 +231,8 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
     @media (min-width: 1024px) { .carousel { grid-auto-columns: 30%; } }
     .carousel::-webkit-scrollbar { height: 8px; }
     .carousel::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 6px; }
-    .carousel-item { scroll-snap-align: start; }
-    .carousel-btn {
-      @apply border border-fg/25 px-2 py-1 rounded text-sm hover:border-neon hover:text-neon;
-    }
+    .carousel-item { scroll-snap-align: start; background: transparent; }
+    .carousel-btn { @apply border border-fg/25 px-2 py-1 rounded text-sm hover:border-neon hover:text-neon; }
   </style>
 
   <script is:inline>
