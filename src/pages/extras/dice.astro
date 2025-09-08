@@ -1,0 +1,103 @@
+---
+import Layout from '../../components/Layout.astro';
+import ShareButtons from '../../components/game/ShareButtons.astro';
+import FeedbackCard from '../../components/game/FeedbackCard.astro';
+
+const title = 'Dice Roller';
+const description = 'Roll an on-screen dice with a satisfying animation.';
+---
+<Layout title={title} description={description}>
+  <header class="mb-8">
+    <h1 class="font-display text-3xl md:text-4xl mb-2">{title}</h1>
+    <p class="text-muted">{description}</p>
+  </header>
+
+  <section class="rounded border border-fg/15 p-6 bg-fg/5/10 max-w-md">
+    <div class="relative mx-auto w-full max-w-[280px] aspect-square">
+      <canvas id="dice" class="w-full h-full rounded-md border border-fg/15 bg-bg"></canvas>
+    </div>
+    <div class="mt-4 flex gap-3 items-center">
+      <button id="roll-dice" type="button" class="px-4 py-2 rounded border border-fg/25 bg-fg/10 hover:border-neon hover:text-neon text-sm font-medium">
+        Roll
+      </button>
+      <div id="dice-result" class="min-h-[1.75rem] text-neon font-semibold"></div>
+    </div>
+  </section>
+
+  <ShareButtons title={title} />
+  <FeedbackCard>
+    <p>Want multiple dice or modifiers? Tell us what you need.</p>
+  </FeedbackCard>
+
+  <script is:inline>
+    (() => {
+      const canvas = document.getElementById('dice');
+      const ctx = canvas.getContext('2d');
+      const DPR = Math.max(1, window.devicePixelRatio || 1);
+      function resize() {
+        const bb = canvas.getBoundingClientRect();
+        canvas.width = Math.floor(bb.width * DPR);
+        canvas.height = Math.floor(bb.height * DPR);
+        drawFace(1);
+      }
+      window.addEventListener('resize', resize, { passive:true });
+      resize();
+
+      function drawPip(x, y, r) {
+        ctx.beginPath();
+        ctx.arc(x, y, r, 0, Math.PI*2);
+        ctx.fillStyle = '#fff';
+        ctx.fill();
+      }
+
+      function drawFace(n) {
+        const w = canvas.width, h = canvas.height;
+        ctx.clearRect(0,0,w,h);
+        const s = Math.min(w,h) * 0.8;
+        const left = (w - s)/2, top = (h - s)/2, r = s/10;
+
+        // die body
+        ctx.fillStyle = 'rgba(255,255,255,0.05)';
+        ctx.strokeStyle = 'rgba(255,255,255,0.2)';
+        ctx.lineWidth = Math.max(2, s/60);
+        ctx.beginPath();
+        ctx.roundRect(left, top, s, s, s/12);
+        ctx.fill(); ctx.stroke();
+
+        // pip grid
+        const cx = left + s/2, cy = top + s/2;
+        const off = s/4;
+
+        const positions = {
+          1: [[cx, cy]],
+          2: [[cx-off, cy-off],[cx+off, cy+off]],
+          3: [[cx-off, cy-off],[cx, cy],[cx+off, cy+off]],
+          4: [[cx-off, cy-off],[cx+off, cy-off],[cx-off, cy+off],[cx+off, cy+off]],
+          5: [[cx-off, cy-off],[cx+off, cy-off],[cx, cy],[cx-off, cy+off],[cx+off, cy+off]],
+          6: [[cx-off, cy-off],[cx+off, cy-off],[cx-off, cy],[cx+off, cy],[cx-off, cy+off],[cx+off, cy+off]],
+        }[n];
+
+        positions.forEach(([x,y]) => drawPip(x,y, r*0.8));
+      }
+
+      const result = document.getElementById('dice-result');
+      const btn = document.getElementById('roll-dice');
+
+      function roll() {
+        const spins = 18 + Math.floor(Math.random()*8);
+        let frame = 0;
+        const timer = setInterval(() => {
+          const val = 1 + Math.floor(Math.random()*6);
+          drawFace(val);
+          frame++;
+          if (frame >= spins) {
+            clearInterval(timer);
+            result.textContent = 'Result: ' + val;
+          }
+        }, 50);
+      }
+
+      btn?.addEventListener('click', roll);
+    })();
+  </script>
+</Layout>
