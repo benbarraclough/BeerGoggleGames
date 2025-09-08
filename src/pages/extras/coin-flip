@@ -1,0 +1,100 @@
+---
+import Layout from '../../components/Layout.astro';
+import ShareButtons from '../../components/game/ShareButtons.astro';
+import FeedbackCard from '../../components/game/FeedbackCard.astro';
+
+const title = 'Coin Flip';
+const description = 'Flip an on-screen coin with a simple animation.';
+---
+<Layout title={title} description={description}>
+  <header class="mb-8">
+    <h1 class="font-display text-3xl md:text-4xl mb-2">{title}</h1>
+    <p class="text-muted">{description}</p>
+  </header>
+
+  <section class="rounded border border-fg/15 p-6 bg-fg/5/10 max-w-md">
+    <div class="relative mx-auto w-full max-w-[280px] aspect-square">
+      <canvas id="coin" class="w-full h-full rounded-md border border-fg/15 bg-bg"></canvas>
+    </div>
+    <div class="mt-4 flex gap-3 items-center">
+      <button id="flip-coin" type="button" class="px-4 py-2 rounded border border-fg/25 bg-fg/10 hover:border-neon hover:text-neon text-sm font-medium">
+        Flip
+      </button>
+      <div id="coin-result" class="min-h-[1.75rem] text-neon font-semibold"></div>
+    </div>
+  </section>
+
+  <ShareButtons title={title} />
+  <FeedbackCard>
+    <p>Want multiple flips, streaks or weighted odds? Let us know.</p>
+  </FeedbackCard>
+
+  <script is:inline>
+    (() => {
+      const canvas = document.getElementById('coin');
+      const ctx = canvas.getContext('2d');
+      const DPR = Math.max(1, window.devicePixelRatio || 1);
+      function resize() {
+        const bb = canvas.getBoundingClientRect();
+        canvas.width = Math.floor(bb.width * DPR);
+        canvas.height = Math.floor(bb.height * DPR);
+        drawCoin('H');
+      }
+      window.addEventListener('resize', resize, { passive:true });
+      resize();
+
+      function drawCoin(faceChar, tilt=0) {
+        const w = canvas.width, h = canvas.height;
+        ctx.clearRect(0,0,w,h);
+        const r = Math.min(w,h)*0.35;
+        const cx = w/2, cy = h/2;
+
+        // coin body
+        const grad = ctx.createRadialGradient(cx-r*0.4, cy-r*0.4, r*0.1, cx, cy, r);
+        grad.addColorStop(0, 'rgba(255,255,255,0.25)');
+        grad.addColorStop(1, 'rgba(255,255,255,0.05)');
+        ctx.fillStyle = grad;
+        ctx.beginPath();
+        ctx.ellipse(cx, cy, r, r*(1-tilt*0.7), 0, 0, Math.PI*2);
+        ctx.fill();
+        ctx.strokeStyle = 'rgba(255,255,255,0.2)';
+        ctx.lineWidth = Math.max(2, r/12);
+        ctx.stroke();
+
+        // face text
+        ctx.fillStyle = '#fff';
+        ctx.font = `${Math.max(16, r*0.9)}px system-ui, sans-serif`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.globalAlpha = Math.max(0, 1 - tilt*1.2);
+        ctx.fillText(faceChar, cx, cy);
+        ctx.globalAlpha = 1;
+      }
+
+      const result = document.getElementById('coin-result');
+      const btn = document.getElementById('flip-coin');
+
+      function flip() {
+        const spins = 20 + Math.floor(Math.random()*10);
+        let frame = 0;
+        const start = performance.now();
+
+        const timer = setInterval(() => {
+          const t = (performance.now() - start)/500;
+          const tilt = Math.abs(Math.sin(t)); // 0..1
+          const showH = Math.random() < 0.5;
+          drawCoin(showH ? 'H' : 'T', tilt);
+          frame++;
+          if (frame >= spins) {
+            clearInterval(timer);
+            const final = Math.random() < 0.5 ? 'Heads' : 'Tails';
+            drawCoin(final.startsWith('H') ? 'H' : 'T', 0);
+            result.textContent = 'Result: ' + final;
+          }
+        }, 40);
+      }
+
+      btn?.addEventListener('click', flip);
+    })();
+  </script>
+</Layout>
