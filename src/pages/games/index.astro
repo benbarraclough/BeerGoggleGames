@@ -33,7 +33,6 @@ const allGames = raw
 const categoryCounts = new Map<string, number>();
 const modeCounts = new Map<string, { count: number; label: string }>();
 const tagCounts = new Map<string, number>();
-
 for (const g of allGames) {
   categoryCounts.set(g.type, (categoryCounts.get(g.type) || 0) + 1);
   if (g.modeSlug && g.rawMode) {
@@ -41,11 +40,8 @@ for (const g of allGames) {
     if (prev) prev.count += 1;
     else modeCounts.set(g.modeSlug, { count: 1, label: playerModeLabel(g.rawMode) });
   }
-  for (const t of g.tags) {
-    tagCounts.set(t, (tagCounts.get(t) || 0) + 1);
-  }
+  for (const t of g.tags) tagCounts.set(t, (tagCounts.get(t) || 0) + 1);
 }
-
 const categories = Array.from(categoryCounts.entries()).sort((a,b)=> a[0].localeCompare(b[0]));
 const modes = Array.from(modeCounts.entries()).sort((a,b)=> a[1].label.localeCompare(b[1].label));
 const tags = Array.from(tagCounts.entries()).sort((a,b)=> a[0].localeCompare(b[0]));
@@ -67,7 +63,6 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
   <!-- Search + Filters row on desktop, stacked on mobile -->
   <div id="filter-bar" class="mb-6">
     <div class="flex flex-col gap-3 md:flex-row md:flex-wrap md:items-end">
-      <!-- Search -->
       <div class="flex items-end gap-2 md:mr-4">
         <label class="text-xs uppercase tracking-wide text-muted font-medium flex flex-col gap-1">
           Search
@@ -83,7 +78,6 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         <span id="search-hits" class="text-[11px] text-muted mb-2"></span>
       </div>
 
-      <!-- Filters (below on mobile, inline on md+) -->
       <div class="flex flex-wrap gap-2 items-center">
         <span class="text-[11px] uppercase tracking-wide text-muted/70">Filters</span>
 
@@ -178,8 +172,30 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
                 <div class="flex flex-wrap gap-2 text-[10px] uppercase tracking-wide font-semibold relative z-10">
                   <span class="pill pill-cat allow-pointer">{g.type}</span>
                   {g.modeSlug && <span class="pill pill-mode allow-pointer">{playerModeLabel(g.rawMode!)}</span>}
-                  {g.tags.slice(0,3).map(t => <span class="pill pill-tag allow-pointer">{t}</span>)}
-                  {g.tags.length > 3 && <span class="pill pill-tag allow-pointer">+{g.tags.length - 3}</span>}
+                  {g.tags.length > 0 && (
+                    <div class="relative group/tag inline-block allow-pointer">
+                      <button
+                        type="button"
+                        class="pill pill-tag allow-pointer"
+                        data-tag-trigger
+                        data-open="false"
+                        aria-expanded="false"
+                        aria-controls={tagPopoverId}
+                        title={`View tags (${g.tags.join(', ')})`}
+                      >
+                        {g.tags.length} tag{g.tags.length !== 1 && 's'}
+                      </button>
+                      <div
+                        id={tagPopoverId}
+                        class="tags-popover hidden absolute left-0 top-full mt-1 z-50 p-2 rounded-md border border-pink-400/30 bg-bg/95 backdrop-blur shadow-lg flex flex-wrap gap-2 min-w-[6rem] allow-pointer"
+                        role="group"
+                        aria-label={`${g.title} tags`}
+                        data-tags-popover
+                      >
+                        {g.tags.map(t => <span class="pill pill-tag allow-pointer">{t}</span>)}
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -220,6 +236,10 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 
     #result-count { @apply text-muted; }
 
+    .group\/tag:hover > .tags-popover,
+    .group\/tag:focus-within > .tags-popover { display:flex; }
+    .pill[data-open="true"] + .tags-popover { display:flex; }
+
     .card-body { pointer-events:none; }
     .card-body .allow-pointer,
     .card-body button,
@@ -230,36 +250,55 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 
   <script is:inline>
     (() => {
+      // Search
       const input = document.getElementById('game-search');
       const clear = document.getElementById('game-search-clear');
       const grid = document.getElementById('game-grid');
       const hitsEl = document.getElementById('search-hits');
-      if(!input || !grid) return;
-      const items = Array.from(grid.children);
-
-      function applySearch() {
-        const q = input.value.trim().toLowerCase();
-        let hits = 0;
-        items.forEach(li => {
-          const title = li.getAttribute('data-title') || '';
-          const tags = li.getAttribute('data-tags') || '';
-          const type = li.getAttribute('data-type') || '';
-          const match = !q || title.includes(q) || tags.includes(q) || type.includes(q);
-          li.dataset.searchVisible = match ? 'true' : 'false';
-        });
-        items.forEach(li => {
-          const hiddenByFilters = li.classList.contains('hidden');
-          const visibleBySearch = li.dataset.searchVisible === 'true';
-          li.style.display = (hiddenByFilters || !visibleBySearch) ? 'none' : '';
-          if(!hiddenByFilters && visibleBySearch) hits++;
-        });
-        clear.classList.toggle('hidden', q.length === 0);
-        if (hitsEl) hitsEl.textContent = q ? `${hits} match${hits===1?'':'es'}` : '';
+      if(input && grid){
+        const items = Array.from(grid.children);
+        function applySearch() {
+          const q = input.value.trim().toLowerCase();
+          let hits = 0;
+          items.forEach(li => {
+            const title = li.getAttribute('data-title') || '';
+            const tags = li.getAttribute('data-tags') || '';
+            const type = li.getAttribute('data-type') || '';
+            const match = !q || title.includes(q) || tags.includes(q) || type.includes(q);
+            li.dataset.searchVisible = match ? 'true' : 'false';
+          });
+          items.forEach(li => {
+            const hiddenByFilters = li.classList.contains('hidden');
+            const visibleBySearch = li.dataset.searchVisible === 'true';
+            li.style.display = (hiddenByFilters || !visibleBySearch) ? 'none' : '';
+            if(!hiddenByFilters && visibleBySearch) hits++;
+          });
+          clear.classList.toggle('hidden', q.length === 0);
+          if (hitsEl) hitsEl.textContent = q ? `${hits} match${hits===1?'':'es'}` : '';
+        }
+        input.addEventListener('input', applySearch);
+        clear.addEventListener('click', () => { input.value=''; applySearch(); input.focus(); });
+        applySearch();
       }
 
-      input.addEventListener('input', applySearch);
-      clear.addEventListener('click', () => { input.value=''; applySearch(); input.focus(); });
-      applySearch();
+      // Tag popover toggle (mobile)
+      document.querySelectorAll('[data-tag-trigger]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          const open = btn.getAttribute('data-open') === 'true';
+          btn.setAttribute('data-open', open ? 'false' : 'true');
+          btn.setAttribute('aria-expanded', open ? 'false' : 'true');
+        });
+      });
+      // Close on outside click
+      document.addEventListener('click', (e) => {
+        document.querySelectorAll('[data-tag-trigger][data-open="true"]').forEach(btn => {
+          if (!btn.contains(e.target) && !btn.nextElementSibling?.contains(e.target)) {
+            btn.setAttribute('data-open','false');
+            btn.setAttribute('aria-expanded','false');
+          }
+        });
+      });
     })();
   </script>
 
