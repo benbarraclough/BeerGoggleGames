@@ -13,8 +13,10 @@ const description = 'Roll an on-screen dice with a satisfying animation.';
   </header>
 
   <section class="rounded border border-fg/15 p-6 bg-fg/5/10 max-w-md">
-    <div class="relative mx-auto w-full max-w-[280px] aspect-square">
+    <div class="relative mx-auto w-full max-w-[300px] aspect-square">
       <canvas id="dice" class="w-full h-full rounded-md border border-fg/15 bg-bg"></canvas>
+      <!-- glow -->
+      <div id="glow" class="pointer-events-none absolute inset-0 rounded-md mix-blend-screen opacity-0 transition-opacity duration-300"></div>
     </div>
     <div class="mt-4 flex gap-3 items-center">
       <button id="roll-dice" type="button" class="px-4 py-2 rounded border border-fg/25 bg-fg/10 hover:border-neon hover:text-neon text-sm font-medium">
@@ -26,75 +28,128 @@ const description = 'Roll an on-screen dice with a satisfying animation.';
 
   <ShareButtons title={title} />
   <FeedbackCard>
-    <p>Want multiple dice or modifiers? Tell us what you need.</p>
+    <p>Want multiple dice, totals or modifiers? Tell us what you need.</p>
   </FeedbackCard>
+
+  <style>
+    #glow { box-shadow: 0 0 80px 20px rgba(255, 0, 128, 0.22) inset, 0 0 60px 10px rgba(255,255,255,0.06) inset; }
+  </style>
 
   <script is:inline>
     (() => {
       const canvas = document.getElementById('dice');
       const ctx = canvas.getContext('2d');
       const DPR = Math.max(1, window.devicePixelRatio || 1);
+      const glow = document.getElementById('glow');
       function resize() {
         const bb = canvas.getBoundingClientRect();
         canvas.width = Math.floor(bb.width * DPR);
         canvas.height = Math.floor(bb.height * DPR);
-        drawFace(1);
+        drawFace(1, 0, 0);
       }
       window.addEventListener('resize', resize, { passive:true });
       resize();
 
-      function drawPip(x, y, r) {
+      function pip(x, y, r, alpha=1) {
+        ctx.save();
+        ctx.globalAlpha = alpha;
+        // inner glow pip
+        const g = ctx.createRadialGradient(x-r*0.3, y-r*0.3, r*0.2, x, y, r);
+        g.addColorStop(0, 'rgba(255,255,255,0.95)');
+        g.addColorStop(1, 'rgba(255,255,255,0.2)');
+        ctx.fillStyle = g;
         ctx.beginPath();
         ctx.arc(x, y, r, 0, Math.PI*2);
-        ctx.fillStyle = '#fff';
         ctx.fill();
+        ctx.restore();
       }
 
-      function drawFace(n) {
+      function drawFace(n, tilt=0, rot=0) {
         const w = canvas.width, h = canvas.height;
         ctx.clearRect(0,0,w,h);
-        const s = Math.min(w,h) * 0.8;
-        const left = (w - s)/2, top = (h - s)/2, r = s/10;
+        const s = Math.min(w,h) * 0.78;
+        const cx = w/2, cy = h/2;
 
-        // die body
-        ctx.fillStyle = 'rgba(255,255,255,0.05)';
-        ctx.strokeStyle = 'rgba(255,255,255,0.2)';
+        ctx.save();
+        ctx.translate(cx, cy);
+        ctx.rotate(rot);
+        const skew = tilt*0.35;
+        ctx.transform(1, 0, skew, 1, 0, 0); // simple 3D-ish skew
+
+        const left = -s/2, top = -s/2, r = s/9;
+
+        // shadow
+        ctx.save();
+        ctx.resetTransform?.();
+        ctx.translate(cx, cy + s*0.42);
+        ctx.scale(1, 0.25);
+        ctx.beginPath();
+        ctx.arc(0, 0, s*0.45, 0, Math.PI*2);
+        ctx.fillStyle = 'rgba(0,0,0,0.35)';
+        ctx.filter = 'blur(18px)';
+        ctx.fill();
+        ctx.restore();
+
+        // body gradient + bevel
+        const body = ctx.createLinearGradient(left, top, left, top + s);
+        body.addColorStop(0, 'rgba(255,255,255,0.12)');
+        body.addColorStop(1, 'rgba(255,255,255,0.06)');
+        ctx.fillStyle = body;
+        ctx.strokeStyle = 'rgba(255,255,255,0.35)';
         ctx.lineWidth = Math.max(2, s/60);
         ctx.beginPath();
-        ctx.roundRect(left, top, s, s, s/12);
+        ctx.roundRect(left, top, s, s, s/10);
         ctx.fill(); ctx.stroke();
 
-        // pip grid
-        const cx = left + s/2, cy = top + s/2;
-        const off = s/4;
+        // edge highlight
+        ctx.beginPath();
+        ctx.moveTo(left, top + s*0.2);
+        ctx.lineTo(left, top + s - s*0.2);
+        ctx.moveTo(left + s, top + s*0.2);
+        ctx.lineTo(left + s, top + s - s*0.2);
+        ctx.strokeStyle = 'rgba(255,0,128,0.25)';
+        ctx.lineWidth = s/100;
+        ctx.stroke();
 
+        // pips
+        const off = s/4.2;
         const positions = {
-          1: [[cx, cy]],
-          2: [[cx-off, cy-off],[cx+off, cy+off]],
-          3: [[cx-off, cy-off],[cx, cy],[cx+off, cy+off]],
-          4: [[cx-off, cy-off],[cx+off, cy-off],[cx-off, cy+off],[cx+off, cy+off]],
-          5: [[cx-off, cy-off],[cx+off, cy-off],[cx, cy],[cx-off, cy+off],[cx+off, cy+off]],
-          6: [[cx-off, cy-off],[cx+off, cy-off],[cx-off, cy],[cx+off, cy],[cx-off, cy+off],[cx+off, cy+off]],
+          1: [[0,0]],
+          2: [[-off, -off],[off, off]],
+          3: [[-off, -off],[0,0],[off, off]],
+          4: [[-off, -off],[off, -off],[-off, off],[off, off]],
+          5: [[-off, -off],[off, -off],[0,0],[-off, off],[off, off]],
+          6: [[-off, -off],[off, -off],[-off, 0],[off, 0],[-off, off],[off, off]],
         }[n];
 
-        positions.forEach(([x,y]) => drawPip(x,y, r*0.8));
+        positions.forEach(([dx,dy]) => pip(dx, dy, r));
+
+        ctx.restore();
       }
 
       const result = document.getElementById('dice-result');
       const btn = document.getElementById('roll-dice');
 
       function roll() {
-        const spins = 18 + Math.floor(Math.random()*8);
+        const spins = 26 + Math.floor(Math.random()*10);
         let frame = 0;
+        glow && (glow.style.opacity = '1');
         const timer = setInterval(() => {
           const val = 1 + Math.floor(Math.random()*6);
-          drawFace(val);
+          const t = frame / spins;
+          const ease = 1 - Math.pow(1 - Math.min(1, t), 3);
+          const tilt = (1 - ease) * 1.0;
+          const rot = (1 - ease) * Math.PI * 2;
+          drawFace(val, tilt, rot);
           frame++;
           if (frame >= spins) {
             clearInterval(timer);
-            result.textContent = 'Result: ' + val;
+            glow && (glow.style.opacity = '0');
+            const final = 1 + Math.floor(Math.random()*6);
+            drawFace(final, 0, 0);
+            result.textContent = 'Result: ' + final;
           }
-        }, 50);
+        }, 35);
       }
 
       btn?.addEventListener('click', roll);
