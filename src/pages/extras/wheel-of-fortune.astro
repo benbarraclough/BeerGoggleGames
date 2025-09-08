@@ -27,9 +27,7 @@ const allGames = categories.flatMap(c => c.games);
     <p class="text-muted max-w-prose">{description}</p>
   </header>
 
-  <!-- Dual Wheels -->
   <div class="grid gap-8 md:grid-cols-2 mb-14">
-    <!-- Category Wheel -->
     <section class="rounded border border-fg/15 p-6 bg-fg/5/10">
       <h2 class="font-display text-xl mb-3">Category Wheel</h2>
       <div class="relative mx-auto w-full max-w-sm aspect-square">
@@ -46,7 +44,6 @@ const allGames = categories.flatMap(c => c.games);
       </div>
     </section>
 
-    <!-- Game Wheel -->
     <section class="rounded border border-fg/15 p-6 bg-fg/5/10">
       <h2 class="font-display text-xl mb-3">Game Wheel</h2>
       <div class="mb-3 flex flex-wrap gap-2 items-end">
@@ -71,7 +68,6 @@ const allGames = categories.flatMap(c => c.games);
     </section>
   </div>
 
-  <!-- Browse categories -->
   <section class="mb-12">
     <header class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-6">
       <div>
@@ -105,11 +101,10 @@ const allGames = categories.flatMap(c => c.games);
     <p>Suggest missing games, categories or features (e.g. weighted spins, sound).</p>
   </FeedbackCard>
 
-  <!-- Data payloads -->
-  <script id="__wof-data" type="application/json">{JSON.stringify(categories)}</script>
-  <script id="__wof-all" type="application/json">{JSON.stringify(allGames)}</script>
+  <!-- JSON payloads with set:html to ensure they serialize in the output -->
+  <script id="__wof-data" type="application/json" set:html={JSON.stringify(categories)} />
+  <script id="__wof-all" type="application/json" set:html={JSON.stringify(allGames)} />
 
-  <!-- Wheel logic (animated canvas) -->
   <script is:inline>
     (() => {
       function readJSON(id, fallback = []) {
@@ -120,7 +115,12 @@ const allGames = categories.flatMap(c => c.games);
       const cats = readJSON('__wof-data');
       const allGames = readJSON('__wof-all');
 
-      // Generic wheel
+      // Palette for slices (more distinct)
+      const SLICE_COLORS = [
+        'rgba(255,0,128,0.18)','rgba(255,255,255,0.10)','rgba(0,200,255,0.16)',
+        'rgba(180,255,0,0.16)','rgba(255,150,0,0.16)','rgba(180,120,255,0.16)'
+      ];
+
       function createWheel(canvas, items) {
         const ctx = canvas.getContext('2d');
         const DPR = Math.max(1, window.devicePixelRatio || 1);
@@ -133,11 +133,12 @@ const allGames = categories.flatMap(c => c.games);
         window.addEventListener('resize', resize, { passive: true });
 
         let segments = items.slice();
-        let angle = -Math.PI / 2; // top center pointer
+        let angle = -Math.PI / 2;
         let spinning = false;
 
         function draw() {
           const w = canvas.width, h = canvas.height;
+          if (!w || !h) return;
           const r = Math.min(w, h) / 2 - 8 * DPR;
           ctx.clearRect(0, 0, w, h);
           ctx.save();
@@ -151,8 +152,7 @@ const allGames = categories.flatMap(c => c.games);
             ctx.beginPath();
             ctx.moveTo(0, 0);
             ctx.arc(0, 0, r, start, end);
-            // alternating colors
-            ctx.fillStyle = i % 2 ? 'rgba(255,255,255,0.08)' : 'rgba(255,0,128,0.12)';
+            ctx.fillStyle = SLICE_COLORS[i % SLICE_COLORS.length];
             ctx.fill();
             ctx.strokeStyle = 'rgba(255,255,255,0.15)';
             ctx.lineWidth = 2 * DPR;
@@ -167,14 +167,14 @@ const allGames = categories.flatMap(c => c.games);
             ctx.fillStyle = '#fff';
             ctx.font = `${Math.max(10, Math.min(18, r/10)) * DPR}px system-ui, sans-serif`;
             const label = (segments[i] ?? '').toString();
-            ctx.fillText(label, r - 10 * DPR, 0);
+            ctx.fillText(label, r - 12 * DPR, 0);
             ctx.restore();
           }
 
           // Center hub
           ctx.beginPath();
           ctx.arc(0, 0, 16 * DPR, 0, Math.PI * 2);
-          ctx.fillStyle = 'rgba(255,255,255,0.15)';
+          ctx.fillStyle = 'rgba(255,255,255,0.2)';
           ctx.fill();
 
           ctx.restore();
@@ -188,8 +188,8 @@ const allGames = categories.flatMap(c => c.games);
           if (spinning || segments.length === 0) return;
           const n = segments.length;
           const arc = (Math.PI * 2) / n;
-          const targetAngle = -Math.PI/2 - (targetIndex + 0.5) * arc; // center segment at pointer
-          const turns = 4 + Math.floor(Math.random() * 3); // 4..6 full spins
+          const targetAngle = -Math.PI/2 - (targetIndex + 0.5) * arc;
+          const turns = 4 + Math.floor(Math.random() * 3);
           const startAngle = angle;
           const endAngle = targetAngle - turns * Math.PI * 2;
 
@@ -202,12 +202,8 @@ const allGames = categories.flatMap(c => c.games);
             const eased = easeOutCubic(t);
             angle = startAngle + (endAngle - startAngle) * eased;
             draw();
-            if (t < 1) {
-              requestAnimationFrame(frame);
-            } else {
-              spinning = false;
-              onDone?.(segments[targetIndex], targetIndex);
-            }
+            if (t < 1) requestAnimationFrame(frame);
+            else { spinning = false; onDone?.(segments[targetIndex], targetIndex); }
           }
           requestAnimationFrame(frame);
         }
@@ -223,7 +219,6 @@ const allGames = categories.flatMap(c => c.games);
         };
       }
 
-      // Build wheels
       const catCanvas = document.getElementById('cat-wheel');
       const gameCanvas = document.getElementById('game-wheel');
       const catResult = document.getElementById('category-result');
@@ -247,7 +242,6 @@ const allGames = categories.flatMap(c => c.games);
       catBtn?.addEventListener('click', () => {
         catWheel.spinRandom((value) => {
           catResult.textContent = value;
-          // after category pick, sync game filter
           if (filterSel) {
             filterSel.value = value;
             setGamePool();
@@ -261,7 +255,6 @@ const allGames = categories.flatMap(c => c.games);
         });
       });
 
-      // Expand/collapse helpers
       document.getElementById('expand-all')?.addEventListener('click', () => {
         document.querySelectorAll('details').forEach(d => d.open = true);
       });
