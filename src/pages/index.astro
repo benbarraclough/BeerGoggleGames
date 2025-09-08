@@ -9,7 +9,6 @@ import CardLink from '../components/CardLink.astro';
 const games = excludeLegacyNoise(await getCollection('games'));
 const recentGames = games.slice(0, 12);
 
-// Use unified 'drinks' collection so the carousel actually has content
 const drinksEntries = excludeLegacyNoise(await getCollection('drinks'));
 const popularDrinks = drinksEntries.slice(0, 12);
 
@@ -21,37 +20,45 @@ const posts = excludeLegacyNoise(await getCollection('posts'))
 const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 ---
 <Layout title="BeerGoggleGames" description="Drinking games, cocktails & shots, forfeits, glossary and wheel tools." canonical={pageCanonical} wide={true}>
-  <!-- SCROLLING BANNER just under nav -->
-  <section aria-label="Updates" class="border-b border-fg/15 mb-6 bg-fg/5/10">
-    <div class="marquee py-2 text-[12px] text-muted">
-      <div class="marquee-track">
-        <span class="mx-6">New: Animated Wheel of Fortune</span>
-        <span class="mx-6">Try a Random Game →</span>
-        <span class="mx-6">Extras: Dice Roll & Coin Flip</span>
-        <span class="mx-6">Browse all Drinks & Bases</span>
-        <span class="mx-6">Search across Games & Drinks</span>
+
+  <!-- Attached, full-width scrolling banner -->
+  <section slot="banner" class="w-full border-t border-b border-fg/15 bg-fg/5/10">
+    <div class="mx-auto max-w-none">
+      <div class="marquee h-9 flex items-center">
+        <div class="marquee-track">
+          <span>New: Animated Wheel of Fortune</span>
+          <span>Try a Random Game →</span>
+          <span>Extras: Dice Roll & Coin Flip</span>
+          <span>Browse all Drinks & Bases</span>
+          <span>Search across Games & Drinks</span>
+          <!-- duplicate for seamless loop -->
+          <span>New: Animated Wheel of Fortune</span>
+          <span>Try a Random Game →</span>
+          <span>Extras: Dice Roll & Coin Flip</span>
+          <span>Browse all Drinks & Bases</span>
+          <span>Search across Games & Drinks</span>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- HERO: image left, text right on desktop; on mobile image sits on top, shorter height -->
+  <!-- HERO: shorter overall; image on left (top on mobile) -->
   <section class="relative overflow-hidden rounded-lg border border-fg/15 mb-10 bg-gradient-to-br from-fg/5 via-fg/0 to-neon/10">
     <div class="absolute inset-0 pointer-events-none opacity-40 mix-blend-overlay radial-fade"></div>
-    <div class="relative px-4 sm:px-6 py-8 md:py-10 grid md:grid-cols-2 gap-6 md:gap-8 items-center">
-      <!-- Image area (on mobile it appears first/top) -->
+    <div class="relative px-4 sm:px-6 py-6 md:py-8 grid md:grid-cols-2 gap-6 md:gap-8 items-center">
       <div>
         <picture>
           <img
             src={withBase('images/hero.webp')}
             alt="Party tools and games"
-            class="w-full rounded-md border border-fg/15 bg-fg/5 object-cover aspect-[4/3]"
-            onerror="this.closest('picture').outerHTML='<div class=&quot;aspect-[4/3] rounded-md border border-fg/15 bg-fg/5 flex items-center justify-center text-muted&quot;><span class=&quot;text-xs&quot;>Add hero image at images/hero.webp</span></div>'"
+            class="w-full rounded-md border border-fg/15 bg-fg/5 object-cover aspect-[16/9]"
+            onerror="this.closest('picture').outerHTML='<div class=&quot;aspect-[16/9] rounded-md border border-fg/15 bg-fg/5 flex items-center justify-center text-muted&quot;><span class=&quot;text-xs&quot;>Add hero image at images/hero.webp</span></div>'"
             loading="lazy"
             decoding="async"
           />
         </picture>
       </div>
-      <div class="space-y-4">
+      <div class="space-y-3">
         <h1 class="font-display text-3xl md:text-4xl leading-tight tracking-tight">Party Faster. Play Smarter.</h1>
         <p class="text-muted leading-relaxed">
           Streamlined drinking games, curated cocktails & shots, creative forfeits and quick decision tools.
@@ -68,7 +75,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
     </div>
   </section>
 
-  <!-- QUICK ACCESS + RANDOM BUTTONS -->
+  <!-- QUICK ACCESS + RANDOM -->
   <section class="mb-10">
     <div class="grid gap-5 md:grid-cols-3">
       <div class="group border border-fg/15 rounded-lg p-5 hover:border-neon transition-colors bg-fg/5/10">
@@ -86,7 +93,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       <div class="group border border-fg/15 rounded-lg p-5 hover:border-neon transition-colors bg-fg/5/10">
         <a href={withBase('extras/')} class="flex flex-col gap-2 h-full focus:outline-none focus:ring-2 focus:ring-neon rounded">
           <span class="font-semibold group-hover:text-neon">All Extras</span>
-          <span class="text-xs text-muted leading-snug">Wheel tool, forfeits, glossary, dice & coin.</span>
+          <span class="text-xs text-muted leading-snug">Wheel, forfeits, glossary, dice & coin.</span>
         </a>
       </div>
     </div>
@@ -133,7 +140,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
     </p>
   </section>
 
-  <!-- CAROUSEL: Popular Drinks (now populated from unified 'drinks') -->
+  <!-- CAROUSEL: Popular Drinks -->
   <section class="mb-12">
     <header class="flex items-center justify-between mb-3">
       <h2 class="font-display text-2xl">Popular Drinks</h2>
@@ -185,7 +192,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
           const href = withBase(`extras/blog/${slug}/`);
           return (
             <div class="carousel-item border border-fg/15 rounded-md p-3 bg-fg/5/10">
-              <div class="aspect-[4/3] rounded-md border border-fg/15 bg-fg/5 mb-2 flex items-center justify-center text-muted">
+              <div class="aspect-[16/10] rounded-md border border-fg/15 bg-fg/5 mb-2 flex items-center justify-center text-muted">
                 <span class="text-[10px]">Add blog image (optional)</span>
               </div>
               <CardLink href={href} ariaLabel={`Read post: ${p.data.title}`} as="div" noPadding anchorClass="p-0">
@@ -209,11 +216,17 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
     }
     /* marquee */
     .marquee { overflow: hidden; position: relative; }
-    .marquee-track { display: inline-block; white-space: nowrap; will-change: transform; animation: marquee 20s linear infinite; }
+    .marquee-track {
+      display: inline-flex; align-items: center; gap: 2.5rem;
+      white-space: nowrap; padding-inline: 1rem;
+      min-width: 200vw;
+      animation: marquee 26s linear infinite;
+    }
     .marquee:hover .marquee-track { animation-play-state: paused; }
+    .marquee-track > span { opacity: 0.85 }
     @keyframes marquee {
       from { transform: translateX(0); }
-      to { transform: translateX(-50%); }
+      to   { transform: translateX(-50%); }
     }
 
     /* simple carousels */
