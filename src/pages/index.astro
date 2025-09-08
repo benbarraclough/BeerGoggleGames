@@ -20,32 +20,39 @@ const posts = excludeLegacyNoise(await getCollection('posts'))
 const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 ---
 <Layout title="BeerGoggleGames" description="Drinking games, cocktails & shots, forfeits, glossary and wheel tools." canonical={pageCanonical} wide={true}>
-  <!-- Banner attached to nav -->
   <section slot="banner" class="w-full border-t border-b border-fg/15 bg-fg/5/10">
     <div class="marquee h-9 flex items-center">
       <div class="marquee-track">
-        <span>Animated Wheel of Fortune</span>
-        <span>Try a Random Game →</span>
-        <span>New: Dice Roll & Coin Flip</span>
-        <span>Browse all Drinks</span>
-        <span>Search across Games & Drinks</span>
-        <span>Animated Wheel of Fortune</span>
-        <span>Try a Random Game →</span>
-        <span>New: Dice Roll & Coin Flip</span>
-        <span>Browse all Drinks</span>
-        <span>Search across Games & Drinks</span>
+        <span>Fresh Games Weekly</span>
+        <span>Spin the Wheel →</span>
+        <span>Dice & Coin Tools</span>
+        <span>Discover New Drinks</span>
+        <span>Search Everything</span>
+        <span>Fresh Games Weekly</span>
+        <span>Spin the Wheel →</span>
+        <span>Dice & Coin Tools</span>
+        <span>Discover New Drinks</span>
+        <span>Search Everything</span>
       </div>
     </div>
   </section>
 
-  <!-- Neon Glass Hero -->
-  <section class="hero container-surface rounded-2xl mb-10" data-animate="fade-up">
-    <div aria-hidden="true" class="hero-bg"></div>
-    <div aria-hidden="true" class="hero-noise rounded-2xl"></div>
-
-    <div class="relative px-4 sm:px-6 py-6 md:py-8 grid md:grid-cols-[1.05fr_1fr] gap-6 md:gap-8 items-center">
+  <!-- Diagonal Split Hero -->
+  <section class="diagonal-hero rounded-2xl overflow-hidden mb-10" data-animate="fade-up">
+    <div class="diagonal-bg"></div>
+    <div class="diagonal-grid"></div>
+    <div class="relative px-4 sm:px-6 py-8 md:py-10 grid md:grid-cols-2 gap-6 items-center">
+      <div class="space-y-4">
+        <span class="chip">Minimal Rules · Maximum Fun</span>
+        <h1 class="title-lg">Party Faster. Play Smarter.</h1>
+        <p class="text-muted/95 leading-relaxed">Your hub for drinking games, curated cocktails & shots, creative forfeits and decision helpers.</p>
+        <div class="flex flex-wrap gap-3">
+          <a href={withBase('games/')} class="btn btn-outline">Browse Games</a>
+          <a href={withBase('extras/wheel-of-fortune/')} class="btn btn-neon">Spin a Wheel →</a>
+        </div>
+      </div>
       <div class="relative">
-        <div class="accent-ring rounded-xl will-parallax" data-parallax="0.08">
+        <div class="frame will-parallax" data-parallax="0.12">
           <picture>
             <img
               src={withBase('images/hero.webp')}
@@ -57,150 +64,112 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
             />
           </picture>
         </div>
-        <div aria-hidden="true" class="blob blob-a will-parallax" data-parallax="-0.12"></div>
-        <div aria-hidden="true" class="blob blob-b will-parallax" data-parallax="0.16"></div>
-      </div>
-
-      <div class="space-y-4">
-        <div class="badge">Fast · Clean · Mobile-first</div>
-        <h1 class="title-lg">Party Faster. Play Smarter.</h1>
-        <p class="text-muted/95 leading-relaxed">
-          Streamlined drinking games, curated cocktails & shots, creative forfeits and quick decision tools.
-        </p>
-        <div class="flex flex-wrap gap-3">
-          <a href={withBase('games/')} class="glass-btn">Browse Games</a>
-          <a href={withBase('extras/wheel-of-fortune/')} class="glass-btn neon-btn">Spin a Wheel →</a>
-        </div>
       </div>
     </div>
   </section>
 
-  <!-- Quick access -->
-  <section class="mb-10" data-animate="fade-up">
-    <ul class="grid gap-5 md:grid-cols-3 list-none p-0 m-0">
-      {[
-        { label: 'Random Game', href: withBase('games/random'), desc: 'Let fate decide your next play.' },
-        { label: 'Random Drink', href: withBase('drinks/random'), desc: 'Jump to a surprise drink recipe.' },
-        { label: 'All Extras', href: withBase('extras/'), desc: 'Wheel, forfeits, glossary, dice & coin.' }
-      ].map(i => (
-        <li class="group">
-          <a href={i.href} class="block p-5 rounded-xl glass-card hover:-translate-y-0.5 transition-transform focus:outline-none focus:ring-2 focus:ring-neon">
-            <div class="flex items-start gap-3">
-              <div class="h-8 w-8 rounded-full bg-neon/20 border border-neon/30 shadow-neon-soft shrink-0 flex items-center justify-center text-neon">★</div>
-              <div>
-                <div class="font-semibold group-hover:text-neon transition-colors">{i.label}</div>
-                <div class="text-xs text-muted leading-snug mt-1">{i.desc}</div>
-              </div>
-            </div>
-          </a>
-        </li>
-      ))}
-    </ul>
+  <!-- Feature row -->
+  <section class="mb-10 features" data-animate="fade-up">
+    <div class="feat glass">
+      <div class="feat-icon">🎯</div>
+      <div class="feat-body">
+        <h3>Quick Picks</h3>
+        <p>Random game and drink routes get you playing faster.</p>
+      </div>
+    </div>
+    <div class="feat glass">
+      <div class="feat-icon">🧊</div>
+      <div class="feat-body">
+        <h3>Clean Design</h3>
+        <p>Optimized for phones with crisp, legible components.</p>
+      </div>
+    </div>
+    <div class="feat glass">
+      <div class="feat-icon">⚙️</div>
+      <div class="feat-body">
+        <h3>Handy Tools</h3>
+        <p>Wheel, dice and coin flip to settle decisions instantly.</p>
+      </div>
+    </div>
   </section>
 
-  <!-- Games carousel -->
+  <!-- Games -->
   <section class="mb-12" data-animate="fade-up">
-    <header class="section-head">
-      <h2 class="section-title">Latest Games</h2>
-      <div class="controls">
-        <button class="carousel-btn" data-target="#games-carousel" data-dir="-1" aria-label="Previous">‹</button>
-        <button class="carousel-btn" data-target="#games-carousel" data-dir="1" aria-label="Next">›</button>
+    <header class="head">
+      <h2 class="h2">Latest Games</h2>
+      <div class="ctrls">
+        <button class="ctrl" data-target="#games-carousel" data-dir="-1" aria-label="Previous">‹</button>
+        <button class="ctrl" data-target="#games-carousel" data-dir="1" aria-label="Next">›</button>
       </div>
     </header>
-    <div id="games-carousel" class="carousel">
+    <div id="games-carousel" class="rail">
       {recentGames.map(g => {
         const slug = (g.slug ?? g.id).split('/').pop();
         const href = withBase(`games/${slug}/`);
         const img = withBase(`images/${slug}.webp`);
         return (
-          <div class="carousel-item">
-            <div class="carousel-card glass-card p-3 hover:translate-y-[-2px] transition-transform">
-              <picture>
-                <img
-                  src={img}
-                  alt={g.data.title}
-                  class="w-full rounded-lg border border-fg/20 bg-fg/5 object-cover aspect-video mb-2"
-                  loading="lazy"
-                  decoding="async"
-                  onerror="this.style.display='none'"
-                />
-              </picture>
-              <CardLink href={href} ariaLabel={`View game: ${g.data.title}`} as="div" noPadding anchorClass="p-0">
-                <span class="font-semibold leading-snug transition-colors group-hover:text-neon">
-                  {g.data.title}
-                </span>
-                {g.data.excerpt && <span class="mt-1 text-[11px] text-muted line-clamp-3">{g.data.excerpt}</span>}
-              </CardLink>
-            </div>
-          </div>
+          <article class="card glass hover:-translate-y-0.5 transition-transform">
+            <picture>
+              <img src={img} alt={g.data.title} class="thumb" loading="lazy" decoding="async" onerror="this.style.display='none'" />
+            </picture>
+            <CardLink href={href} ariaLabel={`View game: ${g.data.title}`} as="div" noPadding anchorClass="p-0">
+              <h3 class="card-title">{g.data.title}</h3>
+              {g.data.excerpt && <p class="card-excerpt">{g.data.excerpt}</p>}
+            </CardLink>
+          </article>
         );
       })}
     </div>
   </section>
 
-  <!-- Drinks carousel -->
+  <!-- Drinks -->
   <section class="mb-12" data-animate="fade-up">
-    <header class="section-head">
-      <h2 class="section-title">Popular Drinks</h2>
-      <div class="controls">
-        <button class="carousel-btn" data-target="#drinks-carousel" data-dir="-1" aria-label="Previous">‹</button>
-        <button class="carousel-btn" data-target="#drinks-carousel" data-dir="1" aria-label="Next">›</button>
+    <header class="head">
+      <h2 class="h2">Popular Drinks</h2>
+      <div class="ctrls">
+        <button class="ctrl" data-target="#drinks-carousel" data-dir="-1" aria-label="Previous">‹</button>
+        <button class="ctrl" data-target="#drinks-carousel" data-dir="1" aria-label="Next">›</button>
       </div>
     </header>
-    <div id="drinks-carousel" class="carousel">
+    <div id="drinks-carousel" class="rail">
       {popularDrinks.map(d => {
         const slug = (d.slug ?? d.id).split('/').pop();
         const href = withBase(`drinks/${slug}/`);
         const img = withBase(`images/${slug}.webp`);
         return (
-          <div class="carousel-item">
-            <div class="carousel-card glass-card p-3 hover:translate-y-[-2px] transition-transform">
-              <picture>
-                <img
-                  src={img}
-                  alt={d.data.title}
-                  class="w-full rounded-lg border border-fg/20 bg-fg/5 object-cover aspect-video mb-2"
-                  loading="lazy"
-                  decoding="async"
-                  onerror="this.style.display='none'"
-                />
-              </picture>
-              <CardLink href={href} ariaLabel={`View drink: ${d.data.title}`} as="div" noPadding anchorClass="p-0">
-                <span class="font-medium transition-colors group-hover:text-neon">{d.data.title}</span>
-                {d.data.excerpt && <span class="mt-1 text-[11px] text-muted line-clamp-3">{d.data.excerpt}</span>}
-              </CardLink>
-            </div>
-          </div>
+          <article class="card glass hover:-translate-y-0.5 transition-transform">
+            <picture>
+              <img src={img} alt={d.data.title} class="thumb" loading="lazy" decoding="async" onerror="this.style.display='none'" />
+            </picture>
+            <CardLink href={href} ariaLabel={`View drink: ${d.data.title}`} as="div" noPadding anchorClass="p-0">
+              <h3 class="card-title">{d.data.title}</h3>
+              {d.data.excerpt && <p class="card-excerpt">{d.data.excerpt}</p>}
+            </CardLink>
+          </article>
         );
       })}
     </div>
   </section>
 
-  <!-- Blog teasers -->
+  <!-- Blog -->
   {posts.length > 0 && (
     <section class="mb-16" data-animate="fade-up">
-      <header class="section-head">
-        <h2 class="section-title">From the Blog</h2>
-        <a class="view-all" href={withBase('extras/blog/')}>All Posts</a>
+      <header class="head">
+        <h2 class="h2">From the Blog</h2>
+        <a href={withBase('extras/blog/')} class="all">All Posts</a>
       </header>
-      <div id="blog-carousel" class="carousel">
+      <div id="blog-carousel" class="rail">
         {posts.map(p => {
           const slug = (p.slug ?? p.id).split('/').pop();
           const href = withBase(`extras/blog/${slug}/`);
           return (
-            <div class="carousel-item">
-              <div class="carousel-card glass-card p-3 hover:translate-y-[-2px] transition-transform">
-                <div class="aspect-[16/10] rounded-lg border border-fg/20 bg-fg/5 mb-2 flex items-center justify-center text-muted">
-                  <span class="text-[10px]">Add blog image (optional)</span>
-                </div>
-                <CardLink href={href} ariaLabel={`Read post: ${p.data.title}`} as="div" noPadding anchorClass="p-0">
-                  <span class="font-semibold leading-snug transition-colors group-hover:text-neon">
-                    {p.data.title}
-                  </span>
-                  {p.data.excerpt && <span class="mt-1 text-xs text-muted line-clamp-3">{p.data.excerpt}</span>}
-                </CardLink>
-              </div>
-            </div>
+            <article class="card glass hover:-translate-y-0.5 transition-transform">
+              <div class="thumb placeholder">Add blog image</div>
+              <CardLink href={href} ariaLabel={`Read post: ${p.data.title}`} as="div" noPadding anchorClass="p-0">
+                <h3 class="card-title">{p.data.title}</h3>
+                {p.data.excerpt && <p class="card-excerpt">{p.data.excerpt}</p>}
+              </CardLink>
+            </article>
           );
         })}
       </div>
@@ -208,145 +177,88 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
   )}
 
   <style>
-    /* Banner marquee */
     .marquee { overflow: hidden; position: relative; }
-    .marquee-track {
-      display: inline-flex; align-items: center; gap: 2.75rem;
-      white-space: nowrap; padding-inline: 1.25rem;
-      min-width: 220vw;
-      animation: marquee 26s linear infinite;
-    }
+    .marquee-track { display:inline-flex; gap:2.5rem; padding-inline:1.25rem; min-width:220vw; animation:marquee 24s linear infinite; }
     .marquee:hover .marquee-track { animation-play-state: paused; }
-    .marquee-track > span { opacity: 0.9 }
-    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
 
-    /* Section headers */
-    .section-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:.5rem; }
-    .section-title { font-family: var(--font-display, inherit); font-size: 1.5rem; letter-spacing:-.01em; }
-    .view-all { font-size:.75rem; text-transform:uppercase; letter-spacing:.12em; text-decoration:underline; text-underline-offset:4px; color:var(--neon, #ff0080); }
-
-    /* Hero surface and background */
-    .container-surface {
-      position: relative;
-      border: 1px solid rgba(255,255,255,0.12);
-      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+    .diagonal-hero { position:relative; border:1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.02); }
+    .diagonal-bg { position:absolute; inset:-20% -10% 0 -10%; background:
+        linear-gradient(135deg, rgba(255,0,128,0.25), transparent 60%),
+        linear-gradient(315deg, rgba(0,200,255,0.22), transparent 60%);
+      transform: skewY(-6deg) translateY(-18%);
+      filter: blur(10px);
     }
-    .hero-bg {
-      position:absolute; inset:0;
-      background:
-        radial-gradient(55% 95% at 110% 10%, rgba(255,0,128,0.22) 0%, rgba(255,0,128,0) 70%),
-        radial-gradient(55% 95% at -10% 80%, rgba(0,200,255,0.22) 0%, rgba(0,200,255,0) 70%);
-      filter: blur(22px);
-    }
-    .hero-noise {
-      position:absolute; inset:0; opacity:.6; mix-blend-mode:overlay;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.65' numOctaves='2' stitchTiles='stitch' type='fractalNoise'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='table' tableValues='0 0 0 0.04 0'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-      border-radius: 1rem;
-      pointer-events:none;
-    }
+    .diagonal-grid { position:absolute; inset:0; background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+      background-size: 22px 22px; mask: linear-gradient(to bottom, rgba(0,0,0,.3), rgba(0,0,0,0)); pointer-events:none; }
 
-    /* Accent ring */
-    .accent-ring { position:relative; }
-    .accent-ring::before {
-      content:''; position:absolute; inset:-1px; border-radius: .75rem; padding:1px;
-      background: linear-gradient(135deg, rgba(255,0,128,0.45), rgba(0,200,255,0.45));
-      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-      -webkit-mask-composite: xor; mask-composite: exclude; pointer-events:none;
-    }
+    .chip { display:inline-block; padding:.45rem .8rem; border-radius:9999px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.18); font-size:.72rem; font-weight:600; letter-spacing:.12em; text-transform:uppercase; }
+    .title-lg { font-family: var(--font-display, inherit); font-size: clamp(1.7rem, 2vw + 1rem, 2.4rem); letter-spacing:-.01em; }
 
-    /* Floating blobs */
-    .blob { position:absolute; border-radius:9999px; filter: blur(18px); opacity:.3; }
-    .blob-a { width:180px; height:180px; background: rgba(255,0,128,.35); right:-40px; top:-30px; }
-    .blob-b { width:160px; height:160px; background: rgba(0,200,255,.30); left:-45px; bottom:-40px; }
+    .btn { display:inline-flex; align-items:center; gap:.6rem; padding:.6rem 1rem; border-radius:.75rem; font-weight:600; font-size:.9rem; }
+    .btn-outline { border:1px solid rgba(255,255,255,0.18); background: rgba(255,255,255,0.02); }
+    .btn-outline:hover { border-color: rgba(255,0,128,0.45); color: var(--neon, #ff0080); }
+    .btn-neon { border:1px solid rgba(255,0,128,0.45); background: linear-gradient(180deg, rgba(255,0,128,0.10), rgba(255,0,128,0.04)); color: var(--neon, #ff0080); }
 
-    /* Badge and title */
-    .badge { display:inline-flex; align-items:center; gap:.5rem; padding:.45rem .8rem; border-radius:9999px;
-      background: rgba(255,0,128,0.12); border:1px solid rgba(255,0,128,0.35); color:var(--neon, #ff0080);
-      font-weight:600; font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; box-shadow: 0 0 0 1px rgba(255,0,128,0.18) inset, 0 6px 16px rgba(255,0,128,0.18);
-    }
-    .title-lg { font-family: var(--font-display, inherit); font-size: clamp(1.75rem, 2.2vw + 1rem, 2.5rem); line-height:1.15; text-shadow: 0 6px 24px rgba(255,0,128,0.12); }
+    .frame { border-radius: 1rem; position:relative; }
+    .frame::before { content:''; position:absolute; inset:-1px; border-radius:1rem; padding:1px; background: linear-gradient(135deg, rgba(255,0,128,0.45), rgba(0,200,255,0.45));
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events:none; }
 
-    /* Glass cards/buttons */
-    .glass-card {
-      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
-      border: 1px solid rgba(255,255,255,0.12);
-      box-shadow: 0 10px 28px rgba(0,0,0,0.28), 0 1px 0 rgba(255,255,255,0.06) inset;
-      transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
-      border-radius: 14px;
-    }
-    .glass-card:hover { border-color: rgba(255,0,128,0.4); box-shadow: 0 14px 34px rgba(0,0,0,0.32), 0 0 0 1px rgba(255,0,128,0.25) inset; }
-    .glass-btn {
-      display:inline-flex; align-items:center; gap:.5rem;
-      padding:.6rem 1rem; border-radius:.75rem;
-      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
-      border: 1px solid rgba(255,255,255,0.15);
-      text-decoration:none; font-weight:600; font-size:.9rem;
-      transition: color .2s ease, border-color .2s ease, background .2s ease, transform .2s ease;
-    }
-    .glass-btn:hover { color: var(--neon, #ff0080); border-color: rgba(255,0,128,0.45); transform: translateY(-1px); }
-    .neon-btn { color: var(--neon, #ff0080); border-color: rgba(255,0,128,0.45); background: linear-gradient(180deg, rgba(255,0,128,0.10), rgba(255,0,128,0.04)); }
-    .shadow-neon-soft { box-shadow: 0 0 0 1px rgba(255,0,128,0.25) inset, 0 6px 16px rgba(255,0,128,0.18); }
+    .features { display:grid; gap:12px; grid-template-columns: repeat(1,minmax(0,1fr)); }
+    @media (min-width: 768px){ .features { grid-template-columns: repeat(3,minmax(0,1fr)); } }
+    .glass { background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02)); border:1px solid rgba(255,255,255,0.12); border-radius:14px; padding:16px; }
+    .feat { display:flex; gap:12px; align-items:flex-start; }
+    .feat-icon { width:36px; height:36px; display:grid; place-items:center; border-radius:50%; background: rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.18); }
+    .feat-body h3 { font-weight:700; margin:0 0 2px 0; }
+    .feat-body p { margin:0; font-size:.9rem; color:var(--muted, #bfbfbf); }
 
-    /* Carousel */
-    .carousel { display:grid; grid-auto-flow:column; grid-auto-columns: 80%; gap:14px; overflow-x:auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; padding-bottom:6px; }
-    @media (min-width: 640px) { .carousel { grid-auto-columns: 45%; } }
-    @media (min-width: 1024px) { .carousel { grid-auto-columns: 30%; } }
-    .carousel::-webkit-scrollbar { height: 8px; }
-    .carousel::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 6px; }
-    .carousel-item { scroll-snap-align: start; }
-    .carousel-card { border-radius: 14px; }
-    .carousel-btn { border:1px solid rgba(255,255,255,0.2); padding:.3rem .6rem; border-radius:.5rem; font-size:.85rem; background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02)); }
-    .carousel-btn:hover { border-color: rgba(255,0,128,0.45); color: var(--neon, #ff0080); }
+    .head { display:flex; align-items:center; justify-content:space-between; }
+    .h2 { font-family: var(--font-display, inherit); font-size: 1.5rem; letter-spacing:-.01em; }
+    .all { font-size:.75rem; text-transform:uppercase; letter-spacing:.12em; text-decoration:underline; text-underline-offset:4px; color:var(--neon, #ff0080); }
 
-    /* Scroll reveal */
+    .rail { display:grid; grid-auto-flow:column; grid-auto-columns: 80%; gap:14px; overflow-x:auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; padding-bottom:6px; }
+    @media (min-width: 640px) { .rail { grid-auto-columns: 45%; } }
+    @media (min-width: 1024px) { .rail { grid-auto-columns: 30%; } }
+    .card { padding:12px; border-radius:14px; }
+    .thumb { width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:10px; border:1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.06); margin-bottom:8px; }
+    .placeholder { display:flex; align-items:center; justify-content:center; color:var(--muted,#bfbfbf); }
+    .card-title { font-weight:700; }
+    .card-excerpt { font-size:.75rem; color:var(--muted,#bfbfbf); margin-top:2px; }
+    .ctrls { display:flex; gap:8px; }
+    .ctrl { border:1px solid rgba(255,255,255,0.2); padding:.3rem .6rem; border-radius:.5rem; font-size:.85rem; background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02)); }
+    .ctrl:hover { border-color: rgba(255,0,128,0.45); color: var(--neon, #ff0080); }
+
     [data-animate] { opacity:0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }
     [data-animate].in { opacity:1; transform:none; }
-    @media (prefers-reduced-motion: reduce) {
-      .marquee-track { animation: none !important; }
-      [data-animate] { opacity:1; transform:none; }
-    }
+    @media (prefers-reduced-motion: reduce) { .marquee-track { animation: none !important; } [data-animate]{opacity:1; transform:none;} }
   </style>
 
   <script is:inline>
     (() => {
-      // Carousel nudge
-      function nudge(id, dir) {
-        const el = document.querySelector(id);
-        if (!el) return;
-        const amount = el.clientWidth * 0.8;
-        el.scrollBy({ left: amount * (dir || 1), behavior: 'smooth' });
-      }
-      document.querySelectorAll('.carousel-btn').forEach(btn => {
-        btn.addEventListener('click', () => nudge(btn.getAttribute('data-target'), Number(btn.getAttribute('data-dir'))));
-      });
+      // Rail scroll
+      function nudge(id, dir) { const el = document.querySelector(id); if (!el) return; el.scrollBy({ left: el.clientWidth * 0.8 * (dir||1), behavior:'smooth' }); }
+      document.querySelectorAll('.ctrl').forEach(b => b.addEventListener('click', () => nudge(b.getAttribute('data-target'), Number(b.getAttribute('data-dir')))));
 
-      // Scroll reveal
-      const reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+      // Reveal
+      const reduce = matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
       if (!reduce && 'IntersectionObserver' in window) {
-        const io = new IntersectionObserver((entries) => {
-          entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-        }, { threshold: 0.12 });
-        document.querySelectorAll('[data-animate]').forEach(el => io.observe(el));
-      } else {
-        document.querySelectorAll('[data-animate]').forEach(el => el.classList.add('in'));
-      }
+        const io = new IntersectionObserver((es)=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} }),{threshold:.12});
+        document.querySelectorAll('[data-animate]').forEach(el=>io.observe(el));
+      } else { document.querySelectorAll('[data-animate]').forEach(el=>el.classList.add('in')); }
 
-      // Parallax on hero bits
-      function onScroll() {
-        const els = document.querySelectorAll('.will-parallax');
-        const vh = window.innerHeight || 800;
-        els.forEach(el => {
-          const speed = Number(el.getAttribute('data-parallax') || 0.1);
-          const rect = el.getBoundingClientRect();
-          const rel = (rect.top - vh/2) / vh; // -1..1 approx
-          el.style.transform = `translateY(${rel * speed * 100}px)`;
-        });
-      }
-      const reduce2 = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (!reduce2) {
+      // Parallax
+      if (!reduce) {
+        const onScroll = () => {
+          document.querySelectorAll('.will-parallax').forEach(el=>{
+            const s = Number(el.getAttribute('data-parallax')||0.1);
+            const r = el.getBoundingClientRect();
+            const rel = (r.top - (innerHeight/2)) / innerHeight;
+            el.style.transform = `translateY(${rel * s * 100}px)`;
+          });
+        };
         onScroll();
-        window.addEventListener('scroll', onScroll, { passive: true });
-        window.addEventListener('resize', onScroll, { passive: true });
+        addEventListener('scroll', onScroll, { passive:true });
+        addEventListener('resize', onScroll, { passive:true });
       }
     })();
   </script>
