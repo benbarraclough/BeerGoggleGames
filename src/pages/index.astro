@@ -6,11 +6,19 @@ import { withBase } from '../lib/paths';
 import { canonical } from '../lib/urls';
 import CardLink from '../components/CardLink.astro';
 
-const games = excludeLegacyNoise(await getCollection('games'));
-const recentGames = games.slice(0, 12);
+function shuffle<T>(list: T[]): T[] {
+  const a = list.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
 
-const drinksEntries = excludeLegacyNoise(await getCollection('drinks'));
-const popularDrinks = drinksEntries.slice(0, 12);
+const gamesAll = excludeLegacyNoise(await getCollection('games'));
+const drinksAll = excludeLegacyNoise(await getCollection('drinks'));
+const recentGames = shuffle(gamesAll).slice(0, 12);
+const popularDrinks = shuffle(drinksAll).slice(0, 12);
 
 const posts = excludeLegacyNoise(await getCollection('posts'))
   .filter(p => !p.data.draft)
@@ -20,24 +28,20 @@ const posts = excludeLegacyNoise(await getCollection('posts'))
 const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 ---
 <Layout title="BeerGoggleGames" description="Drinking games, cocktails & shots, forfeits, glossary and wheel tools." canonical={pageCanonical} wide={true}>
-  <section slot="banner" class="w-full border-t border-b border-fg/15 bg-fg/5/10">
-    <div class="marquee h-9 flex items-center">
-      <div class="marquee-track">
-        <span>Stacked Cards UI</span>
-        <span>Random Game / Drink</span>
-        <span>Wheel · Dice · Coin</span>
-        <span>New Drinks Weekly</span>
-        <span>Search Everything</span>
-        <span>Stacked Cards UI</span>
-        <span>Random Game / Drink</span>
-        <span>Wheel · Dice · Coin</span>
-        <span>New Drinks Weekly</span>
-        <span>Search Everything</span>
-      </div>
-    </div>
-  </section>
 
-  <!-- Card Stack Hero -->
+  <!-- Compact Banner, clickable -->
+  <a slot="banner" href={withBase('extras/wheel-of-fortune/')} class="block w-full border-t border-b border-fg/15 bg-fg/5/10 hover:bg-fg/10 transition-colors">
+    <div class="mx-auto max-w-7xl px-4 h-8 flex items-center justify-center gap-6 text-[11px] tracking-wide uppercase text-muted hover:text-neon">
+      <span class="inline-flex items-center gap-2">
+        <svg width="16" height="16" viewBox="0 0 24 24" class="stroke-current" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        Spin the Wheel
+      </span>
+      <span>Find Tonight’s Game</span>
+      <span class="hidden sm:inline">Try Your Luck →</span>
+    </div>
+  </a>
+
+  <!-- Card Stack Hero (magenta/cyan), shorter -->
   <section class="stack-hero rounded-2xl border border-fg/15 mb-10" data-animate="fade-up">
     <div class="stack-wrap">
       <div class="stack-card c1 will-parallax" data-parallax="-0.1"></div>
@@ -48,7 +52,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
             src={withBase('images/hero.webp')}
             alt="Party tools and games"
             class="w-full h-full object-cover rounded-xl"
-            onerror="this.closest('.c3').innerHTML='<div class=&quot;w-full h-full rounded-xl border border-fg/20 bg-fg/5 grid place-items-center text-muted text-xs&quot;>Add hero image (images/hero.webp)</div>'"
+            onerror="this.closest('.c3').innerHTML='<div class=&quot;w-full h-full rounded-xl border border-fg/20 bg-fg/5 grid place-items-center text-muted text-xs&quot;>Add hero image (images/ComingSoon750x300.webp)</div>'"
             loading="lazy"
             decoding="async"
           />
@@ -57,45 +61,122 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
     </div>
     <div class="stack-content">
       <h1 class="title-xl">Party Faster. Play Smarter.</h1>
-      <p class="lead">Discover games, drinks and tools with a playful card aesthetic.</p>
+      <p class="lead">Games, drinks and tools with a crisp, modern style.</p>
       <div class="actions">
-        <a href={withBase('games/')} class="pill-btn">Browse Games</a>
-        <a href={withBase('extras/wheel-of-fortune/')} class="pill-btn neon">Spin a Wheel →</a>
+        <a href={withBase('games/')} class="pill-btn shimmer">Browse Games</a>
+        <a href={withBase('extras/wheel-of-fortune/')} class="pill-btn neon shimmer">Spin a Wheel →</a>
       </div>
     </div>
   </section>
 
-  <!-- Quick + random -->
-  <section class="mb-10" data-animate="fade-up">
+  <!-- Quick Actions with icons -->
+  <section class="mb-12" data-animate="fade-up">
     <ul class="grid gap-5 md:grid-cols-3 list-none p-0 m-0">
-      {[
-        { label: 'Random Game', href: withBase('games/random'), desc: 'Let fate decide your next play.' },
-        { label: 'Random Drink', href: withBase('drinks/random'), desc: 'Jump to a surprise drink recipe.' },
-        { label: 'All Extras', href: withBase('extras/'), desc: 'Wheel, forfeits, glossary, dice & coin.' }
-      ].map(i => (
-        <li class="group">
-          <a href={i.href} class="card-mini">
-            <div class="dot"></div>
-            <div class="mini-body">
-              <div class="mini-title">{i.label}</div>
-              <div class="mini-desc">{i.desc}</div>
-            </div>
-          </a>
-        </li>
-      ))}
+      <li class="group">
+        <a href={withBase('games/random')} class="card-mini">
+          <span class="icon-wrap">
+            <!-- Dice icon -->
+            <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="4"/>
+              <circle cx="8" cy="8" r="1.4" fill="currentColor" />
+              <circle cx="16" cy="8" r="1.4" fill="currentColor" />
+              <circle cx="12" cy="12" r="1.4" fill="currentColor" />
+              <circle cx="8" cy="16" r="1.4" fill="currentColor" />
+              <circle cx="16" cy="16" r="1.4" fill="currentColor" />
+            </svg>
+          </span>
+          <div class="mini-body">
+            <div class="mini-title">Random Game</div>
+            <div class="mini-desc">Let fate decide your next play.</div>
+          </div>
+        </a>
+      </li>
+      <li class="group">
+        <a href={withBase('drinks/random')} class="card-mini">
+          <span class="icon-wrap">
+            <!-- Cocktail icon -->
+            <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 4h18l-8.5 8.5v5.5l3 2H8l3-2v-5.5L3 4Z"/>
+              <path d="M10 4l4 4"/>
+            </svg>
+          </span>
+          <div class="mini-body">
+            <div class="mini-title">Random Drink</div>
+            <div class="mini-desc">Jump to a surprise recipe.</div>
+          </div>
+        </a>
+      </li>
+      <li class="group">
+        <a href={withBase('extras/')} class="card-mini">
+          <span class="icon-wrap">
+            <!-- Extras (same as nav) -->
+            <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3v4M12 17v4M7.05 7.05l2.83 2.83M14.12 14.12l2.83 2.83M3 12h4M17 12h4M7.05 16.95l2.83-2.83M14.12 9.88l2.83-2.83"/>
+            </svg>
+          </span>
+          <div class="mini-body">
+            <div class="mini-title">All Extras</div>
+            <div class="mini-desc">Wheel, forfeits, glossary, dice & coin.</div>
+          </div>
+        </a>
+      </li>
     </ul>
   </section>
 
-  <!-- Games carousel -->
+  <!-- Featured Tools (visual variety) -->
+  <section class="mb-14 tool-slab rounded-2xl border border-fg/15 overflow-hidden" data-animate="fade-up">
+    <div class="tool-backdrop" aria-hidden="true"></div>
+    <div class="px-4 sm:px-6 py-8 grid gap-6 md:grid-cols-3 relative">
+      <a href={withBase('extras/wheel-of-fortune/')} class="tool-card hover:-translate-y-0.5">
+        <div class="tool-head">
+          <span class="tool-chip">Pick for you</span>
+          <h3>Wheel of Fortune</h3>
+        </div>
+        <p>Spin a category or game with an animated canvas wheel.</p>
+        <span class="tool-cta">Spin Now →</span>
+      </a>
+      <a href={withBase('extras/dice/')} class="tool-card hover:-translate-y-0.5">
+        <div class="tool-head">
+          <span class="tool-chip">Decide</span>
+          <h3>Dice Roller</h3>
+        </div>
+        <p>Beautiful on‑screen dice with glow and motion.</p>
+        <span class="tool-cta">Roll →</span>
+      </a>
+      <a href={withBase('extras/coin-flip/')} class="tool-card hover:-translate-y-0.5">
+        <div class="tool-head">
+          <span class="tool-chip">Heads or tails</span>
+          <h3>Coin Flip</h3>
+        </div>
+        <p>Quick coin with shimmer and a smooth flip.</p>
+        <span class="tool-cta">Flip →</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Explore Drinks by Base (chip links) -->
+  <section class="mb-14" data-animate="fade-up">
+    <header class="flex items-end justify-between mb-4">
+      <h2 class="h2">Explore Drinks by Base</h2>
+      <a href={withBase('drinks/')} class="view-all">All Drinks →</a>
+    </header>
+    <div class="flex flex-wrap gap-2">
+      {['Vodka','Gin','Rum','Tequila','Whiskey','Wine','Beer','Liqueur','Non‑Alcoholic'].map(b => (
+        <a href={withBase(`search?type=drink&base=${encodeURIComponent(b.toLowerCase())}`)} class="chip-link">{b}</a>
+      ))}
+    </div>
+  </section>
+
+  <!-- Latest Games (no visible scrollbars) -->
   <section class="mb-12" data-animate="fade-up">
     <header class="head">
       <h2 class="h2">Latest Games</h2>
       <div class="ctrls">
-        <button class="ctrl" data-target="#games-carousel" data-dir="-1" aria-label="Previous">‹</button>
-        <button class="ctrl" data-target="#games-carousel" data-dir="1" aria-label="Next">›</button>
+        <button class="ctrl shimmer" data-target="#games-carousel" data-dir="-1" aria-label="Previous">‹</button>
+        <button class="ctrl shimmer" data-target="#games-carousel" data-dir="1" aria-label="Next">›</button>
       </div>
     </header>
-    <div id="games-carousel" class="rail">
+    <div id="games-carousel" class="rail no-scrollbar">
       {recentGames.map(g => {
         const slug = (g.slug ?? g.id).split('/').pop();
         const href = withBase(`games/${slug}/`);
@@ -110,16 +191,16 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
     </div>
   </section>
 
-  <!-- Drinks carousel -->
+  <!-- Popular Drinks (no visible scrollbars) -->
   <section class="mb-12" data-animate="fade-up">
     <header class="head">
       <h2 class="h2">Popular Drinks</h2>
       <div class="ctrls">
-        <button class="ctrl" data-target="#drinks-carousel" data-dir="-1" aria-label="Previous">‹</button>
-        <button class="ctrl" data-target="#drinks-carousel" data-dir="1" aria-label="Next">›</button>
+        <button class="ctrl shimmer" data-target="#drinks-carousel" data-dir="-1" aria-label="Previous">‹</button>
+        <button class="ctrl shimmer" data-target="#drinks-carousel" data-dir="1" aria-label="Next">›</button>
       </div>
     </header>
-    <div id="drinks-carousel" class="rail">
+    <div id="drinks-carousel" class="rail no-scrollbar">
       {popularDrinks.map(d => {
         const slug = (d.slug ?? d.id).split('/').pop();
         const href = withBase(`drinks/${slug}/`);
@@ -134,21 +215,43 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
     </div>
   </section>
 
-  <!-- Blog -->
+  <!-- How to Play Tonight (3-step, different style) -->
+  <section class="mb-16 howto rounded-2xl border border-fg/15 overflow-hidden" data-animate="fade-up">
+    <div class="howto-bg" aria-hidden="true"></div>
+    <div class="px-4 sm:px-6 py-10 grid gap-6 md:grid-cols-3 relative">
+      <div class="how-step">
+        <span class="num">1</span>
+        <h3>Pick a vibe</h3>
+        <p>Browse categories or spin the wheel to land on a style.</p>
+      </div>
+      <div class="how-step">
+        <span class="num">2</span>
+        <h3>Grab a drink</h3>
+        <p>Search by base spirit or pick something at random.</p>
+      </div>
+      <div class="how-step">
+        <span class="num">3</span>
+        <h3>Play & tweak</h3>
+        <p>Use our tools and forfeits to amp up the session.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog teaser (kept concise) -->
   {posts.length > 0 && (
     <section class="mb-16" data-animate="fade-up">
       <header class="head">
         <h2 class="h2">From the Blog</h2>
-        <a href={withBase('extras/blog/')} class="all">All Posts</a>
+        <a href={withBase('extras/blog/')} class="view-all">All Posts →</a>
       </header>
-      <div id="blog-carousel" class="rail">
+      <div class="rail no-scrollbar">
         {posts.map(p => {
           const slug = (p.slug ?? p.id).split('/').pop();
           const href = withBase(`extras/blog/${slug}/`);
           return (
-            <a class="tile" href={href} aria-label={`Read post: ${p.data.title}`}>
-              <div class="tile-img placeholder">Add image</div>
-              <div class="tile-caption">{p.data.title}</div>
+            <a class="blog-chip" href={href} aria-label={`Read post: ${p.data.title}`}>
+              <span class="dot"></span>
+              <span class="label">{p.data.title}</span>
             </a>
           );
         })}
@@ -157,36 +260,64 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
   )}
 
   <style>
-    .marquee { overflow:hidden; position:relative; }
-    .marquee-track { display:inline-flex; gap:2.4rem; padding-inline:1.2rem; min-width:220vw; animation:marquee 24s linear infinite; }
-    .marquee:hover .marquee-track { animation-play-state: paused; }
-    @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+    /* Temporary font demo (swap later in Layout once you pick) */
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&family=Bricolage+Grotesque:opsz,wght@12..72,700&display=swap');
+    :root { --font-body: 'Plus Jakarta Sans', system-ui, -apple-system, Segoe UI, Roboto, sans-serif; --font-display: 'Bricolage Grotesque', var(--font-body); }
+    body { font-family: var(--font-body); }
+    .title-xl, .h2 { font-family: var(--font-display); }
+
+    /* Palette emphasis: magenta/cyan (no green) */
+    .stack-hero { position:relative; background: radial-gradient(1000px 500px at 25% -10%, rgba(255,0,128,0.10), transparent 60%), radial-gradient(900px 600px at 120% 110%, rgba(0,200,255,0.10), transparent 60%); }
 
     /* Stack hero */
-    .stack-hero { position:relative; background: radial-gradient(1200px 500px at 20% 0%, rgba(255,0,128,0.10), transparent 60%), radial-gradient(900px 600px at 100% 100%, rgba(0,200,255,0.10), transparent 60%); }
-    .stack-wrap { position:relative; height: clamp(220px, 28vw, 320px); margin: 18px; }
+    .stack-wrap { position:relative; height: clamp(220px, 28vw, 320px); margin: 16px; }
     .stack-card { position:absolute; inset:0; border-radius:1rem; border:1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.03); transform-origin: center; }
-    .c1 { transform: translate(-12px,-10px) rotate(-4deg); }
-    .c2 { transform: translate(10px,6px) rotate(3deg); }
+    .c1 { transform: translate(-12px,-10px) rotate(-4deg); background: linear-gradient(135deg, rgba(255,0,128,0.16), rgba(0,200,255,0.12)); filter: blur(0.2px); }
+    .c2 { transform: translate(10px,6px) rotate(3deg); background: linear-gradient(315deg, rgba(0,200,255,0.18), rgba(255,0,128,0.10)); }
     .c3 { overflow:hidden; border:1px solid rgba(255,255,255,0.18); }
-    .stack-content { padding: 0 18px 18px 18px; }
-    .title-xl { font-family: var(--font-display, inherit); font-size: clamp(1.9rem, 2.4vw + 1rem, 2.8rem); letter-spacing:-.01em; margin-bottom:.4rem; }
+    .stack-content { padding: 0 16px 18px 16px; }
+    .title-xl { font-size: clamp(1.9rem, 2.4vw + 1rem, 2.8rem); letter-spacing:-.01em; margin-bottom:.35rem; text-shadow: 0 6px 24px rgba(255,0,128,0.12); }
     .lead { color:var(--muted, #bfbfbf); margin-bottom:.6rem; }
     .actions { display:flex; gap:.6rem; flex-wrap:wrap; }
+
+    /* Shimmer buttons */
+    .shimmer { position:relative; overflow:hidden; }
+    .shimmer::after {
+      content:''; position:absolute; inset:-200% -50%; background: linear-gradient(120deg, transparent 40%, rgba(255,255,255,0.22) 50%, transparent 60%);
+      transform: translateX(-100%); transition: transform .8s ease; pointer-events:none;
+    }
+    .shimmer:hover::after { transform: translateX(100%); }
+
     .pill-btn { display:inline-flex; align-items:center; gap:.5rem; padding:.6rem 1rem; border-radius:9999px; border:1px solid rgba(255,255,255,0.18); background: rgba(255,255,255,0.03); font-weight:700; font-size:.9rem; }
     .pill-btn:hover { border-color: rgba(255,0,128,0.45); color: var(--neon, #ff0080); }
     .pill-btn.neon { border-color: rgba(255,0,128,0.45); background: linear-gradient(180deg, rgba(255,0,128,0.10), rgba(255,0,128,0.04)); color: var(--neon, #ff0080); }
 
     /* Quick minis */
-    .card-mini { display:flex; gap:.6rem; align-items:flex-start; padding:14px; border-radius:14px; border:1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.03); transition:transform .2s ease, border-color .2s ease; }
+    .card-mini { display:flex; gap:.65rem; align-items:flex-start; padding:14px; border-radius:14px; border:1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.03); transition:transform .2s ease, border-color .2s ease; }
     .card-mini:hover { transform: translateY(-1px); border-color: rgba(255,0,128,0.4); }
-    .dot { width:10px; height:10px; border-radius:50%; background: var(--neon, #ff0080); margin-top:6px; box-shadow: 0 0 16px rgba(255,0,128,0.45); }
+    .icon-wrap { width:36px; height:36px; display:grid; place-items:center; border-radius:50%; background: rgba(255,0,128,0.10); border:1px solid rgba(255,0,128,0.35); color: var(--neon, #ff0080); box-shadow: 0 0 0 1px rgba(255,0,128,0.18) inset, 0 6px 16px rgba(255,0,128,0.18); margin-top:2px; }
     .mini-title { font-weight:700; }
     .mini-desc { font-size:.78rem; color:var(--muted,#bfbfbf); }
 
-    /* Rails / Tiles */
-    .head { display:flex; align-items:center; justify-content:space-between; }
-    .h2 { font-family: var(--font-display, inherit); font-size: 1.5rem; letter-spacing:-.01em; }
+    /* Tool slab */
+    .tool-slab { position:relative; }
+    .tool-backdrop { position:absolute; inset:0; background:
+      radial-gradient(600px 300px at 15% 0%, rgba(255,0,128,0.12), transparent 70%),
+      radial-gradient(500px 300px at 95% 100%, rgba(0,200,255,0.12), transparent 70%); filter: blur(14px); }
+    .tool-card { display:flex; flex-direction:column; gap:8px; border:1px solid rgba(255,255,255,0.12); background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02)); border-radius:14px; padding:16px; transition: transform .2s ease, border-color .2s ease; }
+    .tool-card:hover { border-color: rgba(255,0,128,0.4); }
+    .tool-head h3 { font-weight:800; margin:2px 0; }
+    .tool-chip { display:inline-block; font-size:.68rem; letter-spacing:.12em; text-transform:uppercase; color: var(--neon,#ff0080); border:1px solid rgba(255,0,128,0.35); background: rgba(255,0,128,0.10); border-radius:9999px; padding:.25rem .5rem; }
+    .tool-cta { margin-top:auto; font-size:.78rem; color: var(--neon,#ff0080); }
+
+    /* Explore chips */
+    .h2 { font-size: 1.5rem; letter-spacing:-.01em; }
+    .view-all { font-size:.8rem; text-decoration:underline; text-underline-offset:4px; color: var(--neon, #ff0080); }
+    .chip-link { display:inline-flex; align-items:center; gap:.4rem; border:1px solid rgba(0,200,255,0.35); color: rgba(0,200,255,1); background: rgba(0,200,255,0.08); border-radius:9999px; padding:.35rem .7rem; font-size:.78rem; }
+    .chip-link:hover { border-color: rgba(255,0,128,0.45); color: var(--neon,#ff0080); background: rgba(255,0,128,0.10); }
+
+    /* Rails / Tiles (scrollbars hidden) */
+    .head { display:flex; align-items:center; justify-content:space-between; margin-bottom:.25rem; }
     .rail { display:grid; grid-auto-flow:column; grid-auto-columns: 75%; gap:14px; overflow-x:auto; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; padding: 6px 2px 8px; }
     @media (min-width: 640px) { .rail { grid-auto-columns: 45%; } }
     @media (min-width: 1024px) { .rail { grid-auto-columns: 28%; } }
@@ -194,25 +325,56 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
     .tile:hover { transform: translateY(-2px); border-color: rgba(255,0,128,0.4); }
     .tile-img { width:100%; aspect-ratio: 16/9; object-fit:cover; display:block; }
     .tile-caption { position:absolute; left:10px; bottom:10px; background: rgba(0,0,0,0.45); border: 1px solid rgba(255,255,255,0.2); backdrop-filter: blur(6px); padding:.3rem .5rem; border-radius: 9999px; font-size:.75rem; }
+    .ctrls { display:flex; gap:8px; }
+    .ctrl { border:1px solid rgba(255,255,255,0.2); padding:.3rem .6rem; border-radius:.5rem; font-size:.85rem; background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02)); }
+    .ctrl:hover { border-color: rgba(255,0,128,0.45); color: var(--neon, #ff0080); }
+    .no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
 
-    /* Reveal */
+    /* How-to section */
+    .howto { position:relative; background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.015)); }
+    .howto-bg { position:absolute; inset:0; background:
+      radial-gradient(500px 260px at -10% 50%, rgba(0,200,255,0.12), transparent 70%),
+      radial-gradient(500px 260px at 110% 50%, rgba(255,0,128,0.12), transparent 70%); filter: blur(14px); }
+    .how-step { position:relative; padding: 16px; border:1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.03); border-radius:14px; }
+    .how-step .num { position:absolute; top:-10px; left:-10px; width:28px; height:28px; display:grid; place-items:center; border-radius:9999px; background: rgba(255,0,128,0.12); border:1px solid rgba(255,0,128,0.35); color: var(--neon,#ff0080); font-weight:800; }
+
+    /* Blog chips */
+    .blog-chip { display:inline-flex; align-items:center; gap:.5rem; margin:.25rem; padding:.4rem .7rem; border-radius:9999px; border:1px solid rgba(255,255,255,0.14); background: rgba(255,255,255,0.03); font-size:.82rem; }
+    .blog-chip:hover { border-color: rgba(0,200,255,0.45); }
+    .blog-chip .dot { width:8px; height:8px; border-radius:50%; background: rgba(0,200,255,1); box-shadow: 0 0 10px rgba(0,200,255,0.45); }
+    .blog-chip .label { white-space: nowrap; max-width: 56ch; overflow: hidden; text-overflow: ellipsis; }
+
+    /* Reveal-on-scroll */
     [data-animate] { opacity:0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }
     [data-animate].in { opacity:1; transform:none; }
-    @media (prefers-reduced-motion: reduce) { .marquee-track { animation:none !important; } [data-animate]{opacity:1; transform:none;} }
+    @media (prefers-reduced-motion: reduce) {
+      [data-animate]{opacity:1; transform:none;}
+    }
   </style>
 
   <script is:inline>
     (() => {
-      // Rail controls
-      function nudge(id, dir) { const el = document.querySelector(id); if (!el) return; el.scrollBy({ left: el.clientWidth * 0.8 * (dir||1), behavior:'smooth' }); }
-      document.querySelectorAll('.ctrl').forEach(b => b.addEventListener('click', () => nudge(b.getAttribute('data-target'), Number(b.getAttribute('data-dir')))));
+      // Arrow controls (no visible scrollbar, still swipe on touch)
+      function nudge(id, dir) {
+        const el = document.querySelector(id);
+        if (!el) return;
+        el.scrollBy({ left: el.clientWidth * 0.8 * (dir || 1), behavior: 'smooth' });
+      }
+      document.querySelectorAll('.ctrl').forEach(btn => {
+        btn.addEventListener('click', () => nudge(btn.getAttribute('data-target'), Number(btn.getAttribute('data-dir'))));
+      });
 
-      // Reveal
-      const reduce = matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+      // Reveal on scroll
+      const reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
       if (!reduce && 'IntersectionObserver' in window) {
-        const io = new IntersectionObserver((es)=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} }),{threshold:.12});
-        document.querySelectorAll('[data-animate]').forEach(el=>io.observe(el));
-      } else { document.querySelectorAll('[data-animate]').forEach(el=>el.classList.add('in')); }
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+        }, { threshold: 0.12 });
+        document.querySelectorAll('[data-animate]').forEach(el => io.observe(el));
+      } else {
+        document.querySelectorAll('[data-animate]').forEach(el => el.classList.add('in'));
+      }
 
       // Parallax for stack cards
       if (!reduce) {
@@ -221,7 +383,8 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
             const s = Number(el.getAttribute('data-parallax')||0.1);
             const r = el.getBoundingClientRect();
             const rel = (r.top - (innerHeight/2)) / innerHeight;
-            el.style.transform = `translateY(${rel * s * 100}px) ${el.classList.contains('c1') ? 'rotate(-4deg)' : el.classList.contains('c2') ? 'rotate(3deg)' : ''}`;
+            const baseRot = el.classList.contains('c1') ? -4 : el.classList.contains('c2') ? 3 : 0;
+            el.style.transform = `translateY(${rel * s * 100}px) rotate(${baseRot}deg)`;
           });
         };
         onScroll();
