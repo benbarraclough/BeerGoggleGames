@@ -20,37 +20,32 @@ const posts = excludeLegacyNoise(await getCollection('posts'))
 const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 ---
 <Layout title="BeerGoggleGames" description="Drinking games, cocktails & shots, forfeits, glossary and wheel tools." canonical={pageCanonical} wide={true}>
-
-  <!-- Attached, full-width scrolling banner -->
+  <!-- Banner attached to nav -->
   <section slot="banner" class="w-full border-t border-b border-fg/15 bg-fg/5/10">
-    <div class="mx-auto max-w-none">
-      <div class="marquee h-9 flex items-center">
-        <div class="marquee-track">
-          <span>New: Animated Wheel of Fortune</span>
-          <span>Try a Random Game →</span>
-          <span>Extras: Dice Roll & Coin Flip</span>
-          <span>Browse all Drinks & Bases</span>
-          <span>Search across Games & Drinks</span>
-          <span>New: Animated Wheel of Fortune</span>
-          <span>Try a Random Game →</span>
-          <span>Extras: Dice Roll & Coin Flip</span>
-          <span>Browse all Drinks & Bases</span>
-          <span>Search across Games & Drinks</span>
-        </div>
+    <div class="marquee h-9 flex items-center">
+      <div class="marquee-track">
+        <span>Animated Wheel of Fortune</span>
+        <span>Try a Random Game →</span>
+        <span>New: Dice Roll & Coin Flip</span>
+        <span>Browse all Drinks</span>
+        <span>Search across Games & Drinks</span>
+        <span>Animated Wheel of Fortune</span>
+        <span>Try a Random Game →</span>
+        <span>New: Dice Roll & Coin Flip</span>
+        <span>Browse all Drinks</span>
+        <span>Search across Games & Drinks</span>
       </div>
     </div>
   </section>
 
-  <!-- HERO: compact, layered neon mesh with glass call-to-actions -->
-  <section class="relative overflow-hidden rounded-2xl border border-fg/15 mb-10 hero-surface">
-    <!-- background layers -->
-    <div aria-hidden="true" class="absolute inset-0 hero-mesh"></div>
-    <div aria-hidden="true" class="absolute inset-0 hero-noise rounded-2xl"></div>
+  <!-- Neon Glass Hero -->
+  <section class="hero container-surface rounded-2xl mb-10" data-animate="fade-up">
+    <div aria-hidden="true" class="hero-bg"></div>
+    <div aria-hidden="true" class="hero-noise rounded-2xl"></div>
 
     <div class="relative px-4 sm:px-6 py-6 md:py-8 grid md:grid-cols-[1.05fr_1fr] gap-6 md:gap-8 items-center">
-      <!-- Image first (left on desktop, top on mobile) -->
       <div class="relative">
-        <div class="accent-ring rounded-xl">
+        <div class="accent-ring rounded-xl will-parallax" data-parallax="0.08">
           <picture>
             <img
               src={withBase('images/hero.webp')}
@@ -62,37 +57,26 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
             />
           </picture>
         </div>
-
-        <!-- subtle float shapes -->
-        <div aria-hidden="true" class="shape shape-a"></div>
-        <div aria-hidden="true" class="shape shape-b"></div>
+        <div aria-hidden="true" class="blob blob-a will-parallax" data-parallax="-0.12"></div>
+        <div aria-hidden="true" class="blob blob-b will-parallax" data-parallax="0.16"></div>
       </div>
 
       <div class="space-y-4">
-        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[11px] tracking-wide font-semibold bg-neon/10 border border-neon/30 text-neon shadow-neon-soft">
-          <span>Fast · Clean · Mobile-first</span>
-        </div>
-        <h1 class="font-display text-3xl md:text-4xl leading-tight tracking-tight drop-shadow-title">
-          Party Faster. Play Smarter.
-        </h1>
+        <div class="badge">Fast · Clean · Mobile-first</div>
+        <h1 class="title-lg">Party Faster. Play Smarter.</h1>
         <p class="text-muted/95 leading-relaxed">
           Streamlined drinking games, curated cocktails & shots, creative forfeits and quick decision tools.
         </p>
-
         <div class="flex flex-wrap gap-3">
-          <a href={withBase('games/')} class="glass-btn">
-            Browse Games
-          </a>
-          <a href={withBase('extras/wheel-of-fortune/')} class="glass-btn neon-btn">
-            Spin a Wheel →
-          </a>
+          <a href={withBase('games/')} class="glass-btn">Browse Games</a>
+          <a href={withBase('extras/wheel-of-fortune/')} class="glass-btn neon-btn">Spin a Wheel →</a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- QUICK ACCESS + RANDOM (glass cards) -->
-  <section class="mb-10">
+  <!-- Quick access -->
+  <section class="mb-10" data-animate="fade-up">
     <ul class="grid gap-5 md:grid-cols-3 list-none p-0 m-0">
       {[
         { label: 'Random Game', href: withBase('games/random'), desc: 'Let fate decide your next play.' },
@@ -100,7 +84,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         { label: 'All Extras', href: withBase('extras/'), desc: 'Wheel, forfeits, glossary, dice & coin.' }
       ].map(i => (
         <li class="group">
-          <a href={i.href} class="block p-5 rounded-xl glass-card hover:translate-y-[-1px] transition-transform focus:outline-none focus:ring-2 focus:ring-neon">
+          <a href={i.href} class="block p-5 rounded-xl glass-card hover:-translate-y-0.5 transition-transform focus:outline-none focus:ring-2 focus:ring-neon">
             <div class="flex items-start gap-3">
               <div class="h-8 w-8 rounded-full bg-neon/20 border border-neon/30 shadow-neon-soft shrink-0 flex items-center justify-center text-neon">★</div>
               <div>
@@ -114,11 +98,11 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
     </ul>
   </section>
 
-  <!-- CAROUSEL: Latest Games -->
-  <section class="mb-12">
-    <header class="flex items-center justify-between mb-3">
+  <!-- Games carousel -->
+  <section class="mb-12" data-animate="fade-up">
+    <header class="section-head">
       <h2 class="section-title">Latest Games</h2>
-      <div class="flex gap-2">
+      <div class="controls">
         <button class="carousel-btn" data-target="#games-carousel" data-dir="-1" aria-label="Previous">‹</button>
         <button class="carousel-btn" data-target="#games-carousel" data-dir="1" aria-label="Next">›</button>
       </div>
@@ -130,7 +114,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         const img = withBase(`images/${slug}.webp`);
         return (
           <div class="carousel-item">
-            <div class="carousel-card glass-card p-3">
+            <div class="carousel-card glass-card p-3 hover:translate-y-[-2px] transition-transform">
               <picture>
                 <img
                   src={img}
@@ -152,16 +136,13 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         );
       })}
     </div>
-    <p class="mt-3 text-xs">
-      <a class="hover:text-neon underline underline-offset-4" href={withBase('games/')}>All Games →</a>
-    </p>
   </section>
 
-  <!-- CAROUSEL: Popular Drinks -->
-  <section class="mb-12">
-    <header class="flex items-center justify-between mb-3">
+  <!-- Drinks carousel -->
+  <section class="mb-12" data-animate="fade-up">
+    <header class="section-head">
       <h2 class="section-title">Popular Drinks</h2>
-      <div class="flex gap-2">
+      <div class="controls">
         <button class="carousel-btn" data-target="#drinks-carousel" data-dir="-1" aria-label="Previous">‹</button>
         <button class="carousel-btn" data-target="#drinks-carousel" data-dir="1" aria-label="Next">›</button>
       </div>
@@ -173,7 +154,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         const img = withBase(`images/${slug}.webp`);
         return (
           <div class="carousel-item">
-            <div class="carousel-card glass-card p-3">
+            <div class="carousel-card glass-card p-3 hover:translate-y-[-2px] transition-transform">
               <picture>
                 <img
                   src={img}
@@ -193,17 +174,14 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         );
       })}
     </div>
-    <p class="mt-3 text-xs">
-      <a class="hover:text-neon underline underline-offset-4" href={withBase('drinks/')}>All Drinks →</a>
-    </p>
   </section>
 
-  <!-- BLOG TEASERS -->
+  <!-- Blog teasers -->
   {posts.length > 0 && (
-    <section class="mb-16">
-      <header class="flex items-center justify-between mb-3">
+    <section class="mb-16" data-animate="fade-up">
+      <header class="section-head">
         <h2 class="section-title">From the Blog</h2>
-        <a class="text-xs uppercase tracking-wide hover:text-neon underline underline-offset-4" href={withBase('extras/blog/')}>All Posts</a>
+        <a class="view-all" href={withBase('extras/blog/')}>All Posts</a>
       </header>
       <div id="blog-carousel" class="carousel">
         {posts.map(p => {
@@ -211,7 +189,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
           const href = withBase(`extras/blog/${slug}/`);
           return (
             <div class="carousel-item">
-              <div class="carousel-card glass-card p-3">
+              <div class="carousel-card glass-card p-3 hover:translate-y-[-2px] transition-transform">
                 <div class="aspect-[16/10] rounded-lg border border-fg/20 bg-fg/5 mb-2 flex items-center justify-center text-muted">
                   <span class="text-[10px]">Add blog image (optional)</span>
                 </div>
@@ -230,47 +208,73 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
   )}
 
   <style>
-    /* Mesh neon hero surface */
-    .hero-surface { background: radial-gradient(1200px 500px at 20% 0%, rgba(255,0,128,0.10), transparent 60%), radial-gradient(900px 600px at 100% 100%, rgba(0,200,255,0.10), transparent 60%); }
-    .hero-mesh { background:
-      radial-gradient(60% 100% at 110% 10%, rgba(255,0,128,0.18) 0%, rgba(255,0,128,0) 70%),
-      radial-gradient(60% 100% at -10% 80%, rgba(0,200,255,0.18) 0%, rgba(0,200,255,0) 70%);
-      filter: blur(20px);
+    /* Banner marquee */
+    .marquee { overflow: hidden; position: relative; }
+    .marquee-track {
+      display: inline-flex; align-items: center; gap: 2.75rem;
+      white-space: nowrap; padding-inline: 1.25rem;
+      min-width: 220vw;
+      animation: marquee 26s linear infinite;
     }
-    .hero-noise { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.65' numOctaves='2' stitchTiles='stitch' type='fractalNoise'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='table' tableValues='0 0 0 0.04 0'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); opacity: .6; mix-blend-mode: overlay; }
+    .marquee:hover .marquee-track { animation-play-state: paused; }
+    .marquee-track > span { opacity: 0.9 }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-    /* Accent ring around images */
-    .accent-ring {
+    /* Section headers */
+    .section-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:.5rem; }
+    .section-title { font-family: var(--font-display, inherit); font-size: 1.5rem; letter-spacing:-.01em; }
+    .view-all { font-size:.75rem; text-transform:uppercase; letter-spacing:.12em; text-decoration:underline; text-underline-offset:4px; color:var(--neon, #ff0080); }
+
+    /* Hero surface and background */
+    .container-surface {
       position: relative;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
     }
+    .hero-bg {
+      position:absolute; inset:0;
+      background:
+        radial-gradient(55% 95% at 110% 10%, rgba(255,0,128,0.22) 0%, rgba(255,0,128,0) 70%),
+        radial-gradient(55% 95% at -10% 80%, rgba(0,200,255,0.22) 0%, rgba(0,200,255,0) 70%);
+      filter: blur(22px);
+    }
+    .hero-noise {
+      position:absolute; inset:0; opacity:.6; mix-blend-mode:overlay;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.65' numOctaves='2' stitchTiles='stitch' type='fractalNoise'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='table' tableValues='0 0 0 0.04 0'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      border-radius: 1rem;
+      pointer-events:none;
+    }
+
+    /* Accent ring */
+    .accent-ring { position:relative; }
     .accent-ring::before {
-      content: '';
-      position: absolute;
-      inset: -1px;
-      border-radius: 0.75rem; /* rounded-xl */
-      padding: 1px;
-      background: linear-gradient(135deg, rgba(255,0,128,0.35), rgba(0,200,255,0.35));
+      content:''; position:absolute; inset:-1px; border-radius: .75rem; padding:1px;
+      background: linear-gradient(135deg, rgba(255,0,128,0.45), rgba(0,200,255,0.45));
       -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-      -webkit-mask-composite: xor;
-              mask-composite: exclude;
-      pointer-events: none;
+      -webkit-mask-composite: xor; mask-composite: exclude; pointer-events:none;
     }
 
-    /* Subtle shapes */
-    .shape { position:absolute; border-radius:9999px; filter: blur(18px); opacity:.28; }
-    .shape-a { width:160px; height:160px; background: rgba(255,0,128,.3); right:-40px; top:-30px; }
-    .shape-b { width:180px; height:180px; background: rgba(0,200,255,.25); left:-50px; bottom:-40px; }
+    /* Floating blobs */
+    .blob { position:absolute; border-radius:9999px; filter: blur(18px); opacity:.3; }
+    .blob-a { width:180px; height:180px; background: rgba(255,0,128,.35); right:-40px; top:-30px; }
+    .blob-b { width:160px; height:160px; background: rgba(0,200,255,.30); left:-45px; bottom:-40px; }
 
-    .drop-shadow-title { text-shadow: 0 6px 24px rgba(255,0,128,0.15); }
+    /* Badge and title */
+    .badge { display:inline-flex; align-items:center; gap:.5rem; padding:.45rem .8rem; border-radius:9999px;
+      background: rgba(255,0,128,0.12); border:1px solid rgba(255,0,128,0.35); color:var(--neon, #ff0080);
+      font-weight:600; font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; box-shadow: 0 0 0 1px rgba(255,0,128,0.18) inset, 0 6px 16px rgba(255,0,128,0.18);
+    }
+    .title-lg { font-family: var(--font-display, inherit); font-size: clamp(1.75rem, 2.2vw + 1rem, 2.5rem); line-height:1.15; text-shadow: 0 6px 24px rgba(255,0,128,0.12); }
 
     /* Glass cards/buttons */
     .glass-card {
       background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
-      border: 1px solid rgba(255,255,255,0.13);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.25), 0 1px 0 rgba(255,255,255,0.05) inset;
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.28), 0 1px 0 rgba(255,255,255,0.06) inset;
       transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+      border-radius: 14px;
     }
-    .glass-card:hover { border-color: rgba(255,0,128,0.4); box-shadow: 0 10px 28px rgba(0,0,0,0.28), 0 0 0 1px rgba(255,0,128,0.25) inset; }
+    .glass-card:hover { border-color: rgba(255,0,128,0.4); box-shadow: 0 14px 34px rgba(0,0,0,0.32), 0 0 0 1px rgba(255,0,128,0.25) inset; }
     .glass-btn {
       display:inline-flex; align-items:center; gap:.5rem;
       padding:.6rem 1rem; border-radius:.75rem;
@@ -283,49 +287,29 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
     .neon-btn { color: var(--neon, #ff0080); border-color: rgba(255,0,128,0.45); background: linear-gradient(180deg, rgba(255,0,128,0.10), rgba(255,0,128,0.04)); }
     .shadow-neon-soft { box-shadow: 0 0 0 1px rgba(255,0,128,0.25) inset, 0 6px 16px rgba(255,0,128,0.18); }
 
-    .section-title { @apply font-display text-2xl; letter-spacing: -0.01em; }
-
-    /* marquee */
-    .marquee { overflow: hidden; position: relative; }
-    .marquee-track {
-      display: inline-flex; align-items: center; gap: 2.75rem;
-      white-space: nowrap; padding-inline: 1.25rem;
-      min-width: 220vw;
-      animation: marquee 26s linear infinite;
-    }
-    .marquee:hover .marquee-track { animation-play-state: paused; }
-    .marquee-track > span { opacity: 0.9 }
-    @keyframes marquee {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
-    }
-
-    /* Carousels */
-    .carousel {
-      display: grid;
-      grid-auto-flow: column;
-      grid-auto-columns: 80%;
-      gap: 14px;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
-      padding-bottom: 6px;
-    }
+    /* Carousel */
+    .carousel { display:grid; grid-auto-flow:column; grid-auto-columns: 80%; gap:14px; overflow-x:auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; padding-bottom:6px; }
     @media (min-width: 640px) { .carousel { grid-auto-columns: 45%; } }
     @media (min-width: 1024px) { .carousel { grid-auto-columns: 30%; } }
     .carousel::-webkit-scrollbar { height: 8px; }
     .carousel::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 6px; }
     .carousel-item { scroll-snap-align: start; }
     .carousel-card { border-radius: 14px; }
+    .carousel-btn { border:1px solid rgba(255,255,255,0.2); padding:.3rem .6rem; border-radius:.5rem; font-size:.85rem; background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02)); }
+    .carousel-btn:hover { border-color: rgba(255,0,128,0.45); color: var(--neon, #ff0080); }
 
-    .carousel-btn {
-      @apply border border-fg/25 px-2 py-1 rounded text-sm hover:border-neon hover:text-neon;
-      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+    /* Scroll reveal */
+    [data-animate] { opacity:0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }
+    [data-animate].in { opacity:1; transform:none; }
+    @media (prefers-reduced-motion: reduce) {
+      .marquee-track { animation: none !important; }
+      [data-animate] { opacity:1; transform:none; }
     }
   </style>
 
   <script is:inline>
     (() => {
+      // Carousel nudge
       function nudge(id, dir) {
         const el = document.querySelector(id);
         if (!el) return;
@@ -335,6 +319,35 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       document.querySelectorAll('.carousel-btn').forEach(btn => {
         btn.addEventListener('click', () => nudge(btn.getAttribute('data-target'), Number(btn.getAttribute('data-dir'))));
       });
+
+      // Scroll reveal
+      const reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!reduce && 'IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+        }, { threshold: 0.12 });
+        document.querySelectorAll('[data-animate]').forEach(el => io.observe(el));
+      } else {
+        document.querySelectorAll('[data-animate]').forEach(el => el.classList.add('in'));
+      }
+
+      // Parallax on hero bits
+      function onScroll() {
+        const els = document.querySelectorAll('.will-parallax');
+        const vh = window.innerHeight || 800;
+        els.forEach(el => {
+          const speed = Number(el.getAttribute('data-parallax') || 0.1);
+          const rect = el.getBoundingClientRect();
+          const rel = (rect.top - vh/2) / vh; // -1..1 approx
+          el.style.transform = `translateY(${rel * speed * 100}px)`;
+        });
+      }
+      const reduce2 = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!reduce2) {
+        onScroll();
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', onScroll, { passive: true });
+      }
     })();
   </script>
 </Layout>
