@@ -9,6 +9,7 @@ interface Props {
   ogImage?: string;
   wide?: boolean;
   fullBleed?: boolean;
+  noindex?: boolean;
 }
 
 const {
@@ -17,12 +18,12 @@ const {
   canonical,
   ogImage,
   wide = false,
-  fullBleed = false
+  fullBleed = false,
+  noindex = false
 } = Astro.props as Props;
 
 const current = Astro.url.pathname;
 
-// Only mark Home active on exact root
 function isActive(segment: string) {
   if (segment === '') {
     const cur = current.endsWith('/') ? current : current + '/';
@@ -77,6 +78,7 @@ const siteUrl = canonical || 'https://beergogglegames.co.uk';
     <meta charset="utf-8" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex" />}
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     {canonical && <link rel="canonical" href={canonical} />}
     <meta property="og:title" content={title} />
@@ -135,6 +137,8 @@ const siteUrl = canonical || 'https://beergogglegames.co.uk';
           Menu
         </a>
       </div>
+      <!-- Full-width banner slot attached to nav bar -->
+      <slot name="banner" />
     </header>
 
     <div id="site-menu" class="site-menu-overlay" aria-label="Mobile navigation">
@@ -177,7 +181,6 @@ const siteUrl = canonical || 'https://beergogglegames.co.uk';
 
     <footer class="border-t border-fg/20 mt-auto">
       <div class="mx-auto max-w-7xl px-4 py-10 grid gap-10 sm:gap-12 sm:grid-cols-2 lg:grid-cols-4 text-sm">
-        <!-- Explore: vertical on desktop; compact 2-column only on small screens -->
         <div class="space-y-4">
           <h2 class="font-semibold text-fg/80 uppercase tracking-wide text-xs">Explore</h2>
           <ul class="grid grid-cols-2 gap-x-4 gap-y-1 md:block md:space-y-1">
@@ -203,9 +206,8 @@ const siteUrl = canonical || 'https://beergogglegames.co.uk';
           <ul class="space-y-1">
             <li><a class="hover:text-neon" href="https://github.com/benbarraclough/BeerGoggleGames" rel="noopener" target="_blank">GitHub</a></li>
           </ul>
-          <!-- Buttondown Embed -->
           <form
-            action="https://buttondown.email/api/emails/embed-subscribe/YOUR_HANDLE"
+            action="https://buttondown.email/api/emails/embed-subscribe/beergogglegames"
             method="post"
             target="_blank"
             class="mt-4 space-y-2"
