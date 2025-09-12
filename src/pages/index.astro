@@ -60,7 +60,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       <div class="stack-card c3 will-parallax" data-parallax="0.12">
         <picture>
           <img
-            src={withBase('images/hero.webp')}
+            src={withBase('images/ComingSoon750x300.webp')}
             alt="Party tools and games"
             class="w-full h-full object-cover rounded-xl"
             onerror="this.closest('.c3').innerHTML='<div class=&quot;w-full h-full rounded-xl border border-fg/20 bg-fg/5 grid place-items-center text-muted text-xs&quot;>Add hero image (images/hero.webp)</div>'"
@@ -226,7 +226,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
     </div>
   </section>
 
-  <!-- How it Works (single flow with icons + soft gradient) -->
+  <!-- How it Works -->
   <section class="mb-16 howto rounded-2xl border border-fg/15 overflow-hidden" data-animate="fade-up">
     <div class="howto-bg" aria-hidden="true"></div>
     <div class="px-4 sm:px-6 py-10 relative">
@@ -265,7 +265,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
     </div>
   </section>
 
-  <!-- More from Extras (carousel of remaining extras) -->
+  <!-- More from Extras -->
   <section class="mb-20" data-animate="fade-up">
     <header class="head mb-3">
       <h2 class="h2">More from Extras</h2>
@@ -314,11 +314,25 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
   </section>
 
   <style>
-    /* Preview fonts (choose later to wire globally in Layout) */
+    /* Preview fonts (pick pair later to wire globally in Layout) */
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&family=Bricolage+Grotesque:opsz,wght@12..72,700&display=swap');
     :root { --font-body: 'Plus Jakarta Sans', system-ui, -apple-system, Segoe UI, Roboto, sans-serif; --font-display: 'Bricolage Grotesque', var(--font-body); }
     body { font-family: var(--font-body); }
     .title-xl, .h2 { font-family: var(--font-display); }
+
+    /* Reveal-on-scroll (CSS-controlled, no inline opacity) */
+    [data-animate] {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    [data-animate].in {
+      opacity: 1;
+      transform: none;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      [data-animate] { opacity: 1; transform: none; }
+    }
 
     /* Palette emphasis: magenta/cyan only */
     .stack-hero {
@@ -372,7 +386,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 
     /* Head + controls */
     .head { display:flex; align-items:center; justify-content:space-between; }
-    .h2 { font-size: 1.5rem; letter-spacing:-.01em; }
+    .h2 { font-size: 1.5rem; letter-spacing:-.01em; font-weight:700; }
     .ctrls { display:flex; gap:8px; }
     .ctrl {
       border:1px solid rgba(255,255,255,0.2);
@@ -458,17 +472,18 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         btn.addEventListener('click', () => nudge(btn.getAttribute('data-target'), Number(btn.getAttribute('data-dir'))));
       });
 
-      // Reveal on scroll
+      // Reveal on scroll (no inline styles; CSS handles visibility)
       const reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
       if (!reduce && 'IntersectionObserver' in window) {
         const io = new IntersectionObserver((entries) => {
-          entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+          entries.forEach(e => {
+            if (e.isIntersecting) {
+              e.target.classList.add('in');
+              io.unobserve(e.target);
+            }
+          });
         }, { threshold: 0.12 });
-        document.querySelectorAll('[data-animate]').forEach(el => {
-          el.style.opacity = '0';
-          el.style.transform = 'translateY(16px)';
-          io.observe(el);
-        });
+        document.querySelectorAll('[data-animate]').forEach(el => io.observe(el));
       } else {
         document.querySelectorAll('[data-animate]').forEach(el => el.classList.add('in'));
       }
