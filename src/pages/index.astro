@@ -21,7 +21,6 @@ const popularDrinks = shuffle(drinksAll).slice(0, 12);
 
 const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 
-// Slideshow images (use whatever exists; missing ones are ignored gracefully)
 const heroImages = [
   withBase('images/hero-1.webp'),
   withBase('images/hero-2.webp'),
@@ -35,13 +34,8 @@ const heroImages = [
   canonical={pageCanonical}
   wide={true}
 >
-  <!-- Clickable banner: single message, scrolls in from right -->
-  <a
-    slot="banner"
-    href={withBase('extras/')}
-    class="block w-full border-t border-b border-fg/15 bg-fg/5/10 hover:bg-fg/10 transition-colors"
-    aria-label="Welcome — Explore Extras"
-  >
+  <!-- Banner: single message, scrolls from right, clickable to Extras -->
+  <a slot="banner" href={withBase('extras/')} class="block w-full border-t border-b border-fg/15 bg-fg/5/10 hover:bg-fg/10 transition-colors" aria-label="Welcome — Explore Extras">
     <div class="marquee h-8 overflow-hidden">
       <div class="marquee-track text-[10px] sm:text-[11px] uppercase tracking-wide">
         <span class="marquee-item">Welcome to BeerGoggleGames — Explore Extras →</span>
@@ -49,18 +43,15 @@ const heroImages = [
     </div>
   </a>
 
-  <!-- Subtle background layer (inside #main so it actually renders) -->
-  <div aria-hidden="true" class="page-bg"></div>
-
-  <!-- HERO: image left (slideshow), text right; improved spacing -->
-  <section class="stack-hero relative overflow-hidden rounded-2xl border border-fg/15 mb-10 md:mb-12 px-3 sm:px-4 md:px-6 py-5 md:py-7" data-animate="fade-up">
-    <div class="grid md:grid-cols-[0.9fr_1fr] gap-5 md:gap-8 items-center">
+  <!-- HERO: image left (slideshow), text right -->
+  <section class="stack-hero relative overflow-hidden rounded-2xl border border-fg/15 mb-6 md:mb-8 px-3 sm:px-4 md:px-6 py-6 md:py-8" data-animate="fade-up">
+    <div class="grid md:grid-cols-[0.95fr_1fr] gap-6 md:gap-10 items-center">
       <!-- Left: slideshow -->
       <div class="relative">
-        <div class="stack-wrap h-[180px] sm:h-[220px] md:h-[240px]">
-          <div class="stack-card c1 will-parallax" data-parallax="-0.05"></div>
+        <div class="stack-wrap h-[200px] sm:h-[240px] md:h-[260px]">
+          <div class="stack-card c1 will-parallax" data-parallax="-0.04"></div>
           <div class="stack-card c2 will-parallax" data-parallax="0.05"></div>
-          <div class="stack-card c3 will-parallax" data-parallax="0.08">
+          <div class="stack-card c3 will-parallax" data-parallax="0.06">
             <div class="hero-slides">
               {heroImages.map((src, i) => (
                 <img
@@ -80,7 +71,7 @@ const heroImages = [
 
       <!-- Right: copy -->
       <div class="stack-copy pr-1 sm:pr-2 md:pr-4">
-        <h1 class="title-xl mb-2">Party Faster. Play Smarter.</h1>
+        <h1 class="title-xl mb-3">Party Faster. Play Smarter.</h1>
         <p class="sublead mb-5">Drinking games, recipes, and tools to keep the night flowing.</p>
         <div class="flex flex-wrap gap-3">
           <a href={withBase('games/')} class="pill-btn btn-cyan">Find a Game</a>
@@ -90,13 +81,15 @@ const heroImages = [
     </div>
   </section>
 
-  <!-- Quick Access Tools (carousel with one-card nudge) -->
-  <section class="mb-12" data-animate="fade-up">
+  <div class="divider" aria-hidden="true"></div>
+
+  <!-- Quick Access Tools -->
+  <section class="mb-10" data-animate="fade-up">
     <header class="head mb-3">
       <h2 class="h2">Quick Access Tools</h2>
       <div class="ctrls">
-        <button class="ctrl tone-green" data-target="#tools-carousel" data-dir="-1" aria-label="Previous">‹</button>
-        <button class="ctrl tone-green" data-target="#tools-carousel" data-dir="1" aria-label="Next">›</button>
+        <button class="ctrl ctrl-white" data-target="#tools-carousel" data-dir="-1" aria-label="Previous">‹</button>
+        <button class="ctrl ctrl-white" data-target="#tools-carousel" data-dir="1" aria-label="Next">›</button>
       </div>
     </header>
     <div id="tools-carousel" class="rail no-scrollbar">
@@ -142,8 +135,10 @@ const heroImages = [
     </div>
   </section>
 
-  <!-- Popular Games (cyan) -->
-  <section class="mb-10" data-animate="fade-up">
+  <div class="divider" aria-hidden="true"></div>
+
+  <!-- Popular Games -->
+  <section class="mb-8" data-animate="fade-up">
     <header class="head">
       <h2 class="h2 tone-cyan-text">Popular Games</h2>
       <div class="ctrls">
@@ -167,8 +162,10 @@ const heroImages = [
     <div class="mt-2"><a href={withBase('games/')} class="view-all-link tone-cyan-text">View all games →</a></div>
   </section>
 
-  <!-- Popular Drinks (magenta) -->
-  <section class="mb-10" data-animate="fade-up">
+  <div class="divider" aria-hidden="true"></div>
+
+  <!-- Popular Drinks -->
+  <section class="mb-8" data-animate="fade-up">
     <header class="head">
       <h2 class="h2 tone-magenta-text">Popular Drinks</h2>
       <div class="ctrls">
@@ -192,86 +189,34 @@ const heroImages = [
     <div class="mt-2"><a href={withBase('drinks/')} class="view-all-link tone-magenta-text">View all drinks →</a></div>
   </section>
 
-  <!-- How it Works (consistent layout; CSS arrows; tighter top spacing) -->
-  <section class="mb-10 howto relative overflow-hidden rounded-2xl border border-fg/15 px-3 sm:px-4 md:px-6 pt-5 pb-8" data-animate="fade-up">
+  <div class="divider" aria-hidden="true"></div>
+
+  <!-- How it Works (clickable cards, numbers only) -->
+  <section class="mb-6 howto relative overflow-hidden rounded-2xl border border-fg/15 px-3 sm:px-4 md:px-6 pt-5 pb-7" data-animate="fade-up">
     <div class="howto-bg" aria-hidden="true"></div>
     <h2 class="h2 mb-3">How it Works</h2>
     <div class="grid md:grid-cols-3 gap-5 relative">
-      <div class="flow-step tone-cyan">
+      <a class="flow-step tone-cyan" href={withBase('games/')} aria-label="Go to Games">
         <span class="step-num tone-cyan-text">1</span>
-        <span class="flow-icon tone-cyan">
-          <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 12h8M12 8v8"/>
-          </svg>
-        </span>
         <div class="flow-title">Pick a game</div>
-        <div class="flow-desc">Browse categories or spin the wheel to choose a style.</div>
-      </div>
-      <div class="flow-step tone-magenta">
+        <div class="flow-desc">Browse games through filtering or choosing at random.</div>
+      </a>
+      <a class="flow-step tone-magenta" href={withBase('drinks/')} aria-label="Go to Drinks">
         <span class="step-num tone-magenta-text">2</span>
-        <span class="flow-icon tone-magenta">
-          <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M3 4h18l-8.5 8.5v5.5l3 2H8l3-2v-5.5L3 4Z"/><path d="M10 4l4 4"/>
-          </svg>
-        </span>
         <div class="flow-title">Grab a drink</div>
-        <div class="flow-desc">Search or discover a drink at random to match the mood.</div>
-      </div>
-      <div class="flow-step tone-green">
+        <div class="flow-desc">Find drink recipes that match the mood or select them at random.</div>
+      </a>
+      <a class="flow-step tone-green" href={withBase('extras/')} aria-label="Go to Extras">
         <span class="step-num tone-green-text">3</span>
-        <span class="flow-icon tone-green">
-          <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 3v4M12 17v4M7.05 7.05l2.83 2.83M14.12 14.12l2.83 2.83M3 12h4M17 12h4M7.05 16.95l2.83-2.83M14.12 9.88l2.83-2.83"/>
-          </svg>
-        </span>
         <div class="flow-title">Use extra features</div>
-        <div class="flow-desc">Coin flip, dice roll & forfeits to amplify the session.</div>
-      </div>
-
-      <!-- CSS arrows between steps on md+ -->
+        <div class="flow-desc">Make use of the extra features available to amplify the entertainment.</div>
+      </a>
       <div class="flow-connector md:block hidden" aria-hidden="true"></div>
     </div>
   </section>
 
-  <!-- More from Extras (green) -->
-  <section class="mb-6" data-animate="fade-up">
-    <header class="head mb-3">
-      <h2 class="h2 tone-green-text">More from Extras</h2>
-      <div class="ctrls">
-        <button class="ctrl tone-green" data-target="#extras-carousel" data-dir="-1" aria-label="Previous">‹</button>
-        <button class="ctrl tone-green" data-target="#extras-carousel" data-dir="1" aria-label="Next">›</button>
-      </div>
-    </header>
-    <div id="extras-carousel" class="rail no-scrollbar">
-      {[
-        { href: withBase('extras/blog/'), title: 'Blog', desc: 'Guides, ideas & announcements.' },
-        { href: withBase('extras/activities/'), title: 'Activities', desc: 'Party & social activities.' },
-        { href: withBase('extras/forfeits/'), title: 'Forfeits', desc: 'Creative penalties & challenges.' },
-        { href: withBase('extras/glossary/'), title: 'Glossary', desc: 'Drinking terms explained.' },
-      ].map(x => (
-        <a class="tool-card3d tone-green" href={x.href}>
-          <span class="tool-icon3d tone-green">
-            <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M20 22H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20Z"/>
-            </svg>
-          </span>
-          <span class="tool-title3d">{x.title}</span>
-          <span class="tool-desc3d">{x.desc}</span>
-        </a>
-      ))}
-    </div>
-  </section>
-
-  <!-- Contact -->
-  <section class="mb-3 contact-slab relative overflow-hidden rounded-2xl border border-fg/15 px-3 sm:px-4 md:px-6 py-7 text-center" data-animate="fade-up">
-    <div class="contact-bg" aria-hidden="true"></div>
-    <h2 class="h2 mb-2">Get in touch</h2>
-    <p class="text-sm text-muted mb-4">Suggestions, feature ideas, or corrections? We’re all ears.</p>
-    <a href={withBase('contact')} class="pill-btn btn-violet">Contact us</a>
-  </section>
-
   <style>
-    /* Fonts preview: choose pair to move to global later */
+    /* Fonts preview (choose globally later) */
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&family=Bricolage+Grotesque:opsz,wght@12..72,700&display=swap');
     :root{
       --font-body:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
@@ -282,109 +227,62 @@ const heroImages = [
     .title-xl,.h2{font-family:var(--font-display);font-weight:700}
     .sublead{color:var(--muted,#c3c3c3)}
 
-    /* Ensure background layer shows (inside #main) */
-    #main{position:relative}
-    .page-bg{
-      position:absolute; inset:-10px; z-index:0; pointer-events:none;
-    }
-    .bg-on{position:absolute; inset:0}
-    .page-bg::before{
-      content:''; position:absolute; inset:-10%; filter:blur(14px);
-      background:
-        radial-gradient(900px 500px at 10% 0%, rgba(255,0,128,0.06), transparent 60%),
-        radial-gradient(900px 500px at 90% 100%, rgba(0,200,255,0.06), transparent 60%);
-      animation:mesh-drift 20s ease-in-out infinite alternate;
-    }
-    .page-bg::after{
-      content:''; position:absolute; inset:0; opacity:.04; mix-blend-mode:overlay;
-      background:
-        repeating-linear-gradient(90deg, rgba(255,255,255,0.03) 0 1px, transparent 1px 22px),
-        repeating-linear-gradient(0deg, rgba(255,255,255,0.02) 0 1px, transparent 1px 22px);
-      animation:shapes-parallax 18s linear infinite;
-    }
-    @keyframes mesh-drift{from{transform:translate3d(0,0,0)}to{transform:translate3d(0,-2%,0)}}
-    @keyframes shapes-parallax{from{transform:translate3d(0,0,0)}to{transform:translate3d(-1%,1%,0)}}
-
     /* Banner: single message from right */
-    .marquee-track{
-      display:inline-block; will-change:transform;
-      transform:translateX(100%);
-      animation:marquee-single 16s linear infinite;
-      white-space:nowrap;
-    }
+    .marquee-track{display:inline-block; will-change:transform; transform:translateX(100%); animation:marquee-single 16s linear infinite; white-space:nowrap}
     .marquee-item{display:inline-block; padding-inline:1rem; color:var(--muted,#bfbfbf)}
     .marquee:hover .marquee-track{animation-play-state:paused}
     @keyframes marquee-single{0%{transform:translateX(100%)}100%{transform:translateX(-100%)}}
 
-    /* HERO stack */
-    .stack-hero{
-      background:
-        radial-gradient(700px 350px at 20% -10%, rgba(255,0,128,0.10), transparent 60%),
-        radial-gradient(700px 350px at 120% 110%, rgba(0,200,255,0.10), transparent 60%);
-    }
+    /* HERO stack and slideshow (bigger title again) */
+    .title-xl{font-size: clamp(2.2rem, 2.2vw + 1.6rem, 3rem); letter-spacing:-.01em; text-shadow:0 6px 24px rgba(255,0,128,0.12)}
+    .stack-hero{background: radial-gradient(700px 350px at 20% -10%, rgba(255,0,128,0.10), transparent 60%), radial-gradient(700px 350px at 120% 110%, rgba(0,200,255,0.10), transparent 60%)}
     .stack-wrap{position:relative}
-    .stack-card{
-      position:absolute; inset:0; border-radius:1rem;
-      background:rgba(255,255,255,0.03);
-      border:1px solid rgba(255,255,255,0.12);
-      transform-origin:center; will-change:transform;
-    }
+    .stack-card{position:absolute; inset:0; border-radius:1rem; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.12); transform-origin:center; will-change:transform}
     .c1{transform:translate(-10px,-10px) rotate(-4deg); background:linear-gradient(135deg, rgba(255,0,128,0.14), rgba(0,200,255,0.10))}
     .c2{transform:translate(8px,6px) rotate(3deg); background:linear-gradient(315deg, rgba(0,200,255,0.14), rgba(255,0,128,0.10))}
     .c3{overflow:hidden; border:1px solid rgba(255,255,255,0.18)}
     .hero-slides{position:relative; width:100%; height:100%}
     .hero-slide{
       position:absolute; inset:0; width:100%; height:100%; object-fit:cover; border-radius:1rem;
-      opacity:0; transition:opacity .7s ease; border:1px solid rgba(255,255,255,0.15);
+      opacity:0; transform-origin:center center;
+      transform: scale(1.02) rotate(var(--rot, 0));
+      transition: opacity .9s cubic-bezier(.22,.61,.36,1), transform 2.8s ease-out;
+      border:1px solid rgba(255,255,255,0.15);
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), 0 10px 30px rgba(0,0,0,0.35);
       background:rgba(255,255,255,0.02);
-      will-change:opacity;
+      will-change:opacity,transform;
     }
-    .hero-slide.active{opacity:1}
+    .hero-slide.active{opacity:1; transform: scale(1) rotate(var(--rot, 0))}
+
+    /* Section divider */
+    .divider{height:1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent); margin: 14px 0 18px}
 
     /* Buttons (no shimmer) */
-    .pill-btn{
-      display:inline-flex; align-items:center; gap:.5rem;
-      padding:.55rem .95rem; border-radius:9999px; font-weight:700; font-size:.9rem;
-      border:1px solid rgba(255,255,255,0.18); background:rgba(255,255,255,0.03);
-      transition:border-color .2s ease, color .2s ease, transform .2s ease, background .2s ease;
-    }
+    .pill-btn{display:inline-flex; align-items:center; gap:.5rem; padding:.55rem .95rem; border-radius:9999px; font-weight:700; font-size:.9rem; border:1px solid rgba(255,255,255,0.18); background:rgba(255,255,255,0.03); transition:border-color .2s ease, color .2s ease, transform .2s ease, background .2s ease}
     .pill-btn:hover{transform:translateY(-1px)}
     .btn-cyan{border-color:rgba(0,200,255,0.45); color:var(--c-cyan); background:linear-gradient(180deg, rgba(0,200,255,0.08), rgba(255,255,255,0.02))}
     .btn-magenta{border-color:rgba(255,0,128,0.45); color:var(--c-magenta); background:linear-gradient(180deg, rgba(255,0,128,0.10), rgba(255,255,255,0.02))}
     .btn-green{border-color:rgba(0,210,122,0.45); color:var(--c-green); background:linear-gradient(180deg, rgba(0,210,122,0.10), rgba(255,255,255,0.02))}
     .btn-violet{border-color:rgba(139,92,246,0.45); color:var(--c-violet); background:linear-gradient(180deg, rgba(139,92,246,0.12), rgba(255,255,255,0.02))}
 
-    /* Section heads */
+    /* Heads + controls */
     .head{display:flex; align-items:center; justify-content:space-between}
     .h2{font-size:1.5rem; letter-spacing:-.01em}
     .ctrls{display:flex; gap:8px}
-    .ctrl{
-      border:1px solid rgba(255,255,255,0.2); padding:.3rem .6rem; border-radius:.5rem; font-size:.85rem;
-      background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
-      transition:border-color .2s ease, color .2s ease, transform .2s ease;
-    }
+    .ctrl{border:1px solid rgba(255,255,255,0.2); padding:.3rem .6rem; border-radius:.5rem; font-size:.85rem; background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02)); transition:border-color .2s ease, color .2s ease, transform .2s ease}
     .ctrl:hover{transform:translateY(-1px)}
+    .ctrl-white{border-color:rgba(255,255,255,0.55); color:#fff}
     .tone-cyan{border-color:rgba(0,200,255,0.35); color:var(--c-cyan)}
     .tone-magenta{border-color:rgba(255,0,128,0.35); color:var(--c-magenta)}
     .tone-green{border-color:rgba(0,210,122,0.35); color:var(--c-green)}
     .tone-cyan-text{color:var(--c-cyan)} .tone-magenta-text{color:var(--c-magenta)} .tone-green-text{color:var(--c-green)}
 
     /* 3D glass cards */
-    .tool-card3d,.tile3d,.flow-step{
-      position:relative; border-radius:14px; border:1px solid rgba(255,255,255,0.12);
-      background:linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.02));
-      box-shadow: 0 18px 36px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.06);
-      transition:transform .2s ease, border-color .2s ease, box-shadow .2s ease, background .2s ease;
-    }
-    .tool-card3d::before,.tile3d::before,.flow-step::before{
-      content:''; position:absolute; inset:0; border-radius:inherit; pointer-events:none;
-      background: radial-gradient(80% 60% at 20% 10%, rgba(255,255,255,0.06), transparent 60%);
-      mix-blend-mode:screen; opacity:.35;
-    }
+    .tool-card3d,.tile3d,.flow-step{position:relative; border-radius:14px; border:1px solid rgba(255,255,255,0.12); background:linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.02)); box-shadow: 0 18px 36px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.06); transition:transform .2s ease, border-color .2s ease, box-shadow .2s ease, background .2s ease}
+    .tool-card3d::before,.tile3d::before,.flow-step::before{content:''; position:absolute; inset:0; border-radius:inherit; pointer-events:none; background: radial-gradient(80% 60% at 20% 10%, rgba(255,255,255,0.06), transparent 60%); mix-blend-mode:screen; opacity:.35}
     .tool-card3d:hover,.tile3d:hover,.flow-step:hover{transform:translateY(-2px); border-color:rgba(255,255,255,0.18); box-shadow:0 22px 44px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.08)}
 
-    /* Tiles/rails */
+    /* Tool tiles */
     .rail{display:grid; grid-auto-flow:column; grid-auto-columns:75%; gap:14px; overflow-x:auto; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; padding:6px 2px 8px}
     @media (min-width:640px){.rail{grid-auto-columns:48%}} @media (min-width:1024px){.rail{grid-auto-columns:28%}}
     .no-scrollbar{scrollbar-width:none; -ms-overflow-style:none} .no-scrollbar::-webkit-scrollbar{display:none}
@@ -395,43 +293,30 @@ const heroImages = [
     .tone-magenta .tool-icon3d,.tone-magenta.tool-icon3d{border-color:rgba(255,0,128,0.35); color:var(--c-magenta); background:rgba(255,0,128,0.10)}
     .tone-green .tool-icon3d,.tone-green.tool-icon3d{border-color:rgba(0,210,122,0.35); color:var(--c-green); background:rgba(0,210,122,0.10)}
 
+    /* Tiles */
     .tile3d{overflow:hidden; scroll-snap-align:start}
     .tile-img{width:100%; aspect-ratio:16/9; object-fit:cover; display:block; border-bottom:1px solid rgba(255,255,255,0.10)}
     .tile-caption{position:absolute; left:10px; bottom:10px; background:rgba(0,0,0,0.45); border:1px solid rgba(255,255,255,0.2); backdrop-filter:blur(6px); padding:.3rem .5rem; border-radius:9999px; font-size:.75rem}
 
-    /* How it Works styling and connectors */
+    /* How it Works */
     .howto{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.015))}
     .howto-bg{position:absolute; inset:0; filter:blur(14px); background:
       radial-gradient(500px 260px at -10% 50%, rgba(0,200,255,0.14), transparent 70%),
       radial-gradient(500px 260px at 110% 50%, rgba(255,0,128,0.14), transparent 70%),
       radial-gradient(400px 200px at 50% 110%, rgba(0,210,122,0.12), transparent 75%)}
-    .flow-step{padding:14px}
-    .flow-icon{width:36px; height:36px; display:grid; place-items:center; border-radius:50%; border:1px solid rgba(255,255,255,0.18); background:rgba(255,255,255,0.03); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05), 0 8px 18px rgba(0,0,0,0.25); margin-bottom:8px}
-    .step-num{display:inline-block; font-weight:800; font-size:.85rem; margin-bottom:6px; padding:.1rem .5rem; border-radius:9999px; border:1px solid rgba(255,255,255,0.18); background:rgba(255,255,255,0.03)}
-    .flow-title{font-weight:800; margin-bottom:2px} .flow-desc{font-size:.9rem; color:var(--muted,#bfbfbf)}
+    .flow-step{padding:14px; display:block; text-decoration:none}
+    .step-num{display:inline-block; font-weight:800; font-size:.9rem; margin-bottom:6px; padding:.1rem .5rem; border-radius:9999px; border:1px solid rgba(255,255,255,0.18); background:rgba(255,255,255,0.04)}
+    .flow-title{font-weight:800; margin-bottom:2px} .flow-desc{font-size:.95rem; color:var(--muted,#bfbfbf)}
     .flow-connector{position:absolute; inset:0; pointer-events:none}
     @media (min-width:768px){
-      /* draw arrows from step 1 -> 2 and 2 -> 3 */
-      .flow-connector::before, .flow-connector::after{
-        content:''; position:absolute; top:38%; height:2px; width:calc(33.333% - 36px); background:rgba(255,255,255,0.25)
-      }
-      .flow-connector::before{ left:calc(16.666% + 36px); }
-      .flow-connector::after{ left:calc(50% + 36px); }
-      /* arrow heads */
-      .flow-connector > i{ display:none }
-      .flow-connector::before, .flow-connector::after{
-        mask:linear-gradient(90deg, black calc(100% - 12px), transparent 0);
-      }
+      .flow-connector::before,.flow-connector::after{content:''; position:absolute; top:40%; height:2px; width:calc(33.333% - 36px); background:rgba(255,255,255,0.25)}
+      .flow-connector::before{ left:calc(16.666% + 36px) }
+      .flow-connector::after{ left:calc(50% + 36px) }
+      .flow-connector::before,.flow-connector::after{ mask:linear-gradient(90deg, black calc(100% - 12px), transparent 0) }
     }
 
-    /* View all links as small text */
+    /* View-all as small text */
     .view-all-link{font-size:.85rem; text-decoration:underline; text-underline-offset:4px}
-
-    /* Contact slab */
-    .contact-slab{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.02))}
-    .contact-bg{position:absolute; inset:0; filter:blur(16px); background:
-      radial-gradient(600px 300px at 25% 0%, rgba(139,92,246,0.15), transparent 70%),
-      radial-gradient(600px 300px at 75% 100%, rgba(0,200,255,0.10), transparent 70%)}
 
     /* Reveal */
     [data-animate]{opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease}
@@ -441,18 +326,22 @@ const heroImages = [
 
   <script is:inline>
     (() => {
-      // Carousel nudge by exactly one card (prevents overscroll on mobile)
+      // Carousel nudge by exactly one card, clamped to bounds
       function nudge(id, dir) {
         const el = document.querySelector(id);
         if (!el) return;
-        const item = el.querySelector(':scope > *');
-        let amount = el.clientWidth * 0.8; // fallback
-        if (item) {
-          const rect = item.getBoundingClientRect();
-          const gap = parseFloat(getComputedStyle(el).columnGap || getComputedStyle(el).gap || '14') || 14;
+        const first = el.firstElementChild;
+        let amount = el.clientWidth * 0.8;
+        if (first) {
+          const rect = first.getBoundingClientRect();
+          const styles = getComputedStyle(el);
+          let gapVal = styles.gap || styles.columnGap || '14px';
+          let gap = parseFloat(gapVal);
+          if (!isFinite(gap)) gap = 14;
           amount = rect.width + gap;
         }
-        el.scrollBy({ left: amount * (dir || 1), behavior: 'smooth' });
+        const target = Math.max(0, Math.min(el.scrollLeft + amount * (dir || 1), el.scrollWidth - el.clientWidth));
+        el.scrollTo({ left: target, behavior: 'smooth' });
       }
       document.querySelectorAll('.ctrl').forEach(btn => {
         btn.addEventListener('click', () => nudge(btn.getAttribute('data-target'), Number(btn.getAttribute('data-dir'))));
@@ -469,23 +358,31 @@ const heroImages = [
         document.querySelectorAll('[data-animate]').forEach(el => el.classList.add('in'));
       }
 
-      // Parallax for stacked elements (lightweight)
+      // Lightweight parallax (rAF throttled)
       if (!reduce) {
-        const onScroll = () => {
+        let ticking = false;
+        function update() {
+          ticking = false;
           document.querySelectorAll('.will-parallax').forEach(el=>{
-            const s = Number(el.getAttribute('data-parallax')||0.06);
+            const s = Number(el.getAttribute('data-parallax')||0.05);
             const r = el.getBoundingClientRect();
             const rel = (r.top - (innerHeight/2)) / innerHeight;
             const baseRot = el.classList.contains('c1') ? -4 : el.classList.contains('c2') ? 3 : 0;
             el.style.transform = `translateY(${rel * s * 100}px) rotate(${baseRot}deg)`;
           });
-        };
-        onScroll();
+        }
+        function onScroll() {
+          if (!ticking) {
+            requestAnimationFrame(update);
+            ticking = true;
+          }
+        }
+        update();
         addEventListener('scroll', onScroll, { passive:true });
         addEventListener('resize', onScroll, { passive:true });
       }
 
-      // Hero slideshow (always rotate if multiple images)
+      // Hero slideshow crossfade with slight zoom
       const slides = Array.from(document.querySelectorAll('.hero-slide'));
       if (slides.length > 1) {
         let i = 0;
