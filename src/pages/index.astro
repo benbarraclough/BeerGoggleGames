@@ -17,7 +17,7 @@ function shuffle<T>(list: T[]): T[] {
 
 const gamesAll = excludeLegacyNoise(await getCollection('games'));
 const drinksAll = excludeLegacyNoise(await getCollection('drinks'));
-const recentGames = shuffle(gamesAll).slice(0, 12);
+const popularGames = shuffle(gamesAll).slice(0, 12);
 const popularDrinks = shuffle(drinksAll).slice(0, 12);
 
 const posts = excludeLegacyNoise(await getCollection('posts'))
@@ -27,22 +27,33 @@ const posts = excludeLegacyNoise(await getCollection('posts'))
 
 const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 ---
-<Layout title="BeerGoggleGames" description="Drinking games, cocktails & shots, forfeits, glossary and wheel tools." canonical={pageCanonical} wide={true}>
-
-  <!-- Compact Banner, clickable -->
-  <a slot="banner" href={withBase('extras/wheel-of-fortune/')} class="block w-full border-t border-b border-fg/15 bg-fg/5/10 hover:bg-fg/10 transition-colors">
-    <div class="mx-auto max-w-7xl px-4 h-8 flex items-center justify-center gap-6 text-[11px] tracking-wide uppercase text-muted hover:text-neon">
-      <span class="inline-flex items-center gap-2">
-        <svg width="16" height="16" viewBox="0 0 24 24" class="stroke-current" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-        Spin the Wheel
-      </span>
-      <span>Find Tonight’s Game</span>
-      <span class="hidden sm:inline">Try Your Luck →</span>
+<Layout
+  title="BeerGoggleGames"
+  description="Drinking games, cocktails & shots, forfeits, glossary and wheel tools."
+  canonical={pageCanonical}
+  wide={true}
+>
+  <!-- Compact, scrolling banner (clickable) -->
+  <a
+    slot="banner"
+    href={withBase('extras/')}
+    class="block w-full border-t border-b border-fg/15 bg-fg/5/10 hover:bg-fg/10 transition-colors"
+    aria-label="Welcome — Explore Extras"
+  >
+    <div class="marquee h-8 flex items-center">
+      <div class="marquee-track text-[10px] sm:text-[11px] uppercase tracking-wide text-muted hover:text-neon">
+        <span>Welcome to BeerGoggleGames</span>
+        <span>Explore Extras →</span>
+        <span>Tools, Forfeits, Glossary</span>
+        <span>Welcome to BeerGoggleGames</span>
+        <span>Explore Extras →</span>
+        <span>Tools, Forfeits, Glossary</span>
+      </div>
     </div>
   </a>
 
-  <!-- Card Stack Hero (magenta/cyan), shorter -->
-  <section class="stack-hero rounded-2xl border border-fg/15 mb-10" data-animate="fade-up">
+  <!-- Card Stack Hero (magenta/cyan only), shorter -->
+  <section class="stack-hero rounded-2xl border border-fg/15 mb-12" data-animate="fade-up">
     <div class="stack-wrap">
       <div class="stack-card c1 will-parallax" data-parallax="-0.1"></div>
       <div class="stack-card c2 will-parallax" data-parallax="0.06"></div>
@@ -52,7 +63,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
             src={withBase('images/hero.webp')}
             alt="Party tools and games"
             class="w-full h-full object-cover rounded-xl"
-            onerror="this.closest('.c3').innerHTML='<div class=&quot;w-full h-full rounded-xl border border-fg/20 bg-fg/5 grid place-items-center text-muted text-xs&quot;>Add hero image (images/ComingSoon750x300.webp)</div>'"
+            onerror="this.closest('.c3').innerHTML='<div class=&quot;w-full h-full rounded-xl border border-fg/20 bg-fg/5 grid place-items-center text-muted text-xs&quot;>Add hero image (images/hero.webp)</div>'"
             loading="lazy"
             decoding="async"
           />
@@ -61,123 +72,117 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
     </div>
     <div class="stack-content">
       <h1 class="title-xl">Party Faster. Play Smarter.</h1>
-      <p class="lead">Games, drinks and tools with a crisp, modern style.</p>
+      <p class="lead">Drinking games, recipes, and tools to keep the night flowing.</p>
       <div class="actions">
-        <a href={withBase('games/')} class="pill-btn shimmer">Browse Games</a>
-        <a href={withBase('extras/wheel-of-fortune/')} class="pill-btn neon shimmer">Spin a Wheel →</a>
+        <a href={withBase('games/')} class="pill-btn shimmer">Find a Game</a>
+        <a href={withBase('drinks/random')} class="pill-btn neon shimmer">Discover a Drink</a>
       </div>
     </div>
   </section>
 
-  <!-- Quick Actions with icons -->
-  <section class="mb-12" data-animate="fade-up">
-    <ul class="grid gap-5 md:grid-cols-3 list-none p-0 m-0">
-      <li class="group">
-        <a href={withBase('games/random')} class="card-mini">
-          <span class="icon-wrap">
-            <!-- Dice icon -->
-            <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="3" y="3" width="18" height="18" rx="4"/>
-              <circle cx="8" cy="8" r="1.4" fill="currentColor" />
-              <circle cx="16" cy="8" r="1.4" fill="currentColor" />
-              <circle cx="12" cy="12" r="1.4" fill="currentColor" />
-              <circle cx="8" cy="16" r="1.4" fill="currentColor" />
-              <circle cx="16" cy="16" r="1.4" fill="currentColor" />
-            </svg>
-          </span>
-          <div class="mini-body">
-            <div class="mini-title">Random Game</div>
-            <div class="mini-desc">Let fate decide your next play.</div>
-          </div>
-        </a>
-      </li>
-      <li class="group">
-        <a href={withBase('drinks/random')} class="card-mini">
-          <span class="icon-wrap">
-            <!-- Cocktail icon -->
-            <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M3 4h18l-8.5 8.5v5.5l3 2H8l3-2v-5.5L3 4Z"/>
-              <path d="M10 4l4 4"/>
-            </svg>
-          </span>
-          <div class="mini-body">
-            <div class="mini-title">Random Drink</div>
-            <div class="mini-desc">Jump to a surprise recipe.</div>
-          </div>
-        </a>
-      </li>
-      <li class="group">
-        <a href={withBase('extras/')} class="card-mini">
-          <span class="icon-wrap">
-            <!-- Extras (same as nav) -->
-            <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 3v4M12 17v4M7.05 7.05l2.83 2.83M14.12 14.12l2.83 2.83M3 12h4M17 12h4M7.05 16.95l2.83-2.83M14.12 9.88l2.83-2.83"/>
-            </svg>
-          </span>
-          <div class="mini-body">
-            <div class="mini-title">All Extras</div>
-            <div class="mini-desc">Wheel, forfeits, glossary, dice & coin.</div>
-          </div>
-        </a>
-      </li>
-    </ul>
-  </section>
-
-  <!-- Featured Tools (visual variety) -->
-  <section class="mb-14 tool-slab rounded-2xl border border-fg/15 overflow-hidden" data-animate="fade-up">
-    <div class="tool-backdrop" aria-hidden="true"></div>
-    <div class="px-4 sm:px-6 py-8 grid gap-6 md:grid-cols-3 relative">
-      <a href={withBase('extras/wheel-of-fortune/')} class="tool-card hover:-translate-y-0.5">
-        <div class="tool-head">
-          <span class="tool-chip">Pick for you</span>
-          <h3>Wheel of Fortune</h3>
-        </div>
-        <p>Spin a category or game with an animated canvas wheel.</p>
-        <span class="tool-cta">Spin Now →</span>
-      </a>
-      <a href={withBase('extras/dice/')} class="tool-card hover:-translate-y-0.5">
-        <div class="tool-head">
-          <span class="tool-chip">Decide</span>
-          <h3>Dice Roller</h3>
-        </div>
-        <p>Beautiful on‑screen dice with glow and motion.</p>
-        <span class="tool-cta">Roll →</span>
-      </a>
-      <a href={withBase('extras/coin-flip/')} class="tool-card hover:-translate-y-0.5">
-        <div class="tool-head">
-          <span class="tool-chip">Heads or tails</span>
-          <h3>Coin Flip</h3>
-        </div>
-        <p>Quick coin with shimmer and a smooth flip.</p>
-        <span class="tool-cta">Flip →</span>
-      </a>
-    </div>
-  </section>
-
-  <!-- Explore Drinks by Base (chip links) -->
+  <!-- Quick Access Tools (carousel) -->
   <section class="mb-14" data-animate="fade-up">
-    <header class="flex items-end justify-between mb-4">
-      <h2 class="h2">Explore Drinks by Base</h2>
-      <a href={withBase('drinks/')} class="view-all">All Drinks →</a>
+    <header class="head mb-3">
+      <h2 class="h2">Quick Access Tools</h2>
+      <div class="ctrls">
+        <button class="ctrl shimmer" data-target="#tools-carousel" data-dir="-1" aria-label="Previous">‹</button>
+        <button class="ctrl shimmer" data-target="#tools-carousel" data-dir="1" aria-label="Next">›</button>
+      </div>
     </header>
-    <div class="flex flex-wrap gap-2">
-      {['Vodka','Gin','Rum','Tequila','Whiskey','Wine','Beer','Liqueur','Non‑Alcoholic'].map(b => (
-        <a href={withBase(`search?type=drink&base=${encodeURIComponent(b.toLowerCase())}`)} class="chip-link">{b}</a>
+    <div id="tools-carousel" class="rail no-scrollbar">
+      {[
+        {
+          href: withBase('games/random'),
+          title: 'Random Game',
+          desc: 'Let fate decide your next play.',
+          icon: 'dice'
+        },
+        {
+          href: withBase('drinks/random'),
+          title: 'Random Drink',
+          desc: 'Jump to a surprise recipe.',
+          icon: 'cocktail'
+        },
+        {
+          href: withBase('extras/wheel-of-fortune/'),
+          title: 'Wheel of Fortune',
+          desc: 'Spin categories or games.',
+          icon: 'wheel'
+        },
+        {
+          href: withBase('extras/coin-flip/'),
+          title: 'Coin Flip',
+          desc: 'Heads or tails—decide fast.',
+          icon: 'coin'
+        },
+        {
+          href: withBase('extras/dice/'),
+          title: 'Dice Roll',
+          desc: 'Crisp animation & glow.',
+          icon: 'die3d'
+        }
+      ].map(t => (
+        <a class="tool-tile" href={t.href}>
+          <span class="tool-icon">
+            {t.icon === 'dice' && (
+              <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="4"/>
+                <circle cx="8" cy="8" r="1.4" fill="currentColor" />
+                <circle cx="16" cy="8" r="1.4" fill="currentColor" />
+                <circle cx="12" cy="12" r="1.4" fill="currentColor" />
+                <circle cx="8" cy="16" r="1.4" fill="currentColor" />
+                <circle cx="16" cy="16" r="1.4" fill="currentColor" />
+              </svg>
+            )}
+            {t.icon === 'cocktail' && (
+              <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 4h18l-8.5 8.5v5.5l3 2H8l3-2v-5.5L3 4Z"/>
+                <path d="M10 4l4 4"/>
+              </svg>
+            )}
+            {t.icon === 'wheel' && (
+              <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="9"/>
+                <circle cx="12" cy="12" r="2"/>
+                <path d="M12 3v6M21 12h-6M12 21v-6M3 12h6"/>
+              </svg>
+            )}
+            {t.icon === 'coin' && (
+              <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <ellipse cx="12" cy="8" rx="7" ry="3"/>
+                <path d="M5 8v8c0 1.66 3.13 3 7 3s7-1.34 7-3V8"/>
+                <path d="M5 12c0 1.66 3.13 3 7 3s7-1.34 7-3"/>
+              </svg>
+            )}
+            {t.icon === 'die3d' && (
+              <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2 3 7v10l9 5 9-5V7l-9-5Z"/>
+                <path d="M12 22V12"/>
+                <path d="M3 7l9 5 9-5"/>
+                <circle cx="9" cy="10" r="1" fill="currentColor"/>
+                <circle cx="15" cy="10" r="1" fill="currentColor"/>
+                <circle cx="12" cy="14" r="1" fill="currentColor"/>
+              </svg>
+            )}
+          </span>
+          <span class="tool-title">{t.title}</span>
+          <span class="tool-desc">{t.desc}</span>
+        </a>
       ))}
     </div>
   </section>
 
-  <!-- Latest Games (no visible scrollbars) -->
+  <!-- Popular Games (randomized) -->
   <section class="mb-12" data-animate="fade-up">
     <header class="head">
-      <h2 class="h2">Latest Games</h2>
+      <h2 class="h2">Popular Games</h2>
       <div class="ctrls">
         <button class="ctrl shimmer" data-target="#games-carousel" data-dir="-1" aria-label="Previous">‹</button>
         <button class="ctrl shimmer" data-target="#games-carousel" data-dir="1" aria-label="Next">›</button>
       </div>
     </header>
     <div id="games-carousel" class="rail no-scrollbar">
-      {recentGames.map(g => {
+      {popularGames.map(g => {
         const slug = (g.slug ?? g.id).split('/').pop();
         const href = withBase(`games/${slug}/`);
         const img = withBase(`images/${slug}.webp`);
@@ -189,10 +194,13 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         );
       })}
     </div>
+    <div class="mt-4">
+      <a href={withBase('games/')} class="pill-btn shimmer">View All Games</a>
+    </div>
   </section>
 
-  <!-- Popular Drinks (no visible scrollbars) -->
-  <section class="mb-12" data-animate="fade-up">
+  <!-- Popular Drinks (randomized) -->
+  <section class="mb-14" data-animate="fade-up">
     <header class="head">
       <h2 class="h2">Popular Drinks</h2>
       <div class="ctrls">
@@ -213,66 +221,128 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         );
       })}
     </div>
+    <div class="mt-4">
+      <a href={withBase('drinks/')} class="pill-btn shimmer">View All Drinks</a>
+    </div>
   </section>
 
-  <!-- How to Play Tonight (3-step, different style) -->
+  <!-- How it Works (single flow with icons + soft gradient) -->
   <section class="mb-16 howto rounded-2xl border border-fg/15 overflow-hidden" data-animate="fade-up">
     <div class="howto-bg" aria-hidden="true"></div>
-    <div class="px-4 sm:px-6 py-10 grid gap-6 md:grid-cols-3 relative">
-      <div class="how-step">
-        <span class="num">1</span>
-        <h3>Pick a vibe</h3>
-        <p>Browse categories or spin the wheel to land on a style.</p>
-      </div>
-      <div class="how-step">
-        <span class="num">2</span>
-        <h3>Grab a drink</h3>
-        <p>Search by base spirit or pick something at random.</p>
-      </div>
-      <div class="how-step">
-        <span class="num">3</span>
-        <h3>Play & tweak</h3>
-        <p>Use our tools and forfeits to amp up the session.</p>
+    <div class="px-4 sm:px-6 py-10 relative">
+      <h2 class="h2 mb-6">How it Works</h2>
+      <div class="flow grid gap-5 md:grid-cols-3">
+        <div class="flow-step">
+          <span class="flow-icon">
+            <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 12h18M12 3v18"/>
+            </svg>
+          </span>
+          <div class="flow-title">Pick a vibe</div>
+          <div class="flow-desc">Browse categories or spin the wheel to choose a style.</div>
+        </div>
+        <div class="flow-step">
+          <span class="flow-icon">
+            <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 4h18l-8.5 8.5v5.5l3 2H8l3-2v-5.5L3 4Z"/>
+              <path d="M10 4l4 4"/>
+            </svg>
+          </span>
+          <div class="flow-title">Grab a drink</div>
+          <div class="flow-desc">Search or discover a drink at random to match the mood.</div>
+        </div>
+        <div class="flow-step">
+          <span class="flow-icon">
+            <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="3"/>
+              <path d="M8 12h8M12 8v8"/>
+            </svg>
+          </span>
+          <div class="flow-title">Play & tweak</div>
+          <div class="flow-desc">Use tools & forfeits to amplify the session. Stay hydrated.</div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Blog teaser (kept concise) -->
-  {posts.length > 0 && (
-    <section class="mb-16" data-animate="fade-up">
-      <header class="head">
-        <h2 class="h2">From the Blog</h2>
-        <a href={withBase('extras/blog/')} class="view-all">All Posts →</a>
-      </header>
-      <div class="rail no-scrollbar">
-        {posts.map(p => {
-          const slug = (p.slug ?? p.id).split('/').pop();
-          const href = withBase(`extras/blog/${slug}/`);
-          return (
-            <a class="blog-chip" href={href} aria-label={`Read post: ${p.data.title}`}>
-              <span class="dot"></span>
-              <span class="label">{p.data.title}</span>
-            </a>
-          );
-        })}
+  <!-- More from Extras (carousel of remaining extras) -->
+  <section class="mb-20" data-animate="fade-up">
+    <header class="head mb-3">
+      <h2 class="h2">More from Extras</h2>
+      <div class="ctrls">
+        <button class="ctrl shimmer" data-target="#extras-carousel" data-dir="-1" aria-label="Previous">‹</button>
+        <button class="ctrl shimmer" data-target="#extras-carousel" data-dir="1" aria-label="Next">›</button>
       </div>
-    </section>
-  )}
+    </header>
+    <div id="extras-carousel" class="rail no-scrollbar">
+      {[
+        { href: withBase('extras/blog/'), title: 'Blog', desc: 'Guides, ideas & announcements.', icon: 'edit' },
+        { href: withBase('extras/activities/'), title: 'Activities', desc: 'Party & social activities.', icon: 'spark' },
+        { href: withBase('extras/forfeits/'), title: 'Forfeits', desc: 'Creative penalties & challenges.', icon: 'flag' },
+        { href: withBase('extras/glossary/'), title: 'Glossary', desc: 'Drinking terms explained.', icon: 'book' }
+      ].map(x => (
+        <a class="tool-tile" href={x.href}>
+          <span class="tool-icon tool-icon-alt">
+            {x.icon === 'edit' && (
+              <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 20h9"/>
+                <path d="M16.5 3.5 20.5 7.5 8 20H4v-4L16.5 3.5z"/>
+              </svg>
+            )}
+            {x.icon === 'spark' && (
+              <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2v5M12 17v5M5 12h5M14 12h5M7.5 7.5l3.5 3.5M13 13l3.5 3.5"/>
+              </svg>
+            )}
+            {x.icon === 'flag' && (
+              <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 21V4h10l-1 3 3 1-1 3 3 1-1 3h-9"/>
+              </svg>
+            )}
+            {x.icon === 'book' && (
+              <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                <path d="M20 22H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20Z"/>
+              </svg>
+            )}
+          </span>
+          <span class="tool-title">{x.title}</span>
+          <span class="tool-desc">{x.desc}</span>
+        </a>
+      ))}
+    </div>
+  </section>
 
   <style>
-    /* Temporary font demo (swap later in Layout once you pick) */
+    /* Preview fonts (choose later to wire globally in Layout) */
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&family=Bricolage+Grotesque:opsz,wght@12..72,700&display=swap');
     :root { --font-body: 'Plus Jakarta Sans', system-ui, -apple-system, Segoe UI, Roboto, sans-serif; --font-display: 'Bricolage Grotesque', var(--font-body); }
     body { font-family: var(--font-body); }
     .title-xl, .h2 { font-family: var(--font-display); }
 
-    /* Palette emphasis: magenta/cyan (no green) */
-    .stack-hero { position:relative; background: radial-gradient(1000px 500px at 25% -10%, rgba(255,0,128,0.10), transparent 60%), radial-gradient(900px 600px at 120% 110%, rgba(0,200,255,0.10), transparent 60%); }
+    /* Palette emphasis: magenta/cyan only */
+    .stack-hero {
+      position:relative;
+      background:
+        radial-gradient(1000px 500px at 25% -10%, rgba(255,0,128,0.10), transparent 60%),
+        radial-gradient(900px 600px at 120% 110%, rgba(0,200,255,0.10), transparent 60%);
+    }
+
+    /* Banner marquee */
+    .marquee { overflow: hidden; position: relative; }
+    .marquee-track {
+      display: inline-flex; align-items: center; gap: 2rem;
+      white-space: nowrap; padding-inline: 1rem;
+      min-width: 200vw;
+      animation: marquee 22s linear infinite;
+    }
+    .marquee:hover .marquee-track { animation-play-state: paused; }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
     /* Stack hero */
     .stack-wrap { position:relative; height: clamp(220px, 28vw, 320px); margin: 16px; }
     .stack-card { position:absolute; inset:0; border-radius:1rem; border:1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.03); transform-origin: center; }
-    .c1 { transform: translate(-12px,-10px) rotate(-4deg); background: linear-gradient(135deg, rgba(255,0,128,0.16), rgba(0,200,255,0.12)); filter: blur(0.2px); }
+    .c1 { transform: translate(-12px,-10px) rotate(-4deg); background: linear-gradient(135deg, rgba(255,0,128,0.16), rgba(0,200,255,0.12)); }
     .c2 { transform: translate(10px,6px) rotate(3deg); background: linear-gradient(315deg, rgba(0,200,255,0.18), rgba(255,0,128,0.10)); }
     .c3 { overflow:hidden; border:1px solid rgba(255,255,255,0.18); }
     .stack-content { padding: 0 16px 18px 16px; }
@@ -283,79 +353,102 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
     /* Shimmer buttons */
     .shimmer { position:relative; overflow:hidden; }
     .shimmer::after {
-      content:''; position:absolute; inset:-200% -50%; background: linear-gradient(120deg, transparent 40%, rgba(255,255,255,0.22) 50%, transparent 60%);
+      content:''; position:absolute; inset:-200% -50%;
+      background: linear-gradient(120deg, transparent 40%, rgba(255,255,255,0.22) 50%, transparent 60%);
       transform: translateX(-100%); transition: transform .8s ease; pointer-events:none;
     }
     .shimmer:hover::after { transform: translateX(100%); }
 
-    .pill-btn { display:inline-flex; align-items:center; gap:.5rem; padding:.6rem 1rem; border-radius:9999px; border:1px solid rgba(255,255,255,0.18); background: rgba(255,255,255,0.03); font-weight:700; font-size:.9rem; }
-    .pill-btn:hover { border-color: rgba(255,0,128,0.45); color: var(--neon, #ff0080); }
-    .pill-btn.neon { border-color: rgba(255,0,128,0.45); background: linear-gradient(180deg, rgba(255,0,128,0.10), rgba(255,0,128,0.04)); color: var(--neon, #ff0080); }
+    .pill-btn {
+      display:inline-flex; align-items:center; gap:.5rem;
+      padding:.6rem 1rem; border-radius:9999px;
+      border:1px solid rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.03);
+      font-weight:700; font-size:.9rem;
+      transition: border-color .2s ease, color .2s ease, transform .2s ease;
+    }
+    .pill-btn:hover { border-color: rgba(255,0,128,0.45); color: #ff0080; transform: translateY(-1px); }
+    .pill-btn.neon { border-color: rgba(255,0,128,0.45); background: linear-gradient(180deg, rgba(255,0,128,0.10), rgba(255,0,128,0.04)); color: #ff0080; }
 
-    /* Quick minis */
-    .card-mini { display:flex; gap:.65rem; align-items:flex-start; padding:14px; border-radius:14px; border:1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.03); transition:transform .2s ease, border-color .2s ease; }
-    .card-mini:hover { transform: translateY(-1px); border-color: rgba(255,0,128,0.4); }
-    .icon-wrap { width:36px; height:36px; display:grid; place-items:center; border-radius:50%; background: rgba(255,0,128,0.10); border:1px solid rgba(255,0,128,0.35); color: var(--neon, #ff0080); box-shadow: 0 0 0 1px rgba(255,0,128,0.18) inset, 0 6px 16px rgba(255,0,128,0.18); margin-top:2px; }
-    .mini-title { font-weight:700; }
-    .mini-desc { font-size:.78rem; color:var(--muted,#bfbfbf); }
-
-    /* Tool slab */
-    .tool-slab { position:relative; }
-    .tool-backdrop { position:absolute; inset:0; background:
-      radial-gradient(600px 300px at 15% 0%, rgba(255,0,128,0.12), transparent 70%),
-      radial-gradient(500px 300px at 95% 100%, rgba(0,200,255,0.12), transparent 70%); filter: blur(14px); }
-    .tool-card { display:flex; flex-direction:column; gap:8px; border:1px solid rgba(255,255,255,0.12); background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02)); border-radius:14px; padding:16px; transition: transform .2s ease, border-color .2s ease; }
-    .tool-card:hover { border-color: rgba(255,0,128,0.4); }
-    .tool-head h3 { font-weight:800; margin:2px 0; }
-    .tool-chip { display:inline-block; font-size:.68rem; letter-spacing:.12em; text-transform:uppercase; color: var(--neon,#ff0080); border:1px solid rgba(255,0,128,0.35); background: rgba(255,0,128,0.10); border-radius:9999px; padding:.25rem .5rem; }
-    .tool-cta { margin-top:auto; font-size:.78rem; color: var(--neon,#ff0080); }
-
-    /* Explore chips */
+    /* Head + controls */
+    .head { display:flex; align-items:center; justify-content:space-between; }
     .h2 { font-size: 1.5rem; letter-spacing:-.01em; }
-    .view-all { font-size:.8rem; text-decoration:underline; text-underline-offset:4px; color: var(--neon, #ff0080); }
-    .chip-link { display:inline-flex; align-items:center; gap:.4rem; border:1px solid rgba(0,200,255,0.35); color: rgba(0,200,255,1); background: rgba(0,200,255,0.08); border-radius:9999px; padding:.35rem .7rem; font-size:.78rem; }
-    .chip-link:hover { border-color: rgba(255,0,128,0.45); color: var(--neon,#ff0080); background: rgba(255,0,128,0.10); }
+    .ctrls { display:flex; gap:8px; }
+    .ctrl {
+      border:1px solid rgba(255,255,255,0.2);
+      padding:.3rem .6rem; border-radius:.5rem; font-size:.85rem;
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+      transition: border-color .2s ease, color .2s ease, transform .2s ease;
+    }
+    .ctrl:hover { border-color: rgba(255,0,128,0.45); color: #ff0080; transform: translateY(-1px); }
 
-    /* Rails / Tiles (scrollbars hidden) */
-    .head { display:flex; align-items:center; justify-content:space-between; margin-bottom:.25rem; }
+    /* Tool tiles */
+    .tool-tile {
+      display:flex; flex-direction:column; gap:6px;
+      border-radius:14px; padding:14px;
+      border:1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.03);
+      scroll-snap-align:start;
+      transition: transform .2s ease, border-color .2s ease, background .2s ease;
+    }
+    .tool-tile:hover { transform: translateY(-2px); border-color: rgba(255,0,128,0.4); background: rgba(255,255,255,0.04); }
+    .tool-icon {
+      width:36px; height:36px; display:grid; place-items:center; border-radius:50%;
+      border:1px solid rgba(255,0,128,0.35); background: rgba(255,0,128,0.10); color:#ff0080;
+      box-shadow: 0 0 0 1px rgba(255,0,128,0.18) inset, 0 6px 16px rgba(255,0,128,0.18);
+    }
+    .tool-icon-alt {
+      border-color: rgba(0,200,255,0.35); background: rgba(0,200,255,0.10); color:#00c8ff;
+      box-shadow: 0 0 0 1px rgba(0,200,255,0.18) inset, 0 6px 16px rgba(0,200,255,0.18);
+    }
+    .tool-title { font-weight:700; }
+    .tool-desc { font-size:.78rem; color:var(--muted,#bfbfbf); }
+
+    /* Rails / Tiles (hidden scrollbar) */
     .rail { display:grid; grid-auto-flow:column; grid-auto-columns: 75%; gap:14px; overflow-x:auto; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; padding: 6px 2px 8px; }
     @media (min-width: 640px) { .rail { grid-auto-columns: 45%; } }
     @media (min-width: 1024px) { .rail { grid-auto-columns: 28%; } }
-    .tile { display:block; position:relative; border-radius:16px; overflow:hidden; border:1px solid rgba(255,255,255,0.14); background: rgba(255,255,255,0.03); scroll-snap-align: start; transition: transform .2s ease, border-color .2s ease; }
-    .tile:hover { transform: translateY(-2px); border-color: rgba(255,0,128,0.4); }
-    .tile-img { width:100%; aspect-ratio: 16/9; object-fit:cover; display:block; }
-    .tile-caption { position:absolute; left:10px; bottom:10px; background: rgba(0,0,0,0.45); border: 1px solid rgba(255,255,255,0.2); backdrop-filter: blur(6px); padding:.3rem .5rem; border-radius: 9999px; font-size:.75rem; }
-    .ctrls { display:flex; gap:8px; }
-    .ctrl { border:1px solid rgba(255,255,255,0.2); padding:.3rem .6rem; border-radius:.5rem; font-size:.85rem; background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02)); }
-    .ctrl:hover { border-color: rgba(255,0,128,0.45); color: var(--neon, #ff0080); }
     .no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
     .no-scrollbar::-webkit-scrollbar { display: none; }
 
-    /* How-to section */
-    .howto { position:relative; background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.015)); }
-    .howto-bg { position:absolute; inset:0; background:
-      radial-gradient(500px 260px at -10% 50%, rgba(0,200,255,0.12), transparent 70%),
-      radial-gradient(500px 260px at 110% 50%, rgba(255,0,128,0.12), transparent 70%); filter: blur(14px); }
-    .how-step { position:relative; padding: 16px; border:1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.03); border-radius:14px; }
-    .how-step .num { position:absolute; top:-10px; left:-10px; width:28px; height:28px; display:grid; place-items:center; border-radius:9999px; background: rgba(255,0,128,0.12); border:1px solid rgba(255,0,128,0.35); color: var(--neon,#ff0080); font-weight:800; }
-
-    /* Blog chips */
-    .blog-chip { display:inline-flex; align-items:center; gap:.5rem; margin:.25rem; padding:.4rem .7rem; border-radius:9999px; border:1px solid rgba(255,255,255,0.14); background: rgba(255,255,255,0.03); font-size:.82rem; }
-    .blog-chip:hover { border-color: rgba(0,200,255,0.45); }
-    .blog-chip .dot { width:8px; height:8px; border-radius:50%; background: rgba(0,200,255,1); box-shadow: 0 0 10px rgba(0,200,255,0.45); }
-    .blog-chip .label { white-space: nowrap; max-width: 56ch; overflow: hidden; text-overflow: ellipsis; }
-
-    /* Reveal-on-scroll */
-    [data-animate] { opacity:0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }
-    [data-animate].in { opacity:1; transform:none; }
-    @media (prefers-reduced-motion: reduce) {
-      [data-animate]{opacity:1; transform:none;}
+    .tile {
+      display:block; position:relative; border-radius:16px; overflow:hidden;
+      border:1px solid rgba(255,255,255,0.14); background: rgba(255,255,255,0.03);
+      transition: transform .2s ease, border-color .2s ease;
     }
+    .tile:hover { transform: translateY(-2px); border-color: rgba(255,0,128,0.4); }
+    .tile-img { width:100%; aspect-ratio: 16/9; object-fit:cover; display:block; }
+    .tile-caption {
+      position:absolute; left:10px; bottom:10px;
+      background: rgba(0,0,0,0.45); border: 1px solid rgba(255,255,255,0.2);
+      backdrop-filter: blur(6px); padding:.3rem .5rem; border-radius: 9999px; font-size:.75rem;
+    }
+
+    /* How it Works flow */
+    .howto { position:relative; background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.015)); }
+    .howto-bg {
+      position:absolute; inset:0; filter: blur(14px);
+      background:
+        radial-gradient(500px 260px at -10% 50%, rgba(0,200,255,0.14), transparent 70%),
+        radial-gradient(500px 260px at 110% 50%, rgba(255,0,128,0.14), transparent 70%);
+    }
+    .flow-step { position:relative; padding: 16px; border:1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.03); border-radius:14px; }
+    .flow-icon {
+      width:36px; height:36px; display:grid; place-items:center; border-radius:50%;
+      border:1px solid rgba(0,200,255,0.35); background: rgba(0,200,255,0.10); color:#00c8ff; margin-bottom:8px;
+      box-shadow: 0 0 0 1px rgba(0,200,255,0.18) inset, 0 6px 16px rgba(0,200,255,0.18);
+    }
+    .flow-title { font-weight:800; margin-bottom:2px; }
+    .flow-desc { font-size:.9rem; color:var(--muted,#bfbfbf); }
+
+    /* Typographic hygiene */
+    .title-xl { font-weight:700; }
+    .h2 { font-weight:700; }
   </style>
 
   <script is:inline>
     (() => {
-      // Arrow controls (no visible scrollbar, still swipe on touch)
+      // Arrow nudge (no visible scrollbars; swipe on touch still works)
       function nudge(id, dir) {
         const el = document.querySelector(id);
         if (!el) return;
@@ -371,7 +464,11 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         const io = new IntersectionObserver((entries) => {
           entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
         }, { threshold: 0.12 });
-        document.querySelectorAll('[data-animate]').forEach(el => io.observe(el));
+        document.querySelectorAll('[data-animate]').forEach(el => {
+          el.style.opacity = '0';
+          el.style.transform = 'translateY(16px)';
+          io.observe(el);
+        });
       } else {
         document.querySelectorAll('[data-animate]').forEach(el => el.classList.add('in'));
       }
