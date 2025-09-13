@@ -40,7 +40,7 @@
       return false;
     }
 
-    // Exclusive
+    // Exclusive AND logic
     if (selected.category.size && !selected.category.has(type)) return false;
     if (selected.mode.size && !selected.mode.has(mode)) return false;
     if (selected.tag.size) {
