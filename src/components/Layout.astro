@@ -7,6 +7,7 @@ interface Props {
   description?: string;
   canonical?: string;
   ogImage?: string;
+  image?: string; // accept image alias too
   wide?: boolean;
   fullBleed?: boolean;
   noindex?: boolean;
@@ -17,6 +18,7 @@ const {
   description = 'Drinking games, cocktails, party activities & more.',
   canonical,
   ogImage,
+  image,
   wide = false,
   fullBleed = false,
   noindex = false
@@ -71,6 +73,7 @@ const mainClass = [
 
 const year = new Date().getFullYear();
 const siteUrl = canonical || 'https://beergogglegames.co.uk';
+const metaImage = image || ogImage;
 ---
 <!DOCTYPE html>
 <html lang="en" class="bg-bg text-fg font-body" data-base={base}>
@@ -84,7 +87,13 @@ const siteUrl = canonical || 'https://beergogglegames.co.uk';
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    {ogImage && <meta property="og:image" content={withBase(ogImage.replace(/^\/+/, ''))} />}
+    {metaImage && <meta property="og:image" content={withBase(metaImage.replace(/^\/+/, ''))} />}
+
+    <!-- Global fonts (Plus Jakarta Sans + Bricolage Grotesque) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&family=Bricolage+Grotesque:opsz,wght@12..72,700&display=swap" rel="stylesheet" />
+
     <link rel="alternate" type="application/rss+xml" href={withBase('rss.xml')} title="Beer Goggle Games RSS" />
     <script type="application/ld+json">
       {JSON.stringify({
