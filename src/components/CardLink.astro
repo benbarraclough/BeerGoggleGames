@@ -1,27 +1,16 @@
 ---
 /**
- * Reusable clickable card component.
+ * Reusable clickable card component with glassy style.
  *
  * Props:
  *  - href: string (required)
- *  - ariaLabel?: string (accessible label; if provided we'll add sr-only text)
- *  - overlay?: boolean (default false). If true, uses stretched-link pattern
- *    so that additional interactive elements (other links) inside the card remain valid.
- *  - as?: string (outer wrapper tag, default 'li')
- *  - class?: string (extra classes for outer wrapper)
- *  - anchorClass?: string (extra classes for anchor element)
- *  - noPadding?: boolean (remove default p-4 padding)
- *
- * Full-wrap mode (overlay = false):
- *  <CardLink href="/path">
- *    <span class="font-semibold group-hover:text-neon">Title</span>
- *  </CardLink>
- *
- * Overlay mode (overlay = true) for cards containing other <a> elements:
- *  <CardLink href="/path" overlay ariaLabel="View Foo">
- *    <span class="font-semibold group-hover:text-neon group-focus-within:text-neon">Foo</span>
- *    <a href="/other" class="pill">Other link</a>
- *  </CardLink>
+ *  - ariaLabel?: string
+ *  - overlay?: boolean (default false)
+ *  - as?: string (default 'li')
+ *  - class?: string (outer wrapper)
+ *  - anchorClass?: string (anchor extra classes)
+ *  - noPadding?: boolean
+ *  - tone?: 'cyan' | 'magenta' | 'green' (optional tint)
  */
 interface Props {
   href: string;
@@ -31,6 +20,7 @@ interface Props {
   class?: string;
   anchorClass?: string;
   noPadding?: boolean;
+  tone?: 'cyan' | 'magenta' | 'green';
 }
 
 const {
@@ -40,20 +30,20 @@ const {
   as = 'li',
   class: outerExtra = '',
   anchorClass = '',
-  noPadding = false
+  noPadding = false,
+  tone
 } = Astro.props as Props;
 
 const Tag = as as keyof HTMLElementTagNameMap;
 
 const baseOuter = 'group relative list-none p-0 m-0';
+const toneClass = tone === 'cyan' ? 'tone-cyan' : tone === 'magenta' ? 'tone-magenta' : tone === 'green' ? 'tone-green' : '';
 const baseCard =
-  'flex flex-col h-full border border-fg/20 rounded-sm transition-colors ' +
-  (noPadding ? '' : 'p-4 ') +
-  'hover:border-neon/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/60 focus-visible:border-neon/60';
+  `glass ${toneClass} flex flex-col h-full rounded-sm transition ` +
+  (noPadding ? '' : 'p-4 ');
 const baseOverlayWrapper =
-  'flex flex-col h-full border border-fg/20 rounded-sm transition-colors ' +
-  (noPadding ? '' : 'p-4 ') +
-  'hover:border-neon/40 focus-within:border-neon/60';
+  `glass ${toneClass} flex flex-col h-full rounded-sm transition ` +
+  (noPadding ? '' : 'p-4 ');
 const overlayAnchorBase =
   'absolute inset-0 z-10 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/60';
 ---
