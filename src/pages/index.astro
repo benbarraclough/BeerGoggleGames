@@ -35,7 +35,7 @@ const heroImages = [
   wide={true}
 >
   <!-- Banner: single message, scrolls from right, clickable to Extras -->
-  <a slot="banner" href={withBase('extras/')} class="block w-full border-t border-b border-fg/15 bg-fg/5/10 hover:bg-fg/10 transition-colors" aria-label="Welcome — Explore Extras">
+  <a slot="banner" href={withBase('extras/')} class="block w-full border-t border-b border-fg/15 bg-fg/5 hover:bg-fg/10 transition-colors" aria-label="Welcome — Explore Extras">
     <div class="marquee h-8 overflow-hidden">
       <div class="marquee-track text-[10px] sm:text-[11px] uppercase tracking-wide">
         <span class="marquee-item">Welcome to BeerGoggleGames — Explore Extras →</span>
@@ -75,7 +75,8 @@ const heroImages = [
         <p class="sublead mb-5">Drinking games, recipes, and tools to keep the night flowing.</p>
         <div class="flex flex-wrap gap-3">
           <a href={withBase('games/')} class="pill-btn btn-cyan">Find a Game</a>
-          <a href={withBase('drinks/random')} class="pill-btn btn-magenta">Discover a Drink</a>
+          <!-- Changed to Drinks index (not random) -->
+          <a href={withBase('drinks/')} class="pill-btn btn-magenta">Discover a Drink</a>
         </div>
       </div>
     </div>
@@ -267,11 +268,12 @@ const heroImages = [
     .title-xl,.h2{font-family:var(--font-display);font-weight:700}
     .sublead{color:var(--muted,#c3c3c3)}
 
-    /* Banner: single message from right */
-    .marquee-track{display:inline-block; will-change:transform; transform:translateX(100%); animation:marquee-single 16s linear infinite; white-space:nowrap}
+    /* Banner: start fully off-screen right (desktop + mobile) */
+    .marquee{overflow:hidden; text-align:left}
+    .marquee-track{display:inline-flex; will-change:transform; transform:translateX(110%); animation:marquee-single 16s linear infinite; white-space:nowrap}
     .marquee-item{display:inline-block; padding-inline:1rem; color:var(--muted,#bfbfbf)}
     .marquee:hover .marquee-track{animation-play-state:paused}
-    @keyframes marquee-single{0%{transform:translateX(100%)}100%{transform:translateX(-100%)}}
+    @keyframes marquee-single{0%{transform:translateX(110%)}100%{transform:translateX(-110%)}}
 
     /* HERO stack and slideshow (larger title again + smoother fades) */
     .title-xl{font-size: clamp(2.2rem, 2.2vw + 1.6rem, 3rem); letter-spacing:-.01em; text-shadow:0 6px 24px rgba(255,0,128,0.12)}
@@ -367,6 +369,12 @@ const heroImages = [
     [data-animate]{opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease}
     [data-animate].in{opacity:1; transform:none}
     @media (prefers-reduced-motion:reduce){[data-animate]{opacity:1; transform:none}}
+
+    /* Touch devices: no sticky hover; quick active pulse for controls/cards/buttons */
+    @media (hover:none){
+      .ctrl:hover, .tool-card3d:hover, .tile3d:hover, .flow-step:hover, .pill-btn:hover { transform:none !important; }
+      .ctrl:active, .tool-card3d:active, .tile3d:active, .flow-step:active, .pill-btn:active { transform:translateY(-1px); }
+    }
   </style>
 
   <script is:inline>
