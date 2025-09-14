@@ -40,12 +40,15 @@ ${items.map(p => {
     <guid>${url}</guid>
     ${pubDate ? `<pubDate>${pubDate}</pubDate>` : ''}
     ${categories}
-    <description><![CDATA[${desc}]]></description>
+    <description><![CDATA[${esc(desc)}]]></description>
   </item>`;
 }).join('\n')}
 </channel>
 </rss>`;
   return new Response(xml, {
-    headers: { 'Content-Type': 'application/rss+xml; charset=utf-8' }
+    headers: {
+      'Content-Type': 'application/rss+xml; charset=utf-8',
+      'Cache-Control': 'public, max-age=900'
+    }
   });
 }
