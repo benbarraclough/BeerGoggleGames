@@ -1,5 +1,5 @@
-// Drinks Filters (public version)
-// NOTE: This must live under public/ to load via <script src="...">
+// Drinks Filters with search integration and programmatic API
+// NOTE: Lives under public/ to load via <script src="...">
 (function init() {
   const qs = s => document.querySelector(s);
   const qsa = s => Array.from(document.querySelectorAll(s));
@@ -23,29 +23,30 @@
     const dt = (li.getAttribute('data-type') || '').toLowerCase();
     const bases = (li.getAttribute('data-bases') || '').split(',').map(s=>s.toLowerCase()).filter(Boolean);
     const diff = (li.getAttribute('data-difficulty') || '').toLowerCase();
+    const searchVisible = li.getAttribute('data-search-visible') !== 'false';
+
     const anySel = selected.type.size || selected.base.size || selected.difficulty.size;
-    if (!anySel) return true;
+    let filterPass = true;
 
-    if (!exclusive) {
-      if (selected.type.has(dt)) return true;
-      if (selected.difficulty.has(diff)) return true;
-      if (selected.base.size) {
-        for (const b of selected.base) if (bases.includes(b)) return true;
+    if (anySel) {
+      if (!exclusive) {
+        filterPass = (
+          selected.type.has(dt) ||
+          selected.difficulty.has(diff) ||
+          (selected.base.size && Array.from(selected.base).some(b => bases.includes(b)))
+        );
+      } else {
+        if (selected.type.size && !selected.type.has(dt)) filterPass = false;
+        if (selected.difficulty.size && !selected.difficulty.has(diff)) filterPass = false;
+        if (selected.base.size && filterPass) {
+          let ok = false;
+          for (const b of selected.base) { if (bases.includes(b)) { ok = true; break; } }
+          if (!ok) filterPass = false;
+        }
       }
-      return false;
     }
 
-    // Exclusive: AND across groups; base matches if any selected base is present
-    if (selected.type.size && !selected.type.has(dt)) return false;
-    if (selected.difficulty.size && !selected.difficulty.has(diff)) return false;
-    if (selected.base.size) {
-      let ok = false;
-      for (const b of selected.base) {
-        if (bases.includes(b)) { ok = true; break; }
-      }
-      if (!ok) return false;
-    }
-    return true;
+    return searchVisible && (!anySel || filterPass);
   }
 
   function applyFilters() {
@@ -81,6 +82,19 @@
     }
     updateClearBtn();
     applyFilters();
+  }
+
+  // Programmatic API for clickable chips
+  function programmaticToggle(type, value) {
+    if (type === 'base') value = value.toLowerCase();
+    const btn = filterItems.find(b => b.getAttribute('data-filter-type') === type && (b.getAttribute('data-value') || '').toLowerCase() === value.toLowerCase());
+    if (btn) {
+      toggleFilter(btn);
+    } else {
+      const set = selected[type];
+      if (set) { if (set.has(value)) set.delete(value); else set.add(value); }
+      applyFilters();
+    }
   }
 
   filterItems.forEach(btn => {
@@ -145,6 +159,10 @@
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') closeAllPanels();
   });
+
+  // Expose for page scripts
+  window.bggApplyDrinkFilters = applyFilters;
+  window.bggToggleDrinkFilter = programmaticToggle;
 
   updateClearBtn();
   applyFilters();
