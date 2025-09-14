@@ -34,7 +34,9 @@
   --gradient-neon: linear-gradient(90deg,#39ffb6,#2fb3ff);
 }
 
-/* Basic helpers */
+/* ------------------------------------------------------------------
+   Helpers
+   ------------------------------------------------------------------ */
 .bg-bg { background: var(--bg) !important; }
 .text-fg { color: var(--fg) !important; }
 .text-muted { color: var(--muted) !important; }
@@ -61,7 +63,7 @@
 .font-body    { font-family: var(--font-body, 'Inter', system-ui, sans-serif); }
 
 /* ------------------------------------------------------------------
-   Global tweaks
+   Global
    ------------------------------------------------------------------ */
 html { scroll-behavior: smooth; }
 body { background: var(--bg); color: var(--fg); }
@@ -132,7 +134,8 @@ pre { background: #14181d; border: 1px solid #1f252c; padding: 1rem 1.25rem; bor
 /* ------------------------------------------------------------------
    Pills (Scheme B: distinct visual styles instead of colors)
    Use .pill for base, then one of: .pill--filled, .pill--outline, .pill--soft
-   Map e.g. Category = filled, Mode = outline, Tag = soft
+   Map: Category = filled, Mode = outline, Tag = soft (Games)
+        Type = filled, Base = outline, Difficulty = soft (Drinks)
    ------------------------------------------------------------------ */
 .pill {
   @apply inline-flex items-center gap-1 rounded-full text-[10px] font-semibold tracking-wide whitespace-nowrap select-none border;
@@ -163,14 +166,18 @@ pre { background: #14181d; border: 1px solid #1f252c; padding: 1rem 1.25rem; bor
 }
 .pill[aria-pressed="true"] { outline: 2px solid rgba(var(--tone-rgb, 57,255,182), 0.6); outline-offset: 1px; }
 
-/* Filter panel styling */
-.filter-panel { @apply absolute z-50 mt-2 min-w-[14rem] max-w-xs bg-bg/95 backdrop-blur border border-fg/25 rounded-md shadow-lg p-2; }
+/* ------------------------------------------------------------------
+   Filter panels
+   ------------------------------------------------------------------ */
+.filter-panel {
+  @apply absolute z-50 mt-2 min-w-[14rem] max-w-xs bg-bg/95 backdrop-blur border border-fg/25 rounded-md shadow-lg p-2;
+}
 .filter-panel.hidden { display:none; }
 .panel-inner { @apply flex flex-wrap gap-2 overflow-y-auto max-h-72; }
 .panel-inner::-webkit-scrollbar { width:6px; }
 .panel-inner::-webkit-scrollbar-thumb { @apply bg-fg/30 rounded; }
 
-/* Result count */
+/* Result count (layout is handled with ml-auto in markup) */
 #result-count { @apply text-muted; }
 
 /* ------------------------------------------------------------------
@@ -196,6 +203,21 @@ button:disabled { opacity: 0.55; cursor: not-allowed; }
 /* No persistent hover effects on touch devices */
 @media (hover: none) {
   .ctrl:hover, .pill:hover, a:hover { transform: none !important; box-shadow: none !important; }
+}
+
+/* ------------------------------------------------------------------
+   Marquee / scrolling banner: start fully off-screen to the right
+   ------------------------------------------------------------------ */
+.marquee, [data-marquee], .scrolling-banner { overflow: hidden; position: relative; }
+.marquee__track, [data-marquee-track], .scrolling-banner-track {
+  display: inline-flex;
+  will-change: transform;
+  transform: translateX(110%);
+  animation: marquee-slide 24s linear infinite;
+}
+@keyframes marquee-slide { from { transform: translateX(110%); } to { transform: translateX(-110%); } }
+@media (prefers-reduced-motion: reduce) {
+  .marquee__track, [data-marquee-track], .scrolling-banner-track { animation: none; transform: translateX(0); }
 }
 
 /* ------------------------------------------------------------------
