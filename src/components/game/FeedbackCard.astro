@@ -1,18 +1,15 @@
 ---
-/* (Optional) If you have a withBase helper, uncomment and use it:
 import { withBase } from '../../lib/paths';
 const contactHref = withBase('contact/');
-*/
-const contactHref = '/BeerGoggleGames/contact/'; // Adjust if you switch to withBase
 ---
-<section class="mt-10">
+<section class="mt-10 glass p-5">
   <h4 class="font-semibold mb-3 text-sm tracking-wide uppercase text-muted">Feedback</h4>
   <div class="space-y-4 text-sm leading-relaxed">
     <slot />
     <p>Got suggestions on how we can improve? Drop us a message through our contact form.</p>
     <p>
       <a
-        class="inline-flex items-center gap-1 text-neon hover:underline"
+        class="inline-flex items-center gap-1 hover:underline"
         href={contactHref}
       >
         <span>Contact Us</span>
