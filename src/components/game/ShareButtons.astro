@@ -52,13 +52,12 @@ function svg(name: string) {
     case 'whatsapp':
       return '<path d="M12.04 2c-5.52 0-10 4.42-10 9.86 0 1.74.48 3.42 1.4 4.9L2 22l5.37-1.38c1.42.78 3.02 1.2 4.67 1.2 5.52 0 10-4.42 10-9.86S17.56 2 12.04 2Zm0 17.95c-1.44 0-2.85-.38-4.08-1.12l-.29-.17-3.18.82.85-3.04-.19-.31a7.66 7.66 0 0 1-1.16-4.07c0-4.22 3.48-7.65 7.75-7.65 4.27 0 7.75 3.43 7.75 7.65 0 4.22-3.48 7.64-7.75 7.64Zm4.21-5.66c-.23-.12-1.36-.67-1.57-.74-.21-.08-.36-.12-.5.12-.15.23-.58.74-.71.89-.13.15-.26.17-.48.06-.23-.12-.94-.34-1.78-1.09-.66-.58-1.1-1.29-1.23-1.51-.13-.23-.01-.35.11-.46.11-.11.23-.26.34-.38.11-.13.15-.23.23-.38.08-.15.04-.29-.02-.41-.06-.12-.5-1.2-.69-1.64-.18-.44-.37-.38-.5-.39-.13-.01-.29-.01-.44-.01-.15 0-.41.06-.63.29-.21.23-.82.8-.82 1.95 0 1.14.84 2.25.96 2.41.13.15 1.64 2.55 4.02 3.47.56.22.99.35 1.33.45.56.18 1.06.15 1.46.09.45-.07 1.36-.55 1.55-1.09.19-.53.19-.99.13-1.09-.06-.09-.21-.15-.44-.26Z"/>';
     case 'copy':
-      // Clipboard icon
       return '<path d="M8 2.5A2.5 2.5 0 0 1 10.5 0h5A2.5 2.5 0 0 1 18 2.5V4h1.25A2.75 2.75 0 0 1 22 6.75v11.5A2.75 2.75 0 0 1 19.25 21H8.75A2.75 2.75 0 0 1 6 18.25V17H4.75A2.75 2.75 0 0 1 2 14.25v-9.5A2.75 2.75 0 0 1 4.75 2h3.3c-.02.16-.05.33-.05.5ZM10.5 2A.5.5 0 0 0 10 2.5V4h6V2.5a.5.5 0 0 0-.5-.5h-5Z"/><path d="M8 6.75A1.75 1.75 0 0 1 9.75 5h9.5A1.75 1.75 0 0 1 21 6.75v11.5A1.75 1.75 0 0 1 19.25 20h-9.5A1.75 1.75 0 0 1 8 18.25Z"/>';
   }
   return '';
 }
 ---
-<div class="mt-8 border border-fg/15 rounded-xl p-5 bg-fg/5">
+<section class="mt-8 glass p-5">
   <h4 class="font-semibold mb-3 mt-0 text-sm tracking-wide uppercase text-muted">
     Share This Page
   </h4>
@@ -69,7 +68,7 @@ function svg(name: string) {
         href={link.url}
         target="_blank"
         rel="noopener noreferrer"
-        class="group inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-fg/15 bg-bg/60 hover:border-neon/50 hover:bg-fg/10 hover:text-neon text-xs font-medium transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon"
+        class="group inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-fg/15 bg-bg/60 hover:bg-fg/10 text-xs font-medium transition focus-visible:outline-none focus-visible:ring-2"
         aria-label={link.label ?? link.name}
       >
         <span class="w-4 h-4 block" set:html={`<svg viewBox='0 0 24 24' fill='currentColor' class='w-4 h-4'>${svg(link.icon)}</svg>`}></span>
@@ -79,30 +78,22 @@ function svg(name: string) {
 
     <button
       type="button"
-      class="group inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-fg/15 bg-bg/60 hover:border-neon/50 hover:bg-fg/10 text-neon text-xs font-medium transition relative focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon data-[copied=true]:border-neon data-[copied=true]:bg-fg/10"
+      class="group inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-fg/15 bg-bg/60 hover:bg-fg/10 text-xs font-medium transition relative focus-visible:outline-none focus-visible:ring-2"
       data-copy-button
       aria-label="Copy page URL to clipboard"
     >
       <span class="w-4 h-4 block copy-icon" set:html={`<svg viewBox='0 0 24 24' fill='currentColor' class='w-4 h-4 transition-transform duration-300 group-data-[copied=true]:scale-110'>${svg('copy')}</svg>`}></span>
       <span class="copy-label transition-opacity duration-200 group-data-[copied=true]:opacity-0">Copy</span>
       <span
-        class="copy-feedback pointer-events-none absolute -bottom-5 left-1/2 -translate-x-1/2 text-[10px] opacity-0 group-data-[copied=true]:opacity-100 transition text-neon"
+        class="copy-feedback pointer-events-none absolute -bottom-5 left-1/2 -translate-x-1/2 text-[10px] opacity-0 group-data-[copied=true]:opacity-100 transition"
         aria-live="polite"
       >Copied!</span>
-      <!-- Pulse ring for visual confirmation (mobile friendly) -->
-      <span class="pointer-events-none absolute inset-0 rounded-lg ring-0 group-data-[copied=true]:ring-2 group-data-[copied=true]:ring-neon/70 transition-all duration-300"></span>
+      <span class="pointer-events-none absolute inset-0 rounded-lg ring-0 group-data-[copied=true]:ring-2 transition-all duration-300"></span>
     </button>
   </div>
-</div>
+</section>
 
 <script is:inline>
-/**
- * Copy button UX:
- * - Button text & icon start neon (to "match" other buttons' hover highlight)
- * - On click: sets data-copied="true" for 1.6s
- *   -> "Copy" label fades, "Copied!" badge fades in, pulse ring & slight icon grow.
- * - Works with keyboard & touch (no reliance on :hover).
- */
 (function(){
   if (location.hash === '#copy') {
     history.replaceState(null,'',location.pathname + location.search);
@@ -136,16 +127,11 @@ function svg(name: string) {
   btn.addEventListener('click', e => {
     e.preventDefault();
     copy(PAGE_URL).then(()=>{
-      // mobile haptic (best-effort, ignored if unsupported)
       if (navigator.vibrate) { try { navigator.vibrate(10); } catch(_){} }
       btn.dataset.copied = 'true';
       if (timer) clearTimeout(timer);
-      timer = setTimeout(()=>{
-        delete btn.dataset.copied;
-      }, 1600);
+      timer = setTimeout(()=>{ delete btn.dataset.copied; }, 1600);
     });
   });
-
-  // Also support keyboard "Enter" / "Space" naturally (type="button" handles space/enter)
 })();
 </script>
