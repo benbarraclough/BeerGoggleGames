@@ -77,6 +77,9 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
     Unified list A–Z. Use search and filters. Exclusive = AND across groups.
   </p>
 
+  <div class="divider" aria-hidden="true"></div>
+
+  <!-- Search + Filters row on desktop, stacked on mobile -->
   <div id="filter-bar" class="mb-6">
     <div class="flex flex-col gap-3 md:flex-row md:flex-wrap md:items-end">
       <!-- Search -->
@@ -87,11 +90,11 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
             id="drink-search"
             type="search"
             placeholder="Search drinks..."
-            class="w-full md:w-72 rounded border border-fg/30 bg-fg/5 px-3 py-2 text-sm focus:border-fg/40 focus:outline-none focus:ring-0"
+            class="w-full md:w-72 rounded border border-fg/30 bg-fg/5 px-3 py-2 text-sm focus:border-neon outline-none"
             autocomplete="off"
           />
         </label>
-        <button id="drink-search-clear" class="hidden text-[11px] underline underline-offset-4 hover:tone-magenta-text mb-1.5">Clear</button>
+        <button id="drink-search-clear" class="hidden text-[11px] underline underline-offset-4 hover:text-neon mb-1.5">Clear</button>
         <span id="drink-search-hits" class="text-[11px] text-muted mb-2"></span>
       </div>
 
@@ -100,13 +103,13 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         <span class="text-[11px] uppercase tracking-wide text-muted/70">Filters</span>
 
         <div class="relative" data-filter-wrapper>
-          <button type="button" class="filter-toggle pill pill-magenta-tint" data-panel="types" aria-expanded="false">
+          <button type="button" class="filter-toggle pill pill--magenta" data-panel="types" aria-expanded="false">
             Drink Type
           </button>
           <div class="filter-panel hidden" id="panel-types" role="group" aria-label="Drink Type">
             <div class="panel-inner">
               {drinkTypes.map(([t,count]) => (
-                <button type="button" class="filter-item pill pill-magenta" data-filter-type="type" data-value={t} aria-pressed="false">
+                <button type="button" class="filter-item pill pill--magenta" data-filter-type="type" data-value={t} aria-pressed="false">
                   <span>{t}</span><span class="count">{count}</span>
                 </button>
               ))}
@@ -115,13 +118,13 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         </div>
 
         <div class="relative" data-filter-wrapper>
-          <button type="button" class="filter-toggle pill pill-magenta-tint" data-panel="bases" aria-expanded="false">
+          <button type="button" class="filter-toggle pill pill--magenta" data-panel="bases" aria-expanded="false">
             Alcohol Base
           </button>
           <div class="filter-panel hidden" id="panel-bases" role="group" aria-label="Alcohol Base">
             <div class="panel-inner max-h-72">
               {bases.map(([b,count]) => (
-                <button type="button" class="filter-item pill pill-magenta" data-filter-type="base" data-value={b.toLowerCase()} data-display={b} aria-pressed="false">
+                <button type="button" class="filter-item pill pill--magenta" data-filter-type="base" data-value={b.toLowerCase()} data-display={b} aria-pressed="false">
                   <span>{b}</span><span class="count">{count}</span>
                 </button>
               ))}
@@ -130,13 +133,13 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         </div>
 
         <div class="relative" data-filter-wrapper>
-          <button type="button" class="filter-toggle pill pill-magenta-tint" data-panel="difficulty" aria-expanded="false">
+          <button type="button" class="filter-toggle pill pill--magenta" data-panel="difficulty" aria-expanded="false">
             Difficulty
           </button>
           <div class="filter-panel hidden" id="panel-difficulty" role="group" aria-label="Difficulty">
             <div class="panel-inner">
               {difficulties.map(([d,count]) => (
-                <button type="button" class="filter-item pill pill-magenta" data-filter-type="difficulty" data-value={d} aria-pressed="false">
+                <button type="button" class="filter-item pill pill--magenta" data-filter-type="difficulty" data-value={d} aria-pressed="false">
                   <span>{d}</span><span class="count">{count}</span>
                 </button>
               ))}
@@ -144,11 +147,11 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
           </div>
         </div>
 
-        <button id="exclusive-toggle" type="button" class="pill pill-neutral" aria-pressed="false"
+        <button id="exclusive-toggle" type="button" class="pill bg-fg/10 text-fg/80 border-fg/25 hover:border-neon/50 hover:text-neon" aria-pressed="false"
           title="Exclusive: must match each selected group (AND across groups; OR within group).">
           Exclusive
         </button>
-        <button id="clear-filters" type="button" class="pill pill-neutral disabled:opacity-40 disabled:cursor-not-allowed" disabled>
+        <button id="clear-filters" type="button" class="pill bg-fg/10 text-fg/80 border-fg/25 hover:border-neon/50 hover:text-neon disabled:opacity-40 disabled:cursor-not-allowed" disabled>
           Clear
         </button>
 
@@ -163,7 +166,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
     <ul id="drinks-grid" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 list-none p-0 m-0">
       {drinks.map(d => (
         <li
-          class="relative group"
+          class="relative group tone-magenta"
           data-type={d.drinkType}
           data-bases={d.basesLC.join(',')}
           data-difficulty={d.difficulty}
@@ -171,7 +174,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
           data-bases-search={d.basesLC.join(',')}
           data-search-visible="true"
         >
-          <div class="glass tone-magenta card-body flex h-full p-3 pointer-events-none">
+          <div class="card-body glass p-3 pointer-events-none">
             <picture class="allow-pointer mr-3 shrink-0">
               <img
                 src={d.image}
@@ -183,21 +186,21 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
               />
             </picture>
             <div class="flex flex-col min-w-0">
-              <span class="font-semibold leading-snug mb-1 allow-pointer tone-magenta-text">
+              <span class="font-semibold leading-snug mb-1 transition-colors allow-pointer group-hover:text-neon">
                 {d.title}
               </span>
               <div class="flex flex-wrap gap-2 text-[10px] uppercase tracking-wide font-semibold relative z-10">
-                <span class="pill pill-magenta allow-pointer">{d.drinkType}</span>
-                {d.bases.slice(0,3).map(b => <span class="pill pill-magenta allow-pointer">{b}</span>)}
-                {d.bases.length > 3 && <span class="pill pill-magenta allow-pointer">+{d.bases.length - 3}</span>}
-                {d.difficulty && <span class="pill pill-magenta allow-pointer">{d.difficulty}</span>}
+                <span class="pill pill--magenta allow-pointer">{d.drinkType}</span>
+                {d.bases.slice(0,3).map(b => <span class="pill pill--magenta allow-pointer">{b}</span>)}
+                {d.bases.length > 3 && <span class="pill pill--magenta allow-pointer">+{d.bases.length - 3}</span>}
+                {d.difficulty && <span class="pill pill--magenta allow-pointer">{d.difficulty}</span>}
               </div>
             </div>
           </div>
           <a
             href={d.href}
             aria-label={`View drink: ${d.title}`}
-            class="absolute inset-0 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/60"
+            class="absolute inset-0 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/60"
           >
             <span class="sr-only">{d.title}</span>
           </a>
@@ -207,19 +210,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
   )}
 
   <style>
-    .pill {
-      @apply inline-flex items-center gap-1 px-2 py-1 rounded-full text-[10px] font-semibold tracking-wide whitespace-nowrap transition-colors select-none border;
-      line-height:1.1;
-    }
-    .pill-magenta-tint { background: rgba(255,0,128,0.18); color: #ffd1e6; border-color: rgba(255,0,128,0.38); }
-    .pill-magenta { background: rgba(255,0,128,0.12); color: #ffc2de; border-color: rgba(255,0,128,0.32); }
-
-    .filter-toggle[aria-expanded="true"] { outline: 2px solid color-mix(in oklab, var(--c-magenta) 60%, transparent); }
-    #exclusive-toggle[aria-pressed="true"] { background: rgba(255,0,128,0.20); color: var(--c-magenta); outline: 2px solid rgba(255,0,128,0.4); }
-    .filter-item { cursor: pointer; }
-    .filter-item[aria-pressed="true"] { outline: 2px solid rgba(255,0,128,0.5); }
-
-    .filter-panel { @apply absolute z-50 mt-2 min-w-[14rem] max-w-xs bg-bg/95 backdrop-blur rounded-md shadow-lg p-2; border: 1px solid rgba(255,255,255,0.18); }
+    .filter-panel { @apply absolute z-50 mt-2 min-w-[14rem] max-w-xs bg-bg/95 backdrop-blur border border-fg/25 rounded-md shadow-lg p-2; }
     .filter-panel.hidden { display: none; }
     .panel-inner { @apply flex flex-wrap gap-2 overflow-y-auto; max-height: 18rem; }
     .panel-inner::-webkit-scrollbar { width: 6px; }
@@ -227,8 +218,13 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 
     #result-count { @apply text-muted; }
 
-    .card-body { pointer-events: none; }
+    /* Make glass card body layout */
+    .card-body { display:flex; border: none; }
     .card-body .allow-pointer { pointer-events: auto; }
+
+    /* Selection states */
+    .filter-toggle[aria-expanded="true"] { @apply ring-2 ring-neon/60; }
+    .filter-item[aria-pressed="true"] { @apply ring-2 ring-neon/60; }
   </style>
 
   <script type="module" src={withBase('scripts/drinks-filters.js')}></script>
@@ -270,6 +266,6 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
   </script>
 
   <p class="mt-10 text-sm">
-    <a class="underline underline-offset-4 hover:tone-magenta-text" href={withBase('/')}>← Back to Home</a>
+    <a class="hover:text-neon underline underline-offset-4" href={withBase('/')}>← Back to Home</a>
   </p>
 </Layout>
