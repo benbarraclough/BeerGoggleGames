@@ -4,10 +4,10 @@ import ShareButtons from '../../components/game/ShareButtons.astro';
 import FeedbackCard from '../../components/game/FeedbackCard.astro';
 
 const title = 'Coin Flip';
-const description = 'Flip an on-screen coin with a simple animation.';
+const description = 'Flip a more realistic on-screen coin with smooth shading.';
 ---
 <Layout title={title} description={description}>
-  <header class="mb-6">
+  <header class="mb-6 tone-green">
     <h1 class="font-display text-3xl md:text-4xl mb-2 tone-green-text">{title}</h1>
     <p class="text-muted">{description}</p>
   </header>
@@ -15,20 +15,20 @@ const description = 'Flip an on-screen coin with a simple animation.';
   <div class="divider" aria-hidden="true"></div>
 
   <section class="glass tone-green p-6 max-w-md">
-    <div class="relative mx-auto w-full max-w-[280px] aspect-square">
+    <div class="relative mx-auto w-full max-w-[300px] aspect-square">
       <canvas id="coin" class="w-full h-full rounded-md border border-fg/15 bg-bg"></canvas>
     </div>
     <div class="mt-4 flex gap-3 items-center">
-      <button id="flip-coin" type="button" class="px-4 py-2 rounded border border-fg/25 bg-fg/10 hover:border-neon hover:text-neon text-sm font-medium">
+      <button id="flip-coin" type="button" class="px-4 py-2 rounded border border-fg/25 bg-fg/10 hover:border-fg/50 text-sm font-medium">
         Flip
       </button>
-      <div id="coin-result" class="min-h-[1.75rem] text-neon font-semibold"></div>
+      <div id="coin-result" class="min-h-[1.75rem] text-sm font-semibold text-muted"></div>
     </div>
   </section>
 
   <ShareButtons title={title} />
   <FeedbackCard>
-    <p>Want multiple flips, streaks or weighted odds? Let us know.</p>
+    <p>Want streaks, weighted flips, or multiple coins? Let us know.</p>
   </FeedbackCard>
 
   <script is:inline>
@@ -36,64 +36,97 @@ const description = 'Flip an on-screen coin with a simple animation.';
       const canvas = document.getElementById('coin');
       const ctx = canvas.getContext('2d');
       const DPR = Math.max(1, window.devicePixelRatio || 1);
+      const result = document.getElementById('coin-result');
+      const btn = document.getElementById('flip-coin');
+
       function resize() {
         const bb = canvas.getBoundingClientRect();
         canvas.width = Math.floor(bb.width * DPR);
         canvas.height = Math.floor(bb.height * DPR);
-        drawCoin('H');
+        drawCoin('Heads', 0, 0);
       }
       window.addEventListener('resize', resize, { passive:true });
       resize();
 
-      function drawCoin(faceChar, tilt=0) {
+      function drawCoin(faceText, tilt=0, spin=0) {
         const w = canvas.width, h = canvas.height;
         ctx.clearRect(0,0,w,h);
         const r = Math.min(w,h)*0.35;
         const cx = w/2, cy = h/2;
 
-        // coin body
-        const grad = ctx.createRadialGradient(cx-r*0.4, cy-r*0.4, r*0.1, cx, cy, r);
-        grad.addColorStop(0, 'rgba(255,255,255,0.25)');
-        grad.addColorStop(1, 'rgba(255,255,255,0.05)');
-        ctx.fillStyle = grad;
+        ctx.save();
+        ctx.translate(cx, cy);
+        ctx.rotate(spin);
+
+        // Rim thickness based on tilt
+        const ry = r*(1-tilt*0.7);
+
+        // shadow
+        ctx.save();
+        ctx.resetTransform?.();
+        ctx.translate(cx, cy + r*0.9);
+        ctx.scale(1, 0.15);
         ctx.beginPath();
-        ctx.ellipse(cx, cy, r, r*(1-tilt*0.7), 0, 0, Math.PI*2);
+        ctx.arc(0, 0, r*0.9, 0, Math.PI*2);
+        ctx.fillStyle = 'rgba(0,0,0,0.35)';
+        ctx.filter = 'blur(14px)';
         ctx.fill();
+        ctx.restore();
+
+        // coin body (metallic)
+        const grad = ctx.createRadialGradient(-r*0.2, -r*0.2, r*0.1, 0, 0, r);
+        grad.addColorStop(0, 'rgba(255,255,255,0.30)');
+        grad.addColorStop(0.5, 'rgba(255,255,255,0.08)');
+        grad.addColorStop(1, 'rgba(255,255,255,0.04)');
+        ctx.fillStyle = grad;
+        ctx.strokeStyle = 'rgba(255,255,255,0.25)';
+        ctx.lineWidth = Math.max(2, r/10);
+
+        // Face ellipse
+        ctx.beginPath();
+        ctx.ellipse(0, 0, r, ry, 0, 0, Math.PI*2);
+        ctx.fill(); ctx.stroke();
+
+        // Inner rim
+        ctx.beginPath();
+        ctx.ellipse(0, 0, r*0.88, ry*0.88, 0, 0, Math.PI*2);
         ctx.strokeStyle = 'rgba(255,255,255,0.2)';
-        ctx.lineWidth = Math.max(2, r/12);
+        ctx.lineWidth = Math.max(1, r/28);
         ctx.stroke();
 
-        // face text
+        // Face text
         ctx.fillStyle = '#fff';
-        ctx.font = `${Math.max(16, r*0.9)}px system-ui, sans-serif`;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        ctx.globalAlpha = Math.max(0, 1 - tilt*1.2);
-        ctx.fillText(faceChar, cx, cy);
+        const visible = Math.max(0, 1 - tilt*1.3);
+        ctx.globalAlpha = visible;
+        ctx.font = `${Math.max(14, r*0.36)}px system-ui, sans-serif`;
+        ctx.fillText(faceText, 0, 0);
         ctx.globalAlpha = 1;
+
+        ctx.restore();
       }
 
-      const result = document.getElementById('coin-result');
-      const btn = document.getElementById('flip-coin');
-
       function flip() {
-        const spins = 20 + Math.floor(Math.random()*10);
+        const spins = 26 + Math.floor(Math.random()*10);
         let frame = 0;
+        const target = Math.random() < 0.5 ? 'Heads' : 'Tails';
         const start = performance.now();
 
         const timer = setInterval(() => {
-          const t = (performance.now() - start)/500;
+          const t = (performance.now() - start) / 600; // speed
           const tilt = Math.abs(Math.sin(t)); // 0..1
-          const showH = Math.random() < 0.5;
-          drawCoin(showH ? 'H' : 'T', tilt);
+          const spin = t * Math.PI;          // rotate
+          // Alternate face visibility bias during spin
+          const showHeads = Math.sin(t*2) >= 0;
+          drawCoin(showHeads ? 'Heads' : 'Tails', tilt, spin);
           frame++;
           if (frame >= spins) {
             clearInterval(timer);
-            const final = Math.random() < 0.5 ? 'Heads' : 'Tails';
-            drawCoin(final.startsWith('H') ? 'H' : 'T', 0);
-            result.textContent = 'Result: ' + final;
+            drawCoin(target, 0, 0);
+            result.textContent = 'Result: ' + target;
           }
-        }, 40);
+        }, 30);
       }
 
       btn?.addEventListener('click', flip);
