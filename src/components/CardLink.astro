@@ -1,16 +1,15 @@
 ---
 /**
- * Reusable clickable card component with glassy style.
+ * Reusable clickable card component with glass styling.
  *
  * Props:
  *  - href: string (required)
  *  - ariaLabel?: string
  *  - overlay?: boolean (default false)
- *  - as?: string (default 'li')
- *  - class?: string (outer wrapper)
- *  - anchorClass?: string (anchor extra classes)
+ *  - as?: string (outer wrapper tag, default 'li')
+ *  - class?: string (extra classes for outer wrapper)
+ *  - anchorClass?: string (extra classes for anchor element)
  *  - noPadding?: boolean
- *  - tone?: 'cyan' | 'magenta' | 'green' (optional tint)
  */
 interface Props {
   href: string;
@@ -20,7 +19,6 @@ interface Props {
   class?: string;
   anchorClass?: string;
   noPadding?: boolean;
-  tone?: 'cyan' | 'magenta' | 'green';
 }
 
 const {
@@ -30,22 +28,21 @@ const {
   as = 'li',
   class: outerExtra = '',
   anchorClass = '',
-  noPadding = false,
-  tone
+  noPadding = false
 } = Astro.props as Props;
 
 const Tag = as as keyof HTMLElementTagNameMap;
 
 const baseOuter = 'group relative list-none p-0 m-0';
-const toneClass = tone === 'cyan' ? 'tone-cyan' : tone === 'magenta' ? 'tone-magenta' : tone === 'green' ? 'tone-green' : '';
 const baseCard =
-  `glass ${toneClass} flex flex-col h-full rounded-sm transition ` +
-  (noPadding ? '' : 'p-4 ');
+  'flex flex-col h-full rounded-md glass ' +
+  (noPadding ? '' : 'p-4 ') +
+  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/60';
 const baseOverlayWrapper =
-  `glass ${toneClass} flex flex-col h-full rounded-sm transition ` +
+  'flex flex-col h-full rounded-md glass ' +
   (noPadding ? '' : 'p-4 ');
 const overlayAnchorBase =
-  'absolute inset-0 z-10 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/60';
+  'absolute inset-0 z-10 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/60';
 ---
 <Tag class={`${baseOuter} ${outerExtra}`.trim()}>
   {overlay ? (
