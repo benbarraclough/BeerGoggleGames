@@ -71,27 +71,29 @@ const jsonLd = {
 <Layout title={title} description={description} canonical={pageCanonical} image={cover}>
   <article class="prose-invert max-w-none">
     <header class="drink-meta mb-6">
-      <h1 class="font-display text-4xl mb-2">{title}</h1>
+      <h1 class="font-display text-4xl mb-2 tone-magenta-text">{title}</h1>
       {description && (
         <p class="text-lg text-muted mb-4 leading-relaxed max-w-prose">
           {description}
         </p>
       )}
-      <div class="flex flex-wrap gap-2 meta-pills">
-        {drinkType && <span class="mode-pill" aria-label={`Drink type: ${drinkType}`}>{drinkType}</span>}
+      <div class="flex flex-wrap gap-2">
+        {drinkType && <span class="pill pill--magenta" aria-label={`Drink type: ${drinkType}`}>{drinkType}</span>}
         {baseList.map(b => (
-          <span class="mode-pill mode-pill-base" aria-label={`Base: ${b}`}>{b}</span>
+          <span class="pill pill--magenta" aria-label={`Base: ${b}`}>{b}</span>
         ))}
         {difficulty && (
-          <span class="mode-pill mode-pill-diff" aria-label={`Difficulty: ${difficulty}`}>
+          <span class="pill pill--magenta" aria-label={`Difficulty: ${difficulty}`}>
             {difficulty.charAt(0).toUpperCase() + difficulty.slice(1)}
           </span>
         )}
         {tags.map(t => (
-          <span class="tag-pill" aria-label={`Tag: ${t}`}>{t}</span>
+          <span class="pill pill--magenta" aria-label={`Tag: ${t}`}>{t}</span>
         ))}
       </div>
     </header>
+
+    <div class="divider" aria-hidden="true"></div>
 
     {!heroDisabled && (
       <figure class="relative mb-8 aspect-[16/7] overflow-hidden rounded-xl border border-fg/20">
@@ -107,7 +109,7 @@ const jsonLd = {
       </figure>
     )}
 
-    <!-- MDX drink content (sections, lists, etc.) -->
+    <!-- MDX drink content -->
     <Content />
 
     <p class="mt-10 text-xs text-muted">
@@ -115,19 +117,7 @@ const jsonLd = {
     </p>
   </article>
 
-  <style>
-    .mode-pill {
-      @apply inline-flex items-center gap-1 rounded-md border border-fg/20 bg-fg/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide;
-      line-height:1;
-    }
-    .mode-pill-base { @apply border-blue-400/30 bg-blue-500/15 text-blue-100; }
-    .mode-pill-diff { @apply border-pink-400/30 bg-pink-500/15 text-pink-200; }
-    .tag-pill {
-      @apply inline-flex items-center rounded-full border border-fg/15 bg-fg/10 px-2 py-1 text-[10px] font-medium;
-    }
-  </style>
-
-  <!-- GLOBAL list fallback (covers any plain MDX lists not wrapped by DrinkSection) -->
+  <!-- GLOBAL list fallback -->
   <style is:global>
     article.prose-invert ul,
     article.prose-invert ol {
