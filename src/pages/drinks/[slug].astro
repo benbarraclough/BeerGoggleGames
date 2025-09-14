@@ -52,9 +52,7 @@ const tags: string[] = Array.isArray(data.tags) ? data.tags : [];
 const coverFile = data.cover || `${leaf}.webp`;
 const cover = withBase(`images/${coverFile}`);
 
-/* Frontmatter override (optional):
-   If you set hero: false in a drink file, we won't render the figure.
-*/
+/* Frontmatter override (optional) */
 const heroDisabled = data.hero === false;
 
 const pageCanonical = canonical(Astro.url.pathname, Astro.site);
@@ -69,7 +67,7 @@ const jsonLd = {
 };
 ---
 <Layout title={title} description={description} canonical={pageCanonical} image={cover}>
-  <article class="prose-invert max-w-none">
+  <article class="prose-invert max-w-none tone-magenta">
     <header class="drink-meta mb-6">
       <h1 class="font-display text-4xl mb-2 tone-magenta-text">{title}</h1>
       {description && (
@@ -78,17 +76,17 @@ const jsonLd = {
         </p>
       )}
       <div class="flex flex-wrap gap-2">
-        {drinkType && <span class="pill pill--magenta" aria-label={`Drink type: ${drinkType}`}>{drinkType}</span>}
+        {drinkType && <span class="pill pill--filled" aria-label={`Drink type: ${drinkType}`}>{drinkType}</span>}
         {baseList.map(b => (
-          <span class="pill pill--magenta" aria-label={`Base: ${b}`}>{b}</span>
+          <span class="pill pill--outline" aria-label={`Base: ${b}`}>{b}</span>
         ))}
         {difficulty && (
-          <span class="pill pill--magenta" aria-label={`Difficulty: ${difficulty}`}>
+          <span class="pill pill--soft" aria-label={`Difficulty: ${difficulty}`}>
             {difficulty.charAt(0).toUpperCase() + difficulty.slice(1)}
           </span>
         )}
         {tags.map(t => (
-          <span class="pill pill--magenta" aria-label={`Tag: ${t}`}>{t}</span>
+          <span class="pill pill--soft" aria-label={`Tag: ${t}`}>{t}</span>
         ))}
       </div>
     </header>
@@ -100,7 +98,7 @@ const jsonLd = {
         <img
           src={cover}
           alt={title}
-          class="w-full h-full object-cover brightness-90 saturate-110 transition-transform duration-700 hover:scale-105"
+          class="hero-img w-full h-full object-cover brightness-90 saturate-110 transition-transform duration-700"
           loading="lazy"
           decoding="async"
           onerror="this.style.display='none'"
@@ -109,15 +107,14 @@ const jsonLd = {
       </figure>
     )}
 
-    <!-- MDX drink content -->
     <Content />
 
     <p class="mt-10 text-xs text-muted">
-      <a class="hover:text-neon underline underline-offset-4" href={withBase('drinks/')}>Back to Drinks Index</a>
+      <a class="hover:underline" href={withBase('drinks/')}>Back to Drinks Index</a>
     </p>
   </article>
 
-  <!-- GLOBAL list fallback -->
+  <!-- GLOBAL list fallback (covers any plain MDX lists not wrapped by DrinkSection) -->
   <style is:global>
     article.prose-invert ul,
     article.prose-invert ol {
@@ -127,6 +124,9 @@ const jsonLd = {
     }
     article.prose-invert li { margin: 0.25rem 0; }
     article.prose-invert li::marker { color: var(--fg-muted, currentColor); }
+    @media (hover: hover) {
+      .hero-img:hover { transform: scale(1.05); }
+    }
   </style>
 
   <script type="application/ld+json">
