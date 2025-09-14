@@ -7,10 +7,10 @@ interface Props {
   description?: string;
   canonical?: string;
   ogImage?: string;
-  image?: string; // accept image alias too
   wide?: boolean;
   fullBleed?: boolean;
   noindex?: boolean;
+  image?: string; // optional social image
 }
 
 const {
@@ -18,10 +18,10 @@ const {
   description = 'Drinking games, cocktails, party activities & more.',
   canonical,
   ogImage,
-  image,
   wide = false,
   fullBleed = false,
-  noindex = false
+  noindex = false,
+  image
 } = Astro.props as Props;
 
 const current = Astro.url.pathname;
@@ -73,7 +73,7 @@ const mainClass = [
 
 const year = new Date().getFullYear();
 const siteUrl = canonical || 'https://beergogglegames.co.uk';
-const metaImage = image || ogImage;
+const ogImg = image || ogImage;
 ---
 <!DOCTYPE html>
 <html lang="en" class="bg-bg text-fg font-body" data-base={base}>
@@ -87,12 +87,23 @@ const metaImage = image || ogImage;
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    {metaImage && <meta property="og:image" content={withBase(metaImage.replace(/^\/+/, ''))} />}
+    {ogImg && <meta property="og:image" content={withBase(ogImg.replace(/^\/+/, ''))} />}
 
-    <!-- Global fonts (Plus Jakarta Sans + Bricolage Grotesque) -->
+    <!-- Fonts (global) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&family=Bricolage+Grotesque:opsz,wght@12..72,700&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&family=Bricolage+Grotesque:opsz,wght@12..72,700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root{
+        --font-body: 'Plus Jakarta Sans', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+        --font-display: 'Bricolage Grotesque', var(--font-body);
+        /* Brand tones */
+        --c-cyan:#00c8ff; --c-magenta:#ff0080; --c-green:#00d27a; --c-violet:#8b5cf6;
+      }
+    </style>
 
     <link rel="alternate" type="application/rss+xml" href={withBase('rss.xml')} title="Beer Goggle Games RSS" />
     <script type="application/ld+json">
