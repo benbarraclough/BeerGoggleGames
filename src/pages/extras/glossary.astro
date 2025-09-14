@@ -30,10 +30,12 @@ const terms: Term[] = [
 ];
 ---
 <Layout title={title} description={description}>
-  <header class="mb-8">
-    <h1 class="font-display text-3xl md:text-4xl mb-3">{title}</h1>
+  <header class="mb-6">
+    <h1 class="font-display text-3xl md:text-4xl mb-2 tone-green-text">{title}</h1>
     <p class="text-muted max-w-prose">{description}</p>
   </header>
+
+  <div class="divider" aria-hidden="true"></div>
 
   <div class="my-6 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
     <div class="flex flex-col gap-2">
@@ -64,7 +66,7 @@ const terms: Term[] = [
     {terms.map(t => (
       <details
         id={t.id}
-        class="group rounded border border-fg/15 p-4 open:border-neon transition-colors"
+        class="group glass tone-green p-4 open:border-neon transition-colors"
         data-term={(t.name + ' ' + t.keywords).toLowerCase()}
       >
         <summary class="cursor-pointer font-semibold flex justify-between items-center">
