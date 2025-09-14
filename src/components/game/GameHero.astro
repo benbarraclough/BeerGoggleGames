@@ -5,9 +5,15 @@ const { cover, alt = '' } = Astro.props;
   <img
     src={cover}
     alt={alt}
-    class="w-full h-full object-cover brightness-90 saturate-110 transition-transform duration-700 hover:scale-105"
+    class="hero-img w-full h-full object-cover brightness-90 saturate-110 transition-transform duration-700"
     loading="lazy"
     decoding="async"
   />
   <div class="absolute inset-0 bg-gradient-to-tr from-bg/80 via-bg/20 to-transparent pointer-events-none"></div>
 </figure>
+
+<style>
+  @media (hover: hover) {
+    .hero-img:hover { transform: scale(1.05); }
+  }
+</style>
