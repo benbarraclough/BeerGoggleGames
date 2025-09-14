@@ -57,8 +57,10 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
   <h1 class="font-display text-4xl mb-4 tone-cyan-text">Games</h1>
   <p class="text-sm text-muted mb-5">
     A complete collection of all games A–Z. Use search and filters, or pick a
-    <a class="underline underline-offset-4 hover:tone-cyan-text" href={withBase('games/random')}>Random Game</a>
+    <a class="hover:text-neon underline underline-offset-4" href={withBase('games/random')}>Random Game</a>
   </p>
+
+  <div class="divider" aria-hidden="true"></div>
 
   <!-- Search + Filters row on desktop, stacked on mobile -->
   <div id="filter-bar" class="mb-6">
@@ -70,11 +72,11 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
             id="game-search"
             type="search"
             placeholder="Search games..."
-            class="w-full md:w-72 rounded border border-fg/30 bg-fg/5 px-3 py-2 text-sm focus:border-fg/40 focus:outline-none focus:ring-0"
+            class="w-full md:w-72 rounded border border-fg/30 bg-fg/5 px-3 py-2 text-sm focus:border-neon outline-none"
             autocomplete="off"
           />
         </label>
-        <button id="game-search-clear" class="hidden text-[11px] underline underline-offset-4 hover:tone-cyan-text mb-1.5">Clear</button>
+        <button id="game-search-clear" class="hidden text-[11px] underline underline-offset-4 hover:text-neon mb-1.5">Clear</button>
         <span id="search-hits" class="text-[11px] text-muted mb-2"></span>
       </div>
 
@@ -82,13 +84,13 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         <span class="text-[11px] uppercase tracking-wide text-muted/70">Filters</span>
 
         <div class="relative" data-filter-wrapper>
-          <button type="button" class="filter-toggle pill pill-cyan-tint" data-panel="categories" aria-expanded="false">
+          <button type="button" class="filter-toggle pill pill--cyan" data-panel="categories" aria-expanded="false">
             Categories
           </button>
           <div class="filter-panel hidden" id="panel-categories" role="group" aria-label="Categories">
             <div class="panel-inner">
               {categories.map(([cat, count]) => (
-                <button type="button" class="filter-item pill pill-cyan" data-filter-type="category" data-value={cat} aria-pressed="false">
+                <button type="button" class="filter-item pill pill--cyan" data-filter-type="category" data-value={cat} aria-pressed="false">
                   <span>{cat}</span><span class="count">{count}</span>
                 </button>
               ))}
@@ -97,13 +99,13 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         </div>
 
         <div class="relative" data-filter-wrapper>
-          <button type="button" class="filter-toggle pill pill-cyan-tint" data-panel="modes" aria-expanded="false">
+          <button type="button" class="filter-toggle pill pill--cyan" data-panel="modes" aria-expanded="false">
             Player Modes
           </button>
           <div class="filter-panel hidden" id="panel-modes" role="group" aria-label="Player Modes">
             <div class="panel-inner">
               {modes.map(([slug, info]) => (
-                <button type="button" class="filter-item pill pill-cyan" data-filter-type="mode" data-value={slug} aria-pressed="false">
+                <button type="button" class="filter-item pill pill--cyan" data-filter-type="mode" data-value={slug} aria-pressed="false">
                   <span>{info.label}</span><span class="count">{info.count}</span>
                 </button>
               ))}
@@ -112,13 +114,13 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         </div>
 
         <div class="relative" data-filter-wrapper>
-          <button type="button" class="filter-toggle pill pill-cyan-tint" data-panel="tags" aria-expanded="false">
+          <button type="button" class="filter-toggle pill pill--cyan" data-panel="tags" aria-expanded="false">
             Tags
           </button>
           <div class="filter-panel hidden" id="panel-tags" role="group" aria-label="Tags">
             <div class="panel-inner max-h-72">
               {tags.map(([t, count]) => (
-                <button type="button" class="filter-item pill pill-cyan" data-filter-type="tag" data-value={t} aria-pressed="false">
+                <button type="button" class="filter-item pill pill--cyan" data-filter-type="tag" data-value={t} aria-pressed="false">
                   <span>{t}</span><span class="count">{count}</span>
                 </button>
               ))}
@@ -126,11 +128,11 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
           </div>
         </div>
 
-        <button id="exclusive-toggle" type="button" class="pill pill-neutral" aria-pressed="false"
+        <button id="exclusive-toggle" type="button" class="pill bg-fg/10 text-fg/80 border-fg/25 hover:border-neon/50 hover:text-neon" aria-pressed="false"
           title="Exclusive: must match each selected group (AND logic); all selected tags must be present.">
           Exclusive
         </button>
-        <button id="clear-filters" type="button" class="pill pill-neutral disabled:opacity-40 disabled:cursor-not-allowed" disabled>
+        <button id="clear-filters" type="button" class="pill bg-fg/10 text-fg/80 border-fg/25 hover:border-neon/50 hover:text-neon disabled:opacity-40 disabled:cursor-not-allowed" disabled>
           Clear
         </button>
 
@@ -147,14 +149,14 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         const tagPopoverId = `tags-${g.leaf}`;
         return (
           <li
-            class="relative group"
+            class="relative group tone-cyan"
             data-type={g.type}
             data-mode={g.modeSlug || ''}
             data-tags={g.tags.join(',').toLowerCase()}
             data-title={(g.title||'').toLowerCase()}
             data-search-visible="true"
           >
-            <div class="glass tone-cyan card-body flex h-full p-3 pointer-events-none">
+            <div class="card-body glass p-3 pointer-events-none">
               <picture class="allow-pointer mr-3 shrink-0">
                 <img
                   src={g.image}
@@ -166,17 +168,17 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
                 />
               </picture>
               <div class="flex flex-col min-w-0">
-                <span class="font-semibold leading-snug mb-1 allow-pointer tone-cyan-text">
+                <span class="font-semibold leading-snug mb-1 transition-colors allow-pointer group-hover:text-neon">
                   {g.title}
                 </span>
                 <div class="flex flex-wrap gap-2 text-[10px] uppercase tracking-wide font-semibold relative z-10">
-                  <span class="pill pill-cyan allow-pointer">{g.type}</span>
-                  {g.modeSlug && <span class="pill pill-cyan allow-pointer">{playerModeLabel(g.rawMode!)}</span>}
+                  <span class="pill pill--cyan allow-pointer">{g.type}</span>
+                  {g.modeSlug && <span class="pill pill--cyan allow-pointer">{playerModeLabel(g.rawMode!)}</span>}
                   {g.tags.length > 0 && (
                     <div class="relative group/tag inline-block allow-pointer">
                       <button
                         type="button"
-                        class="pill pill-cyan allow-pointer"
+                        class="pill pill--cyan allow-pointer"
                         data-tag-trigger
                         data-open="false"
                         aria-expanded="false"
@@ -187,12 +189,12 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
                       </button>
                       <div
                         id={tagPopoverId}
-                        class="tags-popover hidden absolute left-0 top-full mt-1 z-50 p-2 rounded-md border border-fg/20 bg-bg/95 backdrop-blur shadow-lg flex flex-wrap gap-2 min-w-[6rem] allow-pointer"
+                        class="tags-popover hidden absolute left-0 top-full mt-1 z-50 p-2 rounded-md border border-cyan-400/30 bg-bg/95 backdrop-blur shadow-lg flex flex-wrap gap-2 min-w-[6rem] allow-pointer"
                         role="group"
                         aria-label={`${g.title} tags`}
                         data-tags-popover
                       >
-                        {g.tags.map(t => <span class="pill pill-cyan allow-pointer">{t}</span>)}
+                        {g.tags.map(t => <span class="pill pill--cyan allow-pointer">{t}</span>)}
                       </div>
                     </div>
                   )}
@@ -202,7 +204,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
             <a
               href={g.href}
               aria-label={`View game: ${g.title}`}
-              class="absolute inset-0 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/60"
+              class="absolute inset-0 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/60"
             >
               <span class="sr-only">{g.title}</span>
             </a>
@@ -213,19 +215,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
   )}
 
   <style>
-    .pill {
-      @apply inline-flex items-center gap-1 px-2 py-1 rounded-full text-[10px] font-semibold tracking-wide whitespace-nowrap transition-colors select-none border;
-      line-height:1.1;
-    }
-    .pill-cyan-tint { background: rgba(0,200,255,0.15); color: #c7f4ff; border-color: rgba(0,200,255,0.35); }
-    .pill-cyan { background: rgba(0,200,255,0.10); color: #a7ebff; border-color: rgba(0,200,255,0.30); }
-
-    .filter-toggle[aria-expanded="true"] { outline: 2px solid color-mix(in oklab, var(--c-cyan) 60%, transparent); }
-    #exclusive-toggle[aria-pressed="true"] { background: rgba(0,200,255,0.18); color: var(--c-cyan); outline: 2px solid rgba(0,200,255,0.4); }
-    .filter-item { cursor: pointer; }
-    .filter-item[aria-pressed="true"] { outline: 2px solid rgba(0,200,255,0.5); }
-
-    .filter-panel { @apply absolute z-50 mt-2 min-w-[14rem] max-w-xs bg-bg/95 backdrop-blur rounded-md shadow-lg p-2; border: 1px solid rgba(255,255,255,0.18); }
+    .filter-panel { @apply absolute z-50 mt-2 min-w-[14rem] max-w-xs bg-bg/95 backdrop-blur border border-fg/25 rounded-md shadow-lg p-2; }
     .filter-panel.hidden { display:none; }
     .panel-inner { @apply flex flex-wrap gap-2 overflow-y-auto max-h-72; }
     .panel-inner::-webkit-scrollbar { width:6px; }
@@ -233,10 +223,15 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 
     #result-count { @apply text-muted; }
 
-    .card-body { pointer-events:none; }
+    /* Make glass card body layout */
+    .card-body { display:flex; border: none; }
     .card-body .allow-pointer,
     .card-body button,
     .card-body .tags-popover { pointer-events:auto; }
+
+    /* Selection states */
+    .filter-toggle[aria-expanded="true"] { @apply ring-2 ring-neon/60; }
+    .filter-item[aria-pressed="true"] { @apply ring-2 ring-neon/60; }
   </style>
 
   <script type="module" src={withBase('scripts/games-filters.js')}></script>
@@ -296,6 +291,6 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
   </script>
 
   <p class="mt-10 text-sm">
-    <a class="underline underline-offset-4 hover:tone-cyan-text" href={withBase('/')}>← Back to Home</a>
+    <a class="hover:text-neon underline underline-offset-4" href={withBase('/')}>← Back to Home</a>
   </p>
 </Layout>
