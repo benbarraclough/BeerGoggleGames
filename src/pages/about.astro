@@ -5,7 +5,10 @@ const title = 'About';
 
 <Layout title={title} description="About BeerGoggleGames: mission, description & responsible use.">
   <article class="prose prose-invert max-w-none">
-    <h1 class="font-display text-4xl mb-6">{title}</h1>
+    <h1 class="font-display text-3xl md:text-4xl mb-3">{title}</h1>
+    <p class="text-muted !mt-0">Mission, what you’ll find here, and a quick note on responsible enjoyment.</p>
+
+    <div class="divider" aria-hidden="true"></div>
 
     <!-- Intro / Mission -->
     <p>
@@ -16,9 +19,9 @@ const title = 'About';
       The collection keeps growing. Contributions, corrections, and suggestions are always welcome. Reach out if you spot something missing or want to share something of your own.
     </p>
 
-    <hr />
+    <div class="divider" aria-hidden="true"></div>
 
-    <h2>Responsible Enjoyment</h2>
+    <h2 class="font-display text-2xl !mb-2">Responsible Enjoyment</h2>
     <p class="text-sm text-muted">
       Know your limits, stay hydrated, look after your friends, and adapt games where possible so everyone can take part.
     </p>
