@@ -1,6 +1,5 @@
-// Games Filters (externalized)
-// Assumes markup structure in src/pages/games/index.astro
-
+// Games Filters with search integration and programmatic API
+// Works with src/pages/games/index.astro
 (function init() {
   const qs = s => document.querySelector(s);
   const qsa = s => Array.from(document.querySelectorAll(s));
@@ -14,7 +13,6 @@
   const resultCount = qs('#result-count');
   const panelToggles = qsa('.filter-toggle');
   const filterItems = qsa('.filter-item');
-  const tagTriggers = qsa('[data-tag-trigger]');
 
   function updateClearBtn() {
     const any = selected.category.size || selected.mode.size || selected.tag.size;
@@ -25,30 +23,30 @@
     const type = li.getAttribute('data-type') || '';
     const mode = li.getAttribute('data-mode') || '';
     const tags = (li.getAttribute('data-tags') || '').split(',').filter(Boolean);
+    const searchVisible = li.getAttribute('data-search-visible') !== 'false'; // treat '' as true
 
     const hasFilters = selected.category.size || selected.mode.size || selected.tag.size;
-    if (!hasFilters) return true;
+    let filterPass = true;
 
-    if (!exclusive) {
-      if (selected.category.has(type)) return true;
-      if (selected.mode.has(mode)) return true;
-      if (selected.tag.size) {
-        for (const t of selected.tag) {
-          if (tags.includes(t)) return true;
+    if (hasFilters) {
+      if (!exclusive) {
+        filterPass = (
+          selected.category.has(type) ||
+          selected.mode.has(mode) ||
+          (selected.tag.size && Array.from(selected.tag).some(t => tags.includes(t)))
+        );
+      } else {
+        if (selected.category.size && !selected.category.has(type)) filterPass = false;
+        if (selected.mode.size && !selected.mode.has(mode)) filterPass = false;
+        if (selected.tag.size && filterPass) {
+          for (const t of selected.tag) {
+            if (!tags.includes(t)) { filterPass = false; break; }
+          }
         }
       }
-      return false;
     }
 
-    // Exclusive (AND across groups, tags must all be present)
-    if (selected.category.size && !selected.category.has(type)) return false;
-    if (selected.mode.size && !selected.mode.has(mode)) return false;
-    if (selected.tag.size) {
-      for (const t of selected.tag) {
-        if (!tags.includes(t)) return false;
-      }
-    }
-    return true;
+    return searchVisible && (!hasFilters || filterPass);
   }
 
   function applyFilters() {
@@ -83,6 +81,21 @@
     }
     updateClearBtn();
     applyFilters();
+  }
+
+  // Programmatic API to toggle a filter by type/value and reflect UI
+  function programmaticToggle(type, value) {
+    const btn = filterItems.find(b => b.getAttribute('data-filter-type') === type && b.getAttribute('data-value') === value);
+    if (btn) {
+      toggleFilterItem(btn);
+    } else {
+      // if filter pill not in panel (e.g., value not listed), just toggle set
+      const set = selected[type];
+      if (set) {
+        if (set.has(value)) set.delete(value); else set.add(value);
+      }
+      applyFilters();
+    }
   }
 
   filterItems.forEach(btn => {
@@ -139,47 +152,19 @@
     });
   });
 
-  // Click outside to close panels
   document.addEventListener('click', e => {
-    const el = e.target && /** @type {Element} */ (e.target);
-    if (!el?.closest) return;
-    if (!el.closest('[data-filter-wrapper]')) closeAllPanels();
+    const target = e.target;
+    if (!(target instanceof Element)) return;
+    if (!target.closest('[data-filter-wrapper]')) closeAllPanels();
   });
 
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') closeAllPanels();
   });
 
-  // Tag popover logic (touch/click)
-  function closeAllTagPopovers(except) {
-    tagTriggers.forEach(tr => {
-      if (tr === except) return;
-      tr.setAttribute('data-open','false');
-      tr.setAttribute('aria-expanded','false');
-    });
-  }
-
-  tagTriggers.forEach(tr => {
-    tr.addEventListener('click', e => {
-      e.stopPropagation();
-      const isOpen = tr.getAttribute('data-open') === 'true';
-      if (isOpen) {
-        tr.setAttribute('data-open','false');
-        tr.setAttribute('aria-expanded','false');
-      } else {
-        closeAllTagPopovers(tr);
-        tr.setAttribute('data-open','true');
-        tr.setAttribute('aria-expanded','true');
-      }
-    });
-    tr.addEventListener('mousedown', e => e.stopPropagation());
-  });
-
-  document.addEventListener('click', e => {
-    const el = e.target && /** @type {Element} */ (e.target);
-    if (!el?.closest) return;
-    if (!el.closest('.group\\/tag')) closeAllTagPopovers(null);
-  });
+  // Expose small API for page scripts
+  window.bggApplyGameFilters = applyFilters;
+  window.bggToggleGameFilter = programmaticToggle;
 
   // Init
   updateClearBtn();
