@@ -20,9 +20,9 @@
   }
 
   function matchDrink(li) {
-    const dt = li.getAttribute('data-type') || '';
-    const bases = (li.getAttribute('data-bases') || '').split(',').filter(Boolean);
-    const diff = li.getAttribute('data-difficulty') || '';
+    const dt = (li.getAttribute('data-type') || '').toLowerCase();
+    const bases = (li.getAttribute('data-bases') || '').split(',').map(s=>s.toLowerCase()).filter(Boolean);
+    const diff = (li.getAttribute('data-difficulty') || '').toLowerCase();
     const anySel = selected.type.size || selected.base.size || selected.difficulty.size;
     if (!anySel) return true;
 
@@ -35,6 +35,7 @@
       return false;
     }
 
+    // Exclusive: AND across groups; base matches if any selected base is present
     if (selected.type.size && !selected.type.has(dt)) return false;
     if (selected.difficulty.size && !selected.difficulty.has(diff)) return false;
     if (selected.base.size) {
@@ -136,8 +137,9 @@
   });
 
   document.addEventListener('click', e => {
-    const target = e.target;
-    if (!target.closest('[data-filter-wrapper]')) closeAllPanels();
+    const el = e.target && /** @type {Element} */ (e.target);
+    if (!el?.closest) return;
+    if (!el.closest('[data-filter-wrapper]')) closeAllPanels();
   });
 
   document.addEventListener('keydown', e => {
@@ -146,5 +148,5 @@
 
   updateClearBtn();
   applyFilters();
-  console.log('Drinks filters loaded');
+  console.log('[drinks-filters] loaded');
 })();
