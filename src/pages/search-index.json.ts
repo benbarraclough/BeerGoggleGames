@@ -1,11 +1,11 @@
 import { getCollection } from 'astro:content';
 
 interface SearchItem {
-  c: string;          // category path root (may include nested segment, e.g. 'games/coin')
-  slug: string;
+  c: string;          // path root or page path (e.g., 'games', 'drinks', 'extras/dice', 'contact')
+  slug?: string;      // optional leaf (for detail pages). If empty/undefined, link is just /{c}/
   title: string;
   excerpt?: string;
-  type?: string;
+  type?: string;      // e.g. game type, drink type, difficulty, etc.
   ingredients?: string[];
 }
 
@@ -13,63 +13,41 @@ function norm(v: unknown) {
   return typeof v === 'string' ? v : '';
 }
 
-/**
- * Normalize the game type into a safe URL segment.
- * Currently just lowercases & trims. If you later have types like "Card Game"
- * you can extend this to replace spaces with hyphens.
- */
-function typeSegment(raw: string) {
-  const t = raw.trim().toLowerCase();
-  // If you need slugging: return t.replace(/\s+/g, '-');
-  return t;
+function leafFrom(idOrSlug: string) {
+  const parts = (idOrSlug || '').split('/');
+  return parts[parts.length - 1] || idOrSlug;
 }
 
 export async function GET() {
   try {
     const games       = await getCollection('games').catch(() => []);
-    const cocktails   = await getCollection('cocktails').catch(() => []);
-    const shots       = await getCollection('shots').catch(() => []);
+    const drinks      = await getCollection('drinks').catch(() => []);
     const activities  = await getCollection('activities').catch(() => []);
     const posts       = await getCollection('posts').catch(() => []);
 
     const index: SearchItem[] = [];
 
-    // Games: include type segment in 'c' so links can optionally show context
+    // Games: flat routes /games/<leaf>/; show type in "type", group label should be just "games"
     for (const g of games) {
-      const rawType = norm(g.data.type);
-      const t = typeSegment(rawType);
+      const leaf = leafFrom(g.slug ?? g.id);
       index.push({
-        c: t ? `games/${t}` : 'games',
-        slug: g.slug,
+        c: 'games',
+        slug: leaf,
         title: norm(g.data.title),
-        excerpt: norm(g.data.excerpt),
-        type: t
+        excerpt: norm(g.data.excerpt || g.data.description),
+        type: norm(g.data.type)
       });
     }
 
-    // Cocktails
-    for (const c of cocktails) {
+    // Drinks: flat routes /drinks/<leaf>/
+    for (const d of drinks) {
+      const leaf = leafFrom(d.slug ?? d.id);
       index.push({
-        c: 'drinks/cocktail-recipes',
-        slug: c.slug,
-        title: norm(c.data.title),
-        excerpt: norm(c.data.excerpt),
-        ingredients: Array.isArray(c.data.ingredients)
-          ? c.data.ingredients.map(String)
-          : undefined
-      });
-    }
-
-    // Shots
-    for (const s of shots) {
-      index.push({
-        c: 'drinks/shot-recipes',
-        slug: s.slug,
-        title: norm(s.data.title),
-        excerpt: norm(s.data.excerpt),
-        ingredients: Array.isArray(s.data.ingredients)
-          ? s.data.ingredients.map(String)
-          : undefined
+        c: 'drinks',
+        slug: leaf,
+        title: norm(d.data.title),
+        excerpt: norm(d.data.excerpt || d.data.description),
+        type: norm(d.data.drinkType)
       });
     }
 
@@ -91,9 +69,26 @@ export async function GET() {
         c: 'extras/blog',
         slug: p.slug,
         title: norm(p.data.title),
-        excerpt: norm(p.data.excerpt)
+        excerpt: norm(p.data.excerpt || p.data.description)
       });
     }
+
+    // Static hub pages and key extras/tools (no slug)
+    const staticPages: SearchItem[] = [
+      { c: 'games',            title: 'Games',            excerpt: 'All drinking games, A–Z.' },
+      { c: 'drinks',           title: 'Drinks',           excerpt: 'All drink recipes, A–Z.' },
+      { c: 'extras',           title: 'Extras',           excerpt: 'Tools and extras hub.' },
+      { c: 'extras/dice',      title: 'Dice Roller',      excerpt: 'Roll one or more dice on screen.' },
+      { c: 'extras/coin-flip', title: 'Coin Flip',        excerpt: 'Flip a coin with simple animation.' },
+      { c: 'extras/wheel-of-fortune', title: 'Wheel Of Fortune', excerpt: 'Spin a wheel to choose categories or games.' },
+      { c: 'extras/forfeits',  title: 'Forfeits',         excerpt: 'Creative punishments & challenges.' },
+      { c: 'extras/glossary',  title: 'Glossary',         excerpt: 'Drinking terms and definitions.' },
+      { c: 'extras/activities',title: 'Activities',       excerpt: 'Party & social activities.' },
+      { c: 'extras/blog',      title: 'Blog',             excerpt: 'Guides, announcements & ideas.' },
+      { c: 'contact',          title: 'Contact',          excerpt: 'Send feedback or suggestions.' },
+      { c: 'about',            title: 'About',            excerpt: 'About BeerGoggleGames.' }
+    ];
+    index.push(...staticPages);
 
     return new Response(JSON.stringify(index), {
       headers: {
