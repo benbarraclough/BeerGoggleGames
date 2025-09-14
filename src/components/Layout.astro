@@ -10,7 +10,7 @@ interface Props {
   wide?: boolean;
   fullBleed?: boolean;
   noindex?: boolean;
-  image?: string; // optional social image
+  image?: string;
 }
 
 const {
@@ -89,7 +89,7 @@ const ogImg = image || ogImage;
     <meta property="og:type" content="website" />
     {ogImg && <meta property="og:image" content={withBase(ogImg.replace(/^\/+/, ''))} />}
 
-    <!-- Fonts (global) -->
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -100,8 +100,6 @@ const ogImg = image || ogImage;
       :root{
         --font-body: 'Plus Jakarta Sans', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
         --font-display: 'Bricolage Grotesque', var(--font-body);
-        /* Brand tones */
-        --c-cyan:#00c8ff; --c-magenta:#ff0080; --c-green:#00d27a; --c-violet:#8b5cf6;
       }
     </style>
 
@@ -117,13 +115,13 @@ const ogImg = image || ogImage;
     </script>
   </head>
   <body class="min-h-screen flex flex-col selection:bg-neon/40">
-    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:bg-bg focus:text-neon focus:px-4 focus:py-2 focus:rounded focus:ring-2 focus:ring-neon">
+    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:bg-bg focus:text-fg focus:px-4 focus:py-2 focus:rounded focus:ring-2">
       Skip to content
     </a>
 
     <header class="sticky top-0 z-40 border-b border-fg/20 bg-bg/95 backdrop-blur-sm supports-[backdrop-filter]:bg-bg/75">
       <div class="mx-auto max-w-7xl px-4 py-4 flex items-center justify-between gap-6">
-        <a href={withBase()} class="font-display text-2xl tracking-tight hover:text-neon whitespace-nowrap">
+        <a href={withBase()} class="font-display text-2xl tracking-tight hover:text-fg whitespace-nowrap">
           BeerGoggleGames
         </a>
         <nav class="hidden lg:flex flex-wrap items-center gap-5 text-sm" aria-label="Primary">
@@ -132,8 +130,8 @@ const ogImg = image || ogImage;
             return (
               <a href={l.href}
                 class:list={[
-                  'flex items-center gap-2 px-2 py-1 rounded hover:text-neon hover:bg-fg/5 transition-colors',
-                  active && 'text-neon font-semibold bg-fg/10'
+                  'flex items-center gap-2 px-2 py-1 rounded hover:text-fg/90 hover:bg-fg/5 transition-colors',
+                  active && 'text-fg font-semibold bg-fg/10'
                 ]}
                 aria-current={active ? 'page' : undefined}
               >
@@ -146,7 +144,7 @@ const ogImg = image || ogImage;
         <a
           id="nav-toggle"
           href="#site-menu"
-          class="lg:hidden inline-flex items-center gap-2 border border-fg/30 px-3 py-2 text-sm rounded hover:border-neon hover:text-neon bg-bg/70 backdrop-blur-sm"
+          class="lg:hidden inline-flex items-center gap-2 border border-fg/30 px-3 py-2 text-sm rounded hover:border-fg/50 hover:text-fg bg-bg/70 backdrop-blur-sm"
           aria-controls="site-menu"
           aria-expanded="false"
         >
@@ -166,7 +164,7 @@ const ogImg = image || ogImage;
         <div class="flex items-center justify-between px-5 py-4 border-b border-fg/25">
           <span class="font-display text-xl">Menu</span>
           <a href="#" id="nav-close"
-             class="inline-flex items-center gap-2 border border-fg/30 px-3 py-2 text-sm rounded hover:border-neon hover:text-neon"
+             class="inline-flex items-center gap-2 border border-fg/30 px-3 py-2 text-sm rounded hover:border-fg/50 hover:text-fg"
              aria-label="Close menu">✕</a>
         </div>
         <nav class="px-6 py-8 grow flex flex-col gap-4 text-lg overflow-y-auto" aria-label="Mobile Primary">
@@ -175,8 +173,8 @@ const ogImg = image || ogImage;
             return (
               <a href={l.href}
                 class:list={[
-                  'hover:text-neon flex items-center gap-3 px-2 py-2 rounded',
-                  active && 'text-neon font-semibold bg-fg/10'
+                  'hover:text-fg flex items-center gap-3 px-2 py-2 rounded',
+                  active && 'text-fg font-semibold bg-fg/10'
                 ]}
                 aria-current={active ? 'page' : undefined}
                 data-close>
@@ -189,7 +187,7 @@ const ogImg = image || ogImage;
             <p class="mb-3">
               Explore drinking games, cocktails, shots, activities & tools.
             </p>
-            <p>Try the <a class="hover:text-neon underline underline-offset-4" href={withBase('games/random')}>Random Game</a> or the <a class="hover:text-neon underline underline-offset-4" href={withBase('extras/wheel-of-fortune')}>Wheel</a>.</p>
+            <p>Try the <a class="hover:text-fg underline underline-offset-4" href={withBase('games/random')}>Random Game</a> or the <a class="hover:text-fg underline underline-offset-4" href={withBase('extras/wheel-of-fortune')}>Wheel</a>.</p>
           </div>
         </nav>
       </div>
@@ -204,27 +202,27 @@ const ogImg = image || ogImage;
         <div class="space-y-4">
           <h2 class="font-semibold text-fg/80 uppercase tracking-wide text-xs">Explore</h2>
           <ul class="grid grid-cols-2 gap-x-4 gap-y-1 md:block md:space-y-1">
-            <li><a class="hover:text-neon" href={withBase('games/')}>Games</a></li>
-            <li><a class="hover:text-neon" href={withBase('drinks/')}>Drinks</a></li>
-            <li><a class="hover:text-neon" href={withBase('extras/')}>Extras</a></li>
-            <li><a class="hover:text-neon" href={withBase('about')}>About</a></li>
-            <li><a class="hover:text-neon" href={withBase('contact')}>Contact</a></li>
-            <li><a class="hover:text-neon" href={withBase('search')}>Search</a></li>
+            <li><a class="hover:text-fg" href={withBase('games/')}>Games</a></li>
+            <li><a class="hover:text-fg" href={withBase('drinks/')}>Drinks</a></li>
+            <li><a class="hover:text-fg" href={withBase('extras/')}>Extras</a></li>
+            <li><a class="hover:text-fg" href={withBase('about')}>About</a></li>
+            <li><a class="hover:text-fg" href={withBase('contact')}>Contact</a></li>
+            <li><a class="hover:text-fg" href={withBase('search')}>Search</a></li>
           </ul>
         </div>
 
         <div class="space-y-4">
           <h2 class="font-semibold text-fg/80 uppercase tracking-wide text-xs">Resources</h2>
           <ul class="grid grid-cols-2 gap-x-3 gap-y-1 md:block md:space-y-1">
-            <li><a class="hover:text-neon" href={withBase('rss.xml')}>RSS</a></li>
-            <li><a class="hover:text-neon" href={withBase('sitemap.xml')}>Sitemap</a></li>
+            <li><a class="hover:text-fg" href={withBase('rss.xml')}>RSS</a></li>
+            <li><a class="hover:text-fg" href={withBase('sitemap.xml')}>Sitemap</a></li>
           </ul>
         </div>
 
         <div class="space-y-4">
           <h2 class="font-semibold text-fg/80 uppercase tracking-wide text-xs">Connect</h2>
           <ul class="space-y-1">
-            <li><a class="hover:text-neon" href="https://github.com/benbarraclough/BeerGoggleGames" rel="noopener" target="_blank">GitHub</a></li>
+            <li><a class="hover:text-fg" href="https://github.com/benbarraclough/BeerGoggleGames" rel="noopener" target="_blank">GitHub</a></li>
           </ul>
           <form
             action="https://buttondown.email/api/emails/embed-subscribe/beergogglegames"
@@ -243,11 +241,11 @@ const ogImg = image || ogImage;
                 type="email"
                 required
                 placeholder="you@example.com"
-                class="w-full rounded bg-fg/5 border border-fg/20 px-3 py-2 text-xs focus:outline-none focus:border-neon"
+                class="w-full rounded bg-fg/5 border border-fg/20 px-3 py-2 text-xs focus:outline-none focus:border-fg/60"
                 autocomplete="email"
               />
               <button type="submit"
-                class="px-3 py-2 rounded bg-fg/10 border border-fg/20 text-xs hover:border-neon hover:text-neon">
+                class="px-3 py-2 rounded bg-fg/10 border border-fg/20 text-xs hover:border-fg/60 hover:text-fg">
                 Join
               </button>
             </div>
@@ -273,9 +271,9 @@ const ogImg = image || ogImage;
         <div class="mx-auto max-w-7xl px-4 py-4 text-[11px] flex flex-col sm:flex-row gap-3 items-center justify-between text-muted">
           <div class="flex flex-wrap gap-4 items-center">
             <span>© {year} Beer Goggle Games</span>
-            <a class="hover:text-neon" href={withBase('rss.xml')}>RSS</a>
+            <a class="hover:text-fg" href={withBase('rss.xml')}>RSS</a>
           </div>
-          <button id="back-to-top" class="hover:text-neon underline underline-offset-4">Back to top</button>
+          <button id="back-to-top" class="hover:text-fg underline underline-offset-4">Back to top</button>
         </div>
       </div>
     </footer>
