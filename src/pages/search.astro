@@ -27,7 +27,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
   </section>
 
   <script is:inline>
-/* Robust search script with logging */
+/* Unified search: handles games, drinks, extras, and static pages */
 (function(){
   const BASE = document.documentElement.getAttribute('data-base') || '/';
   const input = document.getElementById('q');
@@ -40,6 +40,21 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
   function escapeHTML(s){
     return s.replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
   }
+  function buildHref(m){
+    const c = (m.c || '').replace(/^\/+|\/+$/g,'');
+    if (!m.slug) return BASE + (c ? c + '/' : '');
+    return BASE + c + '/' + m.slug.replace(/^\/+|\/+$/g,'') + '/';
+  }
+  function groupLabel(m){
+    const segs = (m.c || '').split('/');
+    const group = (segs[0] || '').toLowerCase();
+    // Show "games ~ <type>" or "drinks ~ <type>", else use path as label
+    if (group === 'games' || group === 'drinks') {
+      return (group || '') + (m.type ? ' ~ ' + (m.type || '') : '');
+    }
+    // Extras and other pages: show c as-is
+    return (m.c || '');
+  }
   function render(items){
     list.innerHTML = '';
     if(!items.length){
@@ -50,9 +65,10 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
     for(const m of items){
       const li = document.createElement('li');
       const title = escapeHTML(m.title);
-      const typeTxt = escapeHTML(m.c + (m.type ? ' · ' + m.type : ''));
-      li.innerHTML = `<a class="hover:text-neon font-medium" href="${BASE}${m.c}/${m.slug}/">${title}</a>
-        <small class="text-muted ml-1">(${typeTxt})</small>`;
+      const meta = escapeHTML(groupLabel(m));
+      const href = buildHref(m);
+      li.innerHTML = `<a class="hover:text-neon font-medium" href="${href}">${title}</a>
+        <small class="text-muted ml-1">(${meta})</small>`;
       frag.appendChild(li);
     }
     list.appendChild(frag);
@@ -70,7 +86,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
     const matches = data.filter(item=>{
       const hay = (item.title + ' ' + (item.excerpt||'') + ' ' + (item.type||'') + ' ' + (item.ingredients||[]).join(' ')).toLowerCase();
       return terms.every(t => hay.includes(t));
-    }).slice(0,100);
+    }).slice(0,150);
     render(matches);
   }
 
