@@ -40,7 +40,7 @@
       return false;
     }
 
-    // Exclusive AND logic
+    // Exclusive (AND across groups, tags must all be present)
     if (selected.category.size && !selected.category.has(type)) return false;
     if (selected.mode.size && !selected.mode.has(mode)) return false;
     if (selected.tag.size) {
@@ -139,9 +139,11 @@
     });
   });
 
+  // Click outside to close panels
   document.addEventListener('click', e => {
-    const target = e.target;
-    if (!target.closest('[data-filter-wrapper]')) closeAllPanels();
+    const el = e.target && /** @type {Element} */ (e.target);
+    if (!el?.closest) return;
+    if (!el.closest('[data-filter-wrapper]')) closeAllPanels();
   });
 
   document.addEventListener('keydown', e => {
@@ -174,12 +176,13 @@
   });
 
   document.addEventListener('click', e => {
-    const t = e.target;
-    if (!t.closest('.group\\/tag')) closeAllTagPopovers(null);
+    const el = e.target && /** @type {Element} */ (e.target);
+    if (!el?.closest) return;
+    if (!el.closest('.group\\/tag')) closeAllTagPopovers(null);
   });
 
   // Init
   updateClearBtn();
   applyFilters();
-  console.log('Games filters loaded');
+  console.log('[games-filters] loaded');
 })();
