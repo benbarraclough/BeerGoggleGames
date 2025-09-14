@@ -34,7 +34,7 @@ export async function GET() {
 
     const index: SearchItem[] = [];
 
-    // Games: include type segment in 'c' so links become /games/<type>/<slug>/
+    // Games: include type segment in 'c' so links can optionally show context
     for (const g of games) {
       const rawType = norm(g.data.type);
       const t = typeSegment(rawType);
@@ -73,10 +73,10 @@ export async function GET() {
       });
     }
 
-    // Activities
+    // Activities (under Extras)
     for (const a of activities) {
       index.push({
-        c: 'activities',
+        c: 'extras/activities',
         slug: a.slug,
         title: norm(a.data.title),
         excerpt: norm(a.data.excerpt),
@@ -84,11 +84,11 @@ export async function GET() {
       });
     }
 
-    // Blog posts (skip drafts)
+    // Blog posts (under Extras, skip drafts)
     for (const p of posts) {
       if (p.data.draft) continue;
       index.push({
-        c: 'blog',
+        c: 'extras/blog',
         slug: p.slug,
         title: norm(p.data.title),
         excerpt: norm(p.data.excerpt)
@@ -98,7 +98,6 @@ export async function GET() {
     return new Response(JSON.stringify(index), {
       headers: {
         'Content-Type': 'application/json',
-        // Keep cache short; adjust if you want faster propagation or longer caching
         'Cache-Control': 'public, max-age=900'
       }
     });
