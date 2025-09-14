@@ -7,12 +7,14 @@ const title = 'Coin Flip';
 const description = 'Flip an on-screen coin with a simple animation.';
 ---
 <Layout title={title} description={description}>
-  <header class="mb-8">
-    <h1 class="font-display text-3xl md:text-4xl mb-2">{title}</h1>
+  <header class="mb-6">
+    <h1 class="font-display text-3xl md:text-4xl mb-2 tone-green-text">{title}</h1>
     <p class="text-muted">{description}</p>
   </header>
 
-  <section class="rounded border border-fg/15 p-6 bg-fg/5/10 max-w-md">
+  <div class="divider" aria-hidden="true"></div>
+
+  <section class="glass tone-green p-6 max-w-md">
     <div class="relative mx-auto w-full max-w-[280px] aspect-square">
       <canvas id="coin" class="w-full h-full rounded-md border border-fg/15 bg-bg"></canvas>
     </div>
