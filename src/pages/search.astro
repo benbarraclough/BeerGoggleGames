@@ -7,15 +7,17 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 ---
 <Layout title={pageTitle} canonical={pageCanonical} description="Search games, cocktails, shots, activities & posts." wide={false}>
   <section class="prose prose-invert max-w-none">
-    <h1 class="!mb-4 !leading-tight !text-fg font-display text-3xl md:text-4xl">{pageTitle}</h1>
-    <p class="!mt-0">Type to search games, cocktails, shots, activities, and posts.</p>
+    <h1 class="!mb-2 !leading-tight !text-fg font-display text-3xl md:text-4xl">{pageTitle}</h1>
+    <p class="!mt-0 text-muted">Type to search games, cocktails, shots, activities, and posts.</p>
+
+    <div class="divider" aria-hidden="true"></div>
 
     <div class="mb-4 max-w-xl">
       <input
         id="q"
         type="search"
         placeholder="e.g. beer pong, vodka, dice..."
-        class="w-full border border-fg/30 bg-transparent rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-neon/70"
+        class="w-full border border-fg/30 bg-fg/5 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-neon/70"
         aria-label="Search site content"
         autocomplete="off"
       />
