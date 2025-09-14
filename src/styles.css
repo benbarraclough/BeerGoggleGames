@@ -6,8 +6,7 @@
 @tailwind utilities;
 
 /* ------------------------------------------------------------------
-   CSS Variables (fallbacks in case Tailwind theme tokens not present)
-   Adjust / remove if you already set these in tailwind.config.cjs
+   CSS Variables (fallbacks)
    ------------------------------------------------------------------ */
 :root {
   --bg: #0b0c0f;
@@ -17,13 +16,13 @@
   --muted: #98a2ad;
   --border: rgba(255,255,255,0.15);
 
-  /* Legacy neon (kept for existing hovers), plus new tones */
+  /* Legacy neon (kept for some accents), plus new tones */
   --neon: #39ffb6;
   --accent: #ffb347;
   --danger: #ff4d4d;
   --focus-ring: #39ffb6;
 
-  /* Brand tones for new style language */
+  /* Brand tones */
   --c-cyan:#00c8ff; --c-cyan-rgb: 0,200,255;
   --c-magenta:#ff0080; --c-magenta-rgb: 255,0,128;
   --c-green:#00d27a; --c-green-rgb: 0,210,122;
@@ -31,11 +30,11 @@
 
   --radius-sm: 4px;
   --radius-md: 6px;
-  --radius-lg: 10px;
+  --radius-lg: 12px;
   --gradient-neon: linear-gradient(90deg,#39ffb6,#2fb3ff);
 }
 
-/* Basic color helpers if Tailwind custom colors missing */
+/* Basic helpers */
 .bg-bg { background: var(--bg) !important; }
 .text-fg { color: var(--fg) !important; }
 .text-muted { color: var(--muted) !important; }
@@ -47,7 +46,7 @@
 .border-fg\/30 { border-color: rgba(var(--fg-rgb),0.30) !important; }
 .border-fg\/40 { border-color: rgba(var(--fg-rgb),0.40) !important; }
 
-/* Tone helpers */
+/* Page tone contexts (inheritance for components) */
 .tone-cyan { --tone: var(--c-cyan); --tone-rgb: var(--c-cyan-rgb); --tone-tint: rgba(var(--c-cyan-rgb),0.10); color: var(--c-cyan); }
 .tone-magenta { --tone: var(--c-magenta); --tone-rgb: var(--c-magenta-rgb); --tone-tint: rgba(var(--c-magenta-rgb),0.10); color: var(--c-magenta); }
 .tone-green { --tone: var(--c-green); --tone-rgb: var(--c-green-rgb); --tone-tint: rgba(var(--c-green-rgb),0.10); color: var(--c-green); }
@@ -56,14 +55,10 @@
 .tone-green-text { color: var(--c-green) !important; }
 
 /* ------------------------------------------------------------------
-   Typography helpers (if fonts defined via Tailwind config they win)
+   Typography
    ------------------------------------------------------------------ */
-.font-display {
-  font-family: var(--font-display, 'Poppins', 'Inter', system-ui, sans-serif);
-}
-.font-body {
-  font-family: var(--font-body, 'Inter', system-ui, sans-serif);
-}
+.font-display { font-family: var(--font-display, 'Poppins', 'Inter', system-ui, sans-serif); }
+.font-body    { font-family: var(--font-body, 'Inter', system-ui, sans-serif); }
 
 /* ------------------------------------------------------------------
    Global tweaks
@@ -72,77 +67,42 @@ html { scroll-behavior: smooth; }
 body { background: var(--bg); color: var(--fg); }
 ::selection { background: rgba(57,255,182,0.4); color: #000; }
 
-/* Focus Ring */
+/* Focus Ring - tone aware if ancestor defines --tone */
 :focus-visible {
-  outline: 2px solid var(--focus-ring);
+  outline: 2px solid var(--tone, var(--focus-ring));
   outline-offset: 2px;
 }
 
 /* Links */
-a { transition: color .15s ease, border-color .15s ease; text-decoration-thickness: 1px; }
+a { transition: color .15s ease, border-color .15s ease, background .15s ease; text-decoration-thickness: 1px; }
 a:hover { text-decoration-color: currentColor; }
 
-/* Muted text utility */
-.text-muted { color: var(--muted); }
-
-/* Divider utility between sections */
+/* Divider utility */
 .divider {
   height: 1px;
   background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
   margin: 14px 0 18px;
 }
 
-/* Horizontal rule styling inside prose */
+/* Prose elements */
 .prose hr {
   border: none;
   height: 1px;
   background: linear-gradient(90deg,transparent,var(--border),transparent);
   margin: 3rem 0;
 }
-
-/* Lists inside prose */
-.prose ul li::marker,
-.prose ol li::marker { color: var(--neon); }
-
-/* Code blocks */
+.prose ul li::marker, .prose ol li::marker { color: var(--neon); }
 pre, code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace; }
-pre {
-  background: #14181d;
-  border: 1px solid #1f252c;
-  padding: 1rem 1.25rem;
-  border-radius: var(--radius-md);
-  overflow-x: auto;
-}
-
-/* Tables inside prose */
+pre { background: #14181d; border: 1px solid #1f252c; padding: 1rem 1.25rem; border-radius: var(--radius-md); overflow-x: auto; }
 .prose table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
 .prose table th, .prose table td { border: 1px solid rgba(var(--fg-rgb),0.15); padding: 0.5rem 0.65rem; }
 .prose table th { background: #161b21; font-weight: 600; }
-
-/* Blockquotes */
-.prose blockquote {
-  border-left: 3px solid var(--neon);
-  background: #141a1f;
-  padding: 0.75rem 1rem;
-  color: var(--muted);
-  font-style: italic;
-}
-
-/* Images in prose */
-.prose img {
-  border-radius: var(--radius-md);
-  box-shadow: 0 2px 14px -4px rgba(0,0,0,0.6);
-}
-
-/* Headings gradient accent (optional) */
-.prose h1, .prose h2 {
-  background: var(--gradient-neon);
-  -webkit-background-clip: text;
-  color: transparent;
-}
+.prose blockquote { border-left: 3px solid var(--neon); background: #141a1f; padding: 0.75rem 1rem; color: var(--muted); font-style: italic; }
+.prose img { border-radius: var(--radius-md); box-shadow: 0 2px 14px -4px rgba(0,0,0,0.6); }
+.prose h1, .prose h2 { background: var(--gradient-neon); -webkit-background-clip: text; color: transparent; }
 
 /* ------------------------------------------------------------------
-   Glassy cards (used across pages)
+   Glassy cards
    ------------------------------------------------------------------ */
 .glass {
   position: relative;
@@ -151,10 +111,8 @@ pre {
   background:
     linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.02)),
     radial-gradient(120% 120% at 10% 0%, var(--tone-tint, rgba(255,255,255,0)), transparent 60%);
-  box-shadow:
-    0 18px 36px rgba(0,0,0,0.35),
-    inset 0 1px 0 rgba(255,255,255,0.06);
-  transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease, background .2s ease;
+  box-shadow: 0 18px 36px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.06);
+  transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease, background .2s ease, color .2s ease;
 }
 .glass::before {
   content:'';
@@ -162,109 +120,62 @@ pre {
   background: radial-gradient(80% 60% at 20% 10%, rgba(255,255,255,0.06), transparent 60%);
   mix-blend-mode: screen; opacity: .35;
 }
-.glass:hover {
-  transform: translateY(-2px);
-  border-color: rgba(255,255,255,0.18);
-  box-shadow: 0 22px 44px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.08);
+@media (hover: hover) {
+  .glass:hover { transform: translateY(-2px); border-color: rgba(255,255,255,0.18); box-shadow: 0 22px 44px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.08); }
+}
+/* Touch: no sticky hover; provide quick active pulse */
+@media (hover: none) {
+  .glass:hover { transform: none; }
+  .glass:active { transform: translateY(-1px); box-shadow: 0 18px 36px rgba(0,0,0,0.45); }
 }
 
 /* ------------------------------------------------------------------
-   Pills (Player Mode & Tags, tone-aware variants)
+   Pills (Scheme B: distinct visual styles instead of colors)
+   Use .pill for base, then one of: .pill--filled, .pill--outline, .pill--soft
+   Map e.g. Category = filled, Mode = outline, Tag = soft
    ------------------------------------------------------------------ */
 .pill {
-  @apply inline-flex items-center gap-1 px-2 py-1 rounded-full text-[10px] font-semibold tracking-wide whitespace-nowrap select-none border;
+  @apply inline-flex items-center gap-1 rounded-full text-[10px] font-semibold tracking-wide whitespace-nowrap select-none border;
   line-height: 1.1;
-  transition: color .15s ease, border-color .15s ease, background .15s ease;
-  background: rgba(var(--fg-rgb),0.06);
-  border-color: rgba(var(--fg-rgb),0.15);
+  padding: 0.35rem 0.55rem;
+  transition: color .15s ease, border-color .15s ease, background .15s ease, transform .15s ease, box-shadow .15s ease;
   color: var(--fg);
 }
-.pill--cyan { background: rgba(var(--c-cyan-rgb),0.12); border-color: rgba(var(--c-cyan-rgb),0.35); color: var(--c-cyan); }
-.pill--magenta { background: rgba(var(--c-magenta-rgb),0.12); border-color: rgba(var(--c-magenta-rgb),0.35); color: var(--c-magenta); }
-.pill--green { background: rgba(var(--c-green-rgb),0.12); border-color: rgba(var(--c-green-rgb),0.35); color: var(--c-green); }
-.pill:hover { border-color: var(--neon); color: var(--neon); }
+.pill--filled {
+  background: rgba(var(--tone-rgb, var(--fg-rgb)), 0.12);
+  border-color: rgba(var(--tone-rgb, var(--fg-rgb)), 0.35);
+  color: var(--tone, var(--fg));
+}
+.pill--outline {
+  background: rgba(255,255,255,0.02);
+  border-color: rgba(var(--fg-rgb),0.25);
+  color: var(--fg);
+  box-shadow: inset 0 0 0 1px rgba(var(--tone-rgb, var(--fg-rgb)), 0.25);
+}
+.pill--soft {
+  background: rgba(var(--fg-rgb), 0.08);
+  border-color: rgba(var(--fg-rgb), 0.18);
+  color: var(--fg);
+}
+/* Hover/pressed */
+@media (hover: hover) {
+  .pill:hover { box-shadow: 0 0 0 1px rgba(var(--tone-rgb, 57,255,182), 0.6), 0 0 14px -4px rgba(var(--tone-rgb, 57,255,182), 0.6); transform: translateY(-1px); }
+}
+.pill[aria-pressed="true"] { outline: 2px solid rgba(var(--tone-rgb, 57,255,182), 0.6); outline-offset: 1px; }
+
+/* Filter panel styling */
+.filter-panel { @apply absolute z-50 mt-2 min-w-[14rem] max-w-xs bg-bg/95 backdrop-blur border border-fg/25 rounded-md shadow-lg p-2; }
+.filter-panel.hidden { display:none; }
+.panel-inner { @apply flex flex-wrap gap-2 overflow-y-auto max-h-72; }
+.panel-inner::-webkit-scrollbar { width:6px; }
+.panel-inner::-webkit-scrollbar-thumb { @apply bg-fg/30 rounded; }
+
+/* Result count */
+#result-count { @apply text-muted; }
 
 /* ------------------------------------------------------------------
-   Mobile Navigation Overlay (Bullet‑proof version)
-   Matches new Layout.astro implementation
+   Mobile Navigation Overlay (hash-target)
    ------------------------------------------------------------------ */
-#nav-overlay {
-  position: fixed;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  background: rgba(var(--bg-rgb),0.88);
-  backdrop-filter: blur(6px);
-  opacity: 0;
-  transition: opacity .2s ease;
-  z-index: 1000;
-}
-#nav-overlay.open { opacity: 1; }
-#nav-overlay[hidden] { display: none; }
-#nav-overlay .nav-ov-panel { display: flex; flex-direction: column; width: 100%; height: 100%; }
-@media (min-width: 1024px) { #nav-overlay { display: none !important; } }
-
-/* Scrollbar styling inside overlay (optional) */
-#nav-overlay nav::-webkit-scrollbar { width: 8px; }
-#nav-overlay nav::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); }
-#nav-overlay nav::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.25); border-radius: 4px; }
-
-/* ------------------------------------------------------------------
-   Buttons & Interactive
-   ------------------------------------------------------------------ */
-button { cursor: pointer; }
-button:disabled { opacity: 0.55; cursor: not-allowed; }
-
-/* Hover glow effect utility */
-.hover-glow:hover { box-shadow: 0 0 0 1px var(--neon), 0 0 14px -4px var(--neon); }
-
-/* Card styling (legacy simple) */
-.card {
-  background: #11161b;
-  border: 1px solid rgba(var(--fg-rgb),0.15);
-  border-radius: var(--radius-md);
-  padding: 1rem 1.1rem;
-  transition: border-color .18s ease, transform .25s ease;
-}
-.card:hover { border-color: var(--neon); transform: translateY(-2px); }
-
-/* Utility: fade-in */
-.fade-in { animation: fadeIn .35s ease; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
-
-/* Utility: visually hidden (if Tailwind's sr-only not present) */
-.visually-hidden, .vh {
-  position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px;
-  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
-}
-
-/* Footer link nuance */
-footer a:hover { color: var(--neon); }
-
-/* ------------------------------------------------------------------
-   Forms / Search (if used)
-   ------------------------------------------------------------------ */
-input[type="text"], input[type="search"], select, textarea {
-  background: #12181d; border: 1px solid rgba(var(--fg-rgb),0.2); border-radius: var(--radius-sm);
-  padding: 0.55rem 0.7rem; font-size: 0.9rem; width: 100%; color: var(--fg);
-  transition: border-color .15s ease, background .15s ease;
-}
-input:focus, select:focus, textarea:focus { border-color: var(--neon); outline: none; background: #141c21; }
-
-/* Search highlight (optional) */
-mark { background: var(--neon); color: #000; padding: 0 2px; border-radius: 2px; }
-
-/* ------------------------------------------------------------------
-   Animations for menu panel slide (optional)
-   ------------------------------------------------------------------ */
-#nav-overlay .nav-ov-panel { animation: panelIn .25s ease; }
-@keyframes panelIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
-
-/* Ensure these specific IDs exist (add near end if not already there) */
-#nav-overlay { background: rgba(var(--bg-rgb,0,0,0),0.90); }
-#nav-overlay .nav-ov-panel { display: flex; flex-direction: column; width: 100%; height: 100%; }
-
-/* PURE CSS HASH TARGET MENU */
 .site-menu-overlay {
   position: fixed; inset: 0; display: none; flex-direction: column;
   background: rgba(var(--bg-rgb,0,0,0),0.90); backdrop-filter: blur(6px);
@@ -273,14 +184,20 @@ mark { background: var(--neon); color: #000; padding: 0 2px; border-radius: 2px;
 .site-menu-overlay:target { display: flex; opacity: 1; }
 .site-menu-panel { display: flex; flex-direction: column; width: 100%; height: 100%; }
 @media (min-width:1024px) { .site-menu-overlay { display: none !important; } }
-/* Prevent body scroll when menu open (CSS-only hack) */
 .site-menu-overlay:target body { overflow: hidden; }
 
-/* Tag pill variant */
-.tag-pill {
-  @apply inline-flex items-center rounded-full border border-fg/15 bg-fg/10 px-2 py-1 text-[10px] font-medium;
+/* Tag pill (generic) */
+.tag-pill { @apply inline-flex items-center rounded-full border border-fg/15 bg-fg/10 px-2 py-1 text-[10px] font-medium; }
+
+/* Buttons & Interactive */
+button { cursor: pointer; }
+button:disabled { opacity: 0.55; cursor: not-allowed; }
+
+/* No persistent hover effects on touch devices */
+@media (hover: none) {
+  .ctrl:hover, .pill:hover, a:hover { transform: none !important; box-shadow: none !important; }
 }
 
 /* ------------------------------------------------------------------
-   End of custom styles
+   End
    ------------------------------------------------------------------ */
