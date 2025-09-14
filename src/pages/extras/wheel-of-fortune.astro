@@ -22,13 +22,15 @@ const categories: GameCategory[] = [
 const allGames = categories.flatMap(c => c.games);
 ---
 <Layout title={title} description={description}>
-  <header class="mb-10 space-y-3">
-    <h1 class="font-display text-3xl md:text-4xl">{title}</h1>
+  <header class="mb-6 space-y-3">
+    <h1 class="font-display text-3xl md:text-4xl tone-green-text">{title}</h1>
     <p class="text-muted max-w-prose">{description}</p>
   </header>
 
-  <div class="grid gap-8 md:grid-cols-2 mb-14">
-    <section class="rounded border border-fg/15 p-6 bg-fg/5/10">
+  <div class="divider" aria-hidden="true"></div>
+
+  <div class="grid gap-8 md:grid-cols-2 mb-10">
+    <section class="glass tone-green p-6">
       <h2 class="font-display text-xl mb-3">Category Wheel</h2>
       <div class="relative mx-auto w-full max-w-sm aspect-square">
         <canvas id="cat-wheel" class="w-full h-full"></canvas>
@@ -44,7 +46,7 @@ const allGames = categories.flatMap(c => c.games);
       </div>
     </section>
 
-    <section class="rounded border border-fg/15 p-6 bg-fg/5/10">
+    <section class="glass tone-green p-6">
       <h2 class="font-display text-xl mb-3">Game Wheel</h2>
       <div class="mb-3 flex flex-wrap gap-2 items-end">
         <label class="text-xs font-medium uppercase tracking-wide text-muted flex flex-col gap-1">
@@ -82,7 +84,7 @@ const allGames = categories.flatMap(c => c.games);
 
     <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
       {categories.map(c => (
-        <details class="group rounded border border-fg/15 p-5 open:border-neon transition-colors bg-fg/5/10">
+        <details class="group glass tone-green p-5 open:border-neon transition-colors">
           <summary class="cursor-pointer font-semibold mb-2 flex items-center justify-between">
             <span>{c.name}</span>
             <span class="text-[10px] uppercase tracking-wide text-muted group-open:text-neon">{c.games.length}</span>
@@ -101,7 +103,7 @@ const allGames = categories.flatMap(c => c.games);
     <p>Suggest missing games, categories or features (e.g. weighted spins, sound).</p>
   </FeedbackCard>
 
-  <!-- JSON payloads with set:html to ensure they serialize in the output -->
+  <!-- JSON payloads -->
   <script id="__wof-data" type="application/json" set:html={JSON.stringify(categories)} />
   <script id="__wof-all" type="application/json" set:html={JSON.stringify(allGames)} />
 
@@ -115,7 +117,6 @@ const allGames = categories.flatMap(c => c.games);
       const cats = readJSON('__wof-data');
       const allGames = readJSON('__wof-all');
 
-      // Palette for slices (more distinct)
       const SLICE_COLORS = [
         'rgba(255,0,128,0.18)','rgba(255,255,255,0.10)','rgba(0,200,255,0.16)',
         'rgba(180,255,0,0.16)','rgba(255,150,0,0.16)','rgba(180,120,255,0.16)'
