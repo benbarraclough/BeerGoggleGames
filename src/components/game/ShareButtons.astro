@@ -7,18 +7,12 @@ const sharePageUrl = new URL(builtPath, site).toString();
 const encodedUrl = encodeURIComponent(sharePageUrl);
 const encodedTitle = encodeURIComponent(title ?? '');
 
-interface ShareLink {
-  name: string;
-  url: string;
-  icon: string;
-  label?: string;
-}
-
+interface ShareLink { name: string; url: string; icon: string; className?: string; label?: string; }
 const shareLinks: ShareLink[] = [
-  { name: 'Facebook', url: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`, icon: 'facebook', label: 'Share on Facebook' },
-  { name: 'X',        url: `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`, icon: 'x', label: 'Share on X' },
-  { name: 'Reddit',   url: `https://www.reddit.com/submit?url=${encodedUrl}&title=${encodedTitle}`, icon: 'reddit', label: 'Share on Reddit' },
-  { name: 'WhatsApp', url: `https://api.whatsapp.com/send?text=${encodeURIComponent(`${title ?? ''} ${sharePageUrl}`)}`, icon: 'whatsapp', label: 'Share on WhatsApp' }
+  { name: 'Facebook', url: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`, icon: 'facebook', className: 'share--facebook', label: 'Share on Facebook' },
+  { name: 'X',        url: `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`, icon: 'x',        className: 'share--x',        label: 'Share on X' },
+  { name: 'Reddit',   url: `https://www.reddit.com/submit?url=${encodedUrl}&title=${encodedTitle}`,   icon: 'reddit',   className: 'share--reddit',   label: 'Share on Reddit' },
+  { name: 'WhatsApp', url: `https://api.whatsapp.com/send?text=${encodeURIComponent(`${title ?? ''} ${sharePageUrl}`)}`, icon: 'whatsapp', className: 'share--whatsapp', label: 'Share on WhatsApp' }
 ];
 
 function svg(name: string) {
@@ -33,9 +27,7 @@ function svg(name: string) {
 }
 ---
 <section class="mt-8 glass glass-neutral p-5">
-  <h4 class="font-semibold mb-3 mt-0 text-sm tracking-wide uppercase text-muted">
-    Share This Page
-  </h4>
+  <h4 class="font-semibold mb-3 mt-0 text-sm tracking-wide uppercase text-muted">Share This Page</h4>
 
   <div class="flex flex-wrap gap-3">
     {shareLinks.map(link => (
@@ -43,7 +35,10 @@ function svg(name: string) {
         href={link.url}
         target="_blank"
         rel="noopener noreferrer"
-        class="group inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-fg/15 bg-bg/60 hover:bg-fg/10 text-xs font-medium transition focus-visible:outline-none focus-visible:ring-2"
+        class:list={[
+          'group inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-fg/15 bg-bg/60 hover:bg-fg/10 text-xs font-medium transition focus-visible:outline-none focus-visible:ring-2',
+          link.className ?? ''
+        ]}
         aria-label={link.label ?? link.name}
       >
         <span class="w-4 h-4 block" set:html={`<svg viewBox='0 0 24 24' fill='currentColor' class='w-4 h-4'>${svg(link.icon)}</svg>`}></span>
@@ -53,7 +48,7 @@ function svg(name: string) {
 
     <button
       type="button"
-      class="group inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-fg/15 bg-bg/60 hover:bg-fg/10 text-xs font-medium transition relative focus-visible:outline-none focus-visible:ring-2"
+      class="group inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-fg/15 bg-bg/60 hover:bg-fg/10 text-xs font-medium transition relative focus-visible:outline-none focus-visible:ring-2 text-fg"
       data-copy-button
       aria-label="Copy page URL to clipboard"
     >
