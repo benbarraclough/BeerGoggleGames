@@ -34,19 +34,19 @@ const heroImages = [
   canonical={pageCanonical}
   wide={true}
 >
-  <!-- Banner: single message, scrolls from right, clickable to Extras -->
+  <!-- Banner with forced off-screen start -->
   <a slot="banner" href={withBase('extras/')} class="block w-full border-t border-b border-fg/15 bg-fg/5 hover:bg-fg/10 transition-colors" aria-label="Welcome — Explore Extras">
     <div class="marquee h-8 overflow-hidden">
-      <div class="marquee-track text-[10px] sm:text-[11px] uppercase tracking-wide">
+      <div class="marquee-track text-[10px] sm:text-[11px] uppercase tracking-wide" style="transform:translate3d(110%,0,0);animation:marquee-slide 20s linear infinite">
         <span class="marquee-item">Welcome to BeerGoggleGames — Explore Extras →</span>
       </div>
     </div>
   </a>
 
-  <!-- HERO: image left (slideshow), text right -->
+  <!-- HERO -->
   <section class="stack-hero relative overflow-hidden rounded-2xl border border-fg/15 mb-6 md:mb-8 px-3 sm:px-4 md:px-6 py-6 md:py-8" data-animate="fade-up">
     <div class="grid md:grid-cols-[0.95fr_1fr] gap-6 md:gap-10 items-center">
-      <!-- Left: slideshow -->
+      <!-- Left: slideshow stack -->
       <div class="relative">
         <div class="stack-wrap h-[200px] sm:h-[240px] md:h-[260px]">
           <div class="stack-card c1 will-parallax" data-parallax="-0.04"></div>
@@ -75,7 +75,7 @@ const heroImages = [
         <p class="sublead mb-5">Drinking games, recipes, and tools to keep the night flowing.</p>
         <div class="flex flex-wrap gap-3">
           <a href={withBase('games/')} class="pill-btn btn-cyan">Find a Game</a>
-          <!-- Changed to Drinks index (not random) -->
+            <!-- Drinks index (not random) -->
           <a href={withBase('drinks/')} class="pill-btn btn-magenta">Discover a Drink</a>
         </div>
       </div>
@@ -154,7 +154,9 @@ const heroImages = [
         const img = withBase(`images/${slug}.webp`);
         return (
           <a class="tile3d tone-cyan" href={href} aria-label={`View game: ${g.data.title}`}>
-            <picture><img src={img} alt={g.data.title} class="tile-img" loading="lazy" decoding="async" onerror="this.style.display='none'"/></picture>
+            <picture>
+              <img src={img} alt={g.data.title} class="tile-img" loading="lazy" decoding="async" onerror="this.style.display='none'" />
+            </picture>
             <div class="tile-caption">{g.data.title}</div>
           </a>
         );
@@ -181,7 +183,9 @@ const heroImages = [
         const img = withBase(`images/${slug}.webp`);
         return (
           <a class="tile3d tone-magenta" href={href} aria-label={`View drink: ${d.data.title}`}>
-            <picture><img src={img} alt={d.data.title} class="tile-img" loading="lazy" decoding="async" onerror="this.style.display='none'"/></picture>
+            <picture>
+              <img src={img} alt={d.data.title} class="tile-img" loading="lazy" decoding="async" onerror="this.style.display='none'" />
+            </picture>
             <div class="tile-caption">{d.data.title}</div>
           </a>
         );
@@ -192,7 +196,7 @@ const heroImages = [
 
   <div class="divider" aria-hidden="true"></div>
 
-  <!-- How it Works (clickable cards, numbers only) -->
+  <!-- How it Works -->
   <section class="mb-6 howto relative overflow-hidden rounded-2xl border border-fg/15 px-3 sm:px-4 md:px-6 pt-5 pb-7" data-animate="fade-up">
     <div class="howto-bg" aria-hidden="true"></div>
     <h2 class="h2 mb-3">How it Works</h2>
@@ -217,7 +221,7 @@ const heroImages = [
 
   <div class="divider" aria-hidden="true"></div>
 
-  <!-- More from Extras (green) -->
+  <!-- More from Extras -->
   <section class="mb-6" data-animate="fade-up">
     <header class="head mb-3">
       <h2 class="h2 tone-green-text">More from Extras</h2>
@@ -228,10 +232,10 @@ const heroImages = [
     </header>
     <div id="extras-carousel" class="rail no-scrollbar">
       {[
-        { href: withBase('extras/blog/'), title: 'Blog', desc: 'Guides, ideas & announcements.' },
-        { href: withBase('extras/activities/'), title: 'Activities', desc: 'Party & social activities.' },
-        { href: withBase('extras/forfeits/'), title: 'Forfeits', desc: 'Creative penalties & challenges.' },
-        { href: withBase('extras/glossary/'), title: 'Glossary', desc: 'Drinking terms explained.' },
+        { href: withBase('extras/blog/'),        title: 'Blog',       desc: 'Guides, ideas & announcements.' },
+        { href: withBase('extras/activities/'),  title: 'Activities', desc: 'Party & social activities.' },
+        { href: withBase('extras/forfeits/'),    title: 'Forfeits',   desc: 'Creative penalties & challenges.' },
+        { href: withBase('extras/glossary/'),    title: 'Glossary',   desc: 'Drinking terms explained.' },
       ].map(x => (
         <a class="tool-card3d tone-green" href={x.href}>
           <span class="tool-icon3d tone-green">
@@ -257,7 +261,6 @@ const heroImages = [
   </section>
 
   <style>
-    /* Fonts preview (choose globally later) */
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&family=Bricolage+Grotesque:opsz,wght@12..72,700&display=swap');
     :root{
       --font-body:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
@@ -268,14 +271,10 @@ const heroImages = [
     .title-xl,.h2{font-family:var(--font-display);font-weight:700}
     .sublead{color:var(--muted,#c3c3c3)}
 
-    /* Banner: start fully off-screen right (desktop + mobile) */
-    .marquee{overflow:hidden; text-align:left}
-    .marquee-track{display:inline-flex; will-change:transform; transform:translateX(110%); animation:marquee-single 16s linear infinite; white-space:nowrap}
-    .marquee-item{display:inline-block; padding-inline:1rem; color:var(--muted,#bfbfbf)}
-    .marquee:hover .marquee-track{animation-play-state:paused}
-    @keyframes marquee-single{0%{transform:translateX(110%)}100%{transform:translateX(-110%)}}
+    /* Banner (redundant to global but ensures initial) */
+    .marquee-track{display:inline-flex;white-space:nowrap}
 
-    /* HERO stack and slideshow (larger title again + smoother fades) */
+    /* HERO */
     .title-xl{font-size: clamp(2.2rem, 2.2vw + 1.6rem, 3rem); letter-spacing:-.01em; text-shadow:0 6px 24px rgba(255,0,128,0.12)}
     .stack-hero{background: radial-gradient(700px 350px at 20% -10%, rgba(255,0,128,0.10), transparent 60%), radial-gradient(700px 350px at 120% 110%, rgba(0,200,255,0.10), transparent 60%)}
     .stack-wrap{position:relative}
@@ -297,18 +296,7 @@ const heroImages = [
     }
     .hero-slide.active{opacity:1; transform: scale(1) rotate(var(--rot, 0deg)); filter: none}
 
-    /* Section divider */
-    .divider{height:1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent); margin: 14px 0 18px}
-
-    /* Buttons (no shimmer) */
-    .pill-btn{display:inline-flex; align-items:center; gap:.5rem; padding:.55rem .95rem; border-radius:9999px; font-weight:700; font-size:.9rem; border:1px solid rgba(255,255,255,0.18); background:rgba(255,255,255,0.03); transition:border-color .2s ease, color .2s ease, transform .2s ease, background .2s ease}
-    .pill-btn:hover{transform:translateY(-1px)}
-    .btn-cyan{border-color:rgba(0,200,255,0.45); color:var(--c-cyan); background:linear-gradient(180deg, rgba(0,200,255,0.08), rgba(255,255,255,0.02))}
-    .btn-magenta{border-color:rgba(255,0,128,0.45); color:var(--c-magenta); background:linear-gradient(180deg, rgba(255,0,128,0.10), rgba(255,255,255,0.02))}
-    .btn-green{border-color:rgba(0,210,122,0.45); color:var(--c-green); background:linear-gradient(180deg, rgba(0,210,122,0.10), rgba(255,255,255,0.02))}
-    .btn-violet{border-color:rgba(139,92,246,0.45); color:var(--c-violet); background:linear-gradient(180deg, rgba(139,92,246,0.12), rgba(255,255,255,0.02))}
-
-    /* Heads + controls */
+    /* Buttons etc. (kept minimal; rest in global CSS) */
     .head{display:flex; align-items:center; justify-content:space-between}
     .h2{font-size:1.5rem; letter-spacing:-.01em}
     .ctrls{display:flex; gap:8px}
@@ -320,7 +308,6 @@ const heroImages = [
     .tone-green{border-color:rgba(0,210,122,0.35); color:var(--c-green)}
     .tone-cyan-text{color:var(--c-cyan)} .tone-magenta-text{color:var(--c-magenta)} .tone-green-text{color:var(--c-green)}
 
-    /* 3D glass cards with faint tone colouring */
     .tool-card3d,.tile3d,.flow-step{
       position:relative; border-radius:14px; border:1px solid rgba(255,255,255,0.12);
       background:
@@ -329,30 +316,23 @@ const heroImages = [
       box-shadow: 0 18px 36px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.06);
       transition:transform .2s ease, border-color .2s ease, box-shadow .2s ease, background .2s ease
     }
-    .tone-cyan{ --tone-tint: rgba(0,200,255,0.08) }
-    .tone-magenta{ --tone-tint: rgba(255,0,128,0.08) }
-    .tone-green{ --tone-tint: rgba(0,210,122,0.08) }
-
     .tool-card3d::before,.tile3d::before,.flow-step::before{content:''; position:absolute; inset:0; border-radius:inherit; pointer-events:none; background: radial-gradient(80% 60% at 20% 10%, rgba(255,255,255,0.06), transparent 60%); mix-blend-mode:screen; opacity:.35}
     .tool-card3d:hover,.tile3d:hover,.flow-step:hover{transform:translateY(-2px); border-color:rgba(255,255,255,0.18); box-shadow:0 22px 44px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.08)}
 
-    /* Tool tiles */
     .rail{display:grid; grid-auto-flow:column; grid-auto-columns:75%; gap:14px; overflow-x:auto; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; padding:6px 2px 8px}
     @media (min-width:640px){.rail{grid-auto-columns:48%}} @media (min-width:1024px){.rail{grid-auto-columns:28%}}
     .no-scrollbar{scrollbar-width:none; -ms-overflow-style:none} .no-scrollbar::-webkit-scrollbar{display:none}
     .tool-card3d{padding:14px; display:flex; flex-direction:column; gap:6px; scroll-snap-align:start}
     .tool-icon3d{width:36px; height:36px; display:grid; place-items:center; border-radius:50%; border:1px solid rgba(255,255,255,0.18); background:rgba(255,255,255,0.03); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05), 0 8px 18px rgba(0,0,0,0.25)}
     .tool-title3d{font-weight:700} .tool-desc3d{font-size:.78rem; color:var(--muted,#bfbfbf)}
-    .tone-cyan .tool-icon3d,.tone-cyan.tool-icon3d{border-color:rgba(0,200,255,0.35); color:var(--c-cyan); background:rgba(0,200,255,0.10)}
-    .tone-magenta .tool-icon3d,.tone-magenta.tool-icon3d{border-color:rgba(255,0,128,0.35); color:var(--c-magenta); background:rgba(255,0,128,0.10)}
-    .tone-green .tool-icon3d,.tone-green.tool-icon3d{border-color:rgba(0,210,122,0.35); color:var(--c-green); background:rgba(0,210,122,0.10)}
+    .tone-cyan .tool-icon3d{border-color:rgba(0,200,255,0.35); color:var(--c-cyan); background:rgba(0,200,255,0.10)}
+    .tone-magenta .tool-icon3d{border-color:rgba(255,0,128,0.35); color:var(--c-magenta); background:rgba(255,0,128,0.10)}
+    .tone-green .tool-icon3d{border-color:rgba(0,210,122,0.35); color:var(--c-green); background:rgba(0,210,122,0.10)}
 
-    /* Tiles */
     .tile3d{overflow:hidden; scroll-snap-align:start}
     .tile-img{width:100%; aspect-ratio:16/9; object-fit:cover; display:block; border-bottom:1px solid rgba(255,255,255,0.10)}
     .tile-caption{position:absolute; left:10px; bottom:10px; background:rgba(0,0,0,0.45); border:1px solid rgba(255,255,255,0.2); backdrop-filter:blur(6px); padding:.3rem .5rem; border-radius:9999px; font-size:.75rem}
 
-    /* How it Works */
     .howto{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.015))}
     .howto-bg{position:absolute; inset:0; filter:blur(14px); background:
       radial-gradient(500px 260px at -10% 50%, rgba(0,200,255,0.14), transparent 70%),
@@ -362,15 +342,12 @@ const heroImages = [
     .step-num{display:inline-block; font-weight:800; font-size:.9rem; margin-bottom:6px; padding:.1rem .5rem; border-radius:9999px; border:1px solid rgba(255,255,255,0.18); background:rgba(255,255,255,0.04)}
     .flow-title{font-weight:800; margin-bottom:2px} .flow-desc{font-size:.95rem; color:var(--muted,#bfbfbf)}
 
-    /* View-all as small text */
     .view-all-link{font-size:.85rem; text-decoration:underline; text-underline-offset:4px}
 
-    /* Reveal */
     [data-animate]{opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease}
     [data-animate].in{opacity:1; transform:none}
     @media (prefers-reduced-motion:reduce){[data-animate]{opacity:1; transform:none}}
 
-    /* Touch devices: no sticky hover; quick active pulse for controls/cards/buttons */
     @media (hover:none){
       .ctrl:hover, .tool-card3d:hover, .tile3d:hover, .flow-step:hover, .pill-btn:hover { transform:none !important; }
       .ctrl:active, .tool-card3d:active, .tile3d:active, .flow-step:active, .pill-btn:active { transform:translateY(-1px); }
@@ -379,7 +356,7 @@ const heroImages = [
 
   <script is:inline>
     (() => {
-      // Carousel nudge by exactly one card, clamped to bounds
+      // Carousel nudge
       function nudge(id, dir) {
         const el = document.querySelector(id);
         if (!el) return;
@@ -390,7 +367,7 @@ const heroImages = [
           const styles = getComputedStyle(el);
           let gapVal = styles.gap || styles.columnGap || '14px';
           let gap = parseFloat(gapVal);
-          if (!isFinite(gap)) gap = 14;
+            if (!isFinite(gap)) gap = 14;
           amount = rect.width + gap;
         }
         const next = el.scrollLeft + amount * (dir || 1);
@@ -401,7 +378,7 @@ const heroImages = [
         btn.addEventListener('click', () => nudge(btn.getAttribute('data-target'), Number(btn.getAttribute('data-dir'))));
       });
 
-      // Reveal on scroll
+      // Reveal
       const reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
       if (!reduce && 'IntersectionObserver' in window) {
         const io = new IntersectionObserver((entries) => {
@@ -412,7 +389,7 @@ const heroImages = [
         document.querySelectorAll('[data-animate]').forEach(el => el.classList.add('in'));
       }
 
-      // Lightweight parallax (rAF throttled)
+      // Parallax
       if (!reduce) {
         let ticking = false;
         function update() {
@@ -436,7 +413,7 @@ const heroImages = [
         addEventListener('resize', onScroll, { passive:true });
       }
 
-      // Hero slideshow crossfade with slight zoom
+      // Slideshow
       const slides = Array.from(document.querySelectorAll('.hero-slide'));
       if (slides.length > 1) {
         let i = 0;
