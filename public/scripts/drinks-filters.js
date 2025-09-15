@@ -1,170 +1,99 @@
-// Drinks Filters with search integration and programmatic API
-// NOTE: Lives under public/ to load via <script src="...">
-(function init() {
-  const qs = s => document.querySelector(s);
-  const qsa = s => Array.from(document.querySelectorAll(s));
+// Drinks filters: default uncoloured until selected (filled magenta when selected)
+(() => {
+  const grid = document.getElementById('drinks-grid');
+  if (!grid) return;
 
-  const selected = { type: new Set(), base: new Set(), difficulty: new Set() };
-  let exclusive = false;
+  const exclusiveBtn = document.getElementById('exclusive-toggle');
+  const clearBtn = document.getElementById('clear-filters');
+  const resultEl = document.getElementById('result-count');
 
-  const grid = qs('#drinks-grid');
-  const clearBtn = qs('#clear-filters');
-  const exclusiveBtn = qs('#exclusive-toggle');
-  const resultCount = qs('#result-count');
-  const panelToggles = qsa('.filter-toggle');
-  const filterItems = qsa('.filter-item');
+  const state = {
+    type: new Set(),
+    base: new Set(),
+    difficulty: new Set(),
+    exclusive: false
+  };
 
-  function updateClearBtn() {
-    const any = selected.type.size || selected.base.size || selected.difficulty.size;
-    if (clearBtn) clearBtn.disabled = !any;
+  function styleButton(btn, pressed) {
+    btn.setAttribute('aria-pressed', pressed ? 'true' : 'false');
+    btn.classList.toggle('pill--filled', !!pressed);
+    btn.classList.toggle('tone-magenta', !!pressed);
+    btn.classList.toggle('pill--soft', !pressed);
   }
 
-  function matchDrink(li) {
-    const dt = (li.getAttribute('data-type') || '').toLowerCase();
-    const bases = (li.getAttribute('data-bases') || '').split(',').map(s=>s.toLowerCase()).filter(Boolean);
-    const diff = (li.getAttribute('data-difficulty') || '').toLowerCase();
-    const searchVisible = li.getAttribute('data-search-visible') !== 'false';
-
-    const anySel = selected.type.size || selected.base.size || selected.difficulty.size;
-    let filterPass = true;
-
-    if (anySel) {
-      if (!exclusive) {
-        filterPass = (
-          selected.type.has(dt) ||
-          selected.difficulty.has(diff) ||
-          (selected.base.size && Array.from(selected.base).some(b => bases.includes(b)))
-        );
-      } else {
-        if (selected.type.size && !selected.type.has(dt)) filterPass = false;
-        if (selected.difficulty.size && !selected.difficulty.has(diff)) filterPass = false;
-        if (selected.base.size && filterPass) {
-          let ok = false;
-          for (const b of selected.base) { if (bases.includes(b)) { ok = true; break; } }
-          if (!ok) filterPass = false;
-        }
-      }
-    }
-
-    return searchVisible && (!anySel || filterPass);
+  function syncButtons() {
+    document.querySelectorAll('.filter-item[data-filter-type]').forEach(btn => {
+      const type = btn.getAttribute('data-filter-type');
+      const val = (btn.getAttribute('data-value') || '').toLowerCase();
+      const pressed = type && state[type]?.has(val);
+      styleButton(btn, !!pressed);
+    });
+    exclusiveBtn?.setAttribute('aria-pressed', state.exclusive ? 'true' : 'false');
+    clearBtn && (clearBtn.disabled = !(state.type.size || state.base.size || state.difficulty.size));
   }
 
-  function applyFilters() {
-    if (!grid) return;
-    const cards = qsa('#drinks-grid > li');
+  function apply() {
+    const items = Array.from(grid.children);
     let shown = 0;
-    cards.forEach(li => {
-      if (matchDrink(li)) {
-        li.classList.remove('hidden');
-        shown++;
-      } else {
-        li.classList.add('hidden');
+    items.forEach(li => {
+      const searchVisible = li.getAttribute('data-search-visible') !== 'false';
+
+      const type = (li.getAttribute('data-type') || '').toLowerCase();
+      const diff = (li.getAttribute('data-difficulty') || '').toLowerCase();
+      const bases = (li.getAttribute('data-bases') || '').toLowerCase().split(',').filter(Boolean);
+
+      const typeMatch = state.type.size ? state.type.has(type) : true;
+      const diffMatch = state.difficulty.size ? state.difficulty.has(diff) : true;
+
+      let baseMatch = true;
+      if (state.base.size) {
+        const selected = Array.from(state.base);
+        baseMatch = state.exclusive
+          ? selected.every(b => bases.includes(b))
+          : selected.some(b => bases.includes(b));
       }
+
+      const vis = searchVisible && typeMatch && diffMatch && baseMatch;
+      li.classList.toggle('hidden', !vis);
+      if (vis) shown++;
     });
-    if (resultCount) {
-      resultCount.textContent = `Showing ${shown} of ${cards.length} drinks${exclusive ? ' (exclusive)' : ''}`;
-    }
+
+    if (resultEl) resultEl.textContent = `${shown} result${shown === 1 ? '' : 's'}`;
+    syncButtons();
+    return shown;
   }
 
-  function toggleFilter(btn) {
+  window.bggApplyDrinkFilters = apply;
+  window.bggToggleDrinkFilter = (type, value) => {
+    const v = (value || '').toLowerCase();
+    if (!state[type]) return;
+    if (state[type].has(v)) state[type].delete(v);
+    else state[type].add(v);
+    apply();
+  };
+
+  document.addEventListener('click', e => {
+    const t = e.target;
+    if (!(t instanceof Element)) return;
+    const btn = t.closest('.filter-item[data-filter-type]');
+    if (!btn) return;
     const type = btn.getAttribute('data-filter-type');
-    let value = btn.getAttribute('data-value');
+    const value = btn.getAttribute('data-value');
     if (!type || !value) return;
-    if (type === 'base') value = value.toLowerCase();
-    const set = selected[type];
-    const active = btn.getAttribute('aria-pressed') === 'true';
-    if (active) {
-      set.delete(value);
-      btn.setAttribute('aria-pressed','false');
-    } else {
-      set.add(value);
-      btn.setAttribute('aria-pressed','true');
-    }
-    updateClearBtn();
-    applyFilters();
-  }
-
-  // Programmatic API for clickable chips
-  function programmaticToggle(type, value) {
-    if (type === 'base') value = value.toLowerCase();
-    const btn = filterItems.find(b => b.getAttribute('data-filter-type') === type && (b.getAttribute('data-value') || '').toLowerCase() === value.toLowerCase());
-    if (btn) {
-      toggleFilter(btn);
-    } else {
-      const set = selected[type];
-      if (set) { if (set.has(value)) set.delete(value); else set.add(value); }
-      applyFilters();
-    }
-  }
-
-  filterItems.forEach(btn => {
-    btn.addEventListener('click', () => toggleFilter(btn));
-    btn.addEventListener('keydown', e => {
-      if (e.key === ' ' || e.key === 'Enter') {
-        e.preventDefault();
-        toggleFilter(btn);
-      }
-    });
-  });
-
-  clearBtn?.addEventListener('click', () => {
-    selected.type.clear();
-    selected.base.clear();
-    selected.difficulty.clear();
-    filterItems.forEach(f => f.setAttribute('aria-pressed','false'));
-    updateClearBtn();
-    applyFilters();
+    window.bggToggleDrinkFilter(type, value);
   });
 
   exclusiveBtn?.addEventListener('click', () => {
-    exclusive = !exclusive;
-    exclusiveBtn.setAttribute('aria-pressed', exclusive ? 'true':'false');
-    applyFilters();
+    state.exclusive = !state.exclusive;
+    apply();
+  });
+  clearBtn?.addEventListener('click', () => {
+    state.type.clear();
+    state.base.clear();
+    state.difficulty.clear();
+    state.exclusive = false;
+    apply();
   });
 
-  function closeAllPanels(exceptId) {
-    panelToggles.forEach(t => {
-      const id = t.getAttribute('data-panel');
-      const panel = document.getElementById('panel-' + id);
-      if (!panel) return;
-      if (id === exceptId) return;
-      panel.classList.add('hidden');
-      t.setAttribute('aria-expanded','false');
-    });
-  }
-
-  panelToggles.forEach(t => {
-    t.addEventListener('click', () => {
-      const id = t.getAttribute('data-panel');
-      const panel = document.getElementById('panel-' + id);
-      if (!panel) return;
-      const open = !panel.classList.contains('hidden');
-      if (open) {
-        panel.classList.add('hidden');
-        t.setAttribute('aria-expanded','false');
-      } else {
-        closeAllPanels(id);
-        panel.classList.remove('hidden');
-        t.setAttribute('aria-expanded','true');
-      }
-    });
-  });
-
-  document.addEventListener('click', e => {
-    const el = e.target && /** @type {Element} */ (e.target);
-    if (!el?.closest) return;
-    if (!el.closest('[data-filter-wrapper]')) closeAllPanels();
-  });
-
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') closeAllPanels();
-  });
-
-  // Expose for page scripts
-  window.bggApplyDrinkFilters = applyFilters;
-  window.bggToggleDrinkFilter = programmaticToggle;
-
-  updateClearBtn();
-  applyFilters();
-  console.log('[drinks-filters] loaded');
+  apply();
 })();
