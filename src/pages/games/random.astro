@@ -1,76 +1,53 @@
 ---
 import { getCollection } from 'astro:content';
-import Layout from '../../components/Layout.astro';
 import { withBase } from '../../lib/paths';
-
-const pageTitle = 'Random Game';
-const description = 'Redirecting you to a random drinking game.';
 
 const games = await getCollection('games');
 const leaves = Array.from(new Set(games.map(g => (g.slug ?? g.id).split('/').pop())));
 const fullPaths = leaves.map(l => withBase(`games/${l}/`));
-const fallback = fullPaths.length ? fullPaths[Math.floor(Math.random() * fullPaths.length)] : null;
+const pick = fullPaths.length ? fullPaths[Math.floor(Math.random() * fullPaths.length)] : null;
 ---
-<Layout title={pageTitle} description={description} noindex={true}>
-  <h1 class="font-display text-3xl mb-4">{pageTitle}</h1>
-
-  {fullPaths.length === 0 ? (
-    <p class="text-muted">No games available.</p>
-  ) : (
-    <>
-      <div class="glass p-6 max-w-md">
-        <p class="text-sm text-muted mb-4">Picking a random game…</p>
-        <div class="grid grid-cols-5 gap-2" id="icon-grid" aria-hidden="true">
-          {Array.from({length:15}).map((_,i)=>(
-            <div class="h-8 rounded border border-fg/15 bg-fg/5 flex items-center justify-center text-xs">🎲</div>
-          ))}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Random Game</title>
+    <meta name="robots" content="noindex" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <style>
+      :root { color-scheme: dark; }
+      html,body { height:100%; margin:0; background:#000; color:#fff; }
+      .center { min-height:100%; display:grid; place-items:center; }
+      .wrap { text-align:center; }
+      .icon {
+        width:72px; height:72px; border-radius:16px; border:1px solid rgba(255,255,255,.2);
+        display:grid; place-items:center; background:rgba(255,255,255,.04);
+        box-shadow: 0 10px 30px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.06);
+        animation: spin 1.2s linear infinite;
+      }
+      .icon svg { width:34px; height:34px; stroke:#0ff; }
+      .label { margin-top:14px; font: 600 12px/1.2 system-ui, -apple-system, Segoe UI, Roboto, sans-serif; color:#9aa4ad; letter-spacing:.08em; text-transform:uppercase;}
+      @keyframes spin { from { transform: rotate(0deg) } to { transform: rotate(360deg) } }
+    </style>
+  </head>
+  <body>
+    <div class="center">
+      <div class="wrap">
+        <div class="icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="8" cy="8" r="1.6"/><circle cx="16" cy="8" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="8" cy="16" r="1.6"/><circle cx="16" cy="16" r="1.6"/>
+          </svg>
         </div>
+        <div class="label">Picking a game…</div>
+        <noscript><p style="margin-top:10px"><a href={pick ?? withBase('games/')} style="color:#0ff">Click to continue</a></p></noscript>
       </div>
-
-      <p class="text-xs text-muted mt-4">
-        If nothing happens (e.g. JavaScript disabled), use the list below.
-      </p>
-
-      <noscript>
-        <div class="mt-5">
-          {fallback && (
-            <p class="mb-4">
-              <a class="underline hover:text-neon" href={fallback}>
-                Go to a random game
-              </a>
-            </p>
-          )}
-          <ul class="columns-2 gap-6 text-xs list-none p-0 m-0">
-            {fullPaths.slice(0, 40).map(p => (
-              <li class="mb-1">
-                <a class="hover:text-neon underline underline-offset-4" href={p}>
-                  {p.replace(/.*games\//, '').replace(/\/$/, '')}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </noscript>
-
-      <script is:inline>
-        (function(){
-          try{
-            var paths = ${JSON.stringify(fullPaths)};
-            if(!paths.length) return;
-            var last; try{ last = sessionStorage.getItem('lastRandomGame'); }catch(_){}
-            var pick = paths[Math.floor(Math.random()*paths.length)];
-            if(paths.length>1 && pick===last){ pick = paths[Math.floor(Math.random()*paths.length)]; }
-            try{ sessionStorage.setItem('lastRandomGame', pick); }catch(_){}
-            // Tiny icon shimmer before redirect
-            var cells = Array.from(document.querySelectorAll('#icon-grid > div'));
-            var t = 0; var interval = setInterval(function(){
-              cells.forEach((c,idx)=>{ c.style.opacity = (idx%3===t%3)? '1' : '0.4'; });
-              t++;
-            }, 120);
-            setTimeout(function(){ clearInterval(interval); window.location.replace(pick); }, 1800);
-          }catch(e){ console.error('Random redirect failed', e); }
-        })();
-      </script>
-    </>
-  )}
-</Layout>
+    </div>
+    <script>
+      (function(){
+        var p = {pick: ${JSON.stringify(pick)}};
+        if (!p.pick) { location.href = ${JSON.stringify(withBase('games/'))}; return; }
+        setTimeout(function(){ location.replace(p.pick); }, 1500);
+      })();
+    </script>
+  </body>
+</html>
