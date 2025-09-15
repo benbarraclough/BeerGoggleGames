@@ -83,13 +83,13 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         <span class="text-[11px] uppercase tracking-wide text-muted/70">Filters</span>
 
         <div class="relative" data-filter-wrapper>
-          <button type="button" class="filter-toggle pill pill--soft uppercase" data-panel="categories" aria-expanded="false">
+          <button type="button" class="filter-toggle pill pill--soft" data-panel="categories" aria-expanded="false">
             Categories
           </button>
           <div class="filter-panel hidden" id="panel-categories" role="group" aria-label="Categories">
             <div class="panel-inner">
               {categories.map(([cat, count]) => (
-                <button type="button" class="filter-item pill pill--filled tone-cyan uppercase" data-filter-type="category" data-value={cat} aria-pressed="false">
+                <button type="button" class="filter-item pill pill--filled tone-cyan" data-filter-type="category" data-value={cat} aria-pressed="false">
                   <span>{cat}</span><span class="count">{count}</span>
                 </button>
               ))}
@@ -98,13 +98,13 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         </div>
 
         <div class="relative" data-filter-wrapper>
-          <button type="button" class="filter-toggle pill pill--soft uppercase" data-panel="modes" aria-expanded="false">
+          <button type="button" class="filter-toggle pill pill--soft" data-panel="modes" aria-expanded="false">
             Player Modes
           </button>
           <div class="filter-panel hidden" id="panel-modes" role="group" aria-label="Player Modes">
             <div class="panel-inner">
               {modes.map(([slug, info]) => (
-                <button type="button" class="filter-item pill pill--filled tone-cyan uppercase" data-filter-type="mode" data-value={slug} aria-pressed="false">
+                <button type="button" class="filter-item pill pill--filled tone-cyan" data-filter-type="mode" data-value={slug} aria-pressed="false">
                   <span>{info.label}</span><span class="count">{info.count}</span>
                 </button>
               ))}
@@ -115,23 +115,22 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         <div class="relative" data-filter-wrapper>
           <button
             type="button"
-            class="filter-toggle pill pill--soft uppercase"
+            class="filter-toggle pill pill--soft"
             data-panel="tags"
             aria-expanded="false"
-            data-tag-trigger
+            id="tags-toggle"
           >
             Tags
           </button>
           <div
-            class="filter-panel hidden z-[70]"
+            class="filter-panel hidden"
             id="panel-tags"
             role="group"
             aria-label="Tags"
-            data-tags-popover
           >
             <div class="panel-inner max-h-72">
               {tags.map(([t, count]) => (
-                <button type="button" class="filter-item pill pill--soft uppercase" data-filter-type="tag" data-value={t} aria-pressed="false">
+                <button type="button" class="filter-item pill pill--soft" data-filter-type="tag" data-value={t} aria-pressed="false">
                   <span>{t}</span><span class="count">{count}</span>
                 </button>
               ))}
@@ -141,10 +140,10 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 
         <span class="ml-auto"></span>
 
-        <button id="exclusive-toggle" type="button" class="pill pill--soft uppercase" aria-pressed="false">
+        <button id="exclusive-toggle" type="button" class="pill pill--soft" aria-pressed="false">
           Exclusive
         </button>
-        <button id="clear-filters" type="button" class="pill pill--soft uppercase disabled:opacity-40 disabled:cursor-not-allowed" disabled>
+        <button id="clear-filters" type="button" class="pill pill--soft disabled:opacity-40 disabled:cursor-not-allowed" disabled>
           Clear
         </button>
 
@@ -156,76 +155,59 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       <p class="text-muted">No games found.</p>
     ) : (
       <ul id="game-grid" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 list-none p-0 m-0">
-        {allGames.map(g => {
-          const tagPopoverId = `tags-${g.leaf}`;
-          return (
-            <li
-              class="relative group"
-              data-type={g.type}
-              data-mode={g.modeSlug || ''}
-              data-tags={g.tags.join(',').toLowerCase()}
-              data-title={(g.title||'').toLowerCase()}
-              data-excerpt={(g.excerpt||'').toLowerCase()}
-              data-search-visible="true"
-            >
-              <div class="glass p-3 relative z-10">
-                <div class="flex">
-                  <picture class="mr-3 shrink-0">
-                    <img
-                      src={g.image}
-                      alt={g.title}
-                      loading="lazy"
-                      decoding="async"
-                      class="w-[88px] h-[88px] object-cover rounded-sm border border-fg/15 bg-fg/5"
-                      onerror="this.style.display='none'"
-                    />
-                  </picture>
-                  <div class="flex flex-col min-w-0">
-                    <span class="font-semibold leading-snug mb-1 transition-colors group-hover:text-fg">
-                      {g.title}
-                    </span>
-                    {g.excerpt && <p class="text-xs text-muted leading-snug line-clamp-2 mb-2">{g.excerpt}</p>}
-                    <div class="flex flex-wrap gap-2 text-[10px] uppercase tracking-wide font-semibold relative z-[60]">
-                      <button class="pill pill--filled tone-cyan js-filter uppercase" data-type="category" data-value={g.type} title={`Filter: ${g.type}`}>{g.type}</button>
-                      {g.modeSlug && <button class="pill pill--filled tone-cyan js-filter uppercase" data-type="mode" data-value={g.modeSlug} title={`Filter: ${playerModeLabel(g.rawMode!)}`}>{playerModeLabel(g.rawMode!)}</button>}
-                      {g.tags.length > 0 && (
-                        <div class="relative inline-block">
-                          <button
-                            type="button"
-                            class="pill pill--soft uppercase"
-                            data-card-tag-trigger
-                            aria-expanded="false"
-                            aria-controls={tagPopoverId}
-                          >
-                            {g.tags.length} tag{g.tags.length !== 1 && 's'}
-                          </button>
-                          <div
-                            id={tagPopoverId}
-                            class="hidden absolute left-0 top-full mt-1 z-[70] p-2 rounded-md border border-fg/25 bg-bg/95 backdrop-blur shadow-lg flex flex-wrap gap-2 min-w-[6rem]"
-                            role="group"
-                            aria-label={`${g.title} tags`}
-                            data-card-tags-popover
-                          >
-                            {g.tags.map(t => <button class="pill pill--soft js-filter uppercase" data-type="tag" data-value={t} title={`Filter: ${t}`}>{t}</button>)}
-                          </div>
-                        </div>
-                      )}
-                    </div>
+        {allGames.map(g => (
+          <li
+            class="relative group"
+            data-type={g.type}
+            data-mode={g.modeSlug || ''}
+            data-tags={g.tags.join(',').toLowerCase()}
+            data-title={(g.title||'').toLowerCase()}
+            data-excerpt={(g.excerpt||'').toLowerCase()}
+            data-search-visible="true"
+          >
+            <div class="glass p-3 relative pe-none">
+              <div class="flex">
+                <picture class="mr-3 shrink-0 pointer-events-none">
+                  <img
+                    src={g.image}
+                    alt={g.title}
+                    loading="lazy"
+                    decoding="async"
+                    class="w-[88px] h-[88px] object-cover rounded-sm border border-fg/15 bg-fg/5"
+                    onerror="this.style.display='none'"
+                  />
+                </picture>
+                <div class="flex flex-col min-w-0 pointer-events-none">
+                  <span class="font-semibold leading-snug mb-1 transition-colors group-hover:text-fg"> {g.title} </span>
+                  {g.excerpt && <p class="text-xs text-muted leading-snug line-clamp-2 mb-2">{g.excerpt}</p>}
+                  <div class="flex flex-wrap gap-2 text-[10px] uppercase tracking-wide font-semibold relative z-20 pointer-events-auto">
+                    <button class="pill pill--filled tone-cyan js-filter" data-type="category" data-value={g.type} title={`Filter: ${g.type}`}>{g.type}</button>
+                    {g.modeSlug && <button class="pill pill--filled tone-cyan js-filter" data-type="mode" data-value={g.modeSlug} title={`Filter: ${playerModeLabel(g.rawMode!)}`}>{playerModeLabel(g.rawMode!)}</button>}
+                    {g.tags.length > 0 && (
+                      <button
+                        type="button"
+                        class="pill pill--soft"
+                        data-open-tags
+                        title="Browse all tags"
+                      >
+                        {g.tags.length} tag{g.tags.length !== 1 && 's'}
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>
-              <!-- Overlay link ABOVE card (but below chips/popovers) -->
-              <a
-                href={g.href}
-                aria-label={`View game: ${g.title}`}
-                class="absolute inset-0 rounded-md"
-                style="z-index:50"
-              >
-                <span class="sr-only">{g.title}</span>
-              </a>
-            </li>
-          );
-        })}
+            </div>
+            <!-- Overlay link ABOVE card, BELOW chips -->
+            <a
+              href={g.href}
+              aria-label={`View game: ${g.title}`}
+              class="absolute inset-0 rounded-md"
+              style="z-index:10"
+            >
+              <span class="sr-only">{g.title}</span>
+            </a>
+          </li>
+        ))}
       </ul>
     )}
 
@@ -266,60 +248,54 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         applySearch();
       }
 
-      // Global "Tags" dropdown (filters row)
-      const tagToggle = document.querySelector('[data-panel="tags"]');
-      const tagPanel = document.getElementById('panel-tags');
-      function closeTags(){ tagPanel?.classList.add('hidden'); tagToggle?.setAttribute('aria-expanded','false'); }
+      // Tags panel behavior: toggle below "Tags" and support floating near card trigger
+      const tagToggle = document.getElementById('tags-toggle');
+      const tagPanel  = document.getElementById('panel-tags');
+      function closeTags(){ if (!tagPanel) return; tagPanel.classList.add('hidden'); tagPanel.classList.remove('floating'); tagPanel.style.removeProperty('--panel-x'); tagPanel.style.removeProperty('--panel-y'); tagToggle?.setAttribute('aria-expanded','false'); }
       tagToggle?.addEventListener('click', (e)=>{
         e.preventDefault();
-        const open = tagPanel?.classList.contains('hidden') === false;
-        if (open) { closeTags(); }
-        else { tagPanel?.classList.remove('hidden'); tagToggle.setAttribute('aria-expanded','true'); }
+        if (!tagPanel) return;
+        const open = !tagPanel.classList.contains('hidden') && !tagPanel.classList.contains('floating');
+        closeTags();
+        if (!open) {
+          tagPanel.classList.remove('hidden');
+          tagToggle.setAttribute('aria-expanded','true');
+          // anchored default under toggle (absolute in filter wrapper)
+        }
       });
+
+      // Open global tags panel near any card "tags" chip
       document.addEventListener('click', (e)=>{
         const t = e.target;
         if (!(t instanceof Element)) return;
-        if (!t.closest('[data-filter-wrapper]')) closeTags();
+        const trigger = t.closest('[data-open-tags]');
+        if (!trigger || !tagPanel) return;
+        e.preventDefault();
+        const r = trigger.getBoundingClientRect();
+        tagPanel.classList.remove('hidden');
+        tagPanel.classList.add('floating');
+        tagPanel.style.setProperty('--panel-x', Math.round(r.left) + 'px');
+        tagPanel.style.setProperty('--panel-y', Math.round(r.bottom + 6) + 'px');
+      });
+
+      document.addEventListener('click', (e)=>{
+        const t = e.target;
+        if (!(t instanceof Element)) return;
+        if (!t.closest('#panel-tags') && !t.closest('#tags-toggle') && !t.closest('[data-open-tags]')) closeTags();
       });
       document.addEventListener('keydown', e => { if (e.key === 'Escape') closeTags(); });
 
-      // Per-card tag popovers
+      // Clickable chips to toggle filters programmatically
       document.getElementById('game-grid')?.addEventListener('click', (e) => {
         const target = e.target;
         if (!(target instanceof HTMLElement)) return;
-
-        // Toggle card tag popover
-        const trigger = target.closest('[data-card-tag-trigger]');
-        if (trigger) {
-          e.preventDefault();
-          const pop = trigger.parentElement?.querySelector('[data-card-tags-popover]');
-          const open = pop && !pop.classList.contains('hidden');
-          document.querySelectorAll('[data-card-tags-popover]').forEach(el => el.classList.add('hidden'));
-          trigger.setAttribute('aria-expanded', open ? 'false' : 'true');
-          if (pop) pop.classList.toggle('hidden', !!open);
-          return;
-        }
-
-        // Clickable filter chips
         const chip = target.closest('.js-filter');
-        if (chip) {
-          const type = chip.getAttribute('data-type');
-          const value = chip.getAttribute('data-value');
-          if (type && value) {
-            window.bggToggleGameFilter?.(type, value);
-            window.bggApplyGameFilters?.();
-          }
-          return;
-        }
-      });
-
-      // Close popovers when clicking elsewhere
-      document.addEventListener('click', (e)=>{
-        const t = e.target;
-        if (!(t instanceof Element)) return;
-        if (!t.closest('[data-card-tag-trigger]') && !t.closest('[data-card-tags-popover]')) {
-          document.querySelectorAll('[data-card-tags-popover]').forEach(el => el.classList.add('hidden'));
-        }
+        if (!chip) return;
+        const type = chip.getAttribute('data-type');
+        const value = chip.getAttribute('data-value');
+        if (!type || !value) return;
+        window.bggToggleGameFilter?.(type, value);
+        window.bggApplyGameFilters?.();
       });
     })();
   </script>
