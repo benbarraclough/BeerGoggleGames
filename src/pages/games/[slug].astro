@@ -14,11 +14,7 @@ export async function getStaticPaths() {
     if (leafMap.has(leaf)) duplicates.push(leaf);
     else leafMap.set(leaf, e);
   }
-  if (duplicates.length) {
-    throw new Error(
-      `[games] Duplicate leaf slug(s) detected: ${duplicates.join(', ')}. Leaves must be unique for flat /games/<slug>/ routes.`
-    );
-  }
+  if (duplicates.length) throw new Error(`[games] Duplicate leaf slug(s): ${duplicates.join(', ')}`);
   return Array.from(leafMap.keys()).map(leaf => ({ params: { slug: leaf } }));
 }
 
@@ -35,28 +31,16 @@ if (!entry) throw new Error(`Game not found for leaf "${leaf}"`);
 const { Content } = await entry.render();
 
 const title = entry.data.title;
-const description =
-  entry.data.excerpt ||
-  entry.data.description ||
-  `Drinking game: ${title}`;
-
+const description = entry.data.excerpt || entry.data.description || `Drinking game: ${title}`;
 const type = (entry.data.type || '').toString();
 const rawMode = entry.data.format || entry.data.players;
 const modeSlug = rawMode ? playerModeSlug(rawMode) : '';
 const tags: string[] = Array.isArray(entry.data.tags) ? entry.data.tags : [];
-
 const coverFile = entry.data.cover || `${leaf}.webp`;
 const cover = withBase(`images/${coverFile}`);
 const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'CreativeWork',
-  name: title,
-  description,
-  genre: type,
-  keywords: [...tags, type, modeSlug].filter(Boolean).join(', ')
-};
+const jsonLd = { '@context': 'https://schema.org', '@type': 'CreativeWork', name: title, description, genre: type, keywords: [...tags, type, modeSlug].filter(Boolean).join(', ') };
 ---
 <Layout title={title} description={description} canonical={pageCanonical} image={cover}>
   <article class="prose-invert max-w-none tone-cyan">
@@ -67,34 +51,21 @@ const jsonLd = {
           {description}
         </p>
       )}
-      <div class="flex flex-wrap gap-2 text-[10px] uppercase tracking-wide font-semibold">
-        {type && <span class="pill pill--filled" aria-label={`Type: ${type}`}>{type}</span>}
-        {rawMode && <span class="pill pill--outline" aria-label={`Player mode: ${playerModeLabel(rawMode)}`}>{playerModeLabel(rawMode)}</span>}
+      <div class="flex flex-wrap gap-2">
+        {type && <span class="pill pill--filled tone-cyan" aria-label={`Type: ${type}`}>{type}</span>}
+        {rawMode && <span class="pill pill--filled tone-cyan" aria-label={`Player mode: ${playerModeLabel(rawMode)}`}>{playerModeLabel(rawMode)}</span>}
         {tags.map(t => <span class="pill pill--soft" aria-label={`Tag: ${t}`}>{t}</span>)}
       </div>
     </header>
 
     <div class="divider" aria-hidden="true"></div>
 
-    <!-- MDX content (may include its own hero/figure) -->
     <Content />
 
     <p class="mt-10 text-xs text-muted">
       <a class="hover:text-fg underline underline-offset-4" href={withBase('games/')}>Back to Games Index</a>
     </p>
   </article>
-
-  <!-- GLOBAL list fix -->
-  <style is:global>
-    article.prose-invert ul,
-    article.prose-invert ol {
-      list-style: revert;
-      padding-left: 1.25rem;
-      margin: 0 0 1rem;
-    }
-    article.prose-invert li { margin: 0.25rem 0; }
-    article.prose-invert li::marker { color: var(--fg-muted, currentColor); }
-  </style>
 
   <script type="application/ld+json">
     {JSON.stringify(jsonLd, null, 2)}
