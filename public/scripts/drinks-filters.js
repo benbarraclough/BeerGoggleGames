@@ -29,7 +29,7 @@
       styleButton(btn, !!pressed);
     });
     exclusiveBtn?.setAttribute('aria-pressed', state.exclusive ? 'true' : 'false');
-    clearBtn && (clearBtn.disabled = !(state.type.size || state.base.size || state.difficulty.size));
+    if (clearBtn) clearBtn.disabled = !(state.type.size || state.base.size || state.difficulty.size);
   }
 
   function apply() {
@@ -67,8 +67,7 @@
   window.bggToggleDrinkFilter = (type, value) => {
     const v = (value || '').toLowerCase();
     if (!state[type]) return;
-    if (state[type].has(v)) state[type].delete(v);
-    else state[type].add(v);
+    if (state[type].has(v)) state[type].delete(v); else state[type].add(v);
     apply();
   };
 
@@ -83,16 +82,9 @@
     window.bggToggleDrinkFilter(type, value);
   });
 
-  exclusiveBtn?.addEventListener('click', () => {
-    state.exclusive = !state.exclusive;
-    apply();
-  });
+  exclusiveBtn?.addEventListener('click', () => { state.exclusive = !state.exclusive; apply(); });
   clearBtn?.addEventListener('click', () => {
-    state.type.clear();
-    state.base.clear();
-    state.difficulty.clear();
-    state.exclusive = false;
-    apply();
+    state.type.clear(); state.base.clear(); state.difficulty.clear(); state.exclusive = false; apply();
   });
 
   apply();
