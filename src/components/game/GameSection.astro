@@ -1,11 +1,26 @@
 ---
 const { title, icon } = Astro.props;
+
+function inferredIcon(title: string): string | null {
+  const t = (title || '').toLowerCase();
+  if (/overview|about/.test(t)) return '/images/info.webp';
+  if (/equipment|items|gear|glass/.test(t)) return '/images/liquor.webp';
+  if (/setup|prepare|start/.test(t)) return '/images/settings.webp';
+  if (/aim|goal|objective|target/.test(t)) return '/images/target.webp';
+  if (/how to|play|steps|instructions|method|recipe/.test(t)) return '/images/question.webp';
+  if (/rules?|guidelines|dos|donts/.test(t)) return '/images/rules.webp';
+  if (/tips|advice|hints|notes/.test(t)) return '/images/lightbulb.webp';
+  if (/special|variants|edition|extras?/.test(t)) return '/images/special.webp';
+  return null;
+}
+
+const iconSrc = icon || inferredIcon(title);
 ---
 <section class="mb-8 glass p-5">
   <h3 class="group flex items-center gap-3 text-xl font-semibold mb-3 tracking-tight">
-    {icon && (
+    {iconSrc && (
       <span class="section-icon inline-flex w-10 h-10 items-center justify-center rounded-lg bg-fg/5 border border-fg/15 ring-1 ring-[color:var(--tone,rgba(255,255,255,0.15))] transition">
-        <img src={icon} alt="" class="w-6 h-6 object-contain opacity-90" loading="lazy" />
+        <img src={iconSrc} alt="" class="w-6 h-6 object-contain opacity-90" loading="lazy" />
       </span>
     )}
     <span>{title}</span>
