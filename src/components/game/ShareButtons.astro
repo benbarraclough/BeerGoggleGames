@@ -26,17 +26,17 @@ function svg(name: string) {
   return '';
 }
 ---
-<section class="mt-8 glass glass-neutral p-5">
+<section class="mt-8 text-center">
   <h4 class="font-semibold mb-3 mt-0 text-sm tracking-wide uppercase text-muted">Share This Page</h4>
 
-  <div class="flex flex-wrap gap-3">
+  <div class="inline-flex flex-wrap gap-3 justify-center">
     {shareLinks.map(link => (
       <a
         href={link.url}
         target="_blank"
         rel="noopener noreferrer"
         class:list={[
-          'group inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-fg/15 bg-bg/60 hover:bg-fg/10 text-xs font-medium transition focus-visible:outline-none focus-visible:ring-2',
+          'group inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-fg/15 bg-bg/40 hover:bg-fg/10 text-xs font-medium transition focus-visible:outline-none focus-visible:ring-2',
           link.className ?? ''
         ]}
         aria-label={link.label ?? link.name}
@@ -48,7 +48,7 @@ function svg(name: string) {
 
     <button
       type="button"
-      class="group inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-fg/15 bg-bg/60 hover:bg-fg/10 text-xs font-medium transition relative focus-visible:outline-none focus-visible:ring-2 text-fg"
+      class="group inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-fg/15 bg-bg/40 hover:bg-fg/10 text-xs font-medium transition relative focus-visible:outline-none focus-visible:ring-2 text-fg"
       data-copy-button
       aria-label="Copy page URL to clipboard"
     >
