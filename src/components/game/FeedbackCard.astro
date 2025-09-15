@@ -2,29 +2,14 @@
 import { withBase } from '../../lib/paths';
 const contactHref = withBase('contact/');
 ---
-<section class="mt-10 glass p-5">
+<section class="mt-10 glass glass-neutral p-5">
   <h4 class="font-semibold mb-3 text-sm tracking-wide uppercase text-muted">Feedback</h4>
   <div class="space-y-4 text-sm leading-relaxed">
     <slot />
     <p>Got suggestions on how we can improve? Drop us a message through our contact form.</p>
     <p>
-      <a
-        class="inline-flex items-center gap-1 hover:underline"
-        href={contactHref}
-      >
-        <span>Contact Us</span>
-        <svg
-          viewBox="0 0 24 24"
-          class="w-4 h-4"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <path d="M5 12h14" />
-          <path d="m12 5 7 7-7 7" />
-        </svg>
+      <a class="pill-btn btn-violet" href={contactHref}>
+        Contact Us
       </a>
     </p>
   </div>
