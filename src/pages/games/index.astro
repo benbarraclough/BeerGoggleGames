@@ -89,13 +89,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
           <div class="filter-panel hidden" id="panel-categories" role="group" aria-label="Categories">
             <div class="panel-inner">
               {categories.map(([cat, count]) => (
-                <button
-                  type="button"
-                  class="filter-item pill pill--soft"
-                  data-filter-type="category"
-                  data-value={cat}
-                  aria-pressed="false"
-                >
+                <button type="button" class="filter-item pill pill--soft" data-filter-type="category" data-value={cat} aria-pressed="false">
                   <span>{cat}</span><span class="count">{count}</span>
                 </button>
               ))}
@@ -110,13 +104,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
           <div class="filter-panel hidden" id="panel-modes" role="group" aria-label="Player Modes">
             <div class="panel-inner">
               {modes.map(([slug, info]) => (
-                <button
-                  type="button"
-                  class="filter-item pill pill--soft"
-                  data-filter-type="mode"
-                  data-value={slug}
-                  aria-pressed="false"
-                >
+                <button type="button" class="filter-item pill pill--soft" data-filter-type="mode" data-value={slug} aria-pressed="false">
                   <span>{info.label}</span><span class="count">{info.count}</span>
                 </button>
               ))}
@@ -129,15 +117,9 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
             Tags
           </button>
           <div class="filter-panel hidden" id="panel-tags" role="group" aria-label="Tags">
-            <div class="panel-inner max-h-72">
+            <div class="panel-inner">
               {tags.map(([t, count]) => (
-                <button
-                  type="button"
-                  class="filter-item pill pill--soft"
-                  data-filter-type="tag"
-                  data-value={t}
-                  aria-pressed="false"
-                >
+                <button type="button" class="filter-item pill pill--soft" data-filter-type="tag" data-value={t} aria-pressed="false">
                   <span>{t}</span><span class="count">{count}</span>
                 </button>
               ))}
@@ -174,7 +156,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
               data-excerpt={(g.excerpt||'').toLowerCase()}
               data-search-visible="true"
             >
-              <div class="glass p-3 relative z-10">
+              <div class="glass p-3 relative">
                 <div class="flex">
                   <picture class="mr-3 shrink-0">
                     <img
@@ -191,7 +173,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
                     {g.excerpt && <p class="text-xs text-muted leading-snug line-clamp-2 mb-2">{g.excerpt}</p>}
 
                     <!-- Chips: keep clickable AND card clickable -->
-                    <div class="flex flex-wrap gap-2 text-[10px] uppercase tracking-wide font-semibold relative z-20">
+                    <div class="flex flex-wrap gap-2 text-[10px] uppercase tracking-wide font-semibold relative" style="z-index:20">
                       <button class="pill pill--filled tone-cyan js-filter" data-type="category" data-value={g.type} title={`Filter: ${g.type}`}>{g.type}</button>
                       {g.modeSlug && <button class="pill pill--filled tone-cyan js-filter" data-type="mode" data-value={g.modeSlug} title={`Filter: ${playerModeLabel(g.rawMode!)}`}>{playerModeLabel(g.rawMode!)}</button>}
 
@@ -207,10 +189,10 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
                           >
                             {g.tags.length} tag{g.tags.length !== 1 && 's'}
                           </button>
-                          <div class="filter-panel hidden" id={panelId} role="group" aria-label={`Tags for ${g.title}`} data-card-tags-panel>
-                            <div class="panel-inner">
+                          <div class="filter-panel hidden narrow" id={panelId} role="group" aria-label={`Tags for ${g.title}`} data-card-tags-panel>
+                            <div class="panel-inner panel-inner-col">
                               {g.tags.map(t => (
-                                <button type="button" class="filter-item pill pill--soft" data-filter-type="tag" data-value={t} aria-pressed="false">
+                                <button type="button" class="filter-item pill pill--soft w-full justify-between text-left" data-filter-type="tag" data-value={t} aria-pressed="false">
                                   <span>{t}</span>
                                 </button>
                               ))}
@@ -223,8 +205,8 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
                 </div>
               </div>
 
-              <!-- Overlay link BELOW chips, covers rest of card -->
-              <a href={g.href} aria-label={`View game: ${g.title}`} class="absolute inset-0 rounded-md" style="z-index:5">
+              <!-- Overlay link BELOW chips, ABOVE card -->
+              <a href={g.href} aria-label={`View game: ${g.title}`} class="absolute inset-0 rounded-md" style="z-index:10">
                 <span class="sr-only">{g.title}</span>
               </a>
             </li>
