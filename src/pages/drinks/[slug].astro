@@ -13,11 +13,7 @@ export async function getStaticPaths() {
     if (leafMap.has(leaf)) duplicates.push(leaf);
     else leafMap.set(leaf, e);
   }
-  if (duplicates.length) {
-    throw new Error(
-      `[drinks] Duplicate leaf slug(s) detected: ${duplicates.join(', ')}. Leaves must be unique.`
-    );
-  }
+  if (duplicates.length) throw new Error(`[drinks] Duplicate leaf slug(s): ${duplicates.join(', ')}`);
   return Array.from(leafMap.keys()).map(leaf => ({ params: { slug: leaf } }));
 }
 
@@ -35,36 +31,17 @@ const { Content } = await entry.render();
 
 const data = entry.data;
 const title = data.title;
-const description =
-  data.excerpt ||
-  data.description ||
-  `Drink recipe: ${title}`;
-
+const description = data.excerpt || data.description || `Drink recipe: ${title}`;
 const drinkType = (data.drinkType || '').toString();
 const difficulty = (data.difficulty || '').toString();
-const baseList: string[] = Array.isArray(data.bases)
-  ? data.bases
-  : data.base
-    ? [data.base]
-    : [];
+const baseList: string[] = Array.isArray(data.bases) ? data.bases : data.base ? [data.base] : [];
 const tags: string[] = Array.isArray(data.tags) ? data.tags : [];
-
 const coverFile = data.cover || `${leaf}.webp`;
 const cover = withBase(`images/${coverFile}`);
-
-/* Frontmatter override (optional) */
 const heroDisabled = data.hero === false;
-
 const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Recipe',
-  name: title,
-  description,
-  recipeCategory: drinkType || 'drink',
-  keywords: [...tags, drinkType, difficulty, ...baseList].filter(Boolean).join(', ')
-};
+const jsonLd = { '@context': 'https://schema.org', '@type': 'Recipe', name: title, description, recipeCategory: drinkType || 'drink', keywords: [...tags, drinkType, difficulty, ...baseList].filter(Boolean).join(', ') };
 ---
 <Layout title={title} description={description} canonical={pageCanonical} image={cover}>
   <article class="prose-invert max-w-none tone-magenta">
@@ -76,18 +53,10 @@ const jsonLd = {
         </p>
       )}
       <div class="flex flex-wrap gap-2">
-        {drinkType && <span class="pill pill--filled" aria-label={`Drink type: ${drinkType}`}>{drinkType}</span>}
-        {baseList.map(b => (
-          <span class="pill pill--outline" aria-label={`Base: ${b}`}>{b}</span>
-        ))}
-        {difficulty && (
-          <span class="pill pill--soft" aria-label={`Difficulty: ${difficulty}`}>
-            {difficulty.charAt(0).toUpperCase() + difficulty.slice(1)}
-          </span>
-        )}
-        {tags.map(t => (
-          <span class="pill pill--soft" aria-label={`Tag: ${t}`}>{t}</span>
-        ))}
+        {drinkType && <span class="pill pill--filled tone-magenta" aria-label={`Drink type: ${drinkType}`}>{drinkType}</span>}
+        {baseList.map(b => (<span class="pill pill--filled tone-magenta" aria-label={`Base: ${b}`}>{b}</span>))}
+        {difficulty && (<span class="pill pill--filled tone-magenta" aria-label={`Difficulty: ${difficulty}`}>{difficulty}</span>)}
+        {tags.map(t => (<span class="pill pill--soft" aria-label={`Tag: ${t}`}>{t}</span>))}
       </div>
     </header>
 
@@ -114,19 +83,8 @@ const jsonLd = {
     </p>
   </article>
 
-  <!-- GLOBAL list fallback (covers any plain MDX lists not wrapped by DrinkSection) -->
   <style is:global>
-    article.prose-invert ul,
-    article.prose-invert ol {
-      list-style: revert;
-      padding-left: 1.25rem;
-      margin: 0 0 1rem;
-    }
-    article.prose-invert li { margin: 0.25rem 0; }
-    article.prose-invert li::marker { color: var(--fg-muted, currentColor); }
-    @media (hover: hover) {
-      .hero-img:hover { transform: scale(1.05); }
-    }
+    @media (hover: hover) { .hero-img:hover { transform: scale(1.05); } }
   </style>
 
   <script type="application/ld+json">
