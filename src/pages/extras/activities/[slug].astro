@@ -2,8 +2,11 @@
 import Layout from '../../../components/Layout.astro';
 import { getCollection } from 'astro:content';
 import StructuredData from '../../../components/StructuredData.astro';
+import ShareButtons from '../../../components/game/ShareButtons.astro';
+import FeedbackCard from '../../../components/game/FeedbackCard.astro';
 import { canonical } from '../../../lib/urls';
 import { activityLD } from '../../../lib/schema';
+import { withBase } from '../../../lib/paths';
 
 export async function getStaticPaths() {
   const activities = await getCollection('activities');
@@ -20,18 +23,52 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 const ld = activityLD({ title, description, url: pageCanonical });
 ---
 <Layout title={title} description={description} canonical={pageCanonical}>
-  <article class="prose prose-invert max-w-none">
-    <h1 class="font-display text-3xl md:text-4xl !mb-3 tone-green-text">{title}</h1>
-    {difficulty && <p class="!mt-0 text-sm"><strong>Difficulty:</strong> {difficulty}</p>}
+  <article class="prose-invert max-w-none tone-green">
+    <header class="mb-6">
+      <h1 class="font-display text-4xl mb-2 tone-green-text">{title}</h1>
+      {difficulty && <p class="!mt-0 text-sm text-muted"><strong>Difficulty:</strong> {difficulty}</p>}
+    </header>
 
     <div class="divider" aria-hidden="true"></div>
 
     <Content />
+
+    <p class="mt-10 text-xs text-muted">
+      <a class="hover:text-fg underline underline-offset-4" href={withBase('extras/activities/')}>← All Activities</a>
+    </p>
+
+    <ShareButtons title={title} />
+    <FeedbackCard />
   </article>
 
-  <p class="mt-10">
-    <a class="hover:text-neon underline underline-offset-4" href="/extras/activities/">← All Activities</a>
-  </p>
+  <!-- Add icons before section headings -->
+  <script is:inline>
+    (function(){
+      const map = [
+        { re: /(overview|about)/i, icon: '/images/info.webp' },
+        { re: /(equipment|items|gear|glass|requirements)/i, icon: '/images/liquor.webp' },
+        { re: /(setup|prepare|start)/i, icon: '/images/settings.webp' },
+        { re: /(aim|goal|objective|target)/i, icon: '/images/target.webp' },
+        { re: /(how to|play|steps|instructions|method|recipe)/i, icon: '/images/question.webp' },
+        { re: /(rules?|guidelines|dos|donts)/i, icon: '/images/rules.webp' },
+        { re: /(tips|advice|hints|notes|top tips)/i, icon: '/images/lightbulb.webp' },
+        { re: /(special|variants|edition|extras?)/i, icon: '/images/special.webp' }
+      ];
+      function matchIcon(text){
+        for (const m of map) if (m.re.test(text)) return m.icon;
+        return null;
+      }
+      document.querySelectorAll('article h2, article h3').forEach(h => {
+        if (h.querySelector('.section-icon')) return;
+        const icon = matchIcon(h.textContent || '');
+        if (!icon) return;
+        const span = document.createElement('span');
+        span.className = 'section-icon inline-flex w-9 h-9 items-center justify-center rounded-lg bg-fg/5 border border-fg/15 mr-2 align-middle';
+        span.innerHTML = `<img src="${icon}" alt="" class="w-5 h-5 object-contain opacity-90" loading="lazy" />`;
+        h.prepend(span);
+      });
+    })();
+  </script>
 
   <StructuredData data={ld} />
 </Layout>
