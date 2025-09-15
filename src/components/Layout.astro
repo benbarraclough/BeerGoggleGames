@@ -43,16 +43,11 @@ function icon(name: IconName, size = 18) {
   const baseSvg = `width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
     stroke-linecap="round" stroke-linejoin="round"`;
   switch (name) {
-    case 'home':
-      return `<svg ${baseSvg}><path d="M3 11.5 12 3l9 8.5M5 10v10h14V10"/></svg>`;
-    case 'games':
-      return `<svg ${baseSvg}><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="1.5"/><circle cx="15" cy="15" r="1.5"/></svg>`;
-    case 'drinks':
-      return `<svg ${baseSvg}><path d="M3 4h18l-8.5 8.5v5.5l3 2H8l3-2v-5.5L3 4Z"/><path d="M10 4l4 4"/></svg>`;
-    case 'extras':
-      return `<svg ${baseSvg}><path d="M12 3v4M12 17v4M7.05 7.05l2.83 2.83M14.12 14.12l2.83 2.83M3 12h4M17 12h4M7.05 16.95l2.83-2.83M14.12 9.88l2.83-2.83"/></svg>`;
-    case 'search':
-      return `<svg ${baseSvg}><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg>`;
+    case 'home':   return `<svg ${baseSvg}><path d="M3 11.5 12 3l9 8.5M5 10v10h14V10"/></svg>`;
+    case 'games':  return `<svg ${baseSvg}><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="1.5"/><circle cx="15" cy="15" r="1.5"/></svg>`;
+    case 'drinks': return `<svg ${baseSvg}><path d="M3 4h18l-8.5 8.5v5.5l3 2H8l3-2v-5.5L3 4Z"/><path d="M10 4l4 4"/></svg>`;
+    case 'extras': return `<svg ${baseSvg}><path d="M12 3v4M12 17v4M7.05 7.05l2.83 2.83M14.12 14.12l2.83 2.83M3 12h4M17 12h4M7.05 16.95l2.83-2.83M14.12 9.88l2.83-2.83"/></svg>`;
+    case 'search': return `<svg ${baseSvg}><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg>`;
   }
 }
 
@@ -96,12 +91,6 @@ const ogImg = image || ogImage;
       href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&family=Bricolage+Grotesque:opsz,wght@12..72,700&display=swap"
       rel="stylesheet"
     />
-    <style>
-      :root{
-        --font-body: 'Plus Jakarta Sans', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-        --font-display: 'Bricolage Grotesque', var(--font-body);
-      }
-    </style>
 
     <link rel="alternate" type="application/rss+xml" href={withBase('rss.xml')} title="Beer Goggle Games RSS" />
     <script type="application/ld+json">
@@ -155,7 +144,6 @@ const ogImg = image || ogImage;
           Menu
         </a>
       </div>
-      <!-- Full-width banner slot attached to nav bar -->
       <slot name="banner" />
     </header>
 
@@ -197,8 +185,9 @@ const ogImg = image || ogImage;
       <slot />
     </main>
 
+    <!-- Footer: more spacing, newsletter tweaks, legal section restored -->
     <footer class="border-t border-fg/20 mt-auto">
-      <div class="mx-auto max-w-7xl px-6 lg:px-8 py-10 grid gap-10 sm:gap-12 sm:grid-cols-2 lg:grid-cols-3 text-sm">
+      <div class="mx-auto max-w-7xl px-8 lg:px-12 py-12 grid gap-10 sm:gap-12 sm:grid-cols-2 lg:grid-cols-4 text-sm">
         <div class="space-y-4">
           <h2 class="font-semibold text-fg/80 uppercase tracking-wide text-xs">Explore</h2>
           <ul class="grid grid-cols-2 gap-x-4 gap-y-1 md:block md:space-y-1">
@@ -228,9 +217,6 @@ const ogImg = image || ogImage;
             class="mt-2 space-y-2"
             data-newsletter
           >
-            <label class="block text-xs uppercase tracking-wide text-fg/70" for="nl-email">
-              Email
-            </label>
             <div class="flex gap-2">
               <input
                 id="nl-email"
@@ -243,7 +229,7 @@ const ogImg = image || ogImage;
               />
               <button type="submit"
                 class="px-3 py-2 rounded bg-fg/10 border border-fg/20 text-xs hover:border-fg/60 hover:text-fg">
-                Sign up
+                Join
               </button>
             </div>
             <p class="text-[10px] text-muted/70 leading-relaxed">
@@ -251,10 +237,21 @@ const ogImg = image || ogImage;
             </p>
           </form>
         </div>
+
+        <div class="space-y-4">
+          <h2 class="font-semibold text-fg/80 uppercase tracking-wide text-xs">Legal</h2>
+          <p class="text-muted leading-relaxed">
+            © {year} Beer Goggle Games. All rights reserved.
+          </p>
+          <p class="text-[11px] leading-relaxed text-muted/80">
+            Drink responsibly. Only participate if you are of legal drinking age in your location.
+            Stay hydrated & look after friends.
+          </p>
+        </div>
       </div>
 
       <div class="border-t border-fg/15">
-        <div class="mx-auto max-w-7xl px-6 lg:px-8 py-4 text-[11px] flex flex-col sm:flex-row gap-3 items-center justify-between text-muted">
+        <div class="mx-auto max-w-7xl px-8 lg:px-12 py-4 text-[11px] flex flex-col sm:flex-row gap-3 items-center justify-between text-muted">
           <div class="flex flex-wrap gap-4 items-center">
             <span>© {year} Beer Goggle Games</span>
           </div>
