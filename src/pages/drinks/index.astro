@@ -110,7 +110,13 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
           <div class="filter-panel hidden" id="panel-types" role="group" aria-label="Drink Type">
             <div class="panel-inner">
               {drinkTypes.map(([t,count]) => (
-                <button type="button" class="filter-item pill pill--filled tone-magenta" data-filter-type="type" data-value={t} aria-pressed="false">
+                <button
+                  type="button"
+                  class="filter-item pill pill--soft"
+                  data-filter-type="type"
+                  data-value={t}
+                  aria-pressed="false"
+                >
                   <span>{t}</span><span class="count">{count}</span>
                 </button>
               ))}
@@ -125,7 +131,14 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
           <div class="filter-panel hidden" id="panel-bases" role="group" aria-label="Alcohol Base">
             <div class="panel-inner max-h-72">
               {bases.map(([b,count]) => (
-                <button type="button" class="filter-item pill pill--filled tone-magenta" data-filter-type="base" data-value={b.toLowerCase()} data-display={b} aria-pressed="false">
+                <button
+                  type="button"
+                  class="filter-item pill pill--soft"
+                  data-filter-type="base"
+                  data-value={b.toLowerCase()}
+                  data-display={b}
+                  aria-pressed="false"
+                >
                   <span>{b}</span><span class="count">{count}</span>
                 </button>
               ))}
@@ -140,7 +153,13 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
           <div class="filter-panel hidden" id="panel-difficulty" role="group" aria-label="Difficulty">
             <div class="panel-inner">
               {difficulties.map(([d,count]) => (
-                <button type="button" class="filter-item pill pill--filled tone-magenta" data-filter-type="difficulty" data-value={d} aria-pressed="false">
+                <button
+                  type="button"
+                  class="filter-item pill pill--soft"
+                  data-filter-type="difficulty"
+                  data-value={d}
+                  aria-pressed="false"
+                >
                   <span>{d}</span><span class="count">{count}</span>
                 </button>
               ))}
@@ -176,9 +195,9 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
             data-excerpt={(d.excerpt||'').toLowerCase()}
             data-search-visible="true"
           >
-            <div class="glass p-3 relative pe-none">
+            <div class="glass p-3 relative z-10">
               <div class="flex">
-                <picture class="mr-3 shrink-0 pointer-events-none">
+                <picture class="mr-3 shrink-0">
                   <img
                     src={d.image}
                     alt={d.title}
@@ -188,10 +207,10 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
                     onerror="this.style.display='none'"
                   />
                 </picture>
-                <div class="flex flex-col min-w-0 pointer-events-none">
+                <div class="flex flex-col min-w-0">
                   <span class="font-semibold leading-snug mb-1 transition-colors group-hover:text-fg">{d.title}</span>
                   {d.excerpt && <p class="text-xs text-muted leading-snug line-clamp-2 mb-2">{d.excerpt}</p>}
-                  <div class="flex flex-wrap gap-2 text-[10px] uppercase tracking-wide font-semibold relative z-20 pointer-events-auto">
+                  <div class="flex flex-wrap gap-2 text-[10px] uppercase tracking-wide font-semibold relative z-20">
                     <button class="pill pill--filled tone-magenta js-filter" data-type="type" data-value={d.drinkType} title={`Filter: ${d.drinkType}`}>{d.drinkType}</button>
                     {d.bases.slice(0,3).map(b => <button class="pill pill--filled tone-magenta js-filter" data-type="base" data-value={b.toLowerCase()} title={`Filter: ${b}`}>{b}</button>)}
                     {d.bases.length > 3 && <span class="pill pill--soft">+{d.bases.length - 3}</span>}
@@ -200,7 +219,9 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
                 </div>
               </div>
             </div>
-            <a href={d.href} aria-label={`View drink: ${d.title}`} class="absolute inset-0 rounded-md" style="z-index:10"><span class="sr-only">{d.title}</span></a>
+            <a href={d.href} aria-label={`View drink: ${d.title}`} class="absolute inset-0 rounded-md" style="z-index:5">
+              <span class="sr-only">{d.title}</span>
+            </a>
           </li>
         ))}
       </ul>
