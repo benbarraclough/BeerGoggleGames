@@ -1,173 +1,105 @@
-// Games Filters with search integration and programmatic API
-// Works with src/pages/games/index.astro
-(function init() {
-  const qs = s => document.querySelector(s);
-  const qsa = s => Array.from(document.querySelectorAll(s));
+// Games filters: default uncoloured until selected (filled cyan when selected)
+(() => {
+  const grid = document.getElementById('game-grid');
+  if (!grid) return;
 
-  const selected = { category: new Set(), mode: new Set(), tag: new Set() };
-  let exclusive = false;
+  const exclusiveBtn = document.getElementById('exclusive-toggle');
+  const clearBtn = document.getElementById('clear-filters');
+  const resultEl = document.getElementById('result-count');
 
-  const gameGrid = qs('#game-grid');
-  const clearBtn = qs('#clear-filters');
-  const exclusiveBtn = qs('#exclusive-toggle');
-  const resultCount = qs('#result-count');
-  const panelToggles = qsa('.filter-toggle');
-  const filterItems = qsa('.filter-item');
+  const state = {
+    category: new Set(),
+    mode: new Set(),
+    tag: new Set(),
+    exclusive: false
+  };
 
-  function updateClearBtn() {
-    const any = selected.category.size || selected.mode.size || selected.tag.size;
-    if (clearBtn) clearBtn.disabled = !any;
+  function styleButton(btn, pressed) {
+    btn.setAttribute('aria-pressed', pressed ? 'true' : 'false');
+    btn.classList.toggle('pill--filled', !!pressed);
+    btn.classList.toggle('tone-cyan', !!pressed);
+    btn.classList.toggle('pill--soft', !pressed);
   }
 
-  function matchGame(li) {
-    const type = li.getAttribute('data-type') || '';
-    const mode = li.getAttribute('data-mode') || '';
-    const tags = (li.getAttribute('data-tags') || '').split(',').filter(Boolean);
-    const searchVisible = li.getAttribute('data-search-visible') !== 'false'; // treat '' as true
-
-    const hasFilters = selected.category.size || selected.mode.size || selected.tag.size;
-    let filterPass = true;
-
-    if (hasFilters) {
-      if (!exclusive) {
-        filterPass = (
-          selected.category.has(type) ||
-          selected.mode.has(mode) ||
-          (selected.tag.size && Array.from(selected.tag).some(t => tags.includes(t)))
-        );
-      } else {
-        if (selected.category.size && !selected.category.has(type)) filterPass = false;
-        if (selected.mode.size && !selected.mode.has(mode)) filterPass = false;
-        if (selected.tag.size && filterPass) {
-          for (const t of selected.tag) {
-            if (!tags.includes(t)) { filterPass = false; break; }
-          }
-        }
-      }
-    }
-
-    return searchVisible && (!hasFilters || filterPass);
-  }
-
-  function applyFilters() {
-    if (!gameGrid) return;
-    const cards = qsa('#game-grid > li');
-    let visible = 0;
-    cards.forEach(li => {
-      if (matchGame(li)) {
-        li.classList.remove('hidden');
-        visible++;
-      } else {
-        li.classList.add('hidden');
-      }
+  function syncButtons() {
+    document.querySelectorAll('.filter-item[data-filter-type]').forEach(btn => {
+      const type = btn.getAttribute('data-filter-type');
+      const val = (btn.getAttribute('data-value') || '').toLowerCase();
+      const pressed = type && state[type]?.has(val);
+      styleButton(btn, !!pressed);
     });
-    if (resultCount) {
-      resultCount.textContent = `Showing ${visible} of ${cards.length} games${exclusive ? ' (exclusive)' : ''}`;
-    }
+    exclusiveBtn?.setAttribute('aria-pressed', state.exclusive ? 'true' : 'false');
+    clearBtn && (clearBtn.disabled = !(state.category.size || state.mode.size || state.tag.size));
   }
 
-  function toggleFilterItem(btn) {
+  function apply() {
+    const items = Array.from(grid.children);
+    let shown = 0;
+    items.forEach(li => {
+      // respect search visibility
+      const searchVisible = li.getAttribute('data-search-visible') !== 'false';
+
+      const type = (li.getAttribute('data-type') || '').toLowerCase();
+      const mode = (li.getAttribute('data-mode') || '').toLowerCase();
+      const tags = (li.getAttribute('data-tags') || '').toLowerCase().split(',').filter(Boolean);
+
+      const catMatch = state.category.size ? state.category.has(type) : true;
+      const modeMatch = state.mode.size ? state.mode.has(mode) : true;
+
+      // tag logic: exclusive = all selected tags must be present, otherwise any
+      let tagMatch = true;
+      if (state.tag.size) {
+        const tagArr = Array.from(state.tag);
+        tagMatch = state.exclusive
+          ? tagArr.every(t => tags.includes(t))
+          : tagArr.some(t => tags.includes(t));
+      }
+
+      const vis = searchVisible && catMatch && modeMatch && tagMatch;
+      li.classList.toggle('hidden', !vis);
+      if (vis) shown++;
+    });
+    if (resultEl) resultEl.textContent = `${shown} result${shown === 1 ? '' : 's'}`;
+    syncButtons();
+    // expose count if needed
+    return shown;
+  }
+
+  // Expose to search integration
+  window.bggApplyGameFilters = apply;
+  window.bggToggleGameFilter = (type, value) => {
+    const v = (value || '').toLowerCase();
+    if (!state[type]) return;
+    if (state[type].has(v)) state[type].delete(v);
+    else state[type].add(v);
+    apply();
+  };
+
+  // Click on filter panel items
+  document.addEventListener('click', e => {
+    const t = e.target;
+    if (!(t instanceof Element)) return;
+    const btn = t.closest('.filter-item[data-filter-type]');
+    if (!btn) return;
     const type = btn.getAttribute('data-filter-type');
     const value = btn.getAttribute('data-value');
     if (!type || !value) return;
-    const set = selected[type];
-    const pressed = btn.getAttribute('aria-pressed') === 'true';
-    if (pressed) {
-      set.delete(value);
-      btn.setAttribute('aria-pressed','false');
-    } else {
-      set.add(value);
-      btn.setAttribute('aria-pressed','true');
-    }
-    updateClearBtn();
-    applyFilters();
-  }
-
-  // Programmatic API to toggle a filter by type/value and reflect UI
-  function programmaticToggle(type, value) {
-    const btn = filterItems.find(b => b.getAttribute('data-filter-type') === type && b.getAttribute('data-value') === value);
-    if (btn) {
-      toggleFilterItem(btn);
-    } else {
-      // if filter pill not in panel (e.g., value not listed), just toggle set
-      const set = selected[type];
-      if (set) {
-        if (set.has(value)) set.delete(value); else set.add(value);
-      }
-      applyFilters();
-    }
-  }
-
-  filterItems.forEach(btn => {
-    btn.addEventListener('click', () => toggleFilterItem(btn));
-    btn.addEventListener('keydown', e => {
-      if (e.key === ' ' || e.key === 'Enter') {
-        e.preventDefault();
-        toggleFilterItem(btn);
-      }
-    });
+    window.bggToggleGameFilter(type, value);
   });
 
-  clearBtn?.addEventListener('click', () => {
-    selected.category.clear();
-    selected.mode.clear();
-    selected.tag.clear();
-    filterItems.forEach(f => f.setAttribute('aria-pressed','false'));
-    updateClearBtn();
-    applyFilters();
-  });
-
+  // Exclusive and Clear
   exclusiveBtn?.addEventListener('click', () => {
-    exclusive = !exclusive;
-    exclusiveBtn.setAttribute('aria-pressed', exclusive ? 'true' : 'false');
-    applyFilters();
+    state.exclusive = !state.exclusive;
+    apply();
+  });
+  clearBtn?.addEventListener('click', () => {
+    state.category.clear();
+    state.mode.clear();
+    state.tag.clear();
+    state.exclusive = false;
+    apply();
   });
 
-  // Dropdown (panels)
-  function closeAllPanels(exceptId) {
-    panelToggles.forEach(t => {
-      const id = t.getAttribute('data-panel');
-      const panel = document.getElementById('panel-' + id);
-      if (!panel) return;
-      if (id === exceptId) return;
-      panel.classList.add('hidden');
-      t.setAttribute('aria-expanded','false');
-    });
-  }
-
-  panelToggles.forEach(toggle => {
-    toggle.addEventListener('click', () => {
-      const id = toggle.getAttribute('data-panel');
-      const panel = document.getElementById('panel-' + id);
-      if (!panel) return;
-      const open = !panel.classList.contains('hidden');
-      if (open) {
-        panel.classList.add('hidden');
-        toggle.setAttribute('aria-expanded','false');
-      } else {
-        closeAllPanels(id);
-        panel.classList.remove('hidden');
-        toggle.setAttribute('aria-expanded','true');
-      }
-    });
-  });
-
-  document.addEventListener('click', e => {
-    const target = e.target;
-    if (!(target instanceof Element)) return;
-    if (!target.closest('[data-filter-wrapper]')) closeAllPanels();
-  });
-
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') closeAllPanels();
-  });
-
-  // Expose small API for page scripts
-  window.bggApplyGameFilters = applyFilters;
-  window.bggToggleGameFilter = programmaticToggle;
-
-  // Init
-  updateClearBtn();
-  applyFilters();
-  console.log('[games-filters] loaded');
+  // Initial
+  apply();
 })();
