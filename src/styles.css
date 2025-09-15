@@ -48,10 +48,11 @@
 .border-fg\/30 { border-color: rgba(var(--fg-rgb),0.30) !important; }
 .border-fg\/40 { border-color: rgba(var(--fg-rgb),0.40) !important; }
 
-/* Page tone contexts (inheritance for components) */
-.tone-cyan { --tone: var(--c-cyan); --tone-rgb: var(--c-cyan-rgb); --tone-tint: rgba(var(--c-cyan-rgb),0.10); color: var(--c-cyan); }
-.tone-magenta { --tone: var(--c-magenta); --tone-rgb: var(--c-magenta-rgb); --tone-tint: rgba(var(--c-magenta-rgb),0.10); color: var(--c-magenta); }
-.tone-green { --tone: var(--c-green); --tone-rgb: var(--c-green-rgb); --tone-tint: rgba(var(--c-green-rgb),0.10); color: var(--c-green); }
+/* Page tone contexts (variables only; do NOT set text color here) */
+.tone-cyan { --tone: var(--c-cyan); --tone-rgb: var(--c-cyan-rgb); --tone-tint: rgba(var(--c-cyan-rgb),0.10); }
+.tone-magenta { --tone: var(--c-magenta); --tone-rgb: var(--c-magenta-rgb); --tone-tint: rgba(var(--c-magenta-rgb),0.10); }
+.tone-green { --tone: var(--c-green); --tone-rgb: var(--c-green-rgb); --tone-tint: rgba(var(--c-green-rgb),0.10); }
+/* Explicit colored text utilities for headings, etc. */
 .tone-cyan-text { color: var(--c-cyan) !important; }
 .tone-magenta-text { color: var(--c-magenta) !important; }
 .tone-green-text { color: var(--c-green) !important; }
@@ -116,6 +117,9 @@ pre { background: #14181d; border: 1px solid #1f252c; padding: 1rem 1.25rem; bor
   box-shadow: 0 18px 36px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.06);
   transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease, background .2s ease, color .2s ease;
 }
+/* Force neutral glass (no tone tint) */
+.glass-neutral { --tone-tint: rgba(255,255,255,0); }
+
 .glass::before {
   content:'';
   position:absolute; inset:0; border-radius: inherit; pointer-events:none;
@@ -132,10 +136,7 @@ pre { background: #14181d; border: 1px solid #1f252c; padding: 1rem 1.25rem; bor
 }
 
 /* ------------------------------------------------------------------
-   Pills (Scheme B: distinct visual styles instead of colors)
-   Use .pill for base, then one of: .pill--filled, .pill--outline, .pill--soft
-   Map: Category = filled, Mode = outline, Tag = soft (Games)
-        Type = filled, Base = outline, Difficulty = soft (Drinks)
+   Pills (single visual, tone via --tone when applied on each pill)
    ------------------------------------------------------------------ */
 .pill {
   @apply inline-flex items-center gap-1 rounded-full text-[10px] font-semibold tracking-wide whitespace-nowrap select-none border;
@@ -149,35 +150,24 @@ pre { background: #14181d; border: 1px solid #1f252c; padding: 1rem 1.25rem; bor
   border-color: rgba(var(--tone-rgb, var(--fg-rgb)), 0.35);
   color: var(--tone, var(--fg));
 }
-.pill--outline {
-  background: rgba(255,255,255,0.02);
-  border-color: rgba(var(--fg-rgb),0.25);
-  color: var(--fg);
-  box-shadow: inset 0 0 0 1px rgba(var(--tone-rgb, var(--fg-rgb)), 0.25);
-}
 .pill--soft {
   background: rgba(var(--fg-rgb), 0.08);
   border-color: rgba(var(--fg-rgb), 0.18);
   color: var(--fg);
 }
-/* Hover/pressed */
 @media (hover: hover) {
   .pill:hover { box-shadow: 0 0 0 1px rgba(var(--tone-rgb, 57,255,182), 0.6), 0 0 14px -4px rgba(var(--tone-rgb, 57,255,182), 0.6); transform: translateY(-1px); }
 }
 .pill[aria-pressed="true"] { outline: 2px solid rgba(var(--tone-rgb, 57,255,182), 0.6); outline-offset: 1px; }
 
-/* ------------------------------------------------------------------
-   Filter panels
-   ------------------------------------------------------------------ */
-.filter-panel {
-  @apply absolute z-50 mt-2 min-w-[14rem] max-w-xs bg-bg/95 backdrop-blur border border-fg/25 rounded-md shadow-lg p-2;
-}
+/* Filter panels */
+.filter-panel { @apply absolute z-50 mt-2 min-w-[14rem] max-w-xs bg-bg/95 backdrop-blur border border-fg/25 rounded-md shadow-lg p-2; }
 .filter-panel.hidden { display:none; }
 .panel-inner { @apply flex flex-wrap gap-2 overflow-y-auto max-h-72; }
 .panel-inner::-webkit-scrollbar { width:6px; }
 .panel-inner::-webkit-scrollbar-thumb { @apply bg-fg/30 rounded; }
 
-/* Result count (layout is handled with ml-auto in markup) */
+/* Result count */
 #result-count { @apply text-muted; }
 
 /* ------------------------------------------------------------------
@@ -200,7 +190,15 @@ pre { background: #14181d; border: 1px solid #1f252c; padding: 1rem 1.25rem; bor
 button { cursor: pointer; }
 button:disabled { opacity: 0.55; cursor: not-allowed; }
 
-/* No persistent hover effects on touch devices */
+/* Home button styles (reusable on Feedback) */
+.pill-btn{display:inline-flex; align-items:center; gap:.5rem; padding:.55rem .95rem; border-radius:9999px; font-weight:700; font-size:.9rem; border:1px solid rgba(255,255,255,0.18); background:rgba(255,255,255,0.03); transition:border-color .2s ease, color .2s ease, transform .2s ease, background .2s ease}
+.pill-btn:hover{transform:translateY(-1px)}
+.btn-cyan{border-color:rgba(0,200,255,0.45); color:var(--c-cyan); background:linear-gradient(180deg, rgba(0,200,255,0.08), rgba(255,255,255,0.02))}
+.btn-magenta{border-color:rgba(255,0,128,0.45); color:var(--c-magenta); background:linear-gradient(180deg, rgba(255,0,128,0.10), rgba(255,255,255,0.02))}
+.btn-green{border-color:rgba(0,210,122,0.45); color:var(--c-green); background:linear-gradient(180deg, rgba(0,210,122,0.10), rgba(255,255,255,0.02))}
+.btn-violet{border-color:rgba(139,92,246,0.45); color:var(--c-violet); background:linear-gradient(180deg, rgba(139,92,246,0.12), rgba(255,255,255,0.02))}
+
+/* Disable hover on touch */
 @media (hover: none) {
   .ctrl:hover, .pill:hover, a:hover { transform: none !important; box-shadow: none !important; }
 }
@@ -208,18 +206,15 @@ button:disabled { opacity: 0.55; cursor: not-allowed; }
 /* ------------------------------------------------------------------
    Marquee / scrolling banner: start fully off-screen to the right
    ------------------------------------------------------------------ */
-.marquee, [data-marquee], .scrolling-banner { overflow: hidden; position: relative; }
-.marquee__track, [data-marquee-track], .scrolling-banner-track {
+.marquee, [data-marquee], .scrolling-banner { overflow: hidden; position: relative; text-align:left; }
+.marquee__track, [data-marquee-track], .scrolling-banner-track, .marquee-track {
   display: inline-flex;
+  white-space: nowrap;
   will-change: transform;
-  transform: translateX(110%);
-  animation: marquee-slide 24s linear infinite;
+  transform: translate3d(100vw,0,0);
+  animation: marquee-slide 20s linear infinite;
 }
-@keyframes marquee-slide { from { transform: translateX(110%); } to { transform: translateX(-110%); } }
+@keyframes marquee-slide { from { transform: translate3d(100vw,0,0); } to { transform: translate3d(-110%,0,0); } }
 @media (prefers-reduced-motion: reduce) {
-  .marquee__track, [data-marquee-track], .scrolling-banner-track { animation: none; transform: translateX(0); }
+  .marquee__track, [data-marquee-track], .scrolling-banner-track, .marquee-track { animation: none; transform: translate3d(0,0,0); }
 }
-
-/* ------------------------------------------------------------------
-   End
-   ------------------------------------------------------------------ */
