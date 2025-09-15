@@ -7,19 +7,9 @@ const pageTitle = 'Random Drink';
 const description = 'Redirecting you to a random drink.';
 
 const drinks = await getCollection('drinks');
-const leaves = Array.from(
-  new Set(
-    drinks.map(d => {
-      const slug = d.slug ?? d.id;
-      return slug.split('/').pop();
-    })
-  )
-);
-
+const leaves = Array.from(new Set(drinks.map(d => (d.slug ?? d.id).split('/').pop())));
 const fullPaths = leaves.map(l => withBase(`drinks/${l}/`));
-const fallback = fullPaths.length
-  ? fullPaths[Math.floor(Math.random() * fullPaths.length)]
-  : null;
+const fallback = fullPaths.length ? fullPaths[Math.floor(Math.random() * fullPaths.length)] : null;
 ---
 <Layout title={pageTitle} description={description} noindex={true}>
   <h1 class="font-display text-3xl mb-4">{pageTitle}</h1>
@@ -28,11 +18,16 @@ const fallback = fullPaths.length
     <p class="text-muted">No drinks available.</p>
   ) : (
     <>
-      <p class="text-sm text-muted mb-6">
-        Taking you to a random drink...
-        <span class="ml-2 animate-pulse">🍹</span>
-      </p>
-      <p class="text-xs text-muted">
+      <div class="glass p-6 max-w-md">
+        <p class="text-sm text-muted mb-4">Picking a random drink…</p>
+        <div class="grid grid-cols-5 gap-2" id="icon-grid" aria-hidden="true">
+          {Array.from({length:15}).map((_,i)=>(
+            <div class="h-8 rounded border border-fg/15 bg-fg/5 flex items-center justify-center text-xs">🍹</div>
+          ))}
+        </div>
+      </div>
+
+      <p class="text-xs text-muted mt-4">
         If nothing happens (e.g. JavaScript disabled), use the list below.
       </p>
 
@@ -57,20 +52,25 @@ const fallback = fullPaths.length
         </div>
       </noscript>
 
-      <script
-        is:inline
-        set:html={`(function(){try{
-          var paths = ${JSON.stringify(fullPaths)};
-          if(!paths.length) return;
-          var last; try{ last = sessionStorage.getItem('lastRandomDrink'); }catch(_){}
-          var pick = paths[Math.floor(Math.random()*paths.length)];
-          if(paths.length>1 && pick===last){
-            pick = paths[Math.floor(Math.random()*paths.length)];
-          }
-          try{ sessionStorage.setItem('lastRandomDrink', pick); }catch(_){}
-          window.location.replace(pick);
-        }catch(e){ console.error('Random redirect failed', e); }} )();`}
-      ></script>
+      <script is:inline>
+        (function(){
+          try{
+            var paths = ${JSON.stringify(fullPaths)};
+            if(!paths.length) return;
+            var last; try{ last = sessionStorage.getItem('lastRandomDrink'); }catch(_){}
+            var pick = paths[Math.floor(Math.random()*paths.length)];
+            if(paths.length>1 && pick===last){ pick = paths[Math.floor(Math.random()*paths.length)]; }
+            try{ sessionStorage.setItem('lastRandomDrink', pick); }catch(_){}
+            // Tiny icon shimmer before redirect
+            var cells = Array.from(document.querySelectorAll('#icon-grid > div'));
+            var t = 0; var interval = setInterval(function(){
+              cells.forEach((c,idx)=>{ c.style.opacity = (idx%3===t%3)? '1' : '0.4'; });
+              t++;
+            }, 120);
+            setTimeout(function(){ clearInterval(interval); window.location.replace(pick); }, 1800);
+          }catch(e){ console.error('Random redirect failed', e); }
+        })();
+      </script>
     </>
   )}
 </Layout>
