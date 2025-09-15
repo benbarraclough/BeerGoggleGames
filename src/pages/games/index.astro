@@ -11,8 +11,7 @@ const raw = excludeLegacyNoise(await getCollection('games'));
 const allGames = raw
   .map(g => {
     const full = g.slug ?? g.id;
-    const parts = full.split('/');
-    const leaf = parts[parts.length - 1];
+    const leaf = full.split('/').pop();
     const type = (g.data.type || 'misc').toString();
     const rawMode = g.data.format || g.data.players;
     const modeSlug = rawMode ? playerModeSlug(rawMode) : '';
@@ -20,12 +19,7 @@ const allGames = raw
     const excerpt = (g.data.excerpt || '').toString();
     return {
       title: g.data.title,
-      type,
-      rawMode,
-      modeSlug,
-      tags,
-      excerpt,
-      leaf,
+      type, rawMode, modeSlug, tags, excerpt, leaf,
       image: withBase(`images/${leaf}.webp`),
       href: withBase(`games/${leaf}/`)
     };
@@ -65,82 +59,96 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 
     <div class="divider" aria-hidden="true"></div>
 
-    <!-- Search + Filters -->
-    <div id="filter-bar" class="mb-6">
-      <div class="flex flex-col gap-3 md:flex-row md:flex-wrap md:items-end">
-        <div class="flex items-end gap-2 md:mr-4">
-          <label class="text-xs uppercase tracking-wide text-muted font-medium flex flex-col gap-1">
-            Search
-            <input
-              id="game-search"
-              type="search"
-              placeholder="Search games..."
-              class="w-full md:w-72 rounded border border-fg/30 bg-fg/5 px-3 py-2 text-sm focus:outline-none focus:ring-2"
-              autocomplete="off"
-            />
-          </label>
-          <button id="game-search-clear" class="hidden text-[11px] underline underline-offset-4 hover:text-fg mb-1.5">Clear</button>
-          <span id="search-hits" class="text-[11px] text-muted mb-2"></span>
+    <!-- Row 1: Search -->
+    <div class="mb-4">
+      <div class="flex items-end gap-2 md:mr-4">
+        <label class="text-xs uppercase tracking-wide text-muted font-medium flex flex-col gap-1">
+          Search
+          <input
+            id="game-search"
+            type="search"
+            placeholder="Search games..."
+            class="w-full md:w-96 rounded border border-fg/30 bg-fg/5 px-3 py-2 text-sm focus:outline-none focus:ring-2"
+            autocomplete="off"
+          />
+        </label>
+        <button id="game-search-clear" class="hidden text-[11px] underline underline-offset-4 hover:text-fg mb-1.5">Clear</button>
+        <span id="search-hits" class="text-[11px] text-muted mb-2"></span>
+      </div>
+    </div>
+
+    <!-- Row 2: Filters -->
+    <div class="mb-6">
+      <div class="flex flex-wrap gap-2 items-center">
+        <span class="text-[11px] uppercase tracking-wide text-muted/70">Filters</span>
+
+        <div class="relative" data-filter-wrapper>
+          <button type="button" class="filter-toggle pill pill--soft" data-panel="categories" aria-expanded="false">
+            Categories
+          </button>
+          <div class="filter-panel hidden" id="panel-categories" role="group" aria-label="Categories">
+            <div class="panel-inner">
+              {categories.map(([cat, count]) => (
+                <button type="button" class="filter-item pill pill--filled tone-cyan" data-filter-type="category" data-value={cat} aria-pressed="false">
+                  <span>{cat}</span><span class="count">{count}</span>
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
 
-        <div class="flex flex-wrap gap-2 items-center grow">
-          <span class="text-[11px] uppercase tracking-wide text-muted/70">Filters</span>
-
-          <div class="relative" data-filter-wrapper>
-            <button type="button" class="filter-toggle pill pill--soft" data-panel="categories" aria-expanded="false">
-              Categories
-            </button>
-            <div class="filter-panel hidden" id="panel-categories" role="group" aria-label="Categories">
-              <div class="panel-inner">
-                {categories.map(([cat, count]) => (
-                  <button type="button" class="filter-item pill pill--filled" data-filter-type="category" data-value={cat} aria-pressed="false">
-                    <span>{cat}</span><span class="count">{count}</span>
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div class="relative" data-filter-wrapper>
-            <button type="button" class="filter-toggle pill pill--soft" data-panel="modes" aria-expanded="false">
-              Player Modes
-            </button>
-            <div class="filter-panel hidden" id="panel-modes" role="group" aria-label="Player Modes">
-              <div class="panel-inner">
-                {modes.map(([slug, info]) => (
-                  <button type="button" class="filter-item pill pill--outline" data-filter-type="mode" data-value={slug} aria-pressed="false">
-                    <span>{info.label}</span><span class="count">{info.count}</span>
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div class="relative" data-filter-wrapper>
-            <button type="button" class="filter-toggle pill pill--soft" data-panel="tags" aria-expanded="false">
-              Tags
-            </button>
-            <div class="filter-panel hidden" id="panel-tags" role="group" aria-label="Tags">
-              <div class="panel-inner max-h-72">
-                {tags.map(([t, count]) => (
-                  <button type="button" class="filter-item pill pill--soft" data-filter-type="tag" data-value={t} aria-pressed="false">
-                    <span>{t}</span><span class="count">{count}</span>
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <button id="exclusive-toggle" type="button" class="pill pill--outline" aria-pressed="false"
-            title="Exclusive: must match each selected group (AND logic); all selected tags must be present.">
-            Exclusive
+        <div class="relative" data-filter-wrapper>
+          <button type="button" class="filter-toggle pill pill--soft" data-panel="modes" aria-expanded="false">
+            Player Modes
           </button>
-          <button id="clear-filters" type="button" class="pill pill--soft disabled:opacity-40 disabled:cursor-not-allowed" disabled>
-            Clear
-          </button>
-
-          <span id="result-count" class="text-xs text-muted ml-auto"></span>
+          <div class="filter-panel hidden" id="panel-modes" role="group" aria-label="Player Modes">
+            <div class="panel-inner">
+              {modes.map(([slug, info]) => (
+                <button type="button" class="filter-item pill pill--filled tone-cyan" data-filter-type="mode" data-value={slug} aria-pressed="false">
+                  <span>{info.label}</span><span class="count">{info.count}</span>
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
+
+        <div class="relative" data-filter-wrapper>
+          <button
+            type="button"
+            class="filter-toggle pill pill--soft"
+            data-panel="tags"
+            aria-expanded="false"
+            data-tag-trigger
+          >
+            Tags
+          </button>
+          <div
+            class="filter-panel hidden z-50"
+            id="panel-tags"
+            role="group"
+            aria-label="Tags"
+            data-tags-popover
+          >
+            <div class="panel-inner max-h-72">
+              {tags.map(([t, count]) => (
+                <button type="button" class="filter-item pill pill--soft" data-filter-type="tag" data-value={t} aria-pressed="false">
+                  <span>{t}</span><span class="count">{count}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <span class="ml-auto"></span>
+
+        <button id="exclusive-toggle" type="button" class="pill pill--soft" aria-pressed="false">
+          Exclusive
+        </button>
+        <button id="clear-filters" type="button" class="pill pill--soft disabled:opacity-40 disabled:cursor-not-allowed" disabled>
+          Clear
+        </button>
+
+        <span id="result-count" class="text-xs text-muted"></span>
       </div>
     </div>
 
@@ -148,78 +156,64 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       <p class="text-muted">No games found.</p>
     ) : (
       <ul id="game-grid" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 list-none p-0 m-0">
-        {allGames.map(g => {
-          const tagPopoverId = `tags-${g.leaf}`;
-          return (
-            <li
-              class="relative group"
-              data-type={g.type}
-              data-mode={g.modeSlug || ''}
-              data-tags={g.tags.join(',').toLowerCase()}
-              data-title={(g.title||'').toLowerCase()}
-              data-excerpt={(g.excerpt||'').toLowerCase()}
-              data-search-visible="true"
-            >
-              <div class="glass p-3 relative z-10">
-                <div class="flex">
-                  <picture class="mr-3 shrink-0">
-                    <img
-                      src={g.image}
-                      alt={g.title}
-                      loading="lazy"
-                      decoding="async"
-                      class="w-[88px] h-[88px] object-cover rounded-sm border border-fg/15 bg-fg/5"
-                      onerror="this.style.display='none'"
-                    />
-                  </picture>
-                  <div class="flex flex-col min-w-0">
-                    <span class="font-semibold leading-snug mb-1 transition-colors group-hover:text-fg">
-                      {g.title}
-                    </span>
-                    {g.excerpt && <p class="text-xs text-muted leading-snug line-clamp-2 mb-2">{g.excerpt}</p>}
-                    <div class="flex flex-wrap gap-2 text-[10px] uppercase tracking-wide font-semibold relative z-10">
-                      <button class="pill pill--filled js-filter" data-type="category" data-value={g.type} title={`Filter: ${g.type}`}>{g.type}</button>
-                      {g.modeSlug && <button class="pill pill--outline js-filter" data-type="mode" data-value={g.modeSlug} title={`Filter: ${playerModeLabel(g.rawMode!)}`}>{playerModeLabel(g.rawMode!)}</button>}
-                      {g.tags.length > 0 && (
-                        <div class="relative group/tag inline-block">
-                          <button
-                            type="button"
-                            class="pill pill--soft"
-                            data-tag-trigger
-                            data-open="false"
-                            aria-expanded="false"
-                            aria-controls={tagPopoverId}
-                            title={`View tags (${g.tags.join(', ')})`}
-                          >
-                            {g.tags.length} tag{g.tags.length !== 1 && 's'}
-                          </button>
-                          <div
-                            id={tagPopoverId}
-                            class="tags-popover hidden absolute left-0 top-full mt-1 z-50 p-2 rounded-md border border-fg/25 bg-bg/95 backdrop-blur shadow-lg flex flex-wrap gap-2 min-w-[6rem]"
-                            role="group"
-                            aria-label={`${g.title} tags`}
-                            data-tags-popover
-                          >
-                            {g.tags.map(t => <button class="pill pill--soft js-filter" data-type="tag" data-value={t} title={`Filter: ${t}`}>{t}</button>)}
-                          </div>
-                        </div>
-                      )}
-                    </div>
+        {allGames.map(g => (
+          <li
+            class="relative group"
+            data-type={g.type}
+            data-mode={g.modeSlug || ''}
+            data-tags={g.tags.join(',').toLowerCase()}
+            data-title={(g.title||'').toLowerCase()}
+            data-excerpt={(g.excerpt||'').toLowerCase()}
+            data-search-visible="true"
+          >
+            <div class="glass p-3 relative z-20">
+              <div class="flex">
+                <picture class="mr-3 shrink-0">
+                  <img
+                    src={g.image}
+                    alt={g.title}
+                    loading="lazy"
+                    decoding="async"
+                    class="w-[88px] h-[88px] object-cover rounded-sm border border-fg/15 bg-fg/5"
+                    onerror="this.style.display='none'"
+                  />
+                </picture>
+                <div class="flex flex-col min-w-0">
+                  <span class="font-semibold leading-snug mb-1 transition-colors group-hover:text-fg">
+                    {g.title}
+                  </span>
+                  {g.excerpt && <p class="text-xs text-muted leading-snug line-clamp-2 mb-2">{g.excerpt}</p>}
+                  <div class="flex flex-wrap gap-2 text-[10px] uppercase tracking-wide font-semibold relative z-30">
+                    <button class="pill pill--filled tone-cyan js-filter" data-type="category" data-value={g.type} title={`Filter: ${g.type}`}>{g.type}</button>
+                    {g.modeSlug && <button class="pill pill--filled tone-cyan js-filter" data-type="mode" data-value={g.modeSlug} title={`Filter: ${playerModeLabel(g.rawMode!)}`}>{playerModeLabel(g.rawMode!)}</button>}
+                    {g.tags.length > 0 && (
+                      <div class="relative inline-block">
+                        <button
+                          type="button"
+                          class="pill pill--soft"
+                          data-tag-trigger
+                          aria-expanded="false"
+                          aria-controls="panel-tags"
+                        >
+                          {g.tags.length} tag{g.tags.length !== 1 && 's'}
+                        </button>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
-              <!-- Overlay link sits under interactive elements to avoid flicker -->
-              <a
-                href={g.href}
-                aria-label={`View game: ${g.title}`}
-                class="absolute inset-0 rounded-md"
-                style="z-index:1"
-              >
-                <span class="sr-only">{g.title}</span>
-              </a>
-            </li>
-          );
-        })}
+            </div>
+            <!-- Overlay link ABOVE card (but below chips) -->
+            <a
+              href={g.href}
+              aria-label={`View game: ${g.title}`}
+              class="absolute inset-0 rounded-md"
+              style="z-index:10"
+            >
+              <span class="sr-only">{g.title}</span>
+            </a>
+          </li>
+        ))}
       </ul>
     )}
 
@@ -232,7 +226,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 
   <script is:inline>
     (() => {
-      // Search integrates with filters: sets data-search-visible and calls global reapply
+      // Search integrates with filters
       const input = document.getElementById('game-search');
       const clear = document.getElementById('game-search-clear');
       const grid = document.getElementById('game-grid');
@@ -253,7 +247,6 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
           });
           clear.classList.toggle('hidden', q.length === 0);
           if (hitsEl) hitsEl.textContent = q ? `${hits} match${hits===1?'':'es'}` : '';
-          // Re-apply filters to honor current search
           window.bggApplyGameFilters?.();
         }
         input.addEventListener('input', applySearch);
@@ -261,24 +254,22 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         applySearch();
       }
 
-      // Tag popover toggle (mobile + desktop click)
-      document.querySelectorAll('[data-tag-trigger]').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          const open = btn.getAttribute('data-open') === 'true';
-          btn.setAttribute('data-open', open ? 'false' : 'true');
-          btn.setAttribute('aria-expanded', open ? 'false' : 'true');
-        });
+      // Global "Tags" dropdown (single panel)
+      const tagToggle = document.querySelector('[data-panel="tags"]');
+      const tagPanel = document.getElementById('panel-tags');
+      function closeTags(){ tagPanel?.classList.add('hidden'); tagToggle?.setAttribute('aria-expanded','false'); }
+      tagToggle?.addEventListener('click', (e)=>{
+        e.preventDefault();
+        const open = tagPanel?.classList.contains('hidden') === false;
+        if (open) { closeTags(); }
+        else { tagPanel?.classList.remove('hidden'); tagToggle.setAttribute('aria-expanded','true'); }
       });
-      document.addEventListener('click', (e) => {
-        document.querySelectorAll('[data-tag-trigger][data-open="true"]').forEach(btn => {
-          if (!btn.contains(e.target) && !btn.nextElementSibling?.contains(e.target)) {
-            btn.setAttribute('data-open','false');
-            btn.setAttribute('aria-expanded','false');
-          }
-        });
+      document.addEventListener('click', (e)=>{
+        const t = e.target;
+        if (!(t instanceof Element)) return;
+        if (!t.closest('[data-filter-wrapper]')) closeTags();
       });
+      document.addEventListener('keydown', e => { if (e.key === 'Escape') closeTags(); });
 
       // Clickable chips to toggle filters programmatically
       document.getElementById('game-grid')?.addEventListener('click', (e) => {
