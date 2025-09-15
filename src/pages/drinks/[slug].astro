@@ -83,6 +83,35 @@ const jsonLd = { '@context': 'https://schema.org', '@type': 'Recipe', name: titl
     </p>
   </article>
 
+  <!-- Add icons before section headings -->
+  <script is:inline>
+    (function(){
+      const map = [
+        { re: /(overview|about)/i, icon: '/images/info.webp' },
+        { re: /(equipment|items|gear|glass)/i, icon: '/images/liquor.webp' },
+        { re: /(setup|prepare|start)/i, icon: '/images/settings.webp' },
+        { re: /(aim|goal|objective|target)/i, icon: '/images/target.webp' },
+        { re: /(how to|play|steps|instructions|method|recipe)/i, icon: '/images/question.webp' },
+        { re: /(rules?|guidelines|dos|donts)/i, icon: '/images/rules.webp' },
+        { re: /(tips|advice|hints|notes)/i, icon: '/images/lightbulb.webp' },
+        { re: /(special|variants|edition|extras?)/i, icon: '/images/special.webp' }
+      ];
+      function matchIcon(text){
+        for (const m of map) if (m.re.test(text)) return m.icon;
+        return null;
+      }
+      document.querySelectorAll('article h2, article h3').forEach(h => {
+        if (h.querySelector('.section-icon')) return;
+        const icon = matchIcon(h.textContent || '');
+        if (!icon) return;
+        const span = document.createElement('span');
+        span.className = 'section-icon inline-flex w-9 h-9 items-center justify-center rounded-lg bg-fg/5 border border-fg/15 mr-2 align-middle';
+        span.innerHTML = `<img src="${icon}" alt="" class="w-5 h-5 object-contain opacity-90" loading="lazy" />`;
+        h.prepend(span);
+      });
+    })();
+  </script>
+
   <style is:global>
     @media (hover: hover) { .hero-img:hover { transform: scale(1.05); } }
   </style>
