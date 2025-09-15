@@ -6,12 +6,12 @@ const title = 'Extras';
 const description = 'Tools and extras: wheel, forfeits, glossary, dice & coin, activities and blog.';
 const links = [
   { href: withBase('extras/wheel-of-fortune/'), title: 'Wheel of Fortune', desc: 'Spin categories & games.' },
-  { href: withBase('extras/forfeits/'), title: 'Forfeits', desc: 'Creative penalties & challenges.' },
-  { href: withBase('extras/glossary/'), title: 'Glossary', desc: 'Drinking terms explained.' },
-  { href: withBase('extras/dice/'), title: 'Dice Roller', desc: 'Animated on-screen dice.' },
-  { href: withBase('extras/coin-flip/'), title: 'Coin Flip', desc: 'Animated coin flip.' },
-  { href: withBase('extras/activities/'), title: 'Activities', desc: 'Party & social activities.' },
-  { href: withBase('extras/blog/'), title: 'Blog', desc: 'Guides, announcements & ideas.' },
+  { href: withBase('extras/forfeits/'),        title: 'Forfeits',         desc: 'Creative penalties & challenges.' },
+  { href: withBase('extras/glossary/'),        title: 'Glossary',         desc: 'Drinking terms explained.' },
+  { href: withBase('extras/dice/'),            title: 'Dice Roller',      desc: 'Animated on-screen dice.' },
+  { href: withBase('extras/coin-flip/'),       title: 'Coin Flip',        desc: 'Animated coin flip.' },
+  { href: withBase('extras/activities/'),      title: 'Activities',       desc: 'Party & social activities.' },
+  { href: withBase('extras/blog/'),            title: 'Blog',             desc: 'Guides, announcements & ideas.' },
 ];
 ---
 <Layout title={title} description={description}>
@@ -22,7 +22,7 @@ const links = [
 
   <div class="divider" aria-hidden="true"></div>
 
-  <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 list-none p-0 m-0">
+  <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 list-none p-0 m-0 tone-green">
     {links.map(l => (
       <li class="group relative glass p-5">
         <div class="flex flex-col gap-2">
