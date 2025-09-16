@@ -240,7 +240,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
                             role="group"
                             aria-label={`Tags for ${g.title}`}
                             data-card-tags-panel
-                            style="position: absolute; z-index: 50; display: none; right: 0; left: auto;"
+                            style="position: absolute; z-index: 55; display: none; right: 0; left: auto;"
                           >
                             <div class="panel-inner panel-inner-col">
                               {g.tags.map(t => (
@@ -298,24 +298,39 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
     #exclusive-toggle,
     #clear-filters { text-transform: none !important; }
 
-    /* ALIGNMENT:
+    /* Alignment:
        - Top filter dropdowns: drop to the right (attach left edge to trigger)
        - Per-card tags dropdown: drop to the left (attach right edge to trigger) */
     [data-filter-wrapper] .filter-panel {
-      left: 0; right: auto;                /* drop to the right */
+      left: 0; right: auto; /* drop to the right to avoid going off-screen */
       width: max-content; max-width: min(92vw, 320px);
     }
     [data-card-tags] [data-card-tags-panel] {
-      right: 0; left: auto;                /* drop to the left (as-is) */
+      right: 0; left: auto; /* drop to the left (as requested) */
       width: max-content; max-width: min(90vw, 260px);
       z-index: 55;
     }
 
-    /* Show per-card tag dropdown on hover or keyboard focus */
-    [data-card-tags]:hover [data-card-tags-panel],
-    [data-card-tags]:focus-within [data-card-tags-panel] {
-      display: block !important;
+    /* IMPORTANT: Make the per-card tags dropdown fully opaque (no blur, no transparency) */
+    [data-card-tags-panel] {
+      background-color: var(--bg) !important;
+      background-image: none !important;
+      -webkit-backdrop-filter: none !important;
+      backdrop-filter: none !important;
+      opacity: 1 !important;
+      filter: none !important;
+      mix-blend-mode: normal !important;
+      border: 1px solid rgba(255,255,255,0.18) !important;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.55) !important;
     }
+    [data-card-tags-panel] .panel-inner {
+      background: transparent !important;
+      border: 0 !important;
+      box-shadow: none !important;
+    }
+
+    /* SWITCH TO CLICK-TO-OPEN: remove hover/focus auto-open */
+    /* (Intentional: no :hover/:focus-within rules here) */
 
     /* Link-style controls for Exclusive and Clear: small text, no underline */
     .filter-link {
@@ -446,7 +461,24 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         if (e.key === 'Escape') closeAllPanels(null);
       });
 
-      // Per-card tag dropdown click toggle (touch fallback)
+      // Per-card tag dropdown: CLICK-TO-TOGGLE (no hover auto-open)
+      function toggleCardTags(trigger, force) {
+        const holder = trigger.closest('[data-card-tags]');
+        const panel = holder?.querySelector('[data-card-tags-panel]');
+        const isOpen = trigger.getAttribute('aria-expanded') === 'true';
+        const willOpen = typeof force === 'boolean' ? force : !isOpen;
+
+        // Close all other tag panels first
+        document.querySelectorAll('[data-card-tags-panel]').forEach(p => { if (p instanceof HTMLElement) p.style.display = 'none'; });
+        document.querySelectorAll('[data-open-card-tags]').forEach(b => b.setAttribute('aria-expanded','false'));
+
+        if (willOpen) {
+          if (panel instanceof HTMLElement) panel.style.display = 'block';
+          trigger.setAttribute('aria-expanded','true');
+        }
+      }
+
+      // Click to open/close
       document.getElementById('game-grid')?.addEventListener('click', (e) => {
         const t = e.target;
         if (!(t instanceof Element)) return;
@@ -454,16 +486,22 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         if (!trigger) return;
         e.preventDefault();
         e.stopPropagation();
-        const holder = trigger.closest('[data-card-tags]');
-        const panel = holder?.querySelector('[data-card-tags-panel]');
-        const expanded = trigger.getAttribute('aria-expanded') === 'true';
-        document.querySelectorAll('[data-card-tags-panel]').forEach(p => (p instanceof HTMLElement) && (p.style.display = 'none'));
-        document.querySelectorAll('[data-open-card-tags]').forEach(b => b.setAttribute('aria-expanded','false'));
-        if (!expanded) {
-          if (panel instanceof HTMLElement) panel.style.display = 'block';
-          trigger.setAttribute('aria-expanded','true');
+        toggleCardTags(trigger);
+      });
+
+      // Keyboard support (Enter/Space) on the trigger
+      document.getElementById('game-grid')?.addEventListener('keydown', (e) => {
+        const t = e.target;
+        if (!(t instanceof Element)) return;
+        const trigger = t.closest('[data-open-card-tags]');
+        if (!trigger) return;
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          toggleCardTags(trigger);
         }
       });
+
+      // Click-away to close
       document.addEventListener('click', (e)=>{
         const t = e.target;
         if (!(t instanceof Element)) return;
@@ -472,6 +510,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
           document.querySelectorAll('[data-open-card-tags]').forEach(b => b.setAttribute('aria-expanded','false'));
         }
       });
+      // Escape closes
       document.addEventListener('keydown', e => {
         if (e.key === 'Escape') {
           document.querySelectorAll('[data-card-tags-panel]').forEach(p => (p instanceof HTMLElement) && (p.style.display = 'none'));
