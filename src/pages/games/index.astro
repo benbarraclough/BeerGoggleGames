@@ -304,11 +304,20 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       width: max-content; max-width: min(92vw, 320px);
     }
 
+    /* Make the TOP Tags filter dropdown fully opaque (match others) */
+    #panel-tags,
+    #panel-tags .panel-inner {
+      background-color: #000 !important; /* fully opaque */
+      border: 1px solid rgba(255,255,255,0.18);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.55);
+    }
+
     /* Per-card tag dropdown: fully opaque and clearly above overlay (below chips) */
-    [data-card-tags] .filter-panel {
+    [data-card-tags] .filter-panel,
+    [data-card-tags] .panel-inner {
       right: 0; left: auto;
       width: max-content; max-width: min(90vw, 260px);
-      background-color: #000; /* fully opaque */
+      background-color: #000 !important; /* fully opaque */
       border: 1px solid rgba(255,255,255,0.18);
       box-shadow: 0 10px 24px rgba(0,0,0,0.55);
     }
