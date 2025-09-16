@@ -130,17 +130,38 @@ button:disabled { opacity: .55; cursor: not-allowed; }
 .btn-violet{border-color:rgba(139,92,246,0.45); color:var(--c-violet); background:linear-gradient(180deg, rgba(139,92,246,0.12), rgba(255,255,255,0.02))}
 
 /* touch hover suppression */
-@media (hover:none){ .ctrl:hover, .pill:hover, a:hover { transform:none !important; box-shadow:none !important; } }
+/* Updated marquee styles to start from right and go off-screen to the left */
+.marquee, [data-marquee], .scrolling-banner {
+  overflow: hidden;
+  position: relative;
+  text-align: left;
+}
 
-/* marquee start off-screen (kept) */
-.marquee, [data-marquee], .scrolling-banner { overflow:hidden; position:relative; text-align:left; }
 .marquee__track, [data-marquee-track], .scrolling-banner-track, .marquee-track {
-  display: inline-flex; white-space: nowrap; will-change: transform;
-  transform: translate3d(110%,0,0);
+  display: inline-flex;
+  white-space: nowrap;
+  will-change: transform;
+  /* Start off-screen right */
+  transform: translateX(100%);
+  /* Animate from right to left */
   animation: marquee-slide 20s linear infinite;
 }
-@keyframes marquee-slide { from { transform: translate3d(110%,0,0); } to { transform: translate3d(-110%,0,0); } }
-@media (prefers-reduced-motion: reduce) { .marquee__track, [data-marquee-track], .scrolling-banner-track, .marquee-track { animation: none; transform: translate3d(0,0,0); } }
+
+@keyframes marquee-slide {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee__track, [data-marquee-track], .scrolling-banner-track, .marquee-track {
+    animation: none;
+    transform: translateX(0);
+  }
+}
 
 /* share brand colors */
 .share--facebook { color: #1877F2; }
