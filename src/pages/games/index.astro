@@ -72,7 +72,6 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
             autocomplete="off"
           />
         </label>
-        <!-- Keep browser-native clear (×) inside the input -->
         <span id="search-hits" class="text-[11px] text-muted mb-2"></span>
       </div>
     </div>
@@ -190,16 +189,21 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
                     <span class="font-semibold leading-snug mb-1 transition-colors group-hover:text-fg">{g.title}</span>
                     {g.excerpt && <p class="text-xs text-muted leading-snug line-clamp-2 mb-2">{g.excerpt}</p>}
 
-                    <!-- Chips: force above overlay; dropdown even higher -->
+                    <!-- Chips: visual only; overlay click passes through via pointer-events:none on non-tag chips -->
                     <div class="flex flex-wrap gap-2 text-[11px] tracking-wide font-semibold" style="position: relative; z-index: 30;">
-                      <button class="pill pill--filled tone-cyan js-filter" data-type="category" data-value={g.type} title={`Filter: ${g.type}`}>{g.type}</button>
-                      {g.modeSlug && <button class="pill pill--filled tone-cyan js-filter" data-type="mode" data-value={g.modeSlug} title={`Filter: ${playerModeLabel(g.rawMode!)}`}>{playerModeLabel(g.rawMode!)}</button>}
+                      <span class="pill pill--filled tone-cyan" title={`Category: ${g.type}`} style="pointer-events: none;">{g.type}</span>
+                      {g.modeSlug && (
+                        <span class="pill pill--filled tone-cyan" title={`Mode: ${playerModeLabel(g.rawMode!)}`} style="pointer-events: none;">
+                          {playerModeLabel(g.rawMode!)}
+                        </span>
+                      )}
 
                       {g.tags.length > 0 && (
                         <div class="relative inline-block" data-card-tags>
                           <button
                             type="button"
                             class="pill pill--filled tone-cyan"
+                            aria-haspopup="listbox"
                             aria-expanded="false"
                             aria-controls={panelId}
                             data-open-card-tags
@@ -208,18 +212,16 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
                             {g.tags.length} tag{g.tags.length !== 1 && 's'}
                           </button>
                           <div
-                            class="filter-panel hidden narrow"
+                            class="filter-panel narrow"
                             id={panelId}
                             role="group"
                             aria-label={`Tags for ${g.title}`}
                             data-card-tags-panel
-                            style="position: absolute; z-index: 40;"
+                            style="position: absolute; z-index: 40; display: none;"
                           >
                             <div class="panel-inner panel-inner-col">
                               {g.tags.map(t => (
-                                <button type="button" class="filter-item pill pill--soft w-full justify-between text-left" data-filter-type="tag" data-value={t} aria-pressed="false">
-                                  <span>{t}</span>
-                                </button>
+                                <span class="pill pill--soft w-full justify-between text-left block">{t}</span>
                               ))}
                             </div>
                           </div>
@@ -230,7 +232,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
                 </div>
               </div>
 
-              <!-- Overlay link BELOW chips and dropdown -->
+              <!-- Overlay link BELOW chips and dropdown so hover works on tag pill -->
               <a href={g.href} aria-label={`View game: ${g.title}`} class="absolute inset-0 rounded-md" style="z-index: 1;">
                 <span class="sr-only">{g.title}</span>
               </a>
@@ -246,7 +248,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
   </div>
 
   <style is:inline>
-    /* Make the card lift when hovering anywhere over the list item (not only the glass) */
+    /* Card lift */
     .game-card:hover > .glass,
     .game-card:focus-within > .glass {
       transform: translateY(-2px);
@@ -261,11 +263,17 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       border-color: rgba(0,0,0,0.3);
     }
 
-    /* Force filter toggle buttons to normal case (robust against purged utilities) */
+    /* Force filter toggle buttons to normal case */
     .filter-toggle,
     #exclusive-toggle,
     #clear-filters {
       text-transform: none !important;
+    }
+
+    /* Show per-card tag dropdown on hover or keyboard focus */
+    [data-card-tags]:hover [data-card-tags-panel],
+    [data-card-tags]:focus-within [data-card-tags-panel] {
+      display: block !important;
     }
   </style>
 
@@ -338,7 +346,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         if (e.key === 'Escape') closeAllPanels(null);
       });
 
-      // Per-card tag dropdown toggle
+      // Optional: Per-card tag dropdown click toggle (touch fallback)
       document.getElementById('game-grid')?.addEventListener('click', (e) => {
         const t = e.target;
         if (!(t instanceof Element)) return;
@@ -349,10 +357,10 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         const holder = trigger.closest('[data-card-tags]');
         const panel = holder?.querySelector('[data-card-tags-panel]');
         const expanded = trigger.getAttribute('aria-expanded') === 'true';
-        document.querySelectorAll('[data-card-tags-panel]').forEach(p => p.classList.add('hidden'));
+        document.querySelectorAll('[data-card-tags-panel]').forEach(p => (p instanceof HTMLElement) && (p.style.display = 'none'));
         document.querySelectorAll('[data-open-card-tags]').forEach(b => b.setAttribute('aria-expanded','false'));
         if (!expanded) {
-          panel?.classList.remove('hidden');
+          if (panel instanceof HTMLElement) panel.style.display = 'block';
           trigger.setAttribute('aria-expanded','true');
         }
       });
@@ -360,63 +368,15 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         const t = e.target;
         if (!(t instanceof Element)) return;
         if (!t.closest('[data-card-tags]')) {
-          document.querySelectorAll('[data-card-tags-panel]').forEach(p => p.classList.add('hidden'));
+          document.querySelectorAll('[data-card-tags-panel]').forEach(p => (p instanceof HTMLElement) && (p.style.display = 'none'));
           document.querySelectorAll('[data-open-card-tags]').forEach(b => b.setAttribute('aria-expanded','false'));
         }
       });
       document.addEventListener('keydown', e => {
         if (e.key === 'Escape') {
-          document.querySelectorAll('[data-card-tags-panel]').forEach(p => p.classList.add('hidden'));
+          document.querySelectorAll('[data-card-tags-panel]').forEach(p => (p instanceof HTMLElement) && (p.style.display = 'none'));
           document.querySelectorAll('[data-open-card-tags]').forEach(b => b.setAttribute('aria-expanded','false'));
         }
-      });
-
-      // Clickable chips inside cards apply filters and do NOT trigger overlay link
-      document.getElementById('game-grid')?.addEventListener('click', (e) => {
-        const t = e.target;
-        if (!(t instanceof Element)) return;
-
-        // Category/mode chips
-        const chip = t.closest('.js-filter');
-        if (chip) {
-          e.preventDefault();
-          e.stopPropagation();
-          const type = chip.getAttribute('data-type');
-          const value = chip.getAttribute('data-value');
-          if (!type || !value) return;
-          chip.setAttribute('aria-pressed', chip.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
-          window.bggToggleGameFilter?.(type, value);
-          window.bggApplyGameFilters?.();
-          return;
-        }
-
-        // Per-card tag list items
-        const tagBtn = t.closest('[data-card-tags-panel] [data-filter-type][data-value]');
-        if (tagBtn) {
-          e.preventDefault();
-          e.stopPropagation();
-          const type = tagBtn.getAttribute('data-filter-type');
-          const value = tagBtn.getAttribute('data-value');
-          if (!type || !value) return;
-          window.bggToggleGameFilter?.(type, value);
-          window.bggApplyGameFilters?.();
-          // Close the tag dropdown after selection
-          const holder = tagBtn.closest('[data-card-tags]');
-          const trigger = holder?.querySelector('[data-open-card-tags]');
-          const panel = holder?.querySelector('[data-card-tags-panel]');
-          panel?.classList.add('hidden');
-          trigger?.setAttribute('aria-expanded','false');
-          return;
-        }
-      });
-
-      // Ensure Exclusive toggles filter logic and shows inverted style
-      const exclusiveBtn = document.getElementById('exclusive-toggle');
-      exclusiveBtn?.addEventListener('click', (e) => {
-        e.preventDefault();
-        const pressed = exclusiveBtn.getAttribute('aria-pressed') === 'true';
-        exclusiveBtn.setAttribute('aria-pressed', pressed ? 'false' : 'true');
-        window.bggApplyGameFilters?.();
       });
     })();
   </script>
