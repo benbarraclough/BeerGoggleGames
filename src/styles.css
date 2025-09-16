@@ -139,9 +139,8 @@ button:disabled { opacity: .55; cursor: not-allowed; }
 }
 
 /* === OPAQUE VARIANT FOR TAGS FILTER PANEL === */
-/* Apply this class to any .filter-panel that must be fully opaque (no blur) */
 .filter-panel--solid {
-  background: var(--bg) !important;                  /* fully opaque */
+  background: var(--bg) !important;
   background-image: none !important;
   -webkit-backdrop-filter: none !important;
   backdrop-filter: none !important;
@@ -156,7 +155,12 @@ button:disabled { opacity: .55; cursor: not-allowed; }
   box-shadow: none !important;
 }
 
-/* Bring active card above neighbors so its dropdown is on top */
+/* Ensure TOP-ROW filter panels sit above card chips (chips often at z:60) */
+[data-filter-wrapper] .filter-panel {
+  z-index: 1200 !important;
+}
+
+/* Bring active card above neighbors so its dropdown is on top (local stacking only) */
 .game-card.on-top { z-index: 4000; position: relative; }
 
 /* share brand colors */
@@ -165,25 +169,19 @@ button:disabled { opacity: .55; cursor: not-allowed; }
 .share--reddit   { color: #FF4500; }
 .share--whatsapp { color: #25D366; }
 
-/* HARD OVERRIDE: make the TOP Tags filter panel fully opaque and non-blurred */
+/* HARD OVERRIDE: make the TOP Tags filter panel fully opaque and non-blurred (extra safety) */
 #panel-tags {
-  /* fully opaque background (no alpha) */
   background-color: rgb(var(--bg-rgb)) !important;
   background-image: none !important;
   background: rgb(var(--bg-rgb)) !important;
-
-  /* kill any blur/transparency from base .filter-panel */
   -webkit-backdrop-filter: none !important;
   backdrop-filter: none !important;
   filter: none !important;
   opacity: 1 !important;
   mix-blend-mode: normal !important;
-
-  /* keep consistent frame */
   border: 1px solid rgba(255,255,255,0.18) !important;
   box-shadow: 0 10px 24px rgba(0,0,0,0.55) !important;
 }
-
 #panel-tags .panel-inner {
   background: transparent !important;
   border: 0 !important;
