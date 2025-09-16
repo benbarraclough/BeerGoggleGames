@@ -92,7 +92,7 @@ pre { background:#14181d; border:1px solid #1f252c; padding:1rem 1.25rem; border
 .pill[aria-pressed="true"] { /* no extra outline */ }
 @media (hover: hover) { .pill:hover { transform: translateY(-1px); } }
 
-/* filter panels (base uses translucent look; we'll override only Tags panels elsewhere) */
+/* filter panels (base uses translucent look) */
 .filter-panel { @apply absolute z-50 mt-2 min-w-[14rem] max-w-xs bg-bg/95 backdrop-blur border border-fg/25 rounded-md shadow-lg p-2; }
 .filter-panel.hidden { display:none; }
 .filter-panel.floating { position: fixed; z-index: 5000; left: var(--panel-x, 0px); top: var(--panel-y, 0px); }
@@ -105,7 +105,7 @@ pre { background:#14181d; border:1px solid #1f252c; padding:1rem 1.25rem; border
 /* Result count text */
 #result-count, #result-count-mobile { @apply text-muted; }
 
-/* Mobile nav overlay */
+/* mobile nav overlay */
 .site-menu-overlay { position:fixed; inset:0; display:none; flex-direction:column; background: rgba(var(--bg-rgb,0,0,0),0.90); backdrop-filter: blur(6px); z-index:2500; opacity:0; transition:opacity .25s ease; }
 .site-menu-overlay:target { display:flex; opacity:1; }
 .site-menu-panel { display:flex; flex-direction:column; width:100%; height:100%; }
@@ -138,9 +138,9 @@ button:disabled { opacity: .55; cursor: not-allowed; }
   .marquee__track, [data-marquee-track], .scrolling-banner-track, .marquee-track { animation: none; transform: translateX(0); }
 }
 
-/* --- OPAQUE TAGS PANELS (top and per-card) --- */
-#panel-tags,
-[data-card-tags-panel] {
+/* === OPAQUE VARIANT FOR TAGS FILTER PANEL === */
+/* Apply this class to any .filter-panel that must be fully opaque (no blur) */
+.filter-panel--solid {
   background: var(--bg) !important;                  /* fully opaque */
   background-image: none !important;
   -webkit-backdrop-filter: none !important;
@@ -150,14 +150,13 @@ button:disabled { opacity: .55; cursor: not-allowed; }
   border: 1px solid rgba(255,255,255,0.18) !important;
   box-shadow: 0 10px 24px rgba(0,0,0,0.55) !important;
 }
-#panel-tags .panel-inner,
-[data-card-tags-panel] .panel-inner {
+.filter-panel--solid .panel-inner {
   background: transparent !important;
   border: 0 !important;
   box-shadow: none !important;
 }
 
-/* --- Bring active card above neighbors so its dropdown is on top --- */
+/* Bring active card above neighbors so its dropdown is on top */
 .game-card.on-top { z-index: 4000; position: relative; }
 
 /* share brand colors */
