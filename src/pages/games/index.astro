@@ -298,15 +298,15 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
     #exclusive-toggle,
     #clear-filters { text-transform: none !important; }
 
-    /* Keep dropdowns within the viewport and narrower (top-row panels) */
+    /* ALIGNMENT:
+       - Top filter dropdowns: drop to the right (attach left edge to trigger)
+       - Per-card tags dropdown: drop to the left (attach right edge to trigger) */
     [data-filter-wrapper] .filter-panel {
-      right: 0; left: auto;
+      left: 0; right: auto;                /* drop to the right */
       width: max-content; max-width: min(92vw, 320px);
     }
-
-    /* Per-card tag dropdown: only position/size here; visuals come from global CSS */
     [data-card-tags] [data-card-tags-panel] {
-      right: 0; left: auto;
+      right: 0; left: auto;                /* drop to the left (as-is) */
       width: max-content; max-width: min(90vw, 260px);
       z-index: 55;
     }
@@ -320,7 +320,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
     /* Link-style controls for Exclusive and Clear: small text, no underline */
     .filter-link {
       display: inline-flex; align-items: center; gap: 6px;
-      text-decoration: none; /* no underline */
+      text-decoration: none;
       cursor: pointer;
       font-size: 0.75rem; line-height: 1; /* text-xs */
       padding: 4px 0;
@@ -328,7 +328,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 
     /* Disabled Clear styling */
     #clear-filters[aria-disabled="true"] {
-      color: rgba(255,255,255,0.5); /* greyed out */
+      color: rgba(255,255,255,0.5);
       pointer-events: none; cursor: default;
     }
 
