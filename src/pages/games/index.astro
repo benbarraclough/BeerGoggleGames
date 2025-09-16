@@ -144,14 +144,16 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
           </div>
         </div>
 
-        <!-- Exclusive and Clear: inline with filter buttons; small text; no underline -->
-        <a href="#" id="exclusive-toggle" class="filter-link" aria-pressed="false">
-          <span class="dot" aria-hidden="true"></span>
-          Exclusive
-        </a>
-        <a href="#" id="clear-filters" class="filter-link text-muted" aria-disabled="true">
-          Clear
-        </a>
+        <!-- Exclusive and Clear: inline with filter buttons on laptop; wrap to next row on mobile -->
+        <div class="w-full sm:w-auto flex items-center gap-3 mt-2 sm:mt-0">
+          <a href="#" id="exclusive-toggle" class="filter-link" aria-pressed="false">
+            <span class="dot" aria-hidden="true"></span>
+            Exclusive
+          </a>
+          <a href="#" id="clear-filters" class="filter-link text-muted" aria-disabled="true">
+            Clear
+          </a>
+        </div>
 
         <!-- Result count on the far right on all breakpoints -->
         <span id="result-count" class="text-xs text-muted ml-auto w-full sm:w-auto text-right"></span>
@@ -191,7 +193,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
                     {g.excerpt && <p class="text-xs text-muted leading-snug line-clamp-2 mb-2">{g.excerpt}</p>}
 
                     <!-- Chips row -->
-                    <div class="chip-row flex flex-wrap gap-2 text-[11px] tracking-wide font-semibold" style="position: relative; z-index: 30;">
+                    <div class="chip-row flex flex-wrap gap-2 text-[11px] tracking-wide font-semibold" style="position: relative; z-index: 60;">
                       <!-- Category chip: clickable to filter -->
                       <button
                         type="button"
@@ -238,7 +240,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
                             role="group"
                             aria-label={`Tags for ${g.title}`}
                             data-card-tags-panel
-                            style="position: absolute; z-index: 40; display: none; right: 0; left: auto;"
+                            style="position: absolute; z-index: 50; display: none; right: 0; left: auto;"
                           >
                             <div class="panel-inner panel-inner-col">
                               {g.tags.map(t => (
@@ -285,7 +287,10 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       box-shadow: 0 22px 44px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.08);
     }
 
-    /* Make the whole card clickable via JS, but don't intercept chip/tag interactions */
+    /* Make the whole card show a pointer cursor (anchor has pointer-events: none) */
+    .game-card { cursor: pointer; }
+
+    /* Card is clickable via JS, but don't intercept chip/tag interactions */
     .game-card > a.overlay-link { pointer-events: none; }
 
     /* Force filter toggle buttons to normal case */
@@ -298,12 +303,14 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       right: 0; left: auto;
       width: max-content; max-width: min(92vw, 320px);
     }
+
+    /* Per-card tag dropdown: fully opaque and clearly above overlay (below chips) */
     [data-card-tags] .filter-panel {
       right: 0; left: auto;
       width: max-content; max-width: min(90vw, 260px);
-      /* Increase opacity for better readability */
-      background-color: rgba(0,0,0,0.9);
+      background-color: #000; /* fully opaque */
       border: 1px solid rgba(255,255,255,0.18);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.55);
     }
 
     /* Show per-card tag dropdown on hover or keyboard focus */
@@ -320,8 +327,6 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       font-size: 0.75rem; line-height: 1; /* text-xs */
       padding: 4px 0;
     }
-    /* Slightly more space between Exclusive and Clear */
-    .filter-link + .filter-link { margin-left: 12px; }
 
     /* Disabled Clear styling */
     #clear-filters[aria-disabled="true"] {
