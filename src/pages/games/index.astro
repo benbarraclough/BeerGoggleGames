@@ -72,7 +72,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
             autocomplete="off"
           />
         </label>
-        <!-- Removed external Clear button; keep browser-native clear (×) inside the input -->
+        <!-- Keep browser-native clear (×) inside the input -->
         <span id="search-hits" class="text-[11px] text-muted mb-2"></span>
       </div>
     </div>
@@ -83,7 +83,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         <span class="text-[11px] uppercase tracking-wide text-muted/70">Filters</span>
 
         <div class="relative" data-filter-wrapper>
-          <button type="button" class="filter-toggle pill pill--soft" data-panel="categories" aria-expanded="false">
+          <button type="button" class="filter-toggle pill pill--soft normal-case" data-panel="categories" aria-expanded="false">
             Categories
           </button>
           <div class="filter-panel hidden" id="panel-categories" role="group" aria-label="Categories">
@@ -104,10 +104,10 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         </div>
 
         <div class="relative" data-filter-wrapper>
-          <button type="button" class="filter-toggle pill pill--soft" data-panel="modes" aria-expanded="false">
+          <button type="button" class="filter-toggle pill pill--soft normal-case" data-panel="modes" aria-expanded="false">
             Player modes
           </button>
-          <div class="filter-panel hidden" id="panel-modes" role="group" aria-label="Player Modes">
+          <div class="filter-panel hidden" id="panel-modes" role="group" aria-label="Player modes">
             <div class="panel-inner">
               {modes.map(([slug, info]) => (
                 <button
@@ -125,7 +125,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         </div>
 
         <div class="relative" data-filter-wrapper>
-          <button type="button" class="filter-toggle pill pill--soft" data-panel="tags" aria-expanded="false" id="tags-toggle">
+          <button type="button" class="filter-toggle pill pill--soft normal-case" data-panel="tags" aria-expanded="false" id="tags-toggle">
             Tags
           </button>
           <div class="filter-panel hidden" id="panel-tags" role="group" aria-label="Tags">
@@ -147,10 +147,10 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 
         <span class="ml-auto"></span>
 
-        <button id="exclusive-toggle" type="button" class="pill pill--soft" aria-pressed="false">
+        <button id="exclusive-toggle" type="button" class="pill pill--soft normal-case" aria-pressed="false">
           Exclusive
         </button>
-        <button id="clear-filters" type="button" class="pill pill--soft disabled:opacity-40 disabled:cursor-not-allowed" disabled>
+        <button id="clear-filters" type="button" class="pill pill--soft normal-case disabled:opacity-40 disabled:cursor-not-allowed" disabled>
           Clear
         </button>
 
@@ -199,7 +199,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
                         <div class="relative inline-block" data-card-tags>
                           <button
                             type="button"
-                            class="pill pill--soft"
+                            class="pill pill--filled tone-cyan normal-case"
                             aria-expanded="false"
                             aria-controls={panelId}
                             data-open-card-tags
@@ -207,7 +207,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
                           >
                             {g.tags.length} tag{g.tags.length !== 1 && 's'}
                           </button>
-                          <div class="filter-panel hidden narrow" id={panelId} role="group" aria-label={`Tags for ${g.title}`} data-card-tags-panel>
+                          <div class="filter-panel hidden narrow z-30" id={panelId} role="group" aria-label={`Tags for ${g.title}`} data-card-tags-panel>
                             <div class="panel-inner panel-inner-col">
                               {g.tags.map(t => (
                                 <button type="button" class="filter-item pill pill--soft w-full justify-between text-left" data-filter-type="tag" data-value={t} aria-pressed="false">
@@ -223,8 +223,8 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
                 </div>
               </div>
 
-              <!-- Overlay link BELOW chips, ABOVE card -->
-              <a href={g.href} aria-label={`View game: ${g.title}`} class="absolute inset-0 rounded-md" style="z-index:10">
+              <!-- Overlay link BELOW chips and dropdown -->
+              <a href={g.href} aria-label={`View game: ${g.title}`} class="absolute inset-0 rounded-md" style="z-index:5">
                 <span class="sr-only">{g.title}</span>
               </a>
             </li>
