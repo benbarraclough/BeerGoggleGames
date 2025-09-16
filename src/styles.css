@@ -167,6 +167,38 @@ button:disabled { opacity: .55; cursor: not-allowed; }
   }
 }
 
+/* --- Fix: Tags filter dropdown (top row) fully opaque, single box --- */
+#panel-tags {
+  background-color: #000 !important;                 /* fully opaque */
+  border: 1px solid rgba(255,255,255,0.18) !important;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.55) !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  z-index: 70; /* ensure above nearby content */
+}
+/* Remove inner box styling so there's no "box within a box" */
+#panel-tags .panel-inner {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+/* --- Fix: per-card tags pill dropdown fully opaque, single box --- */
+[data-card-tags] [data-card-tags-panel] {
+  background-color: #000 !important;                 /* fully opaque */
+  border: 1px solid rgba(255,255,255,0.18) !important;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.55) !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  z-index: 50; /* dropdown below chips; chips row is z-index: 60 */
+}
+/* Remove inner box styling to avoid the nested box look */
+[data-card-tags] [data-card-tags-panel] .panel-inner {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
 /* share brand colors */
 .share--facebook { color: #1877F2; }
 .share--x        { color: #FFFFFF; }
