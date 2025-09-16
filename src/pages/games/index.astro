@@ -127,13 +127,14 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
           <button type="button" class="filter-toggle pill pill--soft" data-panel="tags" data-filter-group="tag" aria-expanded="false" aria-pressed="false" id="tags-toggle">
             Tags
           </button>
-          <!-- Force this panel solid with inline style to beat any bundle order -->
+          <!-- Force solid background + high z-index inline to beat any bundle order -->
           <div
             class="filter-panel hidden filter-panel--solid"
             id="panel-tags"
             role="group"
             aria-label="Tags"
             style="
+              z-index: 1200 !important;
               background: rgb(var(--bg-rgb)) !important;
               background-image: none !important;
               -webkit-backdrop-filter: none !important;
@@ -210,6 +211,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
                     <span class="font-semibold leading-snug mb-1 transition-colors group-hover:text-fg">{g.title}</span>
                     {g.excerpt && <p class="text-xs text-muted leading-snug line-clamp-2 mb-2">{g.excerpt}</p>}
 
+                    <!-- Chips row (kept at z-index 60 so per-card tags dropdown (z:55) sits under chips) -->
                     <div class="chip-row flex flex-wrap gap-2 text-[11px] tracking-wide font-semibold" style="position: relative; z-index: 60;">
                       <button
                         type="button"
@@ -311,30 +313,13 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
     [data-filter-wrapper] .filter-panel {
       left: 0; right: auto;
       width: max-content; max-width: min(92vw, 320px);
+      z-index: 1200; /* ensure above card chip rows (z:60) */
     }
-    /* Per-card tags dropdown: drop to the left (attach right edge) */
+    /* Per-card tags dropdown: drop to the left (attach right edge) and stay under chip row */
     [data-card-tags] [data-card-tags-panel] {
       right: 0; left: auto;
       width: max-content; max-width: min(90vw, 260px);
       z-index: 55;
-    }
-
-    /* Force TOP Tags panel fully opaque (belt-and-braces override) */
-    #panel-tags {
-      background: rgb(var(--bg-rgb)) !important;
-      background-image: none !important;
-      -webkit-backdrop-filter: none !important;
-      backdrop-filter: none !important;
-      filter: none !important;
-      opacity: 1 !important;
-      mix-blend-mode: normal !important;
-      border: 1px solid rgba(255,255,255,0.18) !important;
-      box-shadow: 0 10px 24px rgba(0,0,0,0.55) !important;
-    }
-    #panel-tags .panel-inner {
-      background: transparent !important;
-      border: 0 !important;
-      box-shadow: none !important;
     }
 
     /* Opaque per-card tags panel (fallback if global CSS not loaded yet) */
