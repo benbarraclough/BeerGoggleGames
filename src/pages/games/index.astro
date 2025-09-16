@@ -128,12 +128,8 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
             Tags
           </button>
           <!-- NOTE: added filter-panel--solid to force full opacity -->
-          <div
-            class="filter-panel hidden"
-            id="panel-tags"
-            role="group"
-            aria-label="Tags"
-            style="background: var(--bg); -webkit-backdrop-filter: none; backdrop-filter: none; filter: none; mix-blend-mode: normal;">
+          <!-- Only this line matters; keep the rest as-is -->
+          <div class="filter-panel hidden filter-panel--solid" id="panel-tags" role="group" aria-label="Tags">
             <div class="panel-inner">
               {tags.map(([t, count]) => (
                 <button
