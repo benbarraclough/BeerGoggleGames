@@ -189,8 +189,8 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
                     <span class="font-semibold leading-snug mb-1 transition-colors group-hover:text-fg">{g.title}</span>
                     {g.excerpt && <p class="text-xs text-muted leading-snug line-clamp-2 mb-2">{g.excerpt}</p>}
 
-                    <!-- Chips: visual only; overlay click passes through via pointer-events:none on non-tag chips -->
-                    <div class="flex flex-wrap gap-2 text-[11px] tracking-wide font-semibold" style="position: relative; z-index: 30;">
+                    <!-- Chips: category/mode are static; tag pill shows dropdown -->
+                    <div class="chip-row flex flex-wrap gap-2 text-[11px] tracking-wide font-semibold" style="position: relative; z-index: 30;">
                       <span class="pill pill--filled tone-cyan" title={`Category: ${g.type}`} style="pointer-events: none;">{g.type}</span>
                       {g.modeSlug && (
                         <span class="pill pill--filled tone-cyan" title={`Mode: ${playerModeLabel(g.rawMode!)}`} style="pointer-events: none;">
@@ -232,8 +232,8 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
                 </div>
               </div>
 
-              <!-- Overlay link BELOW chips and dropdown so hover works on tag pill -->
-              <a href={g.href} aria-label={`View game: ${g.title}`} class="absolute inset-0 rounded-md" style="z-index: 1;">
+              <!-- Overlay link on top but not intercepting pointer events -->
+              <a href={g.href} aria-label={`View game: ${g.title}`} class="overlay-link absolute inset-0 rounded-md" data-card-link>
                 <span class="sr-only">{g.title}</span>
               </a>
             </li>
@@ -254,6 +254,11 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       transform: translateY(-2px);
       border-color: rgba(255,255,255,0.18);
       box-shadow: 0 22px 44px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.08);
+    }
+
+    /* Make the whole card clickable via JS, but don't intercept chip/tag interactions */
+    .game-card > a.overlay-link {
+      pointer-events: none; /* key: chips and dropdown can receive hover/clicks */
     }
 
     /* Exclusive pressed = inverted look (white bg, dark text) */
@@ -281,6 +286,21 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 
   <script is:inline>
     (() => {
+      // Make the entire card clickable via JS (overlay link has pointer-events: none)
+      document.getElementById('game-grid')?.addEventListener('click', (e) => {
+        const t = e.target;
+        if (!(t instanceof Element)) return;
+
+        // If interacting with the tag pill/dropdown, do nothing (let it handle)
+        if (t.closest('[data-card-tags]')) return;
+
+        const card = t.closest('.game-card');
+        if (!card) return;
+        const a = card.querySelector('a[data-card-link]');
+        if (!(a instanceof HTMLAnchorElement)) return;
+        window.location.href = a.href;
+      });
+
       // Search integrates with filters
       const input = document.getElementById('game-search');
       const grid = document.getElementById('game-grid');
@@ -346,7 +366,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         if (e.key === 'Escape') closeAllPanels(null);
       });
 
-      // Optional: Per-card tag dropdown click toggle (touch fallback)
+      // Per-card tag dropdown click toggle (touch fallback)
       document.getElementById('game-grid')?.addEventListener('click', (e) => {
         const t = e.target;
         if (!(t instanceof Element)) return;
