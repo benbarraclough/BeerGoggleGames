@@ -156,23 +156,6 @@ button:disabled { opacity: .55; cursor: not-allowed; }
   box-shadow: none !important;
 }
 
-/* Force the TOP Tags filter dropdown to be fully opaque (override bg-bg/95 + blur) */
-#panel-tags {
-  background: var(--bg) !important;            /* fully opaque */
-  background-image: none !important;
-  -webkit-backdrop-filter: none !important;
-  backdrop-filter: none !important;
-  filter: none !important;
-  mix-blend-mode: normal !important;
-  border: 1px solid rgba(255,255,255,0.18) !important;
-  box-shadow: 0 10px 24px rgba(0,0,0,0.55) !important;
-}
-#panel-tags .panel-inner {
-  background: transparent !important;
-  border: 0 !important;
-  box-shadow: none !important;
-}
-
 /* Bring active card above neighbors so its dropdown is on top */
 .game-card.on-top { z-index: 4000; position: relative; }
 
@@ -181,3 +164,28 @@ button:disabled { opacity: .55; cursor: not-allowed; }
 .share--x        { color: #FFFFFF; }
 .share--reddit   { color: #FF4500; }
 .share--whatsapp { color: #25D366; }
+
+/* HARD OVERRIDE: make the TOP Tags filter panel fully opaque and non-blurred */
+#panel-tags {
+  /* fully opaque background (no alpha) */
+  background-color: rgb(var(--bg-rgb)) !important;
+  background-image: none !important;
+  background: rgb(var(--bg-rgb)) !important;
+
+  /* kill any blur/transparency from base .filter-panel */
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  filter: none !important;
+  opacity: 1 !important;
+  mix-blend-mode: normal !important;
+
+  /* keep consistent frame */
+  border: 1px solid rgba(255,255,255,0.18) !important;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.55) !important;
+}
+
+#panel-tags .panel-inner {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
