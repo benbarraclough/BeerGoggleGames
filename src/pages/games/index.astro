@@ -83,7 +83,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         <span class="text-[11px] uppercase tracking-wide text-muted/70">Filters</span>
 
         <div class="relative" data-filter-wrapper>
-          <button type="button" class="filter-toggle pill pill--soft normal-case" data-panel="categories" aria-expanded="false">
+          <button type="button" class="filter-toggle pill pill--soft" data-panel="categories" aria-expanded="false">
             Categories
           </button>
           <div class="filter-panel hidden" id="panel-categories" role="group" aria-label="Categories">
@@ -104,7 +104,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         </div>
 
         <div class="relative" data-filter-wrapper>
-          <button type="button" class="filter-toggle pill pill--soft normal-case" data-panel="modes" aria-expanded="false">
+          <button type="button" class="filter-toggle pill pill--soft" data-panel="modes" aria-expanded="false">
             Player modes
           </button>
           <div class="filter-panel hidden" id="panel-modes" role="group" aria-label="Player modes">
@@ -125,7 +125,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         </div>
 
         <div class="relative" data-filter-wrapper>
-          <button type="button" class="filter-toggle pill pill--soft normal-case" data-panel="tags" aria-expanded="false" id="tags-toggle">
+          <button type="button" class="filter-toggle pill pill--soft" data-panel="tags" aria-expanded="false" id="tags-toggle">
             Tags
           </button>
           <div class="filter-panel hidden" id="panel-tags" role="group" aria-label="Tags">
@@ -147,10 +147,10 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 
         <span class="ml-auto"></span>
 
-        <button id="exclusive-toggle" type="button" class="pill pill--soft normal-case" aria-pressed="false">
+        <button id="exclusive-toggle" type="button" class="pill pill--soft" aria-pressed="false">
           Exclusive
         </button>
-        <button id="clear-filters" type="button" class="pill pill--soft normal-case disabled:opacity-40 disabled:cursor-not-allowed" disabled>
+        <button id="clear-filters" type="button" class="pill pill--soft disabled:opacity-40 disabled:cursor-not-allowed" disabled>
           Clear
         </button>
 
@@ -190,8 +190,8 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
                     <span class="font-semibold leading-snug mb-1 transition-colors group-hover:text-fg">{g.title}</span>
                     {g.excerpt && <p class="text-xs text-muted leading-snug line-clamp-2 mb-2">{g.excerpt}</p>}
 
-                    <!-- Chips: clickable and apply filters; card still clickable elsewhere -->
-                    <div class="relative z-20 flex flex-wrap gap-2 text-[11px] tracking-wide font-semibold">
+                    <!-- Chips: force above overlay; dropdown even higher -->
+                    <div class="flex flex-wrap gap-2 text-[11px] tracking-wide font-semibold" style="position: relative; z-index: 30;">
                       <button class="pill pill--filled tone-cyan js-filter" data-type="category" data-value={g.type} title={`Filter: ${g.type}`}>{g.type}</button>
                       {g.modeSlug && <button class="pill pill--filled tone-cyan js-filter" data-type="mode" data-value={g.modeSlug} title={`Filter: ${playerModeLabel(g.rawMode!)}`}>{playerModeLabel(g.rawMode!)}</button>}
 
@@ -199,7 +199,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
                         <div class="relative inline-block" data-card-tags>
                           <button
                             type="button"
-                            class="pill pill--filled tone-cyan normal-case"
+                            class="pill pill--filled tone-cyan"
                             aria-expanded="false"
                             aria-controls={panelId}
                             data-open-card-tags
@@ -207,7 +207,14 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
                           >
                             {g.tags.length} tag{g.tags.length !== 1 && 's'}
                           </button>
-                          <div class="filter-panel hidden narrow z-30" id={panelId} role="group" aria-label={`Tags for ${g.title}`} data-card-tags-panel>
+                          <div
+                            class="filter-panel hidden narrow"
+                            id={panelId}
+                            role="group"
+                            aria-label={`Tags for ${g.title}`}
+                            data-card-tags-panel
+                            style="position: absolute; z-index: 40;"
+                          >
                             <div class="panel-inner panel-inner-col">
                               {g.tags.map(t => (
                                 <button type="button" class="filter-item pill pill--soft w-full justify-between text-left" data-filter-type="tag" data-value={t} aria-pressed="false">
@@ -224,7 +231,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
               </div>
 
               <!-- Overlay link BELOW chips and dropdown -->
-              <a href={g.href} aria-label={`View game: ${g.title}`} class="absolute inset-0 rounded-md" style="z-index:5">
+              <a href={g.href} aria-label={`View game: ${g.title}`} class="absolute inset-0 rounded-md" style="z-index: 1;">
                 <span class="sr-only">{g.title}</span>
               </a>
             </li>
@@ -252,6 +259,13 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       background: #fff;
       color: #000;
       border-color: rgba(0,0,0,0.3);
+    }
+
+    /* Force filter toggle buttons to normal case (robust against purged utilities) */
+    .filter-toggle,
+    #exclusive-toggle,
+    #clear-filters {
+      text-transform: none !important;
     }
   </style>
 
@@ -371,7 +385,6 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
           const value = chip.getAttribute('data-value');
           if (!type || !value) return;
           chip.setAttribute('aria-pressed', chip.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
-          // Keep cyan fill; don't toggle visual off
           window.bggToggleGameFilter?.(type, value);
           window.bggApplyGameFilters?.();
           return;
