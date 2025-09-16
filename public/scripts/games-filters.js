@@ -28,8 +28,12 @@
       const pressed = type && state[type]?.has(val);
       styleButton(btn, !!pressed);
     });
-    exclusiveBtn?.setAttribute('aria-pressed', state.exclusive ? 'true' : 'false');
-    if (clearBtn) clearBtn.disabled = !(state.category.size || state.mode.size || state.tag.size);
+    if (exclusiveBtn) {
+      exclusiveBtn.setAttribute('aria-pressed', state.exclusive ? 'true' : 'false');
+    }
+    if (clearBtn) {
+      clearBtn.disabled = !(state.category.size || state.mode.size || state.tag.size);
+    }
   }
 
   function apply() {
