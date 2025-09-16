@@ -144,7 +144,7 @@ button:disabled { opacity: .55; cursor: not-allowed; }
   white-space: nowrap;
   will-change: transform;
   /* Start well off-screen right, e.g., 100% + extra to ensure it's fully off-screen */
-  transform: translateX(100%);
+  transform: translateX(200%);
   /* Animation to move fully off-screen to the left */
   animation: marquee-slide 20s linear infinite;
 }
@@ -152,7 +152,7 @@ button:disabled { opacity: .55; cursor: not-allowed; }
 /* Define keyframes for smooth scrolling */
 @keyframes marquee-slide {
   0% {
-    transform: translateX(100%);
+    transform: translateX(200%);
   }
   100% {
     transform: translateX(-100%);
