@@ -82,7 +82,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         <span class="text-[11px] uppercase tracking-wide text-muted/70">Filters</span>
 
         <div class="relative" data-filter-wrapper>
-          <button type="button" class="filter-toggle pill pill--soft" data-panel="categories" aria-expanded="false">
+          <button type="button" class="filter-toggle pill pill--soft" data-panel="categories" data-filter-group="category" aria-expanded="false" aria-pressed="false">
             Categories
           </button>
           <div class="filter-panel hidden" id="panel-categories" role="group" aria-label="Categories">
@@ -103,7 +103,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         </div>
 
         <div class="relative" data-filter-wrapper>
-          <button type="button" class="filter-toggle pill pill--soft" data-panel="modes" aria-expanded="false">
+          <button type="button" class="filter-toggle pill pill--soft" data-panel="modes" data-filter-group="mode" aria-expanded="false" aria-pressed="false">
             Player modes
           </button>
           <div class="filter-panel hidden" id="panel-modes" role="group" aria-label="Player modes">
@@ -124,7 +124,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         </div>
 
         <div class="relative" data-filter-wrapper>
-          <button type="button" class="filter-toggle pill pill--soft" data-panel="tags" aria-expanded="false" id="tags-toggle">
+          <button type="button" class="filter-toggle pill pill--soft" data-panel="tags" data-filter-group="tag" aria-expanded="false" aria-pressed="false" id="tags-toggle">
             Tags
           </button>
           <div class="filter-panel hidden" id="panel-tags" role="group" aria-label="Tags">
@@ -146,12 +146,14 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 
         <span class="ml-auto"></span>
 
-        <button id="exclusive-toggle" type="button" class="pill pill--soft" aria-pressed="false">
+        <!-- Links instead of buttons for Exclusive and Clear -->
+        <a href="#" id="exclusive-toggle" class="filter-link" aria-pressed="false">
+          <span class="dot" aria-hidden="true"></span>
           Exclusive
-        </button>
-        <button id="clear-filters" type="button" class="pill pill--soft disabled:opacity-40 disabled:cursor-not-allowed" disabled>
+        </a>
+        <a href="#" id="clear-filters" class="filter-link text-muted" aria-disabled="true">
           Clear
-        </button>
+        </a>
 
         <span id="result-count" class="text-xs text-muted"></span>
       </div>
@@ -237,11 +239,19 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
                             role="group"
                             aria-label={`Tags for ${g.title}`}
                             data-card-tags-panel
-                            style="position: absolute; z-index: 40; display: none;"
+                            style="position: absolute; z-index: 40; display: none; right: 0; left: auto;"
                           >
                             <div class="panel-inner panel-inner-col">
                               {g.tags.map(t => (
-                                <span class="pill pill--soft w-full justify-between text-left block">{t}</span>
+                                <button
+                                  type="button"
+                                  class="filter-item pill pill--soft w-full justify-between text-left block"
+                                  data-filter-type="tag"
+                                  data-value={t}
+                                  aria-pressed="false"
+                                >
+                                  <span>{t}</span>
+                                </button>
                               ))}
                             </div>
                           </div>
@@ -277,22 +287,21 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
     }
 
     /* Make the whole card clickable via JS, but don't intercept chip/tag interactions */
-    .game-card > a.overlay-link {
-      pointer-events: none; /* chips and dropdown can receive hover/clicks */
-    }
-
-    /* Exclusive pressed = inverted look (white bg, dark text) */
-    #exclusive-toggle[aria-pressed="true"] {
-      background: #fff;
-      color: #000;
-      border-color: rgba(0,0,0,0.3);
-    }
+    .game-card > a.overlay-link { pointer-events: none; }
 
     /* Force filter toggle buttons to normal case */
     .filter-toggle,
     #exclusive-toggle,
-    #clear-filters {
-      text-transform: none !important;
+    #clear-filters { text-transform: none !important; }
+
+    /* Keep dropdowns within the viewport and narrower */
+    [data-filter-wrapper] .filter-panel {
+      right: 0; left: auto;
+      width: max-content; max-width: min(92vw, 320px);
+    }
+    [data-card-tags] .filter-panel {
+      right: 0; left: auto;
+      width: max-content; max-width: min(90vw, 260px);
     }
 
     /* Show per-card tag dropdown on hover or keyboard focus */
@@ -300,6 +309,25 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
     [data-card-tags]:focus-within [data-card-tags-panel] {
       display: block !important;
     }
+
+    /* Link-style controls for Exclusive and Clear */
+    .filter-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      text-decoration: underline; text-underline-offset: 4px;
+      cursor: pointer;
+    }
+    #clear-filters[aria-disabled="true"] {
+      color: rgba(255,255,255,0.5); /* greyed out */
+      pointer-events: none; cursor: default; text-decoration: none;
+    }
+
+    /* Exclusive status dot: red when off, green when on */
+    #exclusive-toggle .dot {
+      width: 8px; height: 8px; border-radius: 9999px;
+      background: #c33; box-shadow: 0 0 0 1px rgba(0,0,0,0.25) inset;
+      transition: background-color .15s ease-in-out;
+    }
+    #exclusive-toggle[aria-pressed="true"] .dot { background: #16a34a; } /* green */
   </style>
 
   <script type="module" src={withBase('scripts/games-filters.js')}></script>
@@ -335,11 +363,9 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         const value = chip.getAttribute('data-chip-value');
         if (!type || !value) return;
 
-        // Toggle aria-pressed for accessibility
         const pressed = chip.getAttribute('aria-pressed') === 'true';
         chip.setAttribute('aria-pressed', pressed ? 'false' : 'true');
 
-        // Apply filter via global functions
         window.bggToggleGameFilter?.(type, value);
         window.bggApplyGameFilters?.();
       });
