@@ -189,15 +189,35 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
                     <span class="font-semibold leading-snug mb-1 transition-colors group-hover:text-fg">{g.title}</span>
                     {g.excerpt && <p class="text-xs text-muted leading-snug line-clamp-2 mb-2">{g.excerpt}</p>}
 
-                    <!-- Chips: category/mode are static; tag pill shows dropdown -->
+                    <!-- Chips row -->
                     <div class="chip-row flex flex-wrap gap-2 text-[11px] tracking-wide font-semibold" style="position: relative; z-index: 30;">
-                      <span class="pill pill--filled tone-cyan" title={`Category: ${g.type}`} style="pointer-events: none;">{g.type}</span>
+                      <!-- Category chip: clickable to filter -->
+                      <button
+                        type="button"
+                        class="pill pill--filled tone-cyan js-card-chip"
+                        data-chip-type="category"
+                        data-chip-value={g.type}
+                        aria-pressed="false"
+                        title={`Filter: ${g.type}`}
+                      >
+                        {g.type}
+                      </button>
+
+                      <!-- Mode chip: clickable to filter (if present) -->
                       {g.modeSlug && (
-                        <span class="pill pill--filled tone-cyan" title={`Mode: ${playerModeLabel(g.rawMode!)}`} style="pointer-events: none;">
+                        <button
+                          type="button"
+                          class="pill pill--filled tone-cyan js-card-chip"
+                          data-chip-type="mode"
+                          data-chip-value={g.modeSlug}
+                          aria-pressed="false"
+                          title={`Filter: ${playerModeLabel(g.rawMode!)}`}
+                        >
                           {playerModeLabel(g.rawMode!)}
-                        </span>
+                        </button>
                       )}
 
+                      <!-- Tag pill and dropdown -->
                       {g.tags.length > 0 && (
                         <div class="relative inline-block" data-card-tags>
                           <button
@@ -258,7 +278,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 
     /* Make the whole card clickable via JS, but don't intercept chip/tag interactions */
     .game-card > a.overlay-link {
-      pointer-events: none; /* key: chips and dropdown can receive hover/clicks */
+      pointer-events: none; /* chips and dropdown can receive hover/clicks */
     }
 
     /* Exclusive pressed = inverted look (white bg, dark text) */
@@ -291,14 +311,37 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         const t = e.target;
         if (!(t instanceof Element)) return;
 
-        // If interacting with the tag pill/dropdown, do nothing (let it handle)
-        if (t.closest('[data-card-tags]')) return;
+        // If interacting with tag pill/dropdown or card chips, do nothing (let those handle)
+        if (t.closest('[data-card-tags]') || t.closest('.js-card-chip')) return;
 
         const card = t.closest('.game-card');
         if (!card) return;
         const a = card.querySelector('a[data-card-link]');
         if (!(a instanceof HTMLAnchorElement)) return;
         window.location.href = a.href;
+      });
+
+      // Card chip clicks (category/mode) -> apply filters
+      document.getElementById('game-grid')?.addEventListener('click', (e) => {
+        const t = e.target;
+        if (!(t instanceof Element)) return;
+        const chip = t.closest('.js-card-chip');
+        if (!chip) return;
+
+        e.preventDefault();
+        e.stopPropagation();
+
+        const type = chip.getAttribute('data-chip-type');
+        const value = chip.getAttribute('data-chip-value');
+        if (!type || !value) return;
+
+        // Toggle aria-pressed for accessibility
+        const pressed = chip.getAttribute('aria-pressed') === 'true';
+        chip.setAttribute('aria-pressed', pressed ? 'false' : 'true');
+
+        // Apply filter via global functions
+        window.bggToggleGameFilter?.(type, value);
+        window.bggApplyGameFilters?.();
       });
 
       // Search integrates with filters
