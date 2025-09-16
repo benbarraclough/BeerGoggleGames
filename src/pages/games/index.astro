@@ -81,6 +81,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       <div class="flex flex-wrap items-center gap-2">
         <span class="text-[11px] uppercase tracking-wide text-muted/70">Filters</span>
 
+        <!-- Categories -->
         <div class="relative" data-filter-wrapper>
           <button type="button" class="filter-toggle pill pill--soft" data-panel="categories" data-filter-group="category" aria-expanded="false" aria-pressed="false">
             Categories
@@ -102,6 +103,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
           </div>
         </div>
 
+        <!-- Modes -->
         <div class="relative" data-filter-wrapper>
           <button type="button" class="filter-toggle pill pill--soft" data-panel="modes" data-filter-group="mode" aria-expanded="false" aria-pressed="false">
             Player modes
@@ -123,6 +125,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
           </div>
         </div>
 
+        <!-- Tags -->
         <div class="relative" data-filter-wrapper>
           <button type="button" class="filter-toggle pill pill--soft" data-panel="tags" data-filter-group="tag" aria-expanded="false" aria-pressed="false" id="tags-toggle">
             Tags
@@ -144,7 +147,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
           </div>
         </div>
 
-        <!-- Exclusive and Clear: inline with filter buttons on laptop; wrap to next row on mobile -->
+        <!-- Exclusive/Clear row + mobile result count -->
         <div class="w-full sm:w-auto flex items-center gap-3 mt-2 sm:mt-0">
           <a href="#" id="exclusive-toggle" class="filter-link" aria-pressed="false">
             <span class="dot" aria-hidden="true"></span>
@@ -153,10 +156,12 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
           <a href="#" id="clear-filters" class="filter-link text-muted" aria-disabled="true">
             Clear
           </a>
+          <!-- Mobile-only result count on same row -->
+          <span id="result-count-mobile" class="text-xs text-muted sm:hidden ml-auto"></span>
         </div>
 
-        <!-- Result count on the far right on all breakpoints -->
-        <span id="result-count" class="text-xs text-muted ml-auto w-full sm:w-auto text-right"></span>
+        <!-- Desktop/tablet result count on far right -->
+        <span id="result-count" class="text-xs text-muted ml-auto hidden sm:inline"></span>
       </div>
     </div>
 
@@ -194,7 +199,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 
                     <!-- Chips row -->
                     <div class="chip-row flex flex-wrap gap-2 text-[11px] tracking-wide font-semibold" style="position: relative; z-index: 60;">
-                      <!-- Category chip: clickable to filter -->
+                      <!-- Category chip -->
                       <button
                         type="button"
                         class="pill pill--filled tone-cyan js-card-chip"
@@ -206,7 +211,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
                         {g.type}
                       </button>
 
-                      <!-- Mode chip: clickable to filter (if present) -->
+                      <!-- Mode chip -->
                       {g.modeSlug && (
                         <button
                           type="button"
@@ -220,7 +225,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
                         </button>
                       )}
 
-                      <!-- Tag pill and dropdown -->
+                      <!-- Tag pill + dropdown -->
                       {g.tags.length > 0 && (
                         <div class="relative inline-block" data-card-tags>
                           <button
@@ -240,7 +245,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
                             role="group"
                             aria-label={`Tags for ${g.title}`}
                             data-card-tags-panel
-                            style="position: absolute; z-index: 55; display: none; right: 0; left: auto;"
+                            style="position: absolute; z-index: 50; display: none; right: 0; left: auto;"
                           >
                             <div class="panel-inner panel-inner-col">
                               {g.tags.map(t => (
@@ -287,7 +292,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       box-shadow: 0 22px 44px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.08);
     }
 
-    /* Make the whole card show a pointer cursor (anchor has pointer-events: none) */
+    /* Make whole card show pointer cursor (anchor has pointer-events: none) */
     .game-card { cursor: pointer; }
 
     /* Card is clickable via JS, but don't intercept chip/tag interactions */
@@ -302,22 +307,21 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
        - Top filter dropdowns: drop to the right (attach left edge to trigger)
        - Per-card tags dropdown: drop to the left (attach right edge to trigger) */
     [data-filter-wrapper] .filter-panel {
-      left: 0; right: auto; /* drop to the right to avoid going off-screen */
+      left: 0; right: auto;
       width: max-content; max-width: min(92vw, 320px);
     }
     [data-card-tags] [data-card-tags-panel] {
-      right: 0; left: auto; /* drop to the left (as requested) */
+      right: 0; left: auto;
       width: max-content; max-width: min(90vw, 260px);
-      z-index: 55;
+      z-index: 55; /* panel remains under chip row but above card content */
     }
 
-    /* IMPORTANT: Make the per-card tags dropdown fully opaque (no blur, no transparency) */
+    /* Opaque per-card tags panel visuals (match styles.css just in case of CSS load order) */
     [data-card-tags-panel] {
       background-color: var(--bg) !important;
       background-image: none !important;
       -webkit-backdrop-filter: none !important;
       backdrop-filter: none !important;
-      opacity: 1 !important;
       filter: none !important;
       mix-blend-mode: normal !important;
       border: 1px solid rgba(255,255,255,0.18) !important;
@@ -329,15 +333,12 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       box-shadow: none !important;
     }
 
-    /* SWITCH TO CLICK-TO-OPEN: remove hover/focus auto-open */
-    /* (Intentional: no :hover/:focus-within rules here) */
-
-    /* Link-style controls for Exclusive and Clear: small text, no underline */
+    /* Link-style controls */
     .filter-link {
       display: inline-flex; align-items: center; gap: 6px;
       text-decoration: none;
       cursor: pointer;
-      font-size: 0.75rem; line-height: 1; /* text-xs */
+      font-size: 0.75rem; line-height: 1;
       padding: 4px 0;
     }
 
@@ -347,13 +348,13 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       pointer-events: none; cursor: default;
     }
 
-    /* Exclusive status dot: red when off, green when on */
+    /* Exclusive status dot */
     #exclusive-toggle .dot {
       width: 8px; height: 8px; border-radius: 9999px;
       background: #c33; box-shadow: 0 0 0 1px rgba(0,0,0,0.25) inset;
       transition: background-color .15s ease-in-out;
     }
-    #exclusive-toggle[aria-pressed="true"] .dot { background: #16a34a; } /* green */
+    #exclusive-toggle[aria-pressed="true"] .dot { background: #16a34a; }
   </style>
 
   <script type="module" src={withBase('scripts/games-filters.js')}></script>
@@ -461,24 +462,30 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         if (e.key === 'Escape') closeAllPanels(null);
       });
 
-      // Per-card tag dropdown: CLICK-TO-TOGGLE (no hover auto-open)
+      // Per-card tag dropdown: CLICK TOGGLE (no hover auto-open)
       function toggleCardTags(trigger, force) {
         const holder = trigger.closest('[data-card-tags]');
         const panel = holder?.querySelector('[data-card-tags-panel]');
+        const card = trigger.closest('.game-card');
         const isOpen = trigger.getAttribute('aria-expanded') === 'true';
         const willOpen = typeof force === 'boolean' ? force : !isOpen;
 
-        // Close all other tag panels first
-        document.querySelectorAll('[data-card-tags-panel]').forEach(p => { if (p instanceof HTMLElement) p.style.display = 'none'; });
+        // Close all other tag panels and remove on-top
+        document.querySelectorAll('[data-card-tags-panel]').forEach(p => {
+          if (p instanceof HTMLElement) p.style.display = 'none';
+        });
         document.querySelectorAll('[data-open-card-tags]').forEach(b => b.setAttribute('aria-expanded','false'));
+        document.querySelectorAll('.game-card.on-top').forEach(c => c.classList.remove('on-top'));
 
         if (willOpen) {
           if (panel instanceof HTMLElement) panel.style.display = 'block';
           trigger.setAttribute('aria-expanded','true');
+          // Bring this card above neighbors so dropdown is on top
+          card?.classList.add('on-top');
         }
       }
 
-      // Click to open/close
+      // Click to open/close per-card tags
       document.getElementById('game-grid')?.addEventListener('click', (e) => {
         const t = e.target;
         if (!(t instanceof Element)) return;
@@ -489,7 +496,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         toggleCardTags(trigger);
       });
 
-      // Keyboard support (Enter/Space) on the trigger
+      // Keyboard support on the trigger
       document.getElementById('game-grid')?.addEventListener('keydown', (e) => {
         const t = e.target;
         if (!(t instanceof Element)) return;
@@ -508,6 +515,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         if (!t.closest('[data-card-tags]')) {
           document.querySelectorAll('[data-card-tags-panel]').forEach(p => (p instanceof HTMLElement) && (p.style.display = 'none'));
           document.querySelectorAll('[data-open-card-tags]').forEach(b => b.setAttribute('aria-expanded','false'));
+          document.querySelectorAll('.game-card.on-top').forEach(c => c.classList.remove('on-top'));
         }
       });
       // Escape closes
@@ -515,6 +523,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         if (e.key === 'Escape') {
           document.querySelectorAll('[data-card-tags-panel]').forEach(p => (p instanceof HTMLElement) && (p.style.display = 'none'));
           document.querySelectorAll('[data-open-card-tags]').forEach(b => b.setAttribute('aria-expanded','false'));
+          document.querySelectorAll('.game-card.on-top').forEach(c => c.classList.remove('on-top'));
         }
       });
     })();
