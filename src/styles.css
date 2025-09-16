@@ -52,7 +52,7 @@ a { transition: color .15s ease, border-color .15s ease, background .15s ease; t
 a:hover { text-decoration-color: currentColor; }
 .divider { height:1px; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.08),transparent); margin:14px 0 18px; }
 
-/* prose (unchanged) */
+/* prose */
 .prose hr { border:none; height:1px; background:linear-gradient(90deg,transparent,var(--border),transparent); margin:3rem 0; }
 .prose ul li::marker, .prose ol li::marker { color: var(--neon); }
 pre, code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace; }
@@ -78,7 +78,7 @@ pre { background:#14181d; border:1px solid #1f252c; padding:1rem 1.25rem; border
 @media (hover:hover){ .glass:hover{ transform:translateY(-2px); border-color:rgba(255,255,255,0.18); box-shadow:0 22px 44px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.08);} }
 @media (hover:none){ .glass:hover{ transform:none; } .glass:active{ transform:translateY(-1px); box-shadow:0 18px 36px rgba(0,0,0,0.45);} }
 
-/* pills (uppercase; no pressed outline) */
+/* pills */
 .pill {
   @apply inline-flex items-center gap-1 rounded-full text-[10px] font-semibold tracking-wide whitespace-nowrap select-none border;
   text-transform: uppercase;
@@ -89,11 +89,10 @@ pre { background:#14181d; border:1px solid #1f252c; padding:1rem 1.25rem; border
 }
 .pill--filled { background: rgba(var(--tone-rgb, var(--fg-rgb)), 0.12); border-color: rgba(var(--tone-rgb, var(--fg-rgb)), 0.35); color: var(--tone, var(--fg)); }
 .pill--soft   { background: rgba(var(--fg-rgb), 0.08); border-color: rgba(var(--fg-rgb), 0.18); color: var(--fg); }
-/* removed pressed outline glow */
 .pill[aria-pressed="true"] { /* no extra outline */ }
 @media (hover: hover) { .pill:hover { transform: translateY(-1px); } }
 
-/* filter panels (base: translucent) */
+/* filter panels (base uses translucent look; we'll override only Tags panels elsewhere) */
 .filter-panel { @apply absolute z-50 mt-2 min-w-[14rem] max-w-xs bg-bg/95 backdrop-blur border border-fg/25 rounded-md shadow-lg p-2; }
 .filter-panel.hidden { display:none; }
 .filter-panel.floating { position: fixed; z-index: 5000; left: var(--panel-x, 0px); top: var(--panel-y, 0px); }
@@ -101,13 +100,12 @@ pre { background:#14181d; border:1px solid #1f252c; padding:1rem 1.25rem; border
 .panel-inner { @apply flex flex-wrap gap-2 overflow-y-auto max-h-72; }
 .panel-inner::-webkit-scrollbar { width:6px; }
 .panel-inner::-webkit-scrollbar-thumb { @apply bg-fg/30 rounded; }
-/* vertical list for per-card tags */
 .panel-inner.panel-inner-col { flex-wrap: nowrap; flex-direction: column; gap: 0.35rem; }
 
-/* result count */
-#result-count { @apply text-muted; }
+/* Result count text */
+#result-count, #result-count-mobile { @apply text-muted; }
 
-/* mobile nav overlay (unchanged) */
+/* Mobile nav overlay */
 .site-menu-overlay { position:fixed; inset:0; display:none; flex-direction:column; background: rgba(var(--bg-rgb,0,0,0),0.90); backdrop-filter: blur(6px); z-index:2500; opacity:0; transition:opacity .25s ease; }
 .site-menu-overlay:target { display:flex; opacity:1; }
 .site-menu-panel { display:flex; flex-direction:column; width:100%; height:100%; }
@@ -129,7 +127,7 @@ button:disabled { opacity: .55; cursor: not-allowed; }
 .btn-green{border-color:rgba(0,210,122,0.45); color:var(--c-green); background:linear-gradient(180deg, rgba(0,210,122,0.10), rgba(255,255,255,0.02))}
 .btn-violet{border-color:rgba(139,92,246,0.45); color:var(--c-violet); background:linear-gradient(180deg, rgba(139,92,246,0.12), rgba(255,255,255,0.02))}
 
-/* touch hover suppression */
+/* marquee */
 .marquee, [data-marquee], .scrolling-banner { overflow: hidden; position: relative; text-align: left; }
 .marquee__track, [data-marquee-track], .scrolling-banner-track, .marquee-track {
   display: inline-flex; white-space: nowrap; will-change: transform;
@@ -140,49 +138,27 @@ button:disabled { opacity: .55; cursor: not-allowed; }
   .marquee__track, [data-marquee-track], .scrolling-banner-track, .marquee-track { animation: none; transform: translateX(0); }
 }
 
-/* --- FIX: Tags dropdowns fully opaque; remove blur; single box --- */
-
-/* Top-row Tags filter panel */
-#panel-tags {
-  background: var(--bg) !important;                  /* fully opaque */
-  background-image: none !important;
-  background-clip: padding-box !important;
-  border: 1px solid rgba(255,255,255,0.18) !important;
-  box-shadow: 0 10px 24px rgba(0,0,0,0.55) !important;
-  -webkit-backdrop-filter: none !important;
-  backdrop-filter: none !important;
-  filter: none !important;
-  mix-blend-mode: normal !important;
-  isolation: isolate;
-  z-index: 70;
-}
-/* Remove inner box look */
-#panel-tags .panel-inner {
-  background: transparent !important;
-  border: 0 !important;
-  box-shadow: none !important;
-}
-
-/* Per-card tags dropdown panel (the one opened from the "N tags" pill) */
+/* --- OPAQUE TAGS PANELS (top and per-card) --- */
+#panel-tags,
 [data-card-tags-panel] {
   background: var(--bg) !important;                  /* fully opaque */
   background-image: none !important;
-  background-clip: padding-box !important;
-  border: 1px solid rgba(255,255,255,0.18) !important;
-  box-shadow: 0 10px 24px rgba(0,0,0,0.55) !important;
   -webkit-backdrop-filter: none !important;
   backdrop-filter: none !important;
   filter: none !important;
   mix-blend-mode: normal !important;
-  isolation: isolate;
-  z-index: 55;                                       /* below chip row (z 60), above card */
+  border: 1px solid rgba(255,255,255,0.18) !important;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.55) !important;
 }
-/* Remove inner box look */
+#panel-tags .panel-inner,
 [data-card-tags-panel] .panel-inner {
   background: transparent !important;
   border: 0 !important;
   box-shadow: none !important;
 }
+
+/* --- Bring active card above neighbors so its dropdown is on top --- */
+.game-card.on-top { z-index: 4000; position: relative; }
 
 /* share brand colors */
 .share--facebook { color: #1877F2; }
