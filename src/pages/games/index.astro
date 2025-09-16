@@ -298,28 +298,17 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
     #exclusive-toggle,
     #clear-filters { text-transform: none !important; }
 
-    /* Keep dropdowns within the viewport and narrower */
+    /* Keep dropdowns within the viewport and narrower (top-row panels) */
     [data-filter-wrapper] .filter-panel {
       right: 0; left: auto;
       width: max-content; max-width: min(92vw, 320px);
     }
 
-    /* Make the TOP Tags filter dropdown fully opaque (match others) */
-    #panel-tags,
-    #panel-tags .panel-inner {
-      background-color: #000 !important; /* fully opaque */
-      border: 1px solid rgba(255,255,255,0.18);
-      box-shadow: 0 10px 24px rgba(0,0,0,0.55);
-    }
-
-    /* Per-card tag dropdown: fully opaque and clearly above overlay (below chips) */
-    [data-card-tags] .filter-panel,
-    [data-card-tags] .panel-inner {
+    /* Per-card tag dropdown: only position/size here; visuals come from global CSS */
+    [data-card-tags] [data-card-tags-panel] {
       right: 0; left: auto;
       width: max-content; max-width: min(90vw, 260px);
-      background-color: #000 !important; /* fully opaque */
-      border: 1px solid rgba(255,255,255,0.18);
-      box-shadow: 0 10px 24px rgba(0,0,0,0.55);
+      z-index: 55;
     }
 
     /* Show per-card tag dropdown on hover or keyboard focus */
