@@ -78,7 +78,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 
     <!-- Row 2: Filters -->
     <div class="mb-6">
-      <div class="flex flex-wrap gap-2 items-center">
+      <div class="flex flex-wrap items-center gap-2">
         <span class="text-[11px] uppercase tracking-wide text-muted/70">Filters</span>
 
         <div class="relative" data-filter-wrapper>
@@ -144,9 +144,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
           </div>
         </div>
 
-        <span class="ml-auto"></span>
-
-        <!-- Links instead of buttons for Exclusive and Clear -->
+        <!-- Exclusive and Clear: inline with filter buttons; small text; no underline -->
         <a href="#" id="exclusive-toggle" class="filter-link" aria-pressed="false">
           <span class="dot" aria-hidden="true"></span>
           Exclusive
@@ -155,7 +153,8 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
           Clear
         </a>
 
-        <span id="result-count" class="text-xs text-muted"></span>
+        <!-- Result count on the far right on all breakpoints -->
+        <span id="result-count" class="text-xs text-muted ml-auto w-full sm:w-auto text-right"></span>
       </div>
     </div>
 
@@ -302,6 +301,9 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
     [data-card-tags] .filter-panel {
       right: 0; left: auto;
       width: max-content; max-width: min(90vw, 260px);
+      /* Increase opacity for better readability */
+      background-color: rgba(0,0,0,0.9);
+      border: 1px solid rgba(255,255,255,0.18);
     }
 
     /* Show per-card tag dropdown on hover or keyboard focus */
@@ -310,15 +312,21 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       display: block !important;
     }
 
-    /* Link-style controls for Exclusive and Clear */
+    /* Link-style controls for Exclusive and Clear: small text, no underline */
     .filter-link {
       display: inline-flex; align-items: center; gap: 6px;
-      text-decoration: underline; text-underline-offset: 4px;
+      text-decoration: none; /* no underline */
       cursor: pointer;
+      font-size: 0.75rem; line-height: 1; /* text-xs */
+      padding: 4px 0;
     }
+    /* Slightly more space between Exclusive and Clear */
+    .filter-link + .filter-link { margin-left: 12px; }
+
+    /* Disabled Clear styling */
     #clear-filters[aria-disabled="true"] {
       color: rgba(255,255,255,0.5); /* greyed out */
-      pointer-events: none; cursor: default; text-decoration: none;
+      pointer-events: none; cursor: default;
     }
 
     /* Exclusive status dot: red when off, green when on */
