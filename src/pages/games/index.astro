@@ -63,7 +63,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
     <div class="mb-4">
       <div class="flex items-end gap-2 md:mr-4">
         <label class="text-xs tracking-wide text-muted font-medium flex flex-col gap-1">
-          <span class="capitalize">Search</span>
+          <span>Search</span>
           <input
             id="game-search"
             type="search"
@@ -72,7 +72,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
             autocomplete="off"
           />
         </label>
-        <button id="game-search-clear" class="hidden text-[11px] underline underline-offset-4 hover:text-fg mb-1.5 capitalize">Clear</button>
+        <!-- Removed external Clear button; keep browser-native clear (×) inside the input -->
         <span id="search-hits" class="text-[11px] text-muted mb-2"></span>
       </div>
     </div>
@@ -83,7 +83,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         <span class="text-[11px] uppercase tracking-wide text-muted/70">Filters</span>
 
         <div class="relative" data-filter-wrapper>
-          <button type="button" class="filter-toggle pill pill--soft capitalize" data-panel="categories" aria-expanded="false">
+          <button type="button" class="filter-toggle pill pill--soft" data-panel="categories" aria-expanded="false">
             Categories
           </button>
           <div class="filter-panel hidden" id="panel-categories" role="group" aria-label="Categories">
@@ -91,7 +91,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
               {categories.map(([cat, count]) => (
                 <button
                   type="button"
-                  class="filter-item pill pill--soft capitalize"
+                  class="filter-item pill pill--soft"
                   data-filter-type="category"
                   data-value={cat}
                   aria-pressed="false"
@@ -104,7 +104,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         </div>
 
         <div class="relative" data-filter-wrapper>
-          <button type="button" class="filter-toggle pill pill--soft capitalize" data-panel="modes" aria-expanded="false">
+          <button type="button" class="filter-toggle pill pill--soft" data-panel="modes" aria-expanded="false">
             Player modes
           </button>
           <div class="filter-panel hidden" id="panel-modes" role="group" aria-label="Player Modes">
@@ -112,7 +112,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
               {modes.map(([slug, info]) => (
                 <button
                   type="button"
-                  class="filter-item pill pill--soft capitalize"
+                  class="filter-item pill pill--soft"
                   data-filter-type="mode"
                   data-value={slug}
                   aria-pressed="false"
@@ -125,7 +125,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         </div>
 
         <div class="relative" data-filter-wrapper>
-          <button type="button" class="filter-toggle pill pill--soft capitalize" data-panel="tags" aria-expanded="false" id="tags-toggle">
+          <button type="button" class="filter-toggle pill pill--soft" data-panel="tags" aria-expanded="false" id="tags-toggle">
             Tags
           </button>
           <div class="filter-panel hidden" id="panel-tags" role="group" aria-label="Tags">
@@ -133,7 +133,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
               {tags.map(([t, count]) => (
                 <button
                   type="button"
-                  class="filter-item pill pill--soft capitalize"
+                  class="filter-item pill pill--soft"
                   data-filter-type="tag"
                   data-value={t}
                   aria-pressed="false"
@@ -147,10 +147,10 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 
         <span class="ml-auto"></span>
 
-        <button id="exclusive-toggle" type="button" class="pill pill--soft capitalize" aria-pressed="false">
+        <button id="exclusive-toggle" type="button" class="pill pill--soft" aria-pressed="false">
           Exclusive
         </button>
-        <button id="clear-filters" type="button" class="pill pill--soft disabled:opacity-40 disabled:cursor-not-allowed capitalize" disabled>
+        <button id="clear-filters" type="button" class="pill pill--soft disabled:opacity-40 disabled:cursor-not-allowed" disabled>
           Clear
         </button>
 
@@ -190,16 +190,16 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
                     <span class="font-semibold leading-snug mb-1 transition-colors group-hover:text-fg">{g.title}</span>
                     {g.excerpt && <p class="text-xs text-muted leading-snug line-clamp-2 mb-2">{g.excerpt}</p>}
 
-                    <!-- Chips: clickable, also toggle filters -->
-                    <div class="flex flex-wrap gap-2 text-[11px] tracking-wide font-semibold relative" style="z-index:20">
-                      <button class="pill pill--soft tone-cyan js-filter capitalize" data-type="category" data-value={g.type} title={`Filter: ${g.type}`}>{g.type}</button>
-                      {g.modeSlug && <button class="pill pill--soft tone-cyan js-filter capitalize" data-type="mode" data-value={g.modeSlug} title={`Filter: ${playerModeLabel(g.rawMode!)}`}>{playerModeLabel(g.rawMode!)}</button>}
+                    <!-- Chips: clickable and apply filters; card still clickable elsewhere -->
+                    <div class="relative z-20 flex flex-wrap gap-2 text-[11px] tracking-wide font-semibold">
+                      <button class="pill pill--filled tone-cyan js-filter" data-type="category" data-value={g.type} title={`Filter: ${g.type}`}>{g.type}</button>
+                      {g.modeSlug && <button class="pill pill--filled tone-cyan js-filter" data-type="mode" data-value={g.modeSlug} title={`Filter: ${playerModeLabel(g.rawMode!)}`}>{playerModeLabel(g.rawMode!)}</button>}
 
                       {g.tags.length > 0 && (
                         <div class="relative inline-block" data-card-tags>
                           <button
                             type="button"
-                            class="pill pill--soft capitalize"
+                            class="pill pill--soft"
                             aria-expanded="false"
                             aria-controls={panelId}
                             data-open-card-tags
@@ -210,7 +210,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
                           <div class="filter-panel hidden narrow" id={panelId} role="group" aria-label={`Tags for ${g.title}`} data-card-tags-panel>
                             <div class="panel-inner panel-inner-col">
                               {g.tags.map(t => (
-                                <button type="button" class="filter-item pill pill--soft w-full justify-between text-left capitalize" data-filter-type="tag" data-value={t} aria-pressed="false">
+                                <button type="button" class="filter-item pill pill--soft w-full justify-between text-left" data-filter-type="tag" data-value={t} aria-pressed="false">
                                   <span>{t}</span>
                                 </button>
                               ))}
@@ -246,6 +246,13 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       border-color: rgba(255,255,255,0.18);
       box-shadow: 0 22px 44px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.08);
     }
+
+    /* Exclusive pressed = inverted look (white bg, dark text) */
+    #exclusive-toggle[aria-pressed="true"] {
+      background: #fff;
+      color: #000;
+      border-color: rgba(0,0,0,0.3);
+    }
   </style>
 
   <script type="module" src={withBase('scripts/games-filters.js')}></script>
@@ -254,7 +261,6 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
     (() => {
       // Search integrates with filters
       const input = document.getElementById('game-search');
-      const clear = document.getElementById('game-search-clear');
       const grid = document.getElementById('game-grid');
       const hitsEl = document.getElementById('search-hits');
 
@@ -272,12 +278,10 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
             li.dataset.searchVisible = match ? 'true' : 'false';
             if (match) hits++;
           });
-          clear.classList.toggle('hidden', q.length === 0);
           if (hitsEl) hitsEl.textContent = q ? `${hits} match${hits===1?'':'es'}` : '';
           window.bggApplyGameFilters?.();
         }
         input.addEventListener('input', applySearch);
-        clear?.addEventListener('click', () => { input.value=''; applySearch(); input.focus(); });
         applySearch();
       }
 
@@ -320,13 +324,14 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         if (e.key === 'Escape') closeAllPanels(null);
       });
 
-      // Per-card tag dropdown
+      // Per-card tag dropdown toggle
       document.getElementById('game-grid')?.addEventListener('click', (e) => {
         const t = e.target;
         if (!(t instanceof Element)) return;
         const trigger = t.closest('[data-open-card-tags]');
         if (!trigger) return;
         e.preventDefault();
+        e.stopPropagation();
         const holder = trigger.closest('[data-card-tags]');
         const panel = holder?.querySelector('[data-card-tags-panel]');
         const expanded = trigger.getAttribute('aria-expanded') === 'true';
@@ -352,25 +357,50 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         }
       });
 
-      // Clickable chips inside cards apply filters
+      // Clickable chips inside cards apply filters and do NOT trigger overlay link
       document.getElementById('game-grid')?.addEventListener('click', (e) => {
         const t = e.target;
         if (!(t instanceof Element)) return;
+
+        // Category/mode chips
         const chip = t.closest('.js-filter');
-        if (!chip) return;
-        const type = chip.getAttribute('data-type');
-        const value = chip.getAttribute('data-value');
-        if (!type || !value) return;
-        // Toggle selected style immediately for chip itself (visual feedback)
-        chip.setAttribute('aria-pressed', chip.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
-        chip.classList.toggle('pill--filled');
-        window.bggToggleGameFilter?.(type, value);
-        window.bggApplyGameFilters?.();
+        if (chip) {
+          e.preventDefault();
+          e.stopPropagation();
+          const type = chip.getAttribute('data-type');
+          const value = chip.getAttribute('data-value');
+          if (!type || !value) return;
+          chip.setAttribute('aria-pressed', chip.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
+          // Keep cyan fill; don't toggle visual off
+          window.bggToggleGameFilter?.(type, value);
+          window.bggApplyGameFilters?.();
+          return;
+        }
+
+        // Per-card tag list items
+        const tagBtn = t.closest('[data-card-tags-panel] [data-filter-type][data-value]');
+        if (tagBtn) {
+          e.preventDefault();
+          e.stopPropagation();
+          const type = tagBtn.getAttribute('data-filter-type');
+          const value = tagBtn.getAttribute('data-value');
+          if (!type || !value) return;
+          window.bggToggleGameFilter?.(type, value);
+          window.bggApplyGameFilters?.();
+          // Close the tag dropdown after selection
+          const holder = tagBtn.closest('[data-card-tags]');
+          const trigger = holder?.querySelector('[data-open-card-tags]');
+          const panel = holder?.querySelector('[data-card-tags-panel]');
+          panel?.classList.add('hidden');
+          trigger?.setAttribute('aria-expanded','false');
+          return;
+        }
       });
 
-      // Ensure Exclusive toggles filter logic (visual only indicates pressed)
+      // Ensure Exclusive toggles filter logic and shows inverted style
       const exclusiveBtn = document.getElementById('exclusive-toggle');
-      exclusiveBtn?.addEventListener('click', () => {
+      exclusiveBtn?.addEventListener('click', (e) => {
+        e.preventDefault();
         const pressed = exclusiveBtn.getAttribute('aria-pressed') === 'true';
         exclusiveBtn.setAttribute('aria-pressed', pressed ? 'false' : 'true');
         window.bggApplyGameFilters?.();
