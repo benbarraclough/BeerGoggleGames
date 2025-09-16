@@ -85,8 +85,12 @@
       if (vis) shown++;
     });
 
+    const txt = `${shown} result${shown === 1 ? '' : 's'}`;
     const resultEl = document.getElementById('result-count');
-    if (resultEl) resultEl.textContent = `${shown} result${shown === 1 ? '' : 's'}`;
+    const resultElMobile = document.getElementById('result-count-mobile');
+    if (resultEl) resultEl.textContent = txt;
+    if (resultElMobile) resultElMobile.textContent = txt;
+
     syncButtons();
     return shown;
   }
