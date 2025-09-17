@@ -170,7 +170,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
           </div>
         </div>
 
-        <!-- Tags (solid + high z-index to sit above card chips) -->
+        <!-- Tags -->
         <div class="relative" data-filter-wrapper>
           <button type="button" class="filter-toggle pill pill--soft" data-panel="tags" data-filter-group="tag" aria-expanded="false" aria-pressed="false" id="tags-toggle">
             Tags
@@ -213,7 +213,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
           </div>
         </div>
 
-        <!-- Exclusive, Clear, and mobile result count -->
+        <!-- Exclusive + Clear -->
         <div class="w-full sm:w-auto flex items-center gap-3 mt-2 sm:mt-0">
           <a href="#" id="exclusive-toggle" class="filter-link" aria-pressed="false">
             <span class="dot" aria-hidden="true"></span>
@@ -225,7 +225,6 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
           <span id="result-count-mobile" class="text-xs text-muted sm:hidden ml-auto"></span>
         </div>
 
-        <!-- Desktop/tablet result count on far right -->
         <span id="result-count" class="text-xs text-muted ml-auto hidden sm:inline"></span>
       </div>
     </div>
@@ -325,7 +324,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
                             role="group"
                             aria-label={`Tags for ${d.title}`}
                             data-card-tags-panel
-                            style="position: absolute; z-index: 80; display: none; right: 0; left: auto;"
+                            style="display: none;"
                           >
                             <div class="panel-inner panel-inner-col">
                               {d.tags.map(t => (
@@ -395,27 +394,26 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
     .filter-toggle[aria-expanded="true"] .dropdown-icon,
     [data-open-card-tags][aria-expanded="true"] .dropdown-icon { transform: rotate(180deg); }
 
-    /* Top filter dropdowns: attach left edge, sit above chips */
+    /* Top filter dropdowns: attach left edge, sit above chips and clamp height */
     [data-filter-wrapper] .filter-panel {
       left: 0; right: auto;
       width: max-content; max-width: min(92vw, 320px);
-      z-index: 1200; /* ensure above chip rows (z:60) */
-      max-height: min(24rem, calc(100vh - 24px)); /* keep within viewport */
-      overflow: hidden; /* container, inner scrolls */
+      z-index: 1200;
+      max-height: min(24rem, calc(100vh - 24px));
+      overflow: hidden;
     }
     .panel-inner { max-height: inherit; overflow: auto; }
 
-    /* Per-card tags dropdown: default attach right edge; raised above chips */
+    /* Per-card tags dropdown: raised above chips, no inline positioning */
     [data-card-tags] [data-card-tags-panel] {
-      right: 0; left: auto;
       width: max-content; max-width: min(90vw, 260px);
-      z-index: 80;
+      z-index: 1400; /* above chip row and overlay */
       max-height: min(20rem, calc(100vh - 24px));
       overflow: hidden;
     }
     [data-card-tags-panel] .panel-inner { max-height: inherit; overflow: auto; }
 
-    /* Opaque per-card tags panel (fallback if global CSS not loaded yet) */
+    /* Opaque per-card tags panel (belt-and-braces) */
     [data-card-tags-panel] {
       background-color: var(--bg) !important;
       background-image: none !important;
@@ -450,10 +448,25 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 
     /* Floating panels: fixed and clamped via CSS vars set in JS */
     .filter-panel.floating {
-      position: fixed;
+      position: fixed !important; /* beat any inline position */
       z-index: 5000;
-      left: var(--panel-x, 8px);
-      top: var(--panel-y, 8px);
+      left: var(--panel-x, 8px) !important;
+      top: var(--panel-y, 8px) !important;
+      right: auto !important;
+    }
+
+    /* Mobile: make floating dropdowns fit screen width with safe margins */
+    @media (max-width: 640px) {
+      .filter-panel.floating {
+        left: 8px !important;
+        right: 8px !important;
+        width: auto !important;
+        min-width: 0 !important;
+        max-width: none !important;
+      }
+      .filter-panel.floating .panel-inner {
+        max-height: calc(100vh - 120px);
+      }
     }
 
     /* Bring active drink card above neighbors so its dropdown is on top */
@@ -530,24 +543,29 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         if (!(trigger instanceof Element) || !(panel instanceof HTMLElement)) return;
         panel.classList.add('floating');
 
-        // Ensure visible for measurement
-        const prevHidden = panel.classList.contains('hidden');
-        if (prevHidden) panel.classList.remove('hidden');
+        // Clear any inline positioning that could fight with fixed
+        panel.style.position = '';
+        panel.style.left = '';
+        panel.style.right = '';
 
-        // If still not visible due to inline style, force visibility temporarily
+        // Ensure visible for measurement
+        const wasHidden = panel.classList.contains('hidden');
+        if (wasHidden) panel.classList.remove('hidden');
+
         const prevDisplay = panel.style.display;
         if (getComputedStyle(panel).display === 'none') panel.style.display = 'block';
 
-        // Measure
-        // Force reflow to ensure styles applied
+        // Force reflow
         void panel.offsetHeight;
+
+        // Measurements
         const tRect = trigger.getBoundingClientRect();
         const pRect = panel.getBoundingClientRect();
         const vpW = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
         const vpH = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
         const margin = 8;
 
-        // Preferred below the trigger
+        // Preferred position: below trigger, left aligned
         let left = Math.round(tRect.left);
         let top = Math.round(tRect.bottom + 6);
 
@@ -564,13 +582,11 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         panel.style.setProperty('--panel-x', left + 'px');
         panel.style.setProperty('--panel-y', top + 'px');
 
-        // Restore previous "hidden" state only if it was hidden before
-        if (prevHidden) panel.classList.add('hidden');
+        // Restore hidden state only if it was hidden earlier
+        if (wasHidden) panel.classList.add('hidden');
 
-        // Keep it visible if caller opened it, otherwise restore inline display
-        if (prevDisplay) {
-          panel.style.display = prevDisplay;
-        }
+        // Restore display if we changed it
+        if (prevDisplay) panel.style.display = prevDisplay;
       }
 
       function resetAllPanelsFloating() {
@@ -612,7 +628,6 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
           } else {
             panel.classList.remove('hidden');
             btn.setAttribute('aria-expanded','true');
-            // Position as fixed to keep on-screen (works for mobile)
             positionPanelFixed(btn, panel);
           }
         });
@@ -626,7 +641,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         if (e.key === 'Escape') closeAllPanels(null);
       });
 
-      // Per-card tag dropdown: CLICK TOGGLE
+      // Per-card tag dropdown: CLICK TOGGLE with fixed/clamped positioning
       function toggleCardTags(trigger, force) {
         const holder = trigger.closest('[data-card-tags]');
         const panel = holder?.querySelector('[data-card-tags-panel]');
@@ -649,7 +664,6 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         if (willOpen) {
           if (panel instanceof HTMLElement) {
             panel.style.display = 'block';
-            // Position fixed and clamp inside viewport
             positionPanelFixed(trigger, panel);
           }
           trigger.setAttribute('aria-expanded','true');
@@ -698,7 +712,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         }
       });
 
-      // Reposition any open floating panels on resize/orientation change
+      // Reposition any open floating panels on resize/orientation change/scroll
       const repositionOpenPanels = () => {
         document.querySelectorAll('.filter-panel.floating').forEach(p => {
           const control = document.querySelector(`[aria-controls="${p.id}"]`);
