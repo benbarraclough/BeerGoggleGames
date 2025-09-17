@@ -1,0 +1,16 @@
+---
+import { withBase } from '../../lib/paths';
+const contactHref = withBase('contact/');
+---
+<section class="mt-10 glass glass-neutral p-5 text-center">
+  <h4 class="font-semibold mb-3 text-sm tracking-wide uppercase text-muted">Feedback</h4>
+  <div class="space-y-4 text-sm leading-relaxed">
+    <slot />
+    <p>Got suggestions on how we can improve? Drop us a message through our contact form.</p>
+    <p>
+      <a class="pill-btn btn-violet inline-flex" href={contactHref}>
+        Contact Us
+      </a>
+    </p>
+  </div>
+</section>
