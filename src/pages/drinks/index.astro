@@ -325,7 +325,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
                             role="group"
                             aria-label={`Tags for ${d.title}`}
                             data-card-tags-panel
-                            style="position: absolute; z-index: 55; display: none; right: 0; left: auto;"
+                            style="position: absolute; z-index: 80; display: none; right: 0; left: auto;"
                           >
                             <div class="panel-inner panel-inner-col">
                               {d.tags.map(t => (
@@ -357,7 +357,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       </ul>
     )}
 
-    <!-- Share then Feedback stacked vertically (no side-by-side grid) -->
+    <!-- Share then Feedback stacked vertically -->
     <div class="mt-12 space-y-8">
       <div class="divider" aria-hidden="true"></div>
 
@@ -400,14 +400,20 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       left: 0; right: auto;
       width: max-content; max-width: min(92vw, 320px);
       z-index: 1200; /* ensure above chip rows (z:60) */
+      max-height: min(24rem, calc(100vh - 24px)); /* keep within viewport */
+      overflow: hidden; /* container, inner scrolls */
     }
+    .panel-inner { max-height: inherit; overflow: auto; }
 
-    /* Per-card tags dropdown: attach right edge by default; JS may float it */
+    /* Per-card tags dropdown: default attach right edge; raised above chips */
     [data-card-tags] [data-card-tags-panel] {
       right: 0; left: auto;
       width: max-content; max-width: min(90vw, 260px);
-      z-index: 55;
+      z-index: 80;
+      max-height: min(20rem, calc(100vh - 24px));
+      overflow: hidden;
     }
+    [data-card-tags-panel] .panel-inner { max-height: inherit; overflow: auto; }
 
     /* Opaque per-card tags panel (fallback if global CSS not loaded yet) */
     [data-card-tags-panel] {
@@ -419,11 +425,6 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       mix-blend-mode: normal !important;
       border: 1px solid rgba(255,255,255,0.18) !important;
       box-shadow: 0 10px 24px rgba(0,0,0,0.55) !important;
-    }
-    [data-card-tags-panel] .panel-inner {
-      background: transparent !important;
-      border: 0 !important;
-      box-shadow: none !important;
     }
 
     /* Link-style controls */
@@ -446,6 +447,14 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       transition: background-color .15s ease-in-out;
     }
     #exclusive-toggle[aria-pressed="true"] .dot { background: #16a34a; }
+
+    /* Floating panels: fixed and clamped via CSS vars set in JS */
+    .filter-panel.floating {
+      position: fixed;
+      z-index: 5000;
+      left: var(--panel-x, 8px);
+      top: var(--panel-y, 8px);
+    }
 
     /* Bring active drink card above neighbors so its dropdown is on top */
     .drink-card.on-top { z-index: 4000; position: relative; }
@@ -516,14 +525,22 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         applySearch();
       }
 
-      // Utility: position a panel as fixed within viewport (prevents off-screen on mobile)
+      // Position a panel as fixed within viewport (prevents off-screen on mobile)
       function positionPanelFixed(trigger, panel) {
-        if (!(trigger instanceof Element) || !(panel instanceof HTMLElement)) return false;
-        panel.classList.add('floating'); // position: fixed via global CSS
-        // Make it visible temporarily for measurement if needed
+        if (!(trigger instanceof Element) || !(panel instanceof HTMLElement)) return;
+        panel.classList.add('floating');
+
+        // Ensure visible for measurement
+        const prevHidden = panel.classList.contains('hidden');
+        if (prevHidden) panel.classList.remove('hidden');
+
+        // If still not visible due to inline style, force visibility temporarily
         const prevDisplay = panel.style.display;
         if (getComputedStyle(panel).display === 'none') panel.style.display = 'block';
 
+        // Measure
+        // Force reflow to ensure styles applied
+        void panel.offsetHeight;
         const tRect = trigger.getBoundingClientRect();
         const pRect = panel.getBoundingClientRect();
         const vpW = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
@@ -547,13 +564,15 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         panel.style.setProperty('--panel-x', left + 'px');
         panel.style.setProperty('--panel-y', top + 'px');
 
-        // Restore display state if we changed it while measuring
-        panel.style.display = prevDisplay || panel.style.display;
+        // Restore previous "hidden" state only if it was hidden before
+        if (prevHidden) panel.classList.add('hidden');
 
-        return true;
+        // Keep it visible if caller opened it, otherwise restore inline display
+        if (prevDisplay) {
+          panel.style.display = prevDisplay;
+        }
       }
 
-      // Cleanup floating state for all panels
       function resetAllPanelsFloating() {
         document.querySelectorAll('.filter-panel.floating').forEach(p => {
           p.classList.remove('floating');
@@ -593,7 +612,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
           } else {
             panel.classList.remove('hidden');
             btn.setAttribute('aria-expanded','true');
-            // Reposition as fixed to keep on-screen on mobile
+            // Position as fixed to keep on-screen (works for mobile)
             positionPanelFixed(btn, panel);
           }
         });
@@ -607,7 +626,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         if (e.key === 'Escape') closeAllPanels(null);
       });
 
-      // Per-card tag dropdown: CLICK TOGGLE (no hover auto-open)
+      // Per-card tag dropdown: CLICK TOGGLE
       function toggleCardTags(trigger, force) {
         const holder = trigger.closest('[data-card-tags]');
         const panel = holder?.querySelector('[data-card-tags-panel]');
@@ -615,7 +634,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         const isOpen = trigger.getAttribute('aria-expanded') === 'true';
         const willOpen = typeof force === 'boolean' ? force : !isOpen;
 
-        // Close others and reset on-top
+        // Close others
         document.querySelectorAll('[data-card-tags-panel]').forEach(p => {
           if (p instanceof HTMLElement) {
             p.style.display = 'none';
@@ -629,8 +648,8 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 
         if (willOpen) {
           if (panel instanceof HTMLElement) {
-            // Show and position (fixed) so it won't go off-screen on mobile
             panel.style.display = 'block';
+            // Position fixed and clamp inside viewport
             positionPanelFixed(trigger, panel);
           }
           trigger.setAttribute('aria-expanded','true');
@@ -679,13 +698,16 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         }
       });
 
-      // Reposition any open floating panels on orientation change
-      window.addEventListener('orientationchange', () => {
+      // Reposition any open floating panels on resize/orientation change
+      const repositionOpenPanels = () => {
         document.querySelectorAll('.filter-panel.floating').forEach(p => {
-          const btn = document.querySelector(`[aria-controls="${p.id}"]`);
-          if (btn) positionPanelFixed(btn, p);
+          const control = document.querySelector(`[aria-controls="${p.id}"]`);
+          if (control) positionPanelFixed(control, p);
         });
-      });
+      };
+      window.addEventListener('resize', repositionOpenPanels);
+      window.addEventListener('orientationchange', repositionOpenPanels);
+      window.addEventListener('scroll', repositionOpenPanels, { passive: true });
     })();
   </script>
 </Layout>
