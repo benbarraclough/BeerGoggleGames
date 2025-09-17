@@ -96,6 +96,10 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         <div class="relative" data-filter-wrapper>
           <button type="button" class="filter-toggle pill pill--soft" data-panel="drinktype" data-filter-group="drinkType" aria-expanded="false" aria-pressed="false">
             Drink Type
+            <svg class="dropdown-icon ml-1 opacity-70" width="12" height="12" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
           </button>
           <div class="filter-panel hidden" id="panel-drinktype" role="group" aria-label="Drink Type">
             <div class="panel-inner">
@@ -118,6 +122,10 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         <div class="relative" data-filter-wrapper>
           <button type="button" class="filter-toggle pill pill--soft" data-panel="bases" data-filter-group="base" aria-expanded="false" aria-pressed="false">
             Alcohol base
+            <svg class="dropdown-icon ml-1 opacity-70" width="12" height="12" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
           </button>
           <div class="filter-panel hidden" id="panel-bases" role="group" aria-label="Alcohol base">
             <div class="panel-inner">
@@ -140,6 +148,10 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         <div class="relative" data-filter-wrapper>
           <button type="button" class="filter-toggle pill pill--soft" data-panel="difficulty" data-filter-group="difficulty" aria-expanded="false" aria-pressed="false">
             Difficulty
+            <svg class="dropdown-icon ml-1 opacity-70" width="12" height="12" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
           </button>
           <div class="filter-panel hidden" id="panel-difficulty" role="group" aria-label="Difficulty">
             <div class="panel-inner">
@@ -162,6 +174,10 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         <div class="relative" data-filter-wrapper>
           <button type="button" class="filter-toggle pill pill--soft" data-panel="tags" data-filter-group="tag" aria-expanded="false" aria-pressed="false" id="tags-toggle">
             Tags
+            <svg class="dropdown-icon ml-1 opacity-70" width="12" height="12" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
           </button>
           <div
             class="filter-panel hidden filter-panel--solid"
@@ -298,6 +314,10 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
                             title="Show tags for this drink"
                           >
                             {d.tags.length} tag{d.tags.length !== 1 && 's'}
+                            <svg class="dropdown-icon ml-1 opacity-70" width="12" height="12" viewBox="0 0 24 24" fill="none"
+                                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                              <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
                           </button>
                           <div
                             class="filter-panel narrow"
@@ -337,19 +357,19 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       </ul>
     )}
 
-    <!-- Share + Feedback using the same components as individual pages -->
-    <div class="mt-12">
+    <!-- Share then Feedback stacked vertically (no side-by-side grid) -->
+    <div class="mt-12 space-y-8">
       <div class="divider" aria-hidden="true"></div>
-      <div class="grid gap-8 md:grid-cols-2">
-        <section aria-labelledby="share-section">
-          <h2 id="share-section" class="text-xs uppercase tracking-wide text-muted/70 mb-3">Share</h2>
-          <ShareButtons url={pageCanonical} title="Drinks" />
-        </section>
-        <section aria-labelledby="feedback-section">
-          <h2 id="feedback-section" class="text-xs uppercase tracking-wide text-muted/70 mb-3">Feedback</h2>
-          <FeedbackCard />
-        </section>
-      </div>
+
+      <section aria-labelledby="share-section">
+        <h2 id="share-section" class="text-xs uppercase tracking-wide text-muted/70 mb-3">Share</h2>
+        <ShareButtons url={pageCanonical} title="Drinks" />
+      </section>
+
+      <section aria-labelledby="feedback-section">
+        <h2 id="feedback-section" class="text-xs uppercase tracking-wide text-muted/70 mb-3">Feedback</h2>
+        <FeedbackCard />
+      </section>
     </div>
   </div>
 
@@ -369,20 +389,27 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
     #exclusive-toggle,
     #clear-filters { text-transform: none !important; }
 
-    /* Top filter dropdowns: drop to the right (attach left edge) and sit above chips */
+    /* Down chevron rotation on open */
+    .filter-toggle .dropdown-icon,
+    [data-open-card-tags] .dropdown-icon { transition: transform .15s ease; }
+    .filter-toggle[aria-expanded="true"] .dropdown-icon,
+    [data-open-card-tags][aria-expanded="true"] .dropdown-icon { transform: rotate(180deg); }
+
+    /* Top filter dropdowns: attach left edge, sit above chips */
     [data-filter-wrapper] .filter-panel {
       left: 0; right: auto;
       width: max-content; max-width: min(92vw, 320px);
       z-index: 1200; /* ensure above chip rows (z:60) */
     }
-    /* Per-card tags dropdown: drop to the left (attach right edge) and stay under chip row */
+
+    /* Per-card tags dropdown: attach right edge by default; JS may float it */
     [data-card-tags] [data-card-tags-panel] {
       right: 0; left: auto;
       width: max-content; max-width: min(90vw, 260px);
       z-index: 55;
     }
 
-    /* Opaque per-card tags panel (fallback in case global CSS not loaded yet) */
+    /* Opaque per-card tags panel (fallback if global CSS not loaded yet) */
     [data-card-tags-panel] {
       background-color: var(--bg) !important;
       background-image: none !important;
@@ -432,9 +459,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       document.getElementById('drink-grid')?.addEventListener('click', (e) => {
         const t = e.target;
         if (!(t instanceof Element)) return;
-        // If interacting with tag pill/dropdown or card chips, do nothing (let those handle)
         if (t.closest('[data-card-tags]') || t.closest('.js-card-chip')) return;
-
         const card = t.closest('.drink-card');
         if (!card) return;
         const a = card.querySelector('a[data-card-link]');
@@ -491,7 +516,55 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         applySearch();
       }
 
-      // Generic filter panel toggles (Drink Type, Alcohol base, Difficulty, Tags)
+      // Utility: position a panel as fixed within viewport (prevents off-screen on mobile)
+      function positionPanelFixed(trigger, panel) {
+        if (!(trigger instanceof Element) || !(panel instanceof HTMLElement)) return false;
+        panel.classList.add('floating'); // position: fixed via global CSS
+        // Make it visible temporarily for measurement if needed
+        const prevDisplay = panel.style.display;
+        if (getComputedStyle(panel).display === 'none') panel.style.display = 'block';
+
+        const tRect = trigger.getBoundingClientRect();
+        const pRect = panel.getBoundingClientRect();
+        const vpW = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+        const vpH = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+        const margin = 8;
+
+        // Preferred below the trigger
+        let left = Math.round(tRect.left);
+        let top = Math.round(tRect.bottom + 6);
+
+        // Clamp horizontally
+        if (left + pRect.width + margin > vpW) left = vpW - pRect.width - margin;
+        if (left < margin) left = margin;
+
+        // If overflow bottom, place above
+        if (top + pRect.height + margin > vpH) {
+          top = Math.round(tRect.top - pRect.height - 6);
+          if (top < margin) top = margin;
+        }
+
+        panel.style.setProperty('--panel-x', left + 'px');
+        panel.style.setProperty('--panel-y', top + 'px');
+
+        // Restore display state if we changed it while measuring
+        panel.style.display = prevDisplay || panel.style.display;
+
+        return true;
+      }
+
+      // Cleanup floating state for all panels
+      function resetAllPanelsFloating() {
+        document.querySelectorAll('.filter-panel.floating').forEach(p => {
+          p.classList.remove('floating');
+          if (p instanceof HTMLElement) {
+            p.style.removeProperty('--panel-x');
+            p.style.removeProperty('--panel-y');
+          }
+        });
+      }
+
+      // Filter panel toggles (Drink Type, Alcohol base, Difficulty, Tags)
       const wrappers = document.querySelectorAll('[data-filter-wrapper]');
       function closeAllPanels(except) {
         wrappers.forEach(w => {
@@ -503,6 +576,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
             btn?.setAttribute('aria-expanded', 'false');
           }
         });
+        if (!except) resetAllPanelsFloating();
       }
       wrappers.forEach(w => {
         const btn = w.querySelector('.filter-toggle');
@@ -515,9 +589,12 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
           if (isOpen) {
             panel.classList.add('hidden');
             btn.setAttribute('aria-expanded','false');
+            panel.classList.remove('floating');
           } else {
             panel.classList.remove('hidden');
             btn.setAttribute('aria-expanded','true');
+            // Reposition as fixed to keep on-screen on mobile
+            positionPanelFixed(btn, panel);
           }
         });
       });
@@ -540,13 +617,22 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 
         // Close others and reset on-top
         document.querySelectorAll('[data-card-tags-panel]').forEach(p => {
-          if (p instanceof HTMLElement) p.style.display = 'none';
+          if (p instanceof HTMLElement) {
+            p.style.display = 'none';
+            p.classList.remove('floating');
+            p.style.removeProperty('--panel-x');
+            p.style.removeProperty('--panel-y');
+          }
         });
         document.querySelectorAll('[data-open-card-tags]').forEach(b => b.setAttribute('aria-expanded','false'));
         document.querySelectorAll('.drink-card.on-top').forEach(c => c.classList.remove('on-top'));
 
         if (willOpen) {
-          if (panel instanceof HTMLElement) panel.style.display = 'block';
+          if (panel instanceof HTMLElement) {
+            // Show and position (fixed) so it won't go off-screen on mobile
+            panel.style.display = 'block';
+            positionPanelFixed(trigger, panel);
+          }
           trigger.setAttribute('aria-expanded','true');
           card?.classList.add('on-top');
         }
@@ -581,6 +667,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
           document.querySelectorAll('[data-card-tags-panel]').forEach(p => (p instanceof HTMLElement) && (p.style.display = 'none'));
           document.querySelectorAll('[data-open-card-tags]').forEach(b => b.setAttribute('aria-expanded','false'));
           document.querySelectorAll('.drink-card.on-top').forEach(c => c.classList.remove('on-top'));
+          resetAllPanelsFloating();
         }
       });
       document.addEventListener('keydown', e => {
@@ -588,7 +675,16 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
           document.querySelectorAll('[data-card-tags-panel]').forEach(p => (p instanceof HTMLElement) && (p.style.display = 'none'));
           document.querySelectorAll('[data-open-card-tags]').forEach(b => b.setAttribute('aria-expanded','false'));
           document.querySelectorAll('.drink-card.on-top').forEach(c => c.classList.remove('on-top'));
+          resetAllPanelsFloating();
         }
+      });
+
+      // Reposition any open floating panels on orientation change
+      window.addEventListener('orientationchange', () => {
+        document.querySelectorAll('.filter-panel.floating').forEach(p => {
+          const btn = document.querySelector(`[aria-controls="${p.id}"]`);
+          if (btn) positionPanelFixed(btn, p);
+        });
       });
     })();
   </script>
