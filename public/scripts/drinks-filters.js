@@ -1,15 +1,18 @@
-// Drinks filters: manage state, apply visibility, and sync UI (Type, Alcohol base, Difficulty)
+// Drinks filters: manage state, apply visibility, and sync UI (Drink Type, Alcohol base, Difficulty, Tags + Exclusive)
 (() => {
   const grid = document.getElementById('drink-grid');
   if (!grid) return;
 
   const clearBtn = document.getElementById('clear-filters');
+  const exclusiveBtn = document.getElementById('exclusive-toggle');
   const groupToggles = document.querySelectorAll('.filter-toggle[data-filter-group]');
 
   const state = {
-    type: new Set(),
+    drinkType: new Set(),
     base: new Set(),
-    difficulty: new Set()
+    difficulty: new Set(),
+    tag: new Set(),
+    exclusive: false // AND across tags when true; OR when false
   };
 
   function styleFilterItem(btn, pressed) {
@@ -42,9 +45,14 @@
       styleGroupToggle(btn, on);
     });
 
+    // Exclusive link aria
+    if (exclusiveBtn) {
+      exclusiveBtn.setAttribute('aria-pressed', state.exclusive ? 'true' : 'false');
+    }
+
     // Clear link: disabled when nothing selected
     if (clearBtn) {
-      const hasAny = state.type.size || state.base.size || state.difficulty.size;
+      const hasAny = state.drinkType.size || state.base.size || state.difficulty.size || state.tag.size;
       clearBtn.setAttribute('aria-disabled', hasAny ? 'false' : 'true');
       clearBtn.classList.toggle('text-muted', !hasAny);
     }
@@ -52,23 +60,34 @@
 
   function apply() {
     const items = Array.from(grid.children);
+    const total = items.length;
     let shown = 0;
+
     items.forEach(li => {
       const searchVisible = li.getAttribute('data-search-visible') !== 'false';
-      const type = (li.getAttribute('data-type') || '').toLowerCase();
+      const drinkType = (li.getAttribute('data-drinktype') || '').toLowerCase();
       const base = (li.getAttribute('data-base') || '').toLowerCase();
       const difficulty = (li.getAttribute('data-difficulty') || '').toLowerCase();
+      const tags = (li.getAttribute('data-tags') || '').toLowerCase().split(',').filter(Boolean);
 
-      const typeMatch = state.type.size ? state.type.has(type) : true;
+      const typeMatch = state.drinkType.size ? state.drinkType.has(drinkType) : true;
       const baseMatch = state.base.size ? state.base.has(base) : true;
       const diffMatch = state.difficulty.size ? state.difficulty.has(difficulty) : true;
 
-      const vis = searchVisible && typeMatch && baseMatch && diffMatch;
+      let tagMatch = true;
+      if (state.tag.size) {
+        const selected = Array.from(state.tag);
+        tagMatch = state.exclusive
+          ? selected.every(t => tags.includes(t))
+          : selected.some(t => tags.includes(t));
+      }
+
+      const vis = searchVisible && typeMatch && baseMatch && diffMatch && tagMatch;
       li.classList.toggle('hidden', !vis);
       if (vis) shown++;
     });
 
-    const txt = `${shown} result${shown === 1 ? '' : 's'}`;
+    const txt = `${shown} of ${total} result${total === 1 ? '' : 's'}`;
     const resultEl = document.getElementById('result-count');
     const resultElMobile = document.getElementById('result-count-mobile');
     if (resultEl) resultEl.textContent = txt;
@@ -87,7 +106,7 @@
     apply();
   };
 
-  // Panel item clicks (top dropdown items)
+  // Panel item clicks (top dropdown items and per-card tag dropdown items)
   document.addEventListener('click', e => {
     const t = e.target;
     if (!(t instanceof Element)) return;
@@ -100,12 +119,19 @@
     window.bddToggleDrinkFilter(type, value);
   });
 
-  // Clear link clears selected filters
+  // Exclusive toggle
+  exclusiveBtn?.addEventListener('click', (e) => {
+    e.preventDefault();
+    state.exclusive = !state.exclusive;
+    apply();
+  });
+
+  // Clear link clears selected filters (not exclusive)
   clearBtn?.addEventListener('click', (e) => {
     const isDisabled = clearBtn.getAttribute('aria-disabled') === 'true';
     if (isDisabled) { e.preventDefault(); return; }
     e.preventDefault();
-    state.type.clear(); state.base.clear(); state.difficulty.clear();
+    state.drinkType.clear(); state.base.clear(); state.difficulty.clear(); state.tag.clear();
     apply();
   });
 
