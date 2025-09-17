@@ -1,35 +1,53 @@
-// Drinks filters: default uncoloured until selected (filled magenta when selected)
+// Drinks filters: manage state, apply visibility, and sync UI (Type, Alcohol base, Difficulty)
 (() => {
-  const grid = document.getElementById('drinks-grid');
+  const grid = document.getElementById('drink-grid');
   if (!grid) return;
 
-  const exclusiveBtn = document.getElementById('exclusive-toggle');
   const clearBtn = document.getElementById('clear-filters');
-  const resultEl = document.getElementById('result-count');
+  const groupToggles = document.querySelectorAll('.filter-toggle[data-filter-group]');
 
   const state = {
     type: new Set(),
     base: new Set(),
-    difficulty: new Set(),
-    exclusive: false
+    difficulty: new Set()
   };
 
-  function styleButton(btn, pressed) {
+  function styleFilterItem(btn, pressed) {
     btn.setAttribute('aria-pressed', pressed ? 'true' : 'false');
     btn.classList.toggle('pill--filled', !!pressed);
     btn.classList.toggle('tone-magenta', !!pressed);
     btn.classList.toggle('pill--soft', !pressed);
   }
 
+  function styleGroupToggle(btn, on) {
+    btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    btn.classList.toggle('pill--filled', !!on);
+    btn.classList.toggle('tone-magenta', !!on);
+    btn.classList.toggle('pill--soft', !on);
+  }
+
   function syncButtons() {
+    // Panel items reflect pressed state
     document.querySelectorAll('.filter-item[data-filter-type]').forEach(btn => {
       const type = btn.getAttribute('data-filter-type');
       const val = (btn.getAttribute('data-value') || '').toLowerCase();
       const pressed = type && state[type]?.has(val);
-      styleButton(btn, !!pressed);
+      styleFilterItem(btn, !!pressed);
     });
-    exclusiveBtn?.setAttribute('aria-pressed', state.exclusive ? 'true' : 'false');
-    if (clearBtn) clearBtn.disabled = !(state.type.size || state.base.size || state.difficulty.size);
+
+    // Group toggles reflect whether there is any selection within that group
+    groupToggles.forEach(btn => {
+      const group = btn.getAttribute('data-filter-group');
+      const on = !!(group && state[group] && state[group].size);
+      styleGroupToggle(btn, on);
+    });
+
+    // Clear link: disabled when nothing selected
+    if (clearBtn) {
+      const hasAny = state.type.size || state.base.size || state.difficulty.size;
+      clearBtn.setAttribute('aria-disabled', hasAny ? 'false' : 'true');
+      clearBtn.classList.toggle('text-muted', !hasAny);
+    }
   }
 
   function apply() {
@@ -37,54 +55,58 @@
     let shown = 0;
     items.forEach(li => {
       const searchVisible = li.getAttribute('data-search-visible') !== 'false';
-
       const type = (li.getAttribute('data-type') || '').toLowerCase();
-      const diff = (li.getAttribute('data-difficulty') || '').toLowerCase();
-      const bases = (li.getAttribute('data-bases') || '').toLowerCase().split(',').filter(Boolean);
+      const base = (li.getAttribute('data-base') || '').toLowerCase();
+      const difficulty = (li.getAttribute('data-difficulty') || '').toLowerCase();
 
       const typeMatch = state.type.size ? state.type.has(type) : true;
-      const diffMatch = state.difficulty.size ? state.difficulty.has(diff) : true;
+      const baseMatch = state.base.size ? state.base.has(base) : true;
+      const diffMatch = state.difficulty.size ? state.difficulty.has(difficulty) : true;
 
-      let baseMatch = true;
-      if (state.base.size) {
-        const selected = Array.from(state.base);
-        baseMatch = state.exclusive
-          ? selected.every(b => bases.includes(b))
-          : selected.some(b => bases.includes(b));
-      }
-
-      const vis = searchVisible && typeMatch && diffMatch && baseMatch;
+      const vis = searchVisible && typeMatch && baseMatch && diffMatch;
       li.classList.toggle('hidden', !vis);
       if (vis) shown++;
     });
 
-    if (resultEl) resultEl.textContent = `${shown} result${shown === 1 ? '' : 's'}`;
+    const txt = `${shown} result${shown === 1 ? '' : 's'}`;
+    const resultEl = document.getElementById('result-count');
+    const resultElMobile = document.getElementById('result-count-mobile');
+    if (resultEl) resultEl.textContent = txt;
+    if (resultElMobile) resultElMobile.textContent = txt;
+
     syncButtons();
     return shown;
   }
 
-  window.bggApplyDrinkFilters = apply;
-  window.bggToggleDrinkFilter = (type, value) => {
+  window.bddApplyDrinkFilters = apply;
+  window.bddToggleDrinkFilter = (type, value) => {
+    const key = String(type);
     const v = (value || '').toLowerCase();
-    if (!state[type]) return;
-    if (state[type].has(v)) state[type].delete(v); else state[type].add(v);
+    if (!state[key]) return;
+    if (state[key].has(v)) state[key].delete(v); else state[key].add(v);
     apply();
   };
 
+  // Panel item clicks (top dropdown items)
   document.addEventListener('click', e => {
     const t = e.target;
     if (!(t instanceof Element)) return;
     const btn = t.closest('.filter-item[data-filter-type]');
     if (!btn) return;
+    e.preventDefault();
     const type = btn.getAttribute('data-filter-type');
     const value = btn.getAttribute('data-value');
     if (!type || !value) return;
-    window.bggToggleDrinkFilter(type, value);
+    window.bddToggleDrinkFilter(type, value);
   });
 
-  exclusiveBtn?.addEventListener('click', () => { state.exclusive = !state.exclusive; apply(); });
-  clearBtn?.addEventListener('click', () => {
-    state.type.clear(); state.base.clear(); state.difficulty.clear(); state.exclusive = false; apply();
+  // Clear link clears selected filters
+  clearBtn?.addEventListener('click', (e) => {
+    const isDisabled = clearBtn.getAttribute('aria-disabled') === 'true';
+    if (isDisabled) { e.preventDefault(); return; }
+    e.preventDefault();
+    state.type.clear(); state.base.clear(); state.difficulty.clear();
+    apply();
   });
 
   apply();
