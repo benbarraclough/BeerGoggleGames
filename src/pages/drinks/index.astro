@@ -3,47 +3,66 @@ import Layout from '../../components/Layout.astro';
 import { getCollection } from 'astro:content';
 import { withBase } from '../../lib/paths';
 import { canonical } from '../../lib/urls';
-import { excludeLegacyNoise } from '../../lib/filters';
 
-const raw = excludeLegacyNoise(await getCollection('drinks'));
+// Load drinks collection
+const raw = await getCollection('drinks');
 
+// Normalize and sort drinks
 const allDrinks = raw
   .map(d => {
     const full = d.slug ?? d.id;
     const leaf = full.split('/').pop();
     const type = (d.data.type || 'misc').toString();
-    const tags = Array.isArray(d.data.tags) ? d.data.tags : [];
+    // Try multiple possible field names for base alcohol
+    const base =
+      (d.data.base ||
+       d.data.alcohol ||
+       d.data.alcoholBase ||
+       d.data.spirit ||
+       '').toString();
+    const difficulty = (d.data.difficulty || '').toString();
     const excerpt = (d.data.excerpt || '').toString();
     return {
       title: d.data.title,
-      type, tags, excerpt, leaf,
+      type,
+      base,
+      difficulty,
+      excerpt,
+      leaf,
       image: withBase(`images/${leaf}.webp`),
       href: withBase(`drinks/${leaf}/`)
     };
   })
   .sort((a,b)=> (a.title||'').localeCompare(b.title||''));
 
-const categoryCounts = new Map<string, number>();
-const tagCounts = new Map<string, number>();
+// Build counts for filters
+const typeCounts = new Map<string, number>();
+const baseCounts = new Map<string, number>();
+const diffCounts = new Map<string, number>();
 for (const d of allDrinks) {
-  categoryCounts.set(d.type, (categoryCounts.get(d.type) || 0) + 1);
-  for (const t of d.tags) tagCounts.set(t, (tagCounts.get(t) || 0) + 1);
+  typeCounts.set(d.type, (typeCounts.get(d.type) || 0) + 1);
+  if (d.base) baseCounts.set(d.base, (baseCounts.get(d.base) || 0) + 1);
+  if (d.difficulty) diffCounts.set(d.difficulty, (diffCounts.get(d.difficulty) || 0) + 1);
 }
-const categories = Array.from(categoryCounts.entries()).sort((a,b)=> a[0].localeCompare(b[0]));
-const tags = Array.from(tagCounts.entries()).sort((a,b)=> a[0].localeCompare(b[0]));
+
+const types = Array.from(typeCounts.entries()).sort((a,b)=> a[0].localeCompare(b[0]));
+const bases = Array.from(baseCounts.entries()).sort((a,b)=> a[0].localeCompare(b[0]));
+const difficulties = Array.from(diffCounts.entries()).sort((a,b)=> a[0].localeCompare(b[0]));
 
 const pageCanonical = canonical(Astro.url.pathname, Astro.site);
+const shareText = encodeURIComponent('Check out these drink recipes and filters on Beer Goggle Games');
+const shareUrl = encodeURIComponent(pageCanonical || (Astro.site ? new URL(Astro.url.pathname, Astro.site).toString() : Astro.url.toString()));
 ---
 <Layout
   title="Drinks"
-  description="All drinks. Filter or search by category or tags."
+  description="All drinks, cocktails, and shots. Filter by type, alcohol base, or difficulty."
   canonical={pageCanonical}
   wide={true}
 >
-  <div class="tone-cyan">
-    <h1 class="font-display text-4xl mb-4 tone-cyan-text">Drinks</h1>
+  <div class="tone-magenta">
+    <h1 class="font-display text-4xl mb-4 tone-magenta-text">Drinks</h1>
     <p class="text-sm text-muted mb-5">
-      Browse all drinks A–Z. Use search and filters, or pick a
+      Explore cocktails, shots, and more. Use search and filters, or pick a
       <a class="hover:text-fg underline underline-offset-4" href={withBase('drinks/random')}>Random Drink</a>
     </p>
 
@@ -71,58 +90,18 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       <div class="flex flex-wrap items-center gap-2">
         <span class="text-[11px] uppercase tracking-wide text-muted/70">Filters</span>
 
-        <!-- Categories -->
+        <!-- Type -->
         <div class="relative" data-filter-wrapper>
-          <button type="button" class="filter-toggle pill pill--soft" data-panel="categories" data-filter-group="category" aria-expanded="false" aria-pressed="false">
-            Categories
+          <button type="button" class="filter-toggle pill pill--soft" data-panel="types" data-filter-group="type" aria-expanded="false" aria-pressed="false">
+            Type
           </button>
-          <div class="filter-panel hidden" id="panel-categories" role="group" aria-label="Categories">
+          <div class="filter-panel hidden" id="panel-types" role="group" aria-label="Drink types">
             <div class="panel-inner">
-              {categories.map(([cat, count]) => (
+              {types.map(([t, count]) => (
                 <button
                   type="button"
                   class="filter-item pill pill--soft"
-                  data-filter-type="category"
-                  data-value={cat}
-                  aria-pressed="false"
-                >
-                  <span>{cat}</span><span class="count">{count}</span>
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        <!-- Tags -->
-        <div class="relative" data-filter-wrapper>
-          <button type="button" class="filter-toggle pill pill--soft" data-panel="tags" data-filter-group="tag" aria-expanded="false" aria-pressed="false" id="tags-toggle">
-            Tags
-          </button>
-          <!-- Solid + high z-index to sit above any card chips -->
-          <div
-            class="filter-panel hidden filter-panel--solid"
-            id="panel-tags"
-            role="group"
-            aria-label="Tags"
-            style="
-              z-index: 1200 !important;
-              background: rgb(var(--bg-rgb)) !important;
-              background-image: none !important;
-              -webkit-backdrop-filter: none !important;
-              backdrop-filter: none !important;
-              filter: none !important;
-              opacity: 1 !important;
-              mix-blend-mode: normal !important;
-              border: 1px solid rgba(255,255,255,0.18) !important;
-              box-shadow: 0 10px 24px rgba(0,0,0,0.55) !important;
-            "
-          >
-            <div class="panel-inner">
-              {tags.map(([t, count]) => (
-                <button
-                  type="button"
-                  class="filter-item pill pill--soft"
-                  data-filter-type="tag"
+                  data-filter-type="type"
                   data-value={t}
                   aria-pressed="false"
                 >
@@ -133,19 +112,58 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
           </div>
         </div>
 
-        <!-- Exclusive/Clear and mobile results on same row -->
+        <!-- Alcohol base -->
+        <div class="relative" data-filter-wrapper>
+          <button type="button" class="filter-toggle pill pill--soft" data-panel="bases" data-filter-group="base" aria-expanded="false" aria-pressed="false">
+            Alcohol base
+          </button>
+          <div class="filter-panel hidden" id="panel-bases" role="group" aria-label="Alcohol bases">
+            <div class="panel-inner">
+              {bases.map(([b, count]) => (
+                <button
+                  type="button"
+                  class="filter-item pill pill--soft"
+                  data-filter-type="base"
+                  data-value={b}
+                  aria-pressed="false"
+                >
+                  <span>{b}</span><span class="count">{count}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <!-- Difficulty -->
+        <div class="relative" data-filter-wrapper>
+          <button type="button" class="filter-toggle pill pill--soft" data-panel="difficulty" data-filter-group="difficulty" aria-expanded="false" aria-pressed="false">
+            Difficulty
+          </button>
+          <div class="filter-panel hidden" id="panel-difficulty" role="group" aria-label="Difficulty">
+            <div class="panel-inner">
+              {difficulties.map(([level, count]) => (
+                <button
+                  type="button"
+                  class="filter-item pill pill--soft"
+                  data-filter-type="difficulty"
+                  data-value={level}
+                  aria-pressed="false"
+                >
+                  <span>{level}</span><span class="count">{count}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <!-- Clear + result count -->
         <div class="w-full sm:w-auto flex items-center gap-3 mt-2 sm:mt-0">
-          <a href="#" id="exclusive-toggle" class="filter-link" aria-pressed="false">
-            <span class="dot" aria-hidden="true"></span>
-            Exclusive
-          </a>
           <a href="#" id="clear-filters" class="filter-link text-muted" aria-disabled="true">
             Clear
           </a>
           <span id="result-count-mobile" class="text-xs text-muted sm:hidden ml-auto"></span>
         </div>
 
-        <!-- Desktop/tablet result count on far right -->
         <span id="result-count" class="text-xs text-muted ml-auto hidden sm:inline"></span>
       </div>
     </div>
@@ -154,103 +172,132 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       <p class="text-muted">No drinks found.</p>
     ) : (
       <ul id="drink-grid" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 list-none p-0 m-0">
-        {allDrinks.map(d => {
-          const panelId = `tags-${d.leaf}`;
-          return (
-            <li
-              class="drink-card group relative"
-              data-category={d.type}
-              data-tags={d.tags.join(',').toLowerCase()}
-              data-title={(d.title||'').toLowerCase()}
-              data-excerpt={(d.excerpt||'').toLowerCase()}
-              data-search-visible="true"
-            >
-              <div class="glass p-3 relative">
-                <div class="flex">
-                  <picture class="mr-3 shrink-0">
-                    <img
-                      src={d.image}
-                      alt={d.title}
-                      loading="lazy"
-                      decoding="async"
-                      class="w-[88px] h-[88px] object-cover rounded-sm border border-fg/15 bg-fg/5"
-                      onerror="this.style.display='none'"
-                    />
-                  </picture>
-                  <div class="flex flex-col min-w-0">
-                    <span class="font-semibold leading-snug mb-1 transition-colors group-hover:text-fg">{d.title}</span>
-                    {d.excerpt && <p class="text-xs text-muted leading-snug line-clamp-2 mb-2">{d.excerpt}</p>}
+        {allDrinks.map(d => (
+          <li
+            class="drink-card group relative"
+            data-type={d.type}
+            data-base={d.base.toLowerCase()}
+            data-difficulty={d.difficulty.toLowerCase()}
+            data-title={(d.title||'').toLowerCase()}
+            data-excerpt={(d.excerpt||'').toLowerCase()}
+            data-search-visible="true"
+          >
+            <div class="glass p-3 relative">
+              <div class="flex">
+                <picture class="mr-3 shrink-0">
+                  <img
+                    src={d.image}
+                    alt={d.title}
+                    loading="lazy"
+                    decoding="async"
+                    class="w-[88px] h-[88px] object-cover rounded-sm border border-fg/15 bg-fg/5"
+                    onerror="this.style.display='none'"
+                  />
+                </picture>
+                <div class="flex flex-col min-w-0">
+                  <span class="font-semibold leading-snug mb-1 transition-colors group-hover:text-fg">{d.title}</span>
+                  {d.excerpt && <p class="text-xs text-muted leading-snug line-clamp-2 mb-2">{d.excerpt}</p>}
 
-                    <!-- Chips row -->
-                    <div class="chip-row flex flex-wrap gap-2 text-[11px] tracking-wide font-semibold" style="position: relative; z-index: 60;">
-                      <!-- Category chip: clickable to filter -->
+                  <!-- Chips row -->
+                  <div class="chip-row flex flex-wrap gap-2 text-[11px] tracking-wide font-semibold" style="position: relative; z-index: 60;">
+                    <button
+                      type="button"
+                      class="pill pill--filled tone-magenta js-card-chip"
+                      data-chip-type="type"
+                      data-chip-value={d.type}
+                      aria-pressed="false"
+                      title={`Filter: ${d.type}`}
+                    >
+                      {d.type}
+                    </button>
+
+                    {d.base && (
                       <button
                         type="button"
-                        class="pill pill--filled tone-cyan js-card-chip"
-                        data-chip-type="category"
-                        data-chip-value={d.type}
+                        class="pill pill--filled tone-magenta js-card-chip"
+                        data-chip-type="base"
+                        data-chip-value={d.base}
                         aria-pressed="false"
-                        title={`Filter: ${d.type}`}
+                        title={`Filter: ${d.base}`}
                       >
-                        {d.type}
+                        {d.base}
                       </button>
+                    )}
 
-                      <!-- Tag pill and dropdown -->
-                      {d.tags.length > 0 && (
-                        <div class="relative inline-block" data-card-tags>
-                          <button
-                            type="button"
-                            class="pill pill--filled tone-cyan"
-                            aria-haspopup="listbox"
-                            aria-expanded="false"
-                            aria-controls={panelId}
-                            data-open-card-tags
-                            title="Show tags for this drink"
-                          >
-                            {d.tags.length} tag{d.tags.length !== 1 && 's'}
-                          </button>
-                          <div
-                            class="filter-panel narrow"
-                            id={panelId}
-                            role="group"
-                            aria-label={`Tags for ${d.title}`}
-                            data-card-tags-panel
-                            style="position: absolute; z-index: 55; display: none; right: 0; left: auto;"
-                          >
-                            <div class="panel-inner panel-inner-col">
-                              {d.tags.map(t => (
-                                <button
-                                  type="button"
-                                  class="filter-item pill pill--soft w-full justify-between text-left block"
-                                  data-filter-type="tag"
-                                  data-value={t}
-                                  aria-pressed="false"
-                                >
-                                  <span>{t}</span>
-                                </button>
-                              ))}
-                            </div>
-                          </div>
-                        </div>
-                      )}
-                    </div>
+                    {d.difficulty && (
+                      <button
+                        type="button"
+                        class="pill pill--filled tone-magenta js-card-chip"
+                        data-chip-type="difficulty"
+                        data-chip-value={d.difficulty}
+                        aria-pressed="false"
+                        title={`Filter: ${d.difficulty}`}
+                      >
+                        {d.difficulty}
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>
+            </div>
 
-              <!-- Overlay link (do not intercept clicks on chips/dropdowns) -->
-              <a href={d.href} aria-label={`View drink: ${d.title}`} class="overlay-link absolute inset-0 rounded-md" data-card-link>
-                <span class="sr-only">{d.title}</span>
-              </a>
-            </li>
-          );
-        })}
+            <a href={d.href} aria-label={`View drink: ${d.title}`} class="overlay-link absolute inset-0 rounded-md" data-card-link>
+              <span class="sr-only">{d.title}</span>
+            </a>
+          </li>
+        ))}
       </ul>
     )}
 
-    <p class="mt-10 text-sm">
-      <a class="hover:text-fg underline underline-offset-4" href={withBase('/')}>← Back to Home</a>
-    </p>
+    <!-- Share and Feedback -->
+    <div class="mt-12">
+      <div class="divider" aria-hidden="true"></div>
+      <div class="grid gap-8 md:grid-cols-2">
+        <!-- Share -->
+        <section aria-labelledby="share-section">
+          <h2 id="share-section" class="text-xs uppercase tracking-wide text-muted/70 mb-3">Share</h2>
+          <div class="flex flex-wrap gap-2">
+            <a
+              class="pill-btn btn-violet share--x"
+              target="_blank"
+              rel="noopener"
+              href={`https://twitter.com/intent/tweet?text=${shareText}&url=${shareUrl}`}
+              aria-label="Share on X"
+            >X</a>
+            <a
+              class="pill-btn btn-cyan share--facebook"
+              target="_blank"
+              rel="noopener"
+              href={`https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`}
+              aria-label="Share on Facebook"
+            >Facebook</a>
+            <a
+              class="pill-btn btn-green share--whatsapp"
+              target="_blank"
+              rel="noopener"
+              href={`https://api.whatsapp.com/send?text=${shareText}%20${shareUrl}`}
+              aria-label="Share on WhatsApp"
+            >WhatsApp</a>
+            <a
+              class="pill-btn btn-magenta share--reddit"
+              target="_blank"
+              rel="noopener"
+              href={`https://www.reddit.com/submit?url=${shareUrl}&title=${shareText}`}
+              aria-label="Share on Reddit"
+            >Reddit</a>
+          </div>
+        </section>
+
+        <!-- Feedback -->
+        <section aria-labelledby="feedback-section">
+          <h2 id="feedback-section" class="text-xs uppercase tracking-wide text-muted/70 mb-3">Feedback</h2>
+          <p class="text-sm text-muted">
+            Spotted an issue or have an idea to improve this page?
+            <a class="hover:text-fg underline underline-offset-4" href={withBase('contact')}>Send feedback</a>.
+          </p>
+        </section>
+      </div>
+    </div>
   </div>
 
   <style is:inline>
@@ -262,44 +309,17 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       box-shadow: 0 22px 44px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.08);
     }
 
-    /* Make whole card show pointer cursor (anchor has pointer-events: none) */
     .drink-card { cursor: pointer; }
     .drink-card > a.overlay-link { pointer-events: none; }
 
-    /* Force filter toggle buttons to normal case */
     .filter-toggle,
-    #exclusive-toggle,
     #clear-filters { text-transform: none !important; }
 
-    /* Top filter dropdowns: drop to the right (attach left edge) and sit ABOVE card chips */
+    /* Top filter dropdowns: drop to the right (attach left edge) and sit above chips */
     [data-filter-wrapper] .filter-panel {
       left: 0; right: auto;
       width: max-content; max-width: min(92vw, 320px);
-      z-index: 1200; /* critical: above chip rows (z:60) */
-    }
-
-    /* Per-card tag dropdown: drop to the left (attach right edge) and stay UNDER chip row */
-    [data-card-tags] [data-card-tags-panel] {
-      right: 0; left: auto;
-      width: max-content; max-width: min(90vw, 260px);
-      z-index: 55;
-    }
-
-    /* Opaque per-card tags panel (belt-and-braces) */
-    [data-card-tags-panel] {
-      background-color: var(--bg) !important;
-      background-image: none !important;
-      -webkit-backdrop-filter: none !important;
-      backdrop-filter: none !important;
-      filter: none !important;
-      mix-blend-mode: normal !important;
-      border: 1px solid rgba(255,255,255,0.18) !important;
-      box-shadow: 0 10px 24px rgba(0,0,0,0.55) !important;
-    }
-    [data-card-tags-panel] .panel-inner {
-      background: transparent !important;
-      border: 0 !important;
-      box-shadow: none !important;
+      z-index: 1200; /* ensure above chip rows (z:60) */
     }
 
     /* Link-style controls */
@@ -311,113 +331,55 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       padding: 4px 0;
     }
 
-    /* Disabled Clear styling */
     #clear-filters[aria-disabled="true"] {
       color: rgba(255,255,255,0.5);
       pointer-events: none; cursor: default;
     }
-
-    /* Exclusive status dot: red when off, green when on */
-    #exclusive-toggle .dot {
-      width: 8px; height: 8px; border-radius: 9999px;
-      background: #c33; box-shadow: 0 0 0 1px rgba(0,0,0,0.25) inset;
-      transition: background-color .15s ease-in-out;
-    }
-    #exclusive-toggle[aria-pressed="true"] .dot { background: #16a34a; }
   </style>
 
-  <!-- Self-contained filtering for drinks (category + tags + exclusive) -->
+  <script type="module" src={withBase('scripts/drinks-filters.js')}></script>
+
   <script is:inline>
     (() => {
-      const grid = document.getElementById('drink-grid');
-      if (!grid) return;
+      // Make the entire card clickable via JS (overlay link has pointer-events: none)
+      document.getElementById('drink-grid')?.addEventListener('click', (e) => {
+        const t = e.target;
+        if (!(t instanceof Element)) return;
+        const card = t.closest('.drink-card');
+        if (!card) return;
+        // Don't take over if clicking a chip
+        if (t.closest('.js-card-chip')) return;
+        const a = card.querySelector('a[data-card-link]');
+        if (!(a instanceof HTMLAnchorElement)) return;
+        window.location.href = a.href;
+      });
 
-      const exclusiveBtn = document.getElementById('exclusive-toggle');
-      const clearBtn = document.getElementById('clear-filters');
+      // Chip clicks -> apply filters
+      document.getElementById('drink-grid')?.addEventListener('click', (e) => {
+        const t = e.target;
+        if (!(t instanceof Element)) return;
+        const chip = t.closest('.js-card-chip');
+        if (!chip) return;
 
-      const state = {
-        category: new Set(),
-        tag: new Set(),
-        exclusive: false
-      };
+        e.preventDefault();
+        e.stopPropagation();
 
-      function styleFilterItem(btn, pressed) {
-        btn.setAttribute('aria-pressed', pressed ? 'true' : 'false');
-        btn.classList.toggle('pill--filled', !!pressed);
-        btn.classList.toggle('tone-cyan', !!pressed);
-        btn.classList.toggle('pill--soft', !pressed);
-      }
-      function styleGroupToggle(btn, on) {
-        btn.setAttribute('aria-pressed', on ? 'true' : 'false');
-        btn.classList.toggle('pill--filled', !!on);
-        btn.classList.toggle('tone-cyan', !!on);
-        btn.classList.toggle('pill--soft', !on);
-      }
+        const type = chip.getAttribute('data-chip-type');
+        const value = chip.getAttribute('data-chip-value');
+        if (!type || !value) return;
 
-      function syncButtons() {
-        document.querySelectorAll('.filter-item[data-filter-type]').forEach(btn => {
-          const type = btn.getAttribute('data-filter-type');
-          const val = (btn.getAttribute('data-value') || '').toLowerCase();
-          const pressed = type && state[type]?.has(val);
-          styleFilterItem(btn, !!pressed);
-        });
-        document.querySelectorAll('.filter-toggle[data-filter-group]').forEach(btn => {
-          const group = btn.getAttribute('data-filter-group');
-          const on = !!(group && state[group] && state[group].size);
-          styleGroupToggle(btn, on);
-        });
-        if (exclusiveBtn) exclusiveBtn.setAttribute('aria-pressed', state.exclusive ? 'true' : 'false');
-        if (clearBtn) {
-          const hasAny = state.category.size || state.tag.size;
-          clearBtn.setAttribute('aria-disabled', hasAny ? 'false' : 'true');
-          clearBtn.classList.toggle('text-muted', !hasAny);
-        }
-      }
+        const pressed = chip.getAttribute('aria-pressed') === 'true';
+        chip.setAttribute('aria-pressed', pressed ? 'false' : 'true');
 
-      function apply() {
-        const items = Array.from(grid.children);
-        let shown = 0;
-        items.forEach(li => {
-          const searchVisible = li.getAttribute('data-search-visible') !== 'false';
-          const category = (li.getAttribute('data-category') || '').toLowerCase();
-          const tags = (li.getAttribute('data-tags') || '').toLowerCase().split(',').filter(Boolean);
-
-          const catMatch = state.category.size ? state.category.has(category) : true;
-          let tagMatch = true;
-          if (state.tag.size) {
-            const selected = Array.from(state.tag);
-            tagMatch = state.exclusive
-              ? selected.every(t => tags.includes(t))
-              : selected.some(t => tags.includes(t));
-          }
-
-          const vis = searchVisible && catMatch && tagMatch;
-          li.classList.toggle('hidden', !vis);
-          if (vis) shown++;
-        });
-
-        const txt = `${shown} result${shown === 1 ? '' : 's'}`;
-        const resultEl = document.getElementById('result-count');
-        const resultElMobile = document.getElementById('result-count-mobile');
-        if (resultEl) resultEl.textContent = txt;
-        if (resultElMobile) resultElMobile.textContent = txt;
-
-        syncButtons();
-        return shown;
-      }
-
-      // Expose for chip clicks
-      window.bddApplyDrinkFilters = apply;
-      window.bddToggleDrinkFilter = (type, value) => {
-        const v = (value || '').toLowerCase();
-        if (!state[type]) return;
-        if (state[type].has(v)) state[type].delete(v); else state[type].add(v);
-        apply();
-      };
+        window.bddToggleDrinkFilter?.(type, value);
+        window.bddApplyDrinkFilters?.();
+      });
 
       // Search integrates with filters
       const input = document.getElementById('drink-search');
+      const grid = document.getElementById('drink-grid');
       const hitsEl = document.getElementById('search-hits');
+
       if (input && grid) {
         const items = Array.from(grid.children);
         function applySearch() {
@@ -425,21 +387,22 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
           let hits = 0;
           items.forEach(li => {
             const title = li.getAttribute('data-title') || '';
-            const tags = li.getAttribute('data-tags') || '';
-            const category = li.getAttribute('data-category') || '';
+            const type = li.getAttribute('data-type') || '';
+            const base = li.getAttribute('data-base') || '';
+            const difficulty = li.getAttribute('data-difficulty') || '';
             const excerpt = li.getAttribute('data-excerpt') || '';
-            const match = !q || title.includes(q) || tags.includes(q) || category.includes(q) || excerpt.includes(q);
+            const match = !q || title.includes(q) || type.includes(q) || base.includes(q) || difficulty.includes(q) || excerpt.includes(q);
             li.dataset.searchVisible = match ? 'true' : 'false';
             if (match) hits++;
           });
           if (hitsEl) hitsEl.textContent = q ? `${hits} match${hits===1?'':'es'}` : '';
-          apply();
+          window.bddApplyDrinkFilters?.();
         }
         input.addEventListener('input', applySearch);
         applySearch();
       }
 
-      // Top filter panel toggles
+      // Generic filter panel toggles
       const wrappers = document.querySelectorAll('[data-filter-wrapper]');
       function closeAllPanels(except) {
         wrappers.forEach(w => {
@@ -477,126 +440,6 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') closeAllPanels(null);
       });
-
-      // Panel item clicks
-      document.addEventListener('click', e => {
-        const t = e.target;
-        if (!(t instanceof Element)) return;
-        const btn = t.closest('.filter-item[data-filter-type]');
-        if (!btn) return;
-        e.preventDefault();
-        const type = btn.getAttribute('data-filter-type');
-        const value = btn.getAttribute('data-value');
-        if (!type || !value) return;
-        window.bddToggleDrinkFilter(type, value);
-      });
-
-      // Exclusive toggle
-      exclusiveBtn?.addEventListener('click', (e) => {
-        e.preventDefault();
-        state.exclusive = !state.exclusive;
-        apply();
-      });
-      // Clear toggle
-      clearBtn?.addEventListener('click', (e) => {
-        const isDisabled = clearBtn.getAttribute('aria-disabled') === 'true';
-        if (isDisabled) { e.preventDefault(); return; }
-        e.preventDefault();
-        state.category.clear(); state.tag.clear();
-        apply();
-      });
-
-      // Make entire card clickable (but not chips or tag dropdown)
-      grid.addEventListener('click', (e) => {
-        const t = e.target;
-        if (!(t instanceof Element)) return;
-        if (t.closest('[data-card-tags]') || t.closest('.js-card-chip')) return;
-        const card = t.closest('.drink-card');
-        if (!card) return;
-        const a = card.querySelector('a[data-card-link]');
-        if (!(a instanceof HTMLAnchorElement)) return;
-        window.location.href = a.href;
-      });
-
-      // Card chip clicks (category) -> apply filters
-      grid.addEventListener('click', (e) => {
-        const t = e.target;
-        if (!(t instanceof Element)) return;
-        const chip = t.closest('.js-card-chip');
-        if (!chip) return;
-
-        e.preventDefault();
-        e.stopPropagation();
-
-        const type = chip.getAttribute('data-chip-type');
-        const value = chip.getAttribute('data-chip-value');
-        if (!type || !value) return;
-
-        const pressed = chip.getAttribute('aria-pressed') === 'true';
-        chip.setAttribute('aria-pressed', pressed ? 'false' : 'true');
-
-        window.bddToggleDrinkFilter?.(type, value);
-        window.bddApplyDrinkFilters?.();
-      });
-
-      // Per-card tag dropdown: CLICK-TOGGLE + bring card above neighbors for stacking
-      function toggleCardTags(trigger, force) {
-        const holder = trigger.closest('[data-card-tags]');
-        const panel = holder?.querySelector('[data-card-tags-panel]');
-        const card = trigger.closest('.drink-card');
-        const isOpen = trigger.getAttribute('aria-expanded') === 'true';
-        const willOpen = typeof force === 'boolean' ? force : !isOpen;
-
-        document.querySelectorAll('[data-card-tags-panel]').forEach(p => {
-          if (p instanceof HTMLElement) p.style.display = 'none';
-        });
-        document.querySelectorAll('[data-open-card-tags]').forEach(b => b.setAttribute('aria-expanded','false'));
-        document.querySelectorAll('.drink-card.on-top').forEach(c => c.classList.remove('on-top'));
-
-        if (willOpen) {
-          if (panel instanceof HTMLElement) panel.style.display = 'block';
-          trigger.setAttribute('aria-expanded','true');
-          card?.classList.add('on-top');
-        }
-      }
-
-      grid.addEventListener('click', (e) => {
-        const t = e.target;
-        if (!(t instanceof Element)) return;
-        const trigger = t.closest('[data-open-card-tags]');
-        if (!trigger) return;
-        e.preventDefault();
-        e.stopPropagation();
-        toggleCardTags(trigger);
-      });
-      grid.addEventListener('keydown', (e) => {
-        const t = e.target;
-        if (!(t instanceof Element)) return;
-        const trigger = t.closest('[data-open-card-tags]');
-        if (!trigger) return;
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          toggleCardTags(trigger);
-        }
-      });
-      document.addEventListener('click', (e)=>{
-        const t = e.target;
-        if (!(t instanceof Element)) return;
-        if (!t.closest('[data-card-tags]')) {
-          document.querySelectorAll('[data-card-tags-panel]').forEach(p => (p instanceof HTMLElement) && (p.style.display = 'none'));
-          document.querySelectorAll('[data-open-card-tags]').forEach(b => b.setAttribute('aria-expanded','false'));
-          document.querySelectorAll('.drink-card.on-top').forEach(c => c.classList.remove('on-top'));
-        }
-      });
-      document.addEventListener('keydown', e => {
-        if (e.key === 'Escape') {
-          document.querySelectorAll('[data-card-tags-panel]').forEach(p => (p instanceof HTMLElement) && (p.style.display = 'none'));
-          document.querySelectorAll('[data-open-card-tags]').forEach(b => b.setAttribute('aria-expanded','false'));
-          document.querySelectorAll('.drink-card.on-top').forEach(c => c.classList.remove('on-top'));
-        }
-      });
-
-      apply();
     })();
   </script>
 </Layout>
