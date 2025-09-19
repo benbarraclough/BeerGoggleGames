@@ -108,25 +108,34 @@ const description = 'Flip a more realistic on-screen coin with smooth shading.';
       }
 
       function flip() {
-        const spins = 26 + Math.floor(Math.random()*10);
-        let frame = 0;
+        if (!btn) return;
+        btn.disabled = true;
         const target = Math.random() < 0.5 ? 'Heads' : 'Tails';
+        const duration = 1100 + Math.random()*700; // 1.1s - 1.8s
         const start = performance.now();
 
-        const timer = setInterval(() => {
-          const t = (performance.now() - start) / 600; // speed
-          const tilt = Math.abs(Math.sin(t)); // 0..1
-          const spin = t * Math.PI;          // rotate
-          // Alternate face visibility bias during spin
-          const showHeads = Math.sin(t*2) >= 0;
+        function easeOutCubic(x){ return 1 - Math.pow(1 - x, 3); }
+        function animate(now){
+          const elapsed = now - start;
+          const t = Math.min(1, elapsed / duration);
+          const eased = easeOutCubic(t);
+          // Spin more at the start, slow down towards the end
+          const totalTurns = 3 + Math.random()*2; // 3..5 turns
+          const spin = eased * totalTurns * Math.PI * 2;
+          // Tilt oscillates but damps over time
+          const tilt = Math.abs(Math.sin(elapsed/160)) * (1 - eased*0.85);
+          const showHeads = Math.sin(spin/Math.PI) >= 0;
           drawCoin(showHeads ? 'Heads' : 'Tails', tilt, spin);
-          frame++;
-          if (frame >= spins) {
-            clearInterval(timer);
+          if (t < 1) {
+            requestAnimationFrame(animate);
+          } else {
             drawCoin(target, 0, 0);
             result.textContent = 'Result: ' + target;
+            if (navigator.vibrate) { try { navigator.vibrate(12); } catch(_){} }
+            btn.disabled = false;
           }
-        }, 30);
+        }
+        requestAnimationFrame(animate);
       }
 
       btn?.addEventListener('click', flip);

@@ -36,7 +36,7 @@ function svg(name: string) {
         target="_blank"
         rel="noopener noreferrer"
         class:list={[
-          'group inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-fg/15 bg-bg/40 hover:bg-fg/10 text-xs font-medium transition focus-visible:outline-none focus-visible:ring-2',
+          'share-btn group inline-flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fg/50',
           link.className ?? ''
         ]}
         aria-label={link.label ?? link.name}
@@ -48,7 +48,7 @@ function svg(name: string) {
 
     <button
       type="button"
-      class="group inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-fg/15 bg-bg/40 hover:bg-fg/10 text-xs font-medium transition relative focus-visible:outline-none focus-visible:ring-2 text-fg"
+      class="group inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-fg/20 bg-fg/10 hover:bg-fg/15 text-xs font-medium transition relative focus-visible:outline-none focus-visible:ring-2 text-fg"
       data-copy-button
       aria-label="Copy page URL to clipboard"
     >
@@ -59,6 +59,18 @@ function svg(name: string) {
     </button>
   </div>
 </section>
+
+<style is:inline>
+  .share-btn { color: #fff; border: 1px solid rgba(255,255,255,0.15); }
+  .share--facebook { background: #1877F2; border-color: #1877F2; }
+  .share--facebook:hover { filter: brightness(1.05); }
+  .share--x { background: #000000; border-color: #000000; }
+  .share--x:hover { filter: brightness(1.1); }
+  .share--reddit { background: #FF4500; border-color: #FF4500; }
+  .share--reddit:hover { filter: brightness(1.05); }
+  .share--whatsapp { background: #25D366; border-color: #25D366; }
+  .share--whatsapp:hover { filter: brightness(1.05); }
+</style>
 
 <script is:inline>
 (function(){

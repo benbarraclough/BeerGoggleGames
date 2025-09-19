@@ -1,5 +1,7 @@
 ---
 import Layout from '../../components/Layout.astro';
+import ShareButtons from '../../components/ShareButtons.astro';
+import FeedbackCard from '../../components/FeedbackCard.astro';
 import { getCollection } from 'astro:content';
 import { withBase } from '../../lib/paths';
 import { canonical } from '../../lib/urls';
@@ -287,6 +289,19 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         })}
       </ul>
     )}
+
+    <!-- Share and Feedback on separate rows -->
+    <div class="mt-12">
+      <div class="divider" aria-hidden="true"></div>
+      <section aria-labelledby="share-section" class="mb-8">
+        <h2 id="share-section" class="text-xs uppercase tracking-wide text-muted/70 mb-3">Share</h2>
+        <ShareButtons title="Games" />
+      </section>
+      <section aria-labelledby="feedback-section">
+        <h2 id="feedback-section" class="text-xs uppercase tracking-wide text-muted/70 mb-3">Feedback</h2>
+        <FeedbackCard />
+      </section>
+    </div>
 
     <p class="mt-10 text-sm">
       <a class="hover:text-fg underline underline-offset-4" href={withBase('/')}>← Back to Home</a>

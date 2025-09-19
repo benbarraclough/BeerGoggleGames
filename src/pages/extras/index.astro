@@ -1,5 +1,7 @@
 ---
 import Layout from '../../components/Layout.astro';
+import ShareButtons from '../../components/ShareButtons.astro';
+import FeedbackCard from '../../components/FeedbackCard.astro';
 import { withBase } from '../../lib/paths';
 
 const title = 'Extras';
@@ -36,4 +38,17 @@ const links = [
       </li>
     ))}
   </ul>
+
+  <!-- Share and Feedback on separate rows -->
+  <div class="mt-12">
+    <div class="divider" aria-hidden="true"></div>
+    <section aria-labelledby="share-section" class="mb-8">
+      <h2 id="share-section" class="text-xs uppercase tracking-wide text-muted/70 mb-3">Share</h2>
+      <ShareButtons title="Extras" />
+    </section>
+    <section aria-labelledby="feedback-section">
+      <h2 id="feedback-section" class="text-xs uppercase tracking-wide text-muted/70 mb-3">Feedback</h2>
+      <FeedbackCard />
+    </section>
+  </div>
 </Layout>

@@ -62,6 +62,7 @@
 
   function apply() {
     const items = Array.from(grid.children);
+    const total = items.length;
     let shown = 0;
     items.forEach(li => {
       const searchVisible = li.getAttribute('data-search-visible') !== 'false';
@@ -85,7 +86,7 @@
       if (vis) shown++;
     });
 
-    const txt = `${shown} result${shown === 1 ? '' : 's'}`;
+  const txt = `${shown} of ${total} result${total === 1 ? '' : 's'}`;
     const resultEl = document.getElementById('result-count');
     const resultElMobile = document.getElementById('result-count-mobile');
     if (resultEl) resultEl.textContent = txt;
