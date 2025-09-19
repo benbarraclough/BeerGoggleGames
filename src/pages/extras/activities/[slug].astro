@@ -26,19 +26,20 @@ const ld = activityLD({ title, description, url: pageCanonical });
   <article class="prose-invert max-w-none tone-green">
     <header class="mb-6">
       <h1 class="font-display text-4xl mb-2 tone-green-text">{title}</h1>
+      {description && <p class="text-muted !mt-0 mb-3 max-w-prose">{description}</p>}
       {difficulty && <p class="!mt-0 text-sm text-muted"><strong>Difficulty:</strong> {difficulty}</p>}
     </header>
 
     <Content />
 
-    <p class="mt-10 text-xs text-muted">
-      <a class="hover:text-fg underline underline-offset-4" href={withBase('extras/activities/')}>← All Activities</a>
-    </p>
-
     <div class="divider" aria-hidden="true"></div>
     <ShareButtons title={title} />
     <FeedbackCard />
   </article>
+
+  <p class="mt-10 text-xs text-muted">
+    <a class="hover:text-fg underline underline-offset-4" href={withBase('extras/activities/')}>← All Activities</a>
+  </p>
 
   <!-- Add icons before section headings using inline SVGs -->
   <script is:inline>

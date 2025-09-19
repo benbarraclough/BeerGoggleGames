@@ -55,16 +55,14 @@ const description = 'Extra party & social activities to complement your games.';
       const difficulty = a.data.difficulty || '';
       return (
         <li
-          class="group relative flex flex-col glass p-5"
+          class="group relative flex flex-col glass p-5 transition-colors"
           data-title={(a.data.title || '').toLowerCase()}
           data-excerpt={(a.data.excerpt || '').toLowerCase()}
           data-difficulty={difficulty.toLowerCase()}
         >
           <h2 class="font-semibold leading-snug mb-2 group-hover:text-neon">{a.data.title}</h2>
           {difficulty && (
-            <span class="inline-block text-[10px] tracking-wide uppercase bg-fg/10 border border-fg/15 rounded px-2 py-0.5 mb-2">
-              {difficulty}
-            </span>
+            <span class="pill pill--soft mb-2">{difficulty}</span>
           )}
           {a.data.excerpt && <p class="text-xs text-muted leading-relaxed line-clamp-4">{a.data.excerpt}</p>}
           <p class="mt-3 text-[11px] font-medium tracking-wide uppercase text-neon/80 group-hover:text-neon">View →</p>

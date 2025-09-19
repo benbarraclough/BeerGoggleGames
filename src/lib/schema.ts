@@ -54,3 +54,24 @@ export function activityLD(args: {
     inLanguage: 'en'
   };
 }
+
+export function postLD(args: {
+  title: string;
+  description: string;
+  url: string;
+  date?: string | Date;
+  image?: string;
+}) {
+  const { title, description, url, date, image } = args;
+  const dateIso = date ? new Date(date).toISOString() : undefined;
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: title,
+    description,
+    url,
+    image: image ? [image] : undefined,
+    datePublished: dateIso,
+    inLanguage: 'en'
+  };
+}

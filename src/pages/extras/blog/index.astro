@@ -44,7 +44,7 @@ const description = 'Guides, announcements & extra ideas.';
   <div id="blog-results" class="space-y-12">
     {years.map(y => (
       <section data-year={y} class="year-group">
-        <h2 class="font-display text-xl md:text-2xl mb-4 tracking-tight flex items-center gap-2">
+  <h2 class="font-display text-xl md:text-2xl mb-4 tracking-tight flex items-center gap-2 tone-green-text">
           <span>{y}</span>
           <span class="text-[11px] font-normal text-muted bg-fg/10 px-2 py-0.5 rounded">{groups[y].length}</span>
         </h2>
@@ -54,7 +54,7 @@ const description = 'Guides, announcements & extra ideas.';
             const d = p.data.date ? new Date(p.data.date).toISOString().slice(0,10) : '';
             return (
               <li
-                class="group relative glass p-5"
+                class="group relative glass p-5 transition-colors"
                 data-title={(p.data.title || '').toLowerCase()}
                 data-excerpt={(p.data.excerpt || '').toLowerCase()}
               >
