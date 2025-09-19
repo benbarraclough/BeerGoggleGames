@@ -42,7 +42,6 @@ const iconName = ((): IconName | null => {
   }
   return (icon as any) || inferredIcon(title);
 })();
----
 const isSetup = /\b(setup|prepare|start)\b/i.test(title || '');
 ---
 <section class:list={["mb-8 glass p-5", isSetup ? 'no-inner-hr' : '']}>
