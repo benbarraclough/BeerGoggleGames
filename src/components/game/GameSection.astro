@@ -1,11 +1,11 @@
 ---
 const { title, icon } = Astro.props;
-type IconName = 'info' | 'glass' | 'settings' | 'target' | 'howto' | 'rules' | 'tips' | 'special';
+ type IconName = 'info' | 'tools' | 'settings' | 'target' | 'howto' | 'rules' | 'tips' | 'special';
 
 function inferredIcon(title: string): IconName | null {
   const t = (title || '').toLowerCase();
   if (/overview|about/.test(t)) return 'info';
-  if (/equipment|items|gear|glass/.test(t)) return 'glass';
+  if (/equipment|items|gear|tools|requirements/.test(t)) return 'tools';
   if (/setup|prepare|start/.test(t)) return 'settings';
   if (/aim|goal|objective|target/.test(t)) return 'target';
   if (/how to|play|steps|instructions|method|recipe/.test(t)) return 'howto';
@@ -18,7 +18,7 @@ function inferredIcon(title: string): IconName | null {
 function svg(name: IconName) {
   switch (name) {
     case 'info': return `<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='9'/><path d='M12 8h.01'/><path d='M12 12v4'/></svg>`;
-    case 'glass': return `<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><path d='M3 4h18l-8.5 8.5v5.5l3 2H8l3-2v-5.5L3 4Z'/><path d='M10 4l4 4'/></svg>`;
+  case 'tools': return `<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><path d='M14.7 6.3a4 4 0 1 0-5.66 5.66l8 8a2 2 0 0 0 2.83-2.83l-8-8Z'/><path d='M5 13l-3 3 3 3 3-3'/><path d='M7 11l-2 2'/></svg>`;
     case 'settings': return `<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><path d='M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z'/><path d='M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06A2 2 0 1 1 7.04 3.3l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06A2 2 0 1 1 20.7 7.04l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c0 .66.26 1.3.73 1.77.47.47 1.11.73 1.77.73H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z'/></svg>`;
     case 'target': return `<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='9'/><circle cx='12' cy='12' r='3'/><path d='M12 3v3M21 12h-3M12 21v-3M3 12h3'/></svg>`;
     case 'howto': return `<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><path d='M4 19.5A2.5 2.5 0 0 1 6.5 17H20'/><path d='M20 22H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20Z'/><path d='M8 7h8M8 11h6'/></svg>`;
@@ -32,7 +32,7 @@ const iconName = ((): IconName | null => {
   if (typeof icon === 'string' && icon.startsWith('/images/')) {
     // Back-compat: map known image filenames to icons
     if (icon.includes('info')) return 'info';
-    if (icon.includes('liquor')) return 'glass';
+  if (icon.includes('liquor') || icon.includes('tools') || icon.includes('equipment')) return 'tools';
     if (icon.includes('settings')) return 'settings';
     if (icon.includes('target')) return 'target';
     if (icon.includes('question')) return 'howto';
@@ -48,7 +48,7 @@ const isSetup = /\b(setup|prepare|start)\b/i.test(title || '');
   <h3 class="group flex items-center gap-3 text-xl font-semibold mb-3 tracking-tight">
     {iconName && (
       <span class="section-icon inline-flex w-10 h-10 items-center justify-center rounded-lg bg-fg/5 border border-fg/15 transition">
-        <span class="w-6 h-6 text-fg/80" aria-hidden="true" set:html={svg(iconName)} />
+        <span class={"w-6 h-6 " + (iconName === 'special' ? 'text-yellow-400' : 'text-fg/80')} aria-hidden="true" set:html={svg(iconName)} />
       </span>
     )}
     <span>{title}</span>
@@ -61,4 +61,6 @@ const isSetup = /\b(setup|prepare|start)\b/i.test(title || '');
 <style>
   /* Remove colored outline on icons; keep subtle base border only */
   .no-inner-hr hr { display: none; }
+  /* Also hide markdown-emulated dividers like *** inside Setup (rendered as hr) */
+  .no-inner-hr .divider, .no-inner-hr hr, .no-inner-hr .prose hr { display:none; }
 </style>

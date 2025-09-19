@@ -1,10 +1,8 @@
----
 interface Props {
   text: string;
   speed?: number; // seconds for one full loop
 }
 const { text, speed = 22 } = Astro.props as Props;
----
 <div class="banner-marquee" role="marquee" aria-label={text}>
   <div class="banner-track" style={`--speed:${speed}s`}>
     <span class="banner-item">{text}</span>
@@ -14,9 +12,14 @@ const { text, speed = 22 } = Astro.props as Props;
 </div>
 
 <style>
-.banner-marquee{overflow:hidden;position:relative}
+.banner-marquee{overflow:hidden;position:relative;height:100%;display:flex;align-items:center}
 .banner-track{display:inline-flex;gap:2.5rem;white-space:nowrap;will-change:transform;transform:translateX(100%);animation:banner-slide var(--speed,22s) linear infinite}
 @keyframes banner-slide{0%{transform:translateX(100%)}100%{transform:translateX(-100%)}}
 @media (prefers-reduced-motion:reduce){.banner-track{animation:none;transform:none}}
 .banner-item{display:inline-block}
+
+/* Mobile: slightly faster and nearer start so text appears sooner */
+@media (max-width: 640px){
+  .banner-track{animation-duration: calc(var(--speed,22s) * 0.7); transform: translateX(60%)}
+}
 </style>
