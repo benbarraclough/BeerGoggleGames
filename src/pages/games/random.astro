@@ -16,7 +16,9 @@ const target = pick || fallback;
     <title>Random Game</title>
     <meta name="robots" content="noindex" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <meta http-equiv="refresh" content={`2.2;url=${target}`} />
+  <meta http-equiv="refresh" content={`2.2;url=${target}`} />
+  <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0" />
+  <meta http-equiv="Pragma" content="no-cache" />
     <style>
       :root { color-scheme: dark; }
       html,body { height:100%; margin:0; background:#000; color:#fff; font: 15px/1.4 system-ui,-apple-system,Segoe UI,Roboto,sans-serif; }
@@ -57,7 +59,10 @@ const target = pick || fallback;
     </div>
     <script is:inline>
       (function(){
-        var target = {JSON.stringify(target)};
+        function bust(u){ try { var url = new URL(u, location.origin); url.searchParams.set('_', Date.now().toString()); return url.toString(); } catch { return u; } }
+        var target = bust({JSON.stringify(target)});
+        // Prevent bfcache restoring old page by forcing no-store and re-pick on visibility
+        document.addEventListener('visibilitychange', function(){ if(document.visibilityState==='visible'){ location.replace(bust({JSON.stringify(target)})); } });
         setTimeout(function(){ location.replace(target); }, 2000);
       })();
     </script>

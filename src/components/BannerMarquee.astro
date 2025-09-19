@@ -1,0 +1,22 @@
+---
+interface Props {
+  text: string;
+  speed?: number; // seconds for one full loop
+}
+const { text, speed = 22 } = Astro.props as Props;
+---
+<div class="banner-marquee" role="marquee" aria-label={text}>
+  <div class="banner-track" style={`--speed:${speed}s`}>
+    <span class="banner-item">{text}</span>
+    <span class="banner-item">{text}</span>
+    <span class="banner-item">{text}</span>
+  </div>
+</div>
+
+<style>
+.banner-marquee{overflow:hidden;position:relative}
+.banner-track{display:inline-flex;gap:2.5rem;white-space:nowrap;will-change:transform;transform:translateX(100%);animation:banner-slide var(--speed,22s) linear infinite}
+@keyframes banner-slide{0%{transform:translateX(100%)}100%{transform:translateX(-100%)}}
+@media (prefers-reduced-motion:reduce){.banner-track{animation:none;transform:none}}
+.banner-item{display:inline-block}
+</style>

@@ -1,5 +1,8 @@
 ---
 import Layout from '../../../components/Layout.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+import FeedbackCard from '../../../components/FeedbackCard.astro';
+import { withBase } from '../../../components/../lib/paths';
 import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -18,16 +21,20 @@ const description = entry.data.excerpt || entry.data.description || `Post: ${tit
 const date = entry.data.date;
 ---
 <Layout title={title} description={description}>
-  <article class="prose prose-invert max-w-none">
+  <article class="prose prose-invert max-w-none tone-green">
     <h1 class="font-display text-4xl mb-2 tone-green-text">{title}</h1>
     {date && <p class="text-xs text-muted !mt-0 mb-4">{new Date(date).toISOString().slice(0,10)}</p>}
 
     <div class="divider" aria-hidden="true"></div>
 
     <Content />
+
+    <div class="divider" aria-hidden="true"></div>
+    <ShareButtons title={title} />
+    <FeedbackCard />
   </article>
 
   <p class="mt-10 text-sm">
-    <a class="hover:text-neon underline underline-offset-4" href="/extras/blog/">← All Posts</a>
+    <a class="hover:text-fg underline underline-offset-4" href={withBase('extras/blog/')}>← All Posts</a>
   </p>
 </Layout>
