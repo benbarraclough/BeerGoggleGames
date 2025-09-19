@@ -1,22 +1,15 @@
 ---
 title: Killer Power Hours
 cover: BGGBW.webp
-excerpt: "An excellent selection of some of the best power hour videos that can be used for an evening of drinking & entertainment."
+excerpt: >-
+  An excellent selection of some of the best power hour videos that can be used
+  for an evening of drinking & entertainment.
 ---
-
-# Killer Power Hours
-
-1.  [Home](index)
-2.  [Blog](extras/blog)
 3.  Killer Power Hours
 
 ![](/images/powerhour.webp)
 
-* * *
-
 Posted September 2022
-
-* * *
 
 An excellent selection of some of the best power hour videos that can be used for an evening of drinking & entertainment.
 
@@ -26,13 +19,9 @@ We've included some of the best videos for enjoyment, interaction and comedy pur
 
 Hook this up to the TV, get some buddies together with a case of beers and pick your favourite to play.
 
-* * *
-
 #### Quote of the day:
 
 > I will drink beer here or there, I will drink beer everywhere.
-
-* * *
 
 #### The Original
 
@@ -44,8 +33,6 @@ A simple and effective way to get drunk whilst doing another activity such as ch
 Simply follow the rules below to play along.
 
 -   When 1 minute passes
-
-* * *
 
 #### Friends
 
@@ -64,8 +51,6 @@ Enjoy a shit load of the best scenes from the sit com and follow the rules below
 -   When Monica complains or argues everyone drinks
 -   When Pheobe eats food everyone drinks
 
-* * *
-
 #### 2000's Hits
 
   
@@ -80,8 +65,6 @@ A brilliant mix of the most popular tunes from back in the day will be played, j
 -   When someone guesses the artist 1 person is chosen to drink
 -   When the word "love" comes up, everyone must cheers a buddy and drink
 
-* * *
-
 #### Funny Movies
 
   
@@ -95,8 +78,6 @@ Watch some famous comedic scenes from old and new movies and follow the rules be
 -   When someone in your group laughs
 -   When someone guesses the movie correctly
 -   When alcohol is shown on screen
-
-* * *
 
 #### Nicholas Cage
 
@@ -114,21 +95,4 @@ Sit and witness some of the most iconic and ridiculous scenes whilst following t
 -   When Nick raises his voice
 -   When Nick attacks someone
 
-* * *
-
 Thats all folks, hope you found some value in this post, more reviews will be coming soon! Please use the share buttons below to let others know about this post or save it for later in your bookmarks.
-
-####     Share This Page
-
-[](https://www.facebook.com/sharer/sharer.php?u=beergogglegames.co.uk/killerpowerhours)[](https://www.instagram.com/direct/new/)[](https://twitter.com/intent/tweet?url=beergogglegames.co.uk/killerpowerhours)
-
-* * *
-
-#### Feedback
-
-If you think we've missed certain details out of the game or you have something to add, please feel free to contact us.
-
-  
-  
-  
-[Contact Us](contact)

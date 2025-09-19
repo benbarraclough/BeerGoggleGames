@@ -1,13 +1,10 @@
 ---
 title: Cocktail Recipes
 cover: BGGBW.webp
-excerpt: A collection of cocktail recipes that cover both the essentials and the experimental.
+excerpt: >-
+  A collection of cocktail recipes that cover both the essentials and the
+  experimental.
 ---
-
-# Cocktail Recipes
-
-1.  [Home](/)
-2.  [Drinks](Drinks)
 3.  Cocktail Recipes
 
 ![](/images/cocktails.webp)
@@ -19,8 +16,6 @@ A collection of cocktail recipes that cover both the essentials and the experime
 Use the recipes to create signature drinks that both impress with taste and presentation. Recipe measurements are provided for each drink which outlines how much of each ingredient you need to make 1 drink, multiply this however many times to make more of them.
 
 Look through our menu to see what interests you or take inspiration and make one of your own.
-
-* * *
 
 ## Browse the menu
 
@@ -409,8 +404,6 @@ Coming soon
 #### [Blue Cinnamon](drinks/CocktailRecipes/)
 
 Coming soon
-
-* * *
 
 #### Submit a Recipe
 

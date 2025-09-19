@@ -18,6 +18,7 @@
 
 import { promises as fs } from 'fs';
 import path from 'path';
+import matter from 'gray-matter';
 
 const DRY = process.argv.includes('--dry');
 const VERBOSE = process.argv.includes('--verbose');
@@ -108,6 +109,69 @@ async function processFile(full) {
       }
     );
     if (text !== before) changed = true;
+  }
+
+  // Activities & Blog cleanup: remove breadcrumbs, duplicate H1, heading icon images, Share/Feedback blocks, and star dividers
+  if (rel.includes(path.join('src','content','activities')) || rel.includes(path.join('src','content','posts'))) {
+    const before = text;
+    const { data, content } = matter(text);
+    let body = content;
+
+    // 1) Remove leading duplicate H1 (first markdown heading like "# Something")
+    body = body.replace(/^\s*#\s+.*\n+/, '');
+
+    // 2) Remove breadcrumb ordered list at top (lines like "1. [Home](...)" etc.)
+    body = body.replace(/^(?:\d+\.\s*\[[^\]]+\]\([^\)]+\)\s*\n){2,}\n*/m, '');
+
+    // 3) Strip image icons appended to headings (e.g., "### Title ![icon](/images/..)")
+    body = body.replace(/^(#{2,6}[^\n]*?)\s*!\[[^\]]*\]\([^\)]+\)\s*$/gm, '$1');
+
+    // 4) Remove star dividers lines ("* * *" or "***") and collapse excessive blank lines
+    body = body.replace(/^[\t ]*(\*\s*){3,}[\t ]*$/gmi, '').replace(/\n{3,}/g, '\n\n');
+
+    // 5) Remove Share This Page section and following share links until next heading or EOF
+    body = body.replace(/^[#>\s]*?\s*#{2,6}\s*Share\s+This\s+Page[\s\S]*?(?=^#{1,6}\s|\Z)/gmi, '');
+
+    // 6) Remove Feedback section and trailing contact block
+    body = body.replace(/^[#>\s]*?\s*#{2,6}\s*Feedback[\s\S]*$/gmi, '');
+
+    // 7) Activities-specific: remove Type/Players lines
+    if (rel.includes(path.join('src','content','activities'))) {
+      body = body
+        .replace(/^\s*\*\*Type:\*\*.*$/gmi, '')
+        .replace(/^\s*\*\*Players\s+required:\*\*.*$/gmi, '')
+        .replace(/\n{3,}/g, '\n\n');
+    }
+
+    // 8) Blog-specific: parse "Posted Month, Year" and move to frontmatter date; remove the line.
+    if (rel.includes(path.join('src','content','posts'))) {
+      const monthMap = {
+        january: '01', february: '02', march: '03', april: '04', may: '05', june: '06',
+        july: '07', august: '08', september: '09', october: '10', november: '11', december: '12'
+      };
+      const postedRe = /^\s*Posted\s+([A-Za-z]+),\s*(\d{4})\s*$/mi;
+      const m = body.match(postedRe);
+      if (m) {
+        const mon = monthMap[m[1].toLowerCase()];
+        const year = m[2];
+        if (mon && !data.date) {
+          data.date = `${year}-${mon}-01`;
+          changeLog.push(`Blog date set from content in ${rel} => ${data.date}`);
+        }
+        body = body.replace(postedRe, '');
+      }
+      // Also strip any lingering breadcrumb-like lists that might remain
+      body = body.replace(/^(?:\d+\.\s*\[[^\]]+\]\([^\)]+\)\s*\n){2,}\n*/m, '');
+    }
+
+    const rebuilt = matter.stringify(body.trim() + '\n', data);
+    if (rebuilt !== text) {
+      text = rebuilt;
+      changed = true;
+      // Describe changes succinctly
+      const scope = rel.includes('/activities/') ? 'activity' : 'post';
+      changeLog.push(`Normalized ${scope} content in ${rel}`);
+    }
   }
 
   if (VERBOSE) {

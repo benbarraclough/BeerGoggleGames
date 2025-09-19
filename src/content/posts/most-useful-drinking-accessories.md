@@ -1,23 +1,15 @@
 ---
 title: Most Useful Drinking Accessories
 cover: BGGBW.webp
-excerpt: A helpful list of accessories that will assist you with some creative methods of drinking.
+excerpt: >-
+  A helpful list of accessories that will assist you with some creative methods
+  of drinking.
 ---
-
-# Most Useful Drinking Accessories
-
-1.  [Home](index)
-2.  [Extras](extras)
-3.  [Blog](extras/blog)
 4.  Most Useful Drinking Accessories
 
 ![](/images/mostusefuldrinkingaccessories.webp)
 
-* * *
-
 Posted September 2022
-
-* * *
 
 A helpful list of accessories that will assist you with some creative methods of drinking.
 
@@ -25,13 +17,9 @@ A good collection of drinking equipment can add some flair to your drinking. Whe
 
 The following items are not in any way sponsored by specific companies, the links provided are just are examples of where the items can be purchased, just to provide a reference. Most likely there are various websites to source the same item from for different prices and qualities.
 
-* * *
-
 #### Quote of the day:
 
 > If we save the earth, we save beer.
-
-* * *
 
 #### Beer Bong
  
@@ -45,8 +33,6 @@ A beer bong can be utilised in many circumstances for forfeits, races and gettin
 
 [Amazon](https://www.amazon.co.uk/Beer-Booze-Chugger-Funnel-Thick/dp/B07HWZK7J2/) | [ebay](https://www.ebay.co.uk/itm/203719414405)
 
-* * *
-
 #### Push-down Bottle Opener
 
   
@@ -58,8 +44,6 @@ Impress your friends with the latest invetion in bottle opening technology. A qu
 Less ugly than most bottle openers and acts as a brilliant time saving device. The only downside is that it won't easily fit on your car keys, but you can't have it all!
 
 [Amazon](https://www.amazon.co.uk/Stainless-Automatic-Magnetic-Openers-Gadgets/dp/B08N6DDBMP) | [ebay](https://www.ebay.co.uk/itm/254849089103)
-
-* * *
 
 #### Snorkel
  
@@ -73,8 +57,6 @@ The perfect way to quickly drink bottles of alcohol with no fuss. Get a full set
 
 [Amazon](https://www.amazon.co.uk/YRO-Entertainment-Drinking-Dispenser-Fluorescent/dp/B094XT8F3R/) | [ebay](https://www.ebay.co.uk/itm/304632909626)
 
-* * *
-
 #### Breathalyser
  
   
@@ -86,8 +68,6 @@ The cheap and cheerful version that I have linked below should not be used to di
 This can be used as a bit of fun during a night of drinking, testing who the lightweight is or who is the winner of being most drunk.
 
 [Amazon](https://www.amazon.co.uk/Breathalyser-Mouthpieces-Portable-Breathalyzer-Professional/dp/B09HS1K4K6/) | [ebay](https://www.ebay.co.uk/itm/153973384331)
-
-* * *
 
 #### Cap Shooter
 
@@ -101,8 +81,6 @@ Use the gun as a part of a game by necking drinks and shooting targets or holste
 
 [Amazon](https://www.amazon.co.uk/Bottle-Opener-Shooter-Openers-Shooting/dp/B09DX3ZL97) | [ebay](https://www.ebay.co.uk/itm/374069690906)
 
-* * *
-
 #### Spirit Pistol
 
   
@@ -115,8 +93,6 @@ Use this as a punishment during games or pass a few round for a bit of fun durin
 
 [Amazon](https://www.amazon.co.uk/HENBRANDT-Water-Guns-Pack-2/dp/B071F3SF37) | [ebay](https://www.ebay.co.uk/itm/164903813365)
 
-* * *
-
 #### Shotgun Tool
 
   
@@ -128,20 +104,3 @@ One of the best ways to drain a can is a good shotgun, but the main problem for 
 A tool has been devised to make this as easy as using a bottle opener, just press, pierce and chug. Anybody who is anybody in the drinking world has one of these in their aresenal so they can make sure a shotgun is always on the cards.
 
 [Amazon](https://www.amazon.co.uk/Pack-Shotgun-Keychain-Bottle-Shotgunning/dp/B097BQH7CM/) | [ebay](https://www.ebay.co.uk/itm/133505876019)
-
-* * *
-
-####     Share This Page
-
-[](https://www.facebook.com/sharer/sharer.php?u=beergogglegames.co.uk/mostusefuldrinkingaccessories)[](https://www.instagram.com/direct/new/)[](https://twitter.com/intent/tweet?url=beergogglegames.co.uk/mostusefuldrinkingaccessories)
-
-* * *
-
-#### Feedback
-
-If you think we've missed certain details out of the game or you have something to add, please feel free to contact us.
-
-  
-  
-  
-[Contact Us](contact)
