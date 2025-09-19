@@ -1,8 +1,10 @@
+---
 interface Props {
   text: string;
   speed?: number; // seconds for one full loop
 }
 const { text, speed = 22 } = Astro.props as Props;
+---
 <div class="banner-marquee" role="marquee" aria-label={text}>
   <div class="banner-track" style={`--speed:${speed}s`}>
     <span class="banner-item">{text}</span>
