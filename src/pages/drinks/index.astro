@@ -493,6 +493,31 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 
       // Generic filter panel toggles (Drink Type, Alcohol base, Difficulty, Tags)
       const wrappers = document.querySelectorAll('[data-filter-wrapper]');
+      let openPanelEl = null;
+      let openBtnEl = null;
+
+      function positionFilterPanel(btn, panel) {
+        if (!(btn instanceof HTMLElement) || !(panel instanceof HTMLElement)) return;
+        const gutter = 8;
+        const btnRect = btn.getBoundingClientRect();
+        const panelWidth = Math.min(320, Math.max(220, window.innerWidth - gutter * 2));
+        const x = Math.round(
+          Math.min(
+            Math.max(gutter, btnRect.left),
+            window.innerWidth - gutter - panelWidth
+          )
+        );
+        const y = Math.round(btnRect.bottom + 6);
+
+        panel.classList.add('floating');
+        panel.style.width = panelWidth + 'px';
+        panel.style.setProperty('--panel-x', x + 'px');
+        panel.style.setProperty('--panel-y', y + 'px');
+
+        const available = Math.max(140, window.innerHeight - y - gutter);
+        const inner = panel.querySelector('.panel-inner');
+        if (inner instanceof HTMLElement) inner.style.maxHeight = available + 'px';
+      }
       function closeAllPanels(except) {
         wrappers.forEach(w => {
           const btn = w.querySelector('.filter-toggle');
@@ -501,6 +526,10 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
           if (panel !== except) {
             panel.classList.add('hidden');
             btn?.setAttribute('aria-expanded', 'false');
+            if (panel === openPanelEl) {
+              openPanelEl = null;
+              openBtnEl = null;
+            }
           }
         });
       }
@@ -515,9 +544,16 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
           if (isOpen) {
             panel.classList.add('hidden');
             btn.setAttribute('aria-expanded','false');
+            if (panel === openPanelEl) {
+              openPanelEl = null;
+              openBtnEl = null;
+            }
           } else {
             panel.classList.remove('hidden');
             btn.setAttribute('aria-expanded','true');
+            positionFilterPanel(btn, panel);
+            openPanelEl = panel;
+            openBtnEl = btn;
           }
         });
       });
@@ -528,6 +564,11 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       });
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') closeAllPanels(null);
+      });
+
+      // Reposition on resize/orientation changes
+      window.addEventListener('resize', () => {
+        if (openPanelEl && openBtnEl) positionFilterPanel(openBtnEl, openPanelEl);
       });
 
       // Per-card tag dropdown: CLICK TOGGLE (no hover auto-open)
