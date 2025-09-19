@@ -39,16 +39,9 @@ const links = [
     ))}
   </ul>
 
-  <!-- Share and Feedback on separate rows -->
+  <!-- Share and Feedback (no extra headings) -->
   <div class="mt-12">
-    <div class="divider" aria-hidden="true"></div>
-    <section aria-labelledby="share-section" class="mb-8">
-      <h2 id="share-section" class="text-xs uppercase tracking-wide text-muted/70 mb-3">Share</h2>
-      <ShareButtons title="Extras" />
-    </section>
-    <section aria-labelledby="feedback-section">
-      <h2 id="feedback-section" class="text-xs uppercase tracking-wide text-muted/70 mb-3">Feedback</h2>
-      <FeedbackCard />
-    </section>
+    <ShareButtons title="Extras" />
+    <FeedbackCard />
   </div>
 </Layout>

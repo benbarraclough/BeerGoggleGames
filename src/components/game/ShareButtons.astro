@@ -1,4 +1,9 @@
 ---
+import SharedShare from '../ShareButtons.astro';
+const { title, url, withDivider } = Astro.props;
+---
+<SharedShare title={title} url={url} withDivider={withDivider} />
+---
 const { title } = Astro.props;
 const site = Astro.site ?? 'https://example.com';
 const builtPath = Astro.url.pathname.replace(/index\.html?$/,'');

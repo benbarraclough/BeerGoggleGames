@@ -1,7 +1,7 @@
 ---
 import Layout from '../../components/Layout.astro';
-import ShareButtons from '../../components/game/ShareButtons.astro';
-import FeedbackCard from '../../components/game/FeedbackCard.astro';
+import ShareButtons from '../../components/ShareButtons.astro';
+import FeedbackCard from '../../components/FeedbackCard.astro';
 
 const title = 'Dice Roller';
 const description = 'Roll one or more monochrome dice with a smooth animation and running total.';
@@ -14,8 +14,9 @@ const description = 'Roll one or more monochrome dice with a smooth animation an
 
   <div class="divider" aria-hidden="true"></div>
 
-  <section class="glass tone-green p-6 max-w-2xl">
-    <div class="flex flex-wrap items-end gap-3 mb-3">
+  <section class="glass tone-green p-6 max-w-3xl mx-auto">
+    <p class="text-sm text-muted mb-3">Roll up to six dice with a smooth animation and running total.</p>
+    <div class="flex flex-wrap items-end gap-3 mb-3 justify-center">
       <label class="text-xs uppercase tracking-wide text-muted font-medium flex flex-col gap-1">
         Dice
         <select id="dice-count" class="w-28 rounded border border-fg/25 bg-fg/10 px-3 py-2 text-sm focus:outline-none focus:ring-2">
@@ -28,7 +29,7 @@ const description = 'Roll one or more monochrome dice with a smooth animation an
       <div id="dice-result" class="min-h-[1.75rem] text-sm font-semibold text-muted"></div>
     </div>
 
-    <div class="relative mx-auto w-full max-w-[560px] aspect-[3/2]">
+    <div class="relative mx-auto w-full max-w-[640px] aspect-[3/2]">
       <canvas id="dice" class="w-full h-full rounded-md border border-fg/15 bg-bg"></canvas>
     </div>
   </section>

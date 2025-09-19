@@ -130,10 +130,14 @@ button:disabled { opacity: .55; cursor: not-allowed; }
 /* marquee */
 .marquee, [data-marquee], .scrolling-banner { overflow: hidden; position: relative; text-align: left; }
 .marquee__track, [data-marquee-track], .scrolling-banner-track, .marquee-track {
-  display: inline-flex; white-space: nowrap; will-change: transform;
-  transform: translateX(200%); animation: marquee-slide 20s linear infinite;
+  display: inline-flex; gap: 2.5rem; white-space: nowrap; will-change: transform;
+  transform: translateX(100%);
+  animation: marquee-slide 22s linear infinite;
 }
-@keyframes marquee-slide { 0% { transform: translateX(200%); } 100% { transform: translateX(-100%); } }
+@keyframes marquee-slide {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
 @media (prefers-reduced-motion: reduce) {
   .marquee__track, [data-marquee-track], .scrolling-banner-track, .marquee-track { animation: none; transform: translateX(0); }
 }
@@ -163,11 +167,7 @@ button:disabled { opacity: .55; cursor: not-allowed; }
 /* Bring active card above neighbors so its dropdown is on top (local stacking only) */
 .game-card.on-top { z-index: 70; position: relative; }
 
-/* share brand colors */
-.share--facebook { color: #1877F2; }
-.share--x        { color: #FFFFFF; }
-.share--reddit   { color: #FF4500; }
-.share--whatsapp { color: #25D366; }
+/* share brand colors now use filled background with neutral border defined in component */
 
 /* HARD OVERRIDE: make the TOP Tags filter panel fully opaque and non-blurred (extra safety) */
 #panel-tags {

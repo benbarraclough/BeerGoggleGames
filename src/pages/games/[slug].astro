@@ -52,8 +52,8 @@ const jsonLd = { '@context': 'https://schema.org', '@type': 'CreativeWork', name
         </p>
       )}
       <div class="flex flex-wrap gap-2">
-        {type && <span class="pill pill--filled tone-cyan" aria-label={`Type: ${type}`}>{type}</span>}
-        {rawMode && <span class="pill pill--filled tone-cyan" aria-label={`Player mode: ${playerModeLabel(rawMode)}`}>{playerModeLabel(rawMode)}</span>}
+        {type && <span class="pill pill--soft" aria-label={`Type: ${type}`}>{type}</span>}
+        {rawMode && <span class="pill pill--soft" aria-label={`Player mode: ${playerModeLabel(rawMode)}`}>{playerModeLabel(rawMode)}</span>}
         {tags.map(t => <span class="pill pill--soft" aria-label={`Tag: ${t}`}>{t}</span>)}
       </div>
     </header>
@@ -89,7 +89,7 @@ const jsonLd = { '@context': 'https://schema.org', '@type': 'CreativeWork', name
         const icon = matchIcon(h.textContent || '');
         if (!icon) return;
         const span = document.createElement('span');
-        span.className = 'section-icon inline-flex w-9 h-9 items-center justify-center rounded-lg bg-fg/5 border border-fg/15 mr-2 align-middle';
+  span.className = 'section-icon inline-flex w-9 h-9 items-center justify-center rounded-lg bg-fg/5 border border-fg/15 mr-2 align-middle';
         span.innerHTML = `<img src="${icon}" alt="" class="w-5 h-5 object-contain opacity-90" loading="lazy" />`;
         h.prepend(span);
       });

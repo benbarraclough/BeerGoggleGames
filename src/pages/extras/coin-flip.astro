@@ -1,7 +1,7 @@
 ---
 import Layout from '../../components/Layout.astro';
-import ShareButtons from '../../components/game/ShareButtons.astro';
-import FeedbackCard from '../../components/game/FeedbackCard.astro';
+import ShareButtons from '../../components/ShareButtons.astro';
+import FeedbackCard from '../../components/FeedbackCard.astro';
 
 const title = 'Coin Flip';
 const description = 'Flip a more realistic on-screen coin with smooth shading.';
@@ -14,11 +14,12 @@ const description = 'Flip a more realistic on-screen coin with smooth shading.';
 
   <div class="divider" aria-hidden="true"></div>
 
-  <section class="glass tone-green p-6 max-w-md">
-    <div class="relative mx-auto w-full max-w-[300px] aspect-square">
+  <section class="glass tone-green p-6 max-w-xl mx-auto">
+    <p class="text-sm text-muted mb-3">Flip a single coin with realistic lighting and easing.</p>
+    <div class="relative mx-auto w-full max-w-[360px] aspect-square">
       <canvas id="coin" class="w-full h-full rounded-md border border-fg/15 bg-bg"></canvas>
     </div>
-    <div class="mt-4 flex gap-3 items-center">
+    <div class="mt-4 flex gap-3 items-center justify-center">
       <button id="flip-coin" type="button" class="px-4 py-2 rounded border border-fg/25 bg-fg/10 hover:border-fg/50 text-sm font-medium">
         Flip
       </button>

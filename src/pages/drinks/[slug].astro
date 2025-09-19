@@ -53,9 +53,9 @@ const jsonLd = { '@context': 'https://schema.org', '@type': 'Recipe', name: titl
         </p>
       )}
       <div class="flex flex-wrap gap-2">
-        {drinkType && <span class="pill pill--filled tone-magenta" aria-label={`Drink type: ${drinkType}`}>{drinkType}</span>}
-        {baseList.map(b => (<span class="pill pill--filled tone-magenta" aria-label={`Base: ${b}`}>{b}</span>))}
-        {difficulty && (<span class="pill pill--filled tone-magenta" aria-label={`Difficulty: ${difficulty}`}>{difficulty}</span>)}
+        {drinkType && <span class="pill pill--soft" aria-label={`Drink type: ${drinkType}`}>{drinkType}</span>}
+        {baseList.map(b => (<span class="pill pill--soft" aria-label={`Base: ${b}`}>{b}</span>))}
+        {difficulty && (<span class="pill pill--soft" aria-label={`Difficulty: ${difficulty}`}>{difficulty}</span>)}
         {tags.map(t => (<span class="pill pill--soft" aria-label={`Tag: ${t}`}>{t}</span>))}
       </div>
     </header>
@@ -105,7 +105,7 @@ const jsonLd = { '@context': 'https://schema.org', '@type': 'Recipe', name: titl
         const icon = matchIcon(h.textContent || '');
         if (!icon) return;
         const span = document.createElement('span');
-        span.className = 'section-icon inline-flex w-9 h-9 items-center justify-center rounded-lg bg-fg/5 border border-fg/15 mr-2 align-middle';
+  span.className = 'section-icon inline-flex w-9 h-9 items-center justify-center rounded-lg bg-fg/5 border border-fg/15 mr-2 align-middle';
         span.innerHTML = `<img src="${icon}" alt="" class="w-5 h-5 object-contain opacity-90" loading="lazy" />`;
         h.prepend(span);
       });
