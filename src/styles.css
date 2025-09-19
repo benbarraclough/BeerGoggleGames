@@ -95,7 +95,7 @@ pre { background:#14181d; border:1px solid #1f252c; padding:1rem 1.25rem; border
 /* filter panels (base uses translucent look) */
 .filter-panel { @apply absolute z-50 mt-2 min-w-[14rem] max-w-xs bg-bg/95 backdrop-blur border border-fg/25 rounded-md shadow-lg p-2; }
 .filter-panel.hidden { display:none; }
-.filter-panel.floating { position: fixed; z-index: 5000; left: var(--panel-x, 0px); top: var(--panel-y, 0px); }
+.filter-panel.floating { position: fixed; z-index: 1300; left: var(--panel-x, 0px); top: var(--panel-y, 0px); }
 .filter-panel.narrow { min-width: 10rem !important; }
 .panel-inner { @apply flex flex-wrap gap-2 overflow-y-auto max-h-72; }
 .panel-inner::-webkit-scrollbar { width:6px; }
@@ -161,7 +161,7 @@ button:disabled { opacity: .55; cursor: not-allowed; }
 }
 
 /* Bring active card above neighbors so its dropdown is on top (local stacking only) */
-.game-card.on-top { z-index: 4000; position: relative; }
+.game-card.on-top { z-index: 70; position: relative; }
 
 /* share brand colors */
 .share--facebook { color: #1877F2; }
