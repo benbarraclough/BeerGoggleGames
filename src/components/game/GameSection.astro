@@ -58,7 +58,7 @@ const isSetup = /\b(setup|prepare|start)\b/i.test(title || '');
   </div>
 </section>
 
-<style>
+<style is:global>
   /* Remove colored outline on icons; keep subtle base border only */
   .no-inner-hr hr { display: none; }
   /* Also hide markdown-emulated dividers like *** inside Setup (rendered as hr) */

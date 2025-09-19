@@ -20,6 +20,9 @@ const { text, speed = 22 } = Astro.props as Props;
 @media (prefers-reduced-motion:reduce){.banner-track{animation:none;transform:none}}
 .banner-item{display:inline-block}
 
+/* Add separators between repeated items for visual spacing */
+.banner-item + .banner-item::before{content:"•"; opacity:.6; margin:0 .9rem}
+
 /* Mobile: slightly faster and nearer start so text appears sooner */
 @media (max-width: 640px){
   .banner-track{animation-duration: calc(var(--speed,22s) * 0.7); transform: translateX(60%)}

@@ -94,6 +94,22 @@ async function processFile(full) {
     changed = true;
   }
 
+  // Remove markdown '***' dividers inside GameSection title="Setup" blocks (games only)
+  if (rel.includes(path.join('src','content','games'))) {
+    const before = text;
+    text = text.replace(
+      /<GameSection([^>]*?\btitle\s*=\s*["']Setup["'][^>]*)>([\s\S]*?)<\/GameSection>/gi,
+      (whole, attrs, inner) => {
+        const cleaned = inner.replace(/^[\t ]*\*\s*\*\s*\*[\t ]*$/gmi, '').replace(/\n{3,}/g, '\n\n');
+        if (cleaned !== inner) {
+          changeLog.push(`Removed '***' divider in Setup for ${rel}`);
+        }
+        return `<GameSection${attrs}>${cleaned}</GameSection>`;
+      }
+    );
+    if (text !== before) changed = true;
+  }
+
   if (VERBOSE) {
     console.log(`${changed ? '[CHANGED]' : '[OK     ]'} ${rel}`);
   }
