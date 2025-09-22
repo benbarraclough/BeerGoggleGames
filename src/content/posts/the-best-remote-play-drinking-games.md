@@ -1,13 +1,9 @@
 ---
 title: The Best Remote Play Drinking Games
-cover: BGGBW.webp
-excerpt: 'Posted on January 1, 2017 at 12:00 PM'
+excerpt: 'Blog post coming soon'
 ---
-3.  The Best Remote Play Drinking Games
 
 ![](/images/ComingSoon750x300.webp)
-
-Posted on January 1, 2017 at 12:00 PM
 
 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus, vero, obcaecati, aut, error quam sapiente nemo saepe quibusdam sit excepturi nam quia corporis eligendi eos magni recusandae laborum minus inventore?
 
