@@ -1,11 +1,7 @@
 ---
 title: DIY Drunkopoly
-cover: BGGBW.webp
-excerpt: >-
-  Description: A creative activity for those rainy days, this custom-made
-  drinking boardgame is a great alternate way of drinking.
+excerpt: 'A creative activity for those rainy days, this custom-made drinking boardgame is a great alternate way of drinking.'
 ---
-4.  DIY Drunkopoly
 
 ![](/images/diydrunkopoly.webp)
 
