@@ -1,11 +1,7 @@
 ---
 title: Jousting
-cover: BGGBW.webp
-excerpt: >-
-  Description: An ancient & noble sport redesigned to cater for the modern-day
-  drinker.
+excerpt: 'An ancient & noble sport redesigned to cater for the modern-day drinker.'
 ---
-4.  Jousting
 
 ![](/images/joust.webp)
 
