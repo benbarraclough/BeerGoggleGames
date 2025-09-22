@@ -1,11 +1,7 @@
 ---
 title: Undercover Alcoholic
-cover: BGGBW.webp
-excerpt: >-
-  Description: A game of sneaking and secret drinking, get as drunk as you can
-  without anybody noticing.
+excerpt: 'A game of sneaking and secret drinking, get as drunk as you can without anybody noticing.'
 ---
-4.  Undercover Alcoholic
 
 ![](/images/undercoveralcoholic.webp)
 
