@@ -1,11 +1,7 @@
 ---
 title: Beer Pong Championship
-cover: BGGBW.webp
-excerpt: >-
-  Description: A tournament played by only the best to battle it out for the
-  glory of becoming the Beer Pong Champion.
+excerpt: 'A tournament played by only the best to battle it out for the glory of becoming the Beer Pong Champion.'
 ---
-4.  Beer Pong Championship
 
 ![](/images/beerpongchampionship.webp)
 
