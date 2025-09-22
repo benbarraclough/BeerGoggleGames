@@ -1,6 +1,6 @@
 ---
 title: Top 5 Greatest Party Themes
-date: 2021-09-01
+date: '2021-09-01'
 excerpt: 'A collection of party themes that will help inspire ideas for your next party, with tips on how to do it right.'
 ---
 
