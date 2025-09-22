@@ -1,11 +1,7 @@
 ---
 title: Pub Golf
-cover: BGGBW.webp
-excerpt: >-
-  Description: A drinking marathon of many bars or pubs that requires you to
-  have a drink in each.
+excerpt: 'A drinking marathon of many bars or pubs that requires you to have a drink in each.'
 ---
-4.  Pub Golf
 
 ![](/images/pubgolf.webp)
 
