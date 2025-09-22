@@ -1,15 +1,10 @@
 ---
 title: Killer Power Hours
-cover: BGGBW.webp
-excerpt: >-
-  An excellent selection of some of the best power hour videos that can be used
-  for an evening of drinking & entertainment.
+date: '2022-09-01'
+excerpt: 'An excellent selection of some of the best power hour videos that can be used for an evening of drinking & entertainment.'
 ---
-3.  Killer Power Hours
 
 ![](/images/powerhour.webp)
-
-Posted September 2022
 
 An excellent selection of some of the best power hour videos that can be used for an evening of drinking & entertainment.
 
