@@ -1,6 +1,6 @@
 ---
 title: Top 5 Drinking Apps
-date: 2021-05-01
+date: '2021-05-01'
 excerpt: 'Here we have a list of the best drinking game apps that we suggest downloading now for your next social event'
 ---
 
