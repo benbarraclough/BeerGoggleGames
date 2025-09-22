@@ -1,12 +1,8 @@
 ---
 title: Best Summer Drinking Ideas
-cover: BGGBW.webp
-excerpt: >-
-  Want to get the most out of summertime? Try these new drinking ideas to make
-  your summer sessions a bit different.
+excerpt: 'Want to get the most out of summertime? Try these new drinking ideas to make your summer sessions a bit different.'
 date: '2022-10-01'
 ---
-4.  Best Summer Drinking Ideas
 
 ![](/images/bestsummerdrinkingideas.webp)
 
