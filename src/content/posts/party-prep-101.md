@@ -1,15 +1,10 @@
 ---
 title: Party Prep 101
-cover: BGGBW.webp
-excerpt: >-
-  The essential list for house party planning. Use our tips as your basic
-  must-haves and get creative with the rest.
+date: '2023-02-01'
+excerpt: 'The essential list for house party planning. Use our tips as your basic must-haves and get creative with the rest.'
 ---
-4.  Party Prep 101
 
 ![](/images/partyprep1.webp)
-
-Posted November 2022
 
 The essential list for house party planning. Use our tips as your basic must-haves and get creative with the rest.
 
