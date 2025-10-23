@@ -13,9 +13,9 @@ const title = 'Activities';
 const description = 'Extra party & social activities to complement your games.';
 ---
 <Layout title={title} description={description}>
-  <header class="mb-6 flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+  <header class="mb-6 flex flex-col gap-5 md:flex-row md:items-end md:justify-between tone-green">
     <div>
-      <h1 class="font-display text-3xl md:text-4xl mb-2">{title}</h1>
+      <h1 class="font-display text-3xl md:text-4xl mb-2 tone-green-text">{title}</h1>
       <p class="text-muted max-w-prose">{description}</p>
     </div>
     <div class="flex flex-wrap gap-4 items-end">
@@ -41,7 +41,6 @@ const description = 'Extra party & social activities to complement your games.';
           </select>
         </label>
       )}
-      <button id="act-clear" class="text-xs mt-2 md:mt-auto underline underline-offset-4 hover:text-neon hidden">Clear</button>
     </div>
   </header>
 
@@ -82,7 +81,7 @@ const description = 'Extra party & social activities to complement your games.';
       const diff = document.getElementById('act-difficulty');
       const grid = document.getElementById('act-grid');
       const empty = document.getElementById('act-empty');
-      const clear = document.getElementById('act-clear');
+  // no explicit clear button; rely on built-in search clear (×)
       if (!grid) return;
       const items = Array.from(grid.children);
 
@@ -103,16 +102,11 @@ const description = 'Extra party & social activities to complement your games.';
         });
 
         empty?.classList.toggle('hidden', shown !== 0);
-        clear?.classList.toggle('hidden', !!q || !!d);
       }
 
       search?.addEventListener('input', apply);
       diff?.addEventListener('change', apply);
-      clear?.addEventListener('click', () => {
-        if (search) search.value = '';
-        if (diff) diff.value = '';
-        apply();
-      });
+      // clearing via the search input's × will fire 'input' and trigger apply()
     })();
   </script>
 </Layout>

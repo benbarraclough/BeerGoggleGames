@@ -32,7 +32,6 @@ const description = 'Guides, announcements & extra ideas.';
           autocomplete="off"
         />
       </label>
-      <button id="blog-clear" class="hidden text-xs underline underline-offset-4 hover:text-neon">Clear</button>
     </div>
   </header>
 
@@ -77,14 +76,12 @@ const description = 'Guides, announcements & extra ideas.';
   <script is:inline>
     (() => {
       const input = document.getElementById('blog-search');
-      const clearBtn = document.getElementById('blog-clear');
       const empty = document.getElementById('blog-empty');
       const groups = Array.from(document.querySelectorAll('.year-group'));
       if (!input) return;
 
       function filter() {
         const q = input.value.trim().toLowerCase();
-        clearBtn.classList.toggle('hidden', q.length === 0);
         let visibleCount = 0;
 
         groups.forEach(group => {
@@ -104,11 +101,7 @@ const description = 'Guides, announcements & extra ideas.';
       }
 
       input.addEventListener('input', filter);
-      clearBtn?.addEventListener('click', () => {
-        input.value = '';
-        filter();
-        input.focus();
-      });
+      // On browsers with a built-in search clear (×), an input event will fire after clearing
     })();
   </script>
 </Layout>

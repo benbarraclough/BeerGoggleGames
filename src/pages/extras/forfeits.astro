@@ -48,7 +48,7 @@ const forfeits: Forfeit[] = [
 
   <div class="my-6 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
     <div class="flex flex-col gap-2">
-      <label class="text-xs uppercase tracking-wide text-muted font-medium">
+      <label class="flex flex-col gap-1 text-xs uppercase tracking-wide text-muted font-medium">
         Search
         <input
           id="forfeit-search"
@@ -58,7 +58,6 @@ const forfeits: Forfeit[] = [
           autocomplete="off"
         />
       </label>
-      <button id="forfeit-clear" class="hidden self-start text-[11px] underline underline-offset-4 hover:text-neon">Clear</button>
     </div>
     <p class="text-[11px] text-muted max-w-sm leading-relaxed">
       Play responsibly. Swap or veto any forfeit that risks injury, non‑consent, or humiliation beyond comfort.
@@ -100,7 +99,6 @@ const forfeits: Forfeit[] = [
   <script is:inline>
     (() => {
       const input = document.getElementById('forfeit-search');
-      const clear = document.getElementById('forfeit-clear');
       const empty = document.getElementById('forfeit-empty');
       const items = Array.from(document.querySelectorAll('#forfeit-list details'));
       if (!input) return;
@@ -114,10 +112,8 @@ const forfeits: Forfeit[] = [
           if (match) visible++;
         });
         empty.classList.toggle('hidden', visible !== 0);
-        clear.classList.toggle('hidden', q.length === 0);
       }
       input.addEventListener('input', apply);
-      clear?.addEventListener('click', () => { input.value=''; apply(); input.focus(); });
       apply();
     })();
   </script>
