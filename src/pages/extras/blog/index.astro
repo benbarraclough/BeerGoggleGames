@@ -21,19 +21,18 @@ const description = 'Guides, announcements & extra ideas.';
       <h1 class="font-display text-3xl md:text-4xl mb-2 tone-green-text">{title}</h1>
       <p class="text-muted max-w-prose">{description}</p>
     </div>
-    <div class="flex gap-3 items-center">
-      <label class="relative block">
-        <span class="sr-only">Search posts</span>
+    <div class="flex gap-3 items-end">
+      <label class="flex flex-col gap-1 text-xs font-medium tracking-wide uppercase text-muted">
+        Search
         <input
           id="blog-search"
           type="search"
           placeholder="Search posts..."
-          class="peer w-64 max-w-[70vw] rounded border border-fg/25 bg-fg/5 px-3 py-2 text-sm focus:border-fg/60 outline-none transition"
+          class="w-56 max-w-[70vw] rounded border border-fg/25 bg-fg/5 px-3 py-2 text-sm focus:border-neon outline-none"
           autocomplete="off"
         />
-        <span class="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-xs text-muted peer-focus:text-fg">⌕</span>
       </label>
-      <button id="blog-clear" class="hidden text-xs underline underline-offset-4 hover:text-fg">Clear</button>
+      <button id="blog-clear" class="hidden text-xs underline underline-offset-4 hover:text-neon">Clear</button>
     </div>
   </header>
 

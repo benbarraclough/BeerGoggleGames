@@ -5,13 +5,15 @@ import FeedbackCard from '../../components/FeedbackCard.astro';
 import { withBase } from '../../lib/paths';
 
 const title = 'Extras';
-const description = 'Tools and extras: wheel, forfeits, glossary, dice & coin, activities and blog.';
-const links = [
+const description = 'Tools and extras: quick utilities and bonus content to level up your sessions.';
+const tools = [
   { href: withBase('extras/wheel-of-fortune/'), title: 'Wheel of Fortune', desc: 'Spin categories & games.' },
-  { href: withBase('extras/forfeits/'),        title: 'Forfeits',         desc: 'Creative penalties & challenges.' },
-  { href: withBase('extras/glossary/'),        title: 'Glossary',         desc: 'Drinking terms explained.' },
   { href: withBase('extras/dice/'),            title: 'Dice Roller',      desc: 'Animated on-screen dice.' },
   { href: withBase('extras/coin-flip/'),       title: 'Coin Flip',        desc: 'Animated coin flip.' },
+];
+const bonus = [
+  { href: withBase('extras/forfeits/'),        title: 'Forfeits',         desc: 'Creative penalties & challenges.' },
+  { href: withBase('extras/glossary/'),        title: 'Glossary',         desc: 'Drinking terms explained.' },
   { href: withBase('extras/activities/'),      title: 'Activities',       desc: 'Party & social activities.' },
   { href: withBase('extras/blog/'),            title: 'Blog',             desc: 'Guides, announcements & ideas.' },
 ];
@@ -24,20 +26,41 @@ const links = [
 
   <div class="divider" aria-hidden="true"></div>
 
-  <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 list-none p-0 m-0 tone-green">
-    {links.map(l => (
-      <li class="group relative glass p-5">
-        <div class="flex flex-col gap-2">
-          <span class="font-semibold group-hover:text-fg">{l.title}</span>
-          <span class="text-xs text-muted leading-snug">{l.desc}</span>
-          <span class="text-[11px] font-medium uppercase tone-green-text">Open →</span>
-        </div>
-        <a href={l.href} class="absolute inset-0 rounded-md focus-visible:outline-none focus-visible:ring-2" aria-label={l.title}>
-          <span class="sr-only">{l.title}</span>
-        </a>
-      </li>
-    ))}
-  </ul>
+  <section class="mt-8 tone-green">
+    <h2 class="font-display text-xl md:text-2xl mb-3 tone-green-text">Tools</h2>
+    <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 list-none p-0 m-0">
+      {tools.map(l => (
+        <li class="group relative glass p-5">
+          <div class="flex flex-col gap-2">
+            <span class="font-semibold group-hover:text-fg">{l.title}</span>
+            <span class="text-xs text-muted leading-snug">{l.desc}</span>
+            <span class="text-[11px] font-medium uppercase tone-green-text">Open →</span>
+          </div>
+          <a href={l.href} class="absolute inset-0 rounded-md focus-visible:outline-none focus-visible:ring-2" aria-label={l.title}>
+            <span class="sr-only">{l.title}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="mt-10 tone-green">
+    <h2 class="font-display text-xl md:text-2xl mb-3 tone-green-text">Bonus Content</h2>
+    <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 list-none p-0 m-0">
+      {bonus.map(l => (
+        <li class="group relative glass p-5">
+          <div class="flex flex-col gap-2">
+            <span class="font-semibold group-hover:text-fg">{l.title}</span>
+            <span class="text-xs text-muted leading-snug">{l.desc}</span>
+            <span class="text-[11px] font-medium uppercase tone-green-text">Open →</span>
+          </div>
+          <a href={l.href} class="absolute inset-0 rounded-md focus-visible:outline-none focus-visible:ring-2" aria-label={l.title}>
+            <span class="sr-only">{l.title}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
 
   <!-- Share and Feedback (no extra headings) -->
   <div class="mt-12">
