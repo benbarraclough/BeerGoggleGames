@@ -83,7 +83,6 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
             autocomplete="off"
           />
         </label>
-        <span id="search-hits" class="text-[11px] text-muted mb-2"></span>
       </div>
     </div>
 
@@ -455,9 +454,8 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       });
 
       // Search integrates with filters
-      const input = document.getElementById('drink-search');
-      const grid = document.getElementById('drink-grid');
-      const hitsEl = document.getElementById('search-hits');
+  const input = document.getElementById('drink-search');
+  const grid = document.getElementById('drink-grid');
 
       if (input && grid) {
         const items = Array.from(grid.children);
@@ -475,7 +473,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
             li.dataset.searchVisible = match ? 'true' : 'false';
             if (match) hits++;
           });
-          if (hitsEl) hitsEl.textContent = q ? `${hits} match${hits===1?'':'es'}` : '';
+          // No per-search match display here; page-level result counts remain
           window.bddApplyDrinkFilters?.();
         }
         input.addEventListener('input', applySearch);

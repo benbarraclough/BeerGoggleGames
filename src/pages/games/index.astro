@@ -74,7 +74,6 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
             autocomplete="off"
           />
         </label>
-        <span id="search-hits" class="text-[11px] text-muted mb-2"></span>
       </div>
     </div>
 
@@ -402,9 +401,8 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       });
 
       // Search integrates with filters
-      const input = document.getElementById('game-search');
-      const grid = document.getElementById('game-grid');
-      const hitsEl = document.getElementById('search-hits');
+  const input = document.getElementById('game-search');
+  const grid = document.getElementById('game-grid');
       if (input && grid) {
         const items = Array.from(grid.children);
         function applySearch() {
@@ -419,7 +417,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
             li.dataset.searchVisible = match ? 'true' : 'false';
             if (match) hits++;
           });
-          if (hitsEl) hitsEl.textContent = q ? `${hits} match${hits===1?'':'es'}` : '';
+          // No per-search match display here; page-level result counts remain
           window.bggApplyGameFilters?.();
         }
         input.addEventListener('input', applySearch);
