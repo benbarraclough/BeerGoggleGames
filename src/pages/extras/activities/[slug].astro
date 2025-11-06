@@ -61,7 +61,8 @@ const ld = activityLD({ title, description, url: pageCanonical });
             const heading = findHeadings().find(h => re.test((h.textContent || '').trim()));
             if (!heading) return;
             const wrapper = document.createElement('section');
-            wrapper.className = 'glass tone-green p-5 md:p-6 rounded-xl border border-fg/15 my-5 card-section';
+            // Match GameSection container styling
+            wrapper.className = 'mb-8 glass p-5 card-section';
             heading.parentNode && heading.parentNode.insertBefore(wrapper, heading);
             const level = parseInt(heading.tagName.substring(1), 10) || 2;
             let node = heading;
@@ -74,10 +75,31 @@ const ld = activityLD({ title, description, url: pageCanonical });
               }
               node = next;
             }
-            // Ensure card heading uses display font and consistent sizing
-            const cardHead = wrapper.querySelector('h2, h3, h4');
-            if (cardHead) {
-              cardHead.classList.add('font-display','text-2xl','mb-2','leading-tight');
+            // Rebuild heading to match GameSection h3, with icon sizing
+            const origHead = wrapper.querySelector('h2, h3, h4');
+            if (origHead) {
+              const text = (origHead.textContent || '').trim();
+              // Determine icon per title (reuse icon map via matchIcon)
+              const icon = matchIcon(text) || 'info';
+              const h3 = document.createElement('h3');
+              h3.className = 'group flex items-center gap-3 text-xl font-semibold mb-3 tracking-tight';
+              const iconWrap = document.createElement('span');
+              iconWrap.className = 'section-icon inline-flex w-10 h-10 items-center justify-center rounded-lg bg-fg/5 border border-fg/15 transition';
+              const color = icon === 'special' ? 'text-yellow-400' : 'text-fg/80';
+              iconWrap.innerHTML = `<span class="w-6 h-6 ${color}" aria-hidden="true">${svg(icon)}</span>`;
+              const label = document.createElement('span');
+              label.textContent = text;
+              h3.appendChild(iconWrap);
+              h3.appendChild(label);
+              origHead.replaceWith(h3);
+
+              // Wrap the remaining content (siblings) in a content div like GameSection
+              const contentDiv = document.createElement('div');
+              contentDiv.className = 'space-y-4 leading-relaxed';
+              const nodes = [] as any[];
+              for (let sib = h3.nextSibling; sib; sib = sib.nextSibling) nodes.push(sib);
+              nodes.forEach(n => contentDiv.appendChild(n));
+              wrapper.appendChild(contentDiv);
             }
           }
 
