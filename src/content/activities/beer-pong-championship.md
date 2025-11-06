@@ -2,7 +2,6 @@
 title: Beer Pong Championship
 excerpt: 'A tournament played by only the best to battle it out for the glory of becoming the Beer Pong Champion.'
 ---
-
 ![](/images/beerpongchampionship.webp)
 
 #### Overview
