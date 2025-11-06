@@ -88,7 +88,12 @@ pre { background:#14181d; border:1px solid #1f252c; padding:1rem 1.25rem; border
 .prose table th { background:#161b21; font-weight:600; }
 .prose blockquote { border-left:3px solid var(--neon); background:#141a1f; padding:.75rem 1rem; color:var(--muted); font-style:italic; }
 .prose img { border-radius:var(--radius-md); box-shadow:0 2px 14px -4px rgba(0,0,0,0.6); }
-.prose h1, .prose h2 { background: var(--gradient-neon); -webkit-background-clip: text; color: transparent; }
+.prose h1, .prose h2 {
+  background: var(--gradient-neon);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
 
 /* glass */
 .glass {
