@@ -48,7 +48,7 @@ const isSetup = /\b(setup|prepare|start)\b/i.test(title || '');
   <h3 class="group flex items-center gap-3 text-xl font-semibold mb-3 tracking-tight">
     {iconName && (
       <span class="section-icon inline-flex w-10 h-10 items-center justify-center rounded-lg bg-fg/5 border border-fg/15 transition">
-        <span class={"w-6 h-6 " + (iconName === 'special' ? 'text-yellow-400' : 'text-fg/80')} aria-hidden="true" set:html={svg(iconName)} />
+        <span class={"w-6 h-6 " + ((iconName === 'special' || iconName === 'tips') ? 'text-yellow-400' : 'text-fg/80')} aria-hidden="true" set:html={svg(iconName)} />
       </span>
     )}
     <span>{title}</span>
