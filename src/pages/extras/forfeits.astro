@@ -1,5 +1,7 @@
 ---
 import Layout from '../../components/Layout.astro';
+import BackLink from '../../components/BackLink.astro';
+import { withBase } from '../../lib/paths';
 import ShareButtons from '../../components/game/ShareButtons.astro';
 import FeedbackCard from '../../components/game/FeedbackCard.astro';
 import { forfeits } from '../../lib/data/forfeits';
@@ -9,6 +11,7 @@ const description = 'Creative punishments & challenges to add spice to any drink
 
 ---
 <Layout title={title} description={description}>
+  <BackLink href={withBase('extras/')} label="Back to Extras" />
   <header class="mb-6">
     <h1 class="font-display text-3xl md:text-4xl mb-2 tone-green-text">{title}</h1>
     <p class="text-muted max-w-prose">{description}</p>

@@ -1,5 +1,6 @@
 ---
 import Layout from '../../../components/Layout.astro';
+import BackLink from '../../../components/BackLink.astro';
 import StructuredData from '../../../components/StructuredData.astro';
 import ShareButtons from '../../../components/ShareButtons.astro';
 import FeedbackCard from '../../../components/FeedbackCard.astro';
@@ -39,9 +40,7 @@ const ld = postLD({ title, description, url: pageCanonical, date });
     <FeedbackCard />
   </article>
 
-  <p class="mt-10 text-sm">
-    <a class="hover:text-fg underline underline-offset-4" href={withBase('extras/blog/')}>← All Posts</a>
-  </p>
+  <BackLink href={withBase('extras/blog/')} label="Back to Blog" />
 
   <!-- Add icons before section headings using inline SVGs -->
   <script is:inline>

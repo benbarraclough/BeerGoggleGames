@@ -4,6 +4,7 @@ import { getCollection } from 'astro:content';
 import StructuredData from '../../../components/StructuredData.astro';
 import ShareButtons from '../../../components/game/ShareButtons.astro';
 import FeedbackCard from '../../../components/game/FeedbackCard.astro';
+import BackLink from '../../../components/BackLink.astro';
 import { canonical } from '../../../lib/urls';
 import { activityLD } from '../../../lib/schema';
 import { withBase } from '../../../lib/paths';
@@ -37,13 +38,61 @@ const ld = activityLD({ title, description, url: pageCanonical });
     <FeedbackCard />
   </article>
 
-  <p class="mt-10 text-xs text-muted">
-    <a class="hover:text-fg underline underline-offset-4" href={withBase('extras/activities/')}>← All Activities</a>
-  </p>
+  <BackLink href={withBase('extras/activities/')} label="Back to Activities" />
 
   <!-- Add icons before section headings using inline SVGs -->
   <script is:inline>
     (function(){
+      // Transform select sections into cards and remove the Overview section
+      try {
+        const article = document.querySelector('article');
+        if (article) {
+          const isHeading = (el) => el && (el.tagName === 'H2' || el.tagName === 'H3');
+          function wrapSection(re) {
+            const heading = Array.from(article.querySelectorAll('h2, h3')).find(h => re.test(h.textContent || ''));
+            if (!heading) return;
+            const wrapper = document.createElement('section');
+            wrapper.className = 'glass tone-green p-5 md:p-6 rounded-xl border border-fg/15 my-5';
+            heading.parentNode?.insertBefore(wrapper, heading);
+            // Move heading and following siblings until next heading of same or higher level
+            const level = parseInt(heading.tagName.substring(1), 10) || 2;
+            let node = heading;
+            while (node) {
+              const next = node.nextSibling as HTMLElement | null;
+              wrapper.appendChild(node);
+              if (next && isHeading(next)) {
+                const nextLevel = parseInt((next.tagName||'H9').substring(1), 10) || 9;
+                if (nextLevel <= level) break;
+              }
+              node = next as any;
+            }
+          }
+
+          // Remove Overview/About section entirely
+          (function removeOverview(){
+            const h = Array.from(article.querySelectorAll('h2, h3')).find(h => /(overview|about)/i.test(h.textContent || '')) as HTMLElement | undefined;
+            if (!h) return;
+            const level = parseInt(h.tagName.substring(1), 10) || 2;
+            let node: any = h;
+            while (node) {
+              const next = node.nextSibling as HTMLElement | null;
+              const removeMe = node;
+              removeMe.parentNode?.removeChild(removeMe);
+              if (next && (next.tagName === 'H2' || next.tagName === 'H3')) {
+                const nl = parseInt((next.tagName||'H9').substring(1), 10) || 9;
+                if (nl <= level) break;
+              }
+              node = next as any;
+            }
+          })();
+
+          // Wrap key sections as cards
+          wrapSection(/requirements|equipment|items|tools/i);
+          wrapSection(/how\s*to|play|steps|instructions/i);
+          wrapSection(/top\s*tips|tips|advice|hints/i);
+        }
+      } catch (e) { /* noop */ }
+
       function svg(name){
         switch(name){
           case 'info': return `<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='9'/><path d='M12 8h.01'/><path d='M12 12v4'/></svg>`;

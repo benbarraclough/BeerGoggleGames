@@ -1,5 +1,7 @@
 ---
 import Layout from '../../components/Layout.astro';
+import BackLink from '../../components/BackLink.astro';
+import { withBase } from '../../lib/paths';
 import ShareButtons from '../../components/ShareButtons.astro';
 import FeedbackCard from '../../components/FeedbackCard.astro';
 
@@ -7,6 +9,7 @@ const title = 'Dice Roller';
 const description = 'Roll one or more monochrome dice with a smooth animation and running total.';
 ---
 <Layout title={title} description={description}>
+  <BackLink href={withBase('extras/')} label="Back to Extras" />
   <header class="mb-6 tone-green">
     <h1 class="font-display text-3xl md:text-4xl mb-2 tone-green-text">{title}</h1>
     <p class="text-muted">{description}</p>

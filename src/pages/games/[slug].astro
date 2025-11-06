@@ -1,5 +1,6 @@
 ---
 import Layout from '../../components/Layout.astro';
+import BackLink from '../../components/BackLink.astro';
 import { getCollection } from 'astro:content';
 import { canonical } from '../../lib/urls';
 import { withBase } from '../../lib/paths';
@@ -60,9 +61,7 @@ const jsonLd = { '@context': 'https://schema.org', '@type': 'CreativeWork', name
 
   <Content />
 
-    <p class="mt-10 text-xs text-muted">
-      <a class="hover:text-fg underline underline-offset-4" href={withBase('games/')}>Back to Games Index</a>
-    </p>
+    <BackLink href={withBase('games/')} label="Back to Games" />
   </article>
 
   <!-- Add icons before section headings using inline SVGs -->
