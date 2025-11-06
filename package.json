@@ -4,10 +4,11 @@
   "version": "0.1.0",
   "type": "module",
   "engines": {
-    "node": ">=18.14.1 <19 || >=20"
+    "node": ">=18.20.8 <19 || >=20"
   },
   "scripts": {
     "dev": "astro dev",
+    "check": "astro check",
     "format": "prettier --write .",
     "migrate": "node scripts/migrate.js",
     "extract-legacy": "node scripts/extract-legacy.js",

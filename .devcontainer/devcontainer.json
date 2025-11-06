@@ -1,0 +1,13 @@
+{
+  "name": "BeerGoggleGames (Node 20)",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:20",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "astro-build.astro-vscode",
+        "bradlc.vscode-tailwindcss",
+        "esbenp.prettier-vscode"
+      ]
+    }
+  }
+}
