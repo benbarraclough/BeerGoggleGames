@@ -52,7 +52,7 @@ const ld = activityLD({ title, description, url: pageCanonical });
             const heading = Array.from(article.querySelectorAll('h2, h3')).find(h => re.test(h.textContent || ''));
             if (!heading) return;
             const wrapper = document.createElement('section');
-            wrapper.className = 'glass tone-green p-5 md:p-6 rounded-xl border border-fg/15 my-5';
+            wrapper.className = 'glass tone-green p-5 md:p-6 rounded-xl border border-fg/15 my-5 card-section';
             heading.parentNode?.insertBefore(wrapper, heading);
             // Move heading and following siblings until next heading of same or higher level
             const level = parseInt(heading.tagName.substring(1), 10) || 2;
@@ -87,9 +87,9 @@ const ld = activityLD({ title, description, url: pageCanonical });
           })();
 
           // Wrap key sections as cards
-          wrapSection(/requirements|equipment|items|tools/i);
-          wrapSection(/how\s*to|play|steps|instructions/i);
-          wrapSection(/top\s*tips|tips|advice|hints/i);
+          wrapSection(/\b(requirements|equipment|items|tools)\b/i);
+          wrapSection(/\bhow\s*to\b|\bhow\b[^\n]*\bplay\b|^\s*play\s*$/i);
+          wrapSection(/\b(top\s*tips|tips|advice|hints)\b/i);
         }
       } catch (e) { /* noop */ }
 

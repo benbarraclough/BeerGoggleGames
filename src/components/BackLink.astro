@@ -6,10 +6,9 @@ interface Props {
 }
 const { href, label = 'Back', class: cls = '' } = Astro.props as Props;
 ---
-<p class={`mt-2 text-xs text-muted ${cls}`.trim()}>
-  <a href={href} class="inline-flex items-center gap-1 hover:text-fg underline underline-offset-4">
-    <span aria-hidden="true">←</span>
-    <span>{label}</span>
+<p class={`mt-10 text-xs text-muted ${cls}`.trim()}>
+  <a href={href} class="inline-flex items-center gap-1 hover:text-fg no-underline">
+    <span aria-hidden="true" class="no-underline">←</span>
+    <span class="underline underline-offset-4">{label}</span>
   </a>
-  
 </p>

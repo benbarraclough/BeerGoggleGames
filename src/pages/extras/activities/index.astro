@@ -15,7 +15,6 @@ const title = 'Activities';
 const description = 'Extra party & social activities to complement your games.';
 ---
 <Layout title={title} description={description}>
-  <BackLink href={withBase('extras/')} label="Back to Extras" />
   <header class="mb-6 flex flex-col gap-5 md:flex-row md:items-end md:justify-between tone-green">
     <div>
       <h1 class="font-display text-3xl md:text-4xl mb-2 tone-green-text">{title}</h1>
@@ -119,4 +118,5 @@ const description = 'Extra party & social activities to complement your games.';
       apply();
     })();
   </script>
+  <BackLink href={withBase('extras/')} label="Back to Extras" />
 </Layout>

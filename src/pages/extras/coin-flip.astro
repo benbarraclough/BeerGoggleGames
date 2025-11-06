@@ -9,7 +9,6 @@ const title = 'Coin Flip';
 const description = 'Flip a more realistic on-screen coin with smooth shading.';
 ---
 <Layout title={title} description={description}>
-  <BackLink href={withBase('extras/')} label="Back to Extras" />
   <header class="mb-6 tone-green">
     <h1 class="font-display text-3xl md:text-4xl mb-2 tone-green-text">{title}</h1>
     <p class="text-muted">{description}</p>
@@ -34,6 +33,8 @@ const description = 'Flip a more realistic on-screen coin with smooth shading.';
   <FeedbackCard>
     <p>Want streaks, weighted flips, or multiple coins? Let us know.</p>
   </FeedbackCard>
+
+  <BackLink href={withBase('extras/')} label="Back to Extras" />
 
   <script is:inline>
     (() => {

@@ -18,7 +18,6 @@ const title = 'Blog';
 const description = 'Guides, announcements & extra ideas.';
 ---
 <Layout title={title} description={description}>
-  <BackLink href={withBase('extras/')} label="Back to Extras" />
   <header class="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between tone-green">
     <div>
       <h1 class="font-display text-3xl md:text-4xl mb-2 tone-green-text">{title}</h1>
@@ -115,4 +114,5 @@ const description = 'Guides, announcements & extra ideas.';
       // No explicit count here; year group badges still show per-year totals
     })();
   </script>
+  <BackLink href={withBase('extras/')} label="Back to Extras" />
 </Layout>

@@ -24,7 +24,6 @@ const categories: GameCategory[] = [
 const allGames = categories.flatMap(c => c.games);
 ---
 <Layout title={title} description={description}>
-  <BackLink href={withBase('extras/')} label="Back to Extras" />
   <header class="mb-6 space-y-3">
     <h1 class="font-display text-3xl md:text-4xl tone-green-text">{title}</h1>
     <p class="text-muted max-w-prose">{description}</p>
@@ -267,4 +266,5 @@ const allGames = categories.flatMap(c => c.games);
       });
     })();
   </script>
+  <BackLink href={withBase('extras/')} label="Back to Extras" />
 </Layout>
