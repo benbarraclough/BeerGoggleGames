@@ -74,6 +74,11 @@ const ld = activityLD({ title, description, url: pageCanonical });
               }
               node = next;
             }
+            // Ensure card heading uses display font and consistent sizing
+            const cardHead = wrapper.querySelector('h2, h3');
+            if (cardHead) {
+              cardHead.classList.add('font-display','text-xl','mb-2','leading-tight');
+            }
           }
 
           // Remove Overview/About section entirely (including description until next same/higher heading)
@@ -97,6 +102,35 @@ const ld = activityLD({ title, description, url: pageCanonical });
           wrapSection(/^(requirements|equipment|items|tools)\b/i);
           wrapSection(/^(how\s*to\b.*|play\b)$/i);
           wrapSection(/^(top\s*tips|tips|advice|hints)\b/i);
+
+          // Format the first inline image like a hero banner (similar to drink/game hero)
+          (function heroizeFirstImage(){
+            // Find first <img> in content
+            const img = article.querySelector('img');
+            if (!img) return;
+            // If it's already inside a figure with our classes, skip
+            if (img.closest('figure')) return;
+            const figure = document.createElement('figure');
+            figure.className = 'relative mb-8 aspect-[16/7] overflow-hidden rounded-xl border border-fg/20';
+            const container = document.createElement('div');
+            container.className = 'w-full h-full';
+            img.classList.add('hero-img','w-full','h-full','object-cover','brightness-90','saturate-110','transition-transform','duration-700');
+            img.setAttribute('loading','lazy');
+            img.setAttribute('decoding','async');
+            // Move image into our figure
+            const parent = img.parentElement;
+            container.appendChild(img);
+            figure.appendChild(container);
+            const overlay = document.createElement('div');
+            overlay.className = 'absolute inset-0 bg-gradient-to-tr from-bg/80 via-bg/20 to-transparent pointer-events-none';
+            figure.appendChild(overlay);
+            // Replace former paragraph with the figure
+            if (parent && parent.tagName === 'P') {
+              parent.replaceWith(figure);
+            } else {
+              article.insertBefore(figure, article.firstChild);
+            }
+          })();
         }
       } catch (e) { /* noop */ }
 
