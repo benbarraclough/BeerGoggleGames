@@ -47,49 +47,56 @@ const ld = activityLD({ title, description, url: pageCanonical });
       try {
         const article = document.querySelector('article');
         if (article) {
-          const isHeading = (el) => el && (el.tagName === 'H2' || el.tagName === 'H3');
+          const isHeading = (el) => {
+            if (!el || !el.tagName) return false;
+            const t = el.tagName.toUpperCase();
+            return t === 'H2' || t === 'H3' || t === 'H4';
+          };
+
+          function findHeadings() {
+            return Array.from(article.querySelectorAll('h2, h3, h4'));
+          }
+
           function wrapSection(re) {
-            const heading = Array.from(article.querySelectorAll('h2, h3')).find(h => re.test(h.textContent || ''));
+            const heading = findHeadings().find(h => re.test((h.textContent || '').trim()));
             if (!heading) return;
             const wrapper = document.createElement('section');
             wrapper.className = 'glass tone-green p-5 md:p-6 rounded-xl border border-fg/15 my-5 card-section';
-            heading.parentNode?.insertBefore(wrapper, heading);
-            // Move heading and following siblings until next heading of same or higher level
+            heading.parentNode && heading.parentNode.insertBefore(wrapper, heading);
             const level = parseInt(heading.tagName.substring(1), 10) || 2;
             let node = heading;
             while (node) {
-              const next = node.nextSibling as HTMLElement | null;
+              const next = node.nextSibling;
               wrapper.appendChild(node);
               if (next && isHeading(next)) {
-                const nextLevel = parseInt((next.tagName||'H9').substring(1), 10) || 9;
+                const nextLevel = parseInt((next.tagName || 'H9').substring(1), 10) || 9;
                 if (nextLevel <= level) break;
               }
-              node = next as any;
+              node = next;
             }
           }
 
-          // Remove Overview/About section entirely
+          // Remove Overview/About section entirely (including description until next same/higher heading)
           (function removeOverview(){
-            const h = Array.from(article.querySelectorAll('h2, h3')).find(h => /(overview|about)/i.test(h.textContent || '')) as HTMLElement | undefined;
+            const h = findHeadings().find(h => /(overview|about)/i.test((h.textContent || '').trim()));
             if (!h) return;
             const level = parseInt(h.tagName.substring(1), 10) || 2;
-            let node: any = h;
+            let node = h;
             while (node) {
-              const next = node.nextSibling as HTMLElement | null;
-              const removeMe = node;
-              removeMe.parentNode?.removeChild(removeMe);
-              if (next && (next.tagName === 'H2' || next.tagName === 'H3')) {
-                const nl = parseInt((next.tagName||'H9').substring(1), 10) || 9;
+              const next = node.nextSibling;
+              node.parentNode && node.parentNode.removeChild(node);
+              if (next && isHeading(next)) {
+                const nl = parseInt((next.tagName || 'H9').substring(1), 10) || 9;
                 if (nl <= level) break;
               }
-              node = next as any;
+              node = next;
             }
           })();
 
           // Wrap key sections as cards
-          wrapSection(/\b(requirements|equipment|items|tools)\b/i);
-          wrapSection(/\bhow\s*to\b|\bhow\b[^\n]*\bplay\b|^\s*play\s*$/i);
-          wrapSection(/\b(top\s*tips|tips|advice|hints)\b/i);
+          wrapSection(/^(requirements|equipment|items|tools)\b/i);
+          wrapSection(/^(how\s*to\b.*|play\b)$/i);
+          wrapSection(/^(top\s*tips|tips|advice|hints)\b/i);
         }
       } catch (e) { /* noop */ }
 
