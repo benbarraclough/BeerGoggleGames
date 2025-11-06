@@ -1,0 +1,12 @@
+{
+  "css.lint.unknownAtRules": "ignore",
+  "css.lint.emptyRules": "ignore",
+  "tailwindCSS.includeLanguages": {
+    "plaintext": "html",
+    "astro": "html"
+  },
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+  "editor.inlineSuggest.enabled": true
+}

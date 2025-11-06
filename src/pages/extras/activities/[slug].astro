@@ -12,7 +12,7 @@ import { withBase } from '../../../lib/paths';
 export async function getStaticPaths() {
   const activities = await getCollection('activities');
   // Prefer MDX entries when both .md and .mdx exist (filter to .mdx only)
-  const mdxOnly = activities.filter(a => (a as any).id?.endsWith?.('.mdx'));
+  const mdxOnly = activities.filter(a => a.id && a.id.endsWith('.mdx'));
   return mdxOnly.map(a => ({ params: { slug: a.slug }, props: { entry: a } }));
 }
 
