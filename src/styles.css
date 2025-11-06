@@ -52,12 +52,30 @@ a { transition: color .15s ease, border-color .15s ease, background .15s ease; t
 a:hover { text-decoration-color: currentColor; }
 .divider { height:1px; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.08),transparent); margin:14px 0 18px; }
 
-/* Make native search clear (×) icon lighter and more visible on dark theme */
+/* Make native search clear (×) icon neutral grey/white and clearly visible */
 input[type="search"]::-webkit-search-cancel-button {
-  /* keep native glyph but lighten it */
-  filter: invert(1) brightness(1.15) contrast(0.9);
-  opacity: 0.9;
+  /* Replace default asset to avoid any theme tinting (e.g., gold) */
+  -webkit-appearance: none;
+  appearance: none;
+  width: 1.1em;
+  height: 1.1em;
+  border-radius: 9999px;
+  background-color: rgba(var(--fg-rgb), 0.9); /* neutral light from theme */
   cursor: pointer;
+  opacity: 0.95;
+  /* Use a mask so the glyph is always neutral regardless of UA asset */
+  -webkit-mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="%23000" d="M18.3 5.7a1 1 0 0 0-1.4 0L12 10.6 7.1 5.7A1 1 0 1 0 5.7 7.1L10.6 12l-4.9 4.9a1 1 0 1 0 1.4 1.4L12 13.4l4.9 4.9a1 1 0 0 0 1.4-1.4L13.4 12l4.9-4.9a1 1 0 0 0 0-1.4Z"/></svg>');
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: 100% 100%;
+  mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="%23000" d="M18.3 5.7a1 1 0 0 0-1.4 0L12 10.6 7.1 5.7A1 1 0 1 0 5.7 7.1L10.6 12l-4.9 4.9a1 1 0 1 0 1.4 1.4L12 13.4l4.9 4.9a1 1 0 0 0 1.4-1.4L13.4 12l4.9-4.9a1 1 0 0 0 0-1.4Z"/></svg>');
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: 100% 100%;
+}
+input[type="search"]:hover::-webkit-search-cancel-button,
+input[type="search"]:focus::-webkit-search-cancel-button {
+  background-color: rgba(var(--fg-rgb), 1);
 }
 
 /* prose */

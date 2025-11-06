@@ -1,0 +1,31 @@
+export interface Forfeit { id: string; name: string; desc: string; terms: string; }
+
+export const forfeits: Forfeit[] = [
+  { id:'all-fours', name:'All Fours', desc:`Remain on hands and knees for a set amount of time.`, terms:'all fours degrading movement crawl' },
+  { id:'beer-bong', name:'Beer Bong', desc:`Finish a full drink through a funnel & tube.`, terms:'beer bong funnel chug' },
+  { id:'cheese-on-crackers', name:'Cheese On Crackers', desc:`Do your best to shave the thinest slice from the top of a soap bar. This then needs to be placed on top of a cracker and eaten.`, terms:'cheese on crackers soap eating gross' },
+  { id:'chug-cup', name:'Chug Cup', desc:`Everyone donates a little to a cup and the mixture must be drank.`, terms:'chug cup mix everyone donate combined' },
+  { id:'dancing-monkey', name:'Dancing Monkey', desc:`Dance on command for the entire duration of the penalty.`, terms:'dancing monkey dance anytime demanded' },
+  { id:'edward-ciderhands', name:'Edward Ciderhands', desc:`A bottle of alcohol is taped to each hand and can only be removed once they're emptied.`, terms:'edward ciderhands bottles taped hands' },
+  { id:'dice-of-doom', name:'Dice of Doom', desc:`Pick a number and keep rolling until it has appeared 3 times. Take a drink every time the roll is not that number.`, terms:'dice of doom luck rolling number drink' },
+  { id:'disabled', name:'Disabled', desc:`One limb taped/immobilised for an agreed time period.`, terms:'disabled limb taped handicap' },
+  { id:'flirt', name:'Flirt', desc:`Flirt with a chosen target.`, terms:'flirt social confidence challenge' },
+  { id:'flour-power', name:'Flour Power', desc:`Eat a spoonful of flour. No liquid additions.`, terms:'flour power eating spoon dry' },
+  { id:'concussion', name:'Concussion', desc:`Open a can using only your head, then finish it.`, terms:'concussion head can open' },
+  { id:'dilemma', name:'Dilemma', desc:`Choose to drink 2 shots of your own choosing or 1 shot of someone else's choosing.`, terms:'dilemma choose shot options' },
+  { id:'flaming-shot', name:'Flaming Shot', desc:`Light a high‑proof shot, then drink.`, terms:'flaming shot fire high proof' },
+  { id:'go-live', name:'Go Live', desc:`Go live on a social platform for 10 minutes.`, terms:'go live social media broadcast' },
+  { id:'graffiti', name:'Graffiti', desc:`Someone draws on you with a marker anywhere they choose.`, terms:'graffiti marker draw body' },
+  { id:'ice-t', name:'Ice-T', desc:`Freeze a water soaked t‑shirt and wear it until it thaws out.`, terms:'ice-t frozen shirt cold wearable' },
+  { id:'leash', name:'Leash', desc:`Wrap a belt around your arm or neck, then choose an “owner” who holds your leash for a set duration.`, terms:'leash owned belt control' },
+  { id:'outcast', name:'Outcast', desc:`Everyone must ignore you for a set duration (no eye contact or speech).`, terms:'outcast social ignore isolation' },
+  { id:'shit-shave', name:'Shit Shave', desc:`Choose a 'barber' and have them shave an area of your choice.`, terms:'shit shave hair removal' },
+  { id:'shot-roulette', name:'Shot Roulette', desc:`A player chooses a number at random (e.g. 1 - 10) corresponding to pre-made shots.`, terms:'shot roulette mystery blind pick' },
+  { id:'sock-it', name:'Sock It', desc:`Down a drink through a used sock over the rim.`, terms:'sock it drink through sock' },
+  { id:'spinning-mad', name:'Spinning Mad', desc:`Spin a coin & stop it with your head. Each time you fail to stop the coin upright, take a drink.`, terms:'spinning mad coin control precision' },
+  { id:'the-salon', name:'The Salon', desc:`Fake tan is applied to a body part of your choice.`, terms:'the salon fake tan apply' },
+  { id:'toilet-troll', name:'Toilet Troll', desc:`Loiter in a bathroom and offer "help" to people who don't know you.`, terms:'toilet troll bathroom awkward' },
+  { id:'tp', name:'TP', desc:`Eat one square of plain toilet paper.`, terms:'tp toilet paper eat' },
+  { id:'winters-coming', name:'Winters Coming', desc:`Put on 3 extra clothing layers.`, terms:'winters coming extra layers warmth' },
+  { id:'50-shades', name:'50 Shades', desc:`Seductively read a chosen passage from the internet.`, terms:'50 shades seductive reading performance' }
+];
