@@ -17,6 +17,7 @@ jobs:
           node-version: 20
           cache: npm
       - run: npm ci || npm install
+      - run: npx astro check
       - run: npm run build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
