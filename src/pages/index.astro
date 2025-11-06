@@ -45,20 +45,19 @@ const heroImages = [
   <!-- HERO -->
   <section class="stack-hero relative overflow-hidden rounded-2xl border border-fg/15 mb-6 md:mb-8 px-3 sm:px-4 md:px-6 py-6 md:py-8" data-animate="fade-up">
     <div class="grid md:grid-cols-[0.95fr_1fr] gap-6 md:gap-10 items-center">
-      <!-- Left: slideshow stack -->
+      <!-- Left: simple crossfade slideshow -->
       <div class="relative">
-        <div class="stack-wrap h-[200px] sm:h-[240px] md:h-[260px]">
-          <div class="stack-card c1 will-parallax" data-parallax="-0.04"></div>
-          <div class="stack-card c2 will-parallax" data-parallax="0.05"></div>
-          <div class="stack-card c3 will-parallax" data-parallax="0.06">
-            <div class="hero-filmstrip" aria-hidden="true">
-              <div class="filmtrack">
-                {([...heroImages, ...heroImages]).map((src) => (
-                  <img src={src} alt="" class="filmframe" loading="lazy" decoding="async" onerror="this.remove()" />
-                ))}
-              </div>
-            </div>
-          </div>
+        <div class="hero-slides h-[200px] sm:h-[240px] md:h-[260px] rounded-xl overflow-hidden">
+          {heroImages.map((src, i) => (
+            <img
+              src={src}
+              alt="Party tools and games"
+              class:list={["hero-slide", i === 0 ? "active" : ""]}
+              loading="lazy"
+              decoding="async"
+              onerror="this.remove()"
+            />
+          ))}
         </div>
       </div>
 
@@ -270,19 +269,11 @@ const heroImages = [
 
     /* HERO */
     .title-xl{font-size: clamp(2.2rem, 2.2vw + 1.6rem, 3rem); letter-spacing:-.01em; text-shadow:0 6px 24px rgba(255,0,128,0.12)}
-    .stack-hero{background: radial-gradient(700px 350px at 20% -10%, rgba(255,0,128,0.10), transparent 60%), radial-gradient(700px 350px at 120% 110%, rgba(0,200,255,0.10), transparent 60%)}
-    .stack-wrap{position:relative}
-    .stack-card{position:absolute; inset:0; border-radius:1rem; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.12); transform-origin:center; will-change:transform}
-    .c1{transform:translate(-10px,-10px) rotate(-4deg); background:linear-gradient(135deg, rgba(255,0,128,0.14), rgba(0,200,255,0.10))}
-    .c2{transform:translate(8px,6px) rotate(3deg); background:linear-gradient(315deg, rgba(0,200,255,0.14), rgba(255,0,128,0.10))}
-    .c3{overflow:hidden; border:1px solid rgba(255,255,255,0.18)}
-    /* New hero filmstrip animation */
-    .hero-filmstrip{position:relative; width:100%; height:100%; overflow:hidden; border-radius:1rem;}
-    .hero-filmstrip::after{content:''; position:absolute; inset:0; pointer-events:none; border-radius:inherit; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.15), inset 0 40px 60px -30px rgba(0,0,0,0.6), inset 0 -40px 60px -30px rgba(0,0,0,0.6);}
-    .filmtrack{display:inline-flex; align-items:center; gap:10px; height:100%; will-change:transform; animation: film-scroll 28s linear infinite;}
-    .filmframe{height:100%; width:auto; aspect-ratio:16/9; object-fit:cover; border-radius:10px; border:1px solid rgba(255,255,255,0.12); filter:saturate(0.95) contrast(1.02)}
-    @keyframes film-scroll { 0%{ transform: translateX(0);} 100%{ transform: translateX(-50%);} }
-    @media (prefers-reduced-motion:reduce){ .filmtrack{ animation:none; } }
+  .stack-hero{background: transparent}
+  /* Simple crossfade */
+  .hero-slides{position:relative; width:100%; height:100%;}
+  .hero-slide{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; transition:opacity 1s ease-in-out;}
+  .hero-slide.active{opacity:1}
 
     /* Buttons etc. (kept minimal; rest in global CSS) */
     .head{display:flex; align-items:center; justify-content:space-between}
