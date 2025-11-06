@@ -34,7 +34,6 @@ const description = 'Searchable list of common & niche drinking terms. Expand fo
           />
         </span>
       </label>
-      <span id="glossary-count" role="status" aria-live="polite" class="text-[11px] text-muted md:ml-auto"></span>
     </div>
     <p class="text-[11px] text-muted max-w-sm leading-relaxed">
       Request new terms anytime.
@@ -78,7 +77,6 @@ const description = 'Searchable list of common & niche drinking terms. Expand fo
       const input = document.getElementById('glossary-search');
       const empty = document.getElementById('glossary-empty');
       const items = Array.from(document.querySelectorAll('#glossary-list details'));
-      const count = document.getElementById('glossary-count');
       if (!input) return;
       function apply() {
         const q = input.value.trim().toLowerCase();
@@ -90,7 +88,6 @@ const description = 'Searchable list of common & niche drinking terms. Expand fo
           if (match) visible++;
         });
         empty.classList.toggle('hidden', visible !== 0);
-        if (count) count.textContent = visible ? `Showing ${visible} ${visible === 1 ? 'term' : 'terms'}` : 'No results';
       }
       input.addEventListener('input', apply);
       apply();

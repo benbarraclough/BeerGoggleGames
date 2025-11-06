@@ -38,7 +38,6 @@ const description = 'Guides, announcements & extra ideas.';
           />
         </span>
       </label>
-      <span id="blog-count" role="status" aria-live="polite" class="text-[11px] text-muted"></span>
     </div>
   </header>
 
@@ -85,8 +84,7 @@ const description = 'Guides, announcements & extra ideas.';
     (() => {
       const input = document.getElementById('blog-search');
       const empty = document.getElementById('blog-empty');
-      const groups = Array.from(document.querySelectorAll('.year-group'));
-      const count = document.getElementById('blog-count');
+  const groups = Array.from(document.querySelectorAll('.year-group'));
       if (!input) return;
 
       function filter() {
@@ -107,16 +105,11 @@ const description = 'Guides, announcements & extra ideas.';
         });
 
         empty.classList.toggle('hidden', visibleCount !== 0);
-        if (count) count.textContent = visibleCount ? `Showing ${visibleCount} ${visibleCount === 1 ? 'post' : 'posts'}` : 'No results';
       }
 
       input.addEventListener('input', filter);
       // On browsers with a built-in search clear (×), an input event will fire after clearing
-      // Init count
-      (function initCount(){
-        const total = Array.from(document.querySelectorAll('.year-group li')).length;
-        if (count) count.textContent = `Showing ${total} ${total === 1 ? 'post' : 'posts'}`;
-      })();
+      // No explicit count here; year group badges still show per-year totals
     })();
   </script>
 </Layout>

@@ -47,7 +47,6 @@ const description = 'Extra party & social activities to complement your games.';
           </select>
         </label>
       )}
-      <span id="act-count" role="status" aria-live="polite" class="text-[11px] text-muted ml-auto"></span>
     </div>
   </header>
 
@@ -109,8 +108,6 @@ const description = 'Extra party & social activities to complement your games.';
         });
 
         empty?.classList.toggle('hidden', shown !== 0);
-        const count = document.getElementById('act-count');
-        if (count) count.textContent = shown ? `Showing ${shown} ${shown === 1 ? 'activity' : 'activities'}` : `No results`;
       }
 
       search?.addEventListener('input', apply);

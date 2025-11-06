@@ -34,7 +34,6 @@ const description = 'Creative punishments & challenges to add spice to any drink
           />
         </span>
       </label>
-      <span id="forfeit-count" role="status" aria-live="polite" class="text-[11px] text-muted md:ml-auto"></span>
     </div>
     <p class="text-[11px] text-muted max-w-sm leading-relaxed">
       Play responsibly. Swap or veto any forfeit that risks injury, non‑consent, or humiliation beyond comfort.
@@ -78,7 +77,6 @@ const description = 'Creative punishments & challenges to add spice to any drink
       const input = document.getElementById('forfeit-search');
       const empty = document.getElementById('forfeit-empty');
       const items = Array.from(document.querySelectorAll('#forfeit-list details'));
-      const count = document.getElementById('forfeit-count');
       if (!input) return;
       function apply() {
         const q = input.value.trim().toLowerCase();
@@ -90,7 +88,6 @@ const description = 'Creative punishments & challenges to add spice to any drink
           if (match) visible++;
         });
         empty.classList.toggle('hidden', visible !== 0);
-        if (count) count.textContent = visible ? `Showing ${visible} ${visible === 1 ? 'forfeit' : 'forfeits'}` : 'No results';
       }
       input.addEventListener('input', apply);
       apply();
