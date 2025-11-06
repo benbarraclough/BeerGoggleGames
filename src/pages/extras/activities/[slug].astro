@@ -31,10 +31,10 @@ const ld = activityLD({ title, description, url: pageCanonical });
       {difficulty && <p class="!mt-0 text-sm text-muted"><strong>Difficulty:</strong> {difficulty}</p>}
     </header>
 
-    <Content />
+  <Content />
 
-    <div class="divider" aria-hidden="true"></div>
-    <ShareButtons title={title} />
+  <div id="__content-end" class="sr-only" aria-hidden="true"></div>
+  <ShareButtons title={title} withDivider={false} />
     <FeedbackCard />
   </article>
 
@@ -68,16 +68,16 @@ const ld = activityLD({ title, description, url: pageCanonical });
             while (node) {
               const next = node.nextSibling;
               wrapper.appendChild(node);
-              if (next && isHeading(next)) {
+              if (next && (isHeading(next) || (next.nodeType === 1 && (next as HTMLElement).id === '__content-end'))) {
                 const nextLevel = parseInt((next.tagName || 'H9').substring(1), 10) || 9;
-                if (nextLevel <= level) break;
+                if ((next as HTMLElement).id === '__content-end' || nextLevel <= level) break;
               }
               node = next;
             }
             // Ensure card heading uses display font and consistent sizing
-            const cardHead = wrapper.querySelector('h2, h3');
+            const cardHead = wrapper.querySelector('h2, h3, h4');
             if (cardHead) {
-              cardHead.classList.add('font-display','text-xl','mb-2','leading-tight');
+              cardHead.classList.add('font-display','text-2xl','mb-2','leading-tight');
             }
           }
 
