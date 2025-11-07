@@ -28,10 +28,11 @@ const ld = postLD({ title, description, url: pageCanonical, date });
 ---
 <Layout title={title} description={description} canonical={pageCanonical}>
   <article class="prose prose-invert max-w-none tone-green">
-    <h1 class="font-display text-4xl mb-2 tone-green-text">{title}</h1>
-    {date && <p class="text-xs text-muted !mt-0 mb-4">{new Date(date).toISOString().slice(0,10)}</p>}
+  <h1 class="font-display text-4xl mb-3 tone-green-text">{title}</h1>
+  {date && <p class="text-xs text-muted !mt-0 mb-5">{new Date(date).toISOString().slice(0,10)}</p>}
 
-    <Content />
+  <!-- Inject overview wrapper around initial paragraphs until first heading/blockquote/list -->
+  <Content />
 
     <div class="share-wrap">
       <ShareButtons title={title} />
@@ -91,28 +92,62 @@ const ld = postLD({ title, description, url: pageCanonical, date });
 article.prose{--tw-prose-headings:inherit}
 /* Treat the first image in content as a hero */
 article.prose > :first-child img{display:block;width:100%;height:auto;border-radius:0.75rem;margin-top:0.25rem;margin-bottom:1rem}
-/* Overview: highlight the first paragraph like a welcome intro */
-article.prose > p:first-of-type{
-  font-size:1.05rem;opacity:.96;line-height:1.65;
-  background: color-mix(in oklab, currentColor 6%, transparent);
-  border: 1px solid color-mix(in oklab, currentColor 15%, transparent);
-  border-left-width: 4px; border-left-color: color-mix(in oklab, currentColor 35%, transparent);
-  padding: .9rem 1rem; border-radius: .6rem; margin: .35rem 0 1rem;
+/* Overview box: group leading paragraphs (JS will wrap them) */
+.post-overview{
+  background: radial-gradient(circle at 15% 15%, color-mix(in oklab, currentColor 12%, transparent), transparent 70%),
+              linear-gradient(135deg, color-mix(in oklab, currentColor 8%, transparent), transparent 60%);
+  border:1px solid color-mix(in oklab, currentColor 18%, transparent);
+  border-left:5px solid color-mix(in oklab, currentColor 40%, transparent);
+  padding:1rem 1.05rem .85rem; border-radius:.9rem; margin:-.25rem 0 1.4rem;
+  position:relative; overflow:hidden;
 }
-@media (min-width:768px){article.prose > p:first-of-type{font-size:1.18rem;padding:1rem 1.1rem}}
-/* Add a subtle 'Overview' badge */
-article.prose > p:first-of-type::before{
-  content: "Overview"; display:inline-block; font-size:.7rem; letter-spacing:.08em; text-transform:uppercase;
-  opacity:.7; margin-right:.5rem; padding:.15rem .45rem; border:1px solid color-mix(in oklab, currentColor 20%, transparent);
-  border-radius:.35rem; transform: translateY(-.05rem);
+.post-overview::before{
+  content:"Overview"; position:absolute; top:.55rem; right:.75rem; font-size:.65rem; letter-spacing:.12em; text-transform:uppercase;
+  padding:.25rem .5rem; border:1px solid color-mix(in oklab, currentColor 25%, transparent); border-radius:.35rem; opacity:.55;
 }
+.post-overview p{margin:.6rem 0 .75rem; font-size:1.02rem; line-height:1.6;}
+@media (min-width:768px){.post-overview p{font-size:1.12rem;}}
+/* Avoid styling the date paragraph */
+article.prose > p.text-muted{background:none!important;padding:0!important;border:none!important}
 /* Stronger subtitles (Markdown #### -> h4) */
-article.prose h4{font-weight:800; letter-spacing:.01em}
-@media (min-width:768px){article.prose h4{font-size:1.1em}}
+article.prose h4{font-weight:800; letter-spacing:.01em; position:relative;}
+article.prose h4::after{content:""; position:absolute; left:0; bottom:-.35rem; width:42px; height:3px; background:color-mix(in oklab, currentColor 55%, transparent); border-radius:2px; opacity:.7}
+@media (min-width:768px){article.prose h4{font-size:1.13em}}
 
 /* Ensure exactly one separator above Share: remove any trailing hr/divider from content */
 article.prose > :is(hr,.divider):last-child{display:none}
+/* Remove any divider placed directly before Share wrapper */
+.share-wrap > .divider{display:none}
 /* Provide a single consistent divider via the Share wrapper */
 .share-wrap{margin-top:1rem; padding-top:1rem; position:relative}
 .share-wrap::before{content:""; position:absolute; left:0; right:0; top:0; height:1px; background: color-mix(in oklab, currentColor 15%, transparent)}
 </style>
+
+<script is:inline>
+// Group leading paragraphs before first heading/blockquote/list into overview box
+(function(){
+  const article = document.querySelector('article.prose');
+  if(!article) return;
+  const blocks = Array.from(article.children);
+  // Find first structural break (heading, blockquote, list, hr, image figure)
+  let cutoffIndex = null;
+  for(let i=0;i<blocks.length;i++){
+    const el = blocks[i];
+    if(el.matches('h2,h3,h4,blockquote,ul,ol,hr,.section-icon,figure')){cutoffIndex=i; break;}
+  }
+  // Collect paragraphs from start until cutoffIndex (excluding title/date already outside article? date inside, so skip date class)
+  const overviewParas = [];
+  for(const el of blocks){
+    if(el === blocks[0]) continue; // skip h1
+    if(el.matches('p.text-muted')) continue; // skip date
+    if(cutoffIndex!==null && blocks.indexOf(el)>=cutoffIndex) break;
+    if(el.tagName === 'P') overviewParas.push(el);
+  }
+  if(overviewParas.length){
+    const wrapper = document.createElement('div');
+    wrapper.className='post-overview';
+    overviewParas[0].before(wrapper);
+    for(const p of overviewParas) wrapper.appendChild(p);
+  }
+})();
+</script>
