@@ -10,10 +10,6 @@
     "dev": "astro dev",
     "check": "astro check",
     "format": "prettier --write .",
-    "migrate": "node scripts/migrate.js",
-    "extract-legacy": "node scripts/extract-legacy.js",
-    "rename-slugs": "node scripts/rename-slugs.js",
-    "audit": "node scripts/audit-content.js",
     "build": "astro build",
     "preview": "astro preview"
   },

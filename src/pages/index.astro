@@ -53,7 +53,7 @@ const heroImages = [
               src={src}
               alt="Party tools and games"
               class:list={["hero-slide", i === 0 ? "active" : ""]}
-              loading="lazy"
+              loading={i === 0 ? "eager" : "lazy"}
               decoding="async"
               onerror="this.remove()"
             />
