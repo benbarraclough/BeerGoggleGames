@@ -35,7 +35,13 @@ const {
 @media (max-width: 640px){
   .banner-track{animation-duration: var(--speed-sm, var(--speed, 40s));}
 }
-@keyframes banner-slide{0%{transform:translateX(100%)}100%{transform:translateX(-100%)}}
+/* Base: start a bit off-screen to avoid appearing centered */
+@keyframes banner-slide{0%{transform:translateX(105%)}100%{transform:translateX(-105%)}}
+/* Desktop/wide: start even further right so entry always comes from edge */
+@media (min-width: 641px){
+  .banner-track{animation-name: banner-slide-wide}
+}
+@keyframes banner-slide-wide{0%{transform:translateX(120%)}100%{transform:translateX(-120%)}}
 @media (prefers-reduced-motion:reduce){.banner-track{animation:none;transform:none}}
 .banner-item{display:inline-block}
 

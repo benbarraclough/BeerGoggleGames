@@ -31,8 +31,6 @@ const ld = postLD({ title, description, url: pageCanonical, date });
     <h1 class="font-display text-4xl mb-2 tone-green-text">{title}</h1>
     {date && <p class="text-xs text-muted !mt-0 mb-4">{new Date(date).toISOString().slice(0,10)}</p>}
 
-    <div class="divider" aria-hidden="true"></div>
-
     <Content />
 
     <div class="divider" aria-hidden="true"></div>
@@ -86,3 +84,17 @@ const ld = postLD({ title, description, url: pageCanonical, date });
 
   <StructuredData data={ld} />
 </Layout>
+
+<style>
+/* Blog-like presentation tweaks */
+article.prose{--tw-prose-headings:inherit}
+/* Treat the first image in content as a hero */
+article.prose > :first-child img{display:block;width:100%;height:auto;border-radius:0.75rem;margin-top:0.25rem;margin-bottom:1rem}
+/* Make first paragraph a lead */
+article.prose > p:first-of-type{font-size:1.05rem;opacity:.92}
+@media (min-width:768px){article.prose > p:first-of-type{font-size:1.15rem}}
+/* Collapse adjacent page breaks so only one shows above Share */
+.divider + .divider{display:none}
+hr + .divider{display:none}
+.divider + hr{display:none}
+</style>
