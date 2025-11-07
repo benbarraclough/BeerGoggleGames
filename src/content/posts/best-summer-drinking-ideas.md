@@ -6,71 +6,71 @@ date: '2022-10-01'
 
 ![](/images/bestsummerdrinkingideas.webp)
 
-Want to get the most out of summertime? Try these new drinking ideas to make your summer sessions a bit different.
+Try these new drinking ideas to make the most out of your summer sessions.
 
-Make a buzz at your next social by incorporating one of our summer drinking ideas. Freshening up your events with new ideas makes them a lot more fun for everyone and also inspires others to do the same.
+Be that person at your next social by using one of our summer drinking ideas to freshen up your events with new ideas, forcing your friends to raise their own pathetic standards.
 
-Not all of these will work for the type of summer party you have in mind, but they might give you some inspiration if nothing else.
+Not all of these will work for the type of summer party you have in mind, but they might give inspiration if nothing else.
 
 #### Quote of the day:
 
 > The more I drink, the less there is for the kids to drink
 
 #### Cocktail Dispensers
-Get a few 10L dispensers and make some summer cocktails using your own creative acumen or using our [cocktail recipes](Drinks/CocktailRecipes).
+Get a few comically large 10L dispensers and churn out some summer cocktails using your own 'creative acumen' or, more realistically, by following some of our [cocktail recipes](Drinks/CocktailRecipes). 
 
-Try a make a few different types with varied ingredients so theres something for everyone. It should take a lot of liquid to fill these things up so bulk buy your drink and use fresh fruit to make them look tasty.
+You'll need an absurd amount of liquid to fill these tanks, so make sure to bulk buy your cheap booze and then garnish with a few slices of fresh fruit to make the entire toxic mess look inviting.
 
-Label your drinks so that everyone knows whats what and possibly make a mystery drink for those who are daring enough to try
+You can label your drinks so everyone knows what they're having or better yet, keep them unlabelled as mystery drinks for a bit of interest.
 
 Link: [Cooler/Dispenser](https://www.amazon.co.uk/Gatorade-49031-3-Gallon-Cooler/dp/B00L6LKT58)
 
 #### Outdoor Games
-Have a browse through our list of outdoor games which are perfect for those hot summer days when you don't want to be indoors.
+Go ahead and browse our list of outdoor games, perfect for those hot summer days when you physically cannot be indoors.
 
-We have a great collection of active sports games as well as chilled ones that let you bask in the sun. You may need some equipment but these games can be taken anywhere, whether thats the beach, the park or just the garden.
+Take your pick from "active: sports games or "chilled" low effort ones such as [Beer Darts](games/beer-darts) which lets you bask in the sun while slowly dehydrating. You'll need some equipment, but these games can be taken anywhere you plan to pass out: beach, park, or a miserable patio.
 
-The active nature of outdoor games burns off more calories than regular card games which gives you all the more reason to not take it easy on those tasty cans.
+The active nature of these outdoor games will supposedly burn off more calories than regular card games, giving you the perfect, guilt-free excuse to aggressively consume those tasty cans.
 
-Link: [Outdoor Games](GameCategories/OutdoorGames)
+Link: [Outdoor Games](games)
 
 #### Floating Drinks Cooler
 For those of you lucky to have a pool at your disposal, floating drink coolers are a great way to keep the drinks flowing whilst having fun in the pool.
 
-A specialty product can be bought or you can re-engineer your regular cooler into a floating variant by attaching pool noodles to it using cable ties. Either put the ice into the floating cooler to keep your cans/bottles cool or make it into a floating punch bowl, just be careful it doesn't get knocked into the water.
+You can buy a specialty product designed for this level of luxury, or, if you're feeling aggressively thrifty, re-engineer your regular cooler into a floating variant using pool noodles and cable ties. Fill it with ice to keep your cans cool, or turn it into a floating punch bowl.
 
-You don't have to stop here with your party floaties, there is also floating beer pong tables and floating ring toss available.
+And why stop there? The world of aquatic alcoholism is vast! There are also floating beer pong tables and floating ring toss available.d
 
 Links: [Floating Cooler](https://www.amazon.co.uk/Intex-56822NP-Floating-Swimming-Multicoloured/dp/B00RTMJDCI/) | [Inflatable Beer Pong](https://www.amazon.co.uk/KAIXINJIUAO88-Inflatable-Mattress-Swimming-Floating/dp/B0894T13GG/) | [Ring Toss](https://www.amazon.co.uk/Inflatable-Throwing-Outdoor-Swimming-Supplies/dp/B09XMKWRRD/)
 
 #### Beer Run
-A more creative activity where you build a maze for your drinks, similar to a marble run but it takes alcohol instead and transports it down a series of channels towards an end point where someone would drink.
+This is a more creative activity where you build an elaborate, pointless maze for your drinks. Think of it as a marble run, but instead of marbles, it transports cheap, lukewarm alcohol down a series of makeshift channels toward a finish line where some thirsty bastard awaits.
 
-This creative way of drinking is perfect for outdoor drinking in the sun as the run can be made out of anything (foil, hotwheels track, pipe, etc.) from anywhere (out the kitchen window, up a tree, down the garden, etc.) with no worries of mess.
+This creative method of drinking suits outdoor sessions since the 'run' can be built out of anything (foil, old hotwheels track, gutter pipe, etc.) and launched from anywhere (out the kitchen window, up a tree, down the garden). The best part? No worries about mess, because you'll just leave it all for someone else to clean up tomorrow.
 
-An alternative if you don't have the equipment is a beer delivery system that uses a slide of some sort to transport a can of beer from one place to another.
+If you lack the basic engineering skills for a proper run, an acceptable alternative is a beer delivery system using a simple slide to transport a can of beer from point A to point B.
 
 #### Drunk Sports Day
-An active series of games that involve day drinking and a lot of energy. The best way to get a party started is with competitive drinking.
+The best way to get a party started is with competitive drinking. An active series of games that involves day drinking and a lot of energy, likely not getting to the end of the games to decide who's won.
 
-This activity is perfect for a summer drinking session, it gets you out and provides entertainment for all, especially the more the drinking gets involved.
+Its perfect for a summer drinking session, involving everyone and getting you outside, providing entertainment for all. Especially for the spectators as more drink is consumed.
 
-View the activity page below for more details on how this is set up and played.
-
-Link: [Drunk Sports Day](drunksportsday)
+We will be creating an activity page on this concept soon.
 
 #### Wearable Drinks Containers
 No matter how convenient something is, nothing can beat the convenience of drinking a beer with no hands.
 
-Using the latest 21st century technology, wearable devices are here and in lots of different shapes & sizes. Both beer helmets and chest pouches can offer you the freedom of movement wherever you are on your day of summer fun.
+Using the latest 21st century technology, wearable drinking devices are here. Both beer helmets and chest pouches can offer you the freedom of movement wherever you are on your day of summer fun.
 
-Use either of the links below to check out examples of these creations and look at similar products for even more.
+Check out the examples of these creations below.
 
 Links: [Beer Helmet](https://www.amazon.co.uk/Novelty-Place-Guzzler-Drinking-Helmet/dp/B01KHOQ26Y/) | [Drinks Pouch](https://www.amazon.co.uk/Refillable-Festivals-Reusable-Container-Beverage/dp/B0B13QF3CS/)
 
 #### Lucky dip
-Create a bit of excitment by making a lucky dip and placing a variation of drinks inside that people can pick at random.
+Create a breif bit of excitement by forcing your guests to blindly pick a drink from a lucky dip, where pure chance can determine what colour your puke is.
 
-Use a box or bag and then try to add a real mixture of drinks to make it as random as possible. You could either use sealed containers of drinks that are pre-made or something you have created and bottled yourself.
+Find an old, dusty container and stuff it full of the various alcohol you can find to maximise the randomness. Use pre-sealed drinks, or bottle up your own concoctions from the back of the fridge crap.
 
-If you want the lucky dip to be a bit of a mystery and you know that there will likely be some cheats putting back what they don't want, use paper. Write on the paper different types of drinks so that there is no way the lucky dipper can choose a preference.
+If you suspect your guests might be dirty cheats, use small pieces of paper to write the names of the different drinks.
+
+Thats all, more posts will be coming soon! Please use the share buttons below to let others know about this or save it for later in your bookmarks.
