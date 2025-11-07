@@ -1,0 +1,53 @@
+{
+  "$schema": "vscode://schemas/tasks",
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Dev (Astro)",
+      "type": "shell",
+      "command": "npm run dev",
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "Build",
+      "type": "shell",
+      "command": "npm run build",
+      "problemMatcher": ["$tsc"],
+      "group": "build"
+    },
+    {
+      "label": "Preview",
+      "type": "shell",
+      "command": "npm run preview",
+      "problemMatcher": []
+    },
+    {
+      "label": "Sync types (astro)",
+      "type": "shell",
+      "command": "npm run sync",
+      "problemMatcher": []
+    },
+    {
+      "label": "Type check",
+      "type": "shell",
+      "command": "npm run typecheck",
+      "problemMatcher": ["$tsc"]
+    },
+    {
+      "label": "Content: normalize (dry)",
+      "type": "shell",
+      "command": "node scripts/normalize-content.mjs --dry --verbose",
+      "problemMatcher": []
+    },
+    {
+      "label": "Content: fix + check",
+      "type": "shell",
+      "command": "npm run content:fix",
+      "problemMatcher": []
+    }
+  ]
+}

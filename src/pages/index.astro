@@ -1,6 +1,7 @@
 ---
 import Layout from '../components/Layout.astro';
 import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
 import { excludeLegacyNoise } from '../lib/filters';
 import { withBase } from '../lib/paths';
 import { canonical } from '../lib/urls';
@@ -15,8 +16,9 @@ function shuffle<T>(list: T[]): T[] {
   return a;
 }
 
-const gamesAll = excludeLegacyNoise(await getCollection('games'));
-const drinksAll = excludeLegacyNoise(await getCollection('drinks'));
+// Explicitly type collections to satisfy TS (popularGames/popularDrinks mapping)
+const gamesAll = excludeLegacyNoise(await getCollection('games')) as CollectionEntry<'games'>[];
+const drinksAll = excludeLegacyNoise(await getCollection('drinks')) as CollectionEntry<'drinks'>[];
 const popularGames = shuffle(gamesAll).slice(0, 12);
 const popularDrinks = shuffle(drinksAll).slice(0, 12);
 

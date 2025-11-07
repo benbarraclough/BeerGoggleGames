@@ -1,6 +1,8 @@
 import { base } from './paths';
 
-const FALLBACK_SITE = 'https://benbarraclough.github.io/BeerGoggleGames';
+// Use the canonical production domain as fallback origin to avoid
+// mixed origins if Astro.site is not available at runtime
+const FALLBACK_SITE = 'https://beergogglegames.co.uk';
 
 // Returns a canonical absolute URL.
 // - pathname should be Astro.url.pathname (already includes base).

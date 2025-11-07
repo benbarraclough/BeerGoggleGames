@@ -15,6 +15,9 @@ on:
         description: "Verbose per-file logging"
         type: boolean
         default: false
+  schedule:
+    # Weekly on Mondays at 03:00 UTC
+    - cron: '0 3 * * 1'
 
 jobs:
   normalize:

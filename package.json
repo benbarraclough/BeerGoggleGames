@@ -9,9 +9,16 @@
   "scripts": {
     "dev": "astro dev",
     "check": "astro check",
+    "typecheck": "astro check",
+    "sync": "astro sync",
+    "predev": "astro sync",
+    "postinstall": "astro sync",
     "format": "prettier --write .",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "content:normalize": "node scripts/normalize-content.mjs --verbose",
+    "content:check": "node scripts/check-deprecated-paths.mjs",
+    "content:fix": "npm run content:normalize && npm run content:check"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.3.10",
