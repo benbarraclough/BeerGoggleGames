@@ -12,8 +12,9 @@ interface Props {
 }
 const {
   text,
-  speed = 40,
-  speedMobile = 46,
+  // Faster defaults: desktop faster than mobile
+  speed = 14,
+  speedMobile = 18,
   pauseOnHover = true,
   edgeFade = true,
 } = Astro.props as Props;
