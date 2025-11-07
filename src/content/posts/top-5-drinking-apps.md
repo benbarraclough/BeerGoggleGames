@@ -1,5 +1,5 @@
 ---
-title: Top 5 Drinking Apps: Because You Lack Basic Social Skills
+title: "Top 5 Drinking Apps: Because You Lack Basic Social Skills"
 date: '2021-05-01'
 excerpt: 'A list of the best drinking game apps that we suggest downloading for your next social event'
 ---
