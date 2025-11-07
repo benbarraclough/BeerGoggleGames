@@ -6,11 +6,11 @@ excerpt: 'A helpful list of accessories that will assist you with some creative 
 
 ![](/images/mostusefuldrinkingaccessories.webp)
 
-A helpful list of accessories that will assist you with some creative methods of drinking.
+A list of accessories that will assist you with some creative methods of drinking.
 
-A good collection of drinking equipment can add some flair to your drinking. Whether its how you prepare your drinks or how you drink them, it can switch a night from boring to exciting.
+A good collection of drinking equipment can add some flair to your drinking, adding interest to how you prepare your drinks or how you drink them.
 
-The following items are not in any way sponsored by specific companies, the links provided are just are examples of where the items can be purchased, just to provide a reference. Most likely there are various websites to source the same item from for different prices and qualities.
+The following items are not in any way sponsored, the links provided are just examples of where the items can be purchased. There are various websites where you can get the same item but could differ in price and quality.
 
 #### Quote of the day:
 
