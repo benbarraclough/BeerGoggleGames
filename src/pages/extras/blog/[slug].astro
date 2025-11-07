@@ -33,8 +33,9 @@ const ld = postLD({ title, description, url: pageCanonical, date });
 
     <Content />
 
-    <div class="divider" aria-hidden="true"></div>
-    <ShareButtons title={title} />
+    <div class="share-wrap">
+      <ShareButtons title={title} />
+    </div>
     <FeedbackCard />
   </article>
 
@@ -90,11 +91,28 @@ const ld = postLD({ title, description, url: pageCanonical, date });
 article.prose{--tw-prose-headings:inherit}
 /* Treat the first image in content as a hero */
 article.prose > :first-child img{display:block;width:100%;height:auto;border-radius:0.75rem;margin-top:0.25rem;margin-bottom:1rem}
-/* Make first paragraph a lead */
-article.prose > p:first-of-type{font-size:1.05rem;opacity:.92}
-@media (min-width:768px){article.prose > p:first-of-type{font-size:1.15rem}}
-/* Collapse adjacent page breaks so only one shows above Share */
-.divider + .divider{display:none}
-hr + .divider{display:none}
-.divider + hr{display:none}
+/* Overview: highlight the first paragraph like a welcome intro */
+article.prose > p:first-of-type{
+  font-size:1.05rem;opacity:.96;line-height:1.65;
+  background: color-mix(in oklab, currentColor 6%, transparent);
+  border: 1px solid color-mix(in oklab, currentColor 15%, transparent);
+  border-left-width: 4px; border-left-color: color-mix(in oklab, currentColor 35%, transparent);
+  padding: .9rem 1rem; border-radius: .6rem; margin: .35rem 0 1rem;
+}
+@media (min-width:768px){article.prose > p:first-of-type{font-size:1.18rem;padding:1rem 1.1rem}}
+/* Add a subtle 'Overview' badge */
+article.prose > p:first-of-type::before{
+  content: "Overview"; display:inline-block; font-size:.7rem; letter-spacing:.08em; text-transform:uppercase;
+  opacity:.7; margin-right:.5rem; padding:.15rem .45rem; border:1px solid color-mix(in oklab, currentColor 20%, transparent);
+  border-radius:.35rem; transform: translateY(-.05rem);
+}
+/* Stronger subtitles (Markdown #### -> h4) */
+article.prose h4{font-weight:800; letter-spacing:.01em}
+@media (min-width:768px){article.prose h4{font-size:1.1em}}
+
+/* Ensure exactly one separator above Share: remove any trailing hr/divider from content */
+article.prose > :is(hr,.divider):last-child{display:none}
+/* Provide a single consistent divider via the Share wrapper */
+.share-wrap{margin-top:1rem; padding-top:1rem; position:relative}
+.share-wrap::before{content:""; position:absolute; left:0; right:0; top:0; height:1px; background: color-mix(in oklab, currentColor 15%, transparent)}
 </style>
