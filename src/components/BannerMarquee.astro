@@ -1,27 +1,47 @@
 ---
 interface Props {
   text: string;
-  speed?: number; // seconds for one full loop
+  /** seconds for one full loop on desktop */
+  speed?: number;
+  /** seconds for one full loop on mobile */
+  speedMobile?: number;
+  /** pause animation on hover (desktop) */
+  pauseOnHover?: boolean;
+  /** show subtle edge fades */
+  edgeFade?: boolean;
 }
-const { text, speed = 40 } = Astro.props as Props;
+const {
+  text,
+  speed = 40,
+  speedMobile = 46,
+  pauseOnHover = true,
+  edgeFade = true,
+} = Astro.props as Props;
 ---
-<div class="banner-marquee" role="marquee" aria-label={text}>
-  <div class="banner-track" style={`--speed:${speed}s`}>
-    <span class="banner-item">{text}</span>
-    <span class="banner-item">{text}</span>
+<div class:list={["banner-marquee", edgeFade && "banner-fade"]} role="marquee" aria-label={text} style={`--speed:${speed}s; --speed-sm:${speedMobile}s; --hover-ps:${pauseOnHover ? 'paused' : 'running'}`}>
+  <div class="banner-track">
     <span class="banner-item">{text}</span>
   </div>
 </div>
 
 <style>
 .banner-marquee{overflow:hidden;position:relative;height:100%;display:flex;align-items:center}
-.banner-track{display:inline-flex;gap:2.5rem;white-space:nowrap;will-change:transform;transform:translateX(100%);animation:banner-slide var(--speed,40s) linear infinite;animation-delay: calc(var(--speed,40s) * -0.25)}
+/* Optional edge fade for nicer entrance/exit */
+.banner-fade{ -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); }
+
+.banner-track{display:inline-flex;gap:2.5rem;white-space:nowrap;will-change:transform;transform:translateX(100%);animation-name:banner-slide;animation-timing-function:linear;animation-iteration-count:infinite;animation-duration: var(--speed, 40s)}
+/* Mobile: slightly slower */
+@media (max-width: 640px){
+  .banner-track{animation-duration: var(--speed-sm, var(--speed, 40s));}
+}
 @keyframes banner-slide{0%{transform:translateX(100%)}100%{transform:translateX(-100%)}}
 @media (prefers-reduced-motion:reduce){.banner-track{animation:none;transform:none}}
 .banner-item{display:inline-block}
 
-/* Add separators between repeated items for visual spacing */
-.banner-item + .banner-item::before{content:"•"; opacity:.6; margin:0 .9rem}
+/* Pause on hover (desktop only) */
+@media (hover:hover){
+  :where(.banner-marquee):hover .banner-track{animation-play-state: var(--hover-ps, paused)}
+}
 
 /* Mobile: use same slower speed; negative delay above ensures early appearance */
 </style>
