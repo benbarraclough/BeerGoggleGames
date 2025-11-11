@@ -19,9 +19,10 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Auto-merge patch/minor updates
-        uses: ahmadnassri/action-dependabot-auto-merge@v3
+      - name: Enable auto-merge on minor/patch
+        if: ${{ steps.meta.outputs.update-type == 'version-update:semver-minor' || steps.meta.outputs.update-type == 'version-update:semver-patch' }}
+        uses: peter-evans/enable-pull-request-automerge@v3
         with:
-          target: minor
+          token: ${{ secrets.GITHUB_TOKEN }}
+          pull-request-number: ${{ github.event.pull_request.number }}
           merge-method: squash
-          github-token: ${{ secrets.GITHUB_TOKEN }}

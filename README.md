@@ -60,3 +60,52 @@ GitHub Actions deploy on push to `main` or `def-main` (see `.github/workflows/de
 - Automated content normalization workflow can be run on-demand or weekly (see `.github/workflows/content-maintenance.yml`).
 - Node version pinned via `.nvmrc` (20) and `engines` in `package.json`.
 - Formatting via Prettier (`npm run format`).
+
+## Troubleshooting (foolproof)
+- Node version errors when installing: use Node 20 (see `.nvmrc`). In CI this is automatic.
+- Editor shows "Cannot find module 'astro:content'": run `npm run sync` once (auto-runs on install/dev/build).
+- Content maintenance workflow fails: ensure it installs dependencies. This repo’s workflow does `npm ci` before running scripts.
+- Build broken on PRs: check the CI workflow (`.github/workflows/ci.yml`) which runs install → sync → typecheck → build to surface issues early.
+
+## Linting & Formatting
+- ESLint + TypeScript + Astro rules: run `npm run lint` or `npm run lint:fix`.
+- Prettier enforced; staged files auto-format via pre-commit hook.
+- Skip hook: add `--no-verify` to your commit if really needed (avoid when possible).
+
+## One-command health check
+Run all essential guards before pushing:
+
+```bash
+npm run health
+```
+
+This performs: sync types → typecheck → content maintenance (normalize + check) → build.
+
+## Common “what went wrong” map
+| Symptom | Fix |
+|---------|-----|
+| `astro:content` import errors | `npm run sync` (already auto-run; re-run if editor stale) |
+| Node engine EBADENGINE | Install/use Node 20 (nvm install 20; nvm use 20) |
+| Pre-commit fails on lint | Run `npm run lint:fix` then retry commit |
+| Build fails after deps bump | Run `npm install` then `npm run health` to isolate which stage fails |
+| Workflow fails normalization | Run locally: `npm run maintenance` to reproduce, then commit fixes |
+| Canonical URL looks like github.io | Ensure `astro.config.mjs` site is set (already) and fallback origin (urls.ts) correct |
+| Slow first dev start | Delete `.astro/` cache folder if corrupted, then `npm run dev` |
+
+## Minimal recovery steps (cut/paste guide)
+If everything feels broken:
+```bash
+rm -rf node_modules package-lock.json .astro
+npm install
+npm run sync
+npm run health
+```
+
+## Updating dependencies safely
+1. Run `npm outdated`.
+2. Bump one category (e.g. Astro integratons) in `package.json`.
+3. `npm install`.
+4. `npm run health`.
+5. If green, commit; otherwise revert the change and inspect errors.
+
+Automated PR bumps (Dependabot) are auto-merged for minor/patch. Major bumps: review PR, run `npm run health` locally.
