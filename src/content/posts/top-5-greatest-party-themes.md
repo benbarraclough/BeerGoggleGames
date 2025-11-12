@@ -1,7 +1,9 @@
 ---
 title: Top 5 Greatest Party Themes
 date: '2021-09-01'
-excerpt: 'A collection of party themes that will help inspire ideas for your next party, with tips on how to do it right.'
+excerpt: >-
+  A collection of party themes that will help inspire ideas for your next party,
+  with tips on how to do it right.
 ---
 
 ![](/images/top5greatestpartythemes.webp)
@@ -19,6 +21,7 @@ In this blog post, we'll feature exactly how to execute these themes perfectly, 
 > A drunk mans words are a sober mans thoughts.
 
 #### 1\. Neon: Low Effort, Maximum Irresponsibility
+
 At number one, we have the best theme by far. It offers everything and absolutely nothing simultaneously, which is perfect. It allows expectations to go wild and gives you the sacred freedom to make the party about literally whatever you like.
 
 ![](/images/neontheme.webp)
@@ -30,12 +33,13 @@ Shit you'll need:
 -   Neon paint to spread around
 -   Blacklights
 -   Glow in the dark stuff
--   Glow sticks 
+-   Glow sticks
 -   Glow in the dark clothing
 -   Glow in the dark pens
 -   Rave music
 
 #### 2\. Disco: Crowd pleaser
+
 You simply cannot beat this theme for its reliable ability to attract women, and where the women go, the desperate men follow. This makes it our second favorite theme for cynical social engineering.
 
 ![](/images/discotheme.webp)
@@ -44,7 +48,7 @@ For this theme to work, you must commit to the sound. Disco is all about the mus
 
 Shit you'll need:
 
--   Glitter fucking everywhere 
+-   Glitter fucking everywhere
 -   Disco Ball
 -   Colourful lights
 -   A punch bowl with a ladle that will probably spiked
@@ -56,6 +60,7 @@ Shit you'll need:
 -   An embarrassingly vocal DJ
 
 #### 3\. Toga: The nudist's fantasy
+
 An ultimate party theme that gets everyone unified in the sacred toga costume. Make way for games, brotherly love and probably a bit of accidental nudity at some point.
 
 ![](/images/togatheme.webp)
@@ -66,7 +71,7 @@ Shit you'll need:
 
 -   Award laurel wreath crowns
 -   Greco-Roman invitations for pretentious flair
--   Toga costume (the uniform of the drunk and unified) 
+-   Toga costume (the uniform of the drunk and unified)
 -   Roman pillars
 -   Fake ivy
 -   Lots of white sheets
@@ -78,6 +83,7 @@ Shit you'll need:
 -   Chalices
 
 #### 4\. Jungle: Adults playing dress-up
+
 A fun and easy theme, usually done on a low budget because people will do most of the work for you by painting their own faces to look like morons. It can be a low-effort affair or turned into a full-on tropical paradise.
 
 ![](/images/jungletheme.webp)
@@ -97,6 +103,7 @@ Shit you'll need:
 -   Animal masks or face paint
 
 #### 5\. Masquerade: Reduced effort, increased sophistication
+
 For those who crave a higher class event but lack the funds for one, the Masquerade party offers a smarter theme where people can ironically dress to impress.
 
 ![](/images/masquerade.webp)
@@ -105,8 +112,8 @@ This "classy affair" focuses on the social aspect and the up-market ambience tha
 
 Shit you'll need:
 
--   Cocktails 
--   Champagne/Prosecco 
+-   Cocktails
+-   Champagne/Prosecco
 -   Drapes
 -   Plants
 -   Gold and silver decorations
@@ -118,20 +125,20 @@ Shit you'll need:
 
 More theme ideas:
 
--   Hawaiian Luau
--   Deepsea
--   Circus
--   Day Of The Dead
--   Western
--   Pride
--   Dynamic Duos
--   Bubbles & Bowties
--   Pyjama
--   Nations (could get dicey)
--   Pirates
--   Farmyard
--   Halloween
--   Back to School
--   Christmas
+- Hawaiian Luau
+- Deepsea
+- Circus
+- Day Of The Dead
+- Western
+- Pride
+- Dynamic Duos
+- Bubbles & Bowties
+- Pyjama
+- Nations (could get dicey)
+- Pirates
+- Farmyard
+- Halloween
+- Back to School
+- Christmas
 
 Thats all, more posts will be coming soon! Please use the share buttons below to let others know about this or save it for later in your bookmarks.

@@ -1,7 +1,9 @@
 ---
 title: Most Useful Drinking Accessories
 date: '2022-12-01'
-excerpt: 'A helpful list of accessories that will assist you with some creative methods of drinking.'
+excerpt: >-
+  A helpful list of accessories that will assist you with some creative methods
+  of drinking.
 ---
 
 ![](/images/mostusefuldrinkingaccessories.webp)
@@ -17,8 +19,6 @@ The following items are not in any way sponsored, the links provided are just ex
 > If we save the earth, we save beer.
 
 #### Beer Bong
- 
-![](/images/beerbong.webp)
 
 An undeniable favourite for consuming large amounts of alcohol in a short amount of time.
 
@@ -30,8 +30,6 @@ A beer bong can be utilised in many circumstances for forfeits, races and gettin
 
 #### Push-down Bottle Opener
 
-![](/images/pushdownbottleopener.webp)
-
 The most homo-erotic yet efficient way to open your bottle of beer!
 
 Impress your friends with the latest invetion in bottle opening technology. A quick, easy and idiot-proof bottle opening tool, you push it and it pops off, no drama.
@@ -41,8 +39,6 @@ Less ugly than most bottle openers and acts as a brilliant time saving device. T
 [Amazon](https://www.amazon.co.uk/Stainless-Automatic-Magnetic-Openers-Gadgets/dp/B08N6DDBMP) | [ebay](https://www.ebay.co.uk/itm/254849089103)
 
 #### Snorkel
- 
-![](/images/snorkel.webp)
 
 Struggle to neck your bottled drinks? Being called a pussy by your friends? Do we have the solution for you!
 
@@ -53,8 +49,6 @@ The perfect way to quickly drink bottles of alcohol with no fuss. Get a full set
 [Amazon](https://www.amazon.co.uk/YRO-Entertainment-Drinking-Dispenser-Fluorescent/dp/B094XT8F3R/) | [ebay](https://www.ebay.co.uk/itm/304632909626)
 
 #### Breathalyser
- 
-![](/images/breathalyser.webp)
 
 Struggle to know when enough is enough? Get a pocket size breathalyser to settle your worries.
 
@@ -66,8 +60,6 @@ This can be used as a bit of fun during a night of drinking, testing who the lig
 
 #### Cap Shooter
 
-![](/images/capshooter.webp)
-
 A brilliant way to maintain a tidy pad and keep the drinks flowing in at the same time.
 
 The cap shooter doesn't only shoot caps but it opens the bottle for you and loads it in the chamber to be shot wherever you may please.
@@ -78,8 +70,6 @@ Use the gun as a part of a game by necking drinks and shooting targets or holste
 
 #### Spirit Pistol
 
-![](/images/spiritpistol.webp)
-
 A playful way to get shots down people during a party.
 
 Fill the gun up with your favourite spirit and give it a squirt. Using a pistol will require quite a few squirts for you to feel it so be prepared to refill quite often if its a small shoota.
@@ -89,8 +79,6 @@ Use this as a punishment during games or pass a few round for a bit of fun durin
 [Amazon](https://www.amazon.co.uk/HENBRANDT-Water-Guns-Pack-2/dp/B071F3SF37) | [ebay](https://www.ebay.co.uk/itm/164903813365)
 
 #### Shotgun Tool
-
-![](/images/shotguntool.webp)
 
 The tool for all the pro drinkers out there who love to shotgun a beer, learn more about shotguns in the [glossary](extras/glossary).
 

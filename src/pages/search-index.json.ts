@@ -1,11 +1,11 @@
 import { getCollection } from 'astro:content';
 
 interface SearchItem {
-  c: string;          // path root or page path (e.g., 'games', 'drinks', 'extras/dice', 'contact')
-  slug?: string;      // optional leaf (for detail pages). If empty/undefined, link is just /{c}/
+  c: string; // path root or page path (e.g., 'games', 'drinks', 'extras/dice', 'contact')
+  slug?: string; // optional leaf (for detail pages). If empty/undefined, link is just /{c}/
   title: string;
   excerpt?: string;
-  type?: string;      // e.g. game type, drink type, difficulty, etc.
+  type?: string; // e.g. game type, drink type, difficulty, etc.
   ingredients?: string[];
 }
 
@@ -20,10 +20,10 @@ function leafFrom(idOrSlug: string) {
 
 export async function GET() {
   try {
-    const games       = await getCollection('games').catch(() => []);
-    const drinks      = await getCollection('drinks').catch(() => []);
-    const activities  = await getCollection('activities').catch(() => []);
-    const posts       = await getCollection('posts').catch(() => []);
+    const games = await getCollection('games').catch(() => []);
+    const drinks = await getCollection('drinks').catch(() => []);
+    const activities = await getCollection('activities').catch(() => []);
+    const posts = await getCollection('posts').catch(() => []);
 
     const index: SearchItem[] = [];
 
@@ -34,8 +34,8 @@ export async function GET() {
         c: 'games',
         slug: leaf,
         title: norm(g.data.title),
-        excerpt: norm(g.data.excerpt || g.data.description),
-        type: norm(g.data.type)
+        excerpt: norm(g.data.excerpt),
+        type: norm(g.data.type),
       });
     }
 
@@ -46,8 +46,8 @@ export async function GET() {
         c: 'drinks',
         slug: leaf,
         title: norm(d.data.title),
-        excerpt: norm(d.data.excerpt || d.data.description),
-        type: norm(d.data.drinkType)
+        excerpt: norm(d.data.excerpt),
+        type: norm(d.data.drinkType),
       });
     }
 
@@ -58,7 +58,7 @@ export async function GET() {
         slug: a.slug,
         title: norm(a.data.title),
         excerpt: norm(a.data.excerpt),
-        type: norm(a.data.difficulty)
+        type: norm(a.data.difficulty),
       });
     }
 
@@ -69,37 +69,41 @@ export async function GET() {
         c: 'extras/blog',
         slug: p.slug,
         title: norm(p.data.title),
-        excerpt: norm(p.data.excerpt || p.data.description)
+        excerpt: norm(p.data.excerpt),
       });
     }
 
     // Static hub pages and key extras/tools (no slug)
     const staticPages: SearchItem[] = [
-      { c: 'games',            title: 'Games',            excerpt: 'All drinking games, A–Z.' },
-      { c: 'drinks',           title: 'Drinks',           excerpt: 'All drink recipes, A–Z.' },
-      { c: 'extras',           title: 'Extras',           excerpt: 'Tools and extras hub.' },
-      { c: 'extras/dice',      title: 'Dice Roller',      excerpt: 'Roll one or more dice on screen.' },
-      { c: 'extras/coin-flip', title: 'Coin Flip',        excerpt: 'Flip a coin with simple animation.' },
-      { c: 'extras/wheel-of-fortune', title: 'Wheel Of Fortune', excerpt: 'Spin a wheel to choose categories or games.' },
-      { c: 'extras/forfeits',  title: 'Forfeits',         excerpt: 'Creative punishments & challenges.' },
-      { c: 'extras/glossary',  title: 'Glossary',         excerpt: 'Drinking terms and definitions.' },
-      { c: 'extras/activities',title: 'Activities',       excerpt: 'Party & social activities.' },
-      { c: 'extras/blog',      title: 'Blog',             excerpt: 'Guides, announcements & ideas.' },
-      { c: 'contact',          title: 'Contact',          excerpt: 'Send feedback or suggestions.' },
-      { c: 'about',            title: 'About',            excerpt: 'About BeerGoggleGames.' }
+      { c: 'games', title: 'Games', excerpt: 'All drinking games, A–Z.' },
+      { c: 'drinks', title: 'Drinks', excerpt: 'All drink recipes, A–Z.' },
+      { c: 'extras', title: 'Extras', excerpt: 'Tools and extras hub.' },
+      { c: 'extras/dice', title: 'Dice Roller', excerpt: 'Roll one or more dice on screen.' },
+      { c: 'extras/coin-flip', title: 'Coin Flip', excerpt: 'Flip a coin with simple animation.' },
+      {
+        c: 'extras/wheel-of-fortune',
+        title: 'Wheel Of Fortune',
+        excerpt: 'Spin a wheel to choose categories or games.',
+      },
+      { c: 'extras/forfeits', title: 'Forfeits', excerpt: 'Creative punishments & challenges.' },
+      { c: 'extras/glossary', title: 'Glossary', excerpt: 'Drinking terms and definitions.' },
+      { c: 'extras/activities', title: 'Activities', excerpt: 'Party & social activities.' },
+      { c: 'extras/blog', title: 'Blog', excerpt: 'Guides, announcements & ideas.' },
+      { c: 'contact', title: 'Contact', excerpt: 'Send feedback or suggestions.' },
+      { c: 'about', title: 'About', excerpt: 'About BeerGoggleGames.' },
     ];
     index.push(...staticPages);
 
     return new Response(JSON.stringify(index), {
       headers: {
         'Content-Type': 'application/json',
-        'Cache-Control': 'public, max-age=900'
-      }
+        'Cache-Control': 'public, max-age=900',
+      },
     });
   } catch (e: any) {
-    return new Response(
-      JSON.stringify({ error: 'failed', detail: String(e?.message || e) }),
-      { status: 500, headers: { 'Content-Type': 'application/json' } }
-    );
+    return new Response(JSON.stringify({ error: 'failed', detail: String(e?.message || e) }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
 }

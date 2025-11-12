@@ -8,21 +8,26 @@ import FeedbackCard from '../../components/FeedbackCard.astro';
 const title = 'Coin Flip';
 const description = 'Flip a more realistic on-screen coin with smooth shading.';
 ---
+
 <Layout title={title} description={description}>
-  <header class="mb-6 tone-green">
-    <h1 class="font-display text-3xl md:text-4xl mb-2 tone-green-text">{title}</h1>
+  <header class="tone-green mb-6">
+    <h1 class="tone-green-text mb-2 font-display text-3xl md:text-4xl">{title}</h1>
     <p class="text-muted">{description}</p>
   </header>
 
   <div class="divider" aria-hidden="true"></div>
 
-  <section class="glass tone-green p-6 max-w-xl mx-auto">
-    <p class="text-sm text-muted mb-3">Flip a single coin with realistic lighting and easing.</p>
-    <div class="relative mx-auto w-full max-w-[360px] aspect-square">
-      <canvas id="coin" class="w-full h-full rounded-md border border-fg/15 bg-bg"></canvas>
+  <section class="glass tone-green mx-auto max-w-xl p-6">
+    <p class="mb-3 text-sm text-muted">Flip a single coin with realistic lighting and easing.</p>
+    <div class="relative mx-auto aspect-square w-full max-w-[360px]">
+      <canvas id="coin" class="h-full w-full rounded-md border border-fg/15 bg-bg"></canvas>
     </div>
-    <div class="mt-4 flex gap-3 items-center justify-center">
-      <button id="flip-coin" type="button" class="px-4 py-2 rounded border border-fg/25 bg-fg/10 hover:border-fg/50 text-sm font-medium">
+    <div class="mt-4 flex items-center justify-center gap-3">
+      <button
+        id="flip-coin"
+        type="button"
+        class="rounded border border-fg/25 bg-fg/10 px-4 py-2 text-sm font-medium hover:border-fg/50"
+      >
         Flip
       </button>
       <div id="coin-result" class="min-h-[1.75rem] text-sm font-semibold text-muted"></div>
@@ -50,62 +55,65 @@ const description = 'Flip a more realistic on-screen coin with smooth shading.';
         canvas.height = Math.floor(bb.height * DPR);
         drawCoin('Heads', 0, 0);
       }
-      window.addEventListener('resize', resize, { passive:true });
+      window.addEventListener('resize', resize, { passive: true });
       resize();
 
-      function drawCoin(faceText, tilt=0, spin=0) {
-        const w = canvas.width, h = canvas.height;
-        ctx.clearRect(0,0,w,h);
-        const r = Math.min(w,h)*0.35;
-        const cx = w/2, cy = h/2;
+      function drawCoin(faceText, tilt = 0, spin = 0) {
+        const w = canvas.width,
+          h = canvas.height;
+        ctx.clearRect(0, 0, w, h);
+        const r = Math.min(w, h) * 0.35;
+        const cx = w / 2,
+          cy = h / 2;
 
         ctx.save();
         ctx.translate(cx, cy);
         ctx.rotate(spin);
 
         // Rim thickness based on tilt
-        const ry = r*(1-tilt*0.7);
+        const ry = r * (1 - tilt * 0.7);
 
         // shadow
         ctx.save();
         ctx.resetTransform?.();
-        ctx.translate(cx, cy + r*0.9);
+        ctx.translate(cx, cy + r * 0.9);
         ctx.scale(1, 0.15);
         ctx.beginPath();
-        ctx.arc(0, 0, r*0.9, 0, Math.PI*2);
+        ctx.arc(0, 0, r * 0.9, 0, Math.PI * 2);
         ctx.fillStyle = 'rgba(0,0,0,0.35)';
         ctx.filter = 'blur(14px)';
         ctx.fill();
         ctx.restore();
 
         // coin body (metallic)
-        const grad = ctx.createRadialGradient(-r*0.2, -r*0.2, r*0.1, 0, 0, r);
+        const grad = ctx.createRadialGradient(-r * 0.2, -r * 0.2, r * 0.1, 0, 0, r);
         grad.addColorStop(0, 'rgba(255,255,255,0.30)');
         grad.addColorStop(0.5, 'rgba(255,255,255,0.08)');
         grad.addColorStop(1, 'rgba(255,255,255,0.04)');
         ctx.fillStyle = grad;
         ctx.strokeStyle = 'rgba(255,255,255,0.25)';
-        ctx.lineWidth = Math.max(2, r/10);
+        ctx.lineWidth = Math.max(2, r / 10);
 
         // Face ellipse
         ctx.beginPath();
-        ctx.ellipse(0, 0, r, ry, 0, 0, Math.PI*2);
-        ctx.fill(); ctx.stroke();
+        ctx.ellipse(0, 0, r, ry, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
 
         // Inner rim
         ctx.beginPath();
-        ctx.ellipse(0, 0, r*0.88, ry*0.88, 0, 0, Math.PI*2);
+        ctx.ellipse(0, 0, r * 0.88, ry * 0.88, 0, 0, Math.PI * 2);
         ctx.strokeStyle = 'rgba(255,255,255,0.2)';
-        ctx.lineWidth = Math.max(1, r/28);
+        ctx.lineWidth = Math.max(1, r / 28);
         ctx.stroke();
 
         // Face text
         ctx.fillStyle = '#fff';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        const visible = Math.max(0, 1 - tilt*1.3);
+        const visible = Math.max(0, 1 - tilt * 1.3);
         ctx.globalAlpha = visible;
-        ctx.font = `${Math.max(14, r*0.36)}px system-ui, sans-serif`;
+        ctx.font = `${Math.max(14, r * 0.36)}px system-ui, sans-serif`;
         ctx.fillText(faceText, 0, 0);
         ctx.globalAlpha = 1;
 
@@ -116,27 +124,33 @@ const description = 'Flip a more realistic on-screen coin with smooth shading.';
         if (!btn) return;
         btn.disabled = true;
         const target = Math.random() < 0.5 ? 'Heads' : 'Tails';
-        const duration = 1100 + Math.random()*700; // 1.1s - 1.8s
+        const duration = 1100 + Math.random() * 700; // 1.1s - 1.8s
         const start = performance.now();
 
-        function easeOutCubic(x){ return 1 - Math.pow(1 - x, 3); }
-        function animate(now){
+        function easeOutCubic(x) {
+          return 1 - Math.pow(1 - x, 3);
+        }
+        function animate(now) {
           const elapsed = now - start;
           const t = Math.min(1, elapsed / duration);
           const eased = easeOutCubic(t);
           // Spin more at the start, slow down towards the end
-          const totalTurns = 3 + Math.random()*2; // 3..5 turns
+          const totalTurns = 3 + Math.random() * 2; // 3..5 turns
           const spin = eased * totalTurns * Math.PI * 2;
           // Tilt oscillates but damps over time
-          const tilt = Math.abs(Math.sin(elapsed/160)) * (1 - eased*0.85);
-          const showHeads = Math.sin(spin/Math.PI) >= 0;
+          const tilt = Math.abs(Math.sin(elapsed / 160)) * (1 - eased * 0.85);
+          const showHeads = Math.sin(spin / Math.PI) >= 0;
           drawCoin(showHeads ? 'Heads' : 'Tails', tilt, spin);
           if (t < 1) {
             requestAnimationFrame(animate);
           } else {
             drawCoin(target, 0, 0);
             result.textContent = 'Result: ' + target;
-            if (navigator.vibrate) { try { navigator.vibrate(12); } catch(_){} }
+            if (navigator.vibrate) {
+              try {
+                navigator.vibrate(12);
+              } catch {}
+            }
             btn.disabled = false;
           }
         }

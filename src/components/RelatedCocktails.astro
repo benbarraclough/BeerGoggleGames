@@ -1,26 +1,42 @@
 ---
 import { getCollection } from 'astro:content';
-const { currentSlug, ingredients = [], limit = 3 } = Astro.props;
+const {
+  currentSlug,
+  ingredients = [],
+  limit = 3,
+} = Astro.props as {
+  currentSlug: string;
+  ingredients?: string[];
+  limit?: number;
+};
 
-const drinks = await getCollection('cocktails');
-const baseSet = new Set(ingredients.map(i => i.toLowerCase()));
+// Use the canonical 'drinks' collection
+const drinks = await getCollection('drinks');
+const baseSet = new Set((ingredients || []).map((i: string) => i.toLowerCase()));
 const related = drinks
   .filter(d => d.slug !== currentSlug)
   .map(d => {
-    const ing = (d.data.ingredients || []).map(x => x.toLowerCase());
-    const overlap = ing.filter(i => baseSet.has(i));
+    const ing = (d.data.ingredients || []).map((x: string) => x.toLowerCase());
+    const overlap = ing.filter((i: string) => baseSet.has(i));
     return { d, score: overlap.length };
   })
   .filter(x => x.score > 0)
-  .sort((a,b)=> b.score - a.score || a.d.data.title.localeCompare(b.d.data.title))
+  .sort((a, b) => b.score - a.score || a.d.data.title.localeCompare(b.d.data.title))
   .slice(0, limit)
   .map(x => x.d);
 ---
-{related.length > 0 && (
-  <section>
-    <h2>Related Cocktails</h2>
-    <ul>
-      {related.map(r => <li><a href={`/cocktails/${r.slug}/`}>{r.data.title}</a></li>)}
-    </ul>
-  </section>
-)}
+
+{
+  related.length > 0 && (
+    <section>
+      <h2>Related Cocktails</h2>
+      <ul>
+        {related.map(r => (
+          <li>
+            <a href={`/drinks/${r.slug}/`}>{r.data.title}</a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )
+}

@@ -1,0 +1,2 @@
+# Ignore MDX content collections that use non-standard MDX constructs (<$> etc.)
+src/content/**/*.mdx

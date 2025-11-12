@@ -1,7 +1,9 @@
 ---
-title: "Top 5 Drinking Apps: Because You Lack Basic Social Skills"
+title: 'Top 5 Drinking Apps: Because You Lack Basic Social Skills'
 date: '2021-05-01'
-excerpt: 'A list of the best drinking game apps that we suggest downloading for your next social event'
+excerpt: >-
+  A list of the best drinking game apps that we suggest downloading for your
+  next social event
 ---
 
 ![](/images/top5drinkingapps.webp)
@@ -12,13 +14,14 @@ Having these digital babysitters in your back pocket ensures maximum delegation.
 
 After heroically sacrificing my liver to over 20 of the most highly rated drinking game apps out there and wading through the reviews of their users, I've put together this list of the top 5 mobile drinking game apps on iOS and Android.
 
-This list is purely based on my superior opinion. If you disagree, feel free to submit your "feedback" in the comments section below, then go £*#@ yourself.
+This list is purely based on my superior opinion. If you disagree, feel free to submit your "feedback" in the comments section below, then go £\*#@ yourself.
 
 #### Quote of the day:
 
 > Don't abuse the alcohol, let the alcohol abuse you
 
 #### 1\. Psych
+
 Possibly one of the best party apps out there! Psych gets everyone involved by creating a joinable lobby for all players.
 
 ![](/images/psych.webp)
@@ -30,6 +33,7 @@ It tops the list because you can spend a lot of time on this and is highly repla
 [iOS App](https://apps.apple.com/us/app/psych-outwit-your-friends/id1005765746?ls=1) | [Android App](https://play.google.com/store/apps/details?id=com.wb.goog.ellen.psych)
 
 #### 2\. Charades
+
 A close second place is the app that everyone knows the rules for and does not fail to entertain.
 
 ![](/images/charades.webp)
@@ -41,6 +45,7 @@ One of its main advantages is that it caters to groups of any size, from a singl
 [iOS App](https://apps.apple.com/us/app/charades/id653967729) | [Android App](https://play.google.com/store/apps/details?id=com.fatchicken007.headsupcharades2&hl=en_GB&gl=US)
 
 #### 3\. iPuke
+
 A largely underappreciated game, probably because the title is so aggressively honest. Playable with any size group by simply placing the device in the middle, treating it like the toxic, digital game board it is.
 
 ![](/images/ipuke.webp)
@@ -52,6 +57,7 @@ This app lands at third for its sheer commitment to getting the party aggressive
 [iOS App](https://apps.apple.com/us/app/ipuke-the-drinking-game/id596393583) | [Android App](https://play.google.com/store/apps/details?id=com.breno.ipuke&hl=en_GB&gl=US)
 
 #### 4\. Picolo
+
 An app that is raved about and unarguably highly developed and fun to play. Use the questions, prompts and dares given to you to compete against eachother in a alcohol-fuelled game of ability.
 
 ![](/images/picolo.webp)
@@ -63,6 +69,7 @@ The Picolo app is free to download but only comes with the starter pack which is
 [iOS App](https://apps.apple.com/gb/app/picolo-party-game/id1001473964) | [Android App](https://play.google.com/store/apps/details?id=com.picolo.android&hl=en_GB&gl=US)
 
 #### 5\. Dirty Potato
+
 Lastly is the alternative game of the year in our books, a simple and exciting game that is played best in groups which creates a thrilling sense of urgency & anxiety for all.
 
 ![](/images/dpotato.webp)

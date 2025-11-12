@@ -21,12 +21,17 @@ const allGames = raw
     const excerpt = (g.data.excerpt || '').toString();
     return {
       title: g.data.title,
-      type, rawMode, modeSlug, tags, excerpt, leaf,
+      type,
+      rawMode,
+      modeSlug,
+      tags,
+      excerpt,
+      leaf,
       image: withBase(`images/${leaf}.webp`),
-      href: withBase(`games/${leaf}/`)
+      href: withBase(`games/${leaf}/`),
     };
   })
-  .sort((a,b)=> (a.title||'').localeCompare(b.title||''));
+  .sort((a, b) => (a.title || '').localeCompare(b.title || ''));
 
 const categoryCounts = new Map<string, number>();
 const modeCounts = new Map<string, { count: number; label: string }>();
@@ -40,12 +45,13 @@ for (const g of allGames) {
   }
   for (const t of g.tags) tagCounts.set(t, (tagCounts.get(t) || 0) + 1);
 }
-const categories = Array.from(categoryCounts.entries()).sort((a,b)=> a[0].localeCompare(b[0]));
-const modes = Array.from(modeCounts.entries()).sort((a,b)=> a[1].label.localeCompare(b[1].label));
-const tags = Array.from(tagCounts.entries()).sort((a,b)=> a[0].localeCompare(b[0]));
+const categories = Array.from(categoryCounts.entries()).sort((a, b) => a[0].localeCompare(b[0]));
+const modes = Array.from(modeCounts.entries()).sort((a, b) => a[1].label.localeCompare(b[1].label));
+const tags = Array.from(tagCounts.entries()).sort((a, b) => a[0].localeCompare(b[0]));
 
 const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 ---
+
 <Layout
   title="Games"
   description="All drinking games. Filter or search by category, player mode, or tags."
@@ -53,10 +59,12 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
   wide={true}
 >
   <div class="tone-cyan">
-    <h1 class="font-display text-4xl mb-4 tone-cyan-text">Games</h1>
-    <p class="text-sm text-muted mb-5">
+    <h1 class="tone-cyan-text mb-4 font-display text-4xl">Games</h1>
+    <p class="mb-5 text-sm text-muted">
       A complete collection of all games A–Z. Use search and filters, or pick a
-      <a class="hover:text-fg underline underline-offset-4" href={withBase('games/random')}>Random Game</a>
+      <a class="underline underline-offset-4 hover:text-fg" href={withBase('games/random')}
+        >Random Game</a
+      >
     </p>
 
     <div class="divider" aria-hidden="true"></div>
@@ -64,13 +72,13 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
     <!-- Row 1: Search -->
     <div class="mb-4">
       <div class="flex items-end gap-2 md:mr-4">
-        <label class="text-xs tracking-wide text-muted font-medium flex flex-col gap-1">
+        <label class="flex flex-col gap-1 text-xs font-medium tracking-wide text-muted">
           <span>Search</span>
           <input
             id="game-search"
             type="search"
             placeholder="Search games..."
-            class="w-full md:w-96 rounded border border-fg/30 bg-fg/5 px-3 py-2 text-sm focus:outline-none focus:ring-2"
+            class="w-full rounded border border-fg/30 bg-fg/5 px-3 py-2 text-sm focus:outline-none focus:ring-2 md:w-96"
             autocomplete="off"
           />
         </label>
@@ -83,54 +91,91 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         <span class="text-[11px] uppercase tracking-wide text-muted/70">Filters</span>
 
         <div class="relative" data-filter-wrapper>
-          <button type="button" class="filter-toggle pill pill--soft" data-panel="categories" data-filter-group="category" aria-expanded="false" aria-pressed="false">
+          <button
+            type="button"
+            class="filter-toggle pill pill--soft"
+            data-panel="categories"
+            data-filter-group="category"
+            aria-expanded="false"
+            aria-pressed="false"
+          >
             Categories
           </button>
-          <div class="filter-panel hidden" id="panel-categories" role="group" aria-label="Categories">
+          <div
+            class="filter-panel hidden"
+            id="panel-categories"
+            role="group"
+            aria-label="Categories"
+          >
             <div class="panel-inner">
-              {categories.map(([cat, count]) => (
-                <button
-                  type="button"
-                  class="filter-item pill pill--soft"
-                  data-filter-type="category"
-                  data-value={cat}
-                  aria-pressed="false"
-                >
-                  <span>{cat}</span><span class="count">{count}</span>
-                </button>
-              ))}
+              {
+                categories.map(([cat, count]) => (
+                  <button
+                    type="button"
+                    class="filter-item pill pill--soft"
+                    data-filter-type="category"
+                    data-value={cat}
+                    aria-pressed="false"
+                  >
+                    <>
+                      <span>{cat}</span>
+                      <span class="count">{count}</span>
+                    </>
+                  </button>
+                ))
+              }
             </div>
           </div>
         </div>
 
         <div class="relative" data-filter-wrapper>
-          <button type="button" class="filter-toggle pill pill--soft" data-panel="modes" data-filter-group="mode" aria-expanded="false" aria-pressed="false">
+          <button
+            type="button"
+            class="filter-toggle pill pill--soft"
+            data-panel="modes"
+            data-filter-group="mode"
+            aria-expanded="false"
+            aria-pressed="false"
+          >
             Player modes
           </button>
           <div class="filter-panel hidden" id="panel-modes" role="group" aria-label="Player modes">
             <div class="panel-inner">
-              {modes.map(([slug, info]) => (
-                <button
-                  type="button"
-                  class="filter-item pill pill--soft"
-                  data-filter-type="mode"
-                  data-value={slug}
-                  aria-pressed="false"
-                >
-                  <span>{info.label}</span><span class="count">{info.count}</span>
-                </button>
-              ))}
+              {
+                modes.map(([slug, info]) => (
+                  <button
+                    type="button"
+                    class="filter-item pill pill--soft"
+                    data-filter-type="mode"
+                    data-value={slug}
+                    aria-pressed="false"
+                  >
+                    <>
+                      <span>{info.label}</span>
+                      <span class="count">{info.count}</span>
+                    </>
+                  </button>
+                ))
+              }
             </div>
           </div>
         </div>
 
         <div class="relative" data-filter-wrapper>
-          <button type="button" class="filter-toggle pill pill--soft" data-panel="tags" data-filter-group="tag" aria-expanded="false" aria-pressed="false" id="tags-toggle">
+          <button
+            type="button"
+            class="filter-toggle pill pill--soft"
+            data-panel="tags"
+            data-filter-group="tag"
+            aria-expanded="false"
+            aria-pressed="false"
+            id="tags-toggle"
+          >
             Tags
           </button>
           <!-- Force solid background + high z-index inline to beat any bundle order -->
           <div
-            class="filter-panel hidden filter-panel--solid"
+            class="filter-panel filter-panel--solid hidden"
             id="panel-tags"
             role="group"
             aria-label="Tags"
@@ -148,22 +193,27 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
             "
           >
             <div class="panel-inner">
-              {tags.map(([t, count]) => (
-                <button
-                  type="button"
-                  class="filter-item pill pill--soft"
-                  data-filter-type="tag"
-                  data-value={t}
-                  aria-pressed="false"
-                >
-                  <span>{t}</span><span class="count">{count}</span>
-                </button>
-              ))}
+              {
+                tags.map(([t, count]) => (
+                  <button
+                    type="button"
+                    class="filter-item pill pill--soft"
+                    data-filter-type="tag"
+                    data-value={t}
+                    aria-pressed="false"
+                  >
+                    <>
+                      <span>{t}</span>
+                      <span class="count">{count}</span>
+                    </>
+                  </button>
+                ))
+              }
             </div>
           </div>
         </div>
 
-        <div class="w-full sm:w-auto flex items-center gap-3 mt-2 sm:mt-0">
+        <div class="mt-2 flex w-full items-center gap-3 sm:mt-0 sm:w-auto">
           <a href="#" id="exclusive-toggle" class="filter-link" aria-pressed="false">
             <span class="dot" aria-hidden="true"></span>
             Exclusive
@@ -172,122 +222,139 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
             Clear
           </a>
           <!-- Mobile-only result count on same row as the links -->
-          <span id="result-count-mobile" class="text-xs text-muted sm:hidden ml-auto"></span>
+          <span id="result-count-mobile" class="ml-auto text-xs text-muted sm:hidden"></span>
         </div>
 
         <!-- Desktop/tablet result count on far right -->
-        <span id="result-count" class="text-xs text-muted ml-auto hidden sm:inline"></span>
+        <span id="result-count" class="ml-auto hidden text-xs text-muted sm:inline"></span>
       </div>
     </div>
 
-    {allGames.length === 0 ? (
-      <p class="text-muted">No games found.</p>
-    ) : (
-  <ul id="game-grid" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3 list-none p-0 m-0">
-        {allGames.map(g => {
-          const panelId = `tags-${g.leaf}`;
-          return (
-            <li
-              class="game-card group relative"
-              data-type={g.type}
-              data-mode={g.modeSlug || ''}
-              data-tags={g.tags.join(',').toLowerCase()}
-              data-title={(g.title||'').toLowerCase()}
-              data-excerpt={(g.excerpt||'').toLowerCase()}
-              data-search-visible="true"
-            >
-              <div class="glass p-3 relative">
-                <div class="flex">
-                  <picture class="mr-3 shrink-0">
-                    <img
-                      src={g.image}
-                      alt={g.title}
-                      loading="lazy"
-                      decoding="async"
-                      class="w-[88px] h-[88px] object-cover rounded-sm border border-fg/15 bg-fg/5"
-                      onerror="this.style.display='none'"
-                    />
-                  </picture>
-                  <div class="flex flex-col min-w-0">
-                    <span class="font-semibold leading-snug mb-1 transition-colors group-hover:text-fg">{g.title}</span>
-                    {g.excerpt && <p class="text-xs text-muted leading-snug line-clamp-2 mb-2">{g.excerpt}</p>}
+    {
+      allGames.length === 0 ? (
+        <p class="text-muted">No games found.</p>
+      ) : (
+        <ul
+          id="game-grid"
+          class="m-0 grid list-none gap-4 p-0 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3"
+        >
+          {allGames.map(g => {
+            const panelId = `tags-${g.leaf}`;
+            return (
+              <li
+                class="game-card group relative"
+                data-type={g.type}
+                data-mode={g.modeSlug || ''}
+                data-tags={g.tags.join(',').toLowerCase()}
+                data-title={(g.title || '').toLowerCase()}
+                data-excerpt={(g.excerpt || '').toLowerCase()}
+                data-search-visible="true"
+              >
+                <div class="glass relative p-3">
+                  <div class="flex">
+                    <picture class="mr-3 shrink-0">
+                      <img
+                        src={g.image}
+                        alt={g.title}
+                        loading="lazy"
+                        decoding="async"
+                        class="h-[88px] w-[88px] rounded-sm border border-fg/15 bg-fg/5 object-cover"
+                        onerror="this.style.display='none'"
+                      />
+                    </picture>
+                    <div class="flex min-w-0 flex-col">
+                      <span class="mb-1 font-semibold leading-snug transition-colors group-hover:text-fg">
+                        {g.title}
+                      </span>
+                      {g.excerpt && (
+                        <p class="mb-2 line-clamp-2 text-xs leading-snug text-muted">{g.excerpt}</p>
+                      )}
 
-                    <!-- Chips row (kept at z-index 60 so per-card tags dropdown (z:55) sits under chips) -->
-                    <div class="chip-row flex flex-wrap gap-2 text-[11px] tracking-wide font-semibold" style="position: relative; z-index: 60;">
-                      <button
-                        type="button"
-                        class="pill pill--filled tone-cyan js-card-chip"
-                        data-chip-type="category"
-                        data-chip-value={g.type}
-                        aria-pressed="false"
-                        title={`Filter: ${g.type}`}
+                      {/* Chips row (kept at z-index 60 so per-card tags dropdown (z:55) sits under chips) */}
+                      <div
+                        class="chip-row flex flex-wrap gap-2 text-[11px] font-semibold tracking-wide"
+                        style="position: relative; z-index: 60;"
                       >
-                        {g.type}
-                      </button>
-
-                      {g.modeSlug && (
                         <button
                           type="button"
                           class="pill pill--filled tone-cyan js-card-chip"
-                          data-chip-type="mode"
-                          data-chip-value={g.modeSlug}
+                          data-chip-type="category"
+                          data-chip-value={g.type}
                           aria-pressed="false"
-                          title={`Filter: ${playerModeLabel(g.rawMode!)}`}
+                          title={`Filter: ${g.type}`}
                         >
-                          {playerModeLabel(g.rawMode!)}
+                          {g.type}
                         </button>
-                      )}
 
-                      {g.tags.length > 0 && (
-                        <div class="relative inline-block" data-card-tags>
+                        {g.modeSlug && (
                           <button
                             type="button"
-                            class="pill pill--filled tone-cyan"
-                            aria-haspopup="listbox"
-                            aria-expanded="false"
-                            aria-controls={panelId}
-                            data-open-card-tags
-                            title="Show tags for this game"
+                            class="pill pill--filled tone-cyan js-card-chip"
+                            data-chip-type="mode"
+                            data-chip-value={g.modeSlug}
+                            aria-pressed="false"
+                            title={`Filter: ${playerModeLabel(g.rawMode!)}`}
                           >
-                            {g.tags.length} tag{g.tags.length !== 1 && 's'}
+                            {playerModeLabel(g.rawMode!)}
                           </button>
-                          <div
-                            class="filter-panel narrow"
-                            id={panelId}
-                            role="group"
-                            aria-label={`Tags for ${g.title}`}
-                            data-card-tags-panel
-                            style="position: absolute; z-index: 55; display: none; right: 0; left: auto;"
-                          >
-                            <div class="panel-inner panel-inner-col">
-                              {g.tags.map(t => (
-                                <button
-                                  type="button"
-                                  class="filter-item pill pill--soft w-full justify-between text-left block"
-                                  data-filter-type="tag"
-                                  data-value={t}
-                                  aria-pressed="false"
-                                >
-                                  <span>{t}</span>
-                                </button>
-                              ))}
+                        )}
+
+                        {g.tags.length > 0 && (
+                          <div class="relative inline-block" data-card-tags>
+                            <button
+                              type="button"
+                              class="pill pill--filled tone-cyan"
+                              aria-haspopup="listbox"
+                              aria-expanded="false"
+                              aria-controls={panelId}
+                              data-open-card-tags
+                              title="Show tags for this game"
+                            >
+                              {g.tags.length} tag{g.tags.length !== 1 && 's'}
+                            </button>
+                            <div
+                              class="filter-panel narrow"
+                              id={panelId}
+                              role="group"
+                              aria-label={`Tags for ${g.title}`}
+                              data-card-tags-panel
+                              style="position: absolute; z-index: 55; display: none; right: 0; left: auto;"
+                            >
+                              <div class="panel-inner panel-inner-col">
+                                {g.tags.map(t => (
+                                  <button
+                                    type="button"
+                                    class="filter-item pill pill--soft block w-full justify-between text-left"
+                                    data-filter-type="tag"
+                                    data-value={t}
+                                    aria-pressed="false"
+                                  >
+                                    <span>{t}</span>
+                                  </button>
+                                ))}
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      )}
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
 
-              <a href={g.href} aria-label={`View game: ${g.title}`} class="overlay-link absolute inset-0 rounded-md" data-card-link>
-                <span class="sr-only">{g.title}</span>
-              </a>
-            </li>
-          );
-        })}
-      </ul>
-    )}
+                <a
+                  href={g.href}
+                  aria-label={`View game: ${g.title}`}
+                  class="overlay-link absolute inset-0 rounded-md"
+                  data-card-link
+                >
+                  <span class="sr-only">{g.title}</span>
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      )
+    }
 
     <!-- Share and Feedback (no extra headings) -->
     <div class="mt-12">
@@ -295,9 +362,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       <FeedbackCard />
     </div>
 
-    <p class="mt-10 text-sm">
-      
-    </p>
+    <p class="mt-10 text-sm"></p>
   </div>
 
   <style is:inline>
@@ -305,27 +370,39 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
     .game-card:hover > .glass,
     .game-card:focus-within > .glass {
       transform: translateY(-2px);
-      border-color: rgba(255,255,255,0.18);
-      box-shadow: 0 22px 44px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.08);
+      border-color: rgba(255, 255, 255, 0.18);
+      box-shadow:
+        0 22px 44px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
     }
 
-    .game-card { cursor: pointer; }
-    .game-card > a.overlay-link { pointer-events: none; }
+    .game-card {
+      cursor: pointer;
+    }
+    .game-card > a.overlay-link {
+      pointer-events: none;
+    }
 
     .filter-toggle,
     #exclusive-toggle,
-    #clear-filters { text-transform: none !important; }
+    #clear-filters {
+      text-transform: none !important;
+    }
 
     /* Top filter dropdowns: drop to the right (attach left edge) */
     [data-filter-wrapper] .filter-panel {
-      left: 0; right: auto;
-      width: max-content; max-width: min(92vw, 320px);
+      left: 0;
+      right: auto;
+      width: max-content;
+      max-width: min(92vw, 320px);
       z-index: 1200; /* ensure above card chip rows (z:60) */
     }
     /* Per-card tags dropdown: drop to the left (attach right edge) and stay under chip row */
     [data-card-tags] [data-card-tags-panel] {
-      right: 0; left: auto;
-      width: max-content; max-width: min(90vw, 260px);
+      right: 0;
+      left: auto;
+      width: max-content;
+      max-width: min(90vw, 260px);
       z-index: 55;
     }
 
@@ -337,8 +414,8 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       backdrop-filter: none !important;
       filter: none !important;
       mix-blend-mode: normal !important;
-      border: 1px solid rgba(255,255,255,0.18) !important;
-      box-shadow: 0 10px 24px rgba(0,0,0,0.55) !important;
+      border: 1px solid rgba(255, 255, 255, 0.18) !important;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.55) !important;
     }
     [data-card-tags-panel] .panel-inner {
       background: transparent !important;
@@ -347,24 +424,33 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
     }
 
     .filter-link {
-      display: inline-flex; align-items: center; gap: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
       text-decoration: none;
       cursor: pointer;
-      font-size: 0.75rem; line-height: 1;
+      font-size: 0.75rem;
+      line-height: 1;
       padding: 4px 0;
     }
 
-    #clear-filters[aria-disabled="true"] {
-      color: rgba(255,255,255,0.5);
-      pointer-events: none; cursor: default;
+    #clear-filters[aria-disabled='true'] {
+      color: rgba(255, 255, 255, 0.5);
+      pointer-events: none;
+      cursor: default;
     }
 
     #exclusive-toggle .dot {
-      width: 8px; height: 8px; border-radius: 9999px;
-      background: #c33; box-shadow: 0 0 0 1px rgba(0,0,0,0.25) inset;
-      transition: background-color .15s ease-in-out;
+      width: 8px;
+      height: 8px;
+      border-radius: 9999px;
+      background: #c33;
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25) inset;
+      transition: background-color 0.15s ease-in-out;
     }
-    #exclusive-toggle[aria-pressed="true"] .dot { background: #16a34a; }
+    #exclusive-toggle[aria-pressed='true'] .dot {
+      background: #16a34a;
+    }
   </style>
 
   <script type="module" src={withBase('scripts/games-filters.js')}></script>
@@ -372,7 +458,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
   <script is:inline>
     (() => {
       // Make the entire card clickable via JS (overlay link has pointer-events: none)
-      document.getElementById('game-grid')?.addEventListener('click', (e) => {
+      document.getElementById('game-grid')?.addEventListener('click', e => {
         const t = e.target;
         if (!(t instanceof Element)) return;
         if (t.closest('[data-card-tags]') || t.closest('.js-card-chip')) return;
@@ -384,7 +470,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       });
 
       // Card chip clicks -> apply filters
-      document.getElementById('game-grid')?.addEventListener('click', (e) => {
+      document.getElementById('game-grid')?.addEventListener('click', e => {
         const t = e.target;
         if (!(t instanceof Element)) return;
         const chip = t.closest('.js-card-chip');
@@ -401,21 +487,24 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
       });
 
       // Search integrates with filters
-  const input = document.getElementById('game-search');
-  const grid = document.getElementById('game-grid');
+      const input = document.getElementById('game-search');
+      const grid = document.getElementById('game-grid');
       if (input && grid) {
         const items = Array.from(grid.children);
         function applySearch() {
           const q = input.value.trim().toLowerCase();
-          let hits = 0;
           items.forEach(li => {
             const title = li.getAttribute('data-title') || '';
             const tags = li.getAttribute('data-tags') || '';
             const type = li.getAttribute('data-type') || '';
             const excerpt = li.getAttribute('data-excerpt') || '';
-            const match = !q || title.includes(q) || tags.includes(q) || type.includes(q) || excerpt.includes(q);
+            const match =
+              !q ||
+              title.includes(q) ||
+              tags.includes(q) ||
+              type.includes(q) ||
+              excerpt.includes(q);
             li.dataset.searchVisible = match ? 'true' : 'false';
-            if (match) hits++;
           });
           // No per-search match display here; page-level result counts remain
           window.bggApplyGameFilters?.();
@@ -436,10 +525,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         // Desired width: clamp to viewport on mobile
         const panelWidth = Math.min(320, Math.max(220, window.innerWidth - gutter * 2));
         const x = Math.round(
-          Math.min(
-            Math.max(gutter, btnRect.left),
-            window.innerWidth - gutter - panelWidth
-          )
+          Math.min(Math.max(gutter, btnRect.left), window.innerWidth - gutter - panelWidth),
         );
         const y = Math.round(btnRect.bottom + 6);
 
@@ -473,32 +559,32 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         const btn = w.querySelector('.filter-toggle');
         const panel = w.querySelector('.filter-panel');
         if (!btn || !panel) return;
-        btn.addEventListener('click', (e) => {
+        btn.addEventListener('click', e => {
           e.preventDefault();
           const isOpen = !panel.classList.contains('hidden');
           closeAllPanels(isOpen ? null : panel);
           if (isOpen) {
             panel.classList.add('hidden');
-            btn.setAttribute('aria-expanded','false');
+            btn.setAttribute('aria-expanded', 'false');
             if (panel === openPanelEl) {
               openPanelEl = null;
               openBtnEl = null;
             }
           } else {
             panel.classList.remove('hidden');
-            btn.setAttribute('aria-expanded','true');
+            btn.setAttribute('aria-expanded', 'true');
             positionFilterPanel(btn, panel);
             openPanelEl = panel;
             openBtnEl = btn;
           }
         });
       });
-      document.addEventListener('click', (e) => {
+      document.addEventListener('click', e => {
         const t = e.target;
         if (!(t instanceof Element)) return;
         if (!t.closest('[data-filter-wrapper]')) closeAllPanels(null);
       });
-      document.addEventListener('keydown', (e) => {
+      document.addEventListener('keydown', e => {
         if (e.key === 'Escape') closeAllPanels(null);
       });
 
@@ -518,17 +604,19 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         document.querySelectorAll('[data-card-tags-panel]').forEach(p => {
           if (p instanceof HTMLElement) p.style.display = 'none';
         });
-        document.querySelectorAll('[data-open-card-tags]').forEach(b => b.setAttribute('aria-expanded','false'));
+        document
+          .querySelectorAll('[data-open-card-tags]')
+          .forEach(b => b.setAttribute('aria-expanded', 'false'));
         document.querySelectorAll('.game-card.on-top').forEach(c => c.classList.remove('on-top'));
 
         if (willOpen) {
           if (panel instanceof HTMLElement) panel.style.display = 'block';
-          trigger.setAttribute('aria-expanded','true');
+          trigger.setAttribute('aria-expanded', 'true');
           card?.classList.add('on-top'); // ensure on top of neighbors
         }
       }
 
-      document.getElementById('game-grid')?.addEventListener('click', (e) => {
+      document.getElementById('game-grid')?.addEventListener('click', e => {
         const t = e.target;
         if (!(t instanceof Element)) return;
         const trigger = t.closest('[data-open-card-tags]');
@@ -538,7 +626,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         toggleCardTags(trigger);
       });
 
-      document.getElementById('game-grid')?.addEventListener('keydown', (e) => {
+      document.getElementById('game-grid')?.addEventListener('keydown', e => {
         const t = e.target;
         if (!(t instanceof Element)) return;
         const trigger = t.closest('[data-open-card-tags]');
@@ -549,19 +637,27 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
         }
       });
 
-      document.addEventListener('click', (e)=>{
+      document.addEventListener('click', e => {
         const t = e.target;
         if (!(t instanceof Element)) return;
         if (!t.closest('[data-card-tags]')) {
-          document.querySelectorAll('[data-card-tags-panel]').forEach(p => (p instanceof HTMLElement) && (p.style.display = 'none'));
-          document.querySelectorAll('[data-open-card-tags]').forEach(b => b.setAttribute('aria-expanded','false'));
+          document
+            .querySelectorAll('[data-card-tags-panel]')
+            .forEach(p => p instanceof HTMLElement && (p.style.display = 'none'));
+          document
+            .querySelectorAll('[data-open-card-tags]')
+            .forEach(b => b.setAttribute('aria-expanded', 'false'));
           document.querySelectorAll('.game-card.on-top').forEach(c => c.classList.remove('on-top'));
         }
       });
       document.addEventListener('keydown', e => {
         if (e.key === 'Escape') {
-          document.querySelectorAll('[data-card-tags-panel]').forEach(p => (p instanceof HTMLElement) && (p.style.display = 'none'));
-          document.querySelectorAll('[data-open-card-tags]').forEach(b => b.setAttribute('aria-expanded','false'));
+          document
+            .querySelectorAll('[data-card-tags-panel]')
+            .forEach(p => p instanceof HTMLElement && (p.style.display = 'none'));
+          document
+            .querySelectorAll('[data-open-card-tags]')
+            .forEach(b => b.setAttribute('aria-expanded', 'false'));
           document.querySelectorAll('.game-card.on-top').forEach(c => c.classList.remove('on-top'));
         }
       });
