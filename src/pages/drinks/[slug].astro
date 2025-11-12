@@ -41,10 +41,9 @@ const tags: string[] = Array.isArray(data.tags) ? data.tags : [];
 const coverFile = data.cover || `${leaf}.webp`;
 const cover = (() => {
   const s = String(coverFile);
-  // If frontmatter already provides an images path (e.g. "/images/foo.webp" or "images/foo.webp"), use it as-is
-  if (/^\/?images\//.test(s)) return withBase(s.replace(/^\//, ''));
-  // Otherwise assume a filename and prefix images/
-  return withBase(`images/${s}`);
+  const norm = s.replace(/^\/?images\/games\//, 'images/');
+  if (/^\/?images\//.test(norm)) return withBase(norm.replace(/^\//, ''));
+  return withBase(`images/${norm}`);
 })();
 const heroDisabled = data.hero === false;
 const pageCanonical = canonical(Astro.url.pathname, Astro.site);

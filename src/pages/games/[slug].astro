@@ -41,8 +41,10 @@ const tags: string[] = Array.isArray(entry.data.tags) ? entry.data.tags : [];
 const coverFile = entry.data.cover || `${leaf}.webp`;
 const cover = (() => {
   const s = String(coverFile);
-  if (/^\/?images\//.test(s)) return withBase(s.replace(/^\//, ''));
-  return withBase(`images/${s}`);
+  // Normalize images/games/... to images/...
+  const norm = s.replace(/^\/?images\/games\//, 'images/');
+  if (/^\/?images\//.test(norm)) return withBase(norm.replace(/^\//, ''));
+  return withBase(`images/${norm}`);
 })();
 const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 
