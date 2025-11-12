@@ -39,7 +39,13 @@ const difficulty = (data.difficulty || '').toString();
 const baseList: string[] = Array.isArray(data.bases) ? data.bases : data.base ? [data.base] : [];
 const tags: string[] = Array.isArray(data.tags) ? data.tags : [];
 const coverFile = data.cover || `${leaf}.webp`;
-const cover = withBase(`images/${coverFile}`);
+const cover = (() => {
+  const s = String(coverFile);
+  // If frontmatter already provides an images path (e.g. "/images/foo.webp" or "images/foo.webp"), use it as-is
+  if (/^\/?images\//.test(s)) return withBase(s.replace(/^\//, ''));
+  // Otherwise assume a filename and prefix images/
+  return withBase(`images/${s}`);
+})();
 const heroDisabled = data.hero === false;
 const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 

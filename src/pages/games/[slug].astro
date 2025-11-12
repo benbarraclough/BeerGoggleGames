@@ -39,7 +39,11 @@ const rawMode = entry.data.format || entry.data.players;
 const modeSlug = rawMode ? playerModeSlug(rawMode) : '';
 const tags: string[] = Array.isArray(entry.data.tags) ? entry.data.tags : [];
 const coverFile = entry.data.cover || `${leaf}.webp`;
-const cover = withBase(`images/${coverFile}`);
+const cover = (() => {
+  const s = String(coverFile);
+  if (/^\/?images\//.test(s)) return withBase(s.replace(/^\//, ''));
+  return withBase(`images/${s}`);
+})();
 const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 
 const jsonLd = {
