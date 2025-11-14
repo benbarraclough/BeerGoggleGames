@@ -156,23 +156,14 @@ function svg(name: string) {
     const btn = document.querySelector('[data-copy-button]');
     if (!btn) return;
     const PAGE_URL = window.location.href.split('#')[0];
-    function fallbackCopy(text) {
-      const ta = document.createElement('textarea');
-      ta.value = text;
-      ta.style.position = 'fixed';
-      ta.style.top = '-2000px';
-      document.body.appendChild(ta);
-      ta.select();
-      try {
-        document.execCommand('copy');
-      } catch {}
-      document.body.removeChild(ta);
-    }
     function copy(text) {
       if (navigator.clipboard?.writeText) {
-        return navigator.clipboard.writeText(text).catch(() => fallbackCopy(text));
+        return navigator.clipboard.writeText(text).catch(() => {
+          // As a last resort, prompt user to copy manually (avoids deprecated execCommand)
+          window.prompt('Copy this URL:', text);
+        });
       }
-      fallbackCopy(text);
+      window.prompt('Copy this URL:', text);
       return Promise.resolve();
     }
     let timer;

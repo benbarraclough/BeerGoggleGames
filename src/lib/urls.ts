@@ -20,22 +20,8 @@ export function canonical(pathname: string, site?: string | URL): string {
   return f.origin + p;
 }
 
-export function imageUrl(src: string): string {
-  if (!src) return '';
-  if (/^https?:\/\//i.test(src)) return src;
-  return base + 'images/' + src.replace(/^\/+/, '');
-}
-
 export function gameUrl(slug: string) {
   return base + 'games/' + slug.replace(/^\/+/, '') + '/';
-}
-
-export function cocktailUrl(slug: string) {
-  return base + 'drinks/cocktail-recipes/' + slug.replace(/^\/+/, '') + '/';
-}
-
-export function shotUrl(slug: string) {
-  return base + 'drinks/shot-recipes/' + slug.replace(/^\/+/, '') + '/';
 }
 
 export function postUrl(slug: string) {
