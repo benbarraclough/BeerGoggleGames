@@ -66,14 +66,14 @@ GA4 is integrated and only loads when `PUBLIC_GA_ID` is set.
 
 ## Deployment
 
-Two workflows exist:
+Workflows:
 
 - CI: runs on push/PR to `main` or `def-main` and performs sync → typecheck → lint → build. It does not deploy.
-- Pages deploy: manual only (workflow dispatch) in `.github/workflows/deploy.yml` to avoid double-deploys. Trigger it when you want to publish.
+- Pages deploy: auto-deploys on push to `main` or `def-main` via `.github/workflows/deploy.yml`.
 
 In the GitHub repo settings, set Pages “Build and deployment” to “GitHub Actions”.
 
-Tip: run `npm run health` locally before triggering deploy to ensure a green build.
+Tip: run `npm run health` locally before pushing to ensure a green build and fast deployment.
 
 ## Images (thumbnails)
 
