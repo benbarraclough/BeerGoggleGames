@@ -108,7 +108,8 @@ const jsonLd = {
             class="hero-img saturate-110 h-full w-full object-cover brightness-90 transition-transform duration-700"
             loading="lazy"
             decoding="async"
-            onerror="this.style.display='none'"
+            data-fb-key={leaf}
+            onerror="window.__imgFallback && window.__imgFallback(this)"
           />
           <div class="pointer-events-none absolute inset-0 bg-gradient-to-tr from-bg/80 via-bg/20 to-transparent" />
         </figure>
