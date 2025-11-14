@@ -1,3 +1,4 @@
+# Legacy file; flat config (eslint.config.js) is used instead.
 dist/
 .astro/
 node_modules/

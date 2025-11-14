@@ -7,6 +7,7 @@
     "node": ">=18.20.8 <19 || >=20"
   },
   "scripts": {
+    "start": "astro dev",
     "dev": "astro dev",
     "check": "astro check",
     "typecheck": "astro check",
@@ -24,8 +25,6 @@
     "ci": "npm run sync && npm run typecheck && npm run build",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "lint-staged": "lint-staged",
-    "prepare": "husky",
     "health": "npm run sync && npm run typecheck && npm run maintenance && npm run build",
     "self-test": "bash scripts/self-test.sh"
   },
@@ -49,26 +48,11 @@
     "autoprefixer": "^10.4.20",
     "eslint": "^9.12.0",
     "eslint-plugin-astro": "^1.2.0",
-    "husky": "^9.1.6",
-    "lint-staged": "^15.2.10",
     "postcss": "^8.4.45",
     "prettier": "^3.3.3",
     "prettier-plugin-astro": "^0.14.0",
     "prettier-plugin-tailwindcss": "^0.6.14",
     "tailwindcss": "^3.4.18",
     "typescript": "^5.6.3"
-  },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "eslint --fix",
-      "prettier --write"
-    ],
-    "*.astro": [
-      "eslint --fix",
-      "prettier --write"
-    ],
-    "*.{css,md,mdx,html,json,yml,yaml}": [
-      "prettier --write"
-    ]
   }
 }
