@@ -1,124 +1,51 @@
 ---
 import Layout from '../components/Layout.astro';
 import { canonical } from '../lib/urls';
+import { withBase } from '../lib/paths';
 
 const pageTitle = 'Search';
 const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 ---
-<Layout title={pageTitle} canonical={pageCanonical} description="Search games, cocktails, shots, activities & posts." wide={false}>
+
+<Layout
+  title={pageTitle}
+  canonical={pageCanonical}
+  description="Search games, cocktails, shots, activities & posts."
+  wide={false}
+>
   <section class="prose prose-invert max-w-none">
-    <h1 class="!mb-2 !leading-tight !text-fg font-display text-3xl md:text-4xl">{pageTitle}</h1>
+    <h1 class="!mb-2 font-display text-3xl !leading-tight !text-fg md:text-4xl">{pageTitle}</h1>
     <p class="!mt-0 text-muted">Type to search games, cocktails, shots, activities, and posts.</p>
 
     <div class="divider" aria-hidden="true"></div>
 
     <div class="mb-4 max-w-xl">
       <span class="relative inline-block w-full">
-        <svg aria-hidden="true" viewBox="0 0 24 24" class="pointer-events-none absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted">
-          <circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="1.8"/>
-          <path d="M20 20l-3.2-3.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        <svg
+          aria-hidden="true"
+          viewBox="0 0 24 24"
+          class="pointer-events-none absolute left-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted"
+        >
+          <circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="1.8"
+          ></circle>
+          <path d="M20 20l-3.2-3.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+          ></path>
         </svg>
         <input
           id="q"
           type="search"
           placeholder="e.g. beer pong, vodka, dice..."
-          class="w-full border border-fg/30 bg-fg/5 rounded pl-9 pr-3 py-2 focus:outline-none focus:ring-2 focus:ring-neon/70"
+          class="w-full rounded border border-fg/30 bg-fg/5 py-2 pl-9 pr-3 focus:outline-none focus:ring-2 focus:ring-neon/70"
           aria-label="Search site content"
           autocomplete="off"
         />
       </span>
     </div>
-    <div id="status" role="status" aria-live="polite" class="text-sm text-muted">Loading index…</div>
-    <ul id="results" class="mt-4 space-y-2 list-none p-0"></ul>
+    <div id="status" role="status" aria-live="polite" class="text-sm text-muted">
+      Loading index…
+    </div>
+    <ul id="results" class="mt-4 list-none space-y-2 p-0"></ul>
   </section>
 
-  <script is:inline>
-/* Unified search: handles games, drinks, extras, and static pages */
-(function(){
-  const BASE = document.documentElement.getAttribute('data-base') || '/';
-  const input = document.getElementById('q');
-  const list = document.getElementById('results');
-  const status = document.getElementById('status');
-  let data = [];
-  let ready = false;
-
-  function log(...args){ console.log('[search]', ...args); }
-  function escapeHTML(s){
-    return s.replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-  }
-  function buildHref(m){
-    const c = (m.c || '').replace(/^\/+|\/+$/g,'');
-    if (!m.slug) return BASE + (c ? c + '/' : '');
-    return BASE + c + '/' + m.slug.replace(/^\/+|\/+$/g,'') + '/';
-  }
-  function groupLabel(m){
-    const segs = (m.c || '').split('/');
-    const group = (segs[0] || '').toLowerCase();
-    // Show "games ~ <type>" or "drinks ~ <type>", else use path as label
-    if (group === 'games' || group === 'drinks') {
-      return (group || '') + (m.type ? ' ~ ' + (m.type || '') : '');
-    }
-    // Extras and other pages: show c as-is
-    return (m.c || '');
-  }
-  function render(items){
-    list.innerHTML = '';
-    if(!items.length){
-      list.innerHTML = '<li class="text-muted text-sm">No results.</li>';
-      return;
-    }
-    const frag = document.createDocumentFragment();
-    for(const m of items){
-      const li = document.createElement('li');
-      const title = escapeHTML(m.title);
-      const meta = escapeHTML(groupLabel(m));
-      const href = buildHref(m);
-      li.innerHTML = `<a class="hover:text-neon font-medium" href="${href}">${title}</a>
-        <small class="text-muted ml-1">(${meta})</small>`;
-      frag.appendChild(li);
-    }
-    list.appendChild(frag);
-  }
-  function doSearch(q){
-    if(!ready) return;
-    const term = q.trim().toLowerCase();
-    if(!term){
-      list.innerHTML = '';
-      status.textContent = 'Enter a term to see results.';
-      return;
-    }
-    status.textContent = '';
-    const terms = term.split(/\s+/);
-    const matches = data.filter(item=>{
-      const hay = (item.title + ' ' + (item.excerpt||'') + ' ' + (item.type||'') + ' ' + (item.ingredients||[]).join(' ')).toLowerCase();
-      return terms.every(t => hay.includes(t));
-    }).slice(0,150);
-    render(matches);
-  }
-
-  input.addEventListener('input', ()=>doSearch(input.value));
-  input.addEventListener('keydown', e=>{
-    if(e.key === 'Enter'){ e.preventDefault(); doSearch(input.value); }
-  });
-
-  const url = BASE + 'search-index.json';
-  log('Fetching index', url);
-  fetch(url, { cache: 'no-cache' })
-    .then(r=>{
-      log('Response status', r.status);
-      if(!r.ok) throw new Error('HTTP '+r.status);
-      return r.json();
-    })
-    .then(json=>{
-      data = json;
-      ready = true;
-      status.textContent = 'Index loaded. Start typing.';
-      log('Index loaded', data.length, 'items');
-    })
-    .catch(err=>{
-      console.error('[search] index load error', err);
-      status.textContent = 'Failed to load search index.';
-    });
-})();
-  </script>
+  <script type="module" src={withBase('scripts/search.js')}></script>
 </Layout>
