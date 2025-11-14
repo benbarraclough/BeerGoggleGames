@@ -68,7 +68,6 @@ const heroImages = [
                 class:list={['hero-slide', i === 0 ? 'active' : '']}
                 loading={i === 0 ? 'eager' : 'lazy'}
                 decoding="async"
-                onerror="this.remove()"
               />
             ))
           }
@@ -279,10 +278,8 @@ const heroImages = [
                   loading="lazy"
                   decoding="async"
                   data-fb-key={slug}
-                  onerror="window.__imgFallback && window.__imgFallback(this)"
                 />
               </picture>
-              <div class="tile-caption">{g.data.title}</div>
             </a>
           );
         })
@@ -330,10 +327,8 @@ const heroImages = [
                   loading="lazy"
                   decoding="async"
                   data-fb-key={slug}
-                  onerror="window.__imgFallback && window.__imgFallback(this)"
                 />
               </picture>
-              <div class="tile-caption">{d.data.title}</div>
             </a>
           );
         })
@@ -383,76 +378,29 @@ const heroImages = [
     <header class="head mb-3">
       <h2 class="h2 tone-green-text">More from Extras</h2>
       <div class="ctrls">
-        <button
-          class="ctrl tone-green"
-          data-target="#extras-carousel"
-          data-dir="-1"
-          aria-label="Previous">‹</button
-        >
-        <button
-          class="ctrl tone-green"
-          data-target="#extras-carousel"
-          data-dir="1"
-          aria-label="Next">›</button
-        >
+        <a class="ctrl tone-green" href={withBase('extras/')}>Explore →</a>
       </div>
     </header>
-    <div id="extras-carousel" class="rail no-scrollbar">
-      {
-        [
-          { href: withBase('extras/blog/'), title: 'Blog', desc: 'Guides, ideas & announcements.' },
-          {
-            href: withBase('extras/activities/'),
-            title: 'Activities',
-            desc: 'Party & social activities.',
-          },
-          {
-            href: withBase('extras/forfeits/'),
-            title: 'Forfeits',
-            desc: 'Creative penalties & challenges.',
-          },
-          {
-            href: withBase('extras/glossary/'),
-            title: 'Glossary',
-            desc: 'Drinking terms explained.',
-          },
-        ].map(x => (
-          <a class="tool-card3d tone-green" href={x.href}>
-            <span class="tool-icon3d tone-green">
-              <svg
-                viewBox="0 0 24 24"
-                class="h-5 w-5"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.8"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <>
-                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
-                  <path d="M20 22H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20Z" />
-                </>
-              </svg>
-            </span>
-            <span class="tool-title3d">{x.title}</span>
-            <span class="tool-desc3d">{x.desc}</span>
-          </a>
-        ))
-      }
-    </div>
-    <div class="mt-2">
-      <a href={withBase('extras/')} class="view-all-link tone-green-text">View all extras →</a>
+    <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
+      <a
+        class="tile3d tone-green"
+        href={withBase('extras/wheel-of-fortune/')}
+        aria-label="Wheel of Fortune"
+      >
+        <span class="tile-caption">Wheel of Fortune</span>
+      </a>
+      <a class="tile3d tone-green" href={withBase('extras/coin-flip/')} aria-label="Coin Flip">
+        <span class="tile-caption">Coin Flip</span>
+      </a>
+      <a class="tile3d tone-green" href={withBase('extras/dice/')} aria-label="Dice">
+        <span class="tile-caption">Dice</span>
+      </a>
     </div>
   </section>
 
   <div class="divider" aria-hidden="true"></div>
 
-  <!-- Contact -->
-  <section
-    class="contact-slab relative mb-3 overflow-hidden rounded-2xl border border-fg/15 px-3 py-7 text-center sm:px-4 md:px-6"
-    data-animate="fade-up"
-  >
-    <div class="contact-bg" aria-hidden="true"></div>
+  <section class="mb-6" data-animate="fade-up">
     <h2 class="h2 mb-2">Get in touch</h2>
     <p class="mb-4 text-sm text-muted">
       Suggestions, feature ideas, or corrections? We’re all ears.
@@ -789,85 +737,5 @@ const heroImages = [
     }
   </style>
 
-  <script is:inline>
-    (() => {
-      // Carousel nudge
-      function nudge(id, dir) {
-        const el = document.querySelector(id);
-        if (!el) return;
-        const first = el.firstElementChild;
-        let amount = el.clientWidth * 0.8;
-        if (first) {
-          const rect = first.getBoundingClientRect();
-          const styles = getComputedStyle(el);
-          let gapVal = styles.gap || styles.columnGap || '14px';
-          let gap = parseFloat(gapVal);
-          if (!isFinite(gap)) gap = 14;
-          amount = rect.width + gap;
-        }
-        const next = el.scrollLeft + amount * (dir || 1);
-        const target = Math.max(0, Math.min(next, el.scrollWidth - el.clientWidth));
-        el.scrollTo({ left: target, behavior: 'smooth' });
-      }
-      document.querySelectorAll('.ctrl').forEach(btn => {
-        btn.addEventListener('click', () =>
-          nudge(btn.getAttribute('data-target'), Number(btn.getAttribute('data-dir'))),
-        );
-      });
-
-      // Reveal
-      const reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (!reduce && 'IntersectionObserver' in window) {
-        const io = new IntersectionObserver(
-          entries => {
-            entries.forEach(e => {
-              if (e.isIntersecting) {
-                e.target.classList.add('in');
-                io.unobserve(e.target);
-              }
-            });
-          },
-          { threshold: 0.12 },
-        );
-        document.querySelectorAll('[data-animate]').forEach(el => io.observe(el));
-      } else {
-        document.querySelectorAll('[data-animate]').forEach(el => el.classList.add('in'));
-      }
-
-      // Parallax
-      if (!reduce) {
-        let ticking = false;
-        function update() {
-          ticking = false;
-          document.querySelectorAll('.will-parallax').forEach(el => {
-            const s = Number(el.getAttribute('data-parallax') || 0.05);
-            const r = el.getBoundingClientRect();
-            const rel = (r.top - innerHeight / 2) / innerHeight;
-            const baseRot = el.classList.contains('c1') ? -4 : el.classList.contains('c2') ? 3 : 0;
-            el.style.transform = `translateY(${rel * s * 100}px) rotate(${baseRot}deg)`;
-          });
-        }
-        function onScroll() {
-          if (!ticking) {
-            requestAnimationFrame(update);
-            ticking = true;
-          }
-        }
-        update();
-        addEventListener('scroll', onScroll, { passive: true });
-        addEventListener('resize', onScroll, { passive: true });
-      }
-
-      // Slideshow
-      const slides = Array.from(document.querySelectorAll('.hero-slide'));
-      if (slides.length > 1) {
-        let i = 0;
-        setInterval(() => {
-          slides[i]?.classList.remove('active');
-          i = (i + 1) % slides.length;
-          slides[i]?.classList.add('active');
-        }, 3500);
-      }
-    })();
-  </script>
+  <script type="module" src={withBase('scripts/home.js')}></script>
 </Layout>

@@ -46,4 +46,18 @@
       img.src = prefix + '/images/' + next;
     } catch {}
   };
+  // Auto-bind: capture image errors and try fallback if data-fb-key is present
+  document.addEventListener(
+    'error',
+    function (e) {
+      try {
+        const t = e.target;
+        if (!(t instanceof HTMLImageElement)) return;
+        const hasKey = t.hasAttribute('data-fb-key');
+        const inImagesDir = /\/(?:images)\/[^/]+\.webp(?:$|\?)/i.test(t.currentSrc || t.src || '');
+        if (hasKey || inImagesDir) window.__imgFallback(t);
+      } catch {}
+    },
+    true,
+  );
 })();
