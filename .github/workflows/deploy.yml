@@ -1,10 +1,8 @@
-name: Deploy Astro site to GitHub Pages
+name: Deploy Astro site to GitHub Pages (manual)
 
 on:
-  push:
-    branches:
-      - main
-      - def-main
+  # Disable auto-deploy on push to avoid double-deploys with your other platform.
+  # Trigger this workflow manually from the Actions tab when you want to deploy to GitHub Pages.
   workflow_dispatch:
 
 permissions:

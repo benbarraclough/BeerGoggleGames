@@ -40,16 +40,4 @@ const src = normalizeCover(cover);
       transform: scale(1.05);
     }
   }
-
-        if (i >= list.length) {
-          img.style.display = 'none';
-          return;
-        }
-        img.__fbIndex = i + 1;
-        const next = list[i];
-        const prefix = (cur.split('/images/')[0] || '').replace(/\/$/, '');
-        img.src = prefix + '/images/' + next;
-      } catch {}
-    };
-  })();
-</script>
+</style>
