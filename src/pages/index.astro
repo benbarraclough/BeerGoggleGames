@@ -280,6 +280,7 @@ const heroImages = [
                   data-fb-key={slug}
                 />
               </picture>
+              <span class="tile-caption">{g.data.title}</span>
             </a>
           );
         })
@@ -329,6 +330,7 @@ const heroImages = [
                   data-fb-key={slug}
                 />
               </picture>
+              <span class="tile-caption">{d.data.title}</span>
             </a>
           );
         })
@@ -387,12 +389,33 @@ const heroImages = [
         href={withBase('extras/wheel-of-fortune/')}
         aria-label="Wheel of Fortune"
       >
+        <picture>
+          <img
+            src={heroImages[0]}
+            alt="Wheel of Fortune"
+            class="tile-img"
+            loading="lazy"
+            decoding="async"
+          />
+        </picture>
         <span class="tile-caption">Wheel of Fortune</span>
       </a>
       <a class="tile3d tone-green" href={withBase('extras/coin-flip/')} aria-label="Coin Flip">
+        <picture>
+          <img
+            src={heroImages[1]}
+            alt="Coin Flip"
+            class="tile-img"
+            loading="lazy"
+            decoding="async"
+          />
+        </picture>
         <span class="tile-caption">Coin Flip</span>
       </a>
       <a class="tile3d tone-green" href={withBase('extras/dice/')} aria-label="Dice">
+        <picture>
+          <img src={heroImages[2]} alt="Dice" class="tile-img" loading="lazy" decoding="async" />
+        </picture>
         <span class="tile-caption">Dice</span>
       </a>
     </div>
@@ -400,7 +423,11 @@ const heroImages = [
 
   <div class="divider" aria-hidden="true"></div>
 
-  <section class="mb-6" data-animate="fade-up">
+  <section
+    class="howto relative mb-6 overflow-hidden rounded-2xl border border-fg/15 px-3 pb-5 pt-5 sm:px-4 md:px-6"
+    data-animate="fade-up"
+  >
+    <div class="howto-bg" aria-hidden="true"></div>
     <h2 class="h2 mb-2">Get in touch</h2>
     <p class="mb-4 text-sm text-muted">
       Suggestions, feature ideas, or corrections? We’re all ears.
