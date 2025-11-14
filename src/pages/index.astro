@@ -383,48 +383,43 @@ const heroImages = [
         <a class="ctrl tone-green" href={withBase('extras/')}>Explore →</a>
       </div>
     </header>
-    <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
-      <a
-        class="tile3d tone-green"
-        href={withBase('extras/wheel-of-fortune/')}
-        aria-label="Wheel of Fortune"
-      >
-        <picture>
-          <img
-            src={heroImages[0]}
-            alt="Wheel of Fortune"
-            class="tile-img"
-            loading="lazy"
-            decoding="async"
-          />
-        </picture>
-        <span class="tile-caption">Wheel of Fortune</span>
-      </a>
-      <a class="tile3d tone-green" href={withBase('extras/coin-flip/')} aria-label="Coin Flip">
-        <picture>
-          <img
-            src={heroImages[1]}
-            alt="Coin Flip"
-            class="tile-img"
-            loading="lazy"
-            decoding="async"
-          />
-        </picture>
-        <span class="tile-caption">Coin Flip</span>
-      </a>
-      <a class="tile3d tone-green" href={withBase('extras/dice/')} aria-label="Dice">
-        <picture>
-          <img src={heroImages[2]} alt="Dice" class="tile-img" loading="lazy" decoding="async" />
-        </picture>
-        <span class="tile-caption">Dice</span>
-      </a>
+    <div id="extras-carousel" class="rail no-scrollbar">
+      {
+        [
+          {
+            href: withBase('extras/blog/'),
+            title: 'Blog',
+            desc: 'Party tips & ideas',
+          },
+          {
+            href: withBase('extras/activities/'),
+            title: 'Activities',
+            desc: 'Challenges & add‑ons',
+          },
+          {
+            href: withBase('extras/forfeits/'),
+            title: 'Forfeits',
+            desc: 'Punishments & twists',
+          },
+          {
+            href: withBase('extras/glossary/'),
+            title: 'Glossary',
+            desc: 'Terminology & slang',
+          },
+        ].map(e => (
+          <a class="tool-card3d" href={e.href} aria-label={e.title}>
+            <span class="tool-title3d">{e.title}</span>
+            <span class="tool-desc3d">{e.desc}</span>
+          </a>
+        ))
+      }
     </div>
   </section>
 
   <div class="divider" aria-hidden="true"></div>
 
   <section
-    class="howto relative mb-6 overflow-hidden rounded-2xl border border-fg/15 px-3 pb-5 pt-5 sm:px-4 md:px-6"
+    class="howto relative mb-6 flex flex-col items-center overflow-hidden rounded-2xl border border-fg/15 px-3 pb-5 pt-5 text-center sm:px-4 md:px-6"
     data-animate="fade-up"
   >
     <div class="howto-bg" aria-hidden="true"></div>
