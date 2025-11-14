@@ -8,30 +8,38 @@ import FeedbackCard from '../../components/FeedbackCard.astro';
 const title = 'Dice Roller';
 const description = 'Roll one or more monochrome dice with a smooth animation and running total.';
 ---
+
 <Layout title={title} description={description}>
-  <header class="mb-6 tone-green">
-    <h1 class="font-display text-3xl md:text-4xl mb-2 tone-green-text">{title}</h1>
+  <header class="tone-green mb-6">
+    <h1 class="tone-green-text mb-2 font-display text-3xl md:text-4xl">{title}</h1>
     <p class="text-muted">{description}</p>
   </header>
 
   <div class="divider" aria-hidden="true"></div>
 
-  <section class="glass tone-green p-6 max-w-3xl mx-auto">
-    <div class="flex flex-wrap items-end gap-3 mb-3 justify-center">
-      <label class="text-xs uppercase tracking-wide text-muted font-medium flex flex-col gap-1">
+  <section class="glass tone-green mx-auto max-w-3xl p-6">
+    <div class="mb-3 flex flex-wrap items-end justify-center gap-3">
+      <label class="flex flex-col gap-1 text-xs font-medium uppercase tracking-wide text-muted">
         Dice
-        <select id="dice-count" class="w-28 rounded border border-fg/25 bg-fg/10 px-3 py-2 text-sm focus:outline-none focus:ring-2">
-          {Array.from({length:6}, (_,i)=>i+1).map(n => <option value={n}>{n}</option>)}
+        <select
+          id="dice-count"
+          class="w-28 rounded border border-fg/25 bg-fg/10 px-3 py-2 text-sm focus:outline-none focus:ring-2"
+        >
+          {Array.from({ length: 6 }, (_, i) => i + 1).map(n => <option value={n}>{n}</option>)}
         </select>
       </label>
-      <button id="roll-dice" type="button" class="px-4 py-2 rounded border border-fg/25 bg-fg/10 hover:border-fg/50 text-sm font-medium">
+      <button
+        id="roll-dice"
+        type="button"
+        class="rounded border border-fg/25 bg-fg/10 px-4 py-2 text-sm font-medium hover:border-fg/50"
+      >
         Roll
       </button>
       <div id="dice-result" class="min-h-[1.75rem] text-sm font-semibold text-muted"></div>
     </div>
 
-    <div class="relative mx-auto w-full max-w-[640px] aspect-[3/2]">
-      <canvas id="dice" class="w-full h-full rounded-md border border-fg/15 bg-bg"></canvas>
+    <div class="relative mx-auto aspect-[3/2] w-full max-w-[640px]">
+      <canvas id="dice" class="h-full w-full rounded-md border border-fg/15 bg-bg"></canvas>
     </div>
   </section>
 
@@ -42,137 +50,5 @@ const description = 'Roll one or more monochrome dice with a smooth animation an
 
   <BackLink href={withBase('extras/')} label="Back to Extras" />
 
-  <script is:inline>
-    (() => {
-      const canvas = document.getElementById('dice');
-      const ctx = canvas.getContext('2d');
-      const DPR = Math.max(1, window.devicePixelRatio || 1);
-      const countSel = document.getElementById('dice-count');
-      const btn = document.getElementById('roll-dice');
-      const result = document.getElementById('dice-result');
-
-      function resize() {
-        const bb = canvas.getBoundingClientRect();
-        canvas.width = Math.floor(bb.width * DPR);
-        canvas.height = Math.floor(bb.height * DPR);
-        drawAll([1]);
-      }
-      window.addEventListener('resize', resize, { passive:true });
-      resize();
-
-      // Draw a single monochrome die at (cx, cy) with size s
-      function drawDie(n, cx, cy, s, tilt=0, rot=0) {
-        ctx.save();
-        ctx.translate(cx, cy);
-        ctx.rotate(rot);
-        const skew = tilt*0.35;
-        ctx.transform(1, 0, skew, 1, 0, 0);
-
-        const r = s/9;
-        const left = -s/2, top = -s/2;
-
-        // shadow
-        ctx.save();
-        ctx.resetTransform?.();
-        ctx.translate(cx, cy + s*0.45);
-        ctx.scale(1, 0.2);
-        ctx.beginPath();
-        ctx.arc(0, 0, s*0.45, 0, Math.PI*2);
-        ctx.fillStyle = 'rgba(0,0,0,0.35)';
-        ctx.filter = 'blur(12px)';
-        ctx.fill();
-        ctx.restore();
-
-        // die body (monochrome)
-        const body = ctx.createLinearGradient(left, top, left, top + s);
-        body.addColorStop(0, 'rgba(255,255,255,0.10)');
-        body.addColorStop(1, 'rgba(255,255,255,0.05)');
-        ctx.fillStyle = body;
-        ctx.strokeStyle = 'rgba(255,255,255,0.25)';
-        ctx.lineWidth = Math.max(2, s/60);
-        ctx.beginPath();
-        ctx.roundRect(left, top, s, s, s/8);
-        ctx.fill(); ctx.stroke();
-
-        // subtle edge highlight
-        ctx.beginPath();
-        ctx.moveTo(left, top + s*0.2);
-        ctx.lineTo(left, top + s - s*0.2);
-        ctx.moveTo(left + s, top + s*0.2);
-        ctx.lineTo(left + s, top + s - s*0.2);
-        ctx.strokeStyle = 'rgba(255,255,255,0.15)';
-        ctx.lineWidth = s/110;
-        ctx.stroke();
-
-        // pips (pure white glow)
-        const off = s/4.2;
-        const positions = {
-          1: [[0,0]],
-          2: [[-off, -off],[off, off]],
-          3: [[-off, -off],[0,0],[off, off]],
-          4: [[-off, -off],[off, -off],[-off, off],[off, off]],
-          5: [[-off, -off],[off, -off],[0,0],[-off, off],[off, off]],
-          6: [[-off, -off],[off, -off],[-off, 0],[off, 0],[-off, off],[off, off]],
-        }[n];
-        ctx.fillStyle = 'rgba(255,255,255,0.9)';
-        positions.forEach(([dx,dy]) => {
-          ctx.beginPath();
-          ctx.arc(dx, dy, r, 0, Math.PI*2);
-          ctx.fill();
-        });
-
-        ctx.restore();
-      }
-
-      function layoutPositions(n) {
-        // grid up to 3 columns, compute margins
-        const cols = Math.min(3, n);
-        const rows = Math.ceil(n / cols);
-        const W = canvas.width, H = canvas.height;
-        const s = Math.min(W / (cols * 2.2), H / (rows * 2.2)) * 1.0; // die size
-        const xGap = W / cols;
-        const yGap = H / rows;
-        const pos = [];
-        for (let i = 0; i < n; i++) {
-          const row = Math.floor(i / cols);
-          const col = i % cols;
-          const cx = (col + 0.5) * xGap;
-          const cy = (row + 0.5) * yGap;
-          pos.push([cx, cy, s]);
-        }
-        return pos;
-      }
-
-      function drawAll(vals, tilt=0, rot=0) {
-        ctx.clearRect(0,0,canvas.width,canvas.height);
-        const pos = layoutPositions(vals.length);
-        vals.forEach((v, i) => drawDie(v, pos[i][0], pos[i][1], pos[i][2], tilt, rot));
-      }
-
-      function roll() {
-        const n = Math.max(1, Math.min(6, parseInt(countSel.value || '1', 10) || 1));
-        const spins = 24 + Math.floor(Math.random()*10);
-        let frame = 0;
-        const vals = Array.from({length:n}, () => 1);
-        const timer = setInterval(() => {
-          for (let i = 0; i < n; i++) vals[i] = 1 + Math.floor(Math.random()*6);
-          const t = frame / spins;
-          const ease = 1 - Math.pow(1 - Math.min(1, t), 3);
-          const tilt = (1 - ease) * 1.0;
-          const rot = (1 - ease) * Math.PI * 2;
-          drawAll(vals, tilt, rot);
-          frame++;
-          if (frame >= spins) {
-            clearInterval(timer);
-            for (let i = 0; i < n; i++) vals[i] = 1 + Math.floor(Math.random()*6);
-            drawAll(vals, 0, 0);
-            const total = vals.reduce((a,b)=>a+b,0);
-            result.textContent = `Result: ${vals.join(' + ')} = ${total}`;
-          }
-        }, 35);
-      }
-
-      btn?.addEventListener('click', roll);
-    })();
-  </script>
+  <script type="module" src={withBase('scripts/dice.js')}></script>
 </Layout>

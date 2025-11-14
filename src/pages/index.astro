@@ -381,14 +381,9 @@ const heroImages = [
 
   <div class="divider" aria-hidden="true"></div>
 
-  <!-- More from Extras: 4 centered image cards with overlay titles -->
-  <section class="mb-8" data-animate="fade-up">
-    <header class="head mb-4">
-      <h2 class="h2 tone-green-text">More from Extras</h2>
-      <div class="ctrls">
-        <a class="ctrl tone-green" href={withBase('extras/')}>Explore All →</a>
-      </div>
-    </header>
+  <!-- More from Extras: full-width 4 image cards with centered explore button -->
+  <section class="mb-10" data-animate="fade-up">
+    <h2 class="h2 tone-green-text mb-5 text-center">More from Extras</h2>
     <div class="extras4">
       {
         [
@@ -414,6 +409,11 @@ const heroImages = [
           </a>
         ))
       }
+    </div>
+    <div class="mt-6 flex justify-center">
+      <a href={withBase('extras/')} class="pill-btn btn-green explore-extras-btn"
+        >Explore All Extras →</a
+      >
     </div>
   </section>
 
@@ -828,10 +828,9 @@ const heroImages = [
     .extras4 {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
-      max-width: 960px;
-      margin-inline: auto;
-      justify-items: center;
+      gap: 20px;
+      width: 100%;
+      justify-items: stretch;
     }
     @media (min-width: 768px) {
       .extras4 {
@@ -841,7 +840,7 @@ const heroImages = [
     .extras4-card {
       position: relative;
       width: 100%;
-      aspect-ratio: 16/10;
+      aspect-ratio: 16/8;
       border-radius: 16px;
       overflow: hidden;
       text-decoration: none;
@@ -878,12 +877,19 @@ const heroImages = [
       text-transform: uppercase;
       color: #fff;
       text-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
-      padding: 0.2rem 0.6rem;
+      padding: 0.35rem 0.9rem;
       border-radius: 9999px;
       border: 1px solid rgba(255, 255, 255, 0.22);
       background: rgba(0, 0, 0, 0.35);
       backdrop-filter: blur(4px);
-      font-size: clamp(0.85rem, 1.2vw + 0.6rem, 1rem);
+      font-size: clamp(0.9rem, 1.1vw + 0.7rem, 1.15rem);
+    }
+    .extras4-card:hover .extras4-title {
+      background: rgba(0, 0, 0, 0.55);
+      border-color: rgba(255, 255, 255, 0.35);
+    }
+    .explore-extras-btn {
+      font-size: 0.85rem;
     }
 
     [data-animate] {
