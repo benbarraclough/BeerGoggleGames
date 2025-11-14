@@ -4,20 +4,17 @@ on:
   workflow_dispatch:
     inputs:
       dry_run:
-        description: "Run in dry mode (no commit/push)"
+        description: 'Run in dry mode (no commit/push)'
         type: boolean
         default: false
       fail_if_leftovers:
-        description: "Fail if any old /BeerGoggleGames/images/ remain"
+        description: 'Fail if any old /BeerGoggleGames/images/ remain'
         type: boolean
         default: true
       verbose:
-        description: "Verbose per-file logging"
+        description: 'Verbose per-file logging'
         type: boolean
         default: false
-  schedule:
-    # Weekly on Mondays at 03:00 UTC
-    - cron: '0 3 * * 1'
 
 jobs:
   normalize:

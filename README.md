@@ -89,7 +89,7 @@ Recommended naming for new assets: add a `<slug>.webp` in `public/images/` match
 
 ## Housekeeping
 
-- Automated content normalization workflow can be run on-demand or weekly (see `.github/workflows/content-maintenance.yml`).
+- Run content maintenance locally when needed: `npm run maintenance` (runs normalize + check).
 - Node version pinned via `.nvmrc` (20) and `engines` in `package.json`.
 - Formatting via Prettier (`npm run format`).
 
@@ -97,7 +97,7 @@ Recommended naming for new assets: add a `<slug>.webp` in `public/images/` match
 
 - Node version errors when installing: use Node 20 (see `.nvmrc`). In CI this is automatic.
 - Editor shows "Cannot find module 'astro:content'": run `npm run sync` once (auto-runs on install/dev/build).
-- Content maintenance workflow fails: ensure it installs dependencies. This repo’s workflow does `npm ci` before running scripts.
+- Content maintenance: run locally with `npm run maintenance` to reproduce issues, then commit fixes.
 - Build broken on PRs: check the CI workflow (`.github/workflows/ci.yml`) which runs install → sync → typecheck → build to surface issues early.
 
 ## Linting & Formatting

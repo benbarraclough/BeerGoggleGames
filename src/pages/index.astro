@@ -5,6 +5,7 @@ import type { CollectionEntry } from 'astro:content';
 import { excludeLegacyNoise } from '../lib/filters';
 import { withBase } from '../lib/paths';
 import { canonical } from '../lib/urls';
+import { pickImageFile } from '../lib/images';
 import BannerMarquee from '../components/BannerMarquee.astro';
 
 function shuffle<T>(list: T[]): T[] {
@@ -31,6 +32,7 @@ const heroImages = [
   withBase('images/hero.webp'),
 ];
 ---
+
 <Layout
   title="BeerGoggleGames"
   description="Drinking games, cocktails & shots, forfeits, glossary and wheel tools."
@@ -38,28 +40,38 @@ const heroImages = [
   wide={true}
 >
   <!-- Banner rebuilt with component -->
-  <a slot="banner" href={withBase('extras/')} class="block w-full border-t border-b border-fg/15 bg-fg/5 hover:bg-fg/10 transition-colors" aria-label="Welcome — Explore Extras">
-    <div class="h-8 px-2 text-[10px] sm:text-[11px] uppercase tracking-wide">
+  <a
+    slot="banner"
+    href={withBase('extras/')}
+    class="block w-full border-b border-t border-fg/15 bg-fg/5 transition-colors hover:bg-fg/10"
+    aria-label="Welcome — Explore Extras"
+  >
+    <div class="h-8 px-2 text-[10px] uppercase tracking-wide sm:text-[11px]">
       <BannerMarquee text="Welcome to BeerGoggleGames — Explore Extras →" />
     </div>
   </a>
 
   <!-- HERO -->
-  <section class="stack-hero relative overflow-hidden rounded-2xl border border-fg/15 mb-6 md:mb-8 px-3 sm:px-4 md:px-6 py-6 md:py-8" data-animate="fade-up">
-    <div class="grid md:grid-cols-[0.95fr_1fr] gap-6 md:gap-10 items-center">
+  <section
+    class="stack-hero relative mb-6 overflow-hidden rounded-2xl border border-fg/15 px-3 py-6 sm:px-4 md:mb-8 md:px-6 md:py-8"
+    data-animate="fade-up"
+  >
+    <div class="grid items-center gap-6 md:grid-cols-[0.95fr_1fr] md:gap-10">
       <!-- Left: simple crossfade slideshow -->
       <div class="relative">
-        <div class="hero-slides h-[200px] sm:h-[240px] md:h-[260px] rounded-xl overflow-hidden">
-          {heroImages.map((src, i) => (
-            <img
-              src={src}
-              alt="Party tools and games"
-              class:list={["hero-slide", i === 0 ? "active" : ""]}
-              loading={i === 0 ? "eager" : "lazy"}
-              decoding="async"
-              onerror="this.remove()"
-            />
-          ))}
+        <div class="hero-slides h-[200px] overflow-hidden rounded-xl sm:h-[240px] md:h-[260px]">
+          {
+            heroImages.map((src, i) => (
+              <img
+                src={src}
+                alt="Party tools and games"
+                class:list={['hero-slide', i === 0 ? 'active' : '']}
+                loading={i === 0 ? 'eager' : 'lazy'}
+                decoding="async"
+                onerror="this.remove()"
+              />
+            ))
+          }
         </div>
       </div>
 
@@ -69,7 +81,7 @@ const heroImages = [
         <p class="sublead mb-5">Drinking games, recipes, and tools to keep the night flowing.</p>
         <div class="flex flex-wrap gap-3">
           <a href={withBase('games/')} class="pill-btn btn-cyan">Find a Game</a>
-            <!-- Drinks index (not random) -->
+          <!-- Drinks index (not random) -->
           <a href={withBase('drinks/')} class="pill-btn btn-magenta">Discover a Drink</a>
         </div>
       </div>
@@ -83,50 +95,153 @@ const heroImages = [
     <header class="head mb-3">
       <h2 class="h2">Quick Access Tools</h2>
       <div class="ctrls">
-        <button class="ctrl ctrl-white" data-target="#tools-carousel" data-dir="-1" aria-label="Previous">‹</button>
-        <button class="ctrl ctrl-white" data-target="#tools-carousel" data-dir="1" aria-label="Next">›</button>
+        <button
+          class="ctrl ctrl-white"
+          data-target="#tools-carousel"
+          data-dir="-1"
+          aria-label="Previous">‹</button
+        >
+        <button class="ctrl ctrl-white" data-target="#tools-carousel" data-dir="1" aria-label="Next"
+          >›</button
+        >
       </div>
     </header>
     <div id="tools-carousel" class="rail no-scrollbar">
-      {[
-        { href: withBase('games/random'), title: 'Random Game', desc: 'Let fate decide your next play.', icon: 'dice', tone: 'cyan' },
-        { href: withBase('drinks/random'), title: 'Random Drink', desc: 'Jump to a surprise recipe.', icon: 'cocktail', tone: 'magenta' },
-        { href: withBase('extras/wheel-of-fortune/'), title: 'Wheel of Fortune', desc: 'Spin categories or games.', icon: 'wheel', tone: 'green' },
-        { href: withBase('extras/coin-flip/'), title: 'Coin Flip', desc: 'Heads or tails—decide fast.', icon: 'coin', tone: 'green' },
-        { href: withBase('extras/dice/'), title: 'Dice Roll', desc: 'Crisp animation & glow.', icon: 'die3d', tone: 'green' },
-      ].map(t => (
-        <a class="tool-card3d" href={t.href}>
-          <span class:list={['tool-icon3d', t.tone === 'cyan' ? 'tone-cyan' : t.tone === 'magenta' ? 'tone-magenta' : 'tone-green']}>
-            {t.icon === 'dice' && (
-              <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="8" cy="8" r="1.4" fill="currentColor"/><circle cx="16" cy="8" r="1.4" fill="currentColor"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/><circle cx="8" cy="16" r="1.4" fill="currentColor"/><circle cx="16" cy="16" r="1.4" fill="currentColor"/>
-              </svg>
-            )}
-            {t.icon === 'cocktail' && (
-              <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M3 4h18l-8.5 8.5v5.5l3 2H8l3-2v-5.5L3 4Z"/><path d="M10 4l4 4"/>
-              </svg>
-            )}
-            {t.icon === 'wheel' && (
-              <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2"/><path d="M12 3v6M21 12h-6M12 21v-6M3 12h6"/>
-              </svg>
-            )}
-            {t.icon === 'coin' && (
-              <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <ellipse cx="12" cy="8" rx="7" ry="3"/><path d="M5 8v8c0 1.66 3.13 3 7 3s7-1.34 7-3V8"/><path d="M5 12c0 1.66 3.13 3 7 3s7-1.34 7-3"/>
-              </svg>
-            )}
-            {t.icon === 'die3d' && (
-              <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 2 3 7v10l9 5 9-5V7l-9-5Z"/><path d="M12 22V12"/><path d="M3 7l9 5 9-5"/><circle cx="9" cy="10" r="1" fill="currentColor"/><circle cx="15" cy="10" r="1" fill="currentColor"/><circle cx="12" cy="14" r="1" fill="currentColor"/>
-              </svg>
-            )}
-          </span>
-          <span class="tool-title3d">{t.title}</span>
-          <span class="tool-desc3d">{t.desc}</span>
-        </a>
-      ))}
+      {
+        [
+          {
+            href: withBase('games/random'),
+            title: 'Random Game',
+            desc: 'Let fate decide your next play.',
+            icon: 'dice',
+            tone: 'cyan',
+          },
+          {
+            href: withBase('drinks/random'),
+            title: 'Random Drink',
+            desc: 'Jump to a surprise recipe.',
+            icon: 'cocktail',
+            tone: 'magenta',
+          },
+          {
+            href: withBase('extras/wheel-of-fortune/'),
+            title: 'Wheel of Fortune',
+            desc: 'Spin categories or games.',
+            icon: 'wheel',
+            tone: 'green',
+          },
+          {
+            href: withBase('extras/coin-flip/'),
+            title: 'Coin Flip',
+            desc: 'Heads or tails—decide fast.',
+            icon: 'coin',
+            tone: 'green',
+          },
+          {
+            href: withBase('extras/dice/'),
+            title: 'Dice Roll',
+            desc: 'Crisp animation & glow.',
+            icon: 'die3d',
+            tone: 'green',
+          },
+        ].map(t => (
+          <a class="tool-card3d" href={t.href}>
+            <span
+              class:list={[
+                'tool-icon3d',
+                t.tone === 'cyan'
+                  ? 'tone-cyan'
+                  : t.tone === 'magenta'
+                    ? 'tone-magenta'
+                    : 'tone-green',
+              ]}
+            >
+              {t.icon === 'dice' && (
+                <svg
+                  viewBox="0 0 24 24"
+                  class="h-5 w-5"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="3" y="3" width="18" height="18" rx="4" />
+                  <circle cx="8" cy="8" r="1.4" fill="currentColor" />
+                  <circle cx="16" cy="8" r="1.4" fill="currentColor" />
+                  <circle cx="12" cy="12" r="1.4" fill="currentColor" />
+                  <circle cx="8" cy="16" r="1.4" fill="currentColor" />
+                  <circle cx="16" cy="16" r="1.4" fill="currentColor" />
+                </svg>
+              )}
+              {t.icon === 'cocktail' && (
+                <svg
+                  viewBox="0 0 24 24"
+                  class="h-5 w-5"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M3 4h18l-8.5 8.5v5.5l3 2H8l3-2v-5.5L3 4Z" />
+                  <path d="M10 4l4 4" />
+                </svg>
+              )}
+              {t.icon === 'wheel' && (
+                <svg
+                  viewBox="0 0 24 24"
+                  class="h-5 w-5"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <circle cx="12" cy="12" r="9" />
+                  <circle cx="12" cy="12" r="2" />
+                  <path d="M12 3v6M21 12h-6M12 21v-6M3 12h6" />
+                </svg>
+              )}
+              {t.icon === 'coin' && (
+                <svg
+                  viewBox="0 0 24 24"
+                  class="h-5 w-5"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <ellipse cx="12" cy="8" rx="7" ry="3" />
+                  <path d="M5 8v8c0 1.66 3.13 3 7 3s7-1.34 7-3V8" />
+                  <path d="M5 12c0 1.66 3.13 3 7 3s7-1.34 7-3" />
+                </svg>
+              )}
+              {t.icon === 'die3d' && (
+                <svg
+                  viewBox="0 0 24 24"
+                  class="h-5 w-5"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M12 2 3 7v10l9 5 9-5V7l-9-5Z" />
+                  <path d="M12 22V12" />
+                  <path d="M3 7l9 5 9-5" />
+                  <circle cx="9" cy="10" r="1" fill="currentColor" />
+                  <circle cx="15" cy="10" r="1" fill="currentColor" />
+                  <circle cx="12" cy="14" r="1" fill="currentColor" />
+                </svg>
+              )}
+            </span>
+            <span class="tool-title3d">{t.title}</span>
+            <span class="tool-desc3d">{t.desc}</span>
+          </a>
+        ))
+      }
     </div>
   </section>
 
@@ -137,26 +252,45 @@ const heroImages = [
     <header class="head">
       <h2 class="h2 tone-cyan-text">Popular Games</h2>
       <div class="ctrls">
-        <button class="ctrl tone-cyan" data-target="#games-carousel" data-dir="-1" aria-label="Previous">‹</button>
-        <button class="ctrl tone-cyan" data-target="#games-carousel" data-dir="1" aria-label="Next">›</button>
+        <button
+          class="ctrl tone-cyan"
+          data-target="#games-carousel"
+          data-dir="-1"
+          aria-label="Previous">‹</button
+        >
+        <button class="ctrl tone-cyan" data-target="#games-carousel" data-dir="1" aria-label="Next"
+          >›</button
+        >
       </div>
     </header>
     <div id="games-carousel" class="rail no-scrollbar">
-      {popularGames.map(g => {
-        const slug = (g.slug ?? g.id).split('/').pop();
-        const href = withBase(`games/${slug}/`);
-        const img = withBase(`images/${slug}.webp`);
-        return (
-          <a class="tile3d tone-cyan" href={href} aria-label={`View game: ${g.data.title}`}>
-            <picture>
-              <img src={img} alt={g.data.title} class="tile-img" loading="lazy" decoding="async" onerror="this.style.display='none'" />
-            </picture>
-            <div class="tile-caption">{g.data.title}</div>
-          </a>
-        );
-      })}
+      {
+        popularGames.map(g => {
+          const slug = (g.slug ?? g.id).split('/').pop() || '';
+          const href = withBase(`games/${slug}/`);
+          const img = withBase(`images/${pickImageFile(slug)}`);
+          return (
+            <a class="tile3d tone-cyan" href={href} aria-label={`View game: ${g.data.title}`}>
+              <picture>
+                <img
+                  src={img}
+                  alt={g.data.title}
+                  class="tile-img"
+                  loading="lazy"
+                  decoding="async"
+                  data-fb-key={slug}
+                  onerror="window.__imgFallback && window.__imgFallback(this)"
+                />
+              </picture>
+              <div class="tile-caption">{g.data.title}</div>
+            </a>
+          );
+        })
+      }
     </div>
-    <div class="mt-2"><a href={withBase('games/')} class="view-all-link tone-cyan-text">View all games →</a></div>
+    <div class="mt-2">
+      <a href={withBase('games/')} class="view-all-link tone-cyan-text">View all games →</a>
+    </div>
   </section>
 
   <div class="divider" aria-hidden="true"></div>
@@ -166,35 +300,60 @@ const heroImages = [
     <header class="head">
       <h2 class="h2 tone-magenta-text">Popular Drinks</h2>
       <div class="ctrls">
-        <button class="ctrl tone-magenta" data-target="#drinks-carousel" data-dir="-1" aria-label="Previous">‹</button>
-        <button class="ctrl tone-magenta" data-target="#drinks-carousel" data-dir="1" aria-label="Next">›</button>
+        <button
+          class="ctrl tone-magenta"
+          data-target="#drinks-carousel"
+          data-dir="-1"
+          aria-label="Previous">‹</button
+        >
+        <button
+          class="ctrl tone-magenta"
+          data-target="#drinks-carousel"
+          data-dir="1"
+          aria-label="Next">›</button
+        >
       </div>
     </header>
     <div id="drinks-carousel" class="rail no-scrollbar">
-      {popularDrinks.map(d => {
-        const slug = (d.slug ?? d.id).split('/').pop();
-        const href = withBase(`drinks/${slug}/`);
-        const img = withBase(`images/${slug}.webp`);
-        return (
-          <a class="tile3d tone-magenta" href={href} aria-label={`View drink: ${d.data.title}`}>
-            <picture>
-              <img src={img} alt={d.data.title} class="tile-img" loading="lazy" decoding="async" onerror="this.style.display='none'" />
-            </picture>
-            <div class="tile-caption">{d.data.title}</div>
-          </a>
-        );
-      })}
+      {
+        popularDrinks.map(d => {
+          const slug = (d.slug ?? d.id).split('/').pop() || '';
+          const href = withBase(`drinks/${slug}/`);
+          const img = withBase(`images/${pickImageFile(slug)}`);
+          return (
+            <a class="tile3d tone-magenta" href={href} aria-label={`View drink: ${d.data.title}`}>
+              <picture>
+                <img
+                  src={img}
+                  alt={d.data.title}
+                  class="tile-img"
+                  loading="lazy"
+                  decoding="async"
+                  data-fb-key={slug}
+                  onerror="window.__imgFallback && window.__imgFallback(this)"
+                />
+              </picture>
+              <div class="tile-caption">{d.data.title}</div>
+            </a>
+          );
+        })
+      }
     </div>
-    <div class="mt-2"><a href={withBase('drinks/')} class="view-all-link tone-magenta-text">View all drinks →</a></div>
+    <div class="mt-2">
+      <a href={withBase('drinks/')} class="view-all-link tone-magenta-text">View all drinks →</a>
+    </div>
   </section>
 
   <div class="divider" aria-hidden="true"></div>
 
   <!-- How it Works -->
-  <section class="mb-6 howto relative overflow-hidden rounded-2xl border border-fg/15 px-3 sm:px-4 md:px-6 pt-5 pb-7" data-animate="fade-up">
+  <section
+    class="howto relative mb-6 overflow-hidden rounded-2xl border border-fg/15 px-3 pb-7 pt-5 sm:px-4 md:px-6"
+    data-animate="fade-up"
+  >
     <div class="howto-bg" aria-hidden="true"></div>
     <h2 class="h2 mb-3">How it Works</h2>
-    <div class="grid md:grid-cols-3 gap-5">
+    <div class="grid gap-5 md:grid-cols-3">
       <a class="flow-step tone-cyan" href={withBase('games/')} aria-label="Go to Games">
         <span class="step-num tone-cyan-text">1</span>
         <div class="flow-title">Pick a game</div>
@@ -203,12 +362,16 @@ const heroImages = [
       <a class="flow-step tone-magenta" href={withBase('drinks/')} aria-label="Go to Drinks">
         <span class="step-num tone-magenta-text">2</span>
         <div class="flow-title">Grab a drink</div>
-        <div class="flow-desc">Find drink recipes that match the mood or select them at random.</div>
+        <div class="flow-desc">
+          Find drink recipes that match the mood or select them at random.
+        </div>
       </a>
       <a class="flow-step tone-green" href={withBase('extras/')} aria-label="Go to Extras">
         <span class="step-num tone-green-text">3</span>
         <div class="flow-title">Use extra features</div>
-        <div class="flow-desc">Make use of the extra features available to amplify the entertainment.</div>
+        <div class="flow-desc">
+          Make use of the extra features available to amplify the entertainment.
+        </div>
       </a>
     </div>
   </section>
@@ -220,123 +383,409 @@ const heroImages = [
     <header class="head mb-3">
       <h2 class="h2 tone-green-text">More from Extras</h2>
       <div class="ctrls">
-        <button class="ctrl tone-green" data-target="#extras-carousel" data-dir="-1" aria-label="Previous">‹</button>
-        <button class="ctrl tone-green" data-target="#extras-carousel" data-dir="1" aria-label="Next">›</button>
+        <button
+          class="ctrl tone-green"
+          data-target="#extras-carousel"
+          data-dir="-1"
+          aria-label="Previous">‹</button
+        >
+        <button
+          class="ctrl tone-green"
+          data-target="#extras-carousel"
+          data-dir="1"
+          aria-label="Next">›</button
+        >
       </div>
     </header>
     <div id="extras-carousel" class="rail no-scrollbar">
-      {[
-        { href: withBase('extras/blog/'),        title: 'Blog',       desc: 'Guides, ideas & announcements.' },
-        { href: withBase('extras/activities/'),  title: 'Activities', desc: 'Party & social activities.' },
-        { href: withBase('extras/forfeits/'),    title: 'Forfeits',   desc: 'Creative penalties & challenges.' },
-        { href: withBase('extras/glossary/'),    title: 'Glossary',   desc: 'Drinking terms explained.' },
-      ].map(x => (
-        <a class="tool-card3d tone-green" href={x.href}>
-          <span class="tool-icon3d tone-green">
-            <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M20 22H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20Z"/>
-            </svg>
-          </span>
-          <span class="tool-title3d">{x.title}</span>
-          <span class="tool-desc3d">{x.desc}</span>
-        </a>
-      ))}
+      {
+        [
+          { href: withBase('extras/blog/'), title: 'Blog', desc: 'Guides, ideas & announcements.' },
+          {
+            href: withBase('extras/activities/'),
+            title: 'Activities',
+            desc: 'Party & social activities.',
+          },
+          {
+            href: withBase('extras/forfeits/'),
+            title: 'Forfeits',
+            desc: 'Creative penalties & challenges.',
+          },
+          {
+            href: withBase('extras/glossary/'),
+            title: 'Glossary',
+            desc: 'Drinking terms explained.',
+          },
+        ].map(x => (
+          <a class="tool-card3d tone-green" href={x.href}>
+            <span class="tool-icon3d tone-green">
+              <svg
+                viewBox="0 0 24 24"
+                class="h-5 w-5"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <>
+                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+                  <path d="M20 22H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20Z" />
+                </>
+              </svg>
+            </span>
+            <span class="tool-title3d">{x.title}</span>
+            <span class="tool-desc3d">{x.desc}</span>
+          </a>
+        ))
+      }
     </div>
-    <div class="mt-2"><a href={withBase('extras/')} class="view-all-link tone-green-text">View all extras →</a></div>
+    <div class="mt-2">
+      <a href={withBase('extras/')} class="view-all-link tone-green-text">View all extras →</a>
+    </div>
   </section>
 
   <div class="divider" aria-hidden="true"></div>
 
   <!-- Contact -->
-  <section class="mb-3 contact-slab relative overflow-hidden rounded-2xl border border-fg/15 px-3 sm:px-4 md:px-6 py-7 text-center" data-animate="fade-up">
+  <section
+    class="contact-slab relative mb-3 overflow-hidden rounded-2xl border border-fg/15 px-3 py-7 text-center sm:px-4 md:px-6"
+    data-animate="fade-up"
+  >
     <div class="contact-bg" aria-hidden="true"></div>
     <h2 class="h2 mb-2">Get in touch</h2>
-    <p class="text-sm text-muted mb-4">Suggestions, feature ideas, or corrections? We’re all ears.</p>
+    <p class="mb-4 text-sm text-muted">
+      Suggestions, feature ideas, or corrections? We’re all ears.
+    </p>
     <a href={withBase('contact')} class="pill-btn btn-violet">Contact us</a>
   </section>
 
   <style>
     /* Use site-wide fonts loaded in Layout (Inter, Space Grotesk) */
-    :root{
-      --font-body:'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
-      --font-display:'Space Grotesk',var(--font-body);
-      --c-cyan:#00c8ff; --c-magenta:#ff0080; --c-green:#00d27a; --c-violet:#8b5cf6;
+    :root {
+      --font-body: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      --font-display: 'Space Grotesk', var(--font-body);
+      --c-cyan: #00c8ff;
+      --c-magenta: #ff0080;
+      --c-green: #00d27a;
+      --c-violet: #8b5cf6;
     }
-    body{font-family:var(--font-body)}
-    .title-xl,.h2{font-family:var(--font-display);font-weight:700}
-    .sublead{color:var(--muted,#c3c3c3)}
+    body {
+      font-family: var(--font-body);
+    }
+    .title-xl,
+    .h2 {
+      font-family: var(--font-display);
+      font-weight: 700;
+    }
+    .sublead {
+      color: var(--muted, #c3c3c3);
+    }
 
-  /* Banner: rely on global CSS to start off-screen and animate */
-  .marquee-track{display:inline-flex;white-space:nowrap;}
+    /* Banner: rely on global CSS to start off-screen and animate */
+    .marquee-track {
+      display: inline-flex;
+      white-space: nowrap;
+    }
 
     /* HERO */
-    .title-xl{font-size: clamp(2.2rem, 2.2vw + 1.6rem, 3rem); letter-spacing:-.01em; text-shadow:0 6px 24px rgba(255,0,128,0.12)}
-  .stack-hero{background: transparent}
-    /* Simple crossfade */
-    .hero-slides{
-      position:relative; width:100%;
-      border:1px solid rgba(255,255,255,0.15);
-      background: rgba(255,255,255,0.03);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), 0 10px 30px rgba(0,0,0,0.35);
+    .title-xl {
+      font-size: clamp(2.2rem, 2.2vw + 1.6rem, 3rem);
+      letter-spacing: -0.01em;
+      text-shadow: 0 6px 24px rgba(255, 0, 128, 0.12);
     }
-  .hero-slide{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; transition:opacity 1s ease-in-out;}
-  .hero-slide.active{opacity:1}
+    .stack-hero {
+      background: transparent;
+    }
+    /* Simple crossfade */
+    .hero-slides {
+      position: relative;
+      width: 100%;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.03);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.06),
+        0 10px 30px rgba(0, 0, 0, 0.35);
+    }
+    .hero-slide {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+    .hero-slide.active {
+      opacity: 1;
+    }
 
     /* Buttons etc. (kept minimal; rest in global CSS) */
-    .head{display:flex; align-items:center; justify-content:space-between}
-    .h2{font-size:1.5rem; letter-spacing:-.01em}
-    .ctrls{display:flex; gap:8px}
-    .ctrl{border:1px solid rgba(255,255,255,0.2); padding:.3rem .6rem; border-radius:.5rem; font-size:.85rem; background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02)); transition:border-color .2s ease, color .2s ease, transform .2s ease}
-    .ctrl:hover{transform:translateY(-1px)}
-    .ctrl-white{border-color:rgba(255,255,255,0.55); color:#fff}
-    .tone-cyan{border-color:rgba(0,200,255,0.35); color:var(--c-cyan)}
-    .tone-magenta{border-color:rgba(255,0,128,0.35); color:var(--c-magenta)}
-    .tone-green{border-color:rgba(0,210,122,0.35); color:var(--c-green)}
-    .tone-cyan-text{color:var(--c-cyan)} .tone-magenta-text{color:var(--c-magenta)} .tone-green-text{color:var(--c-green)}
-
-    .tool-card3d,.tile3d,.flow-step{
-      position:relative; border-radius:14px; border:1px solid rgba(255,255,255,0.12);
-      background:
-        linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.02)),
-        radial-gradient(120% 120% at 10% 0%, var(--tone-tint, rgba(255,255,255,0)), transparent 60%);
-      box-shadow: 0 18px 36px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.06);
-      transition:transform .2s ease, border-color .2s ease, box-shadow .2s ease, background .2s ease
+    .head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
-    .tool-card3d::before,.tile3d::before,.flow-step::before{content:''; position:absolute; inset:0; border-radius:inherit; pointer-events:none; background: radial-gradient(80% 60% at 20% 10%, rgba(255,255,255,0.06), transparent 60%); mix-blend-mode:screen; opacity:.35}
-    .tool-card3d:hover,.tile3d:hover,.flow-step:hover{transform:translateY(-2px); border-color:rgba(255,255,255,0.18); box-shadow:0 22px 44px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.08)}
+    .h2 {
+      font-size: 1.5rem;
+      letter-spacing: -0.01em;
+    }
+    .ctrls {
+      display: flex;
+      gap: 8px;
+    }
+    .ctrl {
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 0.3rem 0.6rem;
+      border-radius: 0.5rem;
+      font-size: 0.85rem;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.02));
+      transition:
+        border-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+    }
+    .ctrl:hover {
+      transform: translateY(-1px);
+    }
+    .ctrl-white {
+      border-color: rgba(255, 255, 255, 0.55);
+      color: #fff;
+    }
+    .tone-cyan {
+      border-color: rgba(0, 200, 255, 0.35);
+      color: var(--c-cyan);
+    }
+    .tone-magenta {
+      border-color: rgba(255, 0, 128, 0.35);
+      color: var(--c-magenta);
+    }
+    .tone-green {
+      border-color: rgba(0, 210, 122, 0.35);
+      color: var(--c-green);
+    }
+    .tone-cyan-text {
+      color: var(--c-cyan);
+    }
+    .tone-magenta-text {
+      color: var(--c-magenta);
+    }
+    .tone-green-text {
+      color: var(--c-green);
+    }
 
-    .rail{display:grid; grid-auto-flow:column; grid-auto-columns:75%; gap:14px; overflow-x:auto; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; padding:6px 2px 8px}
-    @media (min-width:640px){.rail{grid-auto-columns:48%}} @media (min-width:1024px){.rail{grid-auto-columns:28%}}
-    .no-scrollbar{scrollbar-width:none; -ms-overflow-style:none} .no-scrollbar::-webkit-scrollbar{display:none}
-    .tool-card3d{padding:14px; display:flex; flex-direction:column; gap:6px; scroll-snap-align:start}
-    .tool-icon3d{width:36px; height:36px; display:grid; place-items:center; border-radius:50%; border:1px solid rgba(255,255,255,0.18); background:rgba(255,255,255,0.03); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05), 0 8px 18px rgba(0,0,0,0.25)}
-    .tool-title3d{font-weight:700} .tool-desc3d{font-size:.78rem; color:var(--muted,#bfbfbf)}
-    .tone-cyan .tool-icon3d{border-color:rgba(0,200,255,0.35); color:var(--c-cyan); background:rgba(0,200,255,0.10)}
-    .tone-magenta .tool-icon3d{border-color:rgba(255,0,128,0.35); color:var(--c-magenta); background:rgba(255,0,128,0.10)}
-    .tone-green .tool-icon3d{border-color:rgba(0,210,122,0.35); color:var(--c-green); background:rgba(0,210,122,0.10)}
+    .tool-card3d,
+    .tile3d,
+    .flow-step {
+      position: relative;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.02)),
+        radial-gradient(
+          120% 120% at 10% 0%,
+          var(--tone-tint, rgba(255, 255, 255, 0)),
+          transparent 60%
+        );
+      box-shadow:
+        0 18px 36px rgba(0, 0, 0, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06);
+      transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+    }
+    .tool-card3d::before,
+    .tile3d::before,
+    .flow-step::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      background: radial-gradient(80% 60% at 20% 10%, rgba(255, 255, 255, 0.06), transparent 60%);
+      mix-blend-mode: screen;
+      opacity: 0.35;
+    }
+    .tool-card3d:hover,
+    .tile3d:hover,
+    .flow-step:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255, 255, 255, 0.18);
+      box-shadow:
+        0 22px 44px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    }
 
-    .tile3d{overflow:hidden; scroll-snap-align:start}
-    .tile-img{width:100%; aspect-ratio:16/9; object-fit:cover; display:block; border-bottom:1px solid rgba(255,255,255,0.10)}
-  .tile-caption{position:absolute; left:10px; bottom:10px; background:rgba(0,0,0,0.45); border:1px solid rgba(255,255,255,0.2); backdrop-filter:blur(6px); padding:.3rem .5rem; border-radius:9999px; font-size:.75rem; color: var(--fg) !important}
+    .rail {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: 75%;
+      gap: 14px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      padding: 6px 2px 8px;
+    }
+    @media (min-width: 640px) {
+      .rail {
+        grid-auto-columns: 48%;
+      }
+    }
+    @media (min-width: 1024px) {
+      .rail {
+        grid-auto-columns: 28%;
+      }
+    }
+    .no-scrollbar {
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .tool-card3d {
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      scroll-snap-align: start;
+    }
+    .tool-icon3d {
+      width: 36px;
+      height: 36px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(255, 255, 255, 0.03);
+      box-shadow:
+        inset 0 0 0 1px rgba(255, 255, 255, 0.05),
+        0 8px 18px rgba(0, 0, 0, 0.25);
+    }
+    .tool-title3d {
+      font-weight: 700;
+    }
+    .tool-desc3d {
+      font-size: 0.78rem;
+      color: var(--muted, #bfbfbf);
+    }
+    .tone-cyan .tool-icon3d {
+      border-color: rgba(0, 200, 255, 0.35);
+      color: var(--c-cyan);
+      background: rgba(0, 200, 255, 0.1);
+    }
+    .tone-magenta .tool-icon3d {
+      border-color: rgba(255, 0, 128, 0.35);
+      color: var(--c-magenta);
+      background: rgba(255, 0, 128, 0.1);
+    }
+    .tone-green .tool-icon3d {
+      border-color: rgba(0, 210, 122, 0.35);
+      color: var(--c-green);
+      background: rgba(0, 210, 122, 0.1);
+    }
 
-    .howto{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.015))}
-    .howto-bg{position:absolute; inset:0; filter:blur(14px); background:
-      radial-gradient(500px 260px at -10% 50%, rgba(0,200,255,0.14), transparent 70%),
-      radial-gradient(500px 260px at 110% 50%, rgba(255,0,128,0.14), transparent 70%),
-      radial-gradient(400px 200px at 50% 110%, rgba(0,210,122,0.12), transparent 75%)}
-    .flow-step{padding:14px; display:block; text-decoration:none}
-    .step-num{display:inline-block; font-weight:800; font-size:.9rem; margin-bottom:6px; padding:.1rem .5rem; border-radius:9999px; border:1px solid rgba(255,255,255,0.18); background:rgba(255,255,255,0.04)}
-    .flow-title{font-weight:800; margin-bottom:2px} .flow-desc{font-size:.95rem; color:var(--muted,#bfbfbf)}
+    .tile3d {
+      overflow: hidden;
+      scroll-snap-align: start;
+    }
+    .tile-img {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      display: block;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .tile-caption {
+      position: absolute;
+      left: 10px;
+      bottom: 10px;
+      background: rgba(0, 0, 0, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(6px);
+      padding: 0.3rem 0.5rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      color: var(--fg) !important;
+    }
 
-    .view-all-link{font-size:.85rem; text-decoration:underline; text-underline-offset:4px}
+    .howto {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.015));
+    }
+    .howto-bg {
+      position: absolute;
+      inset: 0;
+      filter: blur(14px);
+      background:
+        radial-gradient(500px 260px at -10% 50%, rgba(0, 200, 255, 0.14), transparent 70%),
+        radial-gradient(500px 260px at 110% 50%, rgba(255, 0, 128, 0.14), transparent 70%),
+        radial-gradient(400px 200px at 50% 110%, rgba(0, 210, 122, 0.12), transparent 75%);
+    }
+    .flow-step {
+      padding: 14px;
+      display: block;
+      text-decoration: none;
+    }
+    .step-num {
+      display: inline-block;
+      font-weight: 800;
+      font-size: 0.9rem;
+      margin-bottom: 6px;
+      padding: 0.1rem 0.5rem;
+      border-radius: 9999px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(255, 255, 255, 0.04);
+    }
+    .flow-title {
+      font-weight: 800;
+      margin-bottom: 2px;
+    }
+    .flow-desc {
+      font-size: 0.95rem;
+      color: var(--muted, #bfbfbf);
+    }
 
-    [data-animate]{opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease}
-    [data-animate].in{opacity:1; transform:none}
-    @media (prefers-reduced-motion:reduce){[data-animate]{opacity:1; transform:none}}
+    .view-all-link {
+      font-size: 0.85rem;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
 
-    @media (hover:none){
-      .ctrl:hover, .tool-card3d:hover, .tile3d:hover, .flow-step:hover, .pill-btn:hover { transform:none !important; }
-      .ctrl:active, .tool-card3d:active, .tile3d:active, .flow-step:active, .pill-btn:active { transform:translateY(-1px); }
+    [data-animate] {
+      opacity: 0;
+      transform: translateY(16px);
+      transition:
+        opacity 0.6s ease,
+        transform 0.6s ease;
+    }
+    [data-animate].in {
+      opacity: 1;
+      transform: none;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      [data-animate] {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    @media (hover: none) {
+      .ctrl:hover,
+      .tool-card3d:hover,
+      .tile3d:hover,
+      .flow-step:hover,
+      .pill-btn:hover {
+        transform: none !important;
+      }
+      .ctrl:active,
+      .tool-card3d:active,
+      .tile3d:active,
+      .flow-step:active,
+      .pill-btn:active {
+        transform: translateY(-1px);
+      }
     }
   </style>
 
@@ -353,7 +802,7 @@ const heroImages = [
           const styles = getComputedStyle(el);
           let gapVal = styles.gap || styles.columnGap || '14px';
           let gap = parseFloat(gapVal);
-            if (!isFinite(gap)) gap = 14;
+          if (!isFinite(gap)) gap = 14;
           amount = rect.width + gap;
         }
         const next = el.scrollLeft + amount * (dir || 1);
@@ -361,15 +810,25 @@ const heroImages = [
         el.scrollTo({ left: target, behavior: 'smooth' });
       }
       document.querySelectorAll('.ctrl').forEach(btn => {
-        btn.addEventListener('click', () => nudge(btn.getAttribute('data-target'), Number(btn.getAttribute('data-dir'))));
+        btn.addEventListener('click', () =>
+          nudge(btn.getAttribute('data-target'), Number(btn.getAttribute('data-dir'))),
+        );
       });
 
       // Reveal
       const reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
       if (!reduce && 'IntersectionObserver' in window) {
-        const io = new IntersectionObserver((entries) => {
-          entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-        }, { threshold: 0.12 });
+        const io = new IntersectionObserver(
+          entries => {
+            entries.forEach(e => {
+              if (e.isIntersecting) {
+                e.target.classList.add('in');
+                io.unobserve(e.target);
+              }
+            });
+          },
+          { threshold: 0.12 },
+        );
         document.querySelectorAll('[data-animate]').forEach(el => io.observe(el));
       } else {
         document.querySelectorAll('[data-animate]').forEach(el => el.classList.add('in'));
@@ -380,10 +839,10 @@ const heroImages = [
         let ticking = false;
         function update() {
           ticking = false;
-          document.querySelectorAll('.will-parallax').forEach(el=>{
-            const s = Number(el.getAttribute('data-parallax')||0.05);
+          document.querySelectorAll('.will-parallax').forEach(el => {
+            const s = Number(el.getAttribute('data-parallax') || 0.05);
             const r = el.getBoundingClientRect();
-            const rel = (r.top - (innerHeight/2)) / innerHeight;
+            const rel = (r.top - innerHeight / 2) / innerHeight;
             const baseRot = el.classList.contains('c1') ? -4 : el.classList.contains('c2') ? 3 : 0;
             el.style.transform = `translateY(${rel * s * 100}px) rotate(${baseRot}deg)`;
           });
@@ -395,8 +854,8 @@ const heroImages = [
           }
         }
         update();
-        addEventListener('scroll', onScroll, { passive:true });
-        addEventListener('resize', onScroll, { passive:true });
+        addEventListener('scroll', onScroll, { passive: true });
+        addEventListener('resize', onScroll, { passive: true });
       }
 
       // Slideshow
