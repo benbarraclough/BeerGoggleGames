@@ -26,7 +26,7 @@
     const segs = (m.c || '').split('/');
     const group = (segs[0] || '').toLowerCase();
     if (group === 'games' || group === 'drinks') {
-      return (group || '') + (m.type ? ' ~ ' + (m.type || '') : '');
+      return (group || '') + (m.type ? '/' + (m.type || '') : '');
     }
     return m.c || '';
   }
@@ -42,7 +42,7 @@
       const title = escapeHTML(m.title || '');
       const meta = escapeHTML(groupLabel(m));
       const href = buildHref(m);
-      li.innerHTML = `<a class="hover:text-neon font-medium" href="${href}">${title}</a><small class="text-muted ml-1">(${meta})</small>`;
+      li.innerHTML = `<a class="hover:text-neon font-medium" href="${href}">${title}</a> <small class="text-muted">(${meta})</small>`;
       frag.appendChild(li);
     }
     list.appendChild(frag);
