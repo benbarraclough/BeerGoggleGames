@@ -1,10 +1,11 @@
 ---
 title: "Alabama Slammer"
 drinkType: "cocktail"
-excerpt: "If you think we've missed certain details out of the drink recipe or you have something to add, please feel free to contact us."
-
-cover: "ComingSoon700x400.webp"
-tags: []
+excerpt: "A sweet, fruity, and refreshing cocktail combining a mix of liqueurs and orange juice."
+base: "liqueur"
+difficulty: "medium"
+cover: "alabama-slammer.webp"
+tags: [vegan,vegetarian,nuts,orange]
 ---
 
 import DrinkSection from '../../components/drink/DrinkSection.astro';
@@ -12,20 +13,39 @@ import ShareButtons from '../../components/game/ShareButtons.astro';
 import FeedbackCard from '../../components/game/FeedbackCard.astro';
 
 <DrinkSection title="Overview" icon="/images/info.webp">
-  <p><strong>Description:</strong> ...</p>
-  <p><strong>Time:</strong> ... mins</p>
-  <p><strong>Difficulty:</strong> ...</p>
-  <p><strong>Glass type:</strong> ... glass</p>
-  <p><strong>Dietary Notes:</strong> None</p>
-  <p><strong>Origin:</strong> ...</p>
+  <p><strong>Description:</strong> A sweet, fruity, and refreshing cocktail combining a mix of liqueurs and orange juice.</p>
+  <p><strong>Time:</strong> 5 mins</p>
+  <p><strong>Difficulty:</strong> Medium</p>
+  <p><strong>Glass type:</strong> Highball glass</p>
+  <p><strong>Dietary Notes:</strong> Nuts</p>
+  <p><strong>Origin:</strong> USA</p>
 </DrinkSection>
 
 <DrinkSection title="Ingredients" icon="/images/liquor.webp">
-  
+  <ul>
+    <li>Southern Comfort - 25ml</li>
+    <li>Amaretto - 25ml</li>
+    <li>Sloe Gin - 25ml</li>
+    <li>Orange Juice - 50ml</li>
+    <li>Ice - 1 handful</li>
+    <li>Maraschino Cherry - 1 (optional)</li>
+    <li>Orange wedge - 1 (optional)</li>
+  </ul>
 </DrinkSection>
 
 <DrinkSection title="Recipe" icon="/images/rules.webp">
-  
+  <ol>
+    <li>Add liqueurs and orange juice into a shaker with some ice.</li>
+    <li>Shake and strain into glass with more ice.</li>
+    <li>Garnish with a cherry and an orange wedge.</li>
+  </ol>
+</DrinkSection>
+
+<DrinkSection title="Tips" icon="/images/lightbulb.webp">
+  <ul>
+    <li>Juice your own oranges rather than using store bought juice from a carton.</li>
+    <li>Add the orange wedge and maraschino cherry as a garnish.</li>
+  </ul>
 </DrinkSection>
 
 <ShareButtons title={"Alabama Slammer"} />
