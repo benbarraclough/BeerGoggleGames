@@ -63,4 +63,15 @@ const isSetup = /\b(setup|prepare|start)\b/i.test(title || '');
   .no-inner-hr hr { display: none; }
   /* Also hide markdown-emulated dividers like *** inside Setup (rendered as hr) */
   .no-inner-hr .divider, .no-inner-hr hr, .no-inner-hr .prose hr { display:none; }
+  
+  /* Fix list rendering */
+  .mb-8.glass ul,
+  .mb-8.glass ol {
+    list-style: revert;
+    margin-left: 1.3rem;
+    margin-bottom: 0.5rem;
+  }
+  .mb-8.glass li {
+    margin: 0.3rem 0;
+  }
 </style>
