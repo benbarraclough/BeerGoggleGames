@@ -151,23 +151,25 @@ function svg(name: string) {
   }
 </style>
 
-<script is:inline>
-  (function () {
+<script>
+  function initCopyButton() {
     const btn = document.querySelector('[data-copy-button]');
     if (!btn) return;
+    
     const PAGE_URL = window.location.href.split('#')[0];
+    
     function copy(text) {
       if (navigator.clipboard?.writeText) {
         return navigator.clipboard.writeText(text).catch(() => {
-          // As a last resort, prompt user to copy manually (avoids deprecated execCommand)
           window.prompt('Copy this URL:', text);
         });
       }
       window.prompt('Copy this URL:', text);
       return Promise.resolve();
     }
+    
     let timer;
-    btn.addEventListener('click', e => {
+    btn.addEventListener('click', (e) => {
       e.preventDefault();
       copy(PAGE_URL).then(() => {
         if (navigator.vibrate) {
@@ -182,5 +184,13 @@ function svg(name: string) {
         }, 1600);
       });
     });
-  })();
+  }
+  
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCopyButton);
+  } else {
+    initCopyButton();
+  }
+  
+  document.addEventListener('astro:after-swap', initCopyButton);
 </script>
