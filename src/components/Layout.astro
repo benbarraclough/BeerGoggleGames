@@ -114,7 +114,7 @@ const ogImg = image || ogImage;
     <!-- Security headers (baseline; can be hardened further if inlines are removed) -->
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; img-src 'self' data: https:; script-src 'self' https://www.googletagmanager.com https://giscus.app; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com; frame-src https://giscus.app; object-src 'none'; base-uri 'self'; form-action https://formspree.io; frame-ancestors 'self'"
+      content="default-src 'self' 'unsafe-inline'; img-src 'self' data: https:; script-src 'self' https://www.googletagmanager.com https://giscus.app; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com; frame-src https://giscus.app; object-src 'none'; base-uri 'self'; form-action https://formspree.io; frame-ancestors 'self'"
     />
     <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()" />
     <script
