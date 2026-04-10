@@ -1,9 +1,7 @@
 ---
 title: Top 5 Greatest Party Themes
 date: '2021-09-01'
-excerpt: >-
-  A collection of party themes that will help inspire ideas for your next party,
-  with tips on how to do it right.
+excerpt: A collection of party themes that will help inspire ideas for your next party, with tips on how to do it right.
 ---
 
 ![](/images/top5greatestpartythemes.webp)
@@ -22,7 +20,7 @@ In this blog post, we'll feature exactly how to execute these themes perfectly, 
 
 #### 1\. Neon: Low Effort, Maximum Irresponsibility
 
-At number one, we have the best theme by far. It offers everything and absolutely nothing simultaneously, which is perfect. It allows expectations to go wild and gives you the sacred freedom to make the party about literally whatever you like.
+At number one, we have the best theme by far. It offers everything and absolutely nothing simultaneously, which is perfect. It allows expectations to go wild and gives you the freedom to make the party about literally whatever you want.
 
 ![](/images/neontheme.webp)
 
@@ -40,11 +38,11 @@ Shit you'll need:
 
 #### 2\. Disco: Crowd pleaser
 
-You simply cannot beat this theme for its reliable ability to attract women, and where the women go, the desperate men follow. This makes it our second favorite theme for cynical social engineering.
+You simply cannot beat this theme for its reliable ability to bring in a crowd.
 
 ![](/images/discotheme.webp)
 
-For this theme to work, you must commit to the sound. Disco is all about the music and the aggressive, self-conscious dancing. Find a DJ—preferably one with vinyl or CDJs, but a glorified laptop jockey will do, playing funky music that forces people to move against their will. This can be restrictive, but if you have multiple rooms, you can play a variation of music to appease the masses.
+For this theme to work, commit to the disco vibe by playing funky music that forces people to move against their will. This can be restrictive, but if you have multiple rooms, you can play whatever other music you want.
 
 Shit you'll need:
 
@@ -61,11 +59,11 @@ Shit you'll need:
 
 #### 3\. Toga: The nudist's fantasy
 
-An ultimate party theme that gets everyone unified in the sacred toga costume. Make way for games, brotherly love and probably a bit of accidental nudity at some point.
+An ultimate party theme that gets everyone unified in the sacred toga costume. A great one for games, brotherly love and probably a bit of accidental nudity at some point.
 
 ![](/images/togatheme.webp)
 
-Stick to the classic colours: white, gold, and the occasional, sparingly used royal purple. Rule number one is knowing how to keep your bedsheet on. After that, the focus is pure, unadulterated tribalism: lots of "toga" chanting, team games, eating grapes and drinking from chalices until you weep.
+Stick to the classic colours: white, gold, and the occasional purple. Rule number one is knowing how to keep your bedsheet on. After that, the focus is on lots of "toga" chanting, team games, eating grapes and drinking from chalices.
 
 Shit you'll need:
 
@@ -88,7 +86,7 @@ A fun and easy theme, usually done on a low budget because people will do most o
 
 ![](/images/jungletheme.webp)
 
-The Jungle theme’s main requirement is that guests must either dress up or have questionable body painting to look like jungle animals. The focus must be on decoration, mostly to distract from the costumes. Use tissue paper, plastic plants, and cheap inflatables, everything possible to create the illusion of a damp, claustrophobic forest.
+The main requirement of a Jungle theme is that guests must either dress up or have questionable body painting to look like animals. The focus must be on decoration, mostly to distract from the costumes, using tissue paper, fake plants, and cheap inflatables, everything possible to create the illusion of a claustrophobic forest.
 
 Shit you'll need:
 
@@ -108,7 +106,7 @@ For those who crave a higher class event but lack the funds for one, the Masquer
 
 ![](/images/masquerade.webp)
 
-This "classy affair" focuses on the social aspect and the up-market ambience that you'll pretend to maintain for the first 45 minutes. The pace will inevitably descends into whatever trash fire you desire after the heavy alcohol percentage of the cocktails kicks in. At the very least, the masks can provide anonymity for bad choices.
+This focuses on the social aspect and the up-market ambience that you'll pretend to maintain for the first 45 minutes. The pace will inevitably descend into whatever trash you desire after the alcohol kicks in.
 
 Shit you'll need:
 
@@ -130,9 +128,7 @@ More theme ideas:
 - Circus
 - Day Of The Dead
 - Western
-- Pride
 - Dynamic Duos
-- Bubbles & Bowties
 - Pyjama
 - Nations (could get dicey)
 - Pirates
