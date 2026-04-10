@@ -74,4 +74,4 @@ After playing this a few times, it was a good way to get everyone lively and tal
 
 [iOS App](https://apps.apple.com/ie/app/dirty-potato-party-game/id1212158248) | [Android App](https://play.google.com/store/apps/details?id=com.prodicalcreative.drunkpotato&hl=en_GB&gl=US)
 
-Thats all! Use the buttons below to share wih others or save it for later in your bookmarks.
+Thats all! Use the share buttons below or save the page for later in your bookmarks
