@@ -1,12 +1,10 @@
 ---
 title: Cross the Bridge
 cover: cross-the-bridge.webp
-excerpt: >-
-  Choose the correct card on each row to make your way across the 'bridge' to
-  make your competitor drink.
+excerpt: Choose the correct card on each row to make your way across the 'bridge' to make your opponent drink.
 type: card
 format: Duel
-tags: [quick]
+tags: [quick,heavy]
 ---
 import GameHero from '../../components/game/GameHero.astro';
 import GameSection from '../../components/game/GameSection.astro';
@@ -25,12 +23,12 @@ import FeedbackCard from '../../components/game/FeedbackCard.astro';
 </GameSection>
 
 <GameSection title="Setup" icon="/images/settings.webp">
-The two players competing must sit face to face at a table with their drinks filled. Take 9 cards from the top of the deck and place them upside-down in a diamond shape, as shown in the game image.
+The two players competing must sit face to face at a table with their drinks filled. Take 9 cards from the top of the deck and place them face down in a diamond shape, as shown in the image.
 
 </GameSection>
 
 <GameSection title="Aim of the Game" icon="/images/target.webp">
-<p>Choose the correct card on each row to make your way across the 'bridge' to make your competitor drink.</p>
+<p>Choose the correct card on each row to make your way across the 'bridge' and make your opponent drink.</p>
 </GameSection>
 
 <GameSection title="How to Play" icon="/images/question.webp">
@@ -40,16 +38,19 @@ If the player picks up a number, they move on to the next row and flip another c
 
 If the player picks up a face card or an Ace, they drink the amount of sips equal to the row they're on (the closer you get to the other side, the worse the forfeit). The player must then replace the revealed cards with fresh cards from the deck and pass the turn over to their opponent.
 
-If a player successfully crosses the bridge by not picking up a face or an ace on any rows, the other person must drink 5 sips.
+A player gets 1 chance per round to call a 'face' on a particular row. This means that if they call it and turn over a face, they can proceed. If they get it wrong, they lose the round and drink double.
+
+If a player successfully crosses the bridge by not picking up a face or an ace on any rows, their opponent must drink 5 sips.
 
 Each round is played 1 at a time until a player successfully crosses the bridge 3 times
 </GameSection>
 
 <GameSection title="Rules" icon="/images/rules.webp">
--   No card peaking or backsies
+-   No take backs, once a card is touched, it must be flipped
 -   1 card is picked per row
--   If a card is revealed it must be replaced
+-   If a card is revealed it must be replaced when starting a new round
 -   At the start of a new round, players start on the first row on their side of the bridge
+-   If the first card is an ace, your opponent must drink
 </GameSection>
 
 <GameSection title="Special Edition" icon="/images/special.webp">
@@ -58,7 +59,8 @@ Each round is played 1 at a time until a player successfully crosses the bridge 
 
 Additional drinks are consumed when playing this version by assigning cards with an amount of sips, the higher the card the worse the punishment. These sips are added on to the sips required in the original game e.g. A king on row 2 would require 5 sips in total.
 
-**Card assignments:**-   Jack = 1 sip
+**Card assignments:**
+-   Jack = 1 sip
 -   Queen = 2 sips
 -   King = 3 sips
 -   Ace = 4 sips
