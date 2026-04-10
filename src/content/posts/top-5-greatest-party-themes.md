@@ -137,4 +137,4 @@ More theme ideas:
 - Back to School
 - Christmas
 
-Thats all, more posts will be coming soon! Please use the share buttons below to let others know about this or save it for later in your bookmarks.
+Thats all! Use the share buttons below or save the page for later in your bookmarks
