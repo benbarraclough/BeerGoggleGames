@@ -70,4 +70,4 @@ The first thing that is needed here is to work out how many people you can invit
 - Food
 - Outdoor area
 
-Thats all! Use the share buttons below
+Thats all! Use the share buttons below or save the page for later in your bookmarks
