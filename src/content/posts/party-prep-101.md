@@ -1,18 +1,14 @@
 ---
 title: Party Prep 101
 date: '2023-02-01'
-excerpt: >-
-  The essential list for house party planning. Use our tips as your basic
-  must-haves and get creative with the rest.
+excerpt: The essential list for house party planning. Use our tips as your basic must-haves and get creative with the rest.
 ---
 
 ![](/images/partyprep1.webp)
 
-The only list you need for house party planning. These are your bare minimum requirements for hosting a social event that doesn't immediately dissolve into awkward silence. Use these tips as your basic must-haves, and then try to get creative with the rest.
+The only list you need for house party planning. These are your bare minimum requirements for hosting a social event that doesn't immediately dissolve into awkward silence. Use this info as your basic must-haves, and then try to get creative with the rest.
 
-If you are a mentally incapable host who struggles to remember basic human necessities, or if you simply need "bonus" tips on how to appear like you have your life together, you've stumbled into the right place.
-
-A truly successful house party hinges on five critical ingredients, all designed to distract everyone from the crushing reality of their lives.
+A good house party hinges on five things that maintains the illusion that your at a party are not just hanging out at someones house.
 
 #### Quote of the day:
 
@@ -20,53 +16,45 @@ A truly successful house party hinges on five critical ingredients, all designed
 
 #### 1\. Music
 
-The first and most essential in our list is music, which can be done in many different ways but should basically be the main vibe behind the party.
+The first and most essential in our list is music, which can be done in loads of ways but should basically be the main vibe behind the party.
 
-To create different vibes, you can look at having either a regular playlist, a DJ, live music, multiple playlists, linked multi-room speakers, and more.
+To create different vibes, you can look at having a regular playlist, a DJ, live music, linked multi-room speakers, and other set ups.
 
-You can then use the genre of music and the volume to create the atmosphere you need, the quieter it is, the more sociable it will be and the louder it is, the more club-like it will be.
+You can use the genre of music and the volume to create the atmosphere you need, the quieter it is - the more sociable it will be, and the louder it is - the more club-like.
 
 #### 2\. Drink
 
-Next is the almighty alcohol, this is the driving force behind most parties which allows everyone to let loose and have some fun without too much thought ruining things.
+Next is the alcohol, this is the driving force behind most parties which allows everyone to let loose and have some fun without conscious thought ruining things.
 
-Simply, the more the better.
+The more the better.
 
-Getting a variation of alcohol can take your party to the next level, so obviously beers, stuff for shots, cocktails, or even having a classy bit of wine. This allows people to switch gears and gives them a chance to switch up or tone down without the party going dead.
+Getting a range of booze can take your party to the next level, beers, stuff for shots, cocktails, or having a bit of wine. People like different things and if they don't have it they might not drink. People can then switch up or tone down without the party going dead.
 
 #### 3\. Space & Seating
 
-The area that you use is vital to any party, there needs to be the right amount of space for people to chat, move, dance, rest, drink, smoke and play our all important [games](games).
+The area that you use is pretty vital, there needs to be the right amount of space for people to chat, move, dance, rest, drink, eat, smoke, puke and play [games](games).
 
-Be sure that you make room for all of the above by supplying seating suitable for each activity which means clearing any shit thats taking up space and making sure theres enough seating (sofas, bean bags, chairs, benches and even mattresses scattered).
+Make as much room for the above as possible. This means clearing any shit that takes up space, and making sure theres enough seating (sofas, bean bags, chairs, benches or even mattresses).
 
 #### 4\. Lighting & Decor
 
-A major part of any party is how the atmosphere feels which is very much a visual thing. The visuals at a party are one of the best things you can focus on to make sure that the atmosphere isn't shit.
+A major part of any party is how the atmosphere feels which is also a visual thing. The visuals at a party are one of the biggest things you can do to transform a space from a regular shitty room to a place you want to party.
 
-Lighting: Depending on the amount of rooms you have this can be done differently, but you should try to make three very distinct areas:
+Lighting: Depending on the amount of rooms you have this can be done differently, but you should try to make three very areas:
 
 1.  Party - Mood lighting, strobe or coloured lights (not bright)
 2.  Chill - A dark place that is relaxing but light enough that people can see their own hands
-3.  Reality - A light place that is away from the party that can be used for practicalities (usually the kitchen)
+3.  Reality - A light area away from the party that can be used for practical stuff (usually the kitchen)
 
-The above can be done with dimmed ceiling lights, lamps, coloured bulbs, blacklights, strobe lights, disco lights. You can get creative using coloured cellophane over lighting you already own but maybe this is a fire hazard. Who knows.
+The lighting can be done with dimmed ceiling lights, lamps, coloured bulbs, blacklights, strobe lights, disco lights. Coloured cellophane over any existing lighting can work but maybe this is a fire hazard, I don't know.
 
-Decor: This also contributes to the atmosphere by transforming the rooms you see on the regular into party-mecca. Add decorations & accessories to the surroundings like balloons, paint, wall hangings, rave glasses, beer bong, etc. but also removing the stuff that doesn't scream party such as your cats urn. The success is in simplicity.
+Decor: Add decorations & accessories around like balloons, paint, wall hangings, rave glasses, beer bong, etc. but also removing the stuff that isn't for a party like your cats urn or a bunch or ironing.
 
-If you know how to do interior design, fashion or just generally good at knowing what is visually pleasing then this might be something you're good at. If not, you may need a hand because you'll probably fuck it up.
+If you know how to do interior design, fashion or just generally good at knowing what is visually pleasing then it will be quite obvious. If not, you may need a hand because you'll probably fuck it up.
 
 #### 5\. People
 
-Last but by no means least, you can't have a party without the people.
-
-The first thing that is needed here is to work out how many people you can invite based on the capacity of the space you're partying in.
-
-Simply put, the bigger the better (depending on the occasion). If a specific number isn't required then its always best to invite the most people possible. When inviting, send the offers out to groups or make sure they know that other friends of theres are coming so that people don't feel like they would be alone.
-
-Give insights on what will be happening to make it clear what people can expect. If its not obvious to the people you invite that the party will be a motive, you've either invited the wrong people or not sold it enough.
-
-The thing to remember is that you should invite at least 20% more people than what the capacity is to acccount for the drop outs.
+The first thing that is needed here is to work out how many people you can invite based on the capacity of the space you're partying in. The bigger the better (depending on the occasion). If a specific number isn't needed then its always best to invite the most people possible, there will always be dropouts.
 
 #### Additional Ideas
 
@@ -82,4 +70,4 @@ The thing to remember is that you should invite at least 20% more people than wh
 - Food
 - Outdoor area
 
-Thats all, hope you found some value in this post, more reviews will be coming soon! Please use the share buttons below to let others know about this post or save it for later in your bookmarks.
+Thats all! Use the share buttons below
