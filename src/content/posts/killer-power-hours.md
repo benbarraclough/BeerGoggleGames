@@ -1,18 +1,14 @@
 ---
 title: Killer Power Hours
 date: '2022-09-01'
-excerpt: >-
-  An excellent selection of some of the best power hour videos that can be used
-  for an evening of drinking & entertainment.
+excerpt: A top selection of the best power hour videos that can be used for drinking & entertainment combined.
 ---
 
 ![](/images/powerhour.webp)
 
-An excellent selection of some of the best power hour videos that can be used for an evening of drinking & entertainment.
+A top selection of the best power hour videos that can be used for drinking & entertainment combined.
 
-Power hours are the couch potato's bread and butter. The aim of the game is to enjoy the entertainment shown on screen and drink when necessary. This is a brilliant way to get a group of friends to drink socially together without focusing too much on the game itself, and instead just enjoying the entertainment as a group whlst getting pissed.
-
-We've included some of the best videos for enjoyment, interaction and comedy purposes tailored to a wide set of audiences.
+Power hours are the couch potato's favourite. The aim of the game is to watch the entertainment on screen and drink when necessary. A great method to get a group of friends to drink socially together without focusing too much on a game, instead just enjoying the entertainment as a group whilst getting pissed.
 
 Hook this up to the TV, get some buddies together with a case of beers and pick your favourite to play.
 
@@ -22,17 +18,17 @@ Hook this up to the TV, get some buddies together with a case of beers and pick 
 
 #### The Original
 
-A simple and effective way to get drunk whilst doing another activity such as chatting, listening to music or playing another game that doesn't involve drinking.
+The most simple and effective way to get drunk whilst doing pretty much anything, watching something, listening to music or playing a game that doesn't involve drinking.
 
-Simply follow the rules below to play along.
+Simply follow the rules below:
 
 - When 1 minute passes
 
 #### Friends
 
-A big fan favourite that will easily please the majority of the popular TV series. As long as everyone knows which character is which, this one can be played quite easily.
+A fan favourite that will please the majority who like popular TV series. As long as everyone knows which character is which, this one can be played quite easily.
 
-Enjoy a shit load of the best scenes from the sit com and follow the rules below to play along.
+Enjoy the show and follow the rules below:
 
 - When the scene changes everyone drinks
 - When Chandler is sarcastic everyone drinks
@@ -44,37 +40,35 @@ Enjoy a shit load of the best scenes from the sit com and follow the rules below
 
 #### 2000's Hits
 
-Brilliant for bigger groups that love the vibe of 2000's music and some retro music videos on the TV. Sit back or have a dance to the music playing whilst you're taken back in time to the glory days of Eminem, Destiny's Child & Beyoncé.
+Brilliant for bigger groups that love the vibe of 2000's music and some retro music videos on the TV. Chill or dance to the mix of the most popular retro tunes.
 
-A brilliant mix of the most popular tunes from back in the day will be played, just follow the rules below to play along.
+Simply follow the rules below:
 
 - When the song changes everyone drinks
 - When someone guesses the song title 1 person is chosen to drink
 - When someone guesses the artist 1 person is chosen to drink
 - When the word "love" comes up, everyone must cheers a buddy and drink
 
-#### Funny Movies
+#### Funny Movie Clips
 
-Comedic entertainment for an easy watch and drink activity. This one will give you some of the best scenes that will get the group spraying their drinking all over the place.
+Comedic entertainment for an easy watch. This one will give you some funny scenes that will get the group spraying  drink all over.
 
-Watch some famous comedic scenes from old and new movies and follow the rules below to play along.
+Simply follow the rules below:
 
-- When the scene changes
+- When the clip changes
 - When someone in your group laughs
 - When someone guesses the movie correctly
 - When alcohol is shown on screen
 
 #### Nicholas Cage
 
-A niche but equally satisfying power hour that includes some of Nick Cage's best moments that will make you both confused and spoilt with laughter.
+A niche but equally satisfying power hour that includes some of Nick Cage's best moments that will likely confuse you and maybe make you laugh. 
 
-Nicholas Cage acts in some of the most entertaining and outrageous scenes that will ultimately result in a brilliant watching experience for all.
-
-Sit and witness some of the most iconic and ridiculous scenes whilst following the rules below to play along.
+Sit and witness some iconic scenes whilst following the rules below to play along.
 
 - When the scene changes
 - When someone guesses the movie correctly
 - When Nick raises his voice
 - When Nick attacks someone
 
-Thats all folks, hope you found some value in this post, more reviews will be coming soon! Please use the share buttons below to let others know about this post or save it for later in your bookmarks.
+Thats all! Use the buttons below to share with others or save it for later in your bookmarks.
