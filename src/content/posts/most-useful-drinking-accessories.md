@@ -85,3 +85,5 @@ One of the best ways to drain a can is a good shotgun, but the main problem for 
 This is a tool that makes it as easy as a bottle opener, just press, pierce and chug. Can be easily attached to keys so that a shotgun is always on the cards.
 
 [Amazon](https://www.amazon.co.uk/Pack-Shotgun-Keychain-Bottle-Shotgunning/dp/B097BQH7CM/) | [ebay](https://www.ebay.co.uk/itm/133505876019)
+
+Thats all! Use the share buttons below or save the page for later in your bookmarks
