@@ -71,4 +71,4 @@ Sit and witness some iconic scenes whilst following the rules below to play alon
 - When Nick raises his voice
 - When Nick attacks someone
 
-Thats all! Use the buttons below to share with others or save it for later in your bookmarks.
+Thats all! Use the share buttons below or save the page for later in your bookmarks
