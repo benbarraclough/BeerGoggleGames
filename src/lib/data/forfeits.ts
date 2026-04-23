@@ -1,6 +1,7 @@
 export interface Forfeit { id: string; name: string; desc: string; terms: string; }
 
 export const forfeits: Forfeit[] = [
+  { id:'anything-but', name:'Anything But', desc:`The next drink must be drank from anything but a drinks container (e.g. not a cup, glass, can or bottle).`, terms:'anything but drinks container' },
   { id:'all-fours', name:'All Fours', desc:`Remain on hands and knees for a set amount of time.`, terms:'all fours degrading movement crawl' },
   { id:'beer-bong', name:'Beer Bong', desc:`Finish a full drink through a funnel & tube.`, terms:'beer bong funnel chug' },
   { id:'cheese-on-crackers', name:'Cheese On Crackers', desc:`Do your best to shave the thinest slice from the top of a soap bar. This then needs to be placed on top of a cracker and eaten.`, terms:'cheese on crackers soap eating gross' },
@@ -18,6 +19,7 @@ export const forfeits: Forfeit[] = [
   { id:'graffiti', name:'Graffiti', desc:`Someone draws on you with a marker anywhere they choose.`, terms:'graffiti marker draw body' },
   { id:'ice-t', name:'Ice-T', desc:`Freeze a water soaked t‑shirt and wear it until it thaws out.`, terms:'ice-t frozen shirt cold wearable' },
   { id:'leash', name:'Leash', desc:`Wrap a belt around your arm or neck, then choose an “owner” who holds your leash for a set duration.`, terms:'leash owned belt control' },
+  { id:'mirror-drink', name:'Mirror Drink', desc:`Choose someone to “mirror drink” with — every time they sip, you sip`, terms:'mirror drink on-demand' },
   { id:'outcast', name:'Outcast', desc:`Everyone must ignore you for a set duration (no eye contact or speech).`, terms:'outcast social ignore isolation' },
   { id:'shit-shave', name:'Shit Shave', desc:`Choose a 'barber' and have them shave an area of your choice.`, terms:'shit shave hair removal' },
   { id:'shot-roulette', name:'Shot Roulette', desc:`A player chooses a number at random (e.g. 1 - 10) corresponding to pre-made shots.`, terms:'shot roulette mystery blind pick' },
