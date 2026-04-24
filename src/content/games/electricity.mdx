@@ -1,10 +1,10 @@
 ---
 title: Electricity
 cover: electricity.webp
-excerpt: >-
-  Form "electrical currents" by matching cards with other players around the
-  circle to drink as a group or avoid this by not matching cards with others.
+excerpt: Drink as a group by playing your cards and forming connections by matching with other players around the circle.
 type: card
+format: solo
+tags: [heavy, fast paced]
 ---
 import GameHero from '../../components/game/GameHero.astro';
 import GameSection from '../../components/game/GameSection.astro';
@@ -23,40 +23,43 @@ import FeedbackCard from '../../components/game/FeedbackCard.astro';
 </GameSection>
 
 <GameSection title="Setup" icon="/images/settings.webp">
-Gather all players into a circle with their drinks filled and deal cards out evenly between everyone face down. Once everyone is ready with their cards in front of them, the game is ready to be played.
+Gather all players into a circle with their drinks filled and deal cards out evenly between everyone face down.
 
 </GameSection>
 
 <GameSection title="Aim of the Game" icon="/images/target.webp">
-<p>Form "electrical currents" by matching cards with other players around the circle to drink as a group or avoid this by not matching cards with others.</p>
+<p>Drink as a group by playing your cards and forming connections by matching with other players around the circle.</p>
 </GameSection>
 
 <GameSection title="How to Play" icon="/images/question.webp">
-1 by 1 moving clockwise around the circle, each player must flip over and reveal their top card to the group without knowing what it is themselves. Depending on other peoples cards to the left and right of you, this may create a current by making a line of conducting cards (consecutively matching cards)
+1 by 1 moving clockwise around the circle, each player flips over and reveals their top card to the group. Depending on the card, this may create a chain by matching a previous players card.
 
-Conductors: Matching suits, numbers, aces and face cards
+Conductors: Matching suits and card values
 
-If you flip a card that matches the previous players card, you must wait to see if the players after you also match, possibly creating a chain of electricity. When this connection ends, all players involved in the connection must then drink the number on their card.
+Example play:
+Player 1 - Ace♤
+Player 2 - 4♤ (matching suit)
+Player 3 - 4♧ (matching number)
+Player 4 - J♡ (no match, chain ends)
 
-Sips: 2-10 = The number of sips shown on the card | Aces and Face cards = 10 sips
+If you flip a card that matches the previous players card, a chain is created and drinking begins for those players in the chain. Cards continue to be flipped by the following players in quick succession with the same rules, if you match, you join the chain and start to drink. Drinks shouldn't be dropped until the chain is broken.
 
-If you flip over a card that doesn't conduct, you must make sure the players involved in the electrical connection drink the correct amount which is shown by the card iused in that connection.
-
-The game continues in a circle as fast as each player wants, whilst trying to keep everyone focused and drinking the amount of sips they are due. This ends when there are no cards left to flip and can be played again.
+The game continues in a circle as fast as you want, creating and breaking chains. This ends when there are no cards left to flip and can be played again.
 </GameSection>
 
 <GameSection title="Rules" icon="/images/rules.webp">
--   No skipping sips
--   The pace that a player flips their cards is their own choice
--   No hiding cards
--   Conductions can be interlinked as long as the previous card links to the next card in the line **e.g 2 of Hearts, 2 of Clubs, 6 of Clubs, 6 of Hearts**
+-   If you're in an active chain, you must be drinking.
+-   No peaking at your cards, blind flips only.
+-   No delayed card flips.
+-   No pretend drinking.
+-   The number 8 will always bridge a connection whether it matches or not.
 </GameSection>
 
 <GameSection title="Special Edition" icon="/images/special.webp">
 
-<h4>Reversed</h4>
+<h4>Breaker</h4>
 
-<p>Instead of players drinking when they make a connection, the player who kills the connection must drink the amount of sips that is on their card. This slows drinking down between the group but ends up making less people drink more, as the original game is too quick for every sip to be taken.</p>
+<p>Instead of players drinking when they make a connection, the player who kills the connection must drink the amount of sips that is on their card. This slows drinking down between the group but ends up making less people drink more.</p>
 </GameSection>
 
 <ShareButtons title="Electricity" />
