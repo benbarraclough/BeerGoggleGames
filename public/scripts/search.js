@@ -93,7 +93,7 @@
     .then(json => {
       data = json || [];
       ready = true;
-      status.textContent = 'Index loaded. Start typing.';
+      doSearch(input.value);
       log('Index loaded', data.length, 'items');
     })
     .catch(err => {
