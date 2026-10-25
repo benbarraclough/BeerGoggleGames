@@ -5,9 +5,7 @@ import { withBase } from '../../lib/paths';
 const games = await getCollection('games');
 const leaves = Array.from(new Set(games.map(g => (g.slug ?? g.id).split('/').pop())));
 const fullPaths = leaves.map(l => withBase(`games/${l}/`));
-const pick = fullPaths.length ? fullPaths[Math.floor(Math.random() * fullPaths.length)] : null;
 const fallback = withBase('games/');
-const target = pick || fallback;
 ---
 
 <!doctype html>
@@ -17,9 +15,6 @@ const target = pick || fallback;
     <title>Random Game</title>
     <meta name="robots" content="noindex" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <meta http-equiv="refresh" content={`2.2;url=${target}`} />
-    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0" />
-    <meta http-equiv="Pragma" content="no-cache" />
     <style>
       :root {
         color-scheme: dark;
@@ -113,22 +108,29 @@ const target = pick || fallback;
         <div class="label">Picking a game…</div>
         <noscript>
           <p style="margin-top:14px">
-            <a class="fallback" href={target}>Continue</a>
+            <a class="fallback" href={fallback}>Browse games</a>
           </p>
         </noscript>
       </div>
     </div>
-    <script
-      is:inline
-      set:html={`
-      (function(){
-        function bust(u){ try { var url = new URL(u, location.origin); url.searchParams.set('_', Date.now().toString()); return url.toString(); } catch { return u; } }
-        var target = bust(${JSON.stringify(target)});
-        // Prevent bfcache restoring old page by forcing no-store and re-pick on visibility
-        document.addEventListener('visibilitychange', function(){ if(document.visibilityState==='visible'){ location.replace(bust(${JSON.stringify(target)})); } });
-        setTimeout(function(){ location.replace(target); }, 2000);
+    <script is:inline define:vars={{ fullPaths, fallback }}>
+      (function () {
+        function redirect() {
+          const target = fullPaths.length
+            ? fullPaths[Math.floor(Math.random() * fullPaths.length)]
+            : fallback;
+          location.replace(target);
+        }
+
+        let timer = setTimeout(redirect, 2000);
+        window.addEventListener('pagehide', () => clearTimeout(timer));
+        window.addEventListener('pageshow', event => {
+          if (event.persisted) {
+            clearTimeout(timer);
+            timer = setTimeout(redirect, 2000);
+          }
+        });
       })();
-    `}
-    />
+    </script>
   </body>
 </html>
