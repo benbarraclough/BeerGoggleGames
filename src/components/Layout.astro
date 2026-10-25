@@ -123,7 +123,7 @@ const ogImg = image || ogImage;
            frame-src https://giscus.app; 
            object-src 'none'; 
            base-uri 'self'; 
-           form-action https://formspree.io;"
+           form-action https://formspree.io https://buttondown.com;"
 />
     <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()" />
     <script
@@ -276,12 +276,13 @@ const ogImg = image || ogImage;
         <div class="space-y-4">
           <h2 class="text-xs font-semibold uppercase tracking-wide text-fg/80">Newsletter</h2>
           <form
-            action="https://buttondown.email/api/emails/embed-subscribe/beergogglegames"
+            action="https://buttondown.com/api/emails/embed-subscribe/beergogglegames"
             method="post"
             target="_blank"
             class="mt-2 space-y-2"
             data-newsletter
           >
+            <input type="hidden" name="embed" value="1" />
             <div class="flex gap-2">
               <input
                 id="nl-email"
