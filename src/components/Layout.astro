@@ -120,7 +120,7 @@ const ogImg = image || ogImage;
            style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; 
            font-src 'self' https://fonts.gstatic.com; 
            connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com; 
-           frame-src https://giscus.app https://buttondown.com; 
+           frame-src https://giscus.app; 
            object-src 'none'; 
            base-uri 'self'; 
            form-action https://formspree.io https://buttondown.com;"
@@ -276,20 +276,16 @@ const ogImg = image || ogImage;
         <div class="space-y-4">
           <h2 class="text-xs font-semibold uppercase tracking-wide text-fg/80">Newsletter</h2>
           <div class="mt-2 space-y-2">
-            <iframe
-              src="https://buttondown.com/beergogglegames?as_embed=true"
-              title="Subscribe to the BeerGoggleGames newsletter"
-              class="block h-[260px] w-full rounded border border-fg/20 bg-white"
-              loading="lazy"
-            ></iframe>
+            <a
+              href="https://buttondown.com/beergogglegames"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex rounded border border-fg/20 bg-fg/10 px-3 py-2 text-xs hover:border-fg/60 hover:text-fg"
+            >
+              Join newsletter<span class="sr-only"> (opens in a new tab)</span>
+            </a>
             <p class="text-[10px] leading-relaxed text-muted/70">
-              No spam. Unsubscribe anytime.
-              <a
-                href="https://buttondown.com/beergogglegames"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="underline underline-offset-2 hover:text-fg"
-              >Open signup in a new tab</a>.
+              Sign up on Buttondown. No spam. Unsubscribe anytime.
             </p>
           </div>
         </div>
