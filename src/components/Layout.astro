@@ -275,33 +275,19 @@ const ogImg = image || ogImage;
 
         <div class="space-y-4">
           <h2 class="text-xs font-semibold uppercase tracking-wide text-fg/80">Newsletter</h2>
-          <form
-            action="https://buttondown.com/api/emails/embed-subscribe/beergogglegames"
-            method="post"
-            target="_blank"
-            class="mt-2 space-y-2"
-            data-newsletter
-          >
-            <input type="hidden" name="embed" value="1" />
-            <div class="flex gap-2">
-              <input
-                id="nl-email"
-                name="email"
-                type="email"
-                required
-                placeholder="you@example.com"
-                class="w-full rounded border border-fg/20 bg-fg/5 px-3 py-2 text-xs focus:border-fg/60 focus:outline-none"
-                autocomplete="email"
-              />
-              <button
-                type="submit"
-                class="rounded border border-fg/20 bg-fg/10 px-3 py-2 text-xs hover:border-fg/60 hover:text-fg"
-              >
-                Join
-              </button>
-            </div>
-            <p class="text-[10px] leading-relaxed text-muted/70">No spam. Unsubscribe anytime.</p>
-          </form>
+          <div class="mt-2 space-y-2">
+            <a
+              href="https://buttondown.com/beergogglegames"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex rounded border border-fg/20 bg-fg/10 px-3 py-2 text-xs hover:border-fg/60 hover:text-fg"
+            >
+              Join newsletter<span class="sr-only"> (opens in a new tab)</span>
+            </a>
+            <p class="text-[10px] leading-relaxed text-muted/70">
+              Sign up on Buttondown. No spam. Unsubscribe anytime.
+            </p>
+          </div>
         </div>
 
         <div class="space-y-4">
