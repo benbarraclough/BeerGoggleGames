@@ -95,7 +95,7 @@ Recommended naming for new assets: add a `<slug>.webp` in `public/images/` match
 
 ## Troubleshooting (foolproof)
 
-- Node version errors when installing: use Node 20 (see `.nvmrc`). In CI this is automatic.
+- Node version errors when installing: use Node 24 (see `.nvmrc`). In CI this is automatic.
 - Editor shows "Cannot find module 'astro:content'": run `npm run sync` once (auto-runs on install/dev/build).
 - Content maintenance: run locally with `npm run maintenance` to reproduce issues, then commit fixes.
 - Build broken on PRs: check the CI workflow (`.github/workflows/ci.yml`) which runs install → sync → typecheck → build to surface issues early.
@@ -121,7 +121,7 @@ This performs: sync types → typecheck → content maintenance (normalize + che
 | Symptom                            | Fix                                                                                   |
 | ---------------------------------- | ------------------------------------------------------------------------------------- |
 | `astro:content` import errors      | `npm run sync` (already auto-run; re-run if editor stale)                             |
-| Node engine EBADENGINE             | Install/use Node 20 (nvm install 20; nvm use 20)                                      |
+| Node engine EBADENGINE             | Install/use Node 24 (nvm install 24; nvm use 24)                                      |
 | Pre-commit fails on lint           | Run `npm run lint:fix` then retry commit                                              |
 | Build fails after deps bump        | Run `npm install` then `npm run health` to isolate which stage fails                  |
 | Workflow fails normalization       | Run locally: `npm run maintenance` to reproduce, then commit fixes                    |

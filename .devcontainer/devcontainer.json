@@ -1,6 +1,6 @@
 {
-  "name": "BeerGoggleGames (Node 20)",
-  "image": "mcr.microsoft.com/devcontainers/javascript-node:20",
+  "name": "BeerGoggleGames (Node 24)",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:24",
   "customizations": {
     "vscode": {
       "extensions": [
