@@ -252,6 +252,14 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
                 data-search-visible="true"
               >
                 <div class="glass relative p-3">
+                  <a
+                    href={g.href}
+                    aria-label={`View game: ${g.title}`}
+                    class="overlay-link absolute inset-0 rounded-md"
+                    data-card-link
+                  >
+                    <span class="sr-only">{g.title}</span>
+                  </a>
                   <div class="flex">
                     <picture class="mr-3 shrink-0">
                       <img
@@ -342,14 +350,6 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
                   </div>
                 </div>
 
-                <a
-                  href={g.href}
-                  aria-label={`View game: ${g.title}`}
-                  class="overlay-link absolute inset-0 rounded-md"
-                  data-card-link
-                >
-                  <span class="sr-only">{g.title}</span>
-                </a>
               </li>
             );
           })}
@@ -380,8 +380,8 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
     .game-card {
       cursor: pointer;
     }
-    .game-card > a.overlay-link {
-      pointer-events: none;
+    .game-card a.overlay-link {
+      z-index: 1;
     }
 
     .filter-toggle,
