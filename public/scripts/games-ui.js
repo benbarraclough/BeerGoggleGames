@@ -1,17 +1,5 @@
-// Page UI for games: card overlay navigation, search+filters integration, panel positioning, per-card tag dropdowns
+// Page UI for games: search+filters integration, panel positioning, per-card tag dropdowns
 (() => {
-  // Make card clickable (overlay link has pointer-events: none)
-  document.getElementById('game-grid')?.addEventListener('click', e => {
-    const t = e.target;
-    if (!(t instanceof Element)) return;
-    if (t.closest('[data-card-tags]') || t.closest('.js-card-chip')) return;
-    const card = t.closest('.game-card');
-    if (!card) return;
-    const a = card.querySelector('a[data-card-link]');
-    if (!(a instanceof HTMLAnchorElement)) return;
-    window.location.href = a.href;
-  });
-
   // Card chip -> toggle filters
   document.getElementById('game-grid')?.addEventListener('click', e => {
     const t = e.target;
