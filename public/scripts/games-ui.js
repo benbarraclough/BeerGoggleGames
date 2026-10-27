@@ -27,10 +27,11 @@
       items.forEach(li => {
         const title = li.getAttribute('data-title') || '';
         const tags = li.getAttribute('data-tags') || '';
+        const equipment = li.getAttribute('data-equipment') || '';
         const type = li.getAttribute('data-type') || '';
         const excerpt = li.getAttribute('data-excerpt') || '';
         const match =
-          !q || title.includes(q) || tags.includes(q) || type.includes(q) || excerpt.includes(q);
+          !q || title.includes(q) || tags.includes(q) || type.includes(q) || excerpt.includes(q) || equipment.includes(q);
         li.dataset.searchVisible = match ? 'true' : 'false';
       });
       window.bggApplyGameFilters?.();
