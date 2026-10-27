@@ -58,7 +58,7 @@ const description = 'Extra party & social activities to complement your games.';
 
   <ul id="act-grid" class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 list-none p-0 m-0">
     {sorted.map(a => {
-      const url = `/extras/activities/${a.slug}/`;
+      const url = `/extras/activities/${a.id}/`;
       const difficulty = a.data.difficulty || '';
       return (
         <li

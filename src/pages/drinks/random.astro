@@ -3,7 +3,7 @@ import { getCollection } from 'astro:content';
 import { withBase } from '../../lib/paths';
 
 const drinks = await getCollection('drinks');
-const leaves = Array.from(new Set(drinks.map(d => (d.slug ?? d.id).split('/').pop())));
+const leaves = Array.from(new Set(drinks.map(d => d.id.split('/').pop())));
 const fullPaths = leaves.map(l => withBase(`drinks/${l}/`));
 const fallback = withBase('drinks/');
 ---

@@ -1,7 +1,7 @@
 ---
 import Layout from '../../components/Layout.astro';
 import BackLink from '../../components/BackLink.astro';
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import { canonical } from '../../lib/urls';
 import { withBase } from '../../lib/paths';
 
@@ -10,7 +10,7 @@ export async function getStaticPaths() {
   const leafMap = new Map<string, any>();
   const duplicates: string[] = [];
   for (const e of entries) {
-    const leaf = (e.slug ?? e.id).split('/').pop()!;
+    const leaf = e.id.split('/').pop()!;
     if (leafMap.has(leaf)) duplicates.push(leaf);
     else leafMap.set(leaf, e);
   }
@@ -23,13 +23,13 @@ const leaf = Astro.params.slug;
 const allEntries = await getCollection('drinks');
 const leafMap = new Map<string, any>();
 for (const e of allEntries) {
-  const l = (e.slug ?? e.id).split('/').pop()!;
+  const l = e.id.split('/').pop()!;
   if (!leafMap.has(l)) leafMap.set(l, e);
 }
 const entry = leafMap.get(leaf);
 if (!entry) throw new Error(`Drink not found for leaf "${leaf}"`);
 
-const { Content } = await entry.render();
+const { Content } = await render(entry);
 
 const data = entry.data;
 const title = data.title;

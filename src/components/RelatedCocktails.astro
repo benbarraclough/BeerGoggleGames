@@ -14,7 +14,7 @@ const {
 const drinks = await getCollection('drinks');
 const baseSet = new Set((ingredients || []).map((i: string) => i.toLowerCase()));
 const related = drinks
-  .filter(d => d.slug !== currentSlug)
+  .filter(d => d.id !== currentSlug)
   .map(d => {
     const ing = (d.data.ingredients || []).map((x: string) => x.toLowerCase());
     const overlap = ing.filter((i: string) => baseSet.has(i));
@@ -33,7 +33,7 @@ const related = drinks
       <ul>
         {related.map(r => (
           <li>
-            <a href={`/drinks/${r.slug}/`}>{r.data.title}</a>
+            <a href={`/drinks/${r.id}/`}>{r.data.title}</a>
           </li>
         ))}
       </ul>

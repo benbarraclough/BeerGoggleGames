@@ -1,4 +1,6 @@
-import { defineCollection, z } from 'astro:content';
+import { defineCollection } from 'astro:content';
+import { glob } from 'astro/loaders';
+import { z } from 'astro/zod';
 
 const baseFields = {
   title: z.string(),
@@ -9,7 +11,7 @@ const baseFields = {
 };
 
 const games = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './src/content/games' }),
   schema: z.object({
     ...baseFields,
     type: z.string().default('misc'),
@@ -23,7 +25,7 @@ const games = defineCollection({
 });
 
 const activities = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './src/content/activities' }),
   schema: z.object({
     ...baseFields,
     difficulty: z.string().optional()
@@ -35,7 +37,7 @@ const activities = defineCollection({
  * bases is canonical; base is a convenience field that gets merged into bases.
  */
 const drinks = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './src/content/drinks' }),
   schema: z.object({
     ...baseFields,
     drinkType: z.string(),                 // 'cocktail' | 'shot' | other
@@ -60,7 +62,7 @@ const drinks = defineCollection({
 });
 
 const posts = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './src/content/posts' }),
   schema: z.object({
     ...baseFields,
     draft: z.boolean().optional()

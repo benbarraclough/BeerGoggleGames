@@ -7,18 +7,18 @@ import FeedbackCard from '../../../components/FeedbackCard.astro';
 import { withBase } from '../../../lib/paths';
 import { canonical } from '../../../lib/urls';
 import { postLD } from '../../../lib/schema';
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
   const posts = await getCollection('posts');
   return posts.map(entry => ({
-    params: { slug: entry.slug.split('/').pop() },
+    params: { slug: entry.id.split('/').pop() },
     props: { entry },
   }));
 }
 
 const { entry } = Astro.props;
-const { Content } = await entry.render();
+const { Content } = await render(entry);
 
 const title = entry.data.title;
 const description = entry.data.excerpt || `Post: ${title}.`;

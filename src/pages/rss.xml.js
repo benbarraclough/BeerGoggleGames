@@ -27,7 +27,7 @@ export async function GET() {
   <lastBuildDate>${lastBuildDate}</lastBuildDate>
 ${items
   .map(p => {
-    const url = `${site}/extras/blog/${p.slug}/`;
+    const url = `${site}/extras/blog/${p.id}/`;
     const title = p.data.title;
     const desc = p.data.excerpt || '';
     const pubDate = p.data.date ? new Date(p.data.date).toUTCString() : '';

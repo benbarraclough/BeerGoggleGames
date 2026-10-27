@@ -29,7 +29,7 @@ export async function GET() {
 
     // Games: flat routes /games/<leaf>/; show type in "type", group label should be just "games"
     for (const g of games) {
-      const leaf = leafFrom(g.slug ?? g.id);
+      const leaf = leafFrom(g.id);
       index.push({
         c: 'games',
         slug: leaf,
@@ -41,7 +41,7 @@ export async function GET() {
 
     // Drinks: flat routes /drinks/<leaf>/
     for (const d of drinks) {
-      const leaf = leafFrom(d.slug ?? d.id);
+      const leaf = leafFrom(d.id);
       index.push({
         c: 'drinks',
         slug: leaf,
@@ -55,7 +55,7 @@ export async function GET() {
     for (const a of activities) {
       index.push({
         c: 'extras/activities',
-        slug: a.slug,
+        slug: a.id,
         title: norm(a.data.title),
         excerpt: norm(a.data.excerpt),
         type: norm(a.data.difficulty),
@@ -67,7 +67,7 @@ export async function GET() {
       if (p.data.draft) continue;
       index.push({
         c: 'extras/blog',
-        slug: p.slug,
+        slug: p.id,
         title: norm(p.data.title),
         excerpt: norm(p.data.excerpt),
       });

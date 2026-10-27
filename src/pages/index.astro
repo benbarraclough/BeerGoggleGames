@@ -271,7 +271,7 @@ const heroImages = [
     <div id="games-carousel" class="rail no-scrollbar">
       {
         popularGames.map(g => {
-          const slug = (g.slug ?? g.id).split('/').pop() || '';
+          const slug = g.id.split('/').pop() || '';
           const href = withBase(`games/${slug}/`);
           const img = withBase(`images/${pickImageFile(slug)}`);
           return (
@@ -321,7 +321,7 @@ const heroImages = [
     <div id="drinks-carousel" class="rail no-scrollbar">
       {
         popularDrinks.map(d => {
-          const slug = (d.slug ?? d.id).split('/').pop() || '';
+          const slug = d.id.split('/').pop() || '';
           const href = withBase(`drinks/${slug}/`);
           const img = withBase(`images/${pickImageFile(slug)}`);
           return (

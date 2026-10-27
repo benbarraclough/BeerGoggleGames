@@ -21,10 +21,10 @@ const games = (await getCollection('games')).sort((a, b) =>
     <ul>
       {
         games.map(g => {
-          const safeSlug = (g.data as any).safe_slug || g.slug;
+          const safeSlug = (g.data as any).safe_slug || g.id;
           return (
             <li>
-              <a href={`/games/${g.slug}/`}>{censor(g.data.title)}</a>
+              <a href={`/games/${g.id}/`}>{censor(g.data.title)}</a>
               {(g.data as any).safe_slug && <small> (alias: {safeSlug})</small>}
             </li>
           );

@@ -56,7 +56,7 @@ const description = 'Guides, announcements & extra ideas.';
         </h2>
         <ul class="space-y-4 m-0 p-0 list-none">
           {groups[y].map(p => {
-            const url = `/extras/blog/${p.slug}/`;
+            const url = `/extras/blog/${p.id}/`;
             const dRaw = p.data.date ? new Date(p.data.date) : undefined;
             const d = dRaw ? dRaw.toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' }) : '';
             return (

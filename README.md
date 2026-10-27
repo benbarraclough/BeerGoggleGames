@@ -31,7 +31,7 @@ VS Code users: see `.vscode/tasks.json` for ready-made tasks (Dev, Build, Sync, 
 - posts: `src/content/posts`
 - activities: `src/content/activities`
 
-Frontmatter is validated in `src/content/config.ts` (Zod). See examples in each folder.
+Frontmatter is validated in `src/content.config.ts` (Zod). See examples in each folder.
 
 ## URLs
 
@@ -148,3 +148,7 @@ npm run health
 5. If green, commit; otherwise revert the change and inspect errors.
 
 Automated PR bumps (Dependabot) are auto-merged for minor/patch. Major bumps: review PR, run `npm run health` locally.
+
+### Dependency security
+
+The `@tailwindcss/typography` override keeps its selector parser on the patched 6.x release (GHSA-rj75-hqrm-r3gf). Remove the override once Typography depends on a patched parser itself. Tailwind 3 is loaded through `postcss.config.cjs` and `src/styles.css`; the deprecated Astro Tailwind integration is no longer needed.

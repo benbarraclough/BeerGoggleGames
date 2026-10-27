@@ -23,7 +23,7 @@ type DrinkCard = {
 
 const allDrinks: DrinkCard[] = raw
   .map(d => {
-    const full = d.slug ?? d.id;
+    const full = d.id;
     const leaf = (full.split('/').pop() || '') as string;
     const drinkType = (d.data.drinkType || 'misc').toString();
     const base = (

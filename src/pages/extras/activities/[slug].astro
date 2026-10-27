@@ -1,6 +1,6 @@
 ---
 import Layout from '../../../components/Layout.astro';
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import StructuredData from '../../../components/StructuredData.astro';
 import ShareButtons from '../../../components/ShareButtons.astro';
 import FeedbackCard from '../../../components/game/FeedbackCard.astro';
@@ -12,12 +12,12 @@ import { withBase } from '../../../lib/paths';
 export async function getStaticPaths() {
   const activities = await getCollection('activities');
   // Prefer MDX entries when both .md and .mdx exist (filter to .mdx only)
-  const mdxOnly = activities.filter(a => a.id && a.id.endsWith('.mdx'));
-  return mdxOnly.map(a => ({ params: { slug: a.slug }, props: { entry: a } }));
+  const mdxOnly = activities.filter(a => a.filePath?.endsWith('.mdx'));
+  return mdxOnly.map(a => ({ params: { slug: a.id }, props: { entry: a } }));
 }
 
 const { entry } = Astro.props;
-const { Content } = await entry.render();
+const { Content } = await render(entry);
 
 const title = entry.data.title;
 const description = entry.data.excerpt || `Activity: ${title}.`;

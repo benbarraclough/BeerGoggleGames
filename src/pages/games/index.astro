@@ -13,7 +13,7 @@ const raw = excludeLegacyNoise(await getCollection('games'));
 
 const allGames = raw
   .map(g => {
-    const full = g.slug ?? g.id;
+    const full = g.id;
     const leaf = (full.split('/').pop() || '') as string;
     const type = (g.data.type || 'misc').toString();
     const rawMode = g.data.format || g.data.players;
