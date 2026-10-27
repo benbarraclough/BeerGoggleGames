@@ -9,6 +9,26 @@ import { excludeLegacyNoise } from '../../lib/filters';
 import { playerModeSlug, playerModeLabel } from '../../lib/playerMode';
 import { pickImageFile } from '../../lib/images';
 
+// Small, equipment-based groups augment the existing category/mode/tag filters.
+// Groups are inferred from the equipment listed by each game's instructions.
+const equipmentOptions = [
+  { value: 'cards', label: 'Cards', pattern: /\b(cards?|deck)\b/i },
+  { value: 'dice', label: 'Dice', pattern: /\b(dice|die)\b/i },
+  { value: 'cups', label: 'Cups / glasses', pattern: /\b(cups?|glasses?|goblets?)\b/i },
+  { value: 'coins', label: 'Coins', pattern: /\b(coins?|quarters?)\b/i },
+  { value: 'balls', label: 'Balls', pattern: /\bballs?\b/i },
+];
+
+function equipmentGroups(items: string[], tags: string[]): string[] {
+  const combined = items.join(' ');
+  const groups = equipmentOptions.filter(option => option.pattern.test(combined)).map(option => option.value);
+  const drinkOnly = items.length > 0 && items.every(item =>
+    /^(?:a |one |1 |your |own )?(?:own )?(?:drink|drinks|beer|alcohol)\b/i.test(item.trim())
+  );
+  if (drinkOnly || tags.some(tag => tag.toLowerCase() === 'no equipment')) groups.push('no-equipment');
+  return groups;
+}
+
 const raw = excludeLegacyNoise(await getCollection('games'));
 
 const allGames = raw
@@ -20,12 +40,15 @@ const allGames = raw
     const modeSlug = rawMode ? playerModeSlug(rawMode) : '';
     const tags = Array.isArray(g.data.tags) ? g.data.tags : [];
     const excerpt = (g.data.excerpt || '').toString();
+    const equipment = Array.isArray(g.data.equipment) ? g.data.equipment : [];
+    const equipmentTypes = equipmentGroups(equipment, tags);
     return {
       title: g.data.title,
       type,
       rawMode,
       modeSlug,
       tags,
+      equipmentTypes,
       excerpt,
       leaf,
       image: withBase(`images/${pickImageFile(leaf)}`),
@@ -37,6 +60,7 @@ const allGames = raw
 const categoryCounts = new Map<string, number>();
 const modeCounts = new Map<string, { count: number; label: string }>();
 const tagCounts = new Map<string, number>();
+const equipmentCounts = new Map<string, number>();
 for (const g of allGames) {
   categoryCounts.set(g.type, (categoryCounts.get(g.type) || 0) + 1);
   if (g.modeSlug && g.rawMode) {
@@ -45,17 +69,23 @@ for (const g of allGames) {
     else modeCounts.set(g.modeSlug, { count: 1, label: playerModeLabel(g.rawMode) });
   }
   for (const t of g.tags) tagCounts.set(t, (tagCounts.get(t) || 0) + 1);
+  for (const e of g.equipmentTypes) equipmentCounts.set(e, (equipmentCounts.get(e) || 0) + 1);
 }
 const categories = Array.from(categoryCounts.entries()).sort((a, b) => a[0].localeCompare(b[0]));
 const modes = Array.from(modeCounts.entries()).sort((a, b) => a[1].label.localeCompare(b[1].label));
 const tags = Array.from(tagCounts.entries()).sort((a, b) => a[0].localeCompare(b[0]));
+
+const availableEquipment = [
+  ...equipmentOptions.map(({ value, label }) => ({ value, label })),
+  { value: 'no-equipment', label: 'No equipment' },
+].filter(option => equipmentCounts.has(option.value));
 
 const pageCanonical = canonical(Astro.url.pathname, Astro.site);
 ---
 
 <Layout
   title="Games"
-  description="All drinking games. Filter or search by category, player mode, or tags."
+  description="All drinking games. Filter or search by category, player mode, equipment, or tags."
   canonical={pageCanonical}
   wide={true}
 >
@@ -162,6 +192,39 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
           </div>
         </div>
 
+        {availableEquipment.length > 0 && (
+          <div class="relative" data-filter-wrapper>
+            <button
+              type="button"
+              class="filter-toggle pill pill--soft"
+              data-panel="equipment"
+              data-filter-group="equipment"
+              aria-expanded="false"
+              aria-pressed="false"
+            >
+              Equipment
+            </button>
+            <div class="filter-panel hidden" id="panel-equipment" role="group" aria-label="Equipment">
+              <div class="panel-inner">
+                {availableEquipment.map(({ value, label }) => (
+                  <button
+                    type="button"
+                    class="filter-item pill pill--soft"
+                    data-filter-type="equipment"
+                    data-value={value}
+                    aria-pressed="false"
+                  >
+                    <>
+                      <span>{label}</span>
+                      <span class="count">{equipmentCounts.get(value)}</span>
+                    </>
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
         <div class="relative" data-filter-wrapper>
           <button
             type="button"
@@ -247,6 +310,7 @@ const pageCanonical = canonical(Astro.url.pathname, Astro.site);
                 data-type={g.type}
                 data-mode={g.modeSlug || ''}
                 data-tags={g.tags.join(',').toLowerCase()}
+                data-equipment={g.equipmentTypes.join(',').toLowerCase()}
                 data-title={(g.title || '').toLowerCase()}
                 data-excerpt={(g.excerpt || '').toLowerCase()}
                 data-search-visible="true"

@@ -1,9 +1,10 @@
 ---
 title: "Savoy Special"
 drinkType: "cocktail"
-excerpt: "If you think we've missed certain details out of the drink recipe or you have something to add, please feel free to contact us."
-
-cover: "ComingSoon700x400.webp"
+excerpt: "A strong, old-school gin cocktail with dry vermouth, a touch of grenadine and a dash of absinthe."
+base: "gin"
+difficulty: "medium"
+cover: "savoy-special.webp"
 tags: []
 ---
 
@@ -12,20 +13,37 @@ import ShareButtons from '../../components/game/ShareButtons.astro';
 import FeedbackCard from '../../components/game/FeedbackCard.astro';
 
 <DrinkSection title="Overview" icon="/images/info.webp">
-  <p><strong>Description:</strong> ...</p>
-  <p><strong>Time:</strong> ... mins</p>
-  <p><strong>Difficulty:</strong> ...</p>
-  <p><strong>Glass type:</strong> ... glass</p>
-  <p><strong>Dietary Notes:</strong> None</p>
-  <p><strong>Origin:</strong> ...</p>
+  <p><strong>Description:</strong> A strong, old-school gin cocktail with dry vermouth, a touch of grenadine and a dash of absinthe.</p>
+  <p><strong>Time:</strong> 3 mins</p>
+  <p><strong>Difficulty:</strong> Medium</p>
+  <p><strong>Glass type:</strong> Cocktail glass</p>
+  <p><strong>Dietary Notes:</strong> Vermouth generally contains sulphites</p>
+  <p><strong>Origin:</strong> United Kingdom</p>
 </DrinkSection>
 
 <DrinkSection title="Ingredients" icon="/images/liquor.webp">
-  
+  <ul>
+    <li>London dry gin - 60ml</li>
+    <li>Dry vermouth - 30ml</li>
+    <li>Grenadine - 5ml</li>
+    <li>Absinthe - 1 dash</li>
+    <li>Lemon twist (optional)</li>
+  </ul>
 </DrinkSection>
 
 <DrinkSection title="Recipe" icon="/images/rules.webp">
-  
+  <ol>
+    <li>Add gin, dry vermouth, grenadine and absinthe to a shaker filled with ice.</li>
+    <li>Shake thoroughly and fine strain into a chilled cocktail glass.</li>
+    <li>Squeeze a lemon twist over the surface and use it as a garnish.</li>
+  </ol>
+</DrinkSection>
+
+<DrinkSection title="Tips" icon="/images/lightbulb.webp">
+  <ul>
+    <li>This is the Savoy Hotel Special No. 1 recipe, adapted from The Savoy Cocktail Book.</li>
+    <li>Go easy on the absinthe; one dash is enough to give it an aniseed edge.</li>
+  </ul>
 </DrinkSection>
 
 <ShareButtons title={"Savoy Special"} />

@@ -13,6 +13,7 @@
     category: new Set(),
     mode: new Set(),
     tag: new Set(),
+    equipment: new Set(),
     exclusive: false
   };
 
@@ -54,7 +55,7 @@
 
     // Clear link: disabled when nothing selected across all groups (exclusive ignored for clear enabling)
     if (clearBtn) {
-      const hasAny = state.category.size || state.mode.size || state.tag.size;
+      const hasAny = state.category.size || state.mode.size || state.tag.size || state.equipment.size;
       clearBtn.setAttribute('aria-disabled', hasAny ? 'false' : 'true');
       clearBtn.classList.toggle('text-muted', !hasAny);
     }
@@ -69,6 +70,7 @@
       const type = (li.getAttribute('data-type') || '').toLowerCase();
       const mode = (li.getAttribute('data-mode') || '').toLowerCase();
       const tags = (li.getAttribute('data-tags') || '').toLowerCase().split(',').filter(Boolean);
+      const equipment = (li.getAttribute('data-equipment') || '').toLowerCase().split(',').filter(Boolean);
 
       const catMatch = state.category.size ? state.category.has(type) : true;
       const modeMatch = state.mode.size ? state.mode.has(mode) : true;
@@ -81,7 +83,10 @@
           : selected.some(t => tags.includes(t));
       }
 
-      const vis = searchVisible && catMatch && modeMatch && tagMatch;
+      const equipmentMatch = state.equipment.size
+        ? Array.from(state.equipment).some(e => equipment.includes(e))
+        : true;
+      const vis = searchVisible && catMatch && modeMatch && tagMatch && equipmentMatch;
       li.classList.toggle('hidden', !vis);
       if (vis) shown++;
     });
@@ -129,7 +134,7 @@
     const isDisabled = clearBtn.getAttribute('aria-disabled') === 'true';
     if (isDisabled) { e.preventDefault(); return; }
     e.preventDefault();
-    state.category.clear(); state.mode.clear(); state.tag.clear();
+    state.category.clear(); state.mode.clear(); state.tag.clear(); state.equipment.clear();
     apply();
   });
 

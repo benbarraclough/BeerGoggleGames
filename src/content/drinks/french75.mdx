@@ -1,9 +1,10 @@
 ---
-title: "French75"
+title: "French 75"
 drinkType: "cocktail"
-excerpt: "If you think we've missed certain details out of the drink recipe or you have something to add, please feel free to contact us."
-
-cover: "ComingSoon700x400.webp"
+excerpt: "Gin, lemon and Champagne come together in a bright, fizzy cocktail that packs more punch than it looks."
+base: "gin"
+difficulty: "medium"
+cover: "french75.webp"
 tags: []
 ---
 
@@ -12,21 +13,39 @@ import ShareButtons from '../../components/game/ShareButtons.astro';
 import FeedbackCard from '../../components/game/FeedbackCard.astro';
 
 <DrinkSection title="Overview" icon="/images/info.webp">
-  <p><strong>Description:</strong> ...</p>
-  <p><strong>Time:</strong> ... mins</p>
-  <p><strong>Difficulty:</strong> ...</p>
-  <p><strong>Glass type:</strong> ... glass</p>
-  <p><strong>Dietary Notes:</strong> None</p>
-  <p><strong>Origin:</strong> ...</p>
+  <p><strong>Description:</strong> Gin, lemon and Champagne come together in a bright, fizzy cocktail that packs more punch than it looks.</p>
+  <p><strong>Time:</strong> 4 mins</p>
+  <p><strong>Difficulty:</strong> Medium</p>
+  <p><strong>Glass type:</strong> Champagne flute</p>
+  <p><strong>Dietary Notes:</strong> Contains sulphites (Champagne)</p>
+  <p><strong>Origin:</strong> France</p>
 </DrinkSection>
 
 <DrinkSection title="Ingredients" icon="/images/liquor.webp">
-  
+  <ul>
+    <li>Gin - 30ml</li>
+    <li>Fresh lemon juice - 15ml</li>
+    <li>Sugar syrup - 15ml</li>
+    <li>Champagne - 60ml</li>
+    <li>Lemon twist (optional)</li>
+  </ul>
 </DrinkSection>
 
 <DrinkSection title="Recipe" icon="/images/rules.webp">
-  
+  <ol>
+    <li>Add the gin, lemon juice and sugar syrup to a shaker filled with ice.</li>
+    <li>Shake until cold and strain into a chilled Champagne flute.</li>
+    <li>Slowly top with chilled Champagne and give it a gentle stir.</li>
+    <li>Garnish with a lemon twist if you have one.</li>
+  </ol>
 </DrinkSection>
 
-<ShareButtons title={"French75"} />
+<DrinkSection title="Tips" icon="/images/lightbulb.webp">
+  <ul>
+    <li>Never shake the Champagne; add it after straining to keep the bubbles.</li>
+    <li>A dry sparkling wine works if you don't have Champagne.</li>
+  </ul>
+</DrinkSection>
+
+<ShareButtons title={"French 75"} />
 <FeedbackCard></FeedbackCard>
