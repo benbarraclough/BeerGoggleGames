@@ -12,18 +12,18 @@ import { pickImageFile } from '../../lib/images';
 // Small, equipment-based groups augment the existing category/mode/tag filters.
 // Groups are inferred from the equipment listed by each game's instructions.
 const equipmentOptions = [
-  { value: 'cards', label: 'Cards', pattern: /\\b(cards?|deck)\\b/i },
-  { value: 'dice', label: 'Dice', pattern: /\\b(dice|die)\\b/i },
-  { value: 'cups', label: 'Cups / glasses', pattern: /\\b(cups?|glasses?|goblets?)\\b/i },
-  { value: 'coins', label: 'Coins', pattern: /\\b(coins?|quarters?)\\b/i },
-  { value: 'balls', label: 'Balls', pattern: /\\bballs?\\b/i },
+  { value: 'cards', label: 'Cards', pattern: /\b(cards?|deck)\b/i },
+  { value: 'dice', label: 'Dice', pattern: /\b(dice|die)\b/i },
+  { value: 'cups', label: 'Cups / glasses', pattern: /\b(cups?|glasses?|goblets?)\b/i },
+  { value: 'coins', label: 'Coins', pattern: /\b(coins?|quarters?)\b/i },
+  { value: 'balls', label: 'Balls', pattern: /\bballs?\b/i },
 ];
 
 function equipmentGroups(items: string[], tags: string[]): string[] {
   const combined = items.join(' ');
   const groups = equipmentOptions.filter(option => option.pattern.test(combined)).map(option => option.value);
   const drinkOnly = items.length > 0 && items.every(item =>
-    /^(?:a |one |1 |your |own )?(?:own )?(?:drink|drinks|beer|alcohol)\\b/i.test(item.trim())
+    /^(?:a |one |1 |your |own )?(?:own )?(?:drink|drinks|beer|alcohol)\b/i.test(item.trim())
   );
   if (drinkOnly || tags.some(tag => tag.toLowerCase() === 'no equipment')) groups.push('no-equipment');
   return groups;
